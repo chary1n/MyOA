@@ -4,11 +4,39 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
+<style>
+  .center_x {
+    text-align: center;
+  }
+</style>
+
+<ion-content padding class="total_color">
+  <div class="center_x">
+    <img src="assets/icon/ruotai_icon.png" padding="auto" width="200px" height="auto" style="margin-top:100px">
+  </div>
 
 
-<ion-content padding  class="total_color">
+  <ion-list style="margin-top:20px">
+    <ion-item>
+      <ion-label floating>请输入公司邮箱</ion-label>
+      <ion-input type="text" [(ngModel)]="email"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>请输入密码</ion-label>
+      <ion-input type="password" [(ngModel)]="password"></ion-input>
+    </ion-item>
+  </ion-list>
+  <div style="overflow:hidden">
+    <button ion-button outline color="light" clear style="float:right">
+    忘记密码
+    </button>
+  </div>
 
-      <img src="assets/icon/ruotai_icon.png" >
+  <br />
+
+  <button id="login_button" ion-button color="light" outline block  (click)="toLogin()">
+    登录
+  </button>
 
 
 </ion-content>
