@@ -40,8 +40,6 @@ export class LoginPage {
   toLogin() {
     console.log("email" + this.email);
     console.log("password" + this.password);
-
-
     this.http.get('http://erp.robotime.com/linkloving_app_api/get_db_list', {}, {})
   .then(data => {
     alert(data.status);
