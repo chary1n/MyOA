@@ -7,7 +7,9 @@ import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Headers, RequestOptions } from '@angular/http';
-import { HomePage} from '../home/home'
+import { HTTP } from '@ionic-native/http';
+
+
 /**
  * Generated class for the LoginPage page.
  *
@@ -18,12 +20,16 @@ import { HomePage} from '../home/home'
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html',
+
 })
 export class LoginPage {
-  email:string;
-  password:string;
+  email: string;
+  password: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+    private http: HTTP
+
+  ) {
   }
 
   ionViewDidLoad() {
@@ -31,16 +37,26 @@ export class LoginPage {
   }
 
   // 登录
-  toLogin(){
-    console.log("email"+this.email);
-    console.log("password"+this.password);
+  toLogin() {
+    console.log("email" + this.email);
+    console.log("password" + this.password);
 
-    this.navCtrl.push(HomePage);
+
+    this.http.get('http://erp.robotime.com/linkloving_app_api/get_db_list', {}, {})
+  .then(data => {
+    alert(data.status);
+    console.log(data.status);
+    console.log(data.data); // data received by server
+    console.log(data.headers);
+
+  })
+  .catch(error => {
+    alert(error.status);
+    console.log(error.status);
+    console.log(error.error); // error message as string
+    console.log(error.headers);
+
+  });
+    // this.service.get("http://erp.robotime.com/linkloving_app_api/get_db_list").then(data=>{console.log(data)})
   }
-
-
-
-
-
-
 }

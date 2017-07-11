@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { LoginPage } from './login';
 
+
 @NgModule({
   declarations: [
     LoginPage,
@@ -11,6 +12,8 @@ import { LoginPage } from './login';
   ],
   exports: [
     LoginPage
-  ]
+  ],
+  
+
 })
 export class LoginPageModule {}

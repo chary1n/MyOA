@@ -6,12 +6,16 @@ import { MyApp } from './app.component';
 import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
+
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login'
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import {HttpService} from '../providers/httpservers'
+import { HTTP } from '@ionic-native/http';
+
+
+
 @NgModule({
   declarations: [
     MyApp,
@@ -23,7 +27,8 @@ import {HttpService} from '../providers/httpservers'
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -32,13 +37,14 @@ import {HttpService} from '../providers/httpservers'
     ContactPage,
     HomePage,
     TabsPage,
-    LoginPage
+    LoginPage,
+
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    HttpService
+    HTTP
 
   ]
 })
