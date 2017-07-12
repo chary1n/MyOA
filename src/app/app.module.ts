@@ -1,3 +1,4 @@
+
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
@@ -12,8 +13,9 @@ import { LoginPage } from '../pages/login/login'
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { HTTP } from '@ionic-native/http';
 
+import {HttpService} from '../providers/HttpService'
+import {HttpModule,Http} from "@angular/http";
 
 
 @NgModule({
@@ -21,6 +23,7 @@ import { HTTP } from '@ionic-native/http';
     MyApp,
     AboutPage,
     ContactPage,
+   
     HomePage,
     TabsPage,
     LoginPage,
@@ -28,6 +31,7 @@ import { HTTP } from '@ionic-native/http';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
+    HttpModule
 
   ],
   bootstrap: [IonicApp],
@@ -44,8 +48,8 @@ import { HTTP } from '@ionic-native/http';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    HTTP
-
+    HttpService,
+    
   ]
 })
 export class AppModule {}
