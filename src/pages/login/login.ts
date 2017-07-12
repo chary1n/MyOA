@@ -44,7 +44,8 @@ export class LoginPage {
 
   getdbInfo(){
     this.loginservice.getDBInfo().then(res=>{
-     console.log(res)
+      console.log(res);
+     
     });
     
     
@@ -55,6 +56,6 @@ export class LoginPage {
   toLogin() {
     // console.log("email" + this.email);
     // console.log("password" + this.password);
-   
+   this.getdbInfo();
   }
 }
