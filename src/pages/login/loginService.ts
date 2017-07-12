@@ -5,7 +5,7 @@ import { HttpService } from '../../providers/HttpService';
 @Injectable()
 export class LoginService{
     constructor(private httpService :HttpService){
-
+        
     }
 
     getDBInfo(){
