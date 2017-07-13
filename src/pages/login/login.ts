@@ -29,9 +29,9 @@ import {dbBean} from '../../model/dbInfoModel';
 export class LoginPage {
   email: string;
   password: string;
-
+  dbs: any;
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    private loginservice:LoginService) {
+    private loginservice:LoginService, private myHttp: Http) {
        
 
     }
@@ -39,13 +39,15 @@ export class LoginPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
+    // this.dbs = ['a','v'];//res.res_data;
+    this.getdbInfo();
   }
 
 
   getdbInfo(){
     this.loginservice.getDBInfo().then(res=>{
-      console.log(res);
-     
+     console.log(res);
+     this.dbs = res.res_data;
     });
     
     
@@ -54,8 +56,8 @@ export class LoginPage {
 
   // 登录
   toLogin() {
-    // console.log("email" + this.email);
-    // console.log("password" + this.password);
-   this.getdbInfo();
+  }
+  chooseDb(e){
+    this.getdbInfo();
   }
 }

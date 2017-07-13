@@ -11,8 +11,12 @@ import {Injectable} from '@angular/core';
    public get(url: string, paramObj: any) {
      return this.http.get(url + this.toQueryString(paramObj))
        .toPromise()
-       .then(res => this.handleSuccess(res.json()))
-       .catch(error => this.handleError(error));
+       .then(res => this.handleSuccess(
+         res.json())
+         )
+       .catch(error => this.handleError(
+         error
+         ));
    }
 
    public post(url: string, paramObj: any) {
@@ -32,9 +36,6 @@ import {Injectable} from '@angular/core';
    }
 
    private handleSuccess(result) {
-     if (result && !result.success) {//由于和后台约定好,所有请求均返回一个包含success,msg,data三个属性的对象,所以这里可以这样处理
-       alert(result.msg);//这里使用ToastController
-     }
      return result;
    }
 
