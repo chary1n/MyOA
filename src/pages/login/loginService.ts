@@ -17,8 +17,8 @@ export class LoginService {
     toLogin(logins,passwords,dbs) {
         let body = JSON.stringify({
             login: logins,
-            // password: passwords,
-            // db: dbs
+            password: passwords,
+            db: dbs
         });
         return this.httpService.postBody('login', body,1);
     }

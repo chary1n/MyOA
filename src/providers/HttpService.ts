@@ -31,6 +31,7 @@ export class HttpService {
 
   public post(url: string, paramObj: any, type: number = 0) {
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
+    headers.append("Accept", "application/json");
     return this.http.post(this.getAppPath(url,type), this.toBodyString(paramObj), new RequestOptions({ headers: headers }))
       .toPromise()
       .then(res => this.handleSuccess(res.json()))

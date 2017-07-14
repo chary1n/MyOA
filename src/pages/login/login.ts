@@ -1,3 +1,4 @@
+import { Storage } from '@ionic/storage';
 
 
 import { LoginService } from './loginService';
@@ -12,7 +13,6 @@ import { Observable } from 'rxjs/Observable';
 import { Headers, RequestOptions } from '@angular/http';
 import { HTTP } from '@ionic-native/http';
 import { dbBean } from '../../model/dbInfoModel';
-
 
 /**
  * Generated class for the LoginPage page.
@@ -32,7 +32,7 @@ export class LoginPage {
   dbs: any;
   employee: string;
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    private loginservice: LoginService, private myHttp: Http) {
+    private loginservice: LoginService, private myHttp: Http, private storage: Storage) {
 
 
   }
@@ -53,7 +53,8 @@ export class LoginPage {
   toLogin() {
       this.loginservice.toLogin(this.email,this.password,this.employee)
       .then(res=>{
-        console.log(res);
+        this.storage.set("is_login", true);
+        this.storage.set("login_time", new Date());
       })
   }
 
