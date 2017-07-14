@@ -14,15 +14,16 @@ import { LoginPage } from '../pages/login/login'
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import {HttpService} from '../providers/HttpService'
-import {HttpModule} from "@angular/http";
+import { HttpService } from '../providers/HttpService'
+import { HttpModule } from "@angular/http";
+import { IonicStorageModule } from '@ionic/storage';
 
 @NgModule({
   declarations: [
     MyApp,
     AboutPage,
     ContactPage,
-   
+
     HomePage,
     TabsPage,
     LoginPage,
@@ -30,8 +31,8 @@ import {HttpModule} from "@angular/http";
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    HttpModule
-
+    HttpModule,
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -46,8 +47,8 @@ import {HttpModule} from "@angular/http";
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
     HttpService,
   ]
 })
-export class AppModule {}
+export class AppModule { }

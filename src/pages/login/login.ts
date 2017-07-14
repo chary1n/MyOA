@@ -1,4 +1,5 @@
 import { HomePage } from './../home/home';
+import { Storage } from '@ionic/storage';
 
 
 import { LoginService } from './loginService';
@@ -35,7 +36,7 @@ export class LoginPage {
   dbs: any;
   employee: string;
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    private loginservice: LoginService, private myHttp: Http) {
+    private loginservice: LoginService, private myHttp: Http, private storage: Storage) {
 
 
   }
@@ -57,6 +58,8 @@ export class LoginPage {
       this.loginservice.toLogin(this.email,this.password,this.employee)
       .then(res=>{
        this.navCtrl.push(HomePage);
+        this.storage.set("is_login", true);
+        this.storage.set("login_time", new Date());
       })
   }
 
