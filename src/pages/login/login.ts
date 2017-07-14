@@ -1,3 +1,4 @@
+import { HomePage } from './../home/home';
 
 
 import { LoginService } from './loginService';
@@ -12,6 +13,8 @@ import { Observable } from 'rxjs/Observable';
 import { Headers, RequestOptions } from '@angular/http';
 import { HTTP } from '@ionic-native/http';
 import { dbBean } from '../../model/dbInfoModel';
+
+
 
 
 /**
@@ -53,7 +56,7 @@ export class LoginPage {
   toLogin() {
       this.loginservice.toLogin(this.email,this.password,this.employee)
       .then(res=>{
-        console.log(res);
+       this.navCtrl.push(HomePage);
       })
   }
 
