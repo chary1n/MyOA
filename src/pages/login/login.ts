@@ -11,7 +11,7 @@ import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Headers, RequestOptions } from '@angular/http';
 import { HTTP } from '@ionic-native/http';
-import {dbBean} from '../../model/dbInfoModel';
+import { dbBean } from '../../model/dbInfoModel';
 
 
 /**
@@ -30,34 +30,34 @@ export class LoginPage {
   email: string;
   password: string;
   dbs: any;
+  employee: string;
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    private loginservice:LoginService, private myHttp: Http) {
-       
+    private loginservice: LoginService, private myHttp: Http) {
 
-    }
-  
+
+  }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
-    // this.dbs = ['a','v'];//res.res_data;
     this.getdbInfo();
+
   }
 
-
-  getdbInfo(){
-    this.loginservice.getDBInfo().then(res=>{
-     console.log(res);
-     this.dbs = res.res_data;
+  getdbInfo() {
+    this.loginservice.getDBInfo().then(res => {
+      this.dbs = res.res_data;
     });
-    
-    
   }
-
 
   // 登录
   toLogin() {
+      this.loginservice.toLogin(this.email,this.password,this.employee)
+      .then(res=>{
+        console.log(res);
+      })
   }
-  chooseDb(e){
+
+  chooseDb(e) {
     this.getdbInfo();
   }
 }
