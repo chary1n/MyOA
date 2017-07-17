@@ -18,6 +18,7 @@ export class HttpService {
     }
   }
 
+  //type 不填是OA,填1是linkloving_app_apu
   public get(url: string, paramObj: any, type: number = 0) {
     return this.http.get(this.getAppPath(url,type) + this.toQueryString(paramObj))
       .toPromise()

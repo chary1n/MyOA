@@ -1,3 +1,4 @@
+import { dbBean } from './../../model/dbInfoModel';
 import { HomePage } from './../home/home';
 import { Storage } from '@ionic/storage';
 
@@ -12,8 +13,8 @@ import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Headers, RequestOptions } from '@angular/http';
-import { HTTP } from '@ionic-native/http';
-import { dbBean } from '../../model/dbInfoModel';
+
+
 
 
 
@@ -55,13 +56,14 @@ export class LoginPage {
 
   // 登录
   toLogin() {
-      this.loginservice.toLogin(this.email,this.password,this.employee)
-      .then(res=>{
-       this.navCtrl.push(HomePage);
-        this.storage.set("is_login", true);
-        this.storage.set("login_time", new Date());
-      })
+    this.loginservice.toLogin(this.email, this.password, this.employee)
+      .then(res => {
+        if (res.result.res_code == 1) {
+          this.navCtrl.setRoot(HomePage);
+        }
+      });
   }
+
 
   chooseDb(e) {
     this.getdbInfo();
