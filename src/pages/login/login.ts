@@ -1,3 +1,4 @@
+import { TabsPage } from './../tabs/tabs';
 import { dbBean } from './../../model/dbInfoModel';
 import { HomePage } from './../home/home';
 import { Storage } from '@ionic/storage';
@@ -59,7 +60,7 @@ export class LoginPage {
     this.loginservice.toLogin(this.email, this.password, this.employee)
       .then(res => {
         if (res.result.res_code == 1) {
-          this.navCtrl.setRoot(HomePage);
+          this.navCtrl.setRoot(TabsPage);
         }
       });
   }
