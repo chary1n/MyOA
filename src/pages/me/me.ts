@@ -1,3 +1,4 @@
+import { Storage } from '@ionic/storage';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
@@ -13,12 +14,27 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'me.html',
 })
 export class MePage {
+   name :string ;
+   user_heard :string ;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+  public storage:Storage) {
+    this.initData();
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad MePage');
+   
+  }
+
+  initData(){
+     this.storage.get('user')
+     .then(res=>{
+       console.log(res);
+       this.name = res.result.res_data.name;
+      //  this.user_heard = res.result.res_data.user_ava;
+     })
+
   }
 
  toAccountSafePage(){

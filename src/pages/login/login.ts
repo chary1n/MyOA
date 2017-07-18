@@ -62,7 +62,7 @@ export class LoginPage {
   toLogin() {
     this.loginservice.toLogin(this.email, this.password, this.employee)
       .then(res => {
-        if (res.result.res_code == 1) {
+        if (res.result&&res.result.res_code == 1) {
          this.storage.set("user",res).then(()=>{
            this.navCtrl.setRoot(TabsPage);
          });
