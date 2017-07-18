@@ -1,3 +1,7 @@
+import { TabsPage } from './../tabs/tabs';
+import { dbBean } from './../../model/dbInfoModel';
+import { HomePage } from './../home/home';
+import { Storage } from '@ionic/storage';
 
 
 import { LoginService } from './loginService';
@@ -10,8 +14,10 @@ import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Headers, RequestOptions } from '@angular/http';
-import { HTTP } from '@ionic-native/http';
-import {dbBean} from '../../model/dbInfoModel';
+
+
+
+
 
 
 /**
@@ -29,33 +35,44 @@ import {dbBean} from '../../model/dbInfoModel';
 export class LoginPage {
   email: string;
   password: string;
-
+  dbs: any;
+  employee: string;
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    private loginservice:LoginService) {
-       
+    private loginservice: LoginService, private myHttp: Http, private storage: Storage) {
+        
 
-    }
-  
+  }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
+    if(this.storage.get('user')){
+      this.navCtrl.setRoot(TabsPage);
+    }
+    this.getdbInfo();
+
   }
 
-
-  getdbInfo(){
-    this.loginservice.getDBInfo().then(res=>{
-      console.log(res);
-     
+  getdbInfo() {
+    this.loginservice.getDBInfo().then(res => {
+      this.dbs = res.res_data;
     });
-    
-    
   }
-
 
   // 登录
   toLogin() {
-    // console.log("email" + this.email);
-    // console.log("password" + this.password);
-   this.getdbInfo();
+    this.loginservice.toLogin(this.email, this.password, this.employee)
+      .then(res => {
+        if (res.result.res_code == 1) {
+         this.storage.set("user",res).then(()=>{
+           this.navCtrl.setRoot(TabsPage);
+         });
+        }
+      })
+  }
+ 
+
+
+  chooseDb(e) {
+    this.getdbInfo();
   }
 }

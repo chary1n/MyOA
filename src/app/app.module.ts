@@ -1,3 +1,8 @@
+import { WorkBenchPageModule } from './../pages/work-bench/work-bench.module';
+import { ContactPersonPageModule } from './../pages/contact-person/contact-person.module';
+import { MePageModule } from './../pages/me/me.module';
+import { MsgPageModule } from './../pages/msg/msg.module';
+import { TabsPageModule } from './../pages/tabs/tabs.module';
 
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -14,8 +19,10 @@ import { LoginPage } from '../pages/login/login'
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import {HttpService} from '../providers/HttpService'
-import {HttpModule,Http} from "@angular/http";
+import { HttpService } from '../providers/HttpService'
+import { HttpModule } from "@angular/http";
+import { IonicStorageModule } from '@ionic/storage';
+import {MsgPage}  from './../pages/msg/msg';
 
 
 @NgModule({
@@ -23,15 +30,22 @@ import {HttpModule,Http} from "@angular/http";
     MyApp,
     AboutPage,
     ContactPage,
-   
+
     HomePage,
     TabsPage,
     LoginPage,
+    MsgPage,
+
+
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    HttpModule
+    HttpModule,
+    IonicStorageModule.forRoot(),
+    MePageModule,
+    ContactPersonPageModule,
+    WorkBenchPageModule,
 
   ],
   bootstrap: [IonicApp],
@@ -42,14 +56,15 @@ import {HttpModule,Http} from "@angular/http";
     HomePage,
     TabsPage,
     LoginPage,
+    MsgPage,
+    
 
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
     HttpService,
-    
   ]
 })
-export class AppModule {}
+export class AppModule { }

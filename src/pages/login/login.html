@@ -10,6 +10,7 @@
   }
 </style>
 
+
 <ion-content padding class="total_color">
   <div class="center_x">
     <img src="assets/icon/ruotai_icon.png" padding="auto" width="200px" height="auto" style="margin-top:100px">
@@ -17,20 +18,24 @@
 
 
   <ion-list style="margin-top:20px">
+      <ion-item>
+      <ion-label>选择数据库</ion-label>
+    <ion-select [(ngModel)]="employee" (click)="chooseDb()">
+    <ion-option *ngFor="let db of dbs" [value]="db">{{db}}</ion-option>
+      </ion-select>
+    </ion-item>
+
     <ion-item >
       <ion-label floating>请输入公司邮箱</ion-label>
       <ion-input type="text" [(ngModel)]="email"></ion-input>
     </ion-item>
+    
     <ion-item>
       <ion-label floating>请输入密码</ion-label>
       <ion-input type="password" [(ngModel)]="password"></ion-input>
     </ion-item>
   </ion-list>
-  <div style="overflow:hidden">
-    <button ion-button outline color="light" clear style="float:right">
-    忘记密码
-    </button>
-  </div>
+
 
   <br />
 
