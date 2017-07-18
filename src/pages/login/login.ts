@@ -5,7 +5,7 @@ import { Storage } from '@ionic/storage';
 
 
 import { LoginService } from './loginService';
-import { Component } from '@angular/core';
+import { Component, ErrorHandler } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, Validators } from '@angular/forms';
 
@@ -71,6 +71,8 @@ export class LoginPage {
           this.storage.set("user", res).then(() => {
             this.navCtrl.setRoot(TabsPage);
           });
+        }else{
+          alert('登录失败');
         }
       })
   }

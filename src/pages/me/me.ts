@@ -1,7 +1,8 @@
+import { EditInformationPage } from './../edit-information/edit-information';
 import { LoginPage } from './../login/login';
 import { Storage } from '@ionic/storage';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 
 /**
  * Generated class for the MePage page.
@@ -15,12 +16,14 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'me.html',
 })
 export class MePage {
-   name :string ;
-   user_heard :string ;
+  name: string;
+  user_heard: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-  public storage:Storage) {
-   
+    public storage: Storage,
+    private alertCtrl: AlertController) {
+
+
   }
 
   ionViewDidLoad() {
@@ -28,27 +31,48 @@ export class MePage {
     this.initData();
   }
 
-  initData(){
-     this.storage.get('user')
-     .then(res=>{
-       console.log(res);
-       this.name = res.result.res_data.name;
-       console.log(res.result.res_data.user_ava);
-       this.user_heard= res.result.res_data.user_ava;
-      //  this.user_heard = res.result.res_data.user_ava;
-     })
+  initData() {
+    this.storage.get('user')
+      .then(res => {
+        console.log(res);
+        this.name = res.result.res_data.name;
+        console.log(res.result.res_data.user_ava);
+        this.user_heard = res.result.res_data.user_ava;
+        //  this.user_heard = res.result.res_data.user_ava;
+      })
 
   }
 
- toAccountSafePage(){
-   console.log('')
- }
-  outToLogin(){
-    this.storage.set('user',null)
-    .then(()=>{
-    this.navCtrl.setRoot(LoginPage);
+  toAccountSafePage() {
+    console.log('')
+  }
+  outToLogin() {
+    let alert = this.alertCtrl.create({
+      message: '退出当前账号?',
+      buttons: [
+        {
+          text: '取消',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: '确定',
+          handler: () => {
+            this.storage.set('user', null)
+              .then(() => {
+                this.navCtrl.setRoot(LoginPage);
+              });
+          }
+        }
+      ]
     });
+    alert.present();
+  }
 
+  editInformation(){
+    this.navCtrl.push(EditInformationPage)
   }
 
 }

@@ -1,3 +1,4 @@
+import { EditInformationPage } from './../pages/edit-information/edit-information';
 import { WorkBenchPageModule } from './../pages/work-bench/work-bench.module';
 import { ContactPersonPageModule } from './../pages/contact-person/contact-person.module';
 import { MePageModule } from './../pages/me/me.module';
@@ -35,6 +36,7 @@ import {MsgPage}  from './../pages/msg/msg';
     TabsPage,
     LoginPage,
     MsgPage,
+    EditInformationPage,
 
 
   ],
@@ -57,6 +59,7 @@ import {MsgPage}  from './../pages/msg/msg';
     TabsPage,
     LoginPage,
     MsgPage,
+    EditInformationPage,
     
 
   ],
