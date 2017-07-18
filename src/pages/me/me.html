@@ -14,10 +14,22 @@
 
 </ion-header> -->
 
+<!-- <style>
+   .center_x {
+    text-align: center;
+  }
+</style> -->
 
-<ion-content>
-  <div class="user_top">
-    <img src="http://img4.imgtn.bdimg.com/it/u=2904100780,2295785668&fm=26&gp=0.jpg" alt="">
+
+
+
+
+
+
+  <ion-content padding class="outer-content">
+
+      <div class='user_top'>
+    <img src={{user_heard}} alt="">
     <div class="top_text">
       <h4>{{name}}</h4>
       <p>研发部-ios开发工程师</p>
@@ -32,8 +44,6 @@
     </div>
   </div>
 
-
-  <ion-content class="outer-content">
 
     <ion-list>
       <button ion-item>
@@ -61,5 +71,11 @@
     </button>
 
     </ion-list>
+
+    <button  ion-button  outline block (click)="outToLogin()" >
+    退出登录
+  </button>
+
   
+
   </ion-content>

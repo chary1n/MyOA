@@ -1,3 +1,4 @@
+import { LoginPage } from './../login/login';
 import { Storage } from '@ionic/storage';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
@@ -19,12 +20,12 @@ export class MePage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
   public storage:Storage) {
-    this.initData();
+   
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad MePage');
-   
+    this.initData();
   }
 
   initData(){
@@ -32,6 +33,8 @@ export class MePage {
      .then(res=>{
        console.log(res);
        this.name = res.result.res_data.name;
+       console.log(res.result.res_data.user_ava);
+       this.user_heard= res.result.res_data.user_ava;
       //  this.user_heard = res.result.res_data.user_ava;
      })
 
@@ -40,5 +43,12 @@ export class MePage {
  toAccountSafePage(){
    console.log('')
  }
+  outToLogin(){
+    this.storage.set('user',null)
+    .then(()=>{
+    this.navCtrl.setRoot(LoginPage);
+    });
+
+  }
 
 }

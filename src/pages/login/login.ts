@@ -37,19 +37,24 @@ export class LoginPage {
   password: string;
   dbs: any;
   employee: string;
+  resUser: any;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private loginservice: LoginService, private myHttp: Http, private storage: Storage) {
-        
+
 
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
-    if(this.storage.get('user')){
-      this.navCtrl.setRoot(TabsPage);
-    }
-    this.getdbInfo();
-
+    this.storage.get('user')
+      .then(res => {
+        console.log(res);
+        if (res != null) {
+          this.navCtrl.setRoot(TabsPage);
+        } else {
+          this.getdbInfo();
+        }
+      });
   }
 
   getdbInfo() {
@@ -62,14 +67,14 @@ export class LoginPage {
   toLogin() {
     this.loginservice.toLogin(this.email, this.password, this.employee)
       .then(res => {
-        if (res.result&&res.result.res_code == 1) {
-         this.storage.set("user",res).then(()=>{
-           this.navCtrl.setRoot(TabsPage);
-         });
+        if (res.result && res.result.res_code == 1) {
+          this.storage.set("user", res).then(() => {
+            this.navCtrl.setRoot(TabsPage);
+          });
         }
       })
   }
- 
+
 
 
   chooseDb(e) {
