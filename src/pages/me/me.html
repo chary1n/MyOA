@@ -28,14 +28,27 @@
 
   <ion-content padding class="outer-content">
 
-      <div class='user_top'>
+    <ion-grid>
+      <ion-row>
+        <ion-col col-5 style="text-align:center;padding-top:10px">
+          <img src={{user_heard}} alt="" >
+        </ion-col>
+        <ion-col col-7 style="padding-left:10px">
+          <h4>{{name}}</h4>
+          <p>研发部-ios开发工程师</p>
+          <p>若贝尔科技沭阳有限公司</p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+      <!--<div class='user_top'>
     <img src={{user_heard}} alt="">
     <div class="top_text">
       <h4>{{name}}</h4>
       <p>研发部-ios开发工程师</p>
       <p>若贝尔科技沭阳有限公司</p>
     </div>
-  </div>
+  </div>-->
 
   <div class="edit_wraper" (click)='editInformation()'>
     <div>
