@@ -1,3 +1,6 @@
+import { PhoneNumberPage } from './../pages/phone-number/phone-number';
+
+import { Camera } from '@ionic-native/camera';
 import { EditInformationPage } from './../pages/edit-information/edit-information';
 import { WorkBenchPageModule } from './../pages/work-bench/work-bench.module';
 import { ContactPersonPageModule } from './../pages/contact-person/contact-person.module';
@@ -37,6 +40,7 @@ import {MsgPage}  from './../pages/msg/msg';
     LoginPage,
     MsgPage,
     EditInformationPage,
+    PhoneNumberPage
 
 
   ],
@@ -60,6 +64,7 @@ import {MsgPage}  from './../pages/msg/msg';
     LoginPage,
     MsgPage,
     EditInformationPage,
+    PhoneNumberPage
     
 
   ],
@@ -68,6 +73,7 @@ import {MsgPage}  from './../pages/msg/msg';
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     HttpService,
+    Camera
   ]
 })
 export class AppModule { }
