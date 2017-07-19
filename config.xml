@@ -82,6 +82,10 @@
     </platform>
     <engine name="android" spec="^6.2.3" />
     <engine name="browser" spec="^4.1.0" />
+<<<<<<< HEAD
+=======
+    <engine name="ios" spec="^4.4.0" />
+>>>>>>> f0ed31870ac95bc09b92df701a28b63b9efcc32e
     <plugin name="cordova-plugin-camera" spec="^2.4.1">
         <variable name="CAMERA_USAGE_DESCRIPTION" value=" " />
         <variable name="PHOTOLIBRARY_USAGE_DESCRIPTION" value=" " />
