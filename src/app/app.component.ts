@@ -21,9 +21,14 @@ export class MyApp {
       
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
-      statusBar.overlaysWebView(false);
-      statusBar.show();
+      document.addEventListener('deviceready', onDeviceReady, false);
       splashScreen.hide();
     });
   }
+  
+}
+function onDeviceReady() {  
+    // if (parseFloat(window.device.version) >= 7.0) {  
+          document.body.style.marginTop = "20px";  
+    // }  
 }
