@@ -1,18 +1,56 @@
-<!--
-  Generated template for the WorkBenchPage page.
 
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-
   <ion-navbar>
-    <ion-title>work_bench</ion-title>
+    <ion-title>工作台</ion-title>
   </ion-navbar>
-
 </ion-header>
 
+<ion-content class="grid-basic-page">
 
-<ion-content padding>
 
-</ion-content>
+  <p padding>
+    |  常用
+  </p>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <div class="one_div">
+          <img src="../../assets/img/apply.png" (click)='edit_detail()'>
+          <p>编辑资料</p>
+        </div>
+      </ion-col>
+      <ion-col> 
+        <div class="two_div">
+          <img src="../../assets/img/shenpi.png">
+          <p>审 批</p>
+        </div>
+      </ion-col>
+      <ion-col> 
+        
+      </ion-col>
+      <ion-col> 
+        
+      </ion-col>
+    </ion-row>
+    
+  </ion-grid>
+
+  <p padding>
+    |  其他
+  </p>
+  <ion-grid>
+  <ion-row>
+      <ion-col>
+        <div class="customer_div">
+          <img src="../../assets/img/shenpi.png" (click)='card_info_clicked()'>
+          <p>名片扫描</p>
+        </div>
+      </ion-col>
+      <ion-col> 
+      </ion-col>
+      <ion-col> 
+      </ion-col>
+      <ion-col> 
+      </ion-col>
+    </ion-row>
+  </ion-grid>

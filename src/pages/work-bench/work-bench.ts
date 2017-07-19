@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
+import { CardinfoPage } from './../cardinfo/cardinfo';
 /**
  * Generated class for the WorkBenchPage page.
  *
@@ -19,6 +19,10 @@ export class WorkBenchPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad WorkBenchPage');
+  }
+
+  card_info_clicked(){
+    this.navCtrl.push(CardinfoPage)
   }
 
 }
