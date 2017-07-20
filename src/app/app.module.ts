@@ -1,7 +1,6 @@
-import { PhoneNumberPage } from './../pages/phone-number/phone-number';
+import { LoginPageModule } from './../pages/login/login.module';
 
 import { Camera } from '@ionic-native/camera';
-import { EditInformationPage } from './../pages/edit-information/edit-information';
 import { WorkBenchPageModule } from './../pages/work-bench/work-bench.module';
 import { ContactPersonPageModule } from './../pages/contact-person/contact-person.module';
 import { MePageModule } from './../pages/me/me.module';
@@ -13,10 +12,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 
-import { AboutPage } from '../pages/about/about';
-import { ContactPage } from '../pages/contact/contact';
-import { HomePage } from '../pages/home/home';
-import { CardinfoPage } from '../pages/cardinfo/cardinfo';
 
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login'
@@ -33,18 +28,6 @@ import {MsgPage}  from './../pages/msg/msg';
 @NgModule({
   declarations: [
     MyApp,
-    AboutPage,
-    ContactPage,
-
-    HomePage,
-    TabsPage,
-    LoginPage,
-    MsgPage,
-    EditInformationPage,
-    PhoneNumberPage,
-    CardinfoPage,
-
-
   ],
   imports: [
     BrowserModule,
@@ -54,22 +37,14 @@ import {MsgPage}  from './../pages/msg/msg';
     MePageModule,
     ContactPersonPageModule,
     WorkBenchPageModule,
+    MsgPageModule,
+    TabsPageModule,
+    LoginPageModule
 
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    AboutPage,
-    ContactPage,
-    HomePage,
-    TabsPage,
-    LoginPage,
-    MsgPage,
-    EditInformationPage,
-    PhoneNumberPage,
-    CardinfoPage,
-    
-
   ],
   providers: [
     StatusBar,

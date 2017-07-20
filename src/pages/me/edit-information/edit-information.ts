@@ -64,7 +64,7 @@ export class EditInformationPage {
   }
 
   toPhoneNumberPage(){
-    this.navCtrl.setRoot(PhoneNumberPage);
+    this.navCtrl.push(PhoneNumberPage);
   }
 
 }
