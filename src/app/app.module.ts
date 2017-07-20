@@ -12,13 +12,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 
-<<<<<<< HEAD
-=======
-import { AboutPage } from '../pages/about/about';
-import { ContactPage } from '../pages/contact/contact';
-import { HomePage } from '../pages/home/home';
-import { CardinfoPage } from '../pages/cardinfo/cardinfo';
->>>>>>> 38d87ea06a0008519c82cb9c6cebc945eb99ec9c
 
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login'
@@ -35,21 +28,6 @@ import {MsgPage}  from './../pages/msg/msg';
 @NgModule({
   declarations: [
     MyApp,
-<<<<<<< HEAD
-=======
-    AboutPage,
-    ContactPage,
-
-    HomePage,
-    TabsPage,
-    LoginPage,
-    MsgPage,
-    EditInformationPage,
-    PhoneNumberPage,
-    CardinfoPage,
-
-
->>>>>>> 38d87ea06a0008519c82cb9c6cebc945eb99ec9c
   ],
   imports: [
     BrowserModule,
@@ -67,20 +45,6 @@ import {MsgPage}  from './../pages/msg/msg';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-<<<<<<< HEAD
-=======
-    AboutPage,
-    ContactPage,
-    HomePage,
-    TabsPage,
-    LoginPage,
-    MsgPage,
-    EditInformationPage,
-    PhoneNumberPage,
-    CardinfoPage,
-    
-
->>>>>>> 38d87ea06a0008519c82cb9c6cebc945eb99ec9c
   ],
   providers: [
     StatusBar,
