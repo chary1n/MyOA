@@ -29,7 +29,6 @@ takePhoto(){
      buttons: [
        {
          text: '手动输入',
-         role: 'destructive',
          handler: () => {
            console.log('Destructive clicked');
          }
