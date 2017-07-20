@@ -15,11 +15,13 @@ import { IonicPage, NavController, NavParams ,ActionSheetController} from 'ionic
   templateUrl: 'edit-information.html',
 })
 export class EditInformationPage {
-  name:string;
-  user_heard: string;
-
-
-
+  name:any;
+  user_heard: any;
+  company:any;
+  job:any;
+  department:any;
+  barcode:any;
+  phone:any;
   constructor(public navCtrl: NavController, public navParams: NavParams,
   public storage:Storage,
   public actionSheetCtrl:ActionSheetController) {
@@ -30,6 +32,20 @@ export class EditInformationPage {
     this.storage.get('user').then(res=>{
       this.name=res.result.res_data.name;
       this.user_heard = res.result.res_data.user_ava;
+      this.company= res.result.res_data.company;
+      this.job= res.result.res_data.job;
+      if(this.job==false){
+        this.job=''
+      }
+      this.department= res.result.res_data.department;
+      if(this.department==false){
+        this.department=''
+      }
+      this.barcode= res.result.res_data.barcode;
+      this.phone= res.result.res_data.phone;
+      if(this.phone==false){
+        this.phone=''
+      }
     })
   }
 

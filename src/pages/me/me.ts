@@ -31,8 +31,11 @@ export class MePage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad MePage');
-    this.initData();
+    
   }
+ ionViewWillEnter(){
+  this.initData();
+ }
 
   initData() {
     this.storage.get('user')
