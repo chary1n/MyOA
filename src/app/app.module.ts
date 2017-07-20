@@ -1,3 +1,13 @@
+import { GlobalData } from './../providers/GlobalData';
+import { NativeService } from './../providers/NativeService';
+import { ImagePicker } from '@ionic-native/image-picker';
+import { AppMinimize } from '@ionic-native/app-minimize';
+import { Network } from '@ionic-native/network';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { Transfer } from '@ionic-native/transfer';
+import { File } from '@ionic-native/file';
+import { Toast } from '@ionic-native/toast';
+import { AppVersion } from '@ionic-native/app-version';
 import { LoginPageModule } from './../pages/login/login.module';
 
 import { Camera } from '@ionic-native/camera';
@@ -23,6 +33,7 @@ import { HttpService } from '../providers/HttpService'
 import { HttpModule } from "@angular/http";
 import { IonicStorageModule } from '@ionic/storage';
 import {MsgPage}  from './../pages/msg/msg';
+
 
 
 @NgModule({
@@ -51,7 +62,17 @@ import {MsgPage}  from './../pages/msg/msg';
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     HttpService,
-    Camera
+    Camera,
+    AppVersion,
+    Toast,
+    File,
+    Transfer,
+    InAppBrowser,
+    Network,
+    AppMinimize,
+    ImagePicker,
+    NativeService,
+     GlobalData
   ]
 })
 export class AppModule { }
