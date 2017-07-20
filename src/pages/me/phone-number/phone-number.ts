@@ -1,5 +1,4 @@
 import { EditInformationPage } from './../edit-information/edit-information';
-import { MePage } from './../me/me';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
@@ -24,9 +23,9 @@ export class PhoneNumberPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad PhoneNumberPage');
   }
-  cancel(){
-    this.navCtrl.setRoot(EditInformationPage)
-  }
+  // cancel(){
+  //   this.navCtrl.setRoot(EditInformationPage)
+  // }
   savePhoneNumber(){
     console.log(this.phoneNumber)
 

@@ -1,6 +1,5 @@
 import { TabsPage } from './../tabs/tabs';
 import { dbBean } from './../../model/dbInfoModel';
-import { HomePage } from './../home/home';
 import { Storage } from '@ionic/storage';
 
 
@@ -71,8 +70,8 @@ export class LoginPage {
           this.storage.set("user", res).then(() => {
             this.navCtrl.setRoot(TabsPage);
           });
-        }else{
-          alert('登录失败');
+        }else if(res.result && res.result.res_code == -1){
+          alert(res.result.res_data.error);
         }
       })
   }

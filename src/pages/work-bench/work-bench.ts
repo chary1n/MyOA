@@ -1,6 +1,6 @@
+import { CardinfoPage } from './cardinfo/cardinfo';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { CardinfoPage } from './../cardinfo/cardinfo';
 /**
  * Generated class for the WorkBenchPage page.
  *

@@ -1,8 +1,8 @@
-import { EditInformationPage } from './../edit-information/edit-information';
+import { EditInformationPage } from './edit-information/edit-information';
 import { LoginPage } from './../login/login';
 import { Storage } from '@ionic/storage';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController ,ModalController} from 'ionic-angular';
 
 /**
  * Generated class for the MePage page.
@@ -18,10 +18,13 @@ import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angu
 export class MePage {
   name: string;
   user_heard: string;
+  company:any;
+  job:any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public storage: Storage,
-    private alertCtrl: AlertController) {
+    private alertCtrl: AlertController,
+    private modalctrl:ModalController) {
 
 
   }
@@ -36,9 +39,12 @@ export class MePage {
       .then(res => {
         console.log(res);
         this.name = res.result.res_data.name;
-        console.log(res.result.res_data.user_ava);
+        this.job=res.result.res_data.job;
+        if(this.job==false){
+          this.job=" "
+        }
         this.user_heard = res.result.res_data.user_ava;
-        //  this.user_heard = res.result.res_data.user_ava;
+        this.company=res.result.res_data.company;
       })
 
   }
@@ -62,7 +68,9 @@ export class MePage {
           handler: () => {
             this.storage.set('user', null)
               .then(() => {
-                this.navCtrl.setRoot(LoginPage);
+                // this.navCtrl.setRoot(LoginPage);
+               let modal = this.modalctrl.create(LoginPage);
+                modal.present();
               });
           }
         }
