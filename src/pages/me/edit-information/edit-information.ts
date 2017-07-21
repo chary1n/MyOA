@@ -1,3 +1,4 @@
+import { EditInformationService } from './editInformationService';
 import { NativeService } from './../../../providers/NativeService';
 import { PhoneNumberPage } from './../phone-number/phone-number';
 import { Storage } from '@ionic/storage';
@@ -14,6 +15,8 @@ import { IonicPage, NavController, NavParams, ActionSheetController } from 'ioni
 @Component({
   selector: 'page-edit-information',
   templateUrl: 'edit-information.html',
+  providers: [EditInformationService]
+
 })
 export class EditInformationPage {
   name: any;
@@ -28,11 +31,11 @@ export class EditInformationPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public storage: Storage,
     public actionSheetCtrl: ActionSheetController,
-    private nativeService: NativeService, ) {
+    private nativeService: NativeService,
+    private editInformationService: EditInformationService) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad EditInformationPage');
+  ionViewDidEnter() {
     this.storage.get('user').then(res => {
       this.name = res.result.res_data.name;
       this.user_heard = res.result.res_data.user_ava;
@@ -108,6 +111,17 @@ export class EditInformationPage {
   private getPictureSuccess(img_url) {
     this.isChange = true;
     this.user_heard = img_url;
+    this.editInformationService.pushHeardImage(img_url.split(",")[1])
+      .then(
+      res => {
+        this.storage.get('user').then(userBean => {
+         userBean.result.res_data.user_ava = res.result.res_data.user_ava
+         return userBean
+        })
+          .then(userBean => {
+            this.storage.set('user', userBean)
+          })
+      })
   }
 
 }

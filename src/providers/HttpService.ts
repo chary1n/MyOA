@@ -43,7 +43,9 @@ export class HttpService {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     return this.http.post(this.getAppPath(url,type), paramObj, new RequestOptions({ headers: headers }))
       .toPromise()
-      .then(res => this.handleSuccess(res.json()))
+      .then(res => 
+        this.handleSuccess(res.json())
+      )
       .catch(error => this.handleError(error));
   }
 
