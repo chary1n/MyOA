@@ -33,14 +33,18 @@
     |  其他
   </p>
   <ion-grid>
-  <ion-row>
+    <ion-row>
       <ion-col>
-        <div class="customer_div" offset-2>
-          <img src="assets/img/apply.png" (click)='card_info_clicked()'>
-          <p>名片扫描</p>
+        <div class="other_card_div" offset-2 (click)='card_info_clicked()'>
+          <img src="assets/img/apply.png">
+          <p>客 户</p>
         </div>
       </ion-col>
       <ion-col col-6> 
+        <div class="other_incoming_div" (click) = 'incoming_clicked()'>
+          <img src="assets/img/shenpi.png">
+          <p>采购入库</p>
+        </div>
       </ion-col>
-    </ion-row>
+    </ion-row> 
   </ion-grid>

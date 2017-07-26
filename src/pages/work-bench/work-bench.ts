@@ -1,4 +1,5 @@
 import { CardinfoPage } from './cardinfo/cardinfo';
+import { IncomingPage} from './incoming/incoming';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 /**
@@ -23,6 +24,10 @@ export class WorkBenchPage {
 
   card_info_clicked(){
     this.navCtrl.push(CardinfoPage)
+  }
+
+  incoming_clicked(){
+    this.navCtrl.push(IncomingPage)
   }
 
 }
