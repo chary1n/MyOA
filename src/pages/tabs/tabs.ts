@@ -30,7 +30,7 @@ export class TabsPage {
   }
 
   ionViewDidLoad() {
-   this.tabs.select(3);
+   this.tabs.select(1);
   }
 
 }

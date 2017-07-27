@@ -1,5 +1,8 @@
+import { IncomingService } from './incomingService';
+import { APK_DOWNLOAD } from './../../../providers/Constants';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+
 
 /**
  * Generated class for the IncomingPage page.
@@ -11,14 +14,34 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 @Component({
   selector: 'page-incoming',
   templateUrl: 'incoming.html',
+  providers: [IncomingService]
 })
 export class IncomingPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  
+  items : any;
+  limit = 20 ;
+  offset = 0 ;
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+      public incomingService :IncomingService) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad IncomingPage');
+    this.incomingService.getIncomingList(this.limit,this.offset).then((res)=>{
+      console.log(res)
+      this.items=res.result.res_data;
+    })
   }
+
+  doRefresh(refresh) {
+    refresh.complete();
+  }
+
+  doInfinite(infiniteScroll) {
+    console.log('Begin async operation');
+
+  }
+
+
 
 }

@@ -29,5 +29,8 @@ export class WorkBenchPage {
   incoming_clicked(){
     this.navCtrl.push(IncomingPage)
   }
+  edit_detail(){
+    
+  }
 
 }

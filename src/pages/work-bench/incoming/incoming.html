@@ -14,14 +14,44 @@
 
 
 <ion-content padding>
-  <button ion-button icon-left>
-  <ion-icon name="home"></ion-icon>
-  Left Icon
+  <p>
+
+    <button ion-button icon-left class='width_half' icon-start>
+  <ion-icon name="search"></ion-icon>
+  搜索
 </button>
 
-<!-- Float the icon right -->
-<button ion-button icon-right>
-  Right Icon
-  <ion-icon name="home"></ion-icon>
+    <!-- Float the icon right -->
+    <button ion-button icon-right class='width_half' icon-end>
+  <ion-icon name="create"></ion-icon>
+  筛选
 </button>
+  </p>
+  <p>
+    <!--下拉刷新  -->
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+
+    <ion-list>
+      <ion-item *ngFor='let item of items'>
+        <button>{{item.origin}}</button>
+      </ion-item>
+    </ion-list>
+
+
+    <!--上拉加载 -->
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+
+
+  </p>
+
+
+
+
+
+
+
 </ion-content>
