@@ -7,7 +7,7 @@ export class LoginService {
     constructor(private httpService: HttpService) {
 
     }
-    getAppPath(){}
+   
 
 
     getDBInfo() {
@@ -22,6 +22,5 @@ export class LoginService {
         });
         return this.httpService.postBody('login', body,1);
     }
-
 
 }
