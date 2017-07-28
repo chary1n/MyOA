@@ -13,12 +13,16 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'incoming-detail.html',
 })
 export class IncomingDetailPage {
-
+  item : any;
+  count: any;
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+      this.item = navParams.get('item');
+      this.count = 1;
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad IncomingDetailPage');
   }
 
+  
 }
