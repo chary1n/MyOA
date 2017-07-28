@@ -41,12 +41,25 @@ export class IncomingPage {
   }
 
   doRefresh(refresh) {
-    refresh.complete();
+    this.limit = 20;
+    this.offset = 0;
+    let load = this.loadingCtrl.create({
+      content: '加载中...',
+      dismissOnPageChange: true
+    });
+    load.present();
+     this.incomingService.getIncomingList(this.limit,this.offset).then((res)=>{
+       refresh.complete();
+       console.log(res)
+       load.dismiss();
+       this.items=res.result.res_data;
+     })
+   
   }
 
   doInfinite(infiniteScroll) {
-    console.log('Begin async operation');
-
+    alert('123');
+    infiniteScroll.complete();
   }
 
 incoming_detail(item){
