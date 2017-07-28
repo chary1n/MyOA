@@ -16,15 +16,15 @@
 <ion-content padding>
 
   <ion-list>
-    <ion-item>
+    <ion-item *ngFor='let item of items' (click) = 'incoming_detail()'>
       <p style="float:right;color:#c53b50;">采购确认</p>
-      <h2 style="font-weight:bold;">WHIN172231311</h2>
-      <h4>安排日期：2017-07-25 15:30</h4>
-      <p>目的位置区域：原料库A3</p>
-      <p style="float:right;color:#1e1e1e;font-weight:bold;">高虎</p>
-      <p>合作伙伴：北京萌趣儿童玩具有限公司</p>
-      <p>源单据：PO1234565</p>
-      <p>欠单于：WHIN654321</p>
+      <h2 style="font-weight:bold;font-size:75%;">{{item.name}}</h2>
+      <h4 style="font-size:65%">安排日期：{{item.min_date}}</h4>
+      <p style="font-size:65%">目的位置区域：{{item.to_location}}</p>
+      <p style="float:right;color:#1e1e1e;font-weight:bold;font-size:65%;">{{item.creater}}</p>
+      <p style="font-size:65%">合作伙伴：{{item.parnter_id}}</p>
+      <p style="font-size:65%">源单据：{{item.origin}}</p>
+      <p style="font-size:65%">欠单于：{{item.back_order_id}}</p>
     </ion-item>
   </ion-list>
     <!--下拉刷新  -->

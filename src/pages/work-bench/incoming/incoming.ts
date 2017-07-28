@@ -2,7 +2,7 @@ import { IncomingService } from './incomingService';
 import { APK_DOWNLOAD } from './../../../providers/Constants';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
+import { IncomingDetailPage} from './../incoming-detail/incoming-detail'
 
 /**
  * Generated class for the IncomingPage page.
@@ -28,10 +28,10 @@ export class IncomingPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad IncomingPage');
-    // this.incomingService.getIncomingList(this.limit,this.offset).then((res)=>{
-    //   console.log(res)
-    //   this.items=res.result.res_data;
-    // })
+     this.incomingService.getIncomingList(this.limit,this.offset).then((res)=>{
+       console.log(res)
+       this.items=res.result.res_data;
+     })
   }
 
   doRefresh(refresh) {
@@ -43,6 +43,8 @@ export class IncomingPage {
 
   }
 
-
+incoming_detail(){
+    this.navCtrl.push(EditInformationPage)
+}
 
 }
