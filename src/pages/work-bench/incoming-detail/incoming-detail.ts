@@ -1,3 +1,4 @@
+import { InspectionDetailPage } from './../inspection-detail/inspection-detail';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
@@ -24,5 +25,8 @@ export class IncomingDetailPage {
     console.log('ionViewDidLoad IncomingDetailPage');
   }
 
+  toInspectionPage(){
+    this.navCtrl.push(InspectionDetailPage,{item:this.item})
+  }
   
 }

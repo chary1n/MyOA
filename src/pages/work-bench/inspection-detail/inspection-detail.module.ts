@@ -1,3 +1,4 @@
+import { InspectionService } from './inspectionService';
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { InspectionDetailPage } from './inspection-detail';
@@ -11,6 +12,7 @@ import { InspectionDetailPage } from './inspection-detail';
   ],
   exports: [
     InspectionDetailPage
-  ]
+  ],
+ 
 })
 export class InspectionDetailPageModule {}
