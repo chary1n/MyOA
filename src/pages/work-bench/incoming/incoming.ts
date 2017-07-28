@@ -44,7 +44,6 @@ export class IncomingPage {
   }
 
 incoming_detail(){
-    this.navCtrl.push(EditInformationPage)
 }
 
 }
