@@ -1,3 +1,4 @@
+import { InspectionDetailPage } from './inspection-detail/inspection-detail';
 import { CardinfoPage } from './cardinfo/cardinfo';
 import { IncomingPage} from './incoming/incoming';
 import { NgModule } from '@angular/core';
@@ -7,12 +8,12 @@ import { IncomingDetailPage} from './incoming-detail/incoming-detail';
 
 @NgModule({
   declarations: [
-    WorkBenchPage,CardinfoPage,IncomingPage,IncomingDetailPage,
+    WorkBenchPage,CardinfoPage,IncomingPage,IncomingDetailPage,InspectionDetailPage,
   ],
   imports: [
     IonicPageModule.forChild(WorkBenchPage),
   ],
-  entryComponents:[ WorkBenchPage,CardinfoPage,IncomingPage,IncomingDetailPage],
+  entryComponents:[ WorkBenchPage,CardinfoPage,IncomingPage,IncomingDetailPage,InspectionDetailPage],
   exports: [
     WorkBenchPage
   ]

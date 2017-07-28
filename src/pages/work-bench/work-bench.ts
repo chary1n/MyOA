@@ -1,3 +1,4 @@
+import { InspectionDetailPage } from './inspection-detail/inspection-detail';
 import { CardinfoPage } from './cardinfo/cardinfo';
 import { IncomingPage} from './incoming/incoming';
 import { Component } from '@angular/core';
@@ -27,7 +28,7 @@ export class WorkBenchPage {
   }
 
   incoming_clicked(){
-    this.navCtrl.push(IncomingPage)
+    this.navCtrl.push(InspectionDetailPage)
   }
   edit_detail(){
     
