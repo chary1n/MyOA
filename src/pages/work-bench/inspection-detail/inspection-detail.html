@@ -17,37 +17,24 @@
 
   <ion-item>
     <ion-label>品检结果</ion-label>
-    <button ion-button item-end class='iconBackground' round> 品检通过</button>
+    <button ion-button item-end  class='iconBackground' round [style.color]="isSpecial ? 'red' : 'green" >{{qc_result}}</button>
   </ion-item>
   <ion-item>
     <ion-label >品检批注</ion-label>
-    <ion-label text-wrap>henduo ziasdasdadadadsasdasdasdasd</ion-label>
+    <ion-label text-wrap>{{qc_note}}</ion-label>
   </ion-item>
   <ion-item>
     <ion-label>品检图片</ion-label>
   </ion-item>
-  <ion-grid>
-    <ion-row>
-      <ion-col>
-        <div>2 of 2</div>
-      </ion-col>
-      <ion-col>
-        <div>2 of 2</div>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col>
-        <div>1 of 3</div>
-      </ion-col>
-      <ion-col>
-        <div>2 of 3</div>
-      </ion-col>
-      <ion-col>
-        <div>3 of 3</div>
-      </ion-col>
-    </ion-row>
+  <ion-list *ngFor='let pic of picture' >
+    <ion-img  width="100" height="100"  src={{pic}}>
+    </ion-img>
+  </ion-list>
 
-  </ion-grid>
+
+
+ 
+ 
 
 
 </ion-content>

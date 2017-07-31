@@ -1,3 +1,5 @@
+import { IncomingPage } from './../incoming/incoming';
+import { IncomingDetailPage } from './../incoming-detail/incoming-detail';
 import { APK_DOWNLOAD } from './../../../providers/Constants';
 import { InspectionService } from './inspectionService';
 import { Component } from '@angular/core';
@@ -13,15 +15,37 @@ import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angu
 @Component({
   selector: 'page-inspection-detail',
   templateUrl: 'inspection-detail.html',
-   providers:[InspectionService]
+  providers: [InspectionService]
 })
 export class InspectionDetailPage {
   item: any;
+  qc_note: string;
+  qc_result: string;
+  picture: Array<string>;
+  qc_color: any;
+  pack: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private alertCtrl: AlertController,
     private inspectionService: InspectionService) {
-    this.item = navParams.get('item')
+
+    this.initData()
+
+  }
+  initData() {
+    this.item = this.navParams.get('item')
+    this.qc_result = this.item.qc_result
+    this.qc_note = this.item.qc_note
+    let picture = []
+    picture.push(this.item.qc_img)
+    this.picture = picture
+    let newPack = [];
+    for (let product of this.item.pack_operation_product_ids) {
+      if (product.pack_id != -1) {
+        newPack.push(product)
+      }
+    }
+    this.pack = newPack;
     console.log(this.item)
   }
 
@@ -50,22 +74,120 @@ export class InspectionDetailPage {
     alert.present();
   }
 
-
   doRequestBack() {
-    let newPack = [] ;
-    for(let product of this.item.pack_operation_product_ids ){
-      if(product.pack_id!=-1){
-        newPack.push(product)
-      }
-    }
-    this.inspectionService.requestBack(newPack,this.item.picking_id)
-    .then(res=>{
-      console.log(res)
-    })
+    this.inspectionService.requestBack(this.pack, this.item.picking_id)
+      .then(res => {
+        if (res.result && res.result.res_code == 1) {
+          this.navCtrl.pop()
+        }
+        console.log(res)
+      })
+  }
+  isSpecial(){
+    return true
   }
 
   agreeIncoming() {
+    let rejectQTY = 0;
+    let productQTY = 0;
+    let QTYDone = 0;
+    for (let item of this.item.pack_operation_product_ids) {
+      rejectQTY += item.rejects_qty
+      productQTY += item.product_qty
+      QTYDone += item.qty_done
+    }
+    if (rejectQTY > 0) {
+      // 有不良品
+      this.contansBadProduct(QTYDone - rejectQTY, rejectQTY)
+    } else {
+      if (productQTY > QTYDone) {
+        // 没有不良品有未完成数量
+        this.alertCreateDebt()
+      } else {
+        // 入库调拨成功，等待入库
+       this.alertWaitingIncoming()
+      }
+    }
+  }
+  contansBadProduct(goodProduct, rejectQTY) {
+    let alert = this.alertCtrl.create({
+      title: '请选择入库方式',
+      message: '良品：' + goodProduct + ',不良品 ：' + rejectQTY,
+      buttons: [
+        {
+          text: '取消',
+          role: 'cancel',
+        },
+        {
+          text: '全部入库',
+          handler: () => {
 
+          }
+        },
+        {
+          text: '仅良品入库，不良品退回',
+          handler: () => {
+
+          }
+        }
+      ]
+    })
+    alert.present()
+  }
+
+
+  alertCreateDebt() {
+    let alert = this.alertCtrl.create({
+      title: '请选择入库方式',
+      message: "有未完成的数量，是否创建欠单",
+      buttons: [
+        {
+          text: '取消',
+          role: 'cancel',
+        },
+        {
+          text: '创建欠单',
+          handler: () => {
+            this.inspectionService.createDebtOrder(this.pack, this.item.picking_id)
+              .then(res => {
+                if (res.result && res.result.res_code == 1) {
+                  this.navCtrl.pop()
+                }
+                console.log(res)
+              })
+          }
+        },
+        {
+          text: '没有欠单',
+          handler: () => {
+            this.inspectionService.noDebtOrder(this.pack, this.item.picking_id)
+              .then(res => {
+                if (res.result && res.result.res_code == 1) {
+                  this.navCtrl.pop()
+                }
+                console.log(res)
+              })
+          }
+        }
+      ]
+    })
+    alert.present()
+  }
+
+  alertWaitingIncoming(){
+     let alert = this.alertCtrl.create({
+      title: '提示',
+      message: "入库调拨成功，等待入库",
+      buttons: [
+        {
+          text: '确定',
+          handler: () => {
+            this.navCtrl.popTo(IncomingPage);
+          }
+        },
+      ]
+    })
+    alert.present()
   }
 
 }

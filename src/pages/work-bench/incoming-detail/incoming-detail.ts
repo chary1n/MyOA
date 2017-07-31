@@ -28,5 +28,9 @@ export class IncomingDetailPage {
   toInspectionPage(){
     this.navCtrl.push(InspectionDetailPage,{item:this.item})
   }
+
+  moreDetail(){
+    
+  }
   
 }

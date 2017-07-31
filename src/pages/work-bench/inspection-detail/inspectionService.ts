@@ -8,8 +8,7 @@ export class InspectionService {
 
     }
 
-
-
+// 全部退回
     requestBack(production_ids, pickIds) {
         let body = JSON.stringify({
             state: 'reject',
@@ -18,5 +17,27 @@ export class InspectionService {
         });
         return this.httpservice.postBody("change_stock_picking_state", body, 1);
     }
+
+    createDebtOrder(production_ids, pickIds) {
+        let body = JSON.stringify({
+            state: 'process',
+            pack_operation_product_ids: production_ids,
+            picking_id: pickIds
+        });
+        return this.httpservice.postBody("change_stock_picking_state", body, 1);
+    }
+
+      noDebtOrder(production_ids, pickIds) {
+        let body = JSON.stringify({
+            state: 'cancel_backorder',
+            pack_operation_product_ids: production_ids,
+            picking_id: pickIds
+        });
+        return this.httpservice.postBody("change_stock_picking_state", body, 1);
+    }
+
+       
+
+    
 
 }
