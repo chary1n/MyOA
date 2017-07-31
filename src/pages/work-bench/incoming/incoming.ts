@@ -2,7 +2,7 @@ import { IncomingService } from './incomingService';
 import { APK_DOWNLOAD } from './../../../providers/Constants';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { IncomingDetailPage} from './../incoming-detail/incoming-detail'
+import { IncomingDetailPage } from './../incoming-detail/incoming-detail'
 import { Loading, LoadingController } from 'ionic-angular';
 /**
  * Generated class for the IncomingPage page.
@@ -17,42 +17,41 @@ import { Loading, LoadingController } from 'ionic-angular';
   providers: [IncomingService]
 })
 export class IncomingPage {
-  
-  items : any;
-  limit = 20 ;
-  offset = 0 ;
-  loading: Loading;
+
+  items: any;
+  limit = 20;
+  offset = 0;
   constructor(public navCtrl: NavController, public navParams: NavParams,
-      public incomingService :IncomingService , public loadingCtrl: LoadingController) {
+    public incomingService: IncomingService, public loadingCtrl: LoadingController) {
   }
 
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad IncomingPage');
-    this.loading = this.loadingCtrl.create({
-       content: '加载中...'
-     });
-    this.loading.present().then(() => {
-      this.incomingService.getIncomingList(this.limit,this.offset).then((res)=>{
-       console.log(res)
-       this.loading.dismiss();
-       this.items=res.result.res_data;
-     })
+    let loading = this.loadingCtrl.create({
+      content: '加载中...'
+    });
+    loading.present().then(() => {
+      this.incomingService.getIncomingList(this.limit, this.offset).then((res) => {
+        console.log(res)
+        loading.dismiss();
+        this.items = res.result.res_data;
+      })
     });
   }
 
   doRefresh(refresh) {
     this.limit = 20;
     this.offset = 0;
-    this.loading = this.loadingCtrl.create({
-       content: '加载中...'
-     });
-    this.loading.present().then(() => {
-      this.incomingService.getIncomingList(this.limit,this.offset).then((res)=>{
-       console.log(res)
-       this.loading.dismiss();
-       this.items=res.result.res_data;
-     })
+    let loading = this.loadingCtrl.create({
+      content: '加载中...'
+    });
+    loading.present().then(() => {
+      this.incomingService.getIncomingList(this.limit, this.offset).then((res) => {
+        console.log(res)
+        loading.dismiss();
+        this.items = res.result.res_data;
+      })
     });
   }
 
@@ -61,10 +60,10 @@ export class IncomingPage {
     infiniteScroll.complete();
   }
 
-incoming_detail(item){
-  this.navCtrl.push(IncomingDetailPage,{
-      item:item,
-  });
-}
+  incoming_detail(item) {
+    this.navCtrl.push(IncomingDetailPage, {
+      item: item,
+    });
+  }
 
 }
