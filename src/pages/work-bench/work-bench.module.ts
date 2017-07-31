@@ -7,6 +7,7 @@ import { WorkBenchPage } from './work-bench';
 import { IncomingDetailPage} from './incoming-detail/incoming-detail';
 import { SupplierListPage } from './supplier-list/supplier-list';
 
+
 @NgModule({
   declarations: [
     WorkBenchPage,CardinfoPage,IncomingPage,IncomingDetailPage,InspectionDetailPage,SupplierListPage,

@@ -35,7 +35,7 @@ export class SupplierListPage {
        this.items=res.result.res_data;
      })
   }
-  supplier_detail(item)
+  supplier_detail(id)
   {
       
   }
