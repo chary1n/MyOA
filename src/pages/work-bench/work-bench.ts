@@ -3,6 +3,7 @@ import { CardinfoPage } from './cardinfo/cardinfo';
 import { IncomingPage} from './incoming/incoming';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { SupplierListPage } from './supplier-list/supplier-list';
 /**
  * Generated class for the WorkBenchPage page.
  *
@@ -32,6 +33,9 @@ export class WorkBenchPage {
   }
   edit_detail(){
     
+  }
+  supplier_clicked(){
+    this.navCtrl.push(SupplierListPage)
   }
 
 }
