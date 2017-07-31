@@ -28,13 +28,11 @@ export class InspectionDetailPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private alertCtrl: AlertController,
     private inspectionService: InspectionService) {
-
     this.initData()
-
   }
   initData() {
     this.item = this.navParams.get('item')
-    this.qc_result = this.item.qc_result
+    this.qc_result = (this.item.qc_result=='success'?'品检通过':'品检失败')
     this.qc_note = this.item.qc_note
     let picture = []
     picture.push(this.item.qc_img)
@@ -83,8 +81,11 @@ export class InspectionDetailPage {
         console.log(res)
       })
   }
+
+  //是否品检通过
   isSpecial(){
-    return true
+    console.log(this.item.qc_result=='success'+"this.item.qc_result=='success'")
+    return this.item.qc_result=='success'
   }
 
   agreeIncoming() {

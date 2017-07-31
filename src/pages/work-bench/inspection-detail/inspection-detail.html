@@ -17,30 +17,30 @@
 
   <ion-item>
     <ion-label>品检结果</ion-label>
-    <button ion-button item-end  class='iconBackground' round [style.color]="isSpecial ? 'red' : 'green'" >{{qc_result}}</button>
+    <ion-label item-end  [style.background]="isSpecial?'#4bb53a' : '#ff6622'">{{qc_result}}</ion-label>
   </ion-item>
   <ion-item>
-    <ion-label >品检批注</ion-label>
+    <ion-label>品检批注</ion-label>
     <ion-label text-wrap>{{qc_note}}</ion-label>
   </ion-item>
   <ion-item>
     <ion-label>品检图片</ion-label>
   </ion-item>
-  <ion-list *ngFor='let pic of picture' >
-    <ion-img  width="100" height="100"  src={{pic}}>
+  <ion-list *ngFor='let pic of picture'>
+    <ion-img width="100" height="100" src={{pic}}>
     </ion-img>
   </ion-list>
 
 
 
- 
- 
+
+
 
 
 </ion-content>
 <ion-footer>
-  <ion-item >
-    <button ion-button  class='footerButton' (click)='clickBack()'> 退回 </button>
-    <button ion-button  class='footerButton' (click)='agreeIncoming()'> 同意入库</button>
+  <ion-item>
+    <button ion-button class='footerButton' (click)='clickBack()'> 退回 </button>
+    <button ion-button class='footerButton' (click)='agreeIncoming()'> 同意入库</button>
   </ion-item>
 </ion-footer>
