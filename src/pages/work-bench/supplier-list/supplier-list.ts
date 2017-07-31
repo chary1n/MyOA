@@ -41,9 +41,23 @@ export class SupplierListPage {
   }
   supplier_detail(id)
   {
-    this.navCtrl.push(SupplierDetailPage,{
-      id:id,
+    let load = this.loadingCtrl.create({
+      // content: '加载中...',
+      // dismissOnPageChange: true
     });
+    load.present().then(() => {
+        this.supplierService.getSupplierDetai(this.limit,this.offset,id).then((res)=>{
+       console.log(res)
+       load.dismiss();
+       this.items=res.result.res_data;
+       this.navCtrl.push(SupplierDetailPage,{
+          items:this.items,
+       });
+     })
+    });
+    
+    
+    
   }
 
   getItems(ev) {

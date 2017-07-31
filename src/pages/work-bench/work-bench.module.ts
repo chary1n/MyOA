@@ -6,16 +6,16 @@ import { IonicPageModule } from 'ionic-angular';
 import { WorkBenchPage } from './work-bench';
 import { IncomingDetailPage} from './incoming-detail/incoming-detail';
 import { SupplierListPage } from './supplier-list/supplier-list';
-
+import { SupplierDetailPage } from './supplier-detail/supplier-detail';
 
 @NgModule({
   declarations: [
-    WorkBenchPage,CardinfoPage,IncomingPage,IncomingDetailPage,InspectionDetailPage,SupplierListPage,
+    WorkBenchPage,CardinfoPage,IncomingPage,IncomingDetailPage,InspectionDetailPage,SupplierListPage,SupplierDetailPage,
   ],
   imports: [
     IonicPageModule.forChild(WorkBenchPage),
   ],
-  entryComponents:[ WorkBenchPage,CardinfoPage,IncomingPage,IncomingDetailPage,InspectionDetailPage,SupplierListPage],
+  entryComponents:[ WorkBenchPage,CardinfoPage,IncomingPage,IncomingDetailPage,InspectionDetailPage,SupplierListPage,SupplierDetailPage],
   exports: [
     WorkBenchPage
   ]

@@ -12,16 +12,21 @@ import { LoadingController } from 'ionic-angular';
 @Component({
   selector: 'page-supplier-detail',
   templateUrl: 'supplier-detail.html',
+  providers: [SupplierlistService]
 })
 export class SupplierDetailPage {
   id:any
+  items:any
+  limit:any
+  offset:any
   constructor(public navCtrl: NavController, public navParams: NavParams,public supplierService :SupplierlistService , public loadingCtrl: LoadingController) {
-    this.id = navParams.get('id');   
+    this.items = navParams.get('items');  
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SupplierDetailPage');
-
+    this.limit = 20;
+    this.offset = 0;
   }
 
 

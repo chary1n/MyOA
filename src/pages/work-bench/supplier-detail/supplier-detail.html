@@ -7,12 +7,38 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>supplier-detail</ion-title>
+    <ion-title>{{items.name}}</ion-title>
   </ion-navbar>
-
 </ion-header>
 
 
-<ion-content padding>
-
+<ion-content>
+  <ion-grid>
+<ion-row align-items-center>
+      <ion-col>
+         <div class="first_div" (click) = 'first_clicked()'>
+          <h3>123</h3><br>
+          <h2>5</h2>
+        </div>
+      </ion-col>
+      <ion-col>
+        <div class="second_div" (click) = 'second_clicked()'>
+          <h3>123</h3><br>
+          <h2>5</h2>
+        </div>
+      </ion-col>
+      <ion-col>
+        <div class="first_div" (click) = 'first_clicked()'>
+          <h3>订单</h3><br>
+          <h2>5</h2> 
+        </div>
+      </ion-col>
+      <ion-col>
+        <div class="first_div" (click) = 'first_clicked()'>
+          <h3>订单</h3><br>
+          <h2>5</h2> 
+        </div>
+      </ion-col>
+    </ion-row>
+</ion-grid>
 </ion-content>

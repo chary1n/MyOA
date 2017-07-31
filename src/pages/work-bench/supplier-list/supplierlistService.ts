@@ -15,5 +15,13 @@ export class SupplierlistService {
         });
        return this.httpservice.postBody("get_supplier",body);
     }
-
+    getSupplierDetai(limit,offset,id)
+    {
+        let body = JSON.stringify({
+            limit:limit,
+            offset:offset,
+            id:id,
+        });
+       return this.httpservice.postBody("get_supplier",body);
+    }
 }
