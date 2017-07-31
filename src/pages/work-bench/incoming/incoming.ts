@@ -2,7 +2,7 @@ import { IncomingService } from './incomingService';
 import { APK_DOWNLOAD } from './../../../providers/Constants';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { IncomingDetailPage} from './../incoming-detail/incoming-detail'
+import { IncomingDetailPage } from './../incoming-detail/incoming-detail'
 import { LoadingController } from 'ionic-angular';
 /**
  * Generated class for the IncomingPage page.
@@ -17,27 +17,27 @@ import { LoadingController } from 'ionic-angular';
   providers: [IncomingService]
 })
 export class IncomingPage {
-  
-  items : any;
-  limit = 20 ;
-  offset = 0 ;
+
+  items: any;
+  limit = 20;
+  offset = 0;
   constructor(public navCtrl: NavController, public navParams: NavParams,
-      public incomingService :IncomingService , public loadingCtrl: LoadingController) {
+    public incomingService: IncomingService, public loadingCtrl: LoadingController) {
   }
 
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad IncomingPage');
-   let load = this.loadingCtrl.create({
+    let load = this.loadingCtrl.create({
       content: '加载中...',
       dismissOnPageChange: true
     });
     load.present();
-     this.incomingService.getIncomingList(this.limit,this.offset).then((res)=>{
-       console.log(res)
-       load.dismiss();
-       this.items=res.result.res_data;
-     })
+    this.incomingService.getIncomingList(this.limit, this.offset).then((res) => {
+      console.log(res)
+      load.dismiss();
+      this.items = res.result.res_data;
+    })
   }
 
   doRefresh(refresh) {
@@ -48,14 +48,13 @@ export class IncomingPage {
       dismissOnPageChange: true
     });
     load.present();
-     this.incomingService.getIncomingList(this.limit,this.offset).then((res)=>{
-       
-       console.log(res)
-       load.dismiss();
-       refresh.complete();
-       this.items=res.result.res_data;
-     })
-   
+    this.incomingService.getIncomingList(this.limit, this.offset).then((res) => {
+      console.log(res)
+      load.dismiss();
+      refresh.complete();
+      this.items = res.result.res_data;
+    })
+
   }
 
   doInfinite(infiniteScroll) {
@@ -63,10 +62,10 @@ export class IncomingPage {
     infiniteScroll.complete();
   }
 
-incoming_detail(item){
-  this.navCtrl.push(IncomingDetailPage,{
-      item:item,
-  });
-}
+  incoming_detail(item) {
+    this.navCtrl.push(IncomingDetailPage, {
+      item: item,
+    });
+  }
 
 }
