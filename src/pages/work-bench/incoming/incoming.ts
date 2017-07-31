@@ -49,9 +49,10 @@ export class IncomingPage {
     });
     load.present();
      this.incomingService.getIncomingList(this.limit,this.offset).then((res)=>{
-       refresh.complete();
+       
        console.log(res)
        load.dismiss();
+       refresh.complete();
        this.items=res.result.res_data;
      })
    

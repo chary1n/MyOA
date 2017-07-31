@@ -5,10 +5,31 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content class="grid-basic-page">
+<ion-content>
+<ion-grid>
+<ion-row align-items-center>
+      <ion-col>
+         <div class="other_incoming_div" (click) = 'incoming_clicked()'>
+          <img src="assets/img/shenpi.png">
+          <p>采购入库</p>
+        </div>
+      </ion-col>
+      <ion-col>
+        <div class="supplier_div" (click) = 'supplier_clicked()'>
+          <img src="assets/img/apply.png">
+          <p>供应商</p>
+        </div>
+      </ion-col>
+      <ion-col>
+        <div></div>
+      </ion-col>
+      <ion-col>
+        <div></div>
+      </ion-col>
+    </ion-row>
+</ion-grid>
 
-
-  <p>
+  <!--<p>
     |  常用
   </p>
   <ion-grid >
@@ -46,5 +67,12 @@
           <p>采购入库</p>
         </div>
       </ion-col>
+      <ion-col>
+        <div class="other_card_div">
+          <img src="assets/img/apply.png">
+          <p>供应商</p>
+        </div>
+      </ion-col>
     </ion-row> 
-  </ion-grid>
+  </ion-grid>-->
+</ion-content>
