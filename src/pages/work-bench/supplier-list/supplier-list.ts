@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { SupplierlistService } from './supplierlistService';
 import { LoadingController } from 'ionic-angular';
+import { SupplierDetailPage} from './../supplier-detail/supplier-detail'
+
 /**
  * Generated class for the SupplierListPage page.
  *
@@ -28,16 +30,20 @@ export class SupplierListPage {
       content: '加载中...',
       dismissOnPageChange: true
     });
-    load.present();
-     this.supplierService.getSupplierList(this.limit,this.offset).then((res)=>{
+    load.present().then(() => {
+        this.supplierService.getSupplierList(this.limit,this.offset).then((res)=>{
        console.log(res)
        load.dismiss();
        this.items=res.result.res_data;
      })
+    });
+     
   }
   supplier_detail(id)
   {
-      
+    this.navCtrl.push(SupplierDetailPage,{
+      id:id,
+    });
   }
 
   getItems(ev) {
