@@ -15,13 +15,13 @@ import { ContactListPage } from './contact-list/contact-list';
 @NgModule({
   declarations: [
     WorkBenchPage,CardinfoPage,IncomingPage,IncomingDetailPage,InspectionDetailPage,SupplierListPage,SupplierDetailPage
-    ,ContactListPage,OrderPage,ReturnOrderDetailPage
+    ,ContactListPage,OrderPage,ReturnOrderDetailPage,OrderDetailPage
   ],
   imports: [
     IonicPageModule.forChild(WorkBenchPage),
   ],
   entryComponents:[ WorkBenchPage,CardinfoPage,IncomingPage,IncomingDetailPage,
-    InspectionDetailPage,SupplierListPage,SupplierDetailPage,OrderPage,ContactListPage,ReturnOrderDetailPage],
+    InspectionDetailPage,SupplierListPage,SupplierDetailPage,OrderPage,ContactListPage,ReturnOrderDetailPage,OrderDetailPage],
   exports: [
     WorkBenchPage
   ]
