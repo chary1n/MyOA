@@ -1,3 +1,4 @@
+import { OrderDetailPage } from './../order-detail/order-detail';
 import { orderService } from './orderService';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
@@ -17,6 +18,9 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 export class OrderPage {
   pet: string = "puppies";
   incomingOrder: any;
+  orderMRP: any;
+  priceOrder: any;
+  returnOrder: any;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public orderService: orderService) {
   }
@@ -26,9 +30,23 @@ export class OrderPage {
   }
 
   clickOne() {
+    this.orderService.requestMakeOrderByMRP(0, 20)
+      .then(res => {
+        if (res.result && res.result.res_code == 1) {
+          this.orderMRP = res.result.res_data
+          console.log(this.orderMRP)
+        }
+      })
 
   }
   clickTwo() {
+    this.orderService.requestPriceOrder(0, 20)
+      .then(res => {
+        if (res.result && res.result.res_code == 1) {
+          this.priceOrder = res.result.res_data
+          console.log(this.priceOrder)
+        }
+      })
 
   }
 
@@ -40,13 +58,33 @@ export class OrderPage {
           console.log(this.incomingOrder)
         }
       })
+
   }
 
   clickFour() {
+    this.orderService.requestReturnOrder(0, 20)
+      .then(res => {
+        if (res.result && res.result.res_code == 1) {
+          this.returnOrder = res.result.res_data
+          console.log(this.returnOrder)
+        }
+      })
 
   }
 
+  orderDetail(id) {
+    this.orderService.requestOrderDetail(id)
+      .then(res => {
+        if (res.result && res.result.res_code == 1) {
+          this.navCtrl.push(OrderDetailPage, {
+            item: res.result
+          })
+        }
+      })
+  }
 
+  returnOrderDetail(id) {
 
+  }
 
 }

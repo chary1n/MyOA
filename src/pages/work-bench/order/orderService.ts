@@ -1,3 +1,4 @@
+import { ModalController } from 'ionic-angular';
 import { HttpService } from './../../../providers/HttpService';
 import { Injectable } from '@angular/core';
 
@@ -19,6 +20,42 @@ export class orderService {
         return this.httpservice.postBody("get_po", body);
     }
 
+    // 询价单
+        requestPriceOrder(moffset, mlimit) {
+        let body = JSON.stringify({
+            state: 'draft',
+            offset: moffset,
+            limit: mlimit
+        });
+        return this.httpservice.postBody("get_po", body);
+    }
 
+
+
+    // make By MRp
+    requestMakeOrderByMRP(moffset,mlimit){
+        let body = JSON.stringify({
+            state: 'make_by_mrp',
+            offset: moffset,
+            limit: mlimit
+        });
+        return this.httpservice.postBody("get_po", body);
+    }
+    // 获取订单详细
+     requestOrderDetail(mid){
+        let body = JSON.stringify({
+            id:mid
+        });
+        return this.httpservice.postBody("get_po", body);
+    }
+
+    //采购退货
+    requestReturnOrder(moffset, mlimit) {
+        let body = JSON.stringify({
+            offset: moffset,
+            limit: mlimit
+        });
+        return this.httpservice.postBody("get_prma", body);
+    }
 
 }
