@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { SupplierlistService } from './supplierlistService';
 import { LoadingController } from 'ionic-angular';
-import { SupplierDetailPage} from './../supplier-detail/supplier-detail'
+import { SupplierDetailPage } from './../supplier-detail/supplier-detail'
 
 /**
  * Generated class for the SupplierListPage page.
@@ -17,11 +17,11 @@ import { SupplierDetailPage} from './../supplier-detail/supplier-detail'
   providers: [SupplierlistService]
 })
 export class SupplierListPage {
-  items_detail:any;
-  items : any;
-  limit = 20 ;
-  offset = 0 ;
-  constructor(public navCtrl: NavController, public navParams: NavParams,public supplierService :SupplierlistService , public loadingCtrl: LoadingController) {
+  items_detail: any;
+  items: any;
+  limit = 20;
+  offset = 0;
+  constructor(public navCtrl: NavController, public navParams: NavParams, public supplierService: SupplierlistService, public loadingCtrl: LoadingController) {
   }
 
   ionViewDidLoad() {
@@ -31,33 +31,32 @@ export class SupplierListPage {
       dismissOnPageChange: true
     });
     load.present().then(() => {
-        this.supplierService.getSupplierList(this.limit,this.offset).then((res)=>{
-       console.log(res)
-       load.dismiss();
-       this.items=res.result.res_data;
-     })
+      this.supplierService.getSupplierList(this.limit, this.offset).then((res) => {
+        console.log(res)
+        load.dismiss();
+        this.items = res.result.res_data;
+      })
     });
-     
+
   }
-  supplier_detail(id)
-  {
+  supplier_detail(id) {
     let load = this.loadingCtrl.create({
       // content: '加载中...',
       // dismissOnPageChange: true
     });
     load.present().then(() => {
-        this.supplierService.getSupplierDetai(this.limit,this.offset,id).then((res)=>{
-       console.log(res)
-       load.dismiss();
-       this.items_detail=res.result.res_data;
-       this.navCtrl.push(SupplierDetailPage,{
-          items:this.items_detail,
-       });
-     })
+      this.supplierService.getSupplierDetai(this.limit, this.offset, id).then((res) => {
+        console.log(res)
+        load.dismiss();
+        this.items_detail = res.result.res_data;
+        this.navCtrl.push(SupplierDetailPage, {
+          items: this.items_detail,
+        });
+      })
     });
-    
-    
-    
+
+
+
   }
 
   getItems(ev) {

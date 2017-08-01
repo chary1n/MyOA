@@ -1,19 +1,23 @@
 page-inspection-detail {
-   .iconBackground{
-        background: #4bb53a;
-    }
-}
+  .iconBackground {
+    background: #4bb53a;
+  }
 
-.footer{
-    height:100px;
-    width:100%;
-    position:absolute;
-    bottom:0;
-    left:0;
-}
+  .footer {
+    height: 100px;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+  }
 
-.footerButton{
-    height: 100%;
+  .footerButton {
     width: 49%;
+  }
 
+  .ion_label{
+      width: 20%;
+      height: 30px;
+      text-align: right;
+  }
 }

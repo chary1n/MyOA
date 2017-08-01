@@ -32,8 +32,6 @@ export class InspectionDetailPage {
   }
   initData() {
     this.item = this.navParams.get('item')
-    console.log(this.item.qc_result == 'success')
-    console.log("duan dian")
     if (this.item.qc_result == 'success') {
       this.qc_result = '品检通过'
     } else {
