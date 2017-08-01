@@ -49,9 +49,8 @@ export class SupplierListPage {
         this.supplierService.getSupplierDetai(this.limit,this.offset,id).then((res)=>{
        console.log(res)
        load.dismiss();
-       this.items=res.result.res_data;
        this.navCtrl.push(SupplierDetailPage,{
-          items:this.items,
+          items:[],
        });
      })
     });

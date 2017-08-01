@@ -15,12 +15,14 @@ import { LoadingController } from 'ionic-angular';
   providers: [SupplierlistService]
 })
 export class SupplierDetailPage {
-  id:any
-  items:any
-  limit:any
-  offset:any
-  constructor(public navCtrl: NavController, public navParams: NavParams,public supplierService :SupplierlistService , public loadingCtrl: LoadingController) {
-    this.items = navParams.get('items');  
+  id: any
+  items: any
+  limit: any
+  offset: any
+  name :string 
+  constructor(public navCtrl: NavController, public navParams: NavParams, public supplierService: SupplierlistService, public loadingCtrl: LoadingController) {
+    this.items = navParams.get('items')
+    this.name  = this.items.name 
   }
 
   ionViewDidLoad() {
@@ -29,6 +31,14 @@ export class SupplierDetailPage {
     this.offset = 0;
   }
 
+  first_clicked(){
 
-  
+  }
+
+  second_clicked(){
+    
+  }
+
+
+
 }
