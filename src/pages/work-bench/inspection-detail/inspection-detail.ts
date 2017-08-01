@@ -32,7 +32,13 @@ export class InspectionDetailPage {
   }
   initData() {
     this.item = this.navParams.get('item')
-    this.qc_result = (this.item.qc_result=='success'?'品检通过':'品检失败')
+    console.log(this.item.qc_result == 'success')
+    console.log("duan dian")
+    if (this.item.qc_result == 'success') {
+      this.qc_result = '品检通过'
+    } else {
+      this.qc_result = '品检失败'
+    }
     this.qc_note = this.item.qc_note
     let picture = []
     picture.push(this.item.qc_img)
@@ -83,9 +89,12 @@ export class InspectionDetailPage {
   }
 
   //是否品检通过
-  isSpecial(){
-    console.log(this.item.qc_result=='success'+"this.item.qc_result=='success'")
-    return this.item.qc_result=='success'
+  isSpecial() {
+    if (this.item.qc_result == 'success') {
+      return true
+    } else {
+      return false
+    }
   }
 
   agreeIncoming() {
@@ -106,7 +115,7 @@ export class InspectionDetailPage {
         this.alertCreateDebt()
       } else {
         // 入库调拨成功，等待入库
-       this.alertWaitingIncoming()
+        this.alertWaitingIncoming()
       }
     }
   }
@@ -175,8 +184,8 @@ export class InspectionDetailPage {
     alert.present()
   }
 
-  alertWaitingIncoming(){
-     let alert = this.alertCtrl.create({
+  alertWaitingIncoming() {
+    let alert = this.alertCtrl.create({
       title: '提示',
       message: "入库调拨成功，等待入库",
       buttons: [
