@@ -1,3 +1,4 @@
+import { OrderPage } from './order/order';
 import { InspectionDetailPage } from './inspection-detail/inspection-detail';
 import { CardinfoPage } from './cardinfo/cardinfo';
 import { IncomingPage} from './incoming/incoming';
@@ -36,6 +37,10 @@ export class WorkBenchPage {
   }
   supplier_clicked(){
     this.navCtrl.push(SupplierListPage)
+  }
+
+  order_clicked(){
+    this.navCtrl.push(OrderPage)
   }
 
 }

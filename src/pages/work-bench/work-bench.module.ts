@@ -1,3 +1,4 @@
+import { OrderPage } from './order/order';
 import { InspectionDetailPage } from './inspection-detail/inspection-detail';
 import { CardinfoPage } from './cardinfo/cardinfo';
 import { IncomingPage} from './incoming/incoming';
@@ -10,12 +11,14 @@ import { SupplierDetailPage } from './supplier-detail/supplier-detail';
 
 @NgModule({
   declarations: [
-    WorkBenchPage,CardinfoPage,IncomingPage,IncomingDetailPage,InspectionDetailPage,SupplierListPage,SupplierDetailPage,
+    WorkBenchPage,CardinfoPage,IncomingPage,IncomingDetailPage,
+    InspectionDetailPage,SupplierListPage,SupplierDetailPage,OrderPage
   ],
   imports: [
     IonicPageModule.forChild(WorkBenchPage),
   ],
-  entryComponents:[ WorkBenchPage,CardinfoPage,IncomingPage,IncomingDetailPage,InspectionDetailPage,SupplierListPage,SupplierDetailPage],
+  entryComponents:[ WorkBenchPage,CardinfoPage,IncomingPage,IncomingDetailPage,
+    InspectionDetailPage,SupplierListPage,SupplierDetailPage,OrderPage],
   exports: [
     WorkBenchPage
   ]

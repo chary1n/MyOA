@@ -13,11 +13,11 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content >
 
   <ion-item>
     <ion-label>品检结果</ion-label>
-    <ion-label item-end  [style.background]="isSpecial?'#4bb53a' : '#ff6622'">{{qc_result}}</ion-label>
+    <ion-label item-width="50px" item-end class="ion_label"  [style.background]="isSpecial?'#4bb53a':'#ff6622'">{{qc_result}}</ion-label>
   </ion-item>
   <ion-item>
     <ion-label>品检批注</ion-label>
@@ -30,17 +30,13 @@
     <ion-img width="100" height="100" src={{pic}}>
     </ion-img>
   </ion-list>
-
-
-
-
-
-
-
 </ion-content>
 <ion-footer>
-  <ion-item>
+  <ion-toolbar full>
     <button ion-button class='footerButton' (click)='clickBack()'> 退回 </button>
-    <button ion-button class='footerButton' (click)='agreeIncoming()'> 同意入库</button>
-  </ion-item>
+    <button ion-button class='footerButton'  (click)='agreeIncoming()'> 同意入库</button>
+  </ion-toolbar>
 </ion-footer>
+
+
+
