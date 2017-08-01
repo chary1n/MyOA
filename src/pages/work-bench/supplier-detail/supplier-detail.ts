@@ -10,6 +10,8 @@ import { CallNumber } from '@ionic-native/call-number';
  * See http://ionicframework.com/docs/components/#navigation for more info
  * on Ionic pages and navigation.
  */
+
+ 
 @IonicPage()
 @Component({
   selector: 'page-supplier-detail',
