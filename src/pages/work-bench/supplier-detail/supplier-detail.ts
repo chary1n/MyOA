@@ -41,7 +41,7 @@ export class SupplierDetailPage {
 
    callPhone(number){  
     let confirm = this.alertCtrl.create({  
-      message: number,  
+      title: this.items.phone,  
       buttons: [  
         {  
           text: '取消',  
@@ -51,7 +51,7 @@ export class SupplierDetailPage {
         {  
           text: '确定',  
           handler: () => {  
-            this.call(number);  
+            this.call(this.items.phone);  
           }  
         }  
       ]  
