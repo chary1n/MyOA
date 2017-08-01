@@ -7,15 +7,17 @@ import { WorkBenchPage } from './work-bench';
 import { IncomingDetailPage} from './incoming-detail/incoming-detail';
 import { SupplierListPage } from './supplier-list/supplier-list';
 import { SupplierDetailPage } from './supplier-detail/supplier-detail';
+import { ContactListPage } from './contact-list/contact-list';
 
 @NgModule({
   declarations: [
-    WorkBenchPage,CardinfoPage,IncomingPage,IncomingDetailPage,InspectionDetailPage,SupplierListPage,SupplierDetailPage,
+    WorkBenchPage,CardinfoPage,IncomingPage,IncomingDetailPage,InspectionDetailPage,SupplierListPage,SupplierDetailPage
+    ,ContactListPage
   ],
   imports: [
     IonicPageModule.forChild(WorkBenchPage),
   ],
-  entryComponents:[ WorkBenchPage,CardinfoPage,IncomingPage,IncomingDetailPage,InspectionDetailPage,SupplierListPage,SupplierDetailPage],
+  entryComponents:[ WorkBenchPage,CardinfoPage,IncomingPage,IncomingDetailPage,InspectionDetailPage,SupplierListPage,SupplierDetailPage,ContactListPage],
   exports: [
     WorkBenchPage
   ]

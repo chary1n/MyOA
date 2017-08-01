@@ -1,0 +1,26 @@
+<!--
+  Generated template for the ContactListPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>联系人&地址</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <ion-item-group *ngFor='let item of contactList'>
+    <ion-item-divider class="divider" color="light"></ion-item-divider>
+    <ion-item>
+      <h1 style="font-weight:bold;">{{item.name}}</h1>
+      <h4 >地址：{{item.street}}</h4>
+      <p>Email：{{item.email}}</p>
+      <p>电话：{{item.phone}}</p>
+    </ion-item>
+  </ion-item-group>
+</ion-content>
