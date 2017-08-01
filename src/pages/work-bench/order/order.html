@@ -25,101 +25,65 @@
 
 <ion-content>
   <div [ngSwitch]="pet">
+    <ion-item>
+
+    </ion-item>
+
     <ng-template [ngSwitchCase]='1'>
-      <ion-list *ngFor='let item of incomingOrder'>
-        <ion-item>
-          <ion-thumbnail item-start>
-            <img src="assets/img/thumbnail-puppy-1.jpg">
-          </ion-thumbnail>
-          <h2>Ruby</h2>
-        </ion-item>
-        <ion-item>
-          <ion-thumbnail item-start>
-            <img src="assets/img/thumbnail-puppy-2.jpg">
-          </ion-thumbnail>
-          <h2>Oscar</h2>
-        </ion-item>
-        <ion-item>
-          <ion-thumbnail item-start>
-            <img src="assets/img/thumbnail-puppy-4.jpg">
-          </ion-thumbnail>
-          <h2>Zoey</h2>
-        </ion-item>
-        <ion-item>
-          <ion-thumbnail item-start>
-            <img src="assets/img/thumbnail-puppy-3.jpg">
-          </ion-thumbnail>
-          <h2>Otto</h2>
+      <ion-list>
+        <ion-item *ngFor='let item of orderMRP' (click) = 'orderDetail(item.id)'>
+          <p style="font-size:100%;float:right;color:#fc6621;">由MRP生成</p>
+          <h2>{{item.name}}</h2>
+          <h4>{{item.order_line}}</h4>
+          <p>负责人：{{item.creater}}</p>
+          <p style="float:right;color:#1e1e1e;font-weight:bold;font-size:70%;">汇总数量：{{item.amount_total}}</p>
+          <p>供应商 ：{{item.supplier}}</p>
+          
+          <p style="float:right">汇总金额 :{{item.product_count}}</p>
         </ion-item>
       </ion-list>
     </ng-template>
 
-    <ion-list *ngSwitchCase="2">
-      <ion-item>
-        <ion-thumbnail item-start>
-          <img src="assets/img/thumbnail-kitten-1.jpg">
-        </ion-thumbnail>
-        <h2>Luna</h2>
-      </ion-item>
-      <ion-item>
-        <ion-thumbnail item-start>
-          <img src="assets/img/thumbnail-kitten-3.jpg">
-        </ion-thumbnail>
-        <h2>Milo</h2>
-      </ion-item>
-      <ion-item>
-        <ion-thumbnail item-start>
-          <img src="assets/img/thumbnail-kitten-4.jpg">
-        </ion-thumbnail>
-        <h2>Bandit</h2>
-      </ion-item>
-      <ion-item>
-        <ion-thumbnail item-start>
-          <img src="assets/img/thumbnail-kitten-2.jpg">
-        </ion-thumbnail>
-        <h2>Nala</h2>
-      </ion-item>
-    </ion-list>
+    <ng-template [ngSwitchCase]='2'>
+      <ion-list>
+        <ion-item *ngFor='let item of priceOrder' (click) = 'orderDetail(item.id)'>
+          <p style="font-size:100%;float:right;color:#fc6621;">采购确认</p>
+          <h2>{{item.name}}</h2>
+          <h4>{{item.order_line}}</h4>
+          <p>负责人：{{item.creater}}</p>
+          <p style="float:right;color:#1e1e1e;font-weight:bold;font-size:70%;">汇总数量：{{item.amount_total}}</p>
+          <p>供应商 ：{{item.supplier}}</p>
+          <p style="float:right">汇总金额 :{{item.product_count}}</p>
+        </ion-item>
+      </ion-list>
+    </ng-template>
 
     <ng-template [ngSwitchCase]='3'>
       <ion-list>
-        <ion-item *ngFor='let item of incomingOrder'>
+        <ion-item *ngFor='let item of incomingOrder' (click) = 'orderDetail(item.id)'>
           <p style="font-size:100%;float:right;color:#fc6621;">采购确认</p>
-          <h2 style="font-size:75%;font-weight:bold;font-size:75%;">{{item.name}}</h2>
-          <h4 style="font-size:70%">{{item.order_line}}</h4>
-          <p style="font-size:70%">负责人：{{item.creater}}</p>
+          <h2>{{item.name}}</h2>
+          <h4>{{item.order_line}}</h4>
+          <p>负责人：{{item.creater}}</p>
           <p style="float:right;color:#1e1e1e;font-weight:bold;font-size:70%;">汇总数量：{{item.amount_total}}</p>
-          <p style="font-size:70%">供应商 ：{{item.supplier}}</p>
-          <p style="font-size:70%;float:right" >汇总金额 :{{item.product_count}}</p>
+          <p>供应商 ：{{item.supplier}}</p>
+          <p style="float:right">汇总金额 :{{item.product_count}}</p>
         </ion-item>
       </ion-list>
     </ng-template>
 
-    <ion-list *ngSwitchCase="4">
-      <ion-item>
-        <ion-thumbnail item-start>
-          <img src="assets/img/thumbnail-duckling-1.jpg">
-        </ion-thumbnail>
-        <h2>Daffy</h2>
-      </ion-item>
-      <ion-item>
-        <ion-thumbnail item-start>
-          <img src="assets/img/thumbnail-duckling-2.jpg">
-        </ion-thumbnail>
-        <h2>Huey</h2>
-      </ion-item>
-      <ion-item>
-        <ion-thumbnail item-start>
-          <img src="assets/img/thumbnail-duckling-3.jpg">
-        </ion-thumbnail>
-        <h2>Dewey</h2>
-      </ion-item>
-      <ion-item>
-        <ion-thumbnail item-start>
-          <img src="assets/img/thumbnail-duckling-4.jpg">
-        </ion-thumbnail>
-        <h2>Louie</h2>
-      </ion-item>
-    </ion-list>
+    <ng-template [ngSwitchCase]='4'>
+      <ion-list>
+        <ion-item *ngFor='let item of returnOrder' (click) = 'returnOrderDetail(item.id)'>
+          <p style="font-size:100%;float:right;color:#fc6621;">采购确认</p>
+          <h2>{{item.name}}</h2>
+          <h4>{{item.order_line}}</h4>
+          <p>负责人：{{item.creater}}</p>
+          <p style="float:right;color:#1e1e1e;font-weight:bold;font-size:70%;">汇总数量：{{item.amount_total}}</p>
+          <p>供应商 ：{{item.supplier}}</p>
+          <p style="float:right">汇总金额 :{{item.product_count}}</p>
+        </ion-item>
+      </ion-list>
+    </ng-template>
   </div>
 </ion-content>
