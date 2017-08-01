@@ -17,7 +17,7 @@ import { SupplierDetailPage} from './../supplier-detail/supplier-detail'
   providers: [SupplierlistService]
 })
 export class SupplierListPage {
-
+  items_detail:any;
   items : any;
   limit = 20 ;
   offset = 0 ;
@@ -49,8 +49,14 @@ export class SupplierListPage {
         this.supplierService.getSupplierDetai(this.limit,this.offset,id).then((res)=>{
        console.log(res)
        load.dismiss();
+<<<<<<< HEAD
        this.navCtrl.push(SupplierDetailPage,{
           items:[],
+=======
+       this.items_detail=res.result.res_data;
+       this.navCtrl.push(SupplierDetailPage,{
+          items:this.items_detail,
+>>>>>>> 32743197d21db9675146260a6f514a04b8930e9b
        });
      })
     });
