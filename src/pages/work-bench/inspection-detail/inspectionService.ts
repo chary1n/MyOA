@@ -8,7 +8,7 @@ export class InspectionService {
 
     }
 
-// 全部退回
+    // 全部退回
     requestBack(production_ids, pickIds) {
         let body = JSON.stringify({
             state: 'reject',
@@ -27,7 +27,7 @@ export class InspectionService {
         return this.httpservice.postBody("change_stock_picking_state", body, 1);
     }
 
-      noDebtOrder(production_ids, pickIds) {
+    noDebtOrder(production_ids, pickIds) {
         let body = JSON.stringify({
             state: 'cancel_backorder',
             pack_operation_product_ids: production_ids,
@@ -36,8 +36,32 @@ export class InspectionService {
         return this.httpservice.postBody("change_stock_picking_state", body, 1);
     }
 
-       
 
-    
+    // 全部入库
+    allIncoming(production_ids, pickIds) {
+        let body = JSON.stringify({
+            state: 'transfer_way',
+            pack_operation_product_ids: production_ids,
+            picking_id: pickIds,
+            is_all: 'all'
+        });
+        return this.httpservice.postBody("change_stock_picking_state", body, 1);
+    }
+
+
+    // 仅良品入库，不良品退回
+    onlyGoodProductsIncoming(production_ids, pickIds) {
+        let body = JSON.stringify({
+            state: 'transfer_way',
+            pack_operation_product_ids: production_ids,
+            picking_id: pickIds,
+            is_all: 'part'
+        });
+        return this.httpservice.postBody("change_stock_picking_state", body, 1);
+    }
+
+
+
+
 
 }

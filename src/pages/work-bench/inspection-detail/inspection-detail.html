@@ -17,7 +17,7 @@
 
   <ion-item>
     <ion-label>品检结果</ion-label>
-    <ion-label item-width="50px" item-end class="ion_label"  [style.background]="isSpecial?'#4bb53a':'#ff6622'">{{qc_result}}</ion-label>
+    <div style="border-radius:8%;text-align:center;width:30%"   item-end  [style.background]="isSpecial()?'#4bb53a':'#ff6622'">{{qc_result}}</div>
   </ion-item>
   <ion-item>
     <ion-label>品检批注</ion-label>
@@ -26,14 +26,16 @@
   <ion-item>
     <ion-label>品检图片</ion-label>
   </ion-item>
-  <ion-list *ngFor='let pic of picture'>
+  <ion-list *ngFor='let pic of picture' padding>
     <ion-img width="100" height="100" src={{pic}}>
     </ion-img>
   </ion-list>
 </ion-content>
+
+
 <ion-footer>
-  <ion-toolbar full>
-    <button ion-button class='footerButton' (click)='clickBack()'> 退回 </button>
-    <button ion-button class='footerButton'  (click)='agreeIncoming()'> 同意入库</button>
+  <ion-toolbar  >
+    <button ion-button ion-start style='width:48%' (click)='clickBack()'> 退回 </button>
+     <button ion-button  ion-end style='width:48%' (click)='agreeIncoming()'> 同意入库</button> 
   </ion-toolbar>
 </ion-footer>
