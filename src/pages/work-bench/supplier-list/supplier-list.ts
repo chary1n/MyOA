@@ -78,45 +78,38 @@ export class SupplierListPage {
   }
 
   doInfinite(infiniteScroll) {
-    if (this.isMoreData == true)
-    {
-      this.limit += 20;
-    this.offset += 20;
-    let loading = this.loadingCtrl.create({
-      content: '加载中...'
-    });
+    if (this.isMoreData == true) {
+      this.limit = 20;
+      this.offset += 20;
+      let loading = this.loadingCtrl.create({
+        content: '加载中...'
+      });
 
-    // setTimeout(() => {
       loading.present().then(() => {
-      this.supplierService.getSupplierList(this.limit, this.offset).then((res) => {
-        console.log(res)
-        loading.dismiss();
-        let item_data = [];
-        if(res.result.res_data)
-        {
-          item_data = res.result.res_data;
-          if (item_data.length >= 20)
-          {
-            this.isMoreData = true;
+        this.supplierService.getSupplierList(this.limit, this.offset).then((res) => {
+          console.log(res)
+          loading.dismiss();
+          let item_data = [];
+          if (res.result.res_data) {
+            item_data = res.result.res_data;
+            if (item_data.length >= 20) {
+              this.isMoreData = true;
+            }
+            else {
+              this.isMoreData = false;
+            }
+            for (let item of item_data) {
+              this.items.push(item);
+            }
           }
-          else
-          {
+          else {
             this.isMoreData = false;
           }
-          for (let item of item_data) {
-              this.items.push(item);
-            } 
-        }
-        else
-        {
-          this.isMoreData = false;
-        }
-        infiniteScroll.complete();
-      })
-    });
+          infiniteScroll.complete();
+        })
+      });
     }
-    else
-    {
+    else {
       infiniteScroll.complete();
     }
   }
