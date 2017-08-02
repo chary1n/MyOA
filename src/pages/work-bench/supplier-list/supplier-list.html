@@ -7,14 +7,17 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>供应商</ion-title>
+    <ion-title>供应商2</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content >
-  <ion-searchbar placeholder="搜索" type="search" (ionInput)="getItems($event)"></ion-searchbar>
+  <ion-searchbar placeholder="搜索" type="search" [showCancelButton]="shouldShowCancel" (ionInput)="getItems($event)" (ionCancel)="onCancel($event)"></ion-searchbar>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
   <ion-list>
     <ion-item *ngFor='let item of items' (click) = 'supplier_detail(item.id)'>
       <ion-avatar item-start>
@@ -25,4 +28,7 @@
       <p class="p_class" text-wrap>电话:{{item.phone}} Email:{{item.email}}</p>
     </ion-item>
   </ion-list>
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
 </ion-content>

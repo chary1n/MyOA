@@ -21,6 +21,7 @@ export class SupplierListPage {
   items: any;
   limit = 20;
   offset = 0;
+  isMoreData = true;
   constructor(public navCtrl: NavController, public navParams: NavParams, public supplierService: SupplierlistService, public loadingCtrl: LoadingController) {
   }
 
@@ -59,18 +60,68 @@ export class SupplierListPage {
 
   }
 
+  doRefresh(refresh) {
+    this.isMoreData = true;
+    this.limit = 20;
+    this.offset = 0;
+    let loading = this.loadingCtrl.create({
+      content: '加载中...'
+    });
+    loading.present().then(() => {
+      this.supplierService.getSupplierList(this.limit, this.offset).then((res) => {
+        console.log(res)
+        loading.dismiss();
+        refresh.complete();
+        this.items = res.result.res_data;
+      })
+    });
+  }
+
+  doInfinite(infiniteScroll) {
+    if (this.isMoreData == true)
+    {
+      this.limit += 20;
+    this.offset += 20;
+    let loading = this.loadingCtrl.create({
+      content: '加载中...'
+    });
+
+    // setTimeout(() => {
+      loading.present().then(() => {
+      this.supplierService.getSupplierList(this.limit, this.offset).then((res) => {
+        console.log(res)
+        loading.dismiss();
+        let item_data = [];
+        if(res.result.res_data)
+        {
+          item_data = res.result.res_data;
+          if (item_data.length >= 20)
+          {
+            this.isMoreData = true;
+          }
+          else
+          {
+            this.isMoreData = false;
+          }
+          for (let item of item_data) {
+              this.items.push(item);
+            } 
+        }
+        else
+        {
+          this.isMoreData = false;
+        }
+        infiniteScroll.complete();
+      })
+    });
+    }
+    else
+    {
+      infiniteScroll.complete();
+    }
+  }
+
   getItems(ev) {
-    // Reset items back to all of the items
-    // this.initializeItems();
 
-    // set val to the value of the ev target
-    // var val = ev.target.value;
-
-    // // if the value is an empty string don't filter the items
-    // if (val && val.trim() != '') {
-    //   this.items = this.items.filter((item) => {
-    //     return (item.toLowerCase().indexOf(val.toLowerCase()) > -1);
-    //   })
-    // }
   }
 }
