@@ -21,6 +21,7 @@ export class IncomingPage {
   items: any;
   limit = 20;
   offset = 0;
+  isMoreData = true;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public incomingService: IncomingService, public loadingCtrl: LoadingController) {
   }
@@ -41,6 +42,7 @@ export class IncomingPage {
   }
 
   doRefresh(refresh) {
+    this.isMoreData = true;
     this.limit = 20;
     this.offset = 0;
     let loading = this.loadingCtrl.create({
@@ -57,13 +59,20 @@ export class IncomingPage {
     });
   }
 
+
+  
+
   doInfinite(infiniteScroll) {
-    this.limit += 20;
+    if (this.isMoreData == true)
+    {
+      this.limit += 20;
     this.offset += 20;
     let loading = this.loadingCtrl.create({
       content: '加载中...'
     });
-    loading.present().then(() => {
+
+    // setTimeout(() => {
+      loading.present().then(() => {
       this.incomingService.getIncomingList(this.limit, this.offset).then((res) => {
         console.log(res)
         loading.dismiss();
@@ -71,14 +80,30 @@ export class IncomingPage {
         if(res.result.res_data)
         {
           item_data = res.result.res_data;
-            for (let item of item_data) {
+          if (item_data.length == 20)
+          {
+            this.isMoreData = true;
+          }
+          else
+          {
+            this.isMoreData = false;
+          }
+          for (let item of item_data) {
               this.items.push(item);
-            }
+            } 
         }
-        
+        else
+        {
+          this.isMoreData = false;
+        }
         infiniteScroll.complete();
       })
     });
+    }
+    else
+    {
+      infiniteScroll.complete();
+    }
   }
 
   incoming_detail(item) {
