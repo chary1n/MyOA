@@ -80,7 +80,7 @@ export class InspectionDetailPage {
     this.inspectionService.requestBack(this.pack, this.item.picking_id)
       .then(res => {
         if (res.result && res.result.res_code == 1) {
-          this.navCtrl.pop()
+           this.navCtrl.popTo(IncomingPage);
         }
         console.log(res)
       })
@@ -95,6 +95,10 @@ export class InspectionDetailPage {
     }
   }
 
+  noButton() {
+    return false
+  }
+
   agreeIncoming() {
     let rejectQTY = 0;
     let productQTY = 0;
@@ -106,37 +110,54 @@ export class InspectionDetailPage {
     }
     if (rejectQTY > 0) {
       // 有不良品
-      this.contansBadProduct(QTYDone - rejectQTY, rejectQTY)
+      this.contansBadProduct(QTYDone - rejectQTY, rejectQTY, productQTY, QTYDone)
     } else {
-      if (productQTY > QTYDone) {
-        // 没有不良品有未完成数量
-        this.alertCreateDebt()
-      } else {
-        // 入库调拨成功，等待入库
-        this.alertWaitingIncoming()
-      }
+      this.checkIfHaveDebt(productQTY, QTYDone)
     }
   }
-  contansBadProduct(goodProduct, rejectQTY) {
+
+  // 是否有未完成数量
+  checkIfHaveDebt(productQTY, QTYDone) {
+    if (productQTY > QTYDone) {
+      // 没有不良品有未完成数量
+      this.alertCreateDebt()
+    } else {
+      // 入库调拨成功，等待入库
+      this.alertWaitingIncoming()
+    }
+  }
+
+
+
+  contansBadProduct(goodProduct, rejectQTY, productQTY, QTYDone) {
     let alert = this.alertCtrl.create({
       title: '请选择入库方式',
       message: '良品：' + goodProduct + ',不良品 ：' + rejectQTY,
       buttons: [
         {
-          text: '取消',
-          role: 'cancel',
-        },
-        {
           text: '全部入库',
           handler: () => {
-
+            this.inspectionService.allIncoming(this.pack, this.item.picking_id)
+              .then(res => {
+                if (res.result && res.result.res_code == 1) {
+                  this.checkIfHaveDebt(productQTY, QTYDone)
+                }
+              })
           }
         },
         {
           text: '仅良品入库，不良品退回',
           handler: () => {
-
+            this.inspectionService.onlyGoodProductsIncoming(this.pack, this.item.picking_id)
+              .then(res => {
+                if (res.result && res.result.res_code == 1) {
+                  this.checkIfHaveDebt(productQTY, QTYDone)
+                }
+              })
           }
+        }, {
+          text: '取消',
+          role: 'cancel',
         }
       ]
     })
@@ -150,16 +171,12 @@ export class InspectionDetailPage {
       message: "有未完成的数量，是否创建欠单",
       buttons: [
         {
-          text: '取消',
-          role: 'cancel',
-        },
-        {
           text: '创建欠单',
           handler: () => {
             this.inspectionService.createDebtOrder(this.pack, this.item.picking_id)
               .then(res => {
                 if (res.result && res.result.res_code == 1) {
-                  this.navCtrl.pop()
+                  this.navCtrl.popTo(IncomingPage);
                 }
                 console.log(res)
               })
@@ -171,11 +188,15 @@ export class InspectionDetailPage {
             this.inspectionService.noDebtOrder(this.pack, this.item.picking_id)
               .then(res => {
                 if (res.result && res.result.res_code == 1) {
-                  this.navCtrl.pop()
+                  this.navCtrl.popTo(IncomingPage);
                 }
                 console.log(res)
               })
           }
+        },
+        {
+          text: '取消',
+          role: 'cancel',
         }
       ]
     })
