@@ -1,3 +1,4 @@
+import { ReturnOrderDetailPage } from './../return-order-detail/return-order-detail';
 import { OrderDetailPage } from './../order-detail/order-detail';
 import { orderService } from './orderService';
 import { Component } from '@angular/core';
@@ -84,7 +85,23 @@ export class OrderPage {
   }
 
   returnOrderDetail(id) {
-
+    this.orderService.requestReturnOrderDetail(id)
+      .then(res => {
+        if (res.result && res.result.res_code == 1) {
+          this.navCtrl.push(ReturnOrderDetailPage, {
+            item: res.result
+          })
+        }
+      })
   }
+
+  //搜索
+  getItems(ev: any) {
+    let searchText = ev.target.value;
+    if (searchText && searchText.trim() != '') {
+
+        return '1';
+      }
+    }
 
 }

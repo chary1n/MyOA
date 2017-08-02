@@ -26,9 +26,11 @@
 <ion-content>
   <div [ngSwitch]="pet">
     <ion-item>
+      <ion-searchbar (ionInput)="getItems($event)">
 
+      </ion-searchbar>
+      
     </ion-item>
-
     <ng-template [ngSwitchCase]='1'>
       <ion-list>
         <ion-item *ngFor='let item of orderMRP' (click) = 'orderDetail(item.id)'>
@@ -47,7 +49,7 @@
     <ng-template [ngSwitchCase]='2'>
       <ion-list>
         <ion-item *ngFor='let item of priceOrder' (click) = 'orderDetail(item.id)'>
-          <p style="font-size:100%;float:right;color:#fc6621;">采购确认</p>
+          <p style="font-size:100%;float:right;color:#fc6621;">询价单</p>
           <h2>{{item.name}}</h2>
           <h4>{{item.order_line}}</h4>
           <p>负责人：{{item.creater}}</p>
@@ -75,13 +77,13 @@
     <ng-template [ngSwitchCase]='4'>
       <ion-list>
         <ion-item *ngFor='let item of returnOrder' (click) = 'returnOrderDetail(item.id)'>
-          <p style="font-size:100%;float:right;color:#fc6621;">采购确认</p>
+          <p style="font-size:100%;float:right;color:#fc6621;">退货单</p>
           <h2>{{item.name}}</h2>
           <h4>{{item.order_line}}</h4>
-          <p>负责人：{{item.creater}}</p>
-          <p style="float:right;color:#1e1e1e;font-weight:bold;font-size:70%;">汇总数量：{{item.amount_total}}</p>
+          <p>退货日期：{{item.date}}</p>
+          <p style="float:right;color:#1e1e1e;font-weight:bold;font-size:70%;">退货数量：{{item.amount_total}}</p>
           <p>供应商 ：{{item.supplier}}</p>
-          <p style="float:right">汇总金额 :{{item.product_count}}</p>
+          <p>退货原因 :{{item.remark}}</p>
         </ion-item>
       </ion-list>
     </ng-template>

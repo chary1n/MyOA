@@ -58,4 +58,13 @@ export class orderService {
         return this.httpservice.postBody("get_prma", body);
     }
 
+    //采购退货详情
+    requestReturnOrderDetail(mid) {
+        let body = JSON.stringify({
+            id:mid
+        });
+        return this.httpservice.postBody("get_prma", body);
+    }
+
+
 }

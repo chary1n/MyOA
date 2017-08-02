@@ -15,7 +15,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 export class OrderDetailPage {
   item :any 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
-   this.item =navParams.get('item')
+   this.item =navParams.get('item').res_data
    console.log(this.item)
   }
 
