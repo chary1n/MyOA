@@ -48,16 +48,37 @@ export class IncomingPage {
     });
     loading.present().then(() => {
       this.incomingService.getIncomingList(this.limit, this.offset).then((res) => {
-        console.log(res)
+        console.log(res);
         loading.dismiss();
+        refresh.complete();
+        
         this.items = res.result.res_data;
       })
     });
   }
 
   doInfinite(infiniteScroll) {
-    // alert('123');
-    infiniteScroll.complete();
+    this.limit += 20;
+    this.offset += 20;
+    let loading = this.loadingCtrl.create({
+      content: '加载中...'
+    });
+    loading.present().then(() => {
+      this.incomingService.getIncomingList(this.limit, this.offset).then((res) => {
+        console.log(res)
+        loading.dismiss();
+        let item_data = [];
+        if(res.result.res_data)
+        {
+          item_data = res.result.res_data;
+            for (let item of item_data) {
+              this.items.push(item);
+            }
+        }
+        
+        infiniteScroll.complete();
+      })
+    });
   }
 
   incoming_detail(item) {
