@@ -25,6 +25,11 @@ export class IncomingDetailPage {
     console.log('ionViewDidLoad IncomingDetailPage');
   }
 
+  ionViewDidEnter(){
+      this.item = this.navParams.get('item');
+      this.count = 1;
+  }
+
   toInspectionPage(){
     this.navCtrl.push(InspectionDetailPage,{item:this.item})
   }

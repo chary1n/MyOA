@@ -82,7 +82,9 @@ export class InspectionDetailPage {
     this.inspectionService.requestBack(this.pack, this.item.picking_id)
       .then(res => {
         if (res.result && res.result.res_code == 1) {
-          this.navCtrl.popTo(IncomingPage);
+          this.navCtrl.popTo(IncomingPage,{
+                    item :res.result.res_data
+                  });
         }
         console.log(res)
       })
@@ -189,7 +191,9 @@ export class InspectionDetailPage {
             this.inspectionService.createDebtOrder(this.pack, this.item.picking_id)
               .then(res => {
                 if (res.result && res.result.res_code == 1) {
-                  this.navCtrl.popTo(IncomingPage);
+                  this.navCtrl.popTo(IncomingPage,{
+                    item :res.result.res_data
+                  });
                 }
                 console.log(res)
               })
@@ -201,7 +205,9 @@ export class InspectionDetailPage {
             this.inspectionService.noDebtOrder(this.pack, this.item.picking_id)
               .then(res => {
                 if (res.result && res.result.res_code == 1) {
-                  this.navCtrl.popTo(IncomingPage);
+                  this.navCtrl.popTo(IncomingPage,{
+                    item :res.result.res_data
+                  });
                 }
                 console.log(res)
               })
@@ -227,7 +233,9 @@ export class InspectionDetailPage {
             this.inspectionService.noDebtOrder(this.pack, this.item.picking_id)
               .then(res => {
                 if (res.result && res.result.res_code == 1) {
-                  this.navCtrl.popTo(IncomingPage);
+                  this.navCtrl.popTo(IncomingPage,{
+                    item :res.result.res_data
+                  });
                 }
                 console.log(res)
               })

@@ -62,7 +62,7 @@
 
      
       <ion-item style="margin-top:10px" no-lines *ngIf="item_detail.pack_id != -1">
-        <ion-label item-start style="font-size:75%">位置：{{item_detail.product_id.area_id.area_name}}</ion-label>
+        <ion-label item-start style="font-size:75%">位置：{{item_detail.to_location}}</ion-label>
         <ion-label item-end style="font-size:75%">完成：{{item_detail.qty_done}}</ion-label>
       </ion-item>
       <ion-item no-lines *ngIf="item_detail.pack_id != -1" > 

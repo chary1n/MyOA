@@ -30,9 +30,10 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HttpService } from '../providers/HttpService'
+import { Utils } from '../providers/Utils'
 import { HttpModule } from "@angular/http";
 import { IonicStorageModule } from '@ionic/storage';
-import {MsgPage}  from './../pages/msg/msg';
+import { MsgPage } from './../pages/msg/msg';
 
 
 
@@ -72,7 +73,8 @@ import {MsgPage}  from './../pages/msg/msg';
     AppMinimize,
     ImagePicker,
     NativeService,
-     GlobalData
+    GlobalData,
+    Utils,
   ]
 })
 export class AppModule { }

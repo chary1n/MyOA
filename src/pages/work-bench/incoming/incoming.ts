@@ -28,7 +28,20 @@ export class IncomingPage {
 
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad IncomingPage');
+    // console.log('ionViewDidLoad IncomingPage');
+    // let loading = this.loadingCtrl.create({
+    //   content: '加载中...'
+    // });
+    // loading.present().then(() => {
+    //   this.incomingService.getIncomingList(this.limit, this.offset).then((res) => {
+    //     console.log(res)
+    //     loading.dismiss();
+    //     this.items = res.result.res_data;
+    //   })
+    // });
+  }
+
+  ionViewDidEnter(){
     let loading = this.loadingCtrl.create({
       content: '加载中...'
     });
