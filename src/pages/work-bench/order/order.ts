@@ -1,9 +1,9 @@
 import { ReturnOrderDetailPage } from './../return-order-detail/return-order-detail';
 import { OrderDetailPage } from './../order-detail/order-detail';
 import { orderService } from './orderService';
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
-
+import { Segment } from "ionic-angular";
 /**
  * Generated class for the OrderPage page.
  *
@@ -17,17 +17,18 @@ import { IonicPage, NavController, NavParams, AlertController, LoadingController
   providers: [orderService]
 })
 export class OrderPage {
-  pet: string = "puppies";
+  pet: string = "1";
   incomingOrder: any;
   orderMRP: any;
   priceOrder: any;
   returnOrder: any;
   limit = 20;
   offset = 0;
-  isMoreData1: any;
-  isMoreData2: any;
-  isMoreData3: any;
-  isMoreData4: any;
+  isMoreData1 = true;
+  isMoreData2 = true;
+  isMoreData3 = true;
+  isMoreData4 = true;
+  // @ViewChild('mainSegment') mainSegment: Segment;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public orderService: orderService,
@@ -36,6 +37,8 @@ export class OrderPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad OrderPage');
+    // this.mainSegment.setValue('1')
+    this.clickOne()
   }
 
   clickOne() {
@@ -46,7 +49,6 @@ export class OrderPage {
           console.log(this.orderMRP)
         }
       })
-
   }
 
   doRefresh1(refresh) {
@@ -115,7 +117,7 @@ export class OrderPage {
 
   }
 
-   doRefresh2(refresh) {
+  doRefresh2(refresh) {
     this.isMoreData2 = true;
     this.limit = 20;
     this.offset = 0;
@@ -179,7 +181,7 @@ export class OrderPage {
         }
       })
   }
- doRefresh3(refresh) {
+  doRefresh3(refresh) {
     this.isMoreData3 = true;
     this.limit = 20;
     this.offset = 0;
@@ -232,7 +234,7 @@ export class OrderPage {
       infiniteScroll.complete();
     }
   }
-  
+
 
   clickFour() {
     this.orderService.requestReturnOrder(0, 20)
@@ -252,7 +254,7 @@ export class OrderPage {
     let loading = this.loadingCtrl.create({
       content: '加载中...'
     });
-      loading.present().then(() => {
+    loading.present().then(() => {
       this.orderService.requestReturnOrder(0, 20).then((res) => {
         console.log(res)
         loading.dismiss();

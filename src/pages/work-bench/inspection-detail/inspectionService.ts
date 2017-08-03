@@ -27,6 +27,8 @@ export class InspectionService {
         return this.httpservice.postBody("change_stock_picking_state", body, 1);
     }
 
+
+    //不创建欠单或者 不用做操作就请求这个
     noDebtOrder(production_ids, pickIds) {
         let body = JSON.stringify({
             state: 'cancel_backorder',

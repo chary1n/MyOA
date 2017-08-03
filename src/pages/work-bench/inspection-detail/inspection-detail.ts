@@ -34,6 +34,8 @@ export class InspectionDetailPage {
     this.item = this.navParams.get('item')
     if (this.item.qc_result == 'success') {
       this.qc_result = '品检通过'
+    } else if (this.item.qc_result == 'no_result') {
+      this.qc_result = '为以前的品检单,无品检结果记录	'
     } else {
       this.qc_result = '品检失败'
     }
@@ -112,12 +114,12 @@ export class InspectionDetailPage {
       // 有不良品
       this.contansBadProduct(QTYDone - rejectQTY, rejectQTY, productQTY, QTYDone)
     } else {
-      this.checkIfHaveDebt(productQTY, QTYDone,rejectQTY, true)
+      this.checkIfHaveDebt(productQTY, QTYDone, rejectQTY, true)
     }
   }
 
   // 是否有未完成数量 如果不是全部入库，要减去不良品的数量
-  checkIfHaveDebt(productQTY, QTYDone,rejectQTY, isALL) {
+  checkIfHaveDebt(productQTY, QTYDone, rejectQTY, isALL) {
     if (isALL) {
       if (productQTY > QTYDone) {
         // 有未完成数量
@@ -127,7 +129,7 @@ export class InspectionDetailPage {
         this.alertWaitingIncoming()
       }
     } else {
-      if (productQTY > QTYDone-rejectQTY) {
+      if (productQTY > QTYDone - rejectQTY) {
         // 有未完成数量
         this.alertCreateDebt()
       } else {
@@ -150,8 +152,8 @@ export class InspectionDetailPage {
             this.inspectionService.allIncoming(this.pack, this.item.picking_id)
               .then(res => {
                 if (res.result && res.result.res_code == 1) {
-                    
-                  this.checkIfHaveDebt(productQTY, QTYDone, rejectQTY,true)
+
+                  this.checkIfHaveDebt(productQTY, QTYDone, rejectQTY, true)
                 }
               })
           }
@@ -162,7 +164,7 @@ export class InspectionDetailPage {
             this.inspectionService.onlyGoodProductsIncoming(this.pack, this.item.picking_id)
               .then(res => {
                 if (res.result && res.result.res_code == 1) {
-                  this.checkIfHaveDebt(productQTY, QTYDone,rejectQTY, false)
+                  this.checkIfHaveDebt(productQTY, QTYDone, rejectQTY, false)
                 }
               })
           }
@@ -222,7 +224,13 @@ export class InspectionDetailPage {
         {
           text: '确定',
           handler: () => {
-            this.navCtrl.popTo(IncomingPage);
+            this.inspectionService.noDebtOrder(this.pack, this.item.picking_id)
+              .then(res => {
+                if (res.result && res.result.res_code == 1) {
+                  this.navCtrl.popTo(IncomingPage);
+                }
+                console.log(res)
+              })
           }
         },
       ]

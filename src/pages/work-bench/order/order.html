@@ -6,7 +6,7 @@
   </ion-navbar>
 
   <ion-toolbar no-border-top>
-    <ion-segment [(ngModel)]="pet">
+    <ion-segment [(ngModel)]="pet"  #mainSegment>
       <ion-segment-button (click)='clickOne()' value="1">
         Orders Make By MRP
       </ion-segment-button>
@@ -26,10 +26,6 @@
 <ion-content>
   <div [ngSwitch]="pet">
     <ion-item>
-      <ion-searchbar (ionInput)="getItems($event)">
-
-      </ion-searchbar>
-
     </ion-item>
     <ng-template [ngSwitchCase]='1'>
       <ion-refresher (ionRefresh)="doRefresh1($event)">
