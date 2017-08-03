@@ -19,7 +19,7 @@
       <ion-refresher-content></ion-refresher-content>
     </ion-refresher>
   <ion-list>
-    <ion-item *ngFor='let item of items' (click) = 'supplier_detail(item.id)'>
+    <ion-item *ngFor='let item of items' tappable (click) = 'supplier_detail(item.id)'>
       <ion-avatar item-start>
         <!--<img src="assets/img/avatar-finn.png">-->
       </ion-avatar>
