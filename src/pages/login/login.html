@@ -20,7 +20,7 @@
   <ion-list style="margin-top:20px">
       <ion-item>
       <ion-label>选择数据库</ion-label>
-    <ion-select [(ngModel)]="employee" (click)="chooseDb()">
+    <ion-select [(ngModel)]="employee" tappable (click)="chooseDb()">
     <ion-option *ngFor="let db of dbs" [value]="db">{{db}}</ion-option>
       </ion-select>
     </ion-item>
@@ -39,7 +39,7 @@
 
   <br />
 
-  <button id="login_button" ion-button color="light" outline block  (click)="toLogin()">
+  <button id="login_button" ion-button color="light" outline block tappable (click)="toLogin()">
     登录
   </button>
 

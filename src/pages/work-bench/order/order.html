@@ -7,16 +7,16 @@
 
   <ion-toolbar no-border-top>
     <ion-segment [(ngModel)]="pet">
-      <ion-segment-button (click)='clickOne()' value="1">
+      <ion-segment-button tappable (click)='clickOne()' value="1">
         Orders Make By MRP
       </ion-segment-button>
-      <ion-segment-button (click)='clickTwo()' value="2">
+      <ion-segment-button tappable (click)='clickTwo()' value="2">
         询价单
       </ion-segment-button>
-      <ion-segment-button (click)='clickThree()' value="3">
+      <ion-segment-button tappable (click)='clickThree()' value="3">
         采购订单
       </ion-segment-button>
-      <ion-segment-button (click)='clickFour()' value="4">
+      <ion-segment-button tappable (click)='clickFour()' value="4">
         采购退货
       </ion-segment-button>
     </ion-segment>
@@ -36,7 +36,7 @@
         <ion-refresher-content></ion-refresher-content>
       </ion-refresher>
       <ion-list>
-        <ion-item *ngFor='let item of orderMRP' (click)='orderDetail(item.id)'>
+        <ion-item *ngFor='let item of orderMRP' tappable (click)='orderDetail(item.id)'>
           <p style="font-size:100%;float:right;color:#fc6621;">由MRP生成</p>
           <h2>{{item.name}}</h2>
           <h4>{{item.order_line}}</h4>
@@ -59,7 +59,7 @@
         <ion-refresher-content></ion-refresher-content>
       </ion-refresher>
       <ion-list>
-        <ion-item *ngFor='let item of priceOrder' (click)='orderDetail(item.id)'>
+        <ion-item *ngFor='let item of priceOrder' tappable (click)='orderDetail(item.id)'>
           <p style="font-size:100%;float:right;color:#fc6621;">询价单</p>
           <h2>{{item.name}}</h2>
           <h4>{{item.order_line}}</h4>
@@ -80,7 +80,7 @@
         <ion-refresher-content></ion-refresher-content>
       </ion-refresher>
       <ion-list>
-        <ion-item *ngFor='let item of incomingOrder' (click)='orderDetail(item.id)'>
+        <ion-item *ngFor='let item of incomingOrder' tappable (click)='orderDetail(item.id)'>
           <p style="font-size:100%;float:right;color:#fc6621;">采购确认</p>
           <h2>{{item.name}}</h2>
           <h4>{{item.order_line}}</h4>
@@ -100,7 +100,7 @@
         <ion-refresher-content></ion-refresher-content>
       </ion-refresher>
       <ion-list>
-        <ion-item *ngFor='let item of returnOrder' (click)='returnOrderDetail(item.id)'>
+        <ion-item *ngFor='let item of returnOrder' tappable (click)='returnOrderDetail(item.id)'>
           <p style="font-size:100%;float:right;color:#fc6621;">退货单</p>
           <h2>{{item.name}}</h2>
           <h4>{{item.order_line}}</h4>

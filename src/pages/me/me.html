@@ -33,7 +33,7 @@
     </ion-grid>
 
 
-  <div class="edit_wraper" (click)='editInformation()'>
+  <div class="edit_wraper" tappable (click)='editInformation()'>
     <div>
       <ion-icon name="create"></ion-icon>
       <span>编辑资料</span>
@@ -64,7 +64,7 @@
 
     </ion-list>
 
-    <button  ion-button  outline block (click)="outToLogin()" >
+    <button  ion-button  outline block tappable (click)="outToLogin()" >
     退出登录
   </button>
   </ion-content>

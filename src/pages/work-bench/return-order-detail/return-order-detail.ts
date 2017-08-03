@@ -5,8 +5,8 @@ import { PoContactPage } from './../po-contact/po-contact';
 @Component({
   template: `
     <ion-list>
-      <button ion-item (click)="click_phone()">联系电话</button>
-      <button ion-item (click)="close()">交货</button>
+      <button ion-item tappable (click)="click_phone()">联系电话</button>
+      <button ion-item tappable (click)="close()">交货</button>
     </ion-list>
   `,
   providers: [orderService,PoContactPage]
@@ -24,7 +24,7 @@ export class ReturnPopoverPage {
   click_phone()
   {
     
-    this.orderService.get_contact_phone_number(this.id,"purchase.order").then((res) => {
+    this.orderService.get_contact_phone_number(this.id,"return.goods").then((res) => {
         let item_detai = res.result.res_data;
          this.viewCtrl.getNav().push(PoContactPage, {
             items: item_detai
