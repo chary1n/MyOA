@@ -80,7 +80,7 @@ export class InspectionDetailPage {
     this.inspectionService.requestBack(this.pack, this.item.picking_id)
       .then(res => {
         if (res.result && res.result.res_code == 1) {
-           this.navCtrl.popTo(IncomingPage);
+          this.navCtrl.popTo(IncomingPage);
         }
         console.log(res)
       })
@@ -112,18 +112,28 @@ export class InspectionDetailPage {
       // 有不良品
       this.contansBadProduct(QTYDone - rejectQTY, rejectQTY, productQTY, QTYDone)
     } else {
-      this.checkIfHaveDebt(productQTY, QTYDone)
+      this.checkIfHaveDebt(productQTY, QTYDone,rejectQTY, true)
     }
   }
 
-  // 是否有未完成数量
-  checkIfHaveDebt(productQTY, QTYDone) {
-    if (productQTY > QTYDone) {
-      // 没有不良品有未完成数量
-      this.alertCreateDebt()
+  // 是否有未完成数量 如果不是全部入库，要减去不良品的数量
+  checkIfHaveDebt(productQTY, QTYDone,rejectQTY, isALL) {
+    if (isALL) {
+      if (productQTY > QTYDone) {
+        // 有未完成数量
+        this.alertCreateDebt()
+      } else {
+        // 入库调拨成功，等待入库
+        this.alertWaitingIncoming()
+      }
     } else {
-      // 入库调拨成功，等待入库
-      this.alertWaitingIncoming()
+      if (productQTY > QTYDone-rejectQTY) {
+        // 有未完成数量
+        this.alertCreateDebt()
+      } else {
+        // 入库调拨成功，等待入库
+        this.alertWaitingIncoming()
+      }
     }
   }
 
@@ -140,7 +150,8 @@ export class InspectionDetailPage {
             this.inspectionService.allIncoming(this.pack, this.item.picking_id)
               .then(res => {
                 if (res.result && res.result.res_code == 1) {
-                  this.checkIfHaveDebt(productQTY, QTYDone)
+                    
+                  this.checkIfHaveDebt(productQTY, QTYDone, rejectQTY,true)
                 }
               })
           }
@@ -151,7 +162,7 @@ export class InspectionDetailPage {
             this.inspectionService.onlyGoodProductsIncoming(this.pack, this.item.picking_id)
               .then(res => {
                 if (res.result && res.result.res_code == 1) {
-                  this.checkIfHaveDebt(productQTY, QTYDone)
+                  this.checkIfHaveDebt(productQTY, QTYDone,rejectQTY, false)
                 }
               })
           }
