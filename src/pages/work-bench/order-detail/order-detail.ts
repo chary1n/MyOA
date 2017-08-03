@@ -6,8 +6,7 @@ import { PoContactPage } from './../po-contact/po-contact';
   template: `
     <ion-list>
       <button ion-item tappable (click)="click_phone()">联系电话</button>
-      <button ion-item tappable (click)="close()">送货</button>
-      <button ion-item tappable (click)="close()">供应商账单</button>
+      <button ion-item tappable (click)="delivery()">送货</button>
     </ion-list>
   `,
   providers: [orderService,PoContactPage]
@@ -31,6 +30,9 @@ export class PopoverPage {
           })
     
     })
+  }
+  delivery(){
+    
   }
 }
 
