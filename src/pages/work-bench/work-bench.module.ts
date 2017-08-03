@@ -11,17 +11,19 @@ import { IncomingDetailPage } from './incoming-detail/incoming-detail';
 import { SupplierListPage } from './supplier-list/supplier-list';
 import { SupplierDetailPage } from './supplier-detail/supplier-detail';
 import { ContactListPage } from './contact-list/contact-list';
-
+import { PopoverPage} from './order-detail/order-detail'
+import { PoContactPage } from './po-contact/po-contact';
+import { ReturnPopoverPage} from './return-order-detail/return-order-detail'
 @NgModule({
   declarations: [
     WorkBenchPage,CardinfoPage,IncomingPage,IncomingDetailPage,InspectionDetailPage,SupplierListPage,SupplierDetailPage
-    ,ContactListPage,OrderPage,ReturnOrderDetailPage,OrderDetailPage
+    ,ContactListPage,OrderPage,ReturnOrderDetailPage,OrderDetailPage,PopoverPage,PoContactPage,ReturnPopoverPage
   ],
   imports: [
     IonicPageModule.forChild(WorkBenchPage),
   ],
   entryComponents:[ WorkBenchPage,CardinfoPage,IncomingPage,IncomingDetailPage,
-    InspectionDetailPage,SupplierListPage,SupplierDetailPage,OrderPage,ContactListPage,ReturnOrderDetailPage,OrderDetailPage],
+    InspectionDetailPage,SupplierListPage,SupplierDetailPage,OrderPage,ContactListPage,ReturnOrderDetailPage,OrderDetailPage,PopoverPage,PoContactPage,ReturnPopoverPage],
   exports: [
     WorkBenchPage
   ]

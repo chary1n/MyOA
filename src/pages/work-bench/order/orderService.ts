@@ -66,5 +66,14 @@ export class orderService {
         return this.httpservice.postBody("get_prma", body);
     }
 
+    get_contact_phone_number(id,model)
+    {
+        let body = JSON.stringify({
+            id:id,
+            model:model
+        });
+        return this.httpservice.postBody("get_contact_phone_number", body);
+    }
+
 
 }
