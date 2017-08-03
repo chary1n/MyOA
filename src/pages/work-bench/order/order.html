@@ -26,10 +26,6 @@
 <ion-content>
   <div [ngSwitch]="pet">
     <ion-item>
-      <ion-searchbar (ionInput)="getItems($event)">
-
-      </ion-searchbar>
-
     </ion-item>
     <ng-template [ngSwitchCase]='1'>
       <ion-refresher (ionRefresh)="doRefresh1($event)">
