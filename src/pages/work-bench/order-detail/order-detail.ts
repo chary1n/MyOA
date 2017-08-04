@@ -26,7 +26,7 @@ export class PopoverPage {
     
     this.orderService.get_contact_phone_number(this.id,"purchase.order").then((res) => {
         let item_detai = res.result.res_data;
-         this.viewCtrl.getNav().push(DeliveryNotesPage, {
+         this.viewCtrl.getNav().push(PoContactPage, {
             items: item_detai
           })
     
@@ -35,9 +35,13 @@ export class PopoverPage {
   delivery(){
     this.orderService.get_delivery_notes(this.id).then((res) => {
       let item_detai = res.result.res_data;
-      this.viewCtrl.getNav().push(PoContactPage, {
-            items: item_detai
+      if (item_detai)
+      {
+        this.viewCtrl.getNav().push(DeliveryNotesPage, {
+            items: item_detai,
+            type: "purchase"
           })
+      }
     })
   }
 }

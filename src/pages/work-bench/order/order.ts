@@ -269,7 +269,8 @@ export class OrderPage {
       .then(res => {
         if (res.result && res.result.res_code == 1) {
           this.navCtrl.push(ReturnOrderDetailPage, {
-            item: res.result
+            item: res.result,
+            id:id,
           })
         }
       })

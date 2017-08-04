@@ -88,7 +88,7 @@ export class orderService {
     {
         let body = JSON.stringify({
             id:id,
-            prma:"1"
+            prma:1
         });
         return this.httpservice.postBody("get_delivery_notes", body);
     }
