@@ -1,3 +1,4 @@
+import { Utils } from './../../../providers/Utils';
 import { IncomingPage } from './../incoming/incoming';
 import { IncomingDetailPage } from './../incoming-detail/incoming-detail';
 import { APK_DOWNLOAD } from './../../../providers/Constants';
@@ -24,11 +25,13 @@ export class InspectionDetailPage {
   picture: Array<string>;
   qc_color: any;
   pack: any;
+  mIncomingDetailPage: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private alertCtrl: AlertController,
-    private inspectionService: InspectionService) {
+    private inspectionService: InspectionService, ) {
     this.initData()
+    this.mIncomingDetailPage = Utils.getViewController("IncomingDetailPage", navCtrl)
   }
   initData() {
     this.item = this.navParams.get('item')
@@ -79,12 +82,12 @@ export class InspectionDetailPage {
   }
 
   doRequestBack() {
+    let self = this
     this.inspectionService.requestBack(this.pack, this.item.picking_id)
       .then(res => {
         if (res.result && res.result.res_code == 1) {
-          this.navCtrl.popTo(IncomingPage,{
-                    item :res.result.res_data
-                  });
+          self.mIncomingDetailPage.data.item = res.result.res_data;
+          self.navCtrl.popTo(self.mIncomingDetailPage);
         }
         console.log(res)
       })
@@ -181,6 +184,7 @@ export class InspectionDetailPage {
 
 
   alertCreateDebt() {
+    var self = this
     let alert = this.alertCtrl.create({
       title: '请选择入库方式',
       message: "有未完成的数量，是否创建欠单",
@@ -191,9 +195,8 @@ export class InspectionDetailPage {
             this.inspectionService.createDebtOrder(this.pack, this.item.picking_id)
               .then(res => {
                 if (res.result && res.result.res_code == 1) {
-                  this.navCtrl.popTo(IncomingPage,{
-                    item :res.result.res_data
-                  });
+                  self.mIncomingDetailPage.data.item = res.result.res_data;
+                  self.navCtrl.popTo(self.mIncomingDetailPage);
                 }
                 console.log(res)
               })
@@ -205,9 +208,8 @@ export class InspectionDetailPage {
             this.inspectionService.noDebtOrder(this.pack, this.item.picking_id)
               .then(res => {
                 if (res.result && res.result.res_code == 1) {
-                  this.navCtrl.popTo(IncomingPage,{
-                    item :res.result.res_data
-                  });
+                  self.mIncomingDetailPage.data.item = res.result.res_data;
+                  self.navCtrl.popTo(self.mIncomingDetailPage);
                 }
                 console.log(res)
               })
@@ -223,6 +225,7 @@ export class InspectionDetailPage {
   }
 
   alertWaitingIncoming() {
+    let self = this
     let alert = this.alertCtrl.create({
       title: '提示',
       message: "入库调拨成功，等待入库",
@@ -233,9 +236,8 @@ export class InspectionDetailPage {
             this.inspectionService.noDebtOrder(this.pack, this.item.picking_id)
               .then(res => {
                 if (res.result && res.result.res_code == 1) {
-                  this.navCtrl.popTo(IncomingPage,{
-                    item :res.result.res_data
-                  });
+                  self.mIncomingDetailPage.data.item = res.result.res_data;
+                  self.navCtrl.popTo(self.mIncomingDetailPage);
                 }
                 console.log(res)
               })

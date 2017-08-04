@@ -1,3 +1,4 @@
+import { LoadingController } from 'ionic-angular';
 import * as constansts from './Constants';
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
@@ -7,7 +8,7 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class HttpService {
 
-  constructor(private http: Http) {
+  constructor(private http: Http,private loading :LoadingController) {
   }
 
   getAppPath(url: string, type: number = 0) {
@@ -20,7 +21,9 @@ export class HttpService {
 
   //type 不填是OA,填1是linkloving_app_apu
   public get(url: string, paramObj: any, type: number = 0) {
+    let loading = this.loadingCreate(true);  
     return this.http.get(this.getAppPath(url,type) + this.toQueryString(paramObj))
+      .map(data=>this.dealRe(data,loading))
       .toPromise()
       .then(res => this.handleSuccess(
         res.json())
@@ -39,9 +42,31 @@ export class HttpService {
       .catch(error => this.handleError(error));
   }
 
+  
+  //加载  
+  private loadingCreate(isLoading:true,pageIndex?){  
+    let loading = this.loading.create({  
+      content: '加载中'  
+    });  
+    pageIndex = typeof(pageIndex)=='undefined'?1:pageIndex;  
+    isLoading = typeof(isLoading)=='undefined'?true:isLoading;  
+    if(isLoading == true && pageIndex == 1)  
+    {  
+      loading.present();  
+    }  
+    return loading;  
+  }  
+
+   //返回处理  
+  private dealRe(re,loading){  
+    loading.dismiss();  
+    return re;  
+  }  
   public postBody(url: string, paramObj: any, type: number = 0) {
+    let loading = this.loadingCreate(true);  
     let headers = new Headers({ 'Content-Type': 'application/json' });
     return this.http.post(this.getAppPath(url,type), paramObj, new RequestOptions({ headers: headers }))
+      .map(data=>this.dealRe(data,loading))
       .toPromise()
       .then(res => 
         this.handleSuccess(res.json())

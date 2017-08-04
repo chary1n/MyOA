@@ -23,41 +23,24 @@ export class SupplierListPage {
   offset = 0;
   isMoreData = true;
   searchName:any;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public supplierService: SupplierlistService, public loadingCtrl: LoadingController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public supplierService: SupplierlistService) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SupplierListPage');
-    let load = this.loadingCtrl.create({
-      content: '加载中...',
-      dismissOnPageChange: true
-    });
-    load.present().then(() => {
       this.supplierService.getSupplierList(this.limit, this.offset).then((res) => {
         console.log(res)
-        load.dismiss();
         this.items = res.result.res_data;
       })
-    });
-
   }
   supplier_detail(id) {
-    let load = this.loadingCtrl.create({
-      // content: '加载中...',
-      // dismissOnPageChange: true
-    });
-    load.present().then(() => {
       this.supplierService.getSupplierDetai(this.limit, this.offset, id).then((res) => {
         console.log(res)
-        load.dismiss();
         this.items_detail = res.result.res_data;
         this.navCtrl.push(SupplierDetailPage, {
           items: this.items_detail,
         });
       })
-    });
-
-
 
   }
 
@@ -65,31 +48,19 @@ export class SupplierListPage {
     this.isMoreData = true;
     this.limit = 20;
     this.offset = 0;
-    let loading = this.loadingCtrl.create({
-      content: '加载中...'
-    });
-    loading.present().then(() => {
       this.supplierService.getSupplierList(this.limit, this.offset).then((res) => {
         console.log(res)
-        loading.dismiss();
         refresh.complete();
         this.items = res.result.res_data;
       })
-    });
   }
 
   doInfinite(infiniteScroll) {
     if (this.isMoreData == true) {
       this.limit = 20;
       this.offset += 20;
-      let loading = this.loadingCtrl.create({
-        content: '加载中...'
-      });
-
-      loading.present().then(() => {
         this.supplierService.getSupplierList(this.limit, this.offset).then((res) => {
           console.log(res)
-          loading.dismiss();
           let item_data = [];
           if (res.result.res_data) {
             item_data = res.result.res_data;
@@ -108,7 +79,6 @@ export class SupplierListPage {
           }
           infiniteScroll.complete();
         })
-      });
     }
     else {
       infiniteScroll.complete();

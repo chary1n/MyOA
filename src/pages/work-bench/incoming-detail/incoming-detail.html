@@ -40,6 +40,10 @@
       <ion-label style="font-size:85%;font-weight:bold">源单据</ion-label>
       <ion-label item-end style="font-size:65%;text-align:right;">{{item.origin}}</ion-label>
     </ion-item>
+      <ion-item>
+      <ion-label style="font-size:85%;font-weight:bold">状态</ion-label>
+      <ion-label item-end style="font-size:65%;text-align:right;">{{item.state}}</ion-label>
+    </ion-item>
   </ion-item-group>
   
   <ion-item-group *ngFor='let item_detail of item.pack_operation_product_ids;'>

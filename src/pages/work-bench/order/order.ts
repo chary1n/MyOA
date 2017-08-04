@@ -32,7 +32,7 @@ export class OrderPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public orderService: orderService,
-    public loadingCtrl: LoadingController) {
+    ) {
   }
 
   ionViewDidLoad() {
@@ -55,17 +55,11 @@ export class OrderPage {
     this.isMoreData1 = true;
     this.limit = 20;
     this.offset = 0;
-    let loading = this.loadingCtrl.create({
-      content: '加载中...'
-    });
-    loading.present().then(() => {
       this.orderService.requestMakeOrderByMRP(0, 20).then((res) => {
         console.log(res)
-        loading.dismiss();
         refresh.complete();
         this.orderMRP = res.result.res_data;
       })
-    });
   }
 
 
@@ -73,14 +67,9 @@ export class OrderPage {
     if (this.isMoreData1 == true) {
       this.limit = 20;
       this.offset = this.offset + 20;
-      let loading = this.loadingCtrl.create({
-        content: '加载中...'
-      });
-      loading.present().then(() => {
         this.orderService.requestMakeOrderByMRP(this.offset, this.limit).then((res) => {
           console.log(this.offset)
           console.log(this.limit)
-          loading.dismiss();
           let item_data = [];
           if (res.result.res_data) {
             item_data = res.result.res_data;
@@ -99,7 +88,6 @@ export class OrderPage {
           }
           infiniteScroll.complete();
         })
-      });
     } else {
       infiniteScroll.complete();
     }
@@ -121,17 +109,11 @@ export class OrderPage {
     this.isMoreData2 = true;
     this.limit = 20;
     this.offset = 0;
-    let loading = this.loadingCtrl.create({
-      content: '加载中...'
-    });
-    loading.present().then(() => {
       this.orderService.requestMakeOrderByMRP(0, 20).then((res) => {
         console.log(res)
-        loading.dismiss();
         refresh.complete();
         this.priceOrder = res.result.res_data;
       })
-    });
   }
 
 
@@ -139,14 +121,9 @@ export class OrderPage {
     if (this.isMoreData2 == true) {
       this.limit = 20;
       this.offset = this.offset + 20;
-      let loading = this.loadingCtrl.create({
-        content: '加载中...'
-      });
-      loading.present().then(() => {
         this.orderService.requestMakeOrderByMRP(this.offset, this.limit).then((res) => {
           console.log(this.offset)
           console.log(this.limit)
-          loading.dismiss();
           let item_data = [];
           if (res.result.res_data) {
             item_data = res.result.res_data;
@@ -165,7 +142,6 @@ export class OrderPage {
           }
           infiniteScroll.complete();
         })
-      });
     } else {
       infiniteScroll.complete();
     }
@@ -185,17 +161,11 @@ export class OrderPage {
     this.isMoreData3 = true;
     this.limit = 20;
     this.offset = 0;
-    let loading = this.loadingCtrl.create({
-      content: '加载中...'
-    });
-    loading.present().then(() => {
       this.orderService.requestMakeOrderByMRP(0, 20).then((res) => {
         console.log(res)
-        loading.dismiss();
         refresh.complete();
         this.incomingOrder = res.result.res_data;
       })
-    });
   }
 
 
@@ -203,14 +173,9 @@ export class OrderPage {
     if (this.isMoreData3 == true) {
       this.limit = 20;
       this.offset = this.offset + 20;
-      let loading = this.loadingCtrl.create({
-        content: '加载中...'
-      });
-      loading.present().then(() => {
         this.orderService.requestMakeOrderByMRP(this.offset, this.limit).then((res) => {
           console.log(this.offset)
           console.log(this.limit)
-          loading.dismiss();
           let item_data = [];
           if (res.result.res_data) {
             item_data = res.result.res_data;
@@ -229,7 +194,6 @@ export class OrderPage {
           }
           infiniteScroll.complete();
         })
-      });
     } else {
       infiniteScroll.complete();
     }
@@ -251,17 +215,11 @@ export class OrderPage {
     this.isMoreData4 = true;
     this.limit = 20;
     this.offset = 0;
-    let loading = this.loadingCtrl.create({
-      content: '加载中...'
-    });
-    loading.present().then(() => {
       this.orderService.requestReturnOrder(0, 20).then((res) => {
         console.log(res)
-        loading.dismiss();
         refresh.complete();
         this.returnOrder = res.result.res_data;
       })
-    });
   }
 
 
@@ -269,14 +227,9 @@ export class OrderPage {
     if (this.isMoreData4 == true) {
       this.limit = 20;
       this.offset = this.offset + 20;
-      let loading = this.loadingCtrl.create({
-        content: '加载中...'
-      });
-      loading.present().then(() => {
         this.orderService.requestReturnOrder(this.offset, this.limit).then((res) => {
           console.log(this.offset)
           console.log(this.limit)
-          loading.dismiss();
           let item_data = [];
           if (res.result.res_data) {
             item_data = res.result.res_data;
@@ -295,7 +248,6 @@ export class OrderPage {
           }
           infiniteScroll.complete();
         })
-      });
     } else {
       infiniteScroll.complete();
     }
