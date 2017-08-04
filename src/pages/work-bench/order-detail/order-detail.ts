@@ -2,6 +2,7 @@ import { Component, ViewChild, ElementRef } from '@angular/core';
 import { IonicPage, NavController, NavParams,PopoverController ,ViewController} from 'ionic-angular';
 import { orderService } from '../order/orderService';
 import { PoContactPage } from './../po-contact/po-contact';
+import { DeliveryNotesPage } from './../delivery-notes/delivery-notes';
 @Component({
   template: `
     <ion-list>
@@ -9,11 +10,11 @@ import { PoContactPage } from './../po-contact/po-contact';
       <button ion-item tappable (click)="delivery()">送货</button>
     </ion-list>
   `,
-  providers: [orderService,PoContactPage]
+  providers: [orderService,PoContactPage,DeliveryNotesPage]
 })
 export class PopoverPage {
   id:any;
-  constructor(public viewCtrl: ViewController,public orderService:orderService,public pocontactCtrl:PoContactPage) {
+  constructor(public viewCtrl: ViewController,public orderService:orderService,public pocontactCtrl:PoContactPage,public deliveryCtrl:DeliveryNotesPage) {
     this.id = viewCtrl.getNavParams().get('id');
     
   }
@@ -25,14 +26,19 @@ export class PopoverPage {
     
     this.orderService.get_contact_phone_number(this.id,"purchase.order").then((res) => {
         let item_detai = res.result.res_data;
-         this.viewCtrl.getNav().push(PoContactPage, {
+         this.viewCtrl.getNav().push(DeliveryNotesPage, {
             items: item_detai
           })
     
     })
   }
   delivery(){
-    
+    this.orderService.get_delivery_notes(this.id).then((res) => {
+      let item_detai = res.result.res_data;
+      this.viewCtrl.getNav().push(PoContactPage, {
+            items: item_detai
+          })
+    })
   }
 }
 

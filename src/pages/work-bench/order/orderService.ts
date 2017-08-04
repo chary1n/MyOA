@@ -66,6 +66,7 @@ export class orderService {
         return this.httpservice.postBody("get_prma", body);
     }
 
+    //联系人
     get_contact_phone_number(id,model)
     {
         let body = JSON.stringify({
@@ -75,5 +76,20 @@ export class orderService {
         return this.httpservice.postBody("get_contact_phone_number", body);
     }
 
+    get_delivery_notes(id)
+    {
+        let body = JSON.stringify({
+            id:id,
+        });
+        return this.httpservice.postBody("get_delivery_notes", body);
+    }
 
+    get_back_delivery_notes(id)
+    {
+        let body = JSON.stringify({
+            id:id,
+            prma:"1"
+        });
+        return this.httpservice.postBody("get_delivery_notes", body);
+    }
 }

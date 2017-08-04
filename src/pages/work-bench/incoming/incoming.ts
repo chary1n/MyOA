@@ -121,6 +121,7 @@ export class IncomingPage {
 
   incoming_detail(item) {
     this.navCtrl.push(IncomingDetailPage, {
+      type: "incoming_detail",
       item: item,
     });
   }

@@ -16,8 +16,10 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 export class IncomingDetailPage {
   item : any;
   count: any;
+  type:any;
   constructor(public navCtrl: NavController, public navParams: NavParams) {
       this.item = navParams.get('item');
+      this.type = navParams.get('type');
       this.count = 1;
   }
 
