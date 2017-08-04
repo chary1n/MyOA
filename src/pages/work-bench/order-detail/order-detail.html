@@ -53,6 +53,10 @@
       <ion-label class="left_label">总计</ion-label>
       <ion-label item-end class="right_label" style="text-align:right">{{item.amount_total}}</ion-label>
     </ion-item>
+     <ion-item>
+      <ion-label class="left_label">总数量</ion-label>
+      <ion-label item-end class="right_label" style="text-align:right">{{item.product_count}}</ion-label>
+    </ion-item>
     <ion-item>
       <ion-label class="left_label">备注信息</ion-label>
       <ion-label item-end class="right_label" style="text-align:right">{{item.notes}}</ion-label>
@@ -68,7 +72,7 @@
       <p>订购：  {{detail.product_qty}} * {{detail.price_unit}}</p>
       <p>计量单位 {{detail.product_uom}}</p>
       <p style="float:right;color:#1e1e1e;font-weight:bold;font-size:70%;">已接收 {{item.amount_total}} * {{detail.price_unit}}</p>
-      <p>税金 ：{{item.supplier}}</p>
+      <p>税金 ：{{item.amount_tax}}</p>
       <p style="float:right">开单数量 : {{item.product_count}} * {{detail.price_unit}}</p>
       <p>小计 {{detail.price_subtotal}}</p>
     </ion-item>

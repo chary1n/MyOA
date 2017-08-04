@@ -112,7 +112,7 @@ export class OrderPage {
     this.isMoreData2 = true;
     this.limit = 20;
     this.offset = 0;
-    this.orderService.requestMakeOrderByMRP(0, 20).then((res) => {
+    this.orderService.requestPriceOrder(0, 20).then((res) => {
       console.log(res)
       refresh.complete();
       this.priceOrder = res.result.res_data;
@@ -164,7 +164,7 @@ export class OrderPage {
     this.isMoreData3 = true;
     this.limit = 20;
     this.offset = 0;
-    this.orderService.requestMakeOrderByMRP(0, 20).then((res) => {
+    this.orderService.requestIncomingOrder(0, 20).then((res) => {
       console.log(res)
       refresh.complete();
       this.incomingOrder = res.result.res_data;
