@@ -10,7 +10,7 @@ export class orderService {
     }
 
 
-// 采购订单
+    // 采购订单
     requestIncomingOrder(moffset, mlimit) {
         let body = JSON.stringify({
             state: 'purchase',
@@ -21,7 +21,7 @@ export class orderService {
     }
 
     // 询价单
-        requestPriceOrder(moffset, mlimit) {
+    requestPriceOrder(moffset, mlimit) {
         let body = JSON.stringify({
             state: 'draft',
             offset: moffset,
@@ -33,7 +33,7 @@ export class orderService {
 
 
     // make By MRp
-    requestMakeOrderByMRP(moffset,mlimit){
+    requestMakeOrderByMRP(moffset, mlimit) {
         let body = JSON.stringify({
             state: 'make_by_mrp',
             offset: moffset,
@@ -42,9 +42,9 @@ export class orderService {
         return this.httpservice.postBody("get_po", body);
     }
     // 获取订单详细
-     requestOrderDetail(mid){
+    requestOrderDetail(mid) {
         let body = JSON.stringify({
-            id:mid
+            id: mid
         });
         return this.httpservice.postBody("get_po", body);
     }
@@ -61,35 +61,47 @@ export class orderService {
     //采购退货详情
     requestReturnOrderDetail(mid) {
         let body = JSON.stringify({
-            id:mid
+            id: mid
         });
         return this.httpservice.postBody("get_prma", body);
     }
 
     //联系人
-    get_contact_phone_number(id,model)
-    {
+    get_contact_phone_number(id, model) {
         let body = JSON.stringify({
-            id:id,
-            model:model
+            id: id,
+            model: model
         });
         return this.httpservice.postBody("get_contact_phone_number", body);
     }
 
-    get_delivery_notes(id)
-    {
+    get_delivery_notes(id) {
         let body = JSON.stringify({
-            id:id,
+            id: id,
         });
         return this.httpservice.postBody("get_delivery_notes", body);
     }
 
-    get_back_delivery_notes(id)
-    {
+    get_back_delivery_notes(id) {
         let body = JSON.stringify({
-            id:id,
-            prma:"1"
+            id: id,
+            prma: "1"
         });
         return this.httpservice.postBody("get_delivery_notes", body);
+    }
+
+    orderSearchByPO(number: any) {
+        let body = JSON.stringify({
+            po_number: number,
+            model: "purchase.order"
+        });
+        return this.httpservice.postBody("search_purchase_order", body);
+    }
+    returnOrderSearchByPO(number: any) {
+        let body = JSON.stringify({
+            po_number: number,
+            model: "return.goods"
+        });
+        return this.httpservice.postBody("search_purchase_order", body);
     }
 }

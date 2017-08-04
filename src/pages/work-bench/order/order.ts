@@ -28,11 +28,14 @@ export class OrderPage {
   isMoreData2 = true;
   isMoreData3 = true;
   isMoreData4 = true;
+  searchName: any;
+  returnOrderSearchName: any;
+
   // @ViewChild('mainSegment') mainSegment: Segment;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public orderService: orderService,
-    ) {
+  ) {
   }
 
   ionViewDidLoad() {
@@ -55,11 +58,11 @@ export class OrderPage {
     this.isMoreData1 = true;
     this.limit = 20;
     this.offset = 0;
-      this.orderService.requestMakeOrderByMRP(0, 20).then((res) => {
-        console.log(res)
-        refresh.complete();
-        this.orderMRP = res.result.res_data;
-      })
+    this.orderService.requestMakeOrderByMRP(0, 20).then((res) => {
+      console.log(res)
+      refresh.complete();
+      this.orderMRP = res.result.res_data;
+    })
   }
 
 
@@ -67,27 +70,27 @@ export class OrderPage {
     if (this.isMoreData1 == true) {
       this.limit = 20;
       this.offset = this.offset + 20;
-        this.orderService.requestMakeOrderByMRP(this.offset, this.limit).then((res) => {
-          console.log(this.offset)
-          console.log(this.limit)
-          let item_data = [];
-          if (res.result.res_data) {
-            item_data = res.result.res_data;
-            if (item_data.length == 20) {
-              this.isMoreData1 = true;
-            }
-            else {
-              this.isMoreData1 = false;
-            }
-            for (let item of item_data) {
-              this.orderMRP.push(item);
-            }
+      this.orderService.requestMakeOrderByMRP(this.offset, this.limit).then((res) => {
+        console.log(this.offset)
+        console.log(this.limit)
+        let item_data = [];
+        if (res.result.res_data) {
+          item_data = res.result.res_data;
+          if (item_data.length == 20) {
+            this.isMoreData1 = true;
           }
           else {
             this.isMoreData1 = false;
           }
-          infiniteScroll.complete();
-        })
+          for (let item of item_data) {
+            this.orderMRP.push(item);
+          }
+        }
+        else {
+          this.isMoreData1 = false;
+        }
+        infiniteScroll.complete();
+      })
     } else {
       infiniteScroll.complete();
     }
@@ -109,11 +112,11 @@ export class OrderPage {
     this.isMoreData2 = true;
     this.limit = 20;
     this.offset = 0;
-      this.orderService.requestMakeOrderByMRP(0, 20).then((res) => {
-        console.log(res)
-        refresh.complete();
-        this.priceOrder = res.result.res_data;
-      })
+    this.orderService.requestMakeOrderByMRP(0, 20).then((res) => {
+      console.log(res)
+      refresh.complete();
+      this.priceOrder = res.result.res_data;
+    })
   }
 
 
@@ -121,27 +124,27 @@ export class OrderPage {
     if (this.isMoreData2 == true) {
       this.limit = 20;
       this.offset = this.offset + 20;
-        this.orderService.requestMakeOrderByMRP(this.offset, this.limit).then((res) => {
-          console.log(this.offset)
-          console.log(this.limit)
-          let item_data = [];
-          if (res.result.res_data) {
-            item_data = res.result.res_data;
-            if (item_data.length == 20) {
-              this.isMoreData2 = true;
-            }
-            else {
-              this.isMoreData2 = false;
-            }
-            for (let item of item_data) {
-              this.priceOrder.push(item);
-            }
+      this.orderService.requestMakeOrderByMRP(this.offset, this.limit).then((res) => {
+        console.log(this.offset)
+        console.log(this.limit)
+        let item_data = [];
+        if (res.result.res_data) {
+          item_data = res.result.res_data;
+          if (item_data.length == 20) {
+            this.isMoreData2 = true;
           }
           else {
             this.isMoreData2 = false;
           }
-          infiniteScroll.complete();
-        })
+          for (let item of item_data) {
+            this.priceOrder.push(item);
+          }
+        }
+        else {
+          this.isMoreData2 = false;
+        }
+        infiniteScroll.complete();
+      })
     } else {
       infiniteScroll.complete();
     }
@@ -161,11 +164,11 @@ export class OrderPage {
     this.isMoreData3 = true;
     this.limit = 20;
     this.offset = 0;
-      this.orderService.requestMakeOrderByMRP(0, 20).then((res) => {
-        console.log(res)
-        refresh.complete();
-        this.incomingOrder = res.result.res_data;
-      })
+    this.orderService.requestMakeOrderByMRP(0, 20).then((res) => {
+      console.log(res)
+      refresh.complete();
+      this.incomingOrder = res.result.res_data;
+    })
   }
 
 
@@ -173,27 +176,27 @@ export class OrderPage {
     if (this.isMoreData3 == true) {
       this.limit = 20;
       this.offset = this.offset + 20;
-        this.orderService.requestMakeOrderByMRP(this.offset, this.limit).then((res) => {
-          console.log(this.offset)
-          console.log(this.limit)
-          let item_data = [];
-          if (res.result.res_data) {
-            item_data = res.result.res_data;
-            if (item_data.length == 20) {
-              this.isMoreData3 = true;
-            }
-            else {
-              this.isMoreData3 = false;
-            }
-            for (let item of item_data) {
-              this.incomingOrder.push(item);
-            }
+      this.orderService.requestMakeOrderByMRP(this.offset, this.limit).then((res) => {
+        console.log(this.offset)
+        console.log(this.limit)
+        let item_data = [];
+        if (res.result.res_data) {
+          item_data = res.result.res_data;
+          if (item_data.length == 20) {
+            this.isMoreData3 = true;
           }
           else {
             this.isMoreData3 = false;
           }
-          infiniteScroll.complete();
-        })
+          for (let item of item_data) {
+            this.incomingOrder.push(item);
+          }
+        }
+        else {
+          this.isMoreData3 = false;
+        }
+        infiniteScroll.complete();
+      })
     } else {
       infiniteScroll.complete();
     }
@@ -215,11 +218,11 @@ export class OrderPage {
     this.isMoreData4 = true;
     this.limit = 20;
     this.offset = 0;
-      this.orderService.requestReturnOrder(0, 20).then((res) => {
-        console.log(res)
-        refresh.complete();
-        this.returnOrder = res.result.res_data;
-      })
+    this.orderService.requestReturnOrder(0, 20).then((res) => {
+      console.log(res)
+      refresh.complete();
+      this.returnOrder = res.result.res_data;
+    })
   }
 
 
@@ -227,27 +230,27 @@ export class OrderPage {
     if (this.isMoreData4 == true) {
       this.limit = 20;
       this.offset = this.offset + 20;
-        this.orderService.requestReturnOrder(this.offset, this.limit).then((res) => {
-          console.log(this.offset)
-          console.log(this.limit)
-          let item_data = [];
-          if (res.result.res_data) {
-            item_data = res.result.res_data;
-            if (item_data.length == 20) {
-              this.isMoreData4 = true;
-            }
-            else {
-              this.isMoreData4 = false;
-            }
-            for (let item of item_data) {
-              this.returnOrder.push(item);
-            }
+      this.orderService.requestReturnOrder(this.offset, this.limit).then((res) => {
+        console.log(this.offset)
+        console.log(this.limit)
+        let item_data = [];
+        if (res.result.res_data) {
+          item_data = res.result.res_data;
+          if (item_data.length == 20) {
+            this.isMoreData4 = true;
           }
           else {
             this.isMoreData4 = false;
           }
-          infiniteScroll.complete();
-        })
+          for (let item of item_data) {
+            this.returnOrder.push(item);
+          }
+        }
+        else {
+          this.isMoreData4 = false;
+        }
+        infiniteScroll.complete();
+      })
     } else {
       infiniteScroll.complete();
     }
@@ -275,13 +278,37 @@ export class OrderPage {
       })
   }
 
-  //搜索
-  getItems(ev: any) {
-    let searchText = ev.target.value;
-    if (searchText && searchText.trim() != '') {
-
-      return '1';
-    }
+  searchClick1() {
+    this.isMoreData1=false ;
+    this.orderService.orderSearchByPO(this.searchName)
+      .then(res => {
+        this.orderMRP = res.result.res_data
+      })
   }
 
+  searchClick2() {
+     this.isMoreData2=false ;
+    this.orderService.orderSearchByPO(this.searchName)
+      .then(res => {
+        this.priceOrder = res.result.res_data
+      })
+
+  }
+
+  searchClick3() {
+     this.isMoreData3=false ;
+    this.orderService.orderSearchByPO(this.searchName)
+      .then(res => {
+        this.incomingOrder = res.result.res_data
+      })
+
+  }
+
+  returnOrderSearchClick() {
+     this.isMoreData4=false ;
+    this.orderService.returnOrderSearchByPO(this.returnOrderSearchName)
+      .then(res => {
+        this.returnOrder = res.result.res_data
+      })
+  }
 }

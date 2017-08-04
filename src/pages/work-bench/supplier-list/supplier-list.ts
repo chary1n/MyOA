@@ -23,7 +23,8 @@ export class SupplierListPage {
   offset = 0;
   isMoreData = true;
   searchName:any;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public supplierService: SupplierlistService) {
+  constructor(public navCtrl: NavController, 
+    public navParams: NavParams, public supplierService: SupplierlistService) {
   }
 
   ionViewDidLoad() {

@@ -24,9 +24,20 @@
 
 <ion-content>
   <div [ngSwitch]="pet">
-    <ion-item>
-    </ion-item>
+
     <ng-template [ngSwitchCase]='1'>
+      <ion-grid>
+        <ion-row>
+          <ion-col col-6>
+            <div>
+              <ion-input [(ngModel)]="searchName" placeholder="输入订单编号" style="margin-left:20px;;"></ion-input>
+            </div>
+          </ion-col>
+          <ion-col>
+            <div><button (click)='searchClick1()' style="height:40px;font-size:15px;font-weight:bold;background-color:white">搜索</button></div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
       <ion-refresher (ionRefresh)="doRefresh1($event)">
         <ion-refresher-content></ion-refresher-content>
       </ion-refresher>
@@ -50,7 +61,19 @@
     </ng-template>
 
     <ng-template [ngSwitchCase]='2'>
-       <ion-refresher (ionRefresh)="doRefresh2($event)">
+          <ion-grid>
+        <ion-row>
+          <ion-col col-6>
+            <div>
+              <ion-input [(ngModel)]="searchName" placeholder="输入订单编号" style="margin-left:20px;;"></ion-input>
+            </div>
+          </ion-col>
+          <ion-col>
+            <div><button (click)='searchClick2()' style="height:40px;font-size:15px;font-weight:bold;background-color:white">搜索</button></div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-refresher (ionRefresh)="doRefresh2($event)">
         <ion-refresher-content></ion-refresher-content>
       </ion-refresher>
       <ion-list>
@@ -65,12 +88,24 @@
         </ion-item>
       </ion-list>
 
-       <ion-infinite-scroll (ionInfinite)="doInfinite2($event)">
+      <ion-infinite-scroll (ionInfinite)="doInfinite2($event)">
         <ion-infinite-scroll-content></ion-infinite-scroll-content>
       </ion-infinite-scroll>
     </ng-template>
 
     <ng-template [ngSwitchCase]='3'>
+          <ion-grid>
+        <ion-row>
+          <ion-col col-6>
+            <div>
+              <ion-input [(ngModel)]="searchName" placeholder="输入订单编号" style="margin-left:20px;;"></ion-input>
+            </div>
+          </ion-col>
+          <ion-col>
+            <div><button (click)='searchClick3()' style="height:40px;font-size:15px;font-weight:bold;background-color:white">搜索</button></div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
       <ion-refresher (ionRefresh)="doRefresh3($event)">
         <ion-refresher-content></ion-refresher-content>
       </ion-refresher>
@@ -85,12 +120,24 @@
           <p style="float:right">汇总金额 :{{item.product_count}}</p>
         </ion-item>
       </ion-list>
-       <ion-infinite-scroll (ionInfinite)="doInfinite3($event)">
+      <ion-infinite-scroll (ionInfinite)="doInfinite3($event)">
         <ion-infinite-scroll-content></ion-infinite-scroll-content>
       </ion-infinite-scroll>
     </ng-template>
 
     <ng-template [ngSwitchCase]='4'>
+          <ion-grid>
+        <ion-row>
+          <ion-col col-6>
+            <div>
+              <ion-input [(ngModel)]="returnOrderSearchName" placeholder="输入订单编号" style="margin-left:20px;;"></ion-input>
+            </div>
+          </ion-col>
+          <ion-col>
+            <div><button (click)='returnOrderSearchClick()' style="height:40px;font-size:15px;font-weight:bold;background-color:white">搜索</button></div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
       <ion-refresher (ionRefresh)="doRefresh4($event)">
         <ion-refresher-content></ion-refresher-content>
       </ion-refresher>
