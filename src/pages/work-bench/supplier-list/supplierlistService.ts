@@ -24,4 +24,11 @@ export class SupplierlistService {
         });
        return this.httpservice.postBody("get_supplier",body);
     }
+    searchSupplier(name)
+    {
+        let body = JSON.stringify({
+            name:name,
+        });
+       return this.httpservice.postBody("search_supplier",body);
+    }
 }

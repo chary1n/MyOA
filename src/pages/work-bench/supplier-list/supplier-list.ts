@@ -22,6 +22,7 @@ export class SupplierListPage {
   limit = 20;
   offset = 0;
   isMoreData = true;
+  searchName:any;
   constructor(public navCtrl: NavController, public navParams: NavParams, public supplierService: SupplierlistService, public loadingCtrl: LoadingController) {
   }
 
@@ -114,7 +115,10 @@ export class SupplierListPage {
     }
   }
 
-  getItems(ev) {
-
+  searchClick()
+  {
+    this.supplierService.searchSupplier(this.searchName).then((res) => {
+      this.items = res.result.res_data;
+    })
   }
 }

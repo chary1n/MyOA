@@ -1,14 +1,13 @@
 <ion-header>
   <ion-navbar no-border-bottom>
     <ion-title>
-      订单
+      订单1
     </ion-title>
   </ion-navbar>
 
   <ion-toolbar no-border-top>
     <ion-segment [(ngModel)]="pet">
-      <ion-segment-button tappable (click)='clickOne()' value="1">
-        Orders Make By MRP
+      <ion-segment-button tappable (click)='clickOne()' value="1">MRP
       </ion-segment-button>
       <ion-segment-button tappable (click)='clickTwo()' value="2">
         询价单
@@ -35,7 +34,7 @@
         <ion-item *ngFor='let item of orderMRP' tappable (click)='orderDetail(item.id)'>
           <p style="font-size:100%;float:right;color:#fc6621;">由MRP生成</p>
           <h2>{{item.name}}</h2>
-          <h4>{{item.order_line}}</h4>
+          <h4 style="font-size:70%;word-break:break-all">{{item.order_line}}</h4>
           <p>负责人：{{item.creater}}</p>
           <p style="float:right;color:#1e1e1e;font-weight:bold;font-size:70%;">汇总数量：{{item.amount_total}}</p>
           <p>供应商 ：{{item.supplier}}</p>
