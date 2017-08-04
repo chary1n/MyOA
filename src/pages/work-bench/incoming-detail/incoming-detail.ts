@@ -19,13 +19,16 @@ export class IncomingDetailPage {
   constructor(public navCtrl: NavController, public navParams: NavParams) {
       this.item = navParams.get('item');
       this.count = 1;
+      console.log('ionViewDidEnter IncomingDetailPage');
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad IncomingDetailPage');
+    
   }
 
   ionViewDidEnter(){
+      console.log('ionViewDidEnter IncomingDetailPage');
       this.item = this.navParams.get('item');
       this.count = 1;
   }
