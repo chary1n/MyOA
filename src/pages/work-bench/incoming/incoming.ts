@@ -23,7 +23,7 @@ export class IncomingPage {
   offset = 0;
   isMoreData = true;
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    public incomingService: IncomingService, public loadingCtrl: LoadingController) {
+    public incomingService: IncomingService) {
   }
 
 
@@ -42,34 +42,23 @@ export class IncomingPage {
   }
 
   ionViewDidEnter(){
-    let loading = this.loadingCtrl.create({
-      content: '加载中...'
-    });
-    loading.present().then(() => {
+   
       this.incomingService.getIncomingList(this.limit, this.offset).then((res) => {
         console.log(res)
-        loading.dismiss();
         this.items = res.result.res_data;
       })
-    });
   }
 
   doRefresh(refresh) {
     this.isMoreData = true;
     this.limit = 20;
     this.offset = 0;
-    let loading = this.loadingCtrl.create({
-      content: '加载中...'
-    });
-    loading.present().then(() => {
       this.incomingService.getIncomingList(this.limit, this.offset).then((res) => {
         console.log(res);
-        loading.dismiss();
         refresh.complete();
         
         this.items = res.result.res_data;
       })
-    });
   }
 
 
@@ -80,15 +69,10 @@ export class IncomingPage {
     {
       this.limit += 20;
     this.offset += 20;
-    let loading = this.loadingCtrl.create({
-      content: '加载中...'
-    });
 
     // setTimeout(() => {
-      loading.present().then(() => {
       this.incomingService.getIncomingList(this.limit, this.offset).then((res) => {
         console.log(res)
-        loading.dismiss();
         let item_data = [];
         if(res.result.res_data)
         {
@@ -111,7 +95,6 @@ export class IncomingPage {
         }
         infiniteScroll.complete();
       })
-    });
     }
     else
     {

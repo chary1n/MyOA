@@ -23,7 +23,8 @@ export class SupplierDetailPage {
   items:any
   limit:any
   offset:any
-  constructor(public navCtrl: NavController, public navParams: NavParams,public supplierService :SupplierlistService , public loadingCtrl: LoadingController,public alertCtrl: AlertController,private callNumber: CallNumber) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,public supplierService :SupplierlistService 
+    ,public alertCtrl: AlertController,private callNumber: CallNumber) {
     this.items = navParams.get('items');  
   }
 
