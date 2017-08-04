@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>供应商</ion-title>
+    <ion-title style="font-size:50%;">供应商</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -29,9 +29,9 @@
     </ion-refresher>
   <ion-list style="margin-top:0px;">
     <ion-item *ngFor='let item of items' tappable (click) = 'supplier_detail(item.id)'>
-      <ion-avatar item-start>
+      <!--<ion-avatar item-start>-->
         <!--<img src="assets/img/avatar-finn.png">-->
-      </ion-avatar>
+      <!--</ion-avatar>-->
       <h2>{{item.company_name}}</h2>
       <h3 class="code_class">NO：{{item.internal_code}}</h3>
       <p class="p_class" text-wrap>电话:{{item.phone}} Email:{{item.email}}</p>

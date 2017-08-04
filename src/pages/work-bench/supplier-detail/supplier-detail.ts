@@ -23,9 +23,25 @@ export class SupplierDetailPage {
   items:any
   limit:any
   offset:any
+  category:any
   constructor(public navCtrl: NavController, public navParams: NavParams,public supplierService :SupplierlistService 
     ,public alertCtrl: AlertController,private callNumber: CallNumber) {
     this.items = navParams.get('items');  
+  
+    if(this.items.category.length == 1)
+    {
+       this.category = this.items.category[0];
+    }
+    else if (this.items.category.length == 2)
+    {
+       this.category = this.items.category[0] + '、' +this.items.category[1];
+    }   
+    else
+    {
+      this.category = '';
+    }
+    
+    console.log(this.items);
   }
 
   ionViewDidLoad() {
