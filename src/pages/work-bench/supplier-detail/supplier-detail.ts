@@ -24,6 +24,7 @@ export class SupplierDetailPage {
   limit:any
   offset:any
   category:any
+  area:any
   constructor(public navCtrl: NavController, public navParams: NavParams,public supplierService :SupplierlistService 
     ,public alertCtrl: AlertController,private callNumber: CallNumber) {
     this.items = navParams.get('items');  
@@ -40,7 +41,8 @@ export class SupplierDetailPage {
     {
       this.category = '';
     }
-    
+    this.area = this.items.street[0].continent;
+   
     console.log(this.items);
   }
 

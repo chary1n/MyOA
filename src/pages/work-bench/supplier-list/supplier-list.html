@@ -34,7 +34,8 @@
       <!--</ion-avatar>-->
       <h2>{{item.company_name}}</h2>
       <h3 class="code_class">NO：{{item.internal_code}}</h3>
-      <p class="p_class" text-wrap>电话:{{item.phone}} Email:{{item.email}}</p>
+      <p class="p_class" text-wrap>电话:{{item.phone}}</p>
+      <p class="p_class" text-wrap>Email:{{item.email}}</p>
     </ion-item>
   </ion-list>
   <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
