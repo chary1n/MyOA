@@ -19,6 +19,19 @@ export class HttpService {
     }
   }
 
+  public  getWithUrl(url :string){
+  let loading = this.loadingCreate(true);  
+    return this.http.get(url)
+      .map(data=>this.dealRe(data,loading))
+      .toPromise()
+      .then(res => this.handleSuccess(
+        res.json())
+      )
+      .catch(error => this.handleError(
+        error
+      ));
+  }
+
   //type 不填是OA,填1是linkloving_app_apu
   public get(url: string, paramObj: any, type: number = 0) {
     let loading = this.loadingCreate(true);  
