@@ -16,8 +16,6 @@ import { Headers, RequestOptions } from '@angular/http';
 import {AppVersion} from '@ionic-native/app-version';
 import { Platform } from 'ionic-angular';
 
-import {FirService} from './FirService';
-
 
 /**
  * Generated class for the LoginPage page.
@@ -29,7 +27,7 @@ import {FirService} from './FirService';
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html',
-  providers: [LoginService,FirService]
+  providers: [LoginService]
 })
 export class LoginPage {
   email: string;
@@ -38,17 +36,13 @@ export class LoginPage {
   employee: string;
   resUser: any;
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    private loginservice: LoginService, private myHttp: Http, private storage: Storage,public platform: Platform,public appVersion: AppVersion,public firService : FirService) {
+    private loginservice: LoginService, private myHttp: Http, private storage: Storage,public platform: Platform,public appVersion: AppVersion) {
 
 
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginPage');
-    // this.getVersionNumber();
-    this.firService.get('fir_ios',1).then(res => {
-              console.log(res);
-    });
+    console.log('ionViewDidLoad LoginPage');    
     this.storage.get('user')
       .then(res => {
         console.log(res);
@@ -79,25 +73,6 @@ export class LoginPage {
           alert(res.result.res_data.error);
         }
       })
-  }
-
-getVersionNumber(): Promise<string> {
-    return new Promise((resolve) => {
-      this.appVersion.getVersionNumber().then((value: string) => {
-        // resolve(value);
-        // if(this.platform.is("android")){
-
-        // } 
-        // else if (this.platform.is('ios'))
-        // {
-          alert(value);
-          this.firService.get('fir_ios',1).then(res => {
-              alert(res);
-           });
-        // }
-      }).catch(err => {
-      });
-    });
   }
 
   chooseDb(e) {
