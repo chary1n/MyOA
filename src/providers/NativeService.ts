@@ -114,22 +114,22 @@ export class NativeService {
    */
   detectionUpgrade(version): void {
     //这里连接后台判断是否需要升级,不需要升级就return
-    let needToUpdate = this.checkNeedToUpdate(version).then(boolean=>{
+    let needToUpdate = this.checkNeedToUpdate(version).then(boolean => {
       if (!boolean) {
         return
       }
-    this.alertCtrl.create({
-      title: '升级',
-      subTitle: '发现新版本,是否立即升级？',
-      buttons: [{ text: '取消' },
-      {
-        text: '确定',
-        handler: () => {
-          this.downloadApp();
+      this.alertCtrl.create({
+        title: '升级',
+        subTitle: '发现新版本,是否立即升级？',
+        buttons: [{ text: '取消' },
+        {
+          text: '确定',
+          handler: () => {
+            this.downloadApp();
+          }
         }
-      }
-      ]
-    }).present();
+        ]
+      }).present();
     });
   }
 
@@ -138,29 +138,31 @@ export class NativeService {
    */
   downloadApp(): void {
     if (this.isAndroid()) {
-      let alert = this.alertCtrl.create({
-        title: '下载进度：0%',
-        enableBackdropDismiss: false,
-        // buttons: ['后台下载']
-      });
-      alert.present();
+      // let alert = this.alertCtrl.create({
+      //   title: '下载进度：0%',
+      //   enableBackdropDismiss: false,
+      //   // buttons: ['后台下载']
+      // });
+      // alert.present();
 
-      const fileTransfer: TransferObject = this.transfer.create();
-      const apk = this.file.externalRootDirectory + 'android.apk'; //apk保存的目录
+      // const fileTransfer: TransferObject = this.transfer.create();
+      // const apk = this.file.externalRootDirectory + 'android.apk'; //apk保存的目录
 
-      fileTransfer.download(APK_DOWNLOAD, apk).then(() => {
-        window['install'].install(apk.replace('file://', ''));
-      });
+      // fileTransfer.download(APK_DOWNLOAD, apk).then(() => {
+      //   window['install'].install(apk.replace('file://', ''));
+      // });
 
-      fileTransfer.onProgress((event: ProgressEvent) => {
-        let num = Math.floor(event.loaded / event.total * 100);
-        if (num === 100) {
-          alert.dismiss();
-        } else {
-          let title = document.getElementsByClassName('alert-title')[0];
-          title && (title.innerHTML = '下载进度：' + num + '%');
-        }
-      });
+      // fileTransfer.onProgress((event: ProgressEvent) => {
+      //   let num = Math.floor(event.loaded / event.total * 100);
+      //   if (num === 100) {
+      //     alert.dismiss();
+      //   } else {
+      //     let title = document.getElementsByClassName('alert-title')[0];
+      //     title && (title.innerHTML = '下载进度：' + num + '%');
+      //   }
+      // });
+      this.openUrlByBrowser(APK_DOWNLOAD);
+
     }
     if (this.isIos()) {
       this.openUrlByBrowser(APP_DOWNLOAD);

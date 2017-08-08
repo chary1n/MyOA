@@ -106,6 +106,7 @@ export class IncomingPage {
     this.navCtrl.push(IncomingDetailPage, {
       type: "incoming_detail",
       item: item,
+      isPop:false 
     });
   }
 

@@ -87,6 +87,7 @@ export class InspectionDetailPage {
       .then(res => {
         if (res.result && res.result.res_code == 1) {
           self.mIncomingDetailPage.data.item = res.result.res_data;
+          self.mIncomingDetailPage.data.isPop = true;
           self.navCtrl.popTo(self.mIncomingDetailPage);
         }
         console.log(res)
@@ -196,6 +197,7 @@ export class InspectionDetailPage {
               .then(res => {
                 if (res.result && res.result.res_code == 1) {
                   self.mIncomingDetailPage.data.item = res.result.res_data;
+                  self.mIncomingDetailPage.data.isPop = true;
                   self.navCtrl.popTo(self.mIncomingDetailPage);
                 }
                 console.log(res)
@@ -209,6 +211,7 @@ export class InspectionDetailPage {
               .then(res => {
                 if (res.result && res.result.res_code == 1) {
                   self.mIncomingDetailPage.data.item = res.result.res_data;
+                  self.mIncomingDetailPage.data.isPop = true;
                   self.navCtrl.popTo(self.mIncomingDetailPage);
                 }
                 console.log(res)
@@ -237,6 +240,7 @@ export class InspectionDetailPage {
               .then(res => {
                 if (res.result && res.result.res_code == 1) {
                   self.mIncomingDetailPage.data.item = res.result.res_data;
+                  self.mIncomingDetailPage.data.isPop = true;
                   self.navCtrl.popTo(self.mIncomingDetailPage);
                 }
                 console.log(res)
