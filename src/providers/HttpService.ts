@@ -59,10 +59,12 @@ export class HttpService {
   //加载  
   private loadingCreate(isLoading:true,pageIndex?){  
     let loading = this.loading.create({  
-      content: '加载中'  
+      content: '加载中'  ,
+      enableBackdropDismiss: true
     });  
     pageIndex = typeof(pageIndex)=='undefined'?1:pageIndex;  
     isLoading = typeof(isLoading)=='undefined'?true:isLoading;  
+    
     if(isLoading == true && pageIndex == 1)  
     {  
       loading.present();  
