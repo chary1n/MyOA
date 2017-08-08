@@ -10,5 +10,7 @@ export const PAGE_SIZE = 5;//默认分页大小
 export const IMAGE_SIZE = 1024;//默认分页大小
 export const QUALITY_SIZE = 94;//图像质量，范围为0 - 100
 
-export const APP_DOWNLOAD = 'http://omzo595hi.bkt.clouddn.com/download.html';//app下载地址
-export const APK_DOWNLOAD = 'http://omzo595hi.bkt.clouddn.com/ionic2_tabs.apk';//apk下载完整地址
+export const APP_DOWNLOAD = 'http://api.fir.im/apps/latest/5987b68b959d696541000004?api_token=f2a3d1973878abb5ba921a0176a5c1fb';//app下载地址
+export const AndroidAppVersion = 'http://api.fir.im/apps/latest/5987b68b959d696541000004?api_token=f2a3d1973878abb5ba921a0176a5c1fb';
+// export const AndroidAppVersion = 'http://api.fir.im/apps/latest/5961a838548b7a7a16000060?api_token=64719ce59bbb6f8f408b0dcfa5da129e';
+export const APK_DOWNLOAD = '';//apk下载完整地址

@@ -1,25 +1,26 @@
+import { HttpService } from './HttpService';
 /**
  * Created by yanxiaojun617@163.com on 12-27.
  */
-import {Injectable} from '@angular/core';
-import {ToastController, LoadingController, Platform, Loading, AlertController} from 'ionic-angular';
+import { Injectable } from '@angular/core';
+import { ToastController, LoadingController, Platform, Loading, AlertController } from 'ionic-angular';
 
-import {StatusBar} from '@ionic-native/status-bar';
-import {SplashScreen} from '@ionic-native/splash-screen';
-import {AppVersion} from '@ionic-native/app-version';
-import {Camera, CameraOptions} from '@ionic-native/camera';
-import {Toast} from '@ionic-native/toast';
-import {File, FileEntry} from '@ionic-native/file';
-import {Transfer, TransferObject} from '@ionic-native/transfer';
-import {InAppBrowser} from '@ionic-native/in-app-browser';
-import {ImagePicker} from '@ionic-native/image-picker';
-import {Network} from '@ionic-native/network';
-import {AppMinimize} from "@ionic-native/app-minimize";
+import { StatusBar } from '@ionic-native/status-bar';
+import { SplashScreen } from '@ionic-native/splash-screen';
+import { AppVersion } from '@ionic-native/app-version';
+import { Camera, CameraOptions } from '@ionic-native/camera';
+import { Toast } from '@ionic-native/toast';
+import { File, FileEntry } from '@ionic-native/file';
+import { Transfer, TransferObject } from '@ionic-native/transfer';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { ImagePicker } from '@ionic-native/image-picker';
+import { Network } from '@ionic-native/network';
+import { AppMinimize } from "@ionic-native/app-minimize";
 
-import {Position} from "../model/type";
-import {APP_DOWNLOAD, APK_DOWNLOAD, IMAGE_SIZE, QUALITY_SIZE} from "./Constants";
-import {GlobalData} from "./GlobalData";
-import {Observable} from "rxjs";
+import { Position } from "../model/type";
+import { APP_DOWNLOAD, APK_DOWNLOAD, IMAGE_SIZE, QUALITY_SIZE, AndroidAppVersion } from "./Constants";
+import { GlobalData } from "./GlobalData";
+import { Observable } from "rxjs";
 declare var LocationPlugin;
 declare var AMapNavigation;
 declare var cordova: any;
@@ -30,21 +31,22 @@ export class NativeService {
   private loadingIsOpen: boolean = false;
 
   constructor(private platform: Platform,
-              private toastCtrl: ToastController,
-              private alertCtrl: AlertController,
-              private statusBar: StatusBar,
-              private splashScreen: SplashScreen,
-              private appVersion: AppVersion,
-              private camera: Camera,
-              private toast: Toast,
-              private transfer: Transfer,
-              private file: File,
-              private inAppBrowser: InAppBrowser,
-              private imagePicker: ImagePicker,
-              private network: Network,
-              private appMinimize: AppMinimize,
-              private loadingCtrl: LoadingController,
-              private globalData: GlobalData,) {
+    private toastCtrl: ToastController,
+    private alertCtrl: AlertController,
+    private statusBar: StatusBar,
+    private splashScreen: SplashScreen,
+    private appVersion: AppVersion,
+    private camera: Camera,
+    private toast: Toast,
+    private transfer: Transfer,
+    private file: File,
+    private inAppBrowser: InAppBrowser,
+    private imagePicker: ImagePicker,
+    private network: Network,
+    private appMinimize: AppMinimize,
+    private loadingCtrl: LoadingController,
+    private globalData: GlobalData,
+    private httpService: HttpService) {
   }
 
   log(info): void {
@@ -96,21 +98,37 @@ export class NativeService {
     this.inAppBrowser.create(url, '_system');
   }
 
+  checkNeedToUpdate(version) {
+    return this.httpService.getWithUrl(AndroidAppVersion).then(res => {
+      console.log(res)
+      if (res.version) {
+        if (res.version > version) {
+          return true
+        }
+      }
+      return false;
+    })
+
+  }
   /**
    * 检查app是否需要升级
    */
-  detectionUpgrade(): void {
+  detectionUpgrade(version): void {
     //这里连接后台判断是否需要升级,不需要升级就return
+    let needToUpdate = this.checkNeedToUpdate(version);
+    if (!needToUpdate) {
+      return
+    }
     this.alertCtrl.create({
       title: '升级',
       subTitle: '发现新版本,是否立即升级？',
-      buttons: [{text: '取消'},
-        {
-          text: '确定',
-          handler: () => {
-            this.downloadApp();
-          }
+      buttons: [{ text: '取消' },
+      {
+        text: '确定',
+        handler: () => {
+          this.downloadApp();
         }
+      }
       ]
     }).present();
   }
@@ -173,7 +191,7 @@ export class NativeService {
   alert(title: string): void {
     this.alertCtrl.create({
       title: title,
-      buttons: [{text: '确定'}]
+      buttons: [{ text: '确定' }]
     }).present();
   }
 
@@ -391,7 +409,7 @@ export class NativeService {
     return Observable.create(observer => {
       if (this.isMobile()) {
         LocationPlugin.getLocation(data => {
-          observer.next({'lng': data.longitude, 'lat': data.latitude});
+          observer.next({ 'lng': data.longitude, 'lat': data.latitude });
         }, msg => {
           this.log('getUserLocation:' + msg);
           this.alert(msg.indexOf('缺少定位权限') == -1 ? ('错误消息：' + msg) : '缺少定位权限，请在手机设置中开启');
@@ -399,7 +417,7 @@ export class NativeService {
         });
       } else {
         console.log('非手机环境,即测试环境返回固定坐标');
-        observer.next({'lng': 113.350912, 'lat': 23.119495});
+        observer.next({ 'lng': 113.350912, 'lat': 23.119495 });
       }
     });
   }
@@ -417,14 +435,14 @@ export class NativeService {
           lng: startPoint.lng,
           lat: startPoint.lat
         }, {
-          lng: endPoint.lng,
-          lat: endPoint.lat
-        }, type, message => {
-          observer.next(message);
-        }, err => {
-          this.log('navigation:' + err);
-          this.alert('导航失败');
-        });
+            lng: endPoint.lng,
+            lat: endPoint.lat
+          }, type, message => {
+            observer.next(message);
+          }, err => {
+            this.log('navigation:' + err);
+            this.alert('导航失败');
+          });
       } else {
         this.alert('非手机环境不能导航');
       }
