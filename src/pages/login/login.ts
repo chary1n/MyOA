@@ -45,10 +45,10 @@ export class LoginPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
-    this.getVersionNumber();
-    // this.firService.get('fir_ios',1).then(res => {
-    //           alert(res);
-    //        });
+    // this.getVersionNumber();
+    this.firService.get('fir_ios',1).then(res => {
+              console.log(res);
+    });
     this.storage.get('user')
       .then(res => {
         console.log(res);
@@ -84,7 +84,7 @@ export class LoginPage {
 getVersionNumber(): Promise<string> {
     return new Promise((resolve) => {
       this.appVersion.getVersionNumber().then((value: string) => {
-        resolve(value);
+        // resolve(value);
         // if(this.platform.is("android")){
 
         // } 

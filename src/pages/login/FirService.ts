@@ -11,13 +11,14 @@ export class FirService {
   }
 
   getAppPath(url: string, type: number = 0) {
-    return 'http://api.fir.im/apps/latest/5961a838548b7a7a16000060?api_token=64719ce59bbb6f8f408b0dcfa5da129e';
+    return 'http://api.fir.im/apps/latest/5961a838548b7a7a16000060?api_token=fd574d0078c5b11777cb3d8a7d4c1d5b';
   }
 
   //type 不填是OA,填1是linkloving_app_apu
   public get(url: string, paramObj: any, type: number = 0) {
     let loading = this.loadingCreate(true);  
-    return this.http.get(this.getAppPath(url,type) + this.toQueryString(paramObj))
+    console.log(this.getAppPath(url,type));
+    return this.http.get(this.getAppPath(url,type))
       .map(data=>this.dealRe(data,loading))
       .toPromise()
       .then(res => this.handleSuccess(
