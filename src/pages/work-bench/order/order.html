@@ -30,7 +30,7 @@
         <ion-row>
           <ion-col col-6>
             <div>
-              <ion-input [(ngModel)]="searchName" placeholder="输入订单编号" style="margin-left:20px;;"></ion-input>
+              <ion-input [(ngModel)]="searchName" placeholder="输入订单编号"  text-wrap style="margin-left:20px;;"></ion-input>
             </div>
           </ion-col>
           <ion-col>
@@ -43,14 +43,14 @@
       </ion-refresher>
       <ion-list>
         <ion-item *ngFor='let item of orderMRP' tappable (click)='orderDetail(item.id)'>
-          <p style="font-size:100%;float:right;color:#fc6621;">由MRP生成</p>
-          <h2>{{item.name}}</h2>
-          <h4 style="font-size:70%;word-break:break-all">{{item.order_line}}</h4>
-          <p>负责人：{{item.creater}}</p>
-          <p style="float:right;color:#1e1e1e;font-weight:bold;font-size:70%;">汇总数量：{{item.amount_total}}</p>
-          <p>供应商 ：{{item.supplier}}</p>
+          <p text-wrap style="font-size:100%;float:right;color:#fc6621;">由MRP生成</p>
+          <h2 text-wrap>{{item.name}}</h2>
+          <h4 text-wrap style="font-size:70%;word-break:break-all">{{item.order_line}}</h4>
+          <p text-wrap>负责人：{{item.creater}}</p>
+          <p text-wrap style="float:right;color:#1e1e1e;font-weight:bold;font-size:70%;">汇总数量：{{item.amount_total}}</p>
+          <p text-wrap>供应商 ：{{item.supplier}}</p>
 
-          <p style="float:right">汇总金额 :{{item.product_count}}</p>
+          <p text-wrap style="float:right">汇总金额 :{{item.product_count}}</p>
         </ion-item>
       </ion-list>
 
@@ -78,13 +78,13 @@
       </ion-refresher>
       <ion-list>
         <ion-item *ngFor='let item of priceOrder' tappable (click)='orderDetail(item.id)'>
-          <p style="font-size:100%;float:right;color:#fc6621;">询价单</p>
-          <h2>{{item.name}}</h2>
-          <h4>{{item.order_line}}</h4>
-          <p>负责人：{{item.creater}}</p>
-          <p style="float:right;color:#1e1e1e;font-weight:bold;font-size:70%;">汇总数量：{{item.amount_total}}</p>
-          <p>供应商 ：{{item.supplier}}</p>
-          <p style="float:right">汇总金额 :{{item.product_count}}</p>
+          <p text-wrap style="font-size:100%;float:right;color:#fc6621;">询价单</p>
+          <h2 text-wrap >{{item.name}}</h2>
+          <h4 text-wrap >{{item.order_line}}</h4>
+          <p text-wrap >负责人：{{item.creater}}</p>
+          <p text-wrap  style="float:right;color:#1e1e1e;font-weight:bold;font-size:70%;">汇总数量：{{item.amount_total}}</p>
+          <p text-wrap >供应商 ：{{item.supplier}}</p>
+          <p text-wrap style="float:right">汇总金额 :{{item.product_count}}</p>
         </ion-item>
       </ion-list>
 
@@ -111,13 +111,13 @@
       </ion-refresher>
       <ion-list>
         <ion-item *ngFor='let item of incomingOrder' tappable (click)='orderDetail(item.id)'>
-          <p style="font-size:100%;float:right;color:#fc6621;">采购确认</p>
-          <h2>{{item.name}}</h2>
-          <h4>{{item.order_line}}</h4>
-          <p>负责人：{{item.creater}}</p>
-          <p style="float:right;color:#1e1e1e;font-weight:bold;font-size:70%;">汇总数量：{{item.amount_total}}</p>
-          <p>供应商 ：{{item.supplier}}</p>
-          <p style="float:right">汇总金额 :{{item.product_count}}</p>
+          <p text-wrap style="font-size:100%;float:right;color:#fc6621;">采购确认</p>
+          <h2 text-wrap >{{item.name}}</h2>
+          <h4 text-wrap >{{item.order_line}}</h4>
+          <p text-wrap >负责人：{{item.creater}}</p>
+          <p text-wrap  style="float:right;color:#1e1e1e;font-weight:bold;font-size:70%;">汇总数量：{{item.amount_total}}</p>
+          <p text-wrap >供应商 ：{{item.supplier}}</p>
+          <p text-wrap style="float:right">汇总金额 :{{item.product_count}}</p>
         </ion-item>
       </ion-list>
       <ion-infinite-scroll (ionInfinite)="doInfinite3($event)">
@@ -143,13 +143,13 @@
       </ion-refresher>
       <ion-list>
         <ion-item *ngFor='let item of returnOrder' tappable (click)='returnOrderDetail(item.id)'>
-          <p style="font-size:100%;float:right;color:#fc6621;">退货单</p>
-          <h2>{{item.name}}</h2>
-          <h4>{{item.order_line}}</h4>
-          <p>退货日期：{{item.date}}</p>
-          <p style="float:right;color:#1e1e1e;font-weight:bold;font-size:70%;">退货金额：{{item.amount_total}}</p>
-          <p>供应商 ：{{item.supplier}}</p>
-          <p>退货原因 :{{item.remark}}</p>
+          <p  text-wrap style="font-size:100%;float:right;color:#fc6621;">退货单</p>
+          <h2 text-wrap >{{item.name}}</h2>
+          <h4 text-wrap >{{item.order_line}}</h4>
+          <p text-wrap >退货日期：{{item.date}}</p>
+          <p text-wrap  style="float:right;color:#1e1e1e;font-weight:bold;font-size:70%;">退货金额：{{item.amount_total}}</p>
+          <p text-wrap >供应商 ：{{item.supplier}}</p>
+          <p text-wrap >退货原因 :{{item.remark}}</p>
         </ion-item>
       </ion-list>
       <ion-infinite-scroll immediate-check="false" (ionInfinite)="doInfinite4($event)">
