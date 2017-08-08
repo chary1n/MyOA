@@ -17,9 +17,11 @@ export class IncomingDetailPage {
   item : any;
   count: any;
   type:any;
+  isPop:boolean ;
   constructor(public navCtrl: NavController, public navParams: NavParams) {
       this.item = navParams.get('item');
       this.type = navParams.get('type');
+      this.isPop = navParams.get('isPop') ;
       this.count = 1;
       console.log('ionViewDidEnter IncomingDetailPage');
   }
@@ -32,6 +34,7 @@ export class IncomingDetailPage {
   ionViewDidEnter(){
       console.log('ionViewDidEnter IncomingDetailPage');
       this.item = this.navParams.get('item');
+      this.isPop = this.navParams.get('isPop');
       this.count = 1;
   }
 

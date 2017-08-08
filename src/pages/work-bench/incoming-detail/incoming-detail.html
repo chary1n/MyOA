@@ -71,12 +71,12 @@
       </ion-item>
       <ion-item no-lines *ngIf="item_detail.pack_id != -1" > 
         <ion-label item-start style="font-size:75%">待入库：{{item_detail.product_qty}}</ion-label>
-        <ion-label item-end style="font-size:75%">不良品：{{item_detail.rejects_qty}}</ion-label>
+        <ion-label item-end style="font-size:75%;color :red">不良品：{{item_detail.rejects_qty}}</ion-label>
       </ion-item>
   </ion-item-group>
 </ion-content>
 
-<ion-footer>
+<ion-footer  *ngIf='!isPop' >
   <ion-toolbar>
     <button ion-button full tappable (click)='toInspectionPage()'>查看品检结果</button>
   </ion-toolbar>
