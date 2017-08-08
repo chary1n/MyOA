@@ -108,17 +108,16 @@ export class NativeService {
       }
       return false;
     })
-
   }
   /**
    * 检查app是否需要升级
    */
   detectionUpgrade(version): void {
     //这里连接后台判断是否需要升级,不需要升级就return
-    let needToUpdate = this.checkNeedToUpdate(version);
-    if (!needToUpdate) {
-      return
-    }
+    let needToUpdate = this.checkNeedToUpdate(version).then(boolean=>{
+      if (!boolean) {
+        return
+      }
     this.alertCtrl.create({
       title: '升级',
       subTitle: '发现新版本,是否立即升级？',
@@ -131,6 +130,7 @@ export class NativeService {
       }
       ]
     }).present();
+    });
   }
 
   /**
@@ -141,7 +141,7 @@ export class NativeService {
       let alert = this.alertCtrl.create({
         title: '下载进度：0%',
         enableBackdropDismiss: false,
-        buttons: ['后台下载']
+        // buttons: ['后台下载']
       });
       alert.present();
 
