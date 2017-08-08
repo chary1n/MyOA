@@ -3,6 +3,7 @@ import { TabsPage } from './../pages/tabs/tabs';
 import { Component } from '@angular/core';
 import { Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
+import {AppVersion} from '@ionic-native/app-version';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 
@@ -15,9 +16,8 @@ import {HttpModule} from "@angular/http";
 })
 export class MyApp {
   rootPage:any = LoginPage;
-
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
-    private nativeService : NativeService) {
+  version:any;
+  constructor(public platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,private appVersion: AppVersion,) {
     platform.ready().then(() => {
       
       // Okay, so the platform is ready and our plugins are available.
@@ -26,7 +26,24 @@ export class MyApp {
       statusBar.styleDefault();
       statusBar.backgroundColorByHexString('#f8f8f8');
       splashScreen.hide();
-      this.nativeService.detectionUpgrade();
+      this.getVersionNumber();
+      
+    });
+  }
+  getVersionNumber(): Promise<string> {
+    return new Promise((resolve) => {
+      this.appVersion.getVersionNumber().then((value: string) => {
+        resolve(value);
+        this.version = value;
+        if(this.platform.is("android")){
+
+        } 
+        else if (this.platform.is('ios'))
+        {
+          
+        }
+      }).catch(err => {
+      });
     });
   }
   
