@@ -7,19 +7,31 @@ import { AppVersion } from '@ionic-native/app-version';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 
+<<<<<<< HEAD
 import { LoginPage } from '../pages/login/login';
 import { HttpService } from '../providers/HttpService'
 import { HttpModule } from "@angular/http";
 
+=======
+import { LoginPage} from '../pages/login/login';
+import {HttpService} from '../providers/HttpService'
+import {HttpModule} from "@angular/http";
+>>>>>>> 1d30ae08c866c66657f6933a004962b992a167d6
 @Component({
-  templateUrl: 'app.html'
+  templateUrl: 'app.html',
 })
 export class MyApp {
+<<<<<<< HEAD
   rootPage: any = LoginPage;
   version: any;
   constructor(public platform: Platform, statusBar: StatusBar,
     splashScreen: SplashScreen, private appVersion: AppVersion,
     private nativeService: NativeService) {
+=======
+  rootPage:any = LoginPage;
+  version:any;
+  constructor(public platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,private appVersion: AppVersion) {
+>>>>>>> 1d30ae08c866c66657f6933a004962b992a167d6
     platform.ready().then(() => {
 
       // Okay, so the platform is ready and our plugins are available.
@@ -28,6 +40,7 @@ export class MyApp {
       statusBar.styleDefault();
       statusBar.backgroundColorByHexString('#f8f8f8');
       splashScreen.hide();
+<<<<<<< HEAD
       this.getVersionNumber();
     });
   }
@@ -48,5 +61,13 @@ export class MyApp {
     });
   }
 
+=======
+      
+      
+    });
+  }
+  
+  
+>>>>>>> 1d30ae08c866c66657f6933a004962b992a167d6
 }
 
