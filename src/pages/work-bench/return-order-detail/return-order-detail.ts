@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { IonicPage, NavController, NavParams,PopoverController ,ViewController} from 'ionic-angular';
+import { IonicPage, NavController, NavParams,PopoverController ,ViewController,Events} from 'ionic-angular';
 import { orderService } from '../order/orderService';
 import { PoContactPage } from './../po-contact/po-contact';
 import { DeliveryNotesPage } from './../delivery-notes/delivery-notes';
@@ -15,7 +15,7 @@ import { DeliveryNotesPage } from './../delivery-notes/delivery-notes';
 export class ReturnPopoverPage {
   id:any;
   
-  constructor(public viewCtrl: ViewController,public orderService:orderService,public pocontactCtrl:PoContactPage) {
+  constructor(public viewCtrl: ViewController,public orderService:orderService,public pocontactCtrl:PoContactPage,public events: Events) {
     this.id = viewCtrl.getNavParams().get('id');
     
   }
@@ -27,13 +27,16 @@ export class ReturnPopoverPage {
     
     this.orderService.get_contact_phone_number(this.id,"return.goods").then((res) => {
         let item_detai = res.result.res_data;
-         this.viewCtrl.getNav().push(PoContactPage, {
-            items: item_detai,
-            type:"back_order"
-          })
+        if (item_detai)
+        {
+          this.events.publish('click:return.goods', item_detai);
+        }
+         
+         
     
     })
   }
+  
 
   delivery_back()
   {
@@ -41,10 +44,8 @@ export class ReturnPopoverPage {
         let item_detai = res.result.res_data;
         if (item_detai)
         {
-          this.viewCtrl.getNav().push(DeliveryNotesPage, {
-              items: item_detai,
-             type: "back_order"
-           })
+          this.events.publish('delivery_back', item_detai);
+          
       }
     })
   }
@@ -58,9 +59,10 @@ export class ReturnPopoverPage {
 export class ReturnOrderDetailPage {
   item: any
   id:any
+  popover:any
   @ViewChild('content', { read: ElementRef }) content: ElementRef;
   @ViewChild('popoverText', { read: ElementRef }) text: ElementRef;
-  constructor(public navCtrl: NavController, public navParams: NavParams,public popoverCtrl: PopoverController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,public popoverCtrl: PopoverController,public events: Events) {
     this.item = navParams.get('item').res_data;
     this.id = navParams.get('id');
     // console.log(this.item)
@@ -70,13 +72,35 @@ export class ReturnOrderDetailPage {
     console.log('ionViewDidLoad ReturnOrderDetailPage');
   }
 
+  ionViewDidEnter(){
+    this.events.unsubscribe('click:return.goods');
+    this.events.unsubscribe('delivery_back');
+    this.events.subscribe('click:return.goods', (eventData) => {
+      this.navCtrl.push(PoContactPage, {
+            items: eventData,
+            type:"back_order"
+          })
+      this.events.unsubscribe('click:return.goods');
+      this.popover.dismiss();     
+    });
+
+    this.events.subscribe('delivery_back', (eventData) => {
+      this.navCtrl.push(DeliveryNotesPage, {
+              items: eventData,
+             type: "back_order"
+           })
+      this.events.unsubscribe('delivery_back');
+      this.popover.dismiss();     
+    });
+  }
+
   presentPopover(ev) {
     
-    let popover = this.popoverCtrl.create(ReturnPopoverPage, {
+    this.popover = this.popoverCtrl.create(ReturnPopoverPage, {
          id:this.id
     });
 
-    popover.present({
+    this.popover.present({
       ev: ev
     });
   }

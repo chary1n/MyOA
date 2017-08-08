@@ -1,8 +1,9 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { IonicPage, NavController, NavParams,PopoverController ,ViewController} from 'ionic-angular';
+import { IonicPage, NavController, NavParams,PopoverController ,ViewController,Events} from 'ionic-angular';
 import { orderService } from '../order/orderService';
 import { PoContactPage } from './../po-contact/po-contact';
 import { DeliveryNotesPage } from './../delivery-notes/delivery-notes';
+
 @Component({
   template: `
     <ion-list>
@@ -14,7 +15,7 @@ import { DeliveryNotesPage } from './../delivery-notes/delivery-notes';
 })
 export class PopoverPage {
   id:any;
-  constructor(public viewCtrl: ViewController,public orderService:orderService,public pocontactCtrl:PoContactPage,public deliveryCtrl:DeliveryNotesPage) {
+  constructor(public viewCtrl: ViewController,public orderService:orderService,public pocontactCtrl:PoContactPage,public deliveryCtrl:DeliveryNotesPage,public events: Events) {
     this.id = viewCtrl.getNavParams().get('id');
     
   }
@@ -23,13 +24,12 @@ export class PopoverPage {
   }
   click_phone()
   {
-    
     this.orderService.get_contact_phone_number(this.id,"purchase.order").then((res) => {
-        let item_detai = res.result.res_data;
-         this.viewCtrl.getNav().push(PoContactPage, {
-            items: item_detai
-          })
-    
+        let item_detai = res.result.res_data;      
+        if (item_detai)
+        {
+          this.events.publish('click:purchase.order', item_detai);  
+        }
     })
   }
   delivery(){
@@ -37,13 +37,11 @@ export class PopoverPage {
       let item_detai = res.result.res_data;
       if (item_detai)
       {
-        this.viewCtrl.getNav().push(DeliveryNotesPage, {
-            items: item_detai,
-            type: "purchase"
-          })
+        this.events.publish('delivery', item_detai);
       }
     })
   }
+
 }
 
 @IonicPage()
@@ -57,22 +55,47 @@ export class OrderDetailPage {
   @ViewChild('content', { read: ElementRef }) content: ElementRef;
   @ViewChild('popoverText', { read: ElementRef }) text: ElementRef;
   item :any 
-  constructor(public navCtrl: NavController, public navParams: NavParams,public popoverCtrl: PopoverController) {
+  popover:any
+  constructor(public navCtrl: NavController, public navParams: NavParams,public popoverCtrl: PopoverController,public events:Events) {
    this.item =navParams.get('item').res_data
    console.log(this.item)
+   
   }
+
+  
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad OrderDetailPage');
   }
+  ionViewDidEnter(){
+    this.events.unsubscribe('click:purchase.order');
+    this.events.unsubscribe('delivery');
+    this.events.subscribe('click:purchase.order', (eventData) => {
+      this.navCtrl.push(PoContactPage, {
+             items: eventData
+           })
+      this.events.unsubscribe('click:purchase.order');
+      this.popover.dismiss();     
+    });
+
+    this.events.subscribe('delivery', (eventData) => {
+      this.navCtrl.push(DeliveryNotesPage, {
+            items: eventData,
+            type: "purchase"
+          })
+      this.events.unsubscribe('delivery');
+      this.popover.dismiss();     
+    });
+  }
+  
 
   presentPopover(ev) {
     
-    let popover = this.popoverCtrl.create(PopoverPage, {
+    this.popover = this.popoverCtrl.create(PopoverPage, {
          id:this.item.id
     });
-
-    popover.present({
+    
+    this.popover.present({
       ev: ev
     });
   }
