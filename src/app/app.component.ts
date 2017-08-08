@@ -9,14 +9,13 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { LoginPage} from '../pages/login/login';
 import {HttpService} from '../providers/HttpService'
 import {HttpModule} from "@angular/http";
-
 @Component({
-  templateUrl: 'app.html'
+  templateUrl: 'app.html',
 })
 export class MyApp {
   rootPage:any = LoginPage;
   version:any;
-  constructor(public platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,private appVersion: AppVersion,) {
+  constructor(public platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,private appVersion: AppVersion) {
     platform.ready().then(() => {
       
       // Okay, so the platform is ready and our plugins are available.
@@ -25,26 +24,11 @@ export class MyApp {
       statusBar.styleDefault();
       statusBar.backgroundColorByHexString('#f8f8f8');
       splashScreen.hide();
-      this.getVersionNumber();
+      
       
     });
   }
-  getVersionNumber(): Promise<string> {
-    return new Promise((resolve) => {
-      this.appVersion.getVersionNumber().then((value: string) => {
-        resolve(value);
-        this.version = value;
-        if(this.platform.is("android")){
-
-        } 
-        else if (this.platform.is('ios'))
-        {
-          
-        }
-      }).catch(err => {
-      });
-    });
-  }
+  
   
 }
 
