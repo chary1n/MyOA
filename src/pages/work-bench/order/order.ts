@@ -261,7 +261,21 @@ export class OrderPage {
       .then(res => {
         if (res.result && res.result.res_code == 1) {
           this.navCtrl.push(OrderDetailPage, {
-            item: res.result
+            item: res.result,
+            showNumber :false 
+          })
+        }
+      })
+  }
+
+  // 显示开单数量和已接收
+   orderDetailShowNumber(id) {
+    this.orderService.requestOrderDetail(id)
+      .then(res => {
+        if (res.result && res.result.res_code == 1) {
+          this.navCtrl.push(OrderDetailPage, {
+            item: res.result,
+            showNumber :true 
           })
         }
       })
