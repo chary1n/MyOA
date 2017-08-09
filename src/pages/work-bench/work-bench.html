@@ -1,21 +1,21 @@
 
 <ion-header>
   <ion-navbar>
-    <ion-title>工作台</ion-title>
+    <ion-title>工作台1</ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content>
+<ion-content test-d>
 <ion-grid>
-<ion-row align-items-center>
-      <ion-col>
-         <div class="other_incoming_div" tappable tappable (click) = 'incoming_clicked()'>
-          <img src="assets/img/shenpi.png">
-          <p>采购入库</p>
+<ion-row row-wrap align-items-center>
+      <ion-col col-3 *ngFor='let item of dataSource' tappable (click) = 'click(item)'>
+         <div class="other_incoming_div">
+          <img src = {{item.image}}>
+          <p>{{item.title}}</p>
         </div>
       </ion-col>
-      <ion-col>
-        <div class="supplier_div" tappable tappable (click) = 'supplier_clicked()'>
+      <!--<ion-col>
+        <div class="supplier_div" tappable (click) = 'supplier_clicked()'>
           <img src="assets/img/apply.png">
           <p>供应商</p>
         </div>
@@ -28,7 +28,7 @@
       </ion-col>
       <ion-col>
         <div></div>
-      </ion-col>
+      </ion-col>-->
     </ion-row>
 </ion-grid>
 

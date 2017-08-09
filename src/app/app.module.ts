@@ -35,11 +35,14 @@ import { HttpModule } from "@angular/http";
 import { IonicStorageModule } from '@ionic/storage';
 import { MsgPage } from './../pages/msg/msg';
 
+import { WorkSpaceButtonComponent } from '../components/work-space-button/work-space-button';
+
 
 
 @NgModule({
   declarations: [
     MyApp,
+    WorkSpaceButtonComponent,
   ],
   imports: [
     BrowserModule,

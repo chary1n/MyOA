@@ -61,7 +61,10 @@ export class SupplierDetailPage {
   }
 
    callPhone(number){  
-    let confirm = this.alertCtrl.create({  
+    //  alert(this.items.phone);
+     if(this.items.phone != 'false' && this.items.phone != '')
+     {
+        let confirm = this.alertCtrl.create({  
       title: this.items.phone,  
       buttons: [  
         {  
@@ -77,7 +80,8 @@ export class SupplierDetailPage {
         }  
       ]  
     });  
-    confirm.present();  
+      confirm.present();  
+     } 
   }  
   call(number){  
     this.callNumber.callNumber(number, true)  
