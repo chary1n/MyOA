@@ -19,18 +19,19 @@ import { PoContactPage } from './po-contact/po-contact';
 import { ReturnPopoverPage} from './return-order-detail/return-order-detail'
 import { DeliveryNotesPage } from './delivery-notes/delivery-notes';
 import { DeliveryNotesDetailPage } from './delivery-notes-detail/delivery-notes-detail';
+import { CustomerPage } from './../customer/customer';
 @NgModule({
   declarations: [
     WorkBenchPage,CardinfoPage,IncomingPage,IncomingDetailPage,InspectionDetailPage,SupplierListPage,SupplierDetailPage
     ,ContactListPage,OrderPage,ReturnOrderDetailPage,OrderDetailPage,PopoverPage,PoContactPage,ReturnPopoverPage
-    ,DeliveryPage,DeliveryExtraPage,DeliveryInitialRequestPage,DeliveryNotesPage,DeliveryNotesDetailPage,
+    ,DeliveryPage,DeliveryExtraPage,DeliveryInitialRequestPage,DeliveryNotesPage,DeliveryNotesDetailPage,CustomerPage
   ],
   imports: [
     IonicPageModule.forChild(WorkBenchPage),
   ],
   entryComponents:[ WorkBenchPage,CardinfoPage,IncomingPage,IncomingDetailPage,
     InspectionDetailPage,SupplierListPage,SupplierDetailPage,OrderPage,ContactListPage,ReturnOrderDetailPage,OrderDetailPage,PopoverPage,PoContactPage,ReturnPopoverPage
-     ,DeliveryPage,DeliveryExtraPage,DeliveryInitialRequestPage,DeliveryNotesPage,DeliveryNotesDetailPage],
+     ,DeliveryPage,DeliveryExtraPage,DeliveryInitialRequestPage,DeliveryNotesPage,DeliveryNotesDetailPage,CustomerPage],
   exports: [
     WorkBenchPage
   ]
