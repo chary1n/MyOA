@@ -11,11 +11,11 @@ import { IonicPage, NavController, NavParams, ActionSheetController } from 'ioni
  */
 @IonicPage()
 @Component({
-  selector: 'page-sales',
-  templateUrl: 'sales.html',
+  selector: 'page-salesOrder',
+  templateUrl: 'salesOrder.html',
   providers: [SalesSearvice]
 })
-export class SalesPage {
+export class SalesOrderPage {
   pet: string = "1";
   searchName1: string;
   searchName2: string;

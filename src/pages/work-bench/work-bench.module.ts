@@ -1,4 +1,4 @@
-import { SalesPageModule } from './sales/sales.module';
+import { SalesOrderPageModule } from './salesOrder/salesOrder.module';
 import { DeliveryInitialRequestPage } from './delivery-initial-request/delivery-initial-request';
 import { DeliveryExtraPage } from './delivery-extra/delivery-extra';
 import { DeliveryPage } from './delivery/delivery';
@@ -28,7 +28,7 @@ import { CustomerPage } from './../customer/customer';
     ,DeliveryPage,DeliveryExtraPage,DeliveryInitialRequestPage,DeliveryNotesPage,DeliveryNotesDetailPage,CustomerPage
   ],
   imports: [
-    IonicPageModule.forChild(WorkBenchPage),SalesPageModule
+    IonicPageModule.forChild(WorkBenchPage),SalesOrderPageModule
 
   ],
   entryComponents:[ WorkBenchPage,CardinfoPage,IncomingPage,IncomingDetailPage,
