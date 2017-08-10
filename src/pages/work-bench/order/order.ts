@@ -14,7 +14,7 @@ import { Segment } from "ionic-angular";
 @Component({
   selector: 'page-order',
   templateUrl: 'order.html',
-  providers: [orderService]
+  providers: [orderService],
 })
 export class OrderPage {
   pet: string = "1";

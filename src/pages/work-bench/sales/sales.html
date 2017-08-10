@@ -7,12 +7,136 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>sales</ion-title>
+    <ion-title>订单</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)='create()'>
+       创建
+      </button>
+    </ion-buttons>
   </ion-navbar>
+
+  <ion-toolbar no-border-top>
+    <ion-segment [(ngModel)]="pet">
+      <ion-segment-button tappable (click)='clickOne()' value="1">
+        报价单
+      </ion-segment-button>
+      <ion-segment-button tappable (click)='clickTwo()' value="2">
+        销售订单
+      </ion-segment-button>
+      <ion-segment-button tappable (click)='clickThree()' value="3">
+        销售退货
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
 
 </ion-header>
 
 
 <ion-content padding>
+
+  <div [ngSwitch]="pet">
+
+    <ng-template [ngSwitchCase]='1'>
+      <ion-grid>
+        <ion-row>
+          <ion-col col-6>
+            <div>
+              <ion-input [(ngModel)]="searchName1" placeholder="输入订单编号" text-wrap style="margin-left:20px;;"></ion-input>
+            </div>
+          </ion-col>
+          <ion-col>
+            <div><button (click)='searchClick1()' style="height:40px;font-size:15px;font-weight:bold;background-color:white">搜索</button></div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-refresher (ionRefresh)="doRefresh1($event)">
+        <ion-refresher-content></ion-refresher-content>
+      </ion-refresher>
+      <ion-list>
+        <ion-item *ngFor='let item of quotesOrder' tappable (click)='orderDetail1(item.id)'>
+          <p text-wrap style="font-size:100%;float:right;color:#fc6621;">由MRP生成</p>
+          <h2 text-wrap>{{item.name}}</h2>
+          <h4 text-wrap style="font-size:70%;word-break:break-all">{{item.order_line}}</h4>
+          <p text-wrap>负责人：{{item.creater}}</p>
+          <p text-wrap style="float:right;color:#1e1e1e;font-weight:bold;font-size:70%;">汇总数量：{{item.amount_total}}</p>
+          <p text-wrap>供应商 ：{{item.supplier}}</p>
+
+          <p text-wrap style="float:right">汇总金额 :{{item.product_count}}</p>
+        </ion-item>
+      </ion-list>
+
+      <ion-infinite-scroll (ionInfinite)="doInfinite1($event)">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+
+    </ng-template>
+
+    <ng-template [ngSwitchCase]='2'>
+      <ion-grid>
+        <ion-row>
+          <ion-col col-6>
+            <div>
+              <ion-input [(ngModel)]="searchName2" placeholder="输入订单编号" style="margin-left:20px;;"></ion-input>
+            </div>
+          </ion-col>
+          <ion-col>
+            <div><button (click)='searchClick2()' style="height:40px;font-size:15px;font-weight:bold;background-color:white">搜索</button></div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-refresher (ionRefresh)="doRefresh2($event)">
+        <ion-refresher-content></ion-refresher-content>
+      </ion-refresher>
+      <ion-list>
+        <ion-item *ngFor='let item of salesOrder' tappable (click)='orderDetail2(item.id)'>
+          <p text-wrap style="font-size:100%;float:right;color:#fc6621;">询价单</p>
+          <h2 text-wrap>{{item.name}}</h2>
+          <h4 text-wrap>{{item.order_line}}</h4>
+          <p text-wrap>负责人：{{item.creater}}</p>
+          <p text-wrap style="float:right;color:#1e1e1e;font-weight:bold;font-size:70%;">汇总数量：{{item.amount_total}}</p>
+          <p text-wrap>供应商 ：{{item.supplier}}</p>
+          <p text-wrap style="float:right">汇总金额 :{{item.product_count}}</p>
+        </ion-item>
+      </ion-list>
+
+      <ion-infinite-scroll (ionInfinite)="doInfinite2($event)">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+    </ng-template>
+
+    <ng-template [ngSwitchCase]='3'>
+      <ion-grid>
+        <ion-row>
+          <ion-col col-6>
+            <div>
+              <ion-input [(ngModel)]="searchName3" placeholder="输入订单编号" style="margin-left:20px;;"></ion-input>
+            </div>
+          </ion-col>
+          <ion-col>
+            <div><button (click)='searchClick3()' style="height:40px;font-size:15px;font-weight:bold;background-color:white">搜索</button></div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-refresher (ionRefresh)="doRefresh3($event)">
+        <ion-refresher-content></ion-refresher-content>
+      </ion-refresher>
+      <ion-list>
+        <ion-item *ngFor='let item of salesReturnOrder' tappable (click)='orderDetail3(item.id)'>
+          <p text-wrap style="font-size:100%;float:right;color:#fc6621;">采购确认</p>
+          <h2 text-wrap>{{item.name}}</h2>
+          <h4 text-wrap>{{item.order_line}}</h4>
+          <p text-wrap>负责人：{{item.creater}}</p>
+          <p text-wrap style="float:right;color:#1e1e1e;font-weight:bold;font-size:70%;">汇总数量：{{item.amount_total}}</p>
+          <p text-wrap>供应商 ：{{item.supplier}}</p>
+          <p text-wrap style="float:right">汇总金额 :{{item.product_count}}</p>
+        </ion-item>
+      </ion-list>
+      <ion-infinite-scroll (ionInfinite)="doInfinite3($event)">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+    </ng-template>
+    
+  </div>
+
 
 </ion-content>
