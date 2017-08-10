@@ -1,3 +1,4 @@
+import { SalesPage } from './sales/sales';
 import { OrderPage } from './order/order';
 import { InspectionDetailPage } from './inspection-detail/inspection-detail';
 import { CardinfoPage } from './cardinfo/cardinfo';
@@ -79,6 +80,9 @@ export class WorkBenchPage {
     else if (item.title == '采购订单')
     {
       this.navCtrl.push(OrderPage);
+    }else if (item.title == '销售订单')
+    {
+      this.navCtrl.push(SalesPage);
     }
     else if (item.title == '客户查询')
     {
