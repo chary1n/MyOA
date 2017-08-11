@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams} from 'ionic-angular';
-import { SupplierModel} from './../../../model/SupplierModel';
 /**
  * Generated class for the ContactListPage page.
  *
@@ -17,11 +16,6 @@ export class ContactListPage {
   item:SupplierModel;
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.contactList = navParams.get('contactList'); 
-    
-  
-    for(var i=0;i<this.contactList.type.length;i++){
-      console.log(i);
-    }
     
   }
 
