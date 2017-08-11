@@ -89,14 +89,37 @@ export class orderService {
         });
         return this.httpservice.postBody("get_delivery_notes", body);
     }
-
-    orderSearchByPO(number: any) {
+//  Mrp 查询
+    orderSearchByPO1(number: any) {
         let body = JSON.stringify({
             po_number: number,
-            model: "purchase.order"
+            model: "purchase.order",
+            state: "make_by_mrp"
         });
         return this.httpservice.postBody("search_purchase_order", body);
     }
+
+    // 询价单
+    orderSearchByPO2(number: any) {
+        let body = JSON.stringify({
+            po_number: number,
+            model: "purchase.order",
+            state: "draft"
+        });
+        return this.httpservice.postBody("search_purchase_order", body);
+    }
+
+    // 采购订单
+    orderSearchByPO3(number: any) {
+        let body = JSON.stringify({
+            po_number: number,
+            model: "purchase.order",
+            state: "purchase"
+        });
+        return this.httpservice.postBody("search_purchase_order", body);
+    }
+
+
     returnOrderSearchByPO(number: any) {
         let body = JSON.stringify({
             po_number: number,

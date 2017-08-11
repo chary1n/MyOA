@@ -295,7 +295,7 @@ export class OrderPage {
 
   searchClick1() {
     this.isMoreData1=false ;
-    this.orderService.orderSearchByPO(this.searchName)
+    this.orderService.orderSearchByPO1(this.searchName)
       .then(res => {
         this.orderMRP = res.result.res_data
       })
@@ -303,7 +303,7 @@ export class OrderPage {
 
   searchClick2() {
      this.isMoreData2=false ;
-    this.orderService.orderSearchByPO(this.searchName)
+    this.orderService.orderSearchByPO2(this.searchName)
       .then(res => {
         this.priceOrder = res.result.res_data
       })
@@ -312,7 +312,7 @@ export class OrderPage {
 
   searchClick3() {
      this.isMoreData3=false ;
-    this.orderService.orderSearchByPO(this.searchName)
+    this.orderService.orderSearchByPO3(this.searchName)
       .then(res => {
         this.incomingOrder = res.result.res_data
       })
