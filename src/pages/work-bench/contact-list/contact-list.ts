@@ -13,7 +13,6 @@ import { IonicPage, NavController, NavParams} from 'ionic-angular';
 })
 export class ContactListPage {
   contactList : any;
-  item:SupplierModel;
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.contactList = navParams.get('contactList'); 
     
