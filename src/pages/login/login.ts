@@ -56,6 +56,7 @@ export class LoginPage {
 
   getdbInfo() {
     this.loginservice.getDBInfo().then(res => {
+      console.log(res)
       this.dbs = res.res_data;
     });
   }
