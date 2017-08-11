@@ -79,7 +79,7 @@ export class HttpService {
   }  
   public postBody(url: string, paramObj: any, type: number = 0) {
     let loading = this.loadingCreate(true);  
-    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let headers = new Headers({'Content-Type': 'application/json' });
     return this.http.post(this.getAppPath(url,type), paramObj, new RequestOptions({ headers: headers }))
       .map(data=>this.dealRe(data,loading))
       .toPromise()
