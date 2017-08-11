@@ -24,8 +24,7 @@ export class IncomingDetailPage {
       this.isPop = navParams.get('isPop') ;
       this.count = 1;
       console.log('ionViewDidEnter IncomingDetailPage');
-      this.item.min_date = new Date (new Date(this.item.min_date).getTime()+8*3600*1000).toString();
-      console.log(this.item.min_date);
+     
   }
 
   ionViewDidLoad() {

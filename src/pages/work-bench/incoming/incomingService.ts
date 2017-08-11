@@ -8,7 +8,7 @@ export class IncomingService {
 
     }
 
-    getIncomingList<StockPickingListModel>(mlimit,moffset) {
+    getIncomingList(mlimit,moffset) {
         let body = JSON.stringify({
             partner_id: 0,
             picking_type_id: 1,
@@ -17,6 +17,14 @@ export class IncomingService {
             offset:moffset
         });
        return this.httpservice.postBody("get_stock_picking_list",body,1);
+    }
+
+    searchInComingList(searchName)
+    {
+        let body = JSON.stringify({
+            name:searchName,
+        });
+        return this.httpservice.postBody("search_stock_picking_name",body,1);
     }
 
 }

@@ -22,6 +22,8 @@ export class IncomingPage {
   limit = 20;
   offset = 0;
   isMoreData = true;
+  searchName:any;
+  isSearch = false;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public incomingService: IncomingService) {
   }
@@ -50,6 +52,8 @@ export class IncomingPage {
   }
 
   doRefresh(refresh) {
+    this.searchName = '';
+    this.isSearch = false;
     this.isMoreData = true;
     this.limit = 20;
     this.offset = 0;
@@ -65,7 +69,9 @@ export class IncomingPage {
   
 
   doInfinite(infiniteScroll) {
-    if (this.isMoreData == true)
+    if (this.isSearch == false)
+    {
+      if (this.isMoreData == true)
     {
       this.limit += 20;
     this.offset += 20;
@@ -100,6 +106,11 @@ export class IncomingPage {
     {
       infiniteScroll.complete();
     }
+    }
+    else
+    {
+      infiniteScroll.complete();
+    }
   }
 
   incoming_detail(item) {
@@ -108,6 +119,15 @@ export class IncomingPage {
       item: item,
       isPop:false 
     });
+  }
+
+  searchClick()
+  {
+    this.isSearch = true;
+    this.incomingService.searchInComingList(this.searchName).then((res) => {
+      this.items = res.result.res_data;
+    })
+   
   }
 
 }

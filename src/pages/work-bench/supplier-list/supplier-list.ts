@@ -23,6 +23,7 @@ export class SupplierListPage {
   offset = 0;
   isMoreData = true;
   searchName:any;
+  isSearch = false;
   constructor(public navCtrl: NavController, 
     public navParams: NavParams, public supplierService: SupplierlistService) {
   }
@@ -46,6 +47,8 @@ export class SupplierListPage {
   }
 
   doRefresh(refresh) {
+    this.searchName = '';
+    this.isSearch = false;
     this.isMoreData = true;
     this.limit = 20;
     this.offset = 0;
@@ -57,7 +60,9 @@ export class SupplierListPage {
   }
 
   doInfinite(infiniteScroll) {
-    if (this.isMoreData == true) {
+    if (this.isSearch == false)
+    {
+      if (this.isMoreData == true) {
       this.limit = 20;
       this.offset += 20;
         this.supplierService.getSupplierList(this.limit, this.offset).then((res) => {
@@ -85,9 +90,16 @@ export class SupplierListPage {
       infiniteScroll.complete();
     }
   }
+  else
+  {
+    infiniteScroll.complete();
+  }
+    
+  }
 
   searchClick()
   {
+    this.isSearch = true;
     this.supplierService.searchSupplier(this.searchName).then((res) => {
       this.items = res.result.res_data;
     })
