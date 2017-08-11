@@ -39,5 +39,12 @@ export class SalesSearvice {
         });
         return this.httpservice.postBody("get_sale_orders_details", body);
     }
+    getSalesReturnOrderDetail(id)
+    {
+        let body = JSON.stringify({
+            id: id
+        });
+        return this.httpservice.postBody("get_sale_return_details", body);
+    }
 
 }
