@@ -85,8 +85,7 @@
 <ion-footer>
     <ion-toolbar  >
         <button ion-button ion-start style='width:48%' tappable (click)='cancelOrder()'> 取消订单 </button>
-         <button ion-button  ion-end style='width:48%' tappable (click)='createInvoice()'> 创建发票</button> 
-         <button ion-button  ion-end style='width:48%' tappable (click)='conformSales()'> 确认销售</button> 
-         
+         <button ion-button  *ngIf="type=='salesOrder'"  ion-end style='width:48%' tappable (click)='createInvoice()'> 创建发票</button> 
+         <button ion-button  *ngIf="type=='quotesOrder'" ion-end style='width:48%' tappable (click)='conformSales()'> 确认销售</button> 
       </ion-toolbar>
 </ion-footer>
