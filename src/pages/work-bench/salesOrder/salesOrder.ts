@@ -3,7 +3,7 @@ import { SalesDetailPage } from './sales-detail/sales-detail';
 import { SalesSearvice } from './salesService';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ActionSheetController } from 'ionic-angular';
-
+import { PurchaseBackOrderPage } from './sales-detail/purchase-back-order/purchase-back-order';
 /**
  * Generated class for the SalesPage page.
  *
@@ -235,9 +235,12 @@ export class SalesOrderPage {
   }
 
   orderDetail3(mid) {
-   this.navCtrl.push(SalesDetailPage,{
-      id :mid
-    })
+    this.salesSearvice.getSalesReturnOrderDetail(mid).then((res) => {
+      console.log(res);
+      this.navCtrl.push(PurchaseBackOrderPage,{
+        items:res.result.res_data
+      })
+    }) 
   }
 
 
