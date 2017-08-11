@@ -7,29 +7,37 @@ export class SalesSearvice {
     constructor(private httpservice: HttpService) {
 
     }
-    getSalesOrder(moffset, mlimit) {
+    getQuotesList(moffset, mlimit, id) {
         let body = JSON.stringify({
-            state: 'purchase',
+            type: 'in',
             offset: moffset,
-            limit: mlimit
+            limit: mlimit,
+            user_id: id
         });
-        return this.httpservice.postBody("get_po", body);
+        return this.httpservice.postBody("get_sale_orders", body);
     }
-    getQuotesList(moffset, mlimit) {
+    getSalesOrder(moffset, mlimit, id) {
         let body = JSON.stringify({
-            state: 'purchase',
+            type: 'not in',
             offset: moffset,
-            limit: mlimit
+            limit: mlimit,
+            user_id: id
         });
-        return this.httpservice.postBody("get_po", body);
+        return this.httpservice.postBody("get_sale_orders", body);
     }
-    getSalesReturn(moffset, mlimit) {
-        let body = JSON.stringify({
-            state: 'purchase',
+    getSalesReturn(moffset, mlimit,id) {
+         let body = JSON.stringify({
             offset: moffset,
-            limit: mlimit
+            limit: mlimit,
+            user_id: id
         });
-        return this.httpservice.postBody("get_po", body);
+        return this.httpservice.postBody("get_sale_orders", body);
+    }
+    getSalesOrderDetail(mid){
+        let body = JSON.stringify({
+            id: mid
+        });
+        return this.httpservice.postBody("get_sale_orders_details", body);
     }
 
 }

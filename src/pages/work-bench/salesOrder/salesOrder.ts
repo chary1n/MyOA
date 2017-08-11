@@ -1,3 +1,4 @@
+import { Storage } from '@ionic/storage';
 import { SalesDetailPage } from './sales-detail/sales-detail';
 import { SalesSearvice } from './salesService';
 import { Component } from '@angular/core';
@@ -29,20 +30,28 @@ export class SalesOrderPage {
   quotesOrder: any;
   salesOrder: any;
   salesReturnOrder: any;
-
+  userId :number ;
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public actionSheetCtrl: ActionSheetController,
-    public salesSearvice: SalesSearvice) {
+    public salesSearvice: SalesSearvice, private storage: Storage) {
+    this.storage.get('user')
+      .then(res => {
+        this.userId = res.result.res_data.user_id
+        console.log(res);
+      });
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SalesPage');
   }
 
+  ionViewDidEnter() {
+    this.clickOne()
+  }
   clickOne() {
-    this.salesSearvice.getQuotesList(0, 20)
+    this.salesSearvice.getQuotesList(0, 20,this.userId)
       .then(res => {
         if (res.result && res.result.res_code == 1) {
           this.quotesOrder = res.result.res_data
@@ -55,7 +64,7 @@ export class SalesOrderPage {
     this.isMoreData2 = true;
     this.limit = 20;
     this.offset = 0;
-    this.salesSearvice.getQuotesList(0, 20).then((res) => {
+    this.salesSearvice.getQuotesList(0, 20,this.userId).then((res) => {
       console.log(res)
       refresh.complete();
       this.quotesOrder = res.result.res_data;
@@ -67,7 +76,7 @@ export class SalesOrderPage {
     if (this.isMoreData1 == true) {
       this.limit = 20;
       this.offset = this.offset + 20;
-      this.salesSearvice.getQuotesList(this.offset, this.limit).then((res) => {
+      this.salesSearvice.getQuotesList(this.offset, this.limit,this.userId).then((res) => {
         console.log(this.offset)
         console.log(this.limit)
         let item_data = [];
@@ -95,7 +104,7 @@ export class SalesOrderPage {
 
 
   clickTwo() {
-    this.salesSearvice.getSalesOrder(0, 20)
+    this.salesSearvice.getSalesOrder(0, 20,this.userId)
       .then(res => {
         if (res.result && res.result.res_code == 1) {
           this.salesOrder = res.result.res_data
@@ -108,7 +117,7 @@ export class SalesOrderPage {
     this.isMoreData2 = true;
     this.limit = 20;
     this.offset = 0;
-    this.salesSearvice.getSalesOrder(0, 20).then((res) => {
+    this.salesSearvice.getSalesOrder(0, 20,this.userId).then((res) => {
       console.log(res)
       refresh.complete();
       this.salesOrder = res.result.res_data;
@@ -120,7 +129,7 @@ export class SalesOrderPage {
     if (this.isMoreData2 == true) {
       this.limit = 20;
       this.offset = this.offset + 20;
-      this.salesSearvice.getSalesOrder(this.offset, this.limit).then((res) => {
+      this.salesSearvice.getSalesOrder(this.offset, this.limit,this.userId).then((res) => {
         console.log(this.offset)
         console.log(this.limit)
         let item_data = [];
@@ -148,7 +157,7 @@ export class SalesOrderPage {
 
 
   clickThree() {
-    this.salesSearvice.getSalesReturn(0, 20)
+    this.salesSearvice.getSalesReturn(0, 20,this.userId)
       .then(res => {
         if (res.result && res.result.res_code == 1) {
           this.salesReturnOrder = res.result.res_data
@@ -161,7 +170,7 @@ export class SalesOrderPage {
     this.isMoreData3 = true;
     this.limit = 20;
     this.offset = 0;
-    this.salesSearvice.getSalesReturn(0, 20).then((res) => {
+    this.salesSearvice.getSalesReturn(0, 20,this.userId).then((res) => {
       console.log(res)
       refresh.complete();
       this.salesOrder = res.result.res_data;
@@ -173,7 +182,7 @@ export class SalesOrderPage {
     if (this.isMoreData3 == true) {
       this.limit = 20;
       this.offset = this.offset + 20;
-      this.salesSearvice.getSalesReturn(this.offset, this.limit).then((res) => {
+      this.salesSearvice.getSalesReturn(this.offset, this.limit,this.userId).then((res) => {
         console.log(this.offset)
         console.log(this.limit)
         let item_data = [];
@@ -212,17 +221,23 @@ export class SalesOrderPage {
 
   }
 
-  orderDetail1() {
-    this.navCtrl.push(SalesDetailPage)
+  orderDetail1(mid) {
+    this.navCtrl.push(SalesDetailPage,{
+      id :mid
+    })
+  }
+
+  orderDetail2(mid) {
+      this.navCtrl.push(SalesDetailPage,{
+      id :mid
+    })
 
   }
 
-  orderDetail2() {
-
-  }
-
-  orderDetail3() {
-
+  orderDetail3(mid) {
+   this.navCtrl.push(SalesDetailPage,{
+      id :mid
+    })
   }
 
 
