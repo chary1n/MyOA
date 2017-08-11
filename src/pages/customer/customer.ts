@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { CustomerService } from './CustomerService';
+import { AddCustomerPage } from './../customer/add-customer/add-customer';
+import { Storage} from '@ionic/storage';
+
 /**
  * Generated class for the CustomerPage page.
  *
@@ -11,35 +14,242 @@ import { CustomerService } from './CustomerService';
 @Component({
   selector: 'page-customer',
   templateUrl: 'customer.html',
-  providers: [CustomerService]
+  providers: [CustomerService],
 })
 export class CustomerPage {
   pet: string = "3";
+  dataSourceThird:any;
+  dataSourceFirst:any;
+  dataSourceSecond:any;
+  dataSourceFourth:any;
+  starArr:any;
+  limit = 20;
+  offset = 0;
+  isMoreData1 = true;
+  isMoreData2 = true;
+  isMoreData3 = true;
+  isMoreData4 = true;
+  user_id;
   constructor(public navCtrl: NavController, public navParams: NavParams,
-  public customerService:CustomerService) {
+  public customerService:CustomerService,private storage: Storage) {
+    this.starArr = ['1','1','1','1','1'];
+    
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CustomerPage');
-    this.clickCustomer()
+
+    this.storage.get('user')
+      .then(res => {
+        this.user_id = res.result.res_data.user_id;
+         this.clickCustomer()
+      })
+   
   }
 
   clickCustomer(){
-    
-  }
-
-  clickXianSuo(){
-    this.customerService.get_clues(20,0).then((res) => {
-      console.log (res);
+    this.customerService.getNormalCustomer(20,0,this.user_id).then((res) => {
+        console.log (res);
+        this.dataSourceThird = res.result.res_data;
     })
   }
 
-  clickQianZaiCustomer(){
+  clickXianSuo(){
+    this.storage.get('user')
+      .then(res => {
+        this.customerService.get_clues(20,0,this.user_id).then((resa) => {
+        console.log (resa);
+        this.dataSourceFirst = resa.result.res_data;
+      })
+    })
+    
+  }
 
+  clickQianZaiCustomer(){
+    this.customerService.getQianZaiCustomer(20,0,this.user_id).then((res) => {
+        console.log (res);
+        this.dataSourceSecond = res.result.res_data;
+    })
   }
 
   clickGongHaiCustomer(){
-
+    this.customerService.getPublicCustomer(20,0,this.user_id).then((res) => {
+        console.log (res);
+        this.dataSourceFourth = res.result.res_data;
+    })
   }
-  
+
+  addCustomer(){
+    this.navCtrl.push(AddCustomerPage, {
+      
+    });
+  }
+
+  doRefresh1(refresh) {
+    this.isMoreData1 = true;
+    this.limit = 20;
+    this.offset = 0;
+
+    this.customerService.get_clues(this.limit,this.offset,this.user_id).then((res) => {
+        console.log (res);
+        refresh.complete();
+        this.dataSourceFirst = res.result.res_data;
+    })
+        
+  }
+
+
+  doInfinite1(infiniteScroll) {
+    if (this.isMoreData1 == true) {
+      this.limit = 20;
+      this.offset = this.offset + 20;
+      this.customerService.get_clues(this.limit,this.offset,this.user_id).then((res) => {
+        let item_data = [];
+        if (res.result.res_data) {
+          item_data = res.result.res_data;
+          if (item_data.length == 20) {
+            this.isMoreData1 = true;
+          }
+          else {
+            this.isMoreData1 = false;
+          }
+          for (let item of item_data) {
+            this.dataSourceFirst.push(item);
+          }
+        }
+        else {
+          this.isMoreData1 = false;
+        }
+        infiniteScroll.complete();
+      })
+    } else {
+      infiniteScroll.complete();
+    }
+  }
+
+  doRefresh2(refresh) {
+    this.isMoreData2 = true;
+    this.limit = 20;
+    this.offset = 0;
+
+    this.customerService.getQianZaiCustomer(this.limit,this.offset,this.user_id).then((res) => {
+        console.log (res);
+        refresh.complete();
+        this.dataSourceSecond = res.result.res_data;
+    })
+        
+  }
+
+
+  doInfinite2(infiniteScroll) {
+    if (this.isMoreData2 == true) {
+      this.limit = 20;
+      this.offset = this.offset + 20;
+      this.customerService.getQianZaiCustomer(this.limit,this.offset,this.user_id).then((res) => {
+        let item_data = [];
+        if (res.result.res_data) {
+          item_data = res.result.res_data;
+          if (item_data.length == 20) {
+            this.isMoreData2 = true;
+          }
+          else {
+            this.isMoreData2 = false;
+          }
+          for (let item of item_data) {
+            this.dataSourceSecond.push(item);
+          }
+        }
+        else {
+          this.isMoreData2 = false;
+        }
+        infiniteScroll.complete();
+      })
+    } else {
+      infiniteScroll.complete();
+    }
+  }
+
+  doRefresh3(refresh) {
+    this.isMoreData3 = true;
+    this.limit = 20;
+    this.offset = 0;
+
+    this.customerService.getNormalCustomer(this.limit,this.offset,this.user_id).then((res) => {
+        console.log (res);
+        refresh.complete();
+        this.dataSourceThird = res.result.res_data;
+    })
+        
+  }
+
+
+  doInfinite3(infiniteScroll) {
+    if (this.isMoreData3 == true) {
+      this.limit = 20;
+      this.offset = this.offset + 20;
+      this.customerService.getNormalCustomer(this.limit,this.offset,this.user_id).then((res) => {
+        let item_data = [];
+        if (res.result.res_data) {
+          item_data = res.result.res_data;
+          if (item_data.length == 20) {
+            this.isMoreData3 = true;
+          }
+          else {
+            this.isMoreData3 = false;
+          }
+          for (let item of item_data) {
+            this.dataSourceThird.push(item);
+          }
+        }
+        else {
+          this.isMoreData3 = false;
+        }
+        infiniteScroll.complete();
+      })
+    } else {
+      infiniteScroll.complete();
+    }
+  }
+
+  doRefresh4(refresh) {
+    this.isMoreData4 = true;
+    this.limit = 20;
+    this.offset = 0;
+
+    this.customerService.getPublicCustomer(this.limit,this.offset,this.user_id).then((res) => {
+        console.log (res);
+        refresh.complete();
+        this.dataSourceFourth = res.result.res_data;
+    })
+        
+  }
+
+
+  doInfinite4(infiniteScroll) {
+    if (this.isMoreData4 == true) {
+      this.limit = 20;
+      this.offset = this.offset + 20;
+      this.customerService.getPublicCustomer(this.limit,this.offset,this.user_id).then((res) => {
+        let item_data = [];
+        if (res.result.res_data) {
+          item_data = res.result.res_data;
+          if (item_data.length == 20) {
+            this.isMoreData4 = true;
+          }
+          else {
+            this.isMoreData4 = false;
+          }
+          for (let item of item_data) {
+            this.dataSourceFourth.push(item);
+          }
+        }
+        else {
+          this.isMoreData4 = false;
+        }
+        infiniteScroll.complete();
+      })
+    } else {
+      infiniteScroll.complete();
+    }
+  }
 }

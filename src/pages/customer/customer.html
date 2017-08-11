@@ -8,6 +8,11 @@
 
   <ion-navbar>
     <ion-title>客户</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only tappable (click)="addCustomer()">
+        <p>添加</p>
+      </button>
+    </ion-buttons>
   </ion-navbar>
   <ion-toolbar no-border-top>
     <ion-segment [(ngModel)]="pet">
@@ -47,15 +52,17 @@
         <ion-refresher-content></ion-refresher-content>
       </ion-refresher>
       <ion-list>
-        <ion-item *ngFor='let item of orderMRP' tappable (click)='orderDetail(item.id)'>
-          <p text-wrap style="font-size:100%;float:right;color:#fc6621;">由MRP生成</p>
-          <h2 text-wrap>{{item.name}}</h2>
-          <h4 text-wrap style="font-size:70%;word-break:break-all">{{item.order_line}}</h4>
-          <p text-wrap>负责人：{{item.creater}}</p>
-          <p text-wrap style="float:right;color:#1e1e1e;font-weight:bold;font-size:70%;">汇总数量：{{item.amount_total}}</p>
-          <p text-wrap>供应商 ：{{item.supplier}}</p>
-
-          <p text-wrap style="float:right">汇总金额 :{{item.product_count}}</p>
+        <ion-item *ngFor='let item of dataSourceFirst'>
+         <h2 text-wrap >{{item.name}}</h2>
+         <p text-wrap class="team_p">联系人：{{item.contact_name}}</p>
+          <p text-wrap class="team_p">销售团队：{{item.team}}</p>
+          <p text-wrap class="team_p">销售员：{{item.user}}</p>
+          <div class="item row row-wrap row-no-padding" style="height: 50px;border: none;">
+            <!--<button ion-button style="background-color:#d9f2e4;color:#48ce3d" small>客户</button> -->
+            <div class="col col-center">
+                <ion-icon *ngFor='let item of starArr | slice:(5 - item.priority)' name="star" style="color:#fdc03b"></ion-icon>
+            </div>
+          </div>
         </ion-item>
       </ion-list>
 
@@ -82,14 +89,17 @@
         <ion-refresher-content></ion-refresher-content>
       </ion-refresher>
       <ion-list>
-        <ion-item *ngFor='let item of priceOrder' tappable (click)='orderDetail(item.id)'>
-          <p text-wrap style="font-size:100%;float:right;color:#fc6621;">询价单</p>
-          <h2 text-wrap >{{item.name}}</h2>
-          <h4 text-wrap >{{item.order_line}}</h4>
-          <p text-wrap >负责人：{{item.creater}}</p>
-          <p text-wrap  style="float:right;color:#1e1e1e;font-weight:bold;font-size:70%;">汇总数量：{{item.amount_total}}</p>
-          <p text-wrap >供应商 ：{{item.supplier}}</p>
-          <p text-wrap style="float:right">汇总金额 :{{item.product_count}}</p>
+        <ion-item *ngFor='let item of dataSourceSecond'>
+         <h2 text-wrap >{{item.name}}</h2>
+          <p text-wrap class="team_p">销售团队：{{item.team}}</p>
+          <p text-wrap class="team_p">销售员：{{item.user}}</p>
+          <div class="item row row-wrap row-no-padding" style="height: 50px;border: none;">
+            <button ion-button *ngFor = 'let detail of item.category' style="background-color:#d9f2e4;color:#48ce3d" small>{{detail}}</button>
+            <button ion-button style="background-color:#d4f3fc;color:#4c8dfb" small>{{item.level}}st</button> 
+            <div class="col col-center">
+                <ion-icon *ngFor='let item of starArr | slice:(5 - item.priority)' name="star" style="color:#fdc03b"></ion-icon>
+            </div>
+          </div>
         </ion-item>
       </ion-list>
 
@@ -115,30 +125,17 @@
         <ion-refresher-content></ion-refresher-content>
       </ion-refresher>
       <ion-list>
-        <ion-item>
-          <h2 text-wrap >XXXXXXX公司</h2>
-          <p text-wrap class="team_p">销售团队：内销团队</p>
-          <p text-wrap class="team_p">销售员：XXXXXX</p>
-          <div class="item row row-wrap row-no-padding" style="height: 50px;border: none;padding-left: 10px;">
-              
-                <div class="col col-center">
-                          <ion-icon name="star" ios="ios-star" color="yellow"></ion-icon>
-                          <ion-icon name="star" color="yellow"></ion-icon>
-                          <ion-icon name="star" color="yellow"></ion-icon>
-                          <ion-icon name="star" color="yellow"></ion-icon>
-                          <ion-icon name="star" color="yellow"></ion-icon>
-                            <!--<i ng-class="{true: 'icon ion-iOS-star energized', false: 'icon ion-ios-star-outline'}[service[0]]"
-                               ng-click="chooseService(0)" style="font-size: 30px;"></i>
-                            <i ng-class="{true: 'icon ion-ios-star energized', false: 'icon ion-ios-star-outline'}[service[1]]"
-                               ng-click="chooseService(1)" style="font-size: 30px;"></i>
-                            <i ng-class="{true: 'icon ion-ios-star energized', false: 'icon ion-ios-star-outline'}[service[2]]"
-                               ng-click="chooseService(2)" style="font-size: 30px;"></i>
-                            <i ng-class="{true: 'icon ion-ios-star energized', false: 'icon ion-ios-star-outline'}[service[3]]"
-                               ng-click="chooseService(3)" style="font-size: 30px;"></i>
-                            <i ng-class="{true: 'icon ion-ios-star energized', false: 'icon ion-ios-star-outline'}[service[4]]"
-                               ng-click="chooseService(4)" style="font-size: 30px;"></i>-->
-                </div>
+        <ion-item *ngFor='let item of dataSourceThird'>
+         <h2 text-wrap >{{item.name}}</h2>
+          <p text-wrap class="team_p">销售团队：{{item.team}}</p>
+          <p text-wrap class="team_p">销售员：{{item.user}}</p>
+          <div class="item row row-wrap row-no-padding" style="height: 50px;border: none;">
+            <button ion-button *ngFor = 'let detail of item.category' style="background-color:#d9f2e4;color:#48ce3d" small>{{detail}}</button>
+            <button ion-button style="background-color:#d4f3fc;color:#4c8dfb" small>{{item.level}}st</button> 
+            <div class="col col-center">
+                <ion-icon *ngFor='let item of starArr | slice:(5 - item.priority)' name="star" style="color:#fdc03b"></ion-icon>
             </div>
+          </div>
         </ion-item>
       </ion-list>
       <ion-infinite-scroll (ionInfinite)="doInfinite3($event)">
@@ -163,14 +160,17 @@
         <ion-refresher-content></ion-refresher-content>
       </ion-refresher>
       <ion-list>
-        <ion-item *ngFor='let item of returnOrder' tappable (click)='returnOrderDetail(item.id)'>
-          <p  text-wrap style="font-size:100%;float:right;color:#fc6621;">退货单</p>
-          <h2 text-wrap >{{item.name}}</h2>
-          <h4 text-wrap >{{item.order_line}}</h4>
-          <p text-wrap >退货日期：{{item.date}}</p>
-          <p text-wrap  style="float:right;color:#1e1e1e;font-weight:bold;font-size:70%;">退货金额：{{item.amount_total}}</p>
-          <p text-wrap >供应商 ：{{item.supplier}}</p>
-          <p text-wrap >退货原因 :{{item.remark}}</p>
+        <ion-item *ngFor='let item of dataSourceFourth'>
+         <h2 text-wrap >{{item.name}}</h2>
+          <p text-wrap class="team_p">销售团队：{{item.team}}</p>
+          <p text-wrap class="team_p">销售员：{{item.user}}</p>
+          <div class="item row row-wrap row-no-padding" style="height: 50px;border: none;">
+            <button ion-button *ngFor = 'let detail of item.category' style="background-color:#d9f2e4;color:#48ce3d" small>{{detail}}</button>
+            <button ion-button style="background-color:#d4f3fc;color:#4c8dfb" small>{{item.level}}st</button> 
+            <div class="col col-center">
+                <ion-icon *ngFor='let item of starArr | slice:(5 - item.priority)' name="star" style="color:#fdc03b"></ion-icon>
+            </div>
+          </div>
         </ion-item>
       </ion-list>
       <ion-infinite-scroll immediate-check="false" (ionInfinite)="doInfinite4($event)">

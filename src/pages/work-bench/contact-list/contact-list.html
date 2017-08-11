@@ -17,8 +17,8 @@
   <ion-item-group *ngFor='let item of contactList'>
     <ion-item-divider class="divider" color="light"></ion-item-divider>
     <ion-item>
-      <h1 style="font-weight:bold;">{{item.name}}</h1>
-      <h4 >地址：{{item.street}}</h4>
+      <button ion-button  style="background-color:#c9c9c9;color:gray" small>{{item.type[1]}}</button><h1 style="font-weight:bold;">{{item.name}}</h1>
+      <h4>地址：{{item.street}}</h4>
       <p>Email：{{item.email}}</p>
       <p>电话：{{item.phone}}</p>
     </ion-item>

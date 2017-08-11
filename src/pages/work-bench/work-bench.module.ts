@@ -21,11 +21,13 @@ import { ReturnPopoverPage} from './return-order-detail/return-order-detail'
 import { DeliveryNotesPage } from './delivery-notes/delivery-notes';
 import { DeliveryNotesDetailPage } from './delivery-notes-detail/delivery-notes-detail';
 import { CustomerPage } from './../customer/customer';
+import { AddCustomerPage } from './../customer/add-customer/add-customer';
 @NgModule({
   declarations: [
     WorkBenchPage,CardinfoPage,IncomingPage,IncomingDetailPage,InspectionDetailPage,SupplierListPage,SupplierDetailPage
     ,ContactListPage,OrderPage,ReturnOrderDetailPage,OrderDetailPage,PopoverPage,PoContactPage,ReturnPopoverPage
     ,DeliveryPage,DeliveryExtraPage,DeliveryInitialRequestPage,DeliveryNotesPage,DeliveryNotesDetailPage,CustomerPage
+    ,AddCustomerPage
   ],
   imports: [
     IonicPageModule.forChild(WorkBenchPage),SalesPageModule
@@ -33,7 +35,7 @@ import { CustomerPage } from './../customer/customer';
   ],
   entryComponents:[ WorkBenchPage,CardinfoPage,IncomingPage,IncomingDetailPage,
     InspectionDetailPage,SupplierListPage,SupplierDetailPage,OrderPage,ContactListPage,ReturnOrderDetailPage,OrderDetailPage,PopoverPage,PoContactPage,ReturnPopoverPage
-     ,DeliveryPage,DeliveryExtraPage,DeliveryInitialRequestPage,DeliveryNotesPage,DeliveryNotesDetailPage,CustomerPage],
+     ,DeliveryPage,DeliveryExtraPage,DeliveryInitialRequestPage,DeliveryNotesPage,DeliveryNotesDetailPage,CustomerPage,AddCustomerPage],
   exports: [
     WorkBenchPage
   ]

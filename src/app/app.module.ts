@@ -36,6 +36,7 @@ import { IonicStorageModule } from '@ionic/storage';
 import { MsgPage } from './../pages/msg/msg';
 
 import { WorkSpaceButtonComponent } from '../components/work-space-button/work-space-button';
+import { CustomerStarComponent } from '../components/customer-star/customer-star';
 
 
 
@@ -43,6 +44,7 @@ import { WorkSpaceButtonComponent } from '../components/work-space-button/work-s
   declarations: [
     MyApp,
     WorkSpaceButtonComponent,
+    CustomerStarComponent,
   ],
   imports: [
     BrowserModule,
@@ -59,7 +61,7 @@ import { WorkSpaceButtonComponent } from '../components/work-space-button/work-s
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp,
+    MyApp
   ],
   providers: [
     StatusBar,
