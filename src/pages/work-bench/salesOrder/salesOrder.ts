@@ -209,7 +209,7 @@ export class SalesOrderPage {
   }
 
   searchClick1() {
-
+    
   }
 
   searchClick2() {

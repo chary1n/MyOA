@@ -1,7 +1,7 @@
 import { SalesSearvice } from './../salesService';
 import { DeliveryPage } from './delivery/delivery';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, PopoverController, ViewController, Popover } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, PopoverController, ViewController, Popover, AlertController } from 'ionic-angular';
 
 /**
  * Generated class for the SalesDetailPage page.
@@ -24,7 +24,7 @@ export class SalesDetailPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public popoverCtrl: PopoverController,
-    public salesSearvice: SalesSearvice) {
+    public salesSearvice: SalesSearvice, private alertCtrl :AlertController ) {
     this.popover = this.popoverCtrl.create(PopoverPage, {
       item: this
     });
@@ -48,6 +48,28 @@ export class SalesDetailPage {
   }
 
   cancelOrder(){
+    let alert = this.alertCtrl.create({
+      message: '确定取消订单?',
+      buttons: [
+        {
+          text: '取消',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: '确定',
+          handler: () => {
+            this.doCancelOrder()
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+  // 取消订单
+  doCancelOrder(){
 
   }
   createInvoice(){

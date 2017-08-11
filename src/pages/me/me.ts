@@ -1,8 +1,9 @@
+import { AppVersion } from '@ionic-native/app-version';
 import { EditInformationPage } from './edit-information/edit-information';
 import { LoginPage } from './../login/login';
 import { Storage } from '@ionic/storage';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController ,ModalController} from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, ModalController, Platform } from 'ionic-angular';
 
 /**
  * Generated class for the MePage page.
@@ -20,13 +21,23 @@ export class MePage {
   user_heard: string;
   company:any;
   job:any;
+  versionNumber :any ;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public storage: Storage,
     private alertCtrl: AlertController,
-    private modalctrl:ModalController) {
+    private modalctrl:ModalController, public platform :Platform,public appVersion:AppVersion) {
+      if (this.platform.is("android")) {
+        this.appVersion.getVersionCode().then((value: string) => {
+          this.versionNumber = value
+        });
 
-
+      }
+      else if (this.platform.is('ios')) {
+        this.appVersion.getVersionNumber().then((value: string) => {
+          this.versionNumber = value
+        });
+      }
   }
 
   ionViewDidLoad() {

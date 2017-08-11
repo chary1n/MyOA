@@ -73,13 +73,8 @@
       <p>订购： {{detail.product_qty}} * {{detail.price_unit}}</p>
       <p>计量单位 {{detail.product_uom}}</p>
       <p *ngIf="showNumber" style="float:right;color:#1e1e1e;font-weight:bold;font-size:70%;">已接收 {{detail.qty_received}} * {{detail.price_unit}}</p>
-      <p>税金 ：{{item.amount_tax}}</p>
       <p *ngIf="showNumber" style="float:right">开单数量 : {{detail.qty_invoiced}} * {{detail.price_unit}}</p>
       <p>小计 {{detail.price_subtotal}}</p>
     </ion-item>
-
   </ion-list>
-
-
-
 </ion-content>
