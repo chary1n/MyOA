@@ -19,6 +19,7 @@ export class SalesDetailPage {
   popover: Popover;
   id: number;
   item: any = "";
+  type : string 
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
@@ -28,6 +29,7 @@ export class SalesDetailPage {
       item: this
     });
     this.id = this.navParams.get('id');
+    this.type = this.navParams.get("type");
     this.salesSearvice.getSalesOrderDetail(this.id).then((res) => {
       if (res.result && res.result.res_code == 1) {
         this.item = res.result.res_data;
@@ -43,6 +45,16 @@ export class SalesDetailPage {
 
   presentPopover(myEvent) {
     this.popover.present({ ev: myEvent })
+  }
+
+  cancelOrder(){
+
+  }
+  createInvoice(){
+    
+  }
+  conformSales(){
+    
   }
 }
 

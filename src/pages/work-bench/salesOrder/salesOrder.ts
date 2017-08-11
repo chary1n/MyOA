@@ -223,13 +223,13 @@ export class SalesOrderPage {
 
   orderDetail1(mid) {
     this.navCtrl.push(SalesDetailPage,{
-      id :mid
+      id :mid, type :"quotesOrder"
     })
   }
 
   orderDetail2(mid) {
       this.navCtrl.push(SalesDetailPage,{
-      id :mid
+      id :mid, type :"salesOrder"
     })
 
   }
