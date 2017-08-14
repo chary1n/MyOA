@@ -25,26 +25,52 @@ export class SalesSearvice {
         });
         return this.httpservice.postBody("get_sale_orders", body);
     }
-    getSalesReturn(moffset, mlimit,id) {
-         let body = JSON.stringify({
+    getSalesReturn(moffset, mlimit, id) {
+        let body = JSON.stringify({
             offset: moffset,
             limit: mlimit,
             user_id: id
         });
         return this.httpservice.postBody("get_sale_orders", body);
     }
-    getSalesOrderDetail(mid){
+    getSalesOrderDetail(mid) {
         let body = JSON.stringify({
             id: mid
         });
         return this.httpservice.postBody("get_sale_orders_details", body);
     }
-    getSalesReturnOrderDetail(id)
-    {
+    getSalesReturnOrderDetail(id) {
         let body = JSON.stringify({
             id: id
         });
         return this.httpservice.postBody("get_sale_return_details", body);
+    }
+
+
+    searchQuotesList(number) {
+        let body = JSON.stringify({
+            name: number,
+            model: "sale.order",
+            state: "draft"
+        });
+        return this.httpservice.postBody("search_sale_orders", body);
+    }
+
+    searchSalesList(number) {
+        let body = JSON.stringify({
+            name: number,
+            model: "sale.order",
+            state: "purchase"
+        });
+        return this.httpservice.postBody("search_sale_orders", body);
+    }
+
+    searchSalesReturnList(number) {
+        let body = JSON.stringify({
+            name: number,
+            model: "return.goods",
+        });
+        return this.httpservice.postBody("search_sale_orders", body);
     }
 
 }

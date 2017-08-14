@@ -209,16 +209,28 @@ export class SalesOrderPage {
   }
 
   searchClick1() {
-    
+    this.isMoreData1=false ;
+    this.salesSearvice.searchQuotesList(this.searchName1)
+      .then(res => {
+        this.quotesOrder = res.result.res_data
+      })
   }
 
   searchClick2() {
-
+    this.isMoreData2=false ;
+    this.salesSearvice.searchSalesList(this.searchName2)
+      .then(res => {
+        this.salesOrder = res.result.res_data
+      })
   }
 
 
   searchClick3() {
-
+    this.isMoreData3=false ;
+    this.salesSearvice.searchSalesReturnList(this.searchName3)
+      .then(res => {
+        this.salesReturnOrder = res.result.res_data
+      })
   }
 
   orderDetail1(mid) {
