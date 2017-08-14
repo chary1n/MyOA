@@ -9,6 +9,7 @@ import { SupplierListPage } from './supplier-list/supplier-list';
 import { CustomerPage } from './../customer/customer';
 import { WorkBenchModel} from './../../model/WorkBenchModel';
 import { Storage} from '@ionic/storage';
+import {CamCardPage} from './../customer/cam-card/cam-card'
 
 /**
  * Generated class for the WorkBenchPage page.
@@ -86,7 +87,7 @@ export class WorkBenchPage {
     }
     else if (item.title == '客户查询')
     {
-      this.navCtrl.push(CustomerPage);
+      this.navCtrl.push(CamCardPage);
     }
   }
 

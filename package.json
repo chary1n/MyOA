@@ -24,6 +24,7 @@
         "@ionic-native/app-version": "^4.0.1",
         "@ionic-native/call-number": "^4.1.0",
         "@ionic-native/camera": "^4.0.1",
+        "@ionic-native/contacts": "^4.1.0",
         "@ionic-native/core": "^3.12.1",
         "@ionic-native/file": "^4.0.1",
         "@ionic-native/http": "^3.14.0",
@@ -47,6 +48,7 @@
         "cordova-plugin-camera": "^2.4.1",
         "cordova-plugin-compat": "^1.1.0",
         "cordova-plugin-console": "^1.0.7",
+        "cordova-plugin-contacts": "^2.3.1",
         "cordova-plugin-device": "^1.1.6",
         "cordova-plugin-file": "^4.3.3",
         "cordova-plugin-file-transfer": "^1.6.3",
@@ -103,7 +105,10 @@
             "cordova-plugin-network-information": {},
             "cordova-plugin-appminimize": {},
             "cordova-plugin-image-picker": {},
-            "mx.ferreyra.callnumber": {}
+            "mx.ferreyra.callnumber": {},
+            "cordova-plugin-contacts": {
+                "CONTACTS_USAGE_DESCRIPTION": " "
+            }
         },
         "platforms": [
             "android",
