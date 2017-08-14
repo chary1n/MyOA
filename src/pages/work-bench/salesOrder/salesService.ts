@@ -73,4 +73,20 @@ export class SalesSearvice {
         return this.httpservice.postBody("search_sale_orders", body);
     }
 
+    cancelOrder(mid){
+        let body = JSON.stringify({
+            id: mid,
+        });
+        return this.httpservice.postBody("cancel_order", body);
+    }
+    
+
+
+    confirmOrder(mid){
+        let body = JSON.stringify({
+            id: mid,
+        });
+        return this.httpservice.postBody("confirm_order", body);
+    }
+
 }

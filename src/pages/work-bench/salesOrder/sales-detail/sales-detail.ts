@@ -19,12 +19,12 @@ export class SalesDetailPage {
   popover: Popover;
   id: number;
   item: any = "";
-  type : string 
+  type: string
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public popoverCtrl: PopoverController,
-    public salesSearvice: SalesSearvice, private alertCtrl :AlertController ) {
+    public salesSearvice: SalesSearvice, private alertCtrl: AlertController) {
     this.popover = this.popoverCtrl.create(PopoverPage, {
       item: this
     });
@@ -36,7 +36,6 @@ export class SalesDetailPage {
         console.log(this.item)
       }
     })
-
   }
 
   ionViewWillLeave() {
@@ -47,7 +46,7 @@ export class SalesDetailPage {
     this.popover.present({ ev: myEvent })
   }
 
-  cancelOrder(){
+  cancelOrder() {
     let alert = this.alertCtrl.create({
       message: '确定取消订单?',
       buttons: [
@@ -69,14 +68,42 @@ export class SalesDetailPage {
     alert.present();
   }
   // 取消订单
-  doCancelOrder(){
+  doCancelOrder() {
+    this.salesSearvice.cancelOrder(this.id)
+      .then(res => {
+        if (res.result && res.result.res_code == 1) {
+          this.navCtrl.pop()
+        }
+      })
+  }
+  createInvoice() {
 
   }
-  createInvoice(){
-    
-  }
-  conformSales(){
-    
+  conformSales() {
+    let alert = this.alertCtrl.create({
+      message: '确定转为销售订单?',
+      buttons: [
+        {
+          text: '取消',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: '确定',
+          handler: () => {
+            this.salesSearvice.confirmOrder(this.id)
+              .then(res => {
+                if (res.result && res.result.res_code == 1) {
+                  this.navCtrl.pop()
+                }
+              })
+          }
+        }
+      ]
+    });
+    alert.present();
   }
 }
 
