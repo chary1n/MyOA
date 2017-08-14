@@ -92,6 +92,9 @@
         <variable name="PHOTOLIBRARY_USAGE_DESCRIPTION" value=" " />
     </plugin>
     <plugin name="cordova-plugin-console" spec="^1.0.7" />
+    <plugin name="cordova-plugin-contacts" spec="^2.3.1">
+        <variable name="CONTACTS_USAGE_DESCRIPTION" value=" " />
+    </plugin>
     <plugin name="cordova-plugin-device" spec="^1.1.6" />
     <plugin name="cordova-plugin-file" spec="^4.3.3" />
     <plugin name="cordova-plugin-file-transfer" spec="^1.6.3" />
