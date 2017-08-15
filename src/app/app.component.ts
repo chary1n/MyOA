@@ -1,3 +1,4 @@
+import { Storage } from '@ionic/storage';
 import { NativeService } from './../providers/NativeService';
 import { TabsPage } from './../pages/tabs/tabs';
 import { Component } from '@angular/core';
@@ -20,12 +21,17 @@ import {InAppBrowser} from '@ionic-native/in-app-browser';
 export class MyApp {
   rootPage: any = LoginPage;
   version: any;
+  user_env: any;
   constructor(public platform: Platform, statusBar: StatusBar,
     splashScreen: SplashScreen, private appVersion: AppVersion,
     private nativeService: NativeService,public firService:FirService, private alertCtrl: AlertController,
-    private inAppBrowser: InAppBrowser) {
+    private inAppBrowser: InAppBrowser, private storage: Storage) {
     platform.ready().then(() => {
-
+      
+      storage.get('user')
+      .then(res => {
+       this.user_env = res.result.res_data
+      });
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       statusBar.overlaysWebView(false);
