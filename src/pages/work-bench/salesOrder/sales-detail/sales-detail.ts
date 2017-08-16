@@ -1,7 +1,7 @@
 import { SalesSearvice } from './../salesService';
 import { DeliveryPage } from './delivery/delivery';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, PopoverController, ViewController, Popover, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, PopoverController, ViewController, Popover, AlertController, ToastController } from 'ionic-angular';
 
 /**
  * Generated class for the SalesDetailPage page.
@@ -24,7 +24,8 @@ export class SalesDetailPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public popoverCtrl: PopoverController,
-    public salesSearvice: SalesSearvice, private alertCtrl: AlertController) {
+    public salesSearvice: SalesSearvice, private alertCtrl: AlertController,
+    private toast:ToastController) {
     this.popover = this.popoverCtrl.create(PopoverPage, {
       item: this
     });
@@ -96,7 +97,16 @@ export class SalesDetailPage {
             this.salesSearvice.confirmOrder(this.id)
               .then(res => {
                 if (res.result && res.result.res_code == 1) {
-                  this.navCtrl.pop()
+                  let toast = this.toast.create({
+                    message: '成功转为销售单',
+                    duration: 1500,
+                    position: 'middle'
+                  });
+                
+                  toast.onDidDismiss(() => {
+                    this.type = "salesOrder"
+                  });
+                  toast.present();
                 }
               })
           }
