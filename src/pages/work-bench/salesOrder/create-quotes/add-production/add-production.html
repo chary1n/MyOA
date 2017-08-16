@@ -1,0 +1,72 @@
+<!--
+  Generated template for the AddProductionPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>添加产品</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)='save()'>
+         保存
+        </button>
+    </ion-buttons>
+  </ion-navbar>
+
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <button ion-item (click)="seleteProduction()"> 
+        <ion-label item-start >产品
+        <span style="color:red;"> *</span>
+        </ion-label>
+        <ion-note item-end>请选择产品</ion-note>
+      </button>
+
+  <ion-item>
+    <ion-label item-start>订购数量
+      <span style="color:red;"> *</span>
+    </ion-label>
+    <ion-input placeholder="请填写数量" type="number" [(ngModel)]="mNumber" (ionChange)="change()"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label item-start>国内简称
+    </ion-label>
+    <ion-label item-end style="font-size: 70%;color: #605E5E ;">根据产品自动带出</ion-label>
+  </ion-item>
+
+  <ion-item>
+    <ion-label item-start>国内型号
+    </ion-label>
+    <ion-label item-end style="font-size: 70%;color: #605E5E ;"> 根据产品自动带出</ion-label>
+  </ion-item>
+
+  <ion-item>
+    <ion-label item-start>计量单位
+    </ion-label>
+    <ion-label item-end style="font-size: 70%;color: #605E5E ;">根据产品自动带出</ion-label>
+  </ion-item>
+
+  <ion-item>
+    <ion-label item-start>单价
+      <span style="color:red;"> *</span>
+    </ion-label>
+    <ion-input placeholder="请填写产品单价" type="number" [(ngModel)]="mPrice" (ionChange)="change()"></ion-input>
+  </ion-item>
+
+
+  <ion-label item-end style="text-align:right;">
+    小计 ： <span style="color:red;">￥ {{total}}</span>
+  </ion-label>
+
+
+
+
+
+</ion-content>

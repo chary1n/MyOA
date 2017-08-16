@@ -62,8 +62,4 @@ export class InspectionService {
         return this.httpservice.postBody("change_stock_picking_state", body, 1);
     }
 
-
-
-
-
 }

@@ -229,27 +229,27 @@ export class InspectionDetailPage {
 
   alertWaitingIncoming() {
     let self = this
-    let alert = this.alertCtrl.create({
-      title: '提示',
-      message: "入库调拨成功，等待入库",
-      buttons: [
-        {
-          text: '确定',
-          handler: () => {
-            this.inspectionService.noDebtOrder(this.pack, this.item.picking_id)
-              .then(res => {
-                if (res.result && res.result.res_code == 1) {
-                  self.mIncomingDetailPage.data.item = res.result.res_data;
-                  self.mIncomingDetailPage.data.isPop = true;
-                  self.navCtrl.popTo(self.mIncomingDetailPage);
-                }
-                console.log(res)
-              })
-          }
-        },
-      ]
+    this.inspectionService.noDebtOrder(this.pack, this.item.picking_id)
+    .then(res => {
+      if (res.result && res.result.res_code == 1) {
+        self.mIncomingDetailPage.data.item = res.result.res_data;
+        self.mIncomingDetailPage.data.isPop = true;
+        let alert = this.alertCtrl.create({
+          title: '提示',
+          message: "入库调拨成功，等待入库",
+          buttons: [
+            {
+              text: '确定',
+              handler: () => {
+                self.navCtrl.popTo(self.mIncomingDetailPage);
+              }
+            },
+          ]
+        })
+        alert.present()
+      }
+      console.log(res)
     })
-    alert.present()
   }
 
 }
