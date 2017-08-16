@@ -1,3 +1,4 @@
+import { CreateQuotesPage } from './create-quotes/create-quotes';
 import { Storage } from '@ionic/storage';
 import { SalesDetailPage } from './sales-detail/sales-detail';
 import { SalesSearvice } from './salesService';
@@ -292,7 +293,7 @@ export class SalesOrderPage {
 
   // 报价单
   createQuotes() {
-
+    this.navCtrl.push(CreateQuotesPage)
   }
   // 销售退货
   createSalesReturn() {
