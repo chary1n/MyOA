@@ -69,6 +69,7 @@
         "ionicons": "3.0.0",
         "mute-stream": "0.0.7",
         "mx.ferreyra.callnumber": "~0.0.2",
+        "phonegap-plugin-barcodescanner": "^6.0.8",
         "run-async": "^2.3.0",
         "rx-lite-aggregates": "^4.0.8",
         "rxjs": "5.4.0",
@@ -80,7 +81,7 @@
         "@ionic/app-scripts": "2.0.0",
         "@ionic/cli-plugin-cordova": "1.6.2",
         "@ionic/cli-plugin-ionic-angular": "1.4.1",
-        "ionic": "3.7.0",
+        "ionic": "3.8.1",
         "typescript": "2.3.4"
     },
     "description": "An Ionic project",
@@ -108,6 +109,9 @@
             "mx.ferreyra.callnumber": {},
             "cordova-plugin-contacts": {
                 "CONTACTS_USAGE_DESCRIPTION": " "
+            },
+            "phonegap-plugin-barcodescanner": {
+                "CAMERA_USAGE_DESCRIPTION": " "
             }
         },
         "platforms": [
