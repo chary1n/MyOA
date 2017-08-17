@@ -62,7 +62,7 @@ export class SalesOrderPage {
   }
 
   doRefresh1(refresh) {
-    this.isMoreData2 = true;
+    this.isMoreData1 = true;
     this.limit = 20;
     this.offset = 0;
     this.salesSearvice.getQuotesList(0, 20,this.userId).then((res) => {

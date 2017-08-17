@@ -89,4 +89,13 @@ export class SalesSearvice {
         return this.httpservice.postBody("confirm_order", body);
     }
 
+    // 获取产品列表
+    getProducts(mlimit,moffset){
+        let body = JSON.stringify({
+            offset: moffset,
+            limit: mlimit,
+        });
+        return this.httpservice.postBody("get_products", body);
+    }
+
 }
