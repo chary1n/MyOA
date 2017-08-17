@@ -1,4 +1,3 @@
-import { GroupsDirective } from './../pages/me/groups.directive';
 import { GlobalData } from './../providers/GlobalData';
 import { NativeService } from './../providers/NativeService';
 import { ImagePicker } from '@ionic-native/image-picker';
@@ -43,7 +42,6 @@ import { CustomerStarComponent } from '../components/customer-star/customer-star
 @NgModule({
   declarations: [
     MyApp,
-    GroupsDirective,        
     WorkSpaceButtonComponent,
     CustomerStarComponent,
   ],
