@@ -52,7 +52,7 @@ import { CustomerStarComponent } from '../components/customer-star/customer-star
     IonicModule.forRoot(MyApp),
     HttpModule,
     IonicStorageModule.forRoot(),
-    // MePageModule,
+    MePageModule,
     ContactPersonPageModule,
     WorkBenchPageModule,
     MsgPageModule,
