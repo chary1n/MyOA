@@ -181,18 +181,11 @@
       "zone.js": "0.8.12"
     },
     "devDependencies": {
-<<<<<<< HEAD
-        "@ionic/app-scripts": "2.0.0",
-        "@ionic/cli-plugin-ionic-angular": "1.4.1",
-        "ionic": "3.8.1",
-        "typescript": "2.3.4"
-=======
       "@ionic/app-scripts": "2.0.0",
       "@ionic/cli-plugin-cordova": "1.6.2",
       "@ionic/cli-plugin-ionic-angular": "1.4.1",
       "ionic": "3.8.1",
       "typescript": "2.3.4"
->>>>>>> 265906d4419dd013f62982cef48f31a00b860089
     },
     "description": "An Ionic project",
     "cordova": {
@@ -220,57 +213,6 @@
         "cordova-plugin-contacts": {
           "CONTACTS_USAGE_DESCRIPTION": " "
         },
-<<<<<<< HEAD
-        "devDependencies": {
-            "@ionic/app-scripts": "2.0.0",
-            "@ionic/cli-plugin-cordova": "1.6.2",
-            "@ionic/cli-plugin-ionic-angular": "1.4.1",
-            "ionic": "3.8.1",
-            "typescript": "2.3.4"
-        },
-        "description": "An Ionic project",
-        "cordova": {
-            "plugins": {
-                "cordova-plugin-console": {},
-                "cordova-plugin-device": {},
-                "cordova-plugin-splashscreen": {},
-                "cordova-plugin-statusbar": {},
-                "cordova-plugin-whitelist": {},
-                "ionic-plugin-keyboard": {},
-                "cordova-plugin-http": {},
-                "cordova-plugin-camera": {
-                    "CAMERA_USAGE_DESCRIPTION": " ",
-                    "PHOTOLIBRARY_USAGE_DESCRIPTION": " "
-                },
-                "cordova-plugin-file-transfer": {},
-                "cordova-plugin-app-version": {},
-                "cordova-plugin-x-toast": {},
-                "cordova-plugin-file": {},
-                "cordova-plugin-inappbrowser": {},
-                "cordova-plugin-network-information": {},
-                "cordova-plugin-appminimize": {},
-                "cordova-plugin-image-picker": {},
-                "mx.ferreyra.callnumber": {},
-                "cordova-plugin-contacts": {
-                    "CONTACTS_USAGE_DESCRIPTION": " "
-                },
-                "phonegap-plugin-barcodescanner": {
-                    "CAMERA_USAGE_DESCRIPTION": " "
-                }
-            },
-            "platforms": [
-                "android",
-                "browser",
-                "ios"
-            ]
-        },
-        "platforms": [
-            "android",
-            "browser",
-            "ios"
-        ]
-    }
-=======
         "phonegap-plugin-barcodescanner": {
           "CAMERA_USAGE_DESCRIPTION": " "
         }
@@ -287,5 +229,4 @@
       "ios"
     ]
   }
->>>>>>> 265906d4419dd013f62982cef48f31a00b860089
 }
