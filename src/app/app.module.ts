@@ -1,3 +1,4 @@
+import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { GlobalData } from './../providers/GlobalData';
 import { NativeService } from './../providers/NativeService';
 import { ImagePicker } from '@ionic-native/image-picker';
@@ -80,6 +81,7 @@ import { CustomerStarComponent } from '../components/customer-star/customer-star
     NativeService,
     GlobalData,
     Utils,
+    BarcodeScanner
   ]
 })
 export class AppModule { }

@@ -23,7 +23,13 @@ export class ProductionListPage {
     console.log('ionViewDidLoad ProductionListPage');
   }
   scan(){
-  
+    this.barcodeScanner.scan().then((barcodeData) => {
+      // Success! Barcode data is here
+      console.log(barcodeData)
+     }, (err) => {
+         // An error occurred
+         console.log(err)
+     });
   }
 
 }
