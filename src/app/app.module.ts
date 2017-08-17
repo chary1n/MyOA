@@ -1,3 +1,4 @@
+import { GroupsDirective } from './../pages/me/groups.directive';
 import { GlobalData } from './../providers/GlobalData';
 import { NativeService } from './../providers/NativeService';
 import { ImagePicker } from '@ionic-native/image-picker';
@@ -39,10 +40,10 @@ import { WorkSpaceButtonComponent } from '../components/work-space-button/work-s
 import { CustomerStarComponent } from '../components/customer-star/customer-star';
 
 
-
 @NgModule({
   declarations: [
     MyApp,
+    GroupsDirective,        
     WorkSpaceButtonComponent,
     CustomerStarComponent,
   ],
@@ -51,7 +52,7 @@ import { CustomerStarComponent } from '../components/customer-star/customer-star
     IonicModule.forRoot(MyApp),
     HttpModule,
     IonicStorageModule.forRoot(),
-    MePageModule,
+    // MePageModule,
     ContactPersonPageModule,
     WorkBenchPageModule,
     MsgPageModule,
@@ -61,7 +62,7 @@ import { CustomerStarComponent } from '../components/customer-star/customer-star
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp
+    MyApp,
   ],
   providers: [
     StatusBar,

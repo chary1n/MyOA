@@ -26,7 +26,10 @@ import { PurchaseBackOrderPage } from './salesOrder/sales-detail/purchase-back-o
 import { CamCardPage } from './../customer/cam-card/cam-card';
 @NgModule({
   declarations: [
-    WorkBenchPage,CardinfoPage,IncomingPage,IncomingDetailPage,InspectionDetailPage,SupplierListPage,SupplierDetailPage
+    WorkBenchPage,
+    CardinfoPage,
+    IncomingPage,
+    IncomingDetailPage,InspectionDetailPage,SupplierListPage,SupplierDetailPage
     ,ContactListPage,OrderPage,ReturnOrderDetailPage,OrderDetailPage,PopoverPage,PoContactPage,ReturnPopoverPage
     ,DeliveryPage,DeliveryExtraPage,DeliveryInitialRequestPage,DeliveryNotesPage,DeliveryNotesDetailPage,CustomerPage
     ,AddCustomerPage,PurchaseBackOrderPage,CamCardPage
