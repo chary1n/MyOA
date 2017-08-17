@@ -40,7 +40,6 @@ import { WorkSpaceButtonComponent } from '../components/work-space-button/work-s
 import { CustomerStarComponent } from '../components/customer-star/customer-star';
 
 
-
 @NgModule({
   declarations: [
     MyApp,
@@ -62,7 +61,7 @@ import { CustomerStarComponent } from '../components/customer-star/customer-star
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp
+    MyApp,
   ],
   providers: [
     StatusBar,
