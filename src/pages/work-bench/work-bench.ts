@@ -90,11 +90,16 @@ export class WorkBenchPage {
     }
     else if (item.title == '客户查询')
     {
+<<<<<<< HEAD
       this.navCtrl.push(CustomerPage);
     }
     else if (item.title == '名片扫描')
     {
       this.navCtrl.push(CamCardPage);
+=======
+      this.navCtrl.push(CamCardPage);
+      // this.navCtrl.push(ProductlistPage);
+>>>>>>> dd9a8ae7e2acad1f03553b18808f88fca52886f7
     }
   }
 
