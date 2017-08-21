@@ -31,7 +31,10 @@ import { BiaoQianPage } from './../customer/biao-qian/biao-qian';
 
 @NgModule({
   declarations: [
-    WorkBenchPage,CardinfoPage,IncomingPage,IncomingDetailPage,InspectionDetailPage,SupplierListPage,SupplierDetailPage
+    WorkBenchPage,
+    CardinfoPage,
+    IncomingPage,
+    IncomingDetailPage,InspectionDetailPage,SupplierListPage,SupplierDetailPage
     ,ContactListPage,OrderPage,ReturnOrderDetailPage,OrderDetailPage,PopoverPage,PoContactPage,ReturnPopoverPage
     ,DeliveryPage,DeliveryExtraPage,DeliveryInitialRequestPage,DeliveryNotesPage,DeliveryNotesDetailPage,CustomerPage
     ,AddCustomerPage,PurchaseBackOrderPage,CamCardPage,ProductlistPage,EditCardPage,ChoosePage,BiaoQianPage

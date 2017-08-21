@@ -26,15 +26,17 @@ export class InspectionDetailPage {
   qc_color: any;
   pack: any;
   mIncomingDetailPage: any;
+  isClick = false ;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private alertCtrl: AlertController,
     private inspectionService: InspectionService, ) {
-    this.initData()
+      this.item = this.navParams.get('item')
+    this.initData(this.item)
     this.mIncomingDetailPage = Utils.getViewController("IncomingDetailPage", navCtrl)
   }
-  initData() {
-    this.item = this.navParams.get('item')
+  initData(mitem) {
+    this.item = mitem
     if (this.item.qc_result == 'success') {
       this.qc_result = '品检通过'
     } else if (this.item.qc_result == 'no_result') {
@@ -87,6 +89,7 @@ export class InspectionDetailPage {
       .then(res => {
         if (res.result && res.result.res_code == 1) {
           self.mIncomingDetailPage.data.item = res.result.res_data;
+          this.initData(res.result.res_data );
           self.mIncomingDetailPage.data.isPop = true;
           self.navCtrl.popTo(self.mIncomingDetailPage);
         }
@@ -118,7 +121,11 @@ export class InspectionDetailPage {
     }
     if (rejectQTY > 0) {
       // 有不良品
-      this.contansBadProduct(QTYDone - rejectQTY, rejectQTY, productQTY, QTYDone)
+      if(!this.isClick){
+        this.contansBadProduct(QTYDone - rejectQTY, rejectQTY, productQTY, QTYDone)
+      }else{
+        this.contansBadProduct(QTYDone, rejectQTY, productQTY, QTYDone)
+      }
     } else {
       this.checkIfHaveDebt(productQTY, QTYDone, rejectQTY, true)
     }
@@ -158,7 +165,8 @@ export class InspectionDetailPage {
             this.inspectionService.allIncoming(this.pack, this.item.picking_id)
               .then(res => {
                 if (res.result && res.result.res_code == 1) {
-
+                  this.initData(res.result.res_data );
+                  this.isClick = true ;
                   this.checkIfHaveDebt(productQTY, QTYDone, rejectQTY, true)
                 }
               })
@@ -170,6 +178,8 @@ export class InspectionDetailPage {
             this.inspectionService.onlyGoodProductsIncoming(this.pack, this.item.picking_id)
               .then(res => {
                 if (res.result && res.result.res_code == 1) {
+                  this.initData(res.result.res_data );
+                  this.isClick = true ;
                   this.checkIfHaveDebt(productQTY, QTYDone, rejectQTY, false)
                 }
               })
@@ -197,6 +207,7 @@ export class InspectionDetailPage {
               .then(res => {
                 if (res.result && res.result.res_code == 1) {
                   self.mIncomingDetailPage.data.item = res.result.res_data;
+                  this.initData(res.result.res_data );
                   self.mIncomingDetailPage.data.isPop = true;
                   self.navCtrl.popTo(self.mIncomingDetailPage);
                 }
@@ -211,6 +222,7 @@ export class InspectionDetailPage {
               .then(res => {
                 if (res.result && res.result.res_code == 1) {
                   self.mIncomingDetailPage.data.item = res.result.res_data;
+                  this.initData(res.result.res_data );
                   self.mIncomingDetailPage.data.isPop = true;
                   self.navCtrl.popTo(self.mIncomingDetailPage);
                 }
@@ -233,6 +245,7 @@ export class InspectionDetailPage {
     .then(res => {
       if (res.result && res.result.res_code == 1) {
         self.mIncomingDetailPage.data.item = res.result.res_data;
+        this.initData(res.result.res_data );
         self.mIncomingDetailPage.data.isPop = true;
         let alert = this.alertCtrl.create({
           title: '提示',

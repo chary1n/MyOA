@@ -1,3 +1,4 @@
+import { GroupsDirective } from './groups.directive';
 import { PhoneNumberPage } from './phone-number/phone-number';
 import { EditInformationPage } from './edit-information/edit-information';
 import { NgModule } from '@angular/core';
@@ -6,6 +7,7 @@ import { MePage } from './me';
 
 @NgModule({
   declarations: [
+    GroupsDirective,
     MePage,EditInformationPage,PhoneNumberPage
   ],
   imports: [

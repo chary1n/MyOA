@@ -1,3 +1,4 @@
+import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { GlobalData } from './../providers/GlobalData';
 import { NativeService } from './../providers/NativeService';
 import { ImagePicker } from '@ionic-native/image-picker';
@@ -39,7 +40,6 @@ import { WorkSpaceButtonComponent } from '../components/work-space-button/work-s
 import { CustomerStarComponent } from '../components/customer-star/customer-star';
 
 
-
 @NgModule({
   declarations: [
     MyApp,
@@ -61,7 +61,7 @@ import { CustomerStarComponent } from '../components/customer-star/customer-star
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp
+    MyApp,
   ],
   providers: [
     StatusBar,
@@ -80,6 +80,7 @@ import { CustomerStarComponent } from '../components/customer-star/customer-star
     NativeService,
     GlobalData,
     Utils,
+    BarcodeScanner
   ]
 })
 export class AppModule { }
