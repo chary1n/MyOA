@@ -1,0 +1,35 @@
+<!--
+  Generated template for the BiaoQianPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>标签</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only tappable (click)="save_biaoqian()">
+        <p>保存</p>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <h4>类型</h4>
+  <button ion-button outline icon-start style="width:80px;border-color:white;" (click) = 'clickCustomer()' [style.background-color] = "isCustomerSelected() ? '#159963' : '#f2f2f2'" [style.color] = "isCustomerSelected() ? 'white' : 'gray'">客户</button>
+  <button ion-button outline icon-start style="width:80px;border-color:white;" (click) = 'clickSupplier()' [style.background-color] = "isSupplierSelected() ? '#159963' : '#f2f2f2'" [style.color] = "isSupplierSelected() ? 'white' : 'gray'">供应商</button><br>
+
+  <h4>等级</h4>
+  <button ion-button outline icon-start  style="width:80px;border-color:white" (click) = 'click1st()' [style.background-color] = "is1stSelected() ? '#159963' : '#f2f2f2'" [style.color] = "is1stSelected() ? 'white' : 'gray'">1st</button>
+  <button ion-button outline icon-only style="width:80px;border-color:white" (click) = 'click2nd()' [style.background-color] = "is2ndSelected() ? '#159963' : '#f2f2f2'" [style.color] = "is2ndSelected() ? 'white' : 'gray'">2nd</button>
+  <button ion-button outline icon-end style="width:80px;border-color:white" (click) = 'click3rd()' [style.background-color] = "is3rdSelected() ? '#159963' : '#f2f2f2'" [style.color] = "is3rdSelected() ? 'white' : 'gray'">3rd</button><br>
+
+  <div class="item row row-wrap row-no-padding" style="height: 100px;border: none;">
+    <div class="col col-center">
+      <ion-icon *ngFor='let item of starArr | slice:(5 - priority) ; let i = index' tappable (click) = 'click(i)' name="star" style="color:#fdc03b;font-size:50px;margin-top:20px;margin-left:10px;"></ion-icon>
+      <ion-icon *ngFor='let item of starArr | slice:(priority) ;let i = index' tappable (click) = 'clickGray(i)' name="star" style="color:gray;font-size:50px;margin-top:20px;margin-left:10px;"></ion-icon>
+    </div>
+  </div>
+</ion-content>

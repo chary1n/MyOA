@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-navbar >
+    <ion-title>
+      感兴趣的产品
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only tappable (click)="save_series()">
+        <p>保存</p>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+  
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item style="height:60px" *ngFor="let item of dataArr ; let i = index">  
+        <ion-label>{{item.name}}</ion-label>
+        <ion-checkbox tappable style="margin-left:-10px;" (ionChange)="insertUserToArray(i)" [checked]="isCheck(i) ? true : false"></ion-checkbox>
+     </ion-item>
+  </ion-list>
+</ion-content>

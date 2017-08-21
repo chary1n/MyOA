@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Contacts, Contact, ContactField, ContactName,ContactFindOptions ,ContactFieldType,} from '@ionic-native/contacts';
 import { pinyin } from './pinyin';  
+import { ProductlistPage } from './../productlist/productlist';
+import { EditCardPage } from './../edit-card/edit-card';
+import { Storage } from '@ionic/storage';
 /**
  * Generated class for the CamCardPage page.
  *
@@ -19,7 +22,25 @@ export class CamCardPage {
   titleList:any;
   formatContacts:any = [];
   allSearchContacts = [];
-  constructor(public navCtrl: NavController, public navParams: NavParams,private contacts: Contacts) {
+  chooseCount = 0;
+  users:any;
+  saleteam_name:any;
+  saleteam_id:any;
+  saleman_name:any;
+  saleman_id:any;
+  constructor(public navCtrl: NavController, public navParams: NavParams,private contacts: Contacts
+  ,public storage:Storage) {
+    this.storage.get('user')
+      .then(res => {
+        console.log(res);
+        if (res != null) {
+          this.saleteam_id = res.result.res_data.team.team_id;
+          this.saleteam_name = res.result.res_data.team.team_name;
+          this.saleman_id = res.result.res_data.user_id;
+          this.saleman_name = res.result.res_data.name;
+        } 
+      });
+
     let options = new ContactFindOptions();  
       let fields: ContactFieldType[];  
       fields = ["displayName", "phoneNumbers"];  
@@ -28,11 +49,13 @@ export class CamCardPage {
       options.hasPhoneNumber = true;    
       
       this.contacts.find(fields, options).then((result) => {  
+        
         for (var contact of result) {
-          // if (contact.organizations)
-          // {
+          if (contact.organizations)
+          {
+            console.log(contact);
             this.nameList.push(contact);
-          // }
+          }
         }
         this.dealWithList(this.nameList);
       });  
@@ -42,12 +65,87 @@ export class CamCardPage {
     console.log('ionViewDidLoad CamCardPage');
   }
 
+  insertUserToArray(item)
+  {
+    
+    if (item.isCheckBox == '0')
+    {
+      item.isCheckBox = '1';
+    }
+    else
+    {
+      item.isCheckBox = '0';
+    }
+    let out_int = 0
+    for (var group of this.formatContacts) {
+      let in_int = 0; 
+      out_int ++;
+      for (var items of group.value) {
+        in_int ++;
+        //  alert(item.displayName+items.displayName);
+        if (items.displayName == item.displayName)
+        {
+          group.value[in_int - 1] = item;
+          this.formatContacts[out_int - 1] = group;
+          break;
+        }
+      }
+    }
+    this.cal_choose_card();
+    // alert(this.formatContacts.length);
+  }
+
+  uploadCard()
+  {
+    let resultArr = [];
+    for (var group of this.formatContacts) {
+      for (var items of group.value) {
+        if (items.isCheckBox == '1')
+        {
+           
+          resultArr.push(items);
+        }
+      }
+    }
+  //  alert(resultArr);
+  }
+
+  cal_choose_card(){
+    this.chooseCount = 0;
+    for (var group of this.formatContacts) {
+      for (var items of group.value) {
+        if (items.isCheckBox == '1')
+        {
+          this.chooseCount ++;
+        }
+      }
+    }
+  } 
+
+  isCheck(item)
+  {
+    // alert(item.displayName);
+    if (item.isCheckBox == '1')
+    {
+      return true;
+    }
+    else
+    {
+      return false;
+    }
+  }
+
+  calling(item)
+  {
+    this.navCtrl.push(EditCardPage, {
+      item:item,
+    });
+  }
+
    dealWithList(contacts) {  
     // console.log('Found contacts length==' + contacts.length);  
     // console.log('all contacts==' + JSON.stringify(contacts));  
     let contactsLength = contacts.length;  
-    //显示的名称，Android ios不同  
-    let isAndroid = true;  
     for (let i = 0; i < contactsLength; i++) {  
       
       if (contacts[i].phoneNumbers == null) {  
@@ -58,16 +156,37 @@ export class CamCardPage {
       let obj = {  
         displayName: '',  
         phoneNumber: '',  
-        pinyinName: ''  
+        pinyinName: '',
+        isCheckBox:'',
+        departmentName:'',
+        companyName:'', 
+        email:'',
+        address:'',
+        sale_team:'',
+        sale_person:'',
+        saleteam_id:'',
+        saleman_id:'',
+        country_id:'',
+        country_name:'',
+        source_id:'',
+        source_name:'',
+        series_ids:[],
+        series_names:[],
+        series_name:'',
+        tag_list:'',
+        star_cnt:'',
+        partner_lv:'',
+        partner_type:'',
+        category_id:'',
       };  
-  
-      // if (isAndroid) {  
-      //   if (contacts[i]._objectInstance.displayName != null) {  
-      //     obj.displayName = contacts[i]._objectInstance.displayName;  
-      //   } else if (contacts[i]._objectInstance.name != null && contacts[i]._objectInstance.name.formatted != null) {  
-      //     obj.displayName = contacts[i]._objectInstance.name.formatted;  
-      //   }  
-      // } else {  66666
+      
+      obj.sale_team = this.saleteam_name;
+      obj.sale_person = this.saleman_name;
+      obj.saleteam_id = this.saleteam_id;
+      obj.saleman_id = this.saleman_id;
+      
+
+        obj.isCheckBox = '0';
         if (contacts[i].name.formatted != null) {  
           obj.displayName = contacts[i].name.formatted; 
           // alert(contacts[i].name.formatted); 
@@ -79,6 +198,19 @@ export class CamCardPage {
         if (contacts[i].name != null && contacts[i].name.formatted != null) {  
           obj.displayName = contacts[i].name.formatted;  
         }  
+        if (contacts[i].email != null)
+        {
+          obj.email = contacts[i].email[0].value;
+        }
+        if (contacts[i].organizations != null)
+        {
+          obj.companyName = contacts[i].organizations[0].name;
+          obj.departmentName = contacts[i].organizations[0].title;
+        }
+        if (contacts[i].addresses != null)
+        {
+          obj.address = contacts[i].addresses[0].locality + contacts[i].addresses[0].streetAddress;
+        }
       // }  
   
       //去掉名称非汉字，英文的        
@@ -171,6 +303,8 @@ export class CamCardPage {
     }  
     return formatContacts;  
   
-  }  
+  } 
+
+  
 
 }

@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>通讯录1</ion-title>
+    <ion-title tappable (click)="calling(item)">通讯录</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -16,15 +16,15 @@
 <ion-content>
   <ion-item-group *ngFor="let group of formatContacts">  
      <ion-item-divider color="light" id="'contact-'+{{group.key}}" class="contacts-group">{{group.key.toUpperCase()}}</ion-item-divider>  
-            <ion-item style="height:60px" *ngFor="let item of group.value " (click)="calling(item)">  
+            <ion-item style="height:60px" *ngFor="let item of group.value ">  
                    <ion-grid>
                     <ion-row>
                        <ion-col style="width:40px;height:40px;">
                          <ion-item>
-                           <ion-checkbox style="margin-left:-10px;" checked="false"></ion-checkbox>
+                           <ion-checkbox tappable style="margin-left:-10px;" (ionChange)="insertUserToArray(item)" [checked]="isCheck(item) ? true : false"></ion-checkbox>
                          </ion-item>
                         </ion-col>
-                      <ion-col col-11>
+                      <ion-col col-11 tappable (click)="calling(item)">
                         <ion-item>
                           <ion-avatar item-start>
                             <img src="assets/img/avatar.jpg">
@@ -52,12 +52,12 @@
                       <ion-col>
                         <ion-item style="background-color:#f4f4f4" no-lines>
                            <ion-label style="margin-top:-5px;">
-                             已选：1
+                             已选：{{chooseCount}}
                            </ion-label>
                         </ion-item>
                       </ion-col>
                        <ion-col>
-                         <button style="float:right;margin-top:-2px;" ion-button ion-start small>导入</button>
+                         <button style="float:right;margin-top:-2px;" ion-button ion-start (click) = "uploadCard()" small>导入</button>
                         </ion-col>
                     </ion-row>
                   </ion-grid>
