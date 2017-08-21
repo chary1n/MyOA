@@ -213,7 +213,7 @@ export class CamCardPage {
         }
       // }  
   
-      //去掉名称非汉字，英文的        
+      //去掉名称3非汉字，英文的        
       let reg = /^[A-Za-z]+$/;  
       //名字为空或非字母，加到最后一组  
       obj.phoneNumber = contacts[i].phoneNumbers[0].value;  
