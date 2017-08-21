@@ -30,6 +30,10 @@ export class CustomerPage {
   isMoreData3 = true;
   isMoreData4 = true;
   user_id;
+  searchName1 :string ;
+  searchName2 :string ;
+  searchName3 :string ;
+  searchName4 :string ;
   constructor(public navCtrl: NavController, public navParams: NavParams,
   public customerService:CustomerService,private storage: Storage) {
     this.starArr = ['1','1','1','1','1'];
@@ -126,6 +130,14 @@ export class CustomerPage {
       infiniteScroll.complete();
     }
   }
+  searchClick1(){
+    this.customerService.searchClues(this.searchName1,this.user_id)
+      .then(res=>{
+        if(res.result&&res.result.res_code==1){
+          this.dataSourceFirst = res.result.res_data ;
+        }
+      })
+  }
 
   doRefresh2(refresh) {
     this.isMoreData2 = true;
@@ -167,6 +179,15 @@ export class CustomerPage {
     } else {
       infiniteScroll.complete();
     }
+  }
+
+  searchClick2(){
+    this.customerService.searchHiddenCustomer(this.searchName2,this.user_id)
+    .then(res=>{
+      if(res.result&&res.result.res_code==1){
+        this.dataSourceSecond = res.result.res_data ;
+      }
+    })
   }
 
   doRefresh3(refresh) {
@@ -211,6 +232,15 @@ export class CustomerPage {
     }
   }
 
+  searchClick3(){
+    this.customerService.searchNormalCustomer(this.searchName3,this.user_id)
+    .then(res=>{
+      if(res.result&&res.result.res_code==1){
+        this.dataSourceThird = res.result.res_data ;
+      }
+    })
+  }
+
   doRefresh4(refresh) {
     this.isMoreData4 = true;
     this.limit = 20;
@@ -251,5 +281,14 @@ export class CustomerPage {
     } else {
       infiniteScroll.complete();
     }
+  }
+
+  searchClick4(){
+    this.customerService.searchPublicCustomer(this.searchName4,this.user_id)
+    .then(res=>{
+      if(res.result&&res.result.res_code==1){
+        this.dataSourceFourth = res.result.res_data ;
+      }
+    })
   }
 }

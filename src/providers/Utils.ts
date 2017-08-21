@@ -1,4 +1,4 @@
-import { NavController, ViewController } from 'ionic-angular';
+import { NavController, ViewController, ToastController } from 'ionic-angular';
 import { Injectable } from '@angular/core';
 @Injectable()
 export class Utils {
@@ -12,4 +12,19 @@ export class Utils {
         }
         return null;
     }
+
+    public static  toastButtom(toastString :string ,toastCtrl:ToastController ){
+        let toast = toastCtrl.create({
+            message: toastString,
+            duration: 2000,
+            position: 'buttom'
+          });
+          toast.onDidDismiss(() => {
+            console.log('Dismissed toast');
+          });
+        
+          toast.present();
+    }
+
+
 }

@@ -1,3 +1,4 @@
+import { Utils } from './../../../../../providers/Utils';
 import { SalesSearvice } from './../../salesService';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
@@ -13,25 +14,26 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 @Component({
   selector: 'page-production-list',
   templateUrl: 'production-list.html',
+  providers : [SalesSearvice]
 })
 export class ProductionListPage {
 
   searchName: any
-  isMoreData :any 
+  isMoreData =true 
   limit :any 
   offset :any 
   items :any 
-
+  mAddProductionPage :any
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private barcodeScanner: BarcodeScanner,private salesSearvice :SalesSearvice) {
-
-
+      this.mAddProductionPage = Utils.getViewController("AddProductionPage", navCtrl)
   }
 
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ProductionListPage');
+    this.addData();
   }
 
   addData() {
@@ -86,9 +88,20 @@ export class ProductionListPage {
     }
   }
 
+  updateCucumber(i){
+      let  self  = this 
+      self.mAddProductionPage.data.productionItem=this.items[i]
+      this.navCtrl.pop();
+  }
+
+
   searchClick() {
-
-
+    this.salesSearvice.searchProduction(this.searchName)
+      .then(res=>{
+        if(res.result && res.result.res_code == 1){
+          this.items = res.result.res_data;
+        }
+      })
   }
 
 

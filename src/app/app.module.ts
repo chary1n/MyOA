@@ -38,6 +38,7 @@ import { MsgPage } from './../pages/msg/msg';
 
 import { WorkSpaceButtonComponent } from '../components/work-space-button/work-space-button';
 import { CustomerStarComponent } from '../components/customer-star/customer-star';
+import { DatePicker } from '@ionic-native/date-picker';
 
 
 @NgModule({
@@ -80,7 +81,8 @@ import { CustomerStarComponent } from '../components/customer-star/customer-star
     NativeService,
     GlobalData,
     Utils,
-    BarcodeScanner
+    BarcodeScanner,
+    DatePicker
   ]
 })
 export class AppModule { }

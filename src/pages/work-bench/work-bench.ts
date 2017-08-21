@@ -87,7 +87,7 @@ export class WorkBenchPage {
     }
     else if (item.title == '客户查询')
     {
-      this.navCtrl.push(CamCardPage);
+      this.navCtrl.push(CustomerPage);
     }
   }
 
