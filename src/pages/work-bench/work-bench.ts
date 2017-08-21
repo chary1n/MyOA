@@ -65,6 +65,7 @@ export class WorkBenchPage {
           newArr.push(new WorkBenchModel('assets/img/shenpi.png','客户查询'));
           newArr.push(new WorkBenchModel('assets/img/shenpi.png','产品查询'));
           newArr.push(new WorkBenchModel('assets/img/shenpi.png','销售订单'));
+          newArr.push(new WorkBenchModel('assets/img/shenpi.png','销售订单'));
         }
         this.dataSource = newArr;
       });
@@ -89,12 +90,11 @@ export class WorkBenchPage {
     }
     else if (item.title == '客户查询')
     {
-<<<<<<< HEAD
-      this.navCtrl.push(CamCardPage);
-      // this.navCtrl.push(ProductlistPage);
-=======
       this.navCtrl.push(CustomerPage);
->>>>>>> 4ff895045b0a1e03ff65e02d135e50b17123ed13
+    }
+    else if (item.title == '名片扫描')
+    {
+      this.navCtrl.push(CamCardPage);
     }
   }
 
