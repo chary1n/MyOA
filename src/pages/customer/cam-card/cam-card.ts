@@ -184,6 +184,7 @@ export class CamCardPage {
       obj.sale_person = this.saleman_name;
       obj.saleteam_id = this.saleteam_id;
       obj.saleman_id = this.saleman_id;
+      alert(obj.sale_team + obj.sale_person)
       
 
         obj.isCheckBox = '0';

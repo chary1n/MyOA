@@ -28,6 +28,8 @@ export class EditCardPage {
   seriesName:any;
   productNames:any;
   biaoqianName:any;
+  saleTeamName:any;
+  salePersonName:any;
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.item = this.navParams.get('item');
     this.reloadView();
@@ -82,6 +84,8 @@ export class EditCardPage {
     this.emailName = this.item.email;
     this.addressName = this.item.address;
     this.companyName = this.item.companyName;
+    this.salePersonName = this.item.sale_person;
+    this.saleTeamName = this.item.sale_team;
     // console.log(this.item.country_name )
     if (this.item.country_name)
     {

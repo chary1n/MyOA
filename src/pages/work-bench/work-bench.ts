@@ -65,7 +65,7 @@ export class WorkBenchPage {
           newArr.push(new WorkBenchModel('assets/img/shenpi.png','客户查询'));
           newArr.push(new WorkBenchModel('assets/img/shenpi.png','产品查询'));
           newArr.push(new WorkBenchModel('assets/img/shenpi.png','销售订单'));
-          newArr.push(new WorkBenchModel('assets/img/shenpi.png','销售订单'));
+          newArr.push(new WorkBenchModel('assets/img/shenpi.png','名片扫描'));
         }
         this.dataSource = newArr;
       });
