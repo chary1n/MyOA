@@ -158,7 +158,6 @@ export class CamCardPage {
     this.chooseCount = 0;
     for (var group of this.formatContacts) {
       for (var items of group.value) {
-        alert(items.displayName+items.isCheckBox);
         if (items.isCheckBox == '1')
         {
           this.chooseCount ++;
@@ -379,6 +378,7 @@ export class CamCardPage {
   } 
 
   changeAll(){
+    // alert("1");
     this.checkAll = !this.checkAll;
     if (this.checkAll)
     {
@@ -389,8 +389,7 @@ export class CamCardPage {
           let items = group_detail.value[j];
           if (items.isCheckBox == '0')
           {
-            items.isCheckBox = '1';
-            this.formatContacts[i].value[j] = items;
+            this.formatContacts[i].value[j].isCheckBox = '1';
           }
         }
       }
