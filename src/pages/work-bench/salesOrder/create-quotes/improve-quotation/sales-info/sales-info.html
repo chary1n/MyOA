@@ -1,0 +1,64 @@
+<!--
+  Generated template for the DeliveryInfoPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>销售信息</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)='save()'>
+             保存
+            </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <ion-item>
+    <ion-label item-start>
+      销售员
+    </ion-label>
+    <ion-label item-end>
+      {{salesMan}}
+    </ion-label>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>标签</ion-label>
+    <ion-select [(ngModel)]="tag">
+      <ion-option *ngFor="let item of tagsList;" value={{item.id}}>{{item.name}}</ion-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>销售团队
+      <span style="color:red;"> *</span>
+    </ion-label>
+    <ion-select [(ngModel)]="salesTeam">
+      <!-- <ion-option value="1" >公司仓库</ion-option> -->
+      <ion-option *ngFor="let item of salesTeamList;" value={{item.id}}>{{item.name}}</ion-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label item-start>
+      客户参考
+    </ion-label>
+    <ion-input placeholder="请输入客户参考信息" item-end [(ngModel)]="customerInfo">
+    </ion-input>
+  </ion-item>
+
+
+  <ion-item>
+    <ion-label>分析账户</ion-label>
+    <ion-select [(ngModel)]="analyAccount">
+      <ion-option *ngFor="let item of analyAccountList;" value={{item.id}}>{{item.name}}</ion-option>
+    </ion-select>
+  </ion-item>
+
+</ion-content>

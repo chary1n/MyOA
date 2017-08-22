@@ -27,7 +27,6 @@ export class MyApp {
     private nativeService: NativeService,public firService:FirService, private alertCtrl: AlertController,
     private inAppBrowser: InAppBrowser, private storage: Storage) {
     platform.ready().then(() => {
-      
       storage.get('user')
       .then(res => {
        this.user_env = res.result.res_data

@@ -18,7 +18,6 @@ import { Storage } from '@ionic/storage';
   providers:[Contacts],
 })
 export class CamCardPage {
-  nameList:any = [];
   titleList:any;
   formatContacts:any = [];
   allSearchContacts = [];
@@ -30,6 +29,7 @@ export class CamCardPage {
   saleman_id:any;
   constructor(public navCtrl: NavController, public navParams: NavParams,private contacts: Contacts
   ,public storage:Storage) {
+    let nameList = [] ;
     this.storage.get('user')
       .then(res => {
         console.log(res);
@@ -49,15 +49,13 @@ export class CamCardPage {
       options.hasPhoneNumber = true;    
       
       this.contacts.find(fields, options).then((result) => {  
-        
         for (var contact of result) {
-          if (contact.organizations)
-          {
+          if (contact.organizations){
             console.log(contact);
-            this.nameList.push(contact);
+            nameList.push(contact);
           }
         }
-        this.dealWithList(this.nameList);
+        this.dealWithList(nameList);
       });  
   }
 

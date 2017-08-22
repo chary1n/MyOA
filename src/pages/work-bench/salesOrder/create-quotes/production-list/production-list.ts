@@ -14,20 +14,20 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 @Component({
   selector: 'page-production-list',
   templateUrl: 'production-list.html',
-  providers : [SalesSearvice]
+  providers: [SalesSearvice]
 })
 export class ProductionListPage {
 
   searchName: any
-  isMoreData =true 
-  limit :any 
-  offset :any 
-  items :any 
-  mAddProductionPage :any
+  isMoreData = true
+  limit: any
+  offset: any
+  items: any
+  mAddProductionPage: any
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    private barcodeScanner: BarcodeScanner,private salesSearvice :SalesSearvice) {
-      this.mAddProductionPage = Utils.getViewController("AddProductionPage", navCtrl)
+    private barcodeScanner: BarcodeScanner, private salesSearvice: SalesSearvice) {
+    this.mAddProductionPage = Utils.getViewController("AddProductionPage", navCtrl)
   }
 
 
@@ -88,17 +88,17 @@ export class ProductionListPage {
     }
   }
 
-  updateCucumber(i){
-      let  self  = this 
-      self.mAddProductionPage.data.productionItem=this.items[i]
-      this.navCtrl.pop();
+  updateCucumber(i) {
+    let self = this
+    self.mAddProductionPage.data.productionItem = this.items[i]
+    this.navCtrl.pop();
   }
 
 
   searchClick() {
     this.salesSearvice.searchProduction(this.searchName)
-      .then(res=>{
-        if(res.result && res.result.res_code == 1){
+      .then(res => {
+        if (res.result && res.result.res_code == 1) {
           this.items = res.result.res_data;
         }
       })
@@ -106,9 +106,15 @@ export class ProductionListPage {
 
 
   scan() {
+    let self = this
     this.barcodeScanner.scan().then((barcodeData) => {
       // Success! Barcode data is here
       console.log(barcodeData)
+      this.salesSearvice.searchProductionByScan(barcodeData.text).then(res => {
+        console.log(res)
+        self.mAddProductionPage.data.productionItem = res.result.res_data[0]
+        this.navCtrl.pop();
+      })
     }, (err) => {
       // An error occurred
       console.log(err)

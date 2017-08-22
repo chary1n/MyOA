@@ -1,0 +1,32 @@
+<!--
+  Generated template for the BillingInfoPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>开票信息</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)='save()'>
+                 保存
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+
+  <ion-item>
+    <ion-label>财务状况</ion-label>
+    <ion-select [(ngModel)]="financialStatus">
+      <!-- <ion-option value="1" >公司仓库</ion-option> -->
+      <ion-option *ngFor="let item of financialStatusList;" value={{item.id}}>{{item.name}}</ion-option>
+    </ion-select>
+  </ion-item>
+
+
+
+</ion-content>

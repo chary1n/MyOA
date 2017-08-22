@@ -89,6 +89,16 @@ export class HttpService {
       .catch(error => this.handleError(error));
   }
 
+  public postBodyNoLoading(url: string, paramObj: any, type: number = 0) {
+    let headers = new Headers({'Content-Type': 'application/json' });
+    return this.http.post(this.getAppPath(url,type), paramObj, new RequestOptions({ headers: headers }))
+      .toPromise()
+      .then(res => 
+        this.handleSuccess(res.json())
+      )
+      .catch(error => this.handleError(error));
+  }
+
   private handleSuccess(result) {
     return result;
   }
