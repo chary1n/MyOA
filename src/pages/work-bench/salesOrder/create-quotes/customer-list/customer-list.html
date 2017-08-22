@@ -1,31 +1,182 @@
 <!--
-  Generated template for the CustomerListPage page.
+  Generated template for the CustomerPage page.
 
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>客户</ion-title>
-  </ion-navbar>
-  <ion-toolbar no-border-top>
-      <ion-segment [(ngModel)]="pet">
-        <ion-segment-button tappable (click)='clickOne()' value="1">我的客户
-        </ion-segment-button>
-        <ion-segment-button tappable (click)='clickTwo()' value="2">
-          询价单
-        </ion-segment-button>
-        <ion-segment-button tappable (click)='clickThree()' value="3">
-          采购订单
-        </ion-segment-button>
-       
-      </ion-segment>
-    </ion-toolbar>
-
-</ion-header>
-
-
-<ion-content>
-
-</ion-content>
+    
+      <ion-navbar>
+        <ion-title>客户</ion-title>
+        <!-- <ion-buttons end>
+          <button ion-button icon-only tappable (click)="addCustomer()">
+            <p>添加</p>
+          </button>
+        </ion-buttons> -->
+      </ion-navbar>
+      <ion-toolbar no-border-top>
+        <ion-segment [(ngModel)]="pet">
+          <ion-segment-button tappable (click)='clickXianSuo()' value="1">线索
+          </ion-segment-button>
+          <ion-segment-button tappable (click)='clickQianZaiCustomer()' value="2">
+            潜在客户
+          </ion-segment-button>
+          <ion-segment-button tappable (click)='clickCustomer()' value="3">
+            客户
+          </ion-segment-button>
+          <ion-segment-button tappable (click)='clickGongHaiCustomer()' value="4">
+            公海客户
+          </ion-segment-button>
+        </ion-segment>
+      </ion-toolbar>
+    </ion-header>
+    
+    
+    <ion-content>
+      <div [ngSwitch]="pet">
+    
+        <ng-template [ngSwitchCase]='1'>
+          <ion-grid>
+            <ion-row>
+              <ion-col col-6>
+                <div>
+                  <ion-input [(ngModel)]="searchName1" placeholder="请输入名称" text-wrap style="margin-left:20px;;"></ion-input>
+                </div>
+              </ion-col>
+              <ion-col>
+                <div><button (click)='searchClick1()' style="height:40px;font-size:15px;font-weight:bold;background-color:white">搜索</button></div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          <ion-refresher (ionRefresh)="doRefresh1($event)">
+            <ion-refresher-content></ion-refresher-content>
+          </ion-refresher>
+          <ion-list>
+            <ion-item *ngFor='let item of dataSourceFirst'>
+              <h2 text-wrap>{{item.name}}</h2>
+              <p text-wrap class="team_p">联系人：{{item.contact_name}}</p>
+              <p text-wrap class="team_p">销售团队：{{item.team}}</p>
+              <p text-wrap class="team_p">销售员：{{item.user}}</p>
+              <div class="item row row-wrap row-no-padding" style="height: 50px;border: none;">
+                <!--<button ion-button style="background-color:#d9f2e4;color:#48ce3d" small>客户</button> -->
+                <div class="col col-center">
+                  <ion-icon *ngFor='let item of starArr | slice:(5 - item.priority)' name="star" style="color:#fdc03b"></ion-icon>
+                </div>
+              </div>
+            </ion-item>
+          </ion-list>
+    
+          <ion-infinite-scroll (ionInfinite)="doInfinite1($event)">
+            <ion-infinite-scroll-content></ion-infinite-scroll-content>
+          </ion-infinite-scroll>
+    
+        </ng-template>
+    
+        <ng-template [ngSwitchCase]='2'>
+          <ion-grid>
+            <ion-row>
+              <ion-col col-6>
+                <div>
+                  <ion-input [(ngModel)]="searchName2" placeholder="请输入名称" style="margin-left:20px;;"></ion-input>
+                </div>
+              </ion-col>
+              <ion-col>
+                <div><button (click)='searchClick2()' style="height:40px;font-size:15px;font-weight:bold;background-color:white">搜索</button></div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          <ion-refresher (ionRefresh)="doRefresh2($event)">
+            <ion-refresher-content></ion-refresher-content>
+          </ion-refresher>
+          <ion-list>
+            <ion-item *ngFor='let item of dataSourceSecond'>
+              <h2 text-wrap>{{item.name}}</h2>
+              <p text-wrap class="team_p">销售团队：{{item.team}}</p>
+              <p text-wrap class="team_p">销售员：{{item.user}}</p>
+              <div class="item row row-wrap row-no-padding" style="height: 50px;border: none;">
+                <button ion-button *ngFor='let detail of item.category' style="background-color:#d9f2e4;color:#48ce3d" small>{{detail}}</button>
+                <button ion-button style="background-color:#d4f3fc;color:#4c8dfb" small>{{item.level}}st</button>
+                <div class="col col-center">
+                  <ion-icon *ngFor='let item of starArr | slice:(5 - item.priority)' name="star" style="color:#fdc03b"></ion-icon>
+                </div>
+              </div>
+            </ion-item>
+          </ion-list>
+    
+          <ion-infinite-scroll (ionInfinite)="doInfinite2($event)">
+            <ion-infinite-scroll-content></ion-infinite-scroll-content>
+          </ion-infinite-scroll>
+        </ng-template>
+    
+        <ng-template [ngSwitchCase]='3'>
+          <ion-grid>
+            <ion-row>
+              <ion-col col-6>
+                <div>
+                  <ion-input [(ngModel)]="searchName3" placeholder="请输入名称" style="margin-left:20px;;"></ion-input>
+                </div>
+              </ion-col>
+              <ion-col>
+                <div><button (click)='searchClick3()' style="height:40px;font-size:15px;font-weight:bold;background-color:white">搜索</button></div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          <ion-refresher (ionRefresh)="doRefresh3($event)">
+            <ion-refresher-content></ion-refresher-content>
+          </ion-refresher>
+          <ion-list>
+            <ion-item *ngFor='let item of dataSourceThird'>
+              <h2 text-wrap>{{item.name}}</h2>
+              <p text-wrap class="team_p">销售团队：{{item.team}}</p>
+              <p text-wrap class="team_p">销售员：{{item.user}}</p>
+              <div class="item row row-wrap row-no-padding" style="height: 50px;border: none;">
+                <button ion-button *ngFor='let detail of item.category' style="background-color:#d9f2e4;color:#48ce3d" small>{{detail}}</button>
+                <button ion-button style="background-color:#d4f3fc;color:#4c8dfb" small>{{item.level}}st</button>
+                <div class="col col-center">
+                  <ion-icon *ngFor='let item of starArr | slice:(5 - item.priority)' name="star" style="color:#fdc03b"></ion-icon>
+                </div>
+              </div>
+            </ion-item>
+          </ion-list>
+          <ion-infinite-scroll (ionInfinite)="doInfinite3($event)">
+            <ion-infinite-scroll-content></ion-infinite-scroll-content>
+          </ion-infinite-scroll>
+        </ng-template>
+    
+        <ng-template [ngSwitchCase]='4'>
+          <ion-grid>
+            <ion-row>
+              <ion-col col-6>
+                <div>
+                  <ion-input [(ngModel)]="searchName4" placeholder="请输入名称" style="margin-left:20px;;"></ion-input>
+                </div>
+              </ion-col>
+              <ion-col>
+                <div><button (click)='searchClick4()' style="height:40px;font-size:15px;font-weight:bold;background-color:white">搜索</button></div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          <ion-refresher (ionRefresh)="doRefresh4($event)">
+            <ion-refresher-content></ion-refresher-content>
+          </ion-refresher>
+          <ion-list>
+            <ion-item *ngFor='let item of dataSourceFourth'>
+              <h2 text-wrap>{{item.name}}</h2>
+              <p text-wrap class="team_p">销售团队：{{item.team}}</p>
+              <p text-wrap class="team_p">销售员：{{item.user}}</p>
+              <div class="item row row-wrap row-no-padding" style="height: 50px;border: none;">
+                <button ion-button *ngFor='let detail of item.category' style="background-color:#d9f2e4;color:#48ce3d" small>{{detail}}</button>
+                <button ion-button style="background-color:#d4f3fc;color:#4c8dfb" small>{{item.level}}st</button>
+                <div class="col col-center">
+                  <ion-icon *ngFor='let item of starArr | slice:(5 - item.priority)' name="star" style="color:#fdc03b"></ion-icon>
+                </div>
+              </div>
+            </ion-item>
+          </ion-list>
+          <ion-infinite-scroll immediate-check="false" (ionInfinite)="doInfinite4($event)">
+            <ion-infinite-scroll-content></ion-infinite-scroll-content>
+          </ion-infinite-scroll>
+        </ng-template>
+      </div>
+    </ion-content>
+    

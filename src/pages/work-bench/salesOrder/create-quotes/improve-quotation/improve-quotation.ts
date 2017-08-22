@@ -1,3 +1,4 @@
+import { CustomerListPage } from './../customer-list/customer-list';
 import { DatePicker } from '@ionic-native/date-picker';
 import { SalesSearvice } from './../../salesService';
 import { BillingInfoPage } from './billing-info/billing-info';
@@ -79,13 +80,8 @@ export class ImproveQuotationPage {
   }
 
   seleteCustomer(){
-    
-
-
-
+    this.navCtrl.push(CustomerListPage);
   }
-
-
 
   save(){
 

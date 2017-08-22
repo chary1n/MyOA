@@ -385,7 +385,7 @@ export class CamCardPage {
         var group_detail = this.formatContacts[i];
         alert(group_detail.value.length);
         let arr_group = [];
-        for (var j = 0;j < group_detail.value.length;i++){
+        for (var j = 0;j < group_detail.value.length;j++){
           let items = group_detail.value[j];
           alert(group_detail.value.length);
           // arr_group.push(items);
