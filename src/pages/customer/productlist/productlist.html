@@ -14,9 +14,9 @@
 
 <ion-content>
   <ion-list>
-    <ion-item style="height:60px" *ngFor="let item of dataArr ; let i = index">  
+    <ion-item style="height:60px" *ngFor="let item of arr ; let i = index">  
         <ion-label>{{item.name}}</ion-label>
-        <ion-checkbox tappable style="margin-left:-10px;" (ionChange)="insertUserToArray(i)" [checked]="isCheck(i) ? true : false"></ion-checkbox>
+        <ion-checkbox tappable style="margin-left:-10px;" (ionChange)="insertUserToArray(item)" [checked]="isCheck(item) ? true : false"></ion-checkbox>
      </ion-item>
   </ion-list>
 </ion-content>

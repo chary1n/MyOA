@@ -4,6 +4,9 @@ import { ChoosePage } from './../choose/choose';
 import { Utils } from './../../../providers/Utils';
 import { ProductlistPage} from './../productlist/productlist'
 import { BiaoQianPage } from './../biao-qian/biao-qian';
+import { CamCardPage } from './../cam-card/cam-card';
+declare let cordova: any; 
+
 /**
  * Generated class for the EditCardPage page.
  *
@@ -16,6 +19,7 @@ import { BiaoQianPage } from './../biao-qian/biao-qian';
   templateUrl: 'edit-card.html',
 })
 export class EditCardPage {
+  
   companyName:any;
   cardName:any;
   telephoneName:any;
@@ -30,8 +34,17 @@ export class EditCardPage {
   biaoqianName:any;
   saleTeamName:any;
   salePersonName:any;
+  typeName:any;
+  camPage:any;
+  index:any;
+  index_group:any;
+  sourceArr:any;
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.camPage = Utils.getViewController("CamCardPage", navCtrl)
     this.item = this.navParams.get('item');
+    this.index = this.navParams.get('index');
+    this.index_group = this.navParams.get('index_group');
+    this.sourceArr = this.navParams.get('sourceArr');
     this.reloadView();
   }
 
@@ -41,6 +54,10 @@ export class EditCardPage {
 
   ionViewDidEnter(){
     this.reloadView();
+  }
+
+  ionViewWillLeave(){
+    cordova.plugins.Keyboard.close();
   }
 
   clickCountry(){
@@ -74,7 +91,26 @@ export class EditCardPage {
     this.navCtrl.push(BiaoQianPage, {
       items:this.item,
     })
-    
+  }
+  clickType(){
+    this.navCtrl.push(ChoosePage, {
+      items:this.item,
+      type:'type',
+    });
+  }
+
+  clickTeam(){
+    this.navCtrl.push(ChoosePage, {
+      items:this.item,
+      type:'team',
+    });
+  }
+
+  clicksaleman(){
+    this.navCtrl.push(ChoosePage, {
+      items:this.item,
+      type:'saleman',
+    });
   }
 
   reloadView(){
@@ -84,8 +120,9 @@ export class EditCardPage {
     this.emailName = this.item.email;
     this.addressName = this.item.address;
     this.companyName = this.item.companyName;
-    this.salePersonName = this.item.sale_person;
-    this.saleTeamName = this.item.sale_team;
+    this.salePersonName = this.item.sale_person ? this.item.sale_person : "请选择 >";
+    this.saleTeamName = this.item.sale_team ? this.item.sale_team :"请选择 >";
+    this.typeName = this.item.type ? this.item.type : "请选择 >";
     // console.log(this.item.country_name )
     if (this.item.country_name)
     {
@@ -158,6 +195,16 @@ export class EditCardPage {
   }
 
   save_camcard(){
-    
+    let self = this;   
+     this.item.displayName = this.cardName ;
+     this.item.phoneNumber = this.telephoneName;
+     this.item.departmentName = this.departmentName;
+     this.item.email = this.emailName;
+     this.item.address = this.addressName;
+     this.item.companyName = this.companyName;
+    this.sourceArr[this.index_group].value[this.index] = this.item; 
+    // alert(this.telephoneName);
+    self.camPage.formatContacts = this.sourceArr;
+    self.navCtrl.popTo(self.camPage);
   }
 }

@@ -127,21 +127,22 @@ export class BiaoQianPage {
     if (this.customer_selected)
     {
       for (var item of this.arr) {
-        if (item.name == '客户'){
+        if (item.name == "客户"){
           this.items.partner_type = "customer";
           this.items.category_id = item.category_id;
+          break;
         }
-        break;
+        
       }
     }
     if (this.supplier_selected)
     {
       for (var item of this.arr) {
-        if (item.name != '客户'){
+        if (item.name != "客户"){
           this.items.partner_type = "supplier";
           this.items.category_id = item.category_id;
-        }
-        break;
+          break;
+        }  
       }
     }
     if (self.level_one_selected)
@@ -158,7 +159,6 @@ export class BiaoQianPage {
     }
     this.items.star_cnt = this.priority;
     self.editPage.item = this.items;
-    alert(this.items.series_names);
     self.navCtrl.popTo(self.editPage);
   }
 }

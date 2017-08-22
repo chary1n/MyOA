@@ -52,7 +52,7 @@ export class ChoosePage {
                   id:'',
           }; 
           obj.name = item.name;
-          obj.id = item.src_id;
+          obj.id = item.crm_source_id;
           this.data.push(obj);
         }
       });
@@ -72,6 +72,63 @@ export class ChoosePage {
         }
       });
     }
+    else if (this.type == 'type'){
+      this.title = "联系人类型";
+      let obj_one = {  
+                name:'',
+                  id:'',
+          };
+          let obj_two = {  
+                name:'',
+                  id:'',
+          };
+          let obj_three = {  
+                name:'',
+                  id:'',
+          };
+          let obj_four = {  
+                name:'',
+                  id:'',
+          };
+      obj_one.name = "联系人";
+      this.data.push(obj_one);
+      obj_two.name = "开票地址";
+      this.data.push(obj_two);
+      obj_three.name = "送货地址";
+      this.data.push(obj_three);
+      obj_four.name = "其他地址";
+      this.data.push(obj_four);
+    }
+    else if (this.type == 'team')
+    {
+      this.title = "销售团队";
+      this.chooseService.get_saleteam_list().then((res) => {
+        for (var item of res.result) {
+          let obj = {  
+                name:'',
+                  id:'',
+          }; 
+          obj.name = item.name;
+          obj.id = item.team_id;
+          this.data.push(obj);
+        }
+      })
+    }
+    else if (this.type == 'saleman')
+    {
+      this.title = "销售员";
+      this.chooseService.get_saleman_list().then((res) => {
+        for (var item of res.result) {
+          let obj = {  
+                name:'',
+                  id:'',
+          }; 
+          obj.name = item.name;
+          obj.id = item.partner_id;
+          this.data.push(obj);
+        }
+      })
+    }
   }
 
   ionViewDidLoad() {
@@ -90,8 +147,8 @@ export class ChoosePage {
     else if (this.type == 'source')
     {
       let self = this;
-      this.items.source_id = item.id;
-      this.items.source_name = item.name;
+     this.items.series_name = item.name;
+      this.items.crm_source_id = item.id;
       self.editPage.item = this.items;
       self.navCtrl.popTo(self.editPage);
     }
@@ -99,7 +156,37 @@ export class ChoosePage {
     {
       let self = this;
       // this.items.series_id[0] = item.id;
-      this.items.series_name = item.name;
+       this.items.source_id = item.id;
+      this.items.source_name = item.name;
+      
+      self.editPage.item = this.items;
+      self.navCtrl.popTo(self.editPage);
+    }
+    else if (this.type == 'type')
+    {
+      let self = this;
+      this.items.type = item.name;
+      self.editPage.item = this.items;
+      self.navCtrl.popTo(self.editPage);
+    }
+
+    // obj.sale_team = this.saleteam_name;
+    //   obj.sale_person = this.saleman_name;
+    //   obj.saleteam_id = this.saleteam_id;
+    //   obj.saleman_id = this.saleman_id;
+    else if (this.type == 'team')
+    {
+      let self = this;
+      this.items.sale_team = item.name;
+      this.items.saleteam_id = item.id;
+      self.editPage.item = this.items;
+      self.navCtrl.popTo(self.editPage);
+    }
+    else if (this.type == 'saleman')
+    {
+      let self = this;
+      this.items.sale_person = item.name;
+      this.items.saleman_id = item.id;
       self.editPage.item = this.items;
       self.navCtrl.popTo(self.editPage);
     }

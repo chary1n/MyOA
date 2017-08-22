@@ -7,6 +7,74 @@ export class ChooseService {
 
     }
 
+    add_partners(items){
+            let arr = [];
+        for (var item of items) {
+           let obj = {
+           company_name:'',
+           company_id:'',
+           saleman_id:'',
+           saleteam_id:'',
+           country_id:'',
+           crm_source_id:'',
+           source_id:'',
+           tag_list:'',
+           partner_type:'',
+           star_cnt:'',
+           series_ids:[],
+           members:[],
+           partner_lv:'', 
+        }
+
+        let member = {
+            name:'',
+            phone:'',
+            email:'',
+            street:'',
+            type:'',
+        }
+        member.name = item.displayName;
+        member.email = item.email;
+        member.phone = item.phoneNumber;
+        member.street = item.address;
+        member.type = this.exchangeType(item.type);
+
+        obj.company_id = item.company_id;
+        obj.saleman_id = item.saleman_id;
+        obj.company_name = item.companyName;
+        obj.saleteam_id = item.saleteam_id;
+        obj.country_id = item.country_id;
+        obj.crm_source_id = item.crm_source_id;
+        obj.source_id = item.source_id;
+        obj.tag_list = item.tag_list;
+        obj.partner_type = item.partner_type;
+        obj.star_cnt = item.star_cnt;
+        obj.series_ids = item.series_ids;
+        obj.members = [member];
+        obj.partner_lv = item.partner_lv;
+
+        arr.push(obj);
+    }
+        let body = JSON.stringify({
+            partners:arr,
+        });
+        return this.httpservice.postBody("add_partners", body);
+    }
+
+    //销售员
+    get_saleman_list(){
+        let body = JSON.stringify({
+        });
+        return this.httpservice.postBody("get_saleman_list", body);
+    }
+
+    //销售团队
+    get_saleteam_list(){
+        let body = JSON.stringify({
+        });
+        return this.httpservice.postBody("get_saleteam_list", body);
+    }
+
     //类型
     get_partner_tag_list(){
         let body = JSON.stringify({
@@ -45,5 +113,25 @@ export class ChooseService {
 
         });
         return this.httpservice.postBody("get_sources", body);
+    }
+
+    exchangeType(type)
+    {
+        if (type == "联系人")
+        {
+            return "contact";
+        }
+        else if (type == "开票地址")
+        {
+            return "invoice";
+        }
+        else if (type == "送货地址")
+        {
+            return "delivery";
+        }
+        else if (type == "其他地址")
+        {
+            return "other";
+        }
     }
 }

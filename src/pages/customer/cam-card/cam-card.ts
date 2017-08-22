@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams,Platform } from 'ionic-angular';
 import { Contacts, Contact, ContactField, ContactName,ContactFindOptions ,ContactFieldType,} from '@ionic-native/contacts';
 import { pinyin } from './pinyin';  
 import { ProductlistPage } from './../productlist/productlist';
 import { EditCardPage } from './../edit-card/edit-card';
 import { Storage } from '@ionic/storage';
+import { ChooseService} from './../choose/ChooseService';
+import { ChangeDetectorRef } from '@angular/core';
 /**
  * Generated class for the CamCardPage page.
  *
@@ -15,7 +17,7 @@ import { Storage } from '@ionic/storage';
 @Component({
   selector: 'page-cam-card',
   templateUrl: 'cam-card.html',
-  providers:[Contacts],
+  providers:[Contacts,ChooseService],
 })
 export class CamCardPage {
   titleList:any;
@@ -27,9 +29,12 @@ export class CamCardPage {
   saleteam_id:any;
   saleman_name:any;
   saleman_id:any;
+  checkAll:any;
+  nameList :any = [];
   constructor(public navCtrl: NavController, public navParams: NavParams,private contacts: Contacts
-  ,public storage:Storage) {
-    let nameList = [] ;
+  ,public storage:Storage,public chooseService:ChooseService,public cd: ChangeDetectorRef,public platform: Platform) {
+    
+    this.checkAll = false;
     this.storage.get('user')
       .then(res => {
         console.log(res);
@@ -52,10 +57,10 @@ export class CamCardPage {
         for (var contact of result) {
           if (contact.organizations){
             console.log(contact);
-            nameList.push(contact);
+            this.nameList.push(contact);
           }
         }
-        this.dealWithList(nameList);
+        this.dealWithList(this.nameList);
       });  
   }
 
@@ -90,7 +95,6 @@ export class CamCardPage {
       }
     }
     this.cal_choose_card();
-    // alert(this.formatContacts.length);
   }
 
   uploadCard()
@@ -100,12 +104,52 @@ export class CamCardPage {
       for (var items of group.value) {
         if (items.isCheckBox == '1')
         {
-           
           resultArr.push(items);
         }
       }
     }
-  //  alert(resultArr);
+
+    this.chooseService.add_partners(resultArr).then(res => {
+      if (res.result){
+        alert("导入成功");
+        for (var contact of this.nameList) {
+          for (var result of resultArr) {
+            if (result.id == contact.id)
+            {
+              contact.remove();
+              // alert(this.formatContacts);
+               let options = new ContactFindOptions();  
+               let fields: ContactFieldType[];  
+               fields = ["displayName", "phoneNumbers"];  
+               options.filter = "";  
+               options.multiple = true;  
+               options.hasPhoneNumber = true;  
+               this.contacts.find(fields, options).then((result) => {  
+                let nameArr = [];
+              for (var contact of result) {
+              if (contact.organizations)
+              {
+                 console.log(contact);
+                 nameArr.push(contact);
+              }
+        }
+        this.dealWithList(nameArr);
+      });  
+             
+            }
+          }
+        }
+         this.cd.detectChanges();
+      }
+      else
+      {
+        if (res.error)
+        {
+          alert(res.error.data.message);
+        }
+      }
+    });
+    
   }
 
   cal_choose_card(){
@@ -133,14 +177,19 @@ export class CamCardPage {
     }
   }
 
-  calling(item)
+  calling(item,g,i)
   {
+    // alert(item.phoneNumber);
     this.navCtrl.push(EditCardPage, {
       item:item,
+      index:i,
+      index_group:g,
+      sourceArr:this.formatContacts,
     });
   }
 
    dealWithList(contacts) {  
+     this.formatContacts = [];
     // console.log('Found contacts length==' + contacts.length);  
     // console.log('all contacts==' + JSON.stringify(contacts));  
     let contactsLength = contacts.length;  
@@ -151,7 +200,8 @@ export class CamCardPage {
         continue;  
       }  
       // alert(contacts[i].phoneNumbers)
-      let obj = {  
+      let obj = { 
+        id:'', 
         displayName: '',  
         phoneNumber: '',  
         pinyinName: '',
@@ -159,6 +209,7 @@ export class CamCardPage {
         departmentName:'',
         companyName:'', 
         email:'',
+        company_id:'',
         address:'',
         sale_team:'',
         sale_person:'',
@@ -176,6 +227,8 @@ export class CamCardPage {
         partner_lv:'',
         partner_type:'',
         category_id:'',
+        crm_source_id:'',
+        type:'',
       };  
       
       obj.sale_team = this.saleteam_name;
@@ -183,10 +236,12 @@ export class CamCardPage {
       obj.saleteam_id = this.saleteam_id;
       obj.saleman_id = this.saleman_id;
       
-      
+      obj.id = contacts[i].id;
 
         obj.isCheckBox = '0';
-        if (contacts[i].name.formatted != null) {  
+        if (this.platform.is('ios'))
+        {
+          if (contacts[i].name.formatted != null) {  
           obj.displayName = contacts[i].name.formatted; 
           // alert(contacts[i].name.formatted); 
         } else if (contacts[i].name.familyName != null) {  
@@ -196,10 +251,20 @@ export class CamCardPage {
         }  
         if (contacts[i].name != null && contacts[i].name.formatted != null) {  
           obj.displayName = contacts[i].name.formatted;  
-        }  
-        if (contacts[i].email != null)
+        } 
+      }
+      else
+      {
+        if (contacts[i]._objectInstance.displayName != null) {
+          obj.displayName = contacts[i]._objectInstance.displayName;
+        } else if (contacts[i]._objectInstance.name != null && contacts[i]._objectInstance.name.formatted != null) {
+          obj.displayName = contacts[i]._objectInstance.name.formatted;
+        }
+      }
+         
+        if (contacts[i].emails != null)
         {
-          obj.email = contacts[i].email[0].value;
+          obj.email = contacts[i].emails[0].value;
         }
         if (contacts[i].organizations != null)
         {
@@ -215,7 +280,13 @@ export class CamCardPage {
       //去掉名称3非汉字，英文的        
       let reg = /^[A-Za-z]+$/;  
       //名字为空或非字母，加到最后一组  
-      obj.phoneNumber = contacts[i].phoneNumbers[0].value;  
+      for (var items of contacts[i].phoneNumbers) {
+        if (items.type == "mobile")
+        {
+          obj.phoneNumber = items.value; 
+        }
+      }
+       
       //有名字  
       // console.log('one contact==' + i + '  ' + JSON.stringify(obj));  
       obj.pinyinName = pinyin.getFullChars(obj.displayName);  
@@ -304,6 +375,45 @@ export class CamCardPage {
   
   } 
 
+  changeAll(){
+    this.checkAll = !this.checkAll;
+    if (this.checkAll)
+    {
+      let arr = [];
   
+      for (var i = 0;i < this.formatContacts.length;i++ ){
+        var group_detail = this.formatContacts[i];
+        alert(group_detail.value.length);
+        let arr_group = [];
+        for (var j = 0;j < group_detail.value.length;i++){
+          let items = group_detail.value[j];
+          alert(group_detail.value.length);
+          // arr_group.push(items);
+          // if (items.isCheckBox == '0')
+          // {
+          //   items.isCheckBox = '1';
+          //   continue;
+          // }
+        }
+      }
+      this.formatContacts = arr;
+    }
+    else
+    {
+      // let g = 0;
+      // let i = 0;
+      // for (var group of this.formatContacts) {
+      //   g ++ ;
+      //   for (var item of group.value) {
+      //     i ++;
+      //     item.isCheckBox = "0";
+      //     this.formatContacts[g - 1].value[i - 1] = item;
+      //   }
+      // }
+    }
+  }
 
+  isCheckAll(){
+    return this.checkAll;
+  }
 }
