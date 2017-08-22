@@ -158,6 +158,7 @@ export class CamCardPage {
     this.chooseCount = 0;
     for (var group of this.formatContacts) {
       for (var items of group.value) {
+        alert(items.displayName+items.isCheckBox);
         if (items.isCheckBox == '1')
         {
           this.chooseCount ++;
@@ -381,37 +382,35 @@ export class CamCardPage {
     this.checkAll = !this.checkAll;
     if (this.checkAll)
     {
-      let arr = [];
-  
       for (var i = 0;i < this.formatContacts.length;i++ ){
         var group_detail = this.formatContacts[i];
-        alert(group_detail.value.length);
-        let arr_group = [];
-        for (var j = 0;j < group_detail.value.length;i++){
+        for (var j = 0;j < group_detail.value.length;j++){
+          // alert('1');
           let items = group_detail.value[j];
-          alert(group_detail.value.length);
-          // arr_group.push(items);
-          // if (items.isCheckBox == '0')
-          // {
-          //   items.isCheckBox = '1';
-          //   continue;
-          // }
+          if (items.isCheckBox == '0')
+          {
+            items.isCheckBox = '1';
+            this.formatContacts[i].value[j] = items;
+          }
         }
       }
-      this.formatContacts = arr;
+      this.cal_choose_card();
     }
     else
     {
-      // let g = 0;
-      // let i = 0;
-      // for (var group of this.formatContacts) {
-      //   g ++ ;
-      //   for (var item of group.value) {
-      //     i ++;
-      //     item.isCheckBox = "0";
-      //     this.formatContacts[g - 1].value[i - 1] = item;
-      //   }
-      // }
+      for (var i = 0;i < this.formatContacts.length;i++ ){
+        var group_detail = this.formatContacts[i];
+        for (var j = 0;j < group_detail.value.length;j++){
+          let items = group_detail.value[j];
+          if (items.isCheckBox == '1')
+          {
+            items.isCheckBox = '0';
+            group_detail.value[j] = items;
+            this.formatContacts[i] = group_detail;
+          }
+        }
+      }
+      this.cal_choose_card();
     }
   }
 
