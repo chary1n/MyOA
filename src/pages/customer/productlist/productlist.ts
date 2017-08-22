@@ -27,8 +27,17 @@ export class ProductlistPage {
     this.chooseService.get_product_series().then((res) => {
         console.log(res);
         this.dataArr = res.result;
-        for (var item in this.dataArr) {
-          this.arr.push("0");
+       
+        for (var item of this.dataArr) {
+           let obj = {
+              name:'',
+              id:'',
+              isCheck:'',
+           }
+           obj.name = item.name;
+           obj.id = item.series_id;
+           obj.isCheck = "0";
+          this.arr.push(obj);
         }
       }); 
 }
@@ -38,20 +47,29 @@ export class ProductlistPage {
     console.log('ionViewDidLoad ProductlistPage');
   }
 
-  insertUserToArray(i){
-    if (this.arr[i] == "1")
+  insertUserToArray(item){
+    if (item.isCheck == "1")
     {
-      this.arr[i] = "0"
+      item.isCheck = "0"
     }
     else
     {
-      this.arr[i] = "1";
+      item.isCheck = "1";
+    }
+    let i = 0;
+    for (var items of this.arr) {
+      i ++;
+      if (items.id == item.id)
+      {
+        this.arr[i - 1] = item;
+        break;
+      }
     }
   }
 
-  isCheck(i)
+  isCheck(item)
   {
-    if (this.arr[i] == "0")
+    if (item.isCheck == "0")
     {
       return false;
     }
@@ -67,17 +85,21 @@ export class ProductlistPage {
     let series_names = [];
     let index = 0;
     for (var item of this.arr) {
-      if (this.arr[index] == "1")
+      if (item.isCheck == "1")
       {
-        series_selected.push(index);
+        // alert()
+        series_selected.push(item);
       }
+      
       index ++;
     }
-    for (var i in series_selected) {
-       series_ids.push(this.dataArr[i].series_id);
-       series_names.push(this.dataArr[i].name);     
+    for (var detail of series_selected) {
+       series_ids.push(detail.id);
+       series_names.push(detail.name);     
     }
     
+    // alert(series_ids);
+    // alert(series_names);
     let self = this;
       this.items.series_ids = series_ids;
       this.items.series_names = series_names;

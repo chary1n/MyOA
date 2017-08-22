@@ -14,17 +14,17 @@
 
 
 <ion-content>
-  <ion-item-group *ngFor="let group of formatContacts">  
+  <ion-item-group *ngFor="let group of formatContacts;let g = index">  
      <ion-item-divider color="light" id="'contact-'+{{group.key}}" class="contacts-group">{{group.key.toUpperCase()}}</ion-item-divider>  
-            <ion-item style="height:60px" *ngFor="let item of group.value ">  
+            <ion-item style="height:60px" *ngFor="let item of group.value;let i = index ">  
                    <ion-grid>
                     <ion-row>
                        <ion-col style="width:40px;height:40px;">
                          <ion-item>
-                           <ion-checkbox tappable style="margin-left:-10px;" (ionChange)="insertUserToArray(item)" [checked]="isCheck(item) ? true : false"></ion-checkbox>
+                           <ion-checkbox tappable style="margin-left:-10px;margin-top:20px;" (ionChange)="insertUserToArray(item)" [checked]="isCheck(item) ? true : false"></ion-checkbox>
                          </ion-item>
                         </ion-col>
-                      <ion-col col-11 tappable (click)="calling(item)">
+                      <ion-col col-11 tappable (click)="calling(item,g,i)">
                         <ion-item>
                           <ion-avatar item-start>
                             <img src="assets/img/avatar.jpg">
@@ -46,7 +46,7 @@
                          <ion-item  style="background-color:#f4f4f4" no-lines>
                            <ion-label style="margin-top:-5px;">全选
                            </ion-label>
-                           <ion-checkbox style="margin-top:-8px;" checked="false"></ion-checkbox>
+                           <ion-checkbox style="margin-top:-8px;" checked="false" (ionChange)="changeAll()" [checked]="isCheckAll() ? true : false"></ion-checkbox>
                          </ion-item>
                         </ion-col>
                       <ion-col>

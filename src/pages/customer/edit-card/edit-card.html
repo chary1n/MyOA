@@ -23,7 +23,7 @@
     <ion-item-divider color="light"></ion-item-divider>
     <ion-item>
       <ion-label style="color:black" class="label_class">公司</ion-label>
-      <ion-input item-end class="input_class" [(ngModel)]="companyName" style="direction:rtl"></ion-input>
+      <ion-input item-end text-wrap class="input_class" [(ngModel)]="companyName" style="direction:rtl"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label  class="label_class">国家</ion-label>
@@ -31,19 +31,19 @@
     </ion-item>
     <ion-item>
       <ion-label class="label_class">来源</ion-label>
-      <ion-label item-end text-wrap tappable (click) = 'clickSource()' style="margin-right:15px;" class="text_class">{{sourceName}}</ion-label>
+      <ion-label item-end text-wrap tappable (click) = 'clickSource()' style="margin-right:15px;" class="text_class">{{seriesName}}</ion-label>
     </ion-item>
     <ion-item>
       <ion-label class="label_class">渠道</ion-label>
-      <ion-label item-end text-wrap tappable (click) = 'clickComefrom()' style="margin-right:15px;" class="text_class">{{seriesName}}</ion-label>
+      <ion-label item-end text-wrap tappable (click) = 'clickComefrom()' style="margin-right:15px;" class="text_class">{{sourceName}}</ion-label>
     </ion-item>
     <ion-item>
       <ion-label class="label_class">销售团队</ion-label>
-      <ion-label item-end text-wrap style="margin-right:15px;" class="text_class">{{saleTeamName}}</ion-label>
+      <ion-label item-end text-wrap tappable (click) = 'clickTeam()' style="margin-right:15px;" class="text_class">{{saleTeamName}}</ion-label>
     </ion-item>
     <ion-item>
       <ion-label class="label_class">销售员</ion-label>
-      <ion-label item-end text-wrap  style="margin-right:15px;" class="text_class">{{salePersonName}}</ion-label>
+      <ion-label item-end text-wrap tappable (click) = 'clicksaleman()' style="margin-right:15px;" class="text_class">{{salePersonName}}</ion-label>
     </ion-item>
       <ion-item>
       <ion-label class="label_class">标签</ion-label>
@@ -59,11 +59,11 @@
     <ion-item-divider color="light"></ion-item-divider>
     <ion-item>
       <ion-label class="label_class">联系人类型</ion-label>
-      <ion-label text-wrap style="margin-right:15px;" item-end class="text_class"></ion-label>
+      <ion-label text-wrap style="margin-right:15px;" tappable (click) = 'clickType()' item-end class="text_class">{{typeName}}</ion-label>
     </ion-item>
     <ion-item>
       <ion-label style="color:black" class="label_class">姓名</ion-label>
-      <ion-input item-end class="input_class" [(ngModel)]="cardName" style="direction:rtl"></ion-input>
+      <ion-input item-end text-wrap class="input_class" [(ngModel)]="cardName" style="direction:rtl"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label style="color:black" class="label_class">电话</ion-label>
