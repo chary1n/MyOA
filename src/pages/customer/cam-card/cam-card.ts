@@ -137,6 +137,7 @@ export class CamCardPage {
               }
         }
         this.dealWithList(nameArr);
+        this.cal_choose_card();
       });  
              
             }
