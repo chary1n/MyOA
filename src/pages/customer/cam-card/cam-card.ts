@@ -234,6 +234,7 @@ export class CamCardPage {
         category_id:'',
         crm_source_id:'',
         type:'',
+        jobtitle:'',
       };  
       
       obj.sale_team = this.saleteam_name;
