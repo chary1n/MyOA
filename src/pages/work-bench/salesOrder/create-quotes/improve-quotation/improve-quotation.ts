@@ -35,23 +35,33 @@ export class ImproveQuotationPage {
   invoiceAddressList ;
   deliveryAddress ;
   deliveryAddressList ;
-
+  productID ;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private salesSearvice :SalesSearvice,
     private datePicker :DatePicker) {
+     this.productID =  this.navParams.get("id")
       this.salesSearvice.getPaymentTermList().then(res=>{
         console.log(res)
         this.paymentList= res.result.res_data
       })
-      this.salesSearvice.getTaxList().then(res=>{
-        console.log(res)
-        this.taxList= res.result.res_data
+      // this.salesSearvice.getTaxList().then(res=>{
+      //   console.log(res)
+      //   this.taxList= res.result.res_data
+      // })
+      // this.salesSearvice.getDeliveryList().then(res=>{
+      //   console.log(res)
+      //   this.deliveryRulsList= res.result.res_data
+      // })
+      this.salesSearvice.getDeliveryAddressList(this.productID).then(res=>{
+        this.deliveryAddressList = res.result.res_data
       })
-      this.salesSearvice.getDeliveryList().then(res=>{
-        console.log(res)
-        this.deliveryRulsList= res.result.res_data
+      this.salesSearvice.getPaymentAddressList(this.productID).then(res=>{
+        this.invoiceAddressList = res.result.res_data
       })
+
+
+
   }
 
   ionViewDidLoad() {

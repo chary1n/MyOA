@@ -31,7 +31,6 @@ export class MePage {
         this.appVersion.getVersionCode().then((value: string) => {
           this.versionNumber = value
         });
-
       }
       else if (this.platform.is('ios')) {
         this.appVersion.getVersionNumber().then((value: string) => {

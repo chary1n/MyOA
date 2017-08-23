@@ -296,18 +296,18 @@ export class CamCardPage {
       obj.pinyinName = pinyin.getFullChars(obj.displayName);  
       // console.log('one contact getFullChars ' + i);  
   
-      if (!reg.test(obj.pinyinName) || obj.displayName == '') {  
-        // console.log('非正常联系人信息 名字不对==' + JSON.stringify(obj));  
+      // if (!reg.test(obj.pinyinName) || obj.displayName == '') {  
+      //   // console.log('非正常联系人信息 名字不对==' + JSON.stringify(obj));  
   
-        let len = this.formatContacts.length;  
-        for (let j = 0; j < len; j++) {  
-          // console.log("ffff");  
-          if ((this.formatContacts[j] as any).key == 'Z') {  
-            (this.formatContacts[j] as any).value.push(obj);  
-            break;  
-          }  
-        }  
-      } else {  
+      //   let len = this.formatContacts.length;  
+      //   for (let j = 0; j < len; j++) {  
+      //     // console.log("ffff");  
+      //     if ((this.formatContacts[j] as any).key == 'Z') {  
+      //       (this.formatContacts[j] as any).value.push(obj);  
+      //       break;  
+      //     }  
+      //   }  
+      // } else {  
         //不排序，供搜索使用的数组  
         this.allSearchContacts.push(obj);  
         let camelChar = pinyin.getCamelChars(obj.displayName).substring(0, 1);  
@@ -331,7 +331,7 @@ export class CamCardPage {
             };  
           }  
         }  
-      }  
+      // }  
       // console.log('obj format==' + JSON.stringify(obj));  
       obj = null;  
     }  
