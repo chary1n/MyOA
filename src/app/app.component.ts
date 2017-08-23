@@ -28,7 +28,6 @@ export class MyApp {
     private inAppBrowser: InAppBrowser, private storage: Storage) {
      
     platform.ready().then(() => {
-      
       storage.get('user')
       .then(res => {
        this.user_env = res.result.res_data

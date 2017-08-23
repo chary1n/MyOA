@@ -20,7 +20,6 @@ import { ChangeDetectorRef } from '@angular/core';
   providers:[Contacts,ChooseService],
 })
 export class CamCardPage {
-  nameList:any = [];
   titleList:any;
   formatContacts:any = [];
   allSearchContacts = [];
@@ -32,8 +31,10 @@ export class CamCardPage {
   saleman_id:any;
   checkAll:any;
   isClickAll:any;
+  nameList:any = [];
   constructor(public navCtrl: NavController, public navParams: NavParams,private contacts: Contacts
   ,public storage:Storage,public chooseService:ChooseService,public cd: ChangeDetectorRef,public platform: Platform) {
+    
     this.checkAll = false;
     this.isClickAll = false;
     this.storage.get('user')
@@ -55,12 +56,9 @@ export class CamCardPage {
       options.hasPhoneNumber = true;    
       
       this.contacts.find(fields, options).then((result) => {  
-        
         for (var contact of result) {
-          if (contact.organizations)
-          {
+          if (contact.organizations){
             console.log(contact);
-            
             this.nameList.push(contact);
           }
         }

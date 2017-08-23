@@ -1,3 +1,4 @@
+import { CustomerListPage } from './customer-list/customer-list';
 import { DatePicker } from '@ionic-native/date-picker';
 import { AddProductionPage } from './add-production/add-production';
 import { ImproveQuotationPage } from './improve-quotation/improve-quotation';
@@ -67,6 +68,10 @@ export class CreateQuotesPage {
       date =>this.seleteDate = date,
       err => console.log('Error occurred while getting date: ', err)
     );
+  }
+
+  seleteCustomer(){
+    this.navCtrl.push(CustomerListPage);
   }
 
 }
