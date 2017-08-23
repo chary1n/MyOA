@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams,Platform } from 'ionic-angular';
+import { IonicPage, NavController, NavParams,Platform ,AlertController} from 'ionic-angular';
 import { Contacts, Contact, ContactField, ContactName,ContactFindOptions ,ContactFieldType,} from '@ionic-native/contacts';
 import { pinyin } from './pinyin';  
 import { ProductlistPage } from './../productlist/productlist';
@@ -33,7 +33,8 @@ export class CamCardPage {
   isClickAll:any;
   nameList:any = [];
   constructor(public navCtrl: NavController, public navParams: NavParams,private contacts: Contacts
-  ,public storage:Storage,public chooseService:ChooseService,public cd: ChangeDetectorRef,public platform: Platform) {
+  ,public storage:Storage,public chooseService:ChooseService,public cd: ChangeDetectorRef,public platform: Platform,
+  private alertCtrl: AlertController,) {
     
     this.checkAll = false;
     this.isClickAll = false;
@@ -112,9 +113,22 @@ export class CamCardPage {
       }
     }
 
-    this.chooseService.add_partners(resultArr).then(res => {
+    if (resultArr.length > 0)
+    {
+      this.chooseService.add_partners(resultArr).then(res => {
       if (res.result){
-        alert("导入成功");
+        this.alertCtrl.create({
+                  title: '提示',
+                  subTitle: '导入成功',
+                  buttons: [
+                 {
+                    text: '确定',
+                    handler: () => {
+                     
+                 }
+             }
+      ]
+    }).present();
         for (var contact of this.nameList) {
           for (var result of resultArr) {
             if (result.id == contact.id)
@@ -149,10 +163,38 @@ export class CamCardPage {
       {
         if (res.error)
         {
-          alert(res.error.data.message);
+          this.alertCtrl.create({
+                  title: '提示',
+                  subTitle: res.error.data.message,
+                  buttons: [
+                 {
+                    text: '确定',
+                    handler: () => {
+                     
+                 }
+             }
+      ]
+    }).present();
         }
       }
     });
+    }
+    else
+    {
+       this.alertCtrl.create({
+                  title: '提示',
+                  subTitle: '请选择要上传的联系人',
+                  buttons: [
+                 {
+                    text: '确定',
+                    handler: () => {
+                     
+                 }
+             }
+      ]
+    }).present();
+    }
+    
     
   }
 
