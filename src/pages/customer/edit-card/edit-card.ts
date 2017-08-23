@@ -47,9 +47,9 @@ export class EditCardPage {
     this.sourceArr = this.navParams.get('sourceArr');
     this.reloadView();
 
-    this.scrollElement._scrollContent.nativeElement.onscroll = event =>{
-      alert(1);
-    }
+    // this.scrollElement._scrollContent.nativeElement.onscroll = event =>{
+    //   alert(1);
+    // }
   }
 
   ionViewDidLoad() {
