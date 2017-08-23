@@ -24,6 +24,7 @@ export class ChooseService {
            series_ids:[],
            members:[],
            partner_lv:'', 
+           jobtitle:'',
         }
 
         let member = {
@@ -52,7 +53,7 @@ export class ChooseService {
         obj.series_ids = item.series_ids;
         obj.members = [member];
         obj.partner_lv = item.partner_lv;
-
+        obj.jobtitle = item.departmentName;
         arr.push(obj);
     }
         let body = JSON.stringify({
