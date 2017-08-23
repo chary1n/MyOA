@@ -1,3 +1,4 @@
+import { SalesSearvice } from './../salesService';
 import { CustomerListPage } from './customer-list/customer-list';
 import { DatePicker } from '@ionic-native/date-picker';
 import { AddProductionPage } from './add-production/add-production';
@@ -15,22 +16,39 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 @Component({
   selector: 'page-create-quotes',
   templateUrl: 'create-quotes.html',
+  providers :[SalesSearvice]
 })
 export class CreateQuotesPage {
-  deliveryRuls :string  = "一次性发货" 
-  tax :string 
-  seleteDate :any
-  products: any 
-  isAdd = false ;
-  items  :any[]  ;
-  noTaxTotal :number ;
-  taxTotal :number ;
-  total :number ;
+  deliveryRuls: string = "一次性发货"
+  deliveryRulsList ;
+  taxList ;
+  tax: string
+  seleteDate: any
+  products: any
+  isAdd = false;
+  items: any[];
+  noTaxTotal: number;
+  taxTotal: number;
+  total: number;
+  customer;
+  customerName  = "请选择客户";
+  priceForm ;
+  priceFormList ;
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    private datePicker: DatePicker) {
-    this.items = [] ;
+    private datePicker: DatePicker,private salesSearvive:SalesSearvice) {
+    this.items = [];
+    this.salesSearvive.getDeliveryList().then(res=>{
+      this.deliveryRulsList = res.result.res_data
+    })
+    this.salesSearvive.getTaxList().then(res=>{
+      this.taxList = res.result.res_data
+    })
+    this.salesSearvive.getPriceFormList().then(res=>{
+      this.priceFormList = res.result.res_data
+    })
+    
   }
 
   ionViewDidLoad() {
@@ -40,37 +58,41 @@ export class CreateQuotesPage {
 
 
 
-  ionViewDidEnter(){
-   let item =   this.navParams.get("productItem")
-   this.isAdd = this.navParams.get("isAdd")
-    if(this.isAdd){
+  ionViewDidEnter() {
+    let item = this.navParams.get("productItem")
+    this.isAdd = this.navParams.get("isAdd")
+    if (this.isAdd) {
       this.items.push(item);
+    }
+    this.customer = this.navParams.get("customer")
+    if(this.customer){
+      this.customerName = this.customer.name
     }
   }
 
 
-  improveQuotation(){
+  improveQuotation() {
     this.navCtrl.push(ImproveQuotationPage)
 
   }
 
-  addProductions(){
-    this.isAdd = false ;
+  addProductions() {
+    this.isAdd = false;
     this.navCtrl.push(AddProductionPage)
   }
 
-  chooseDate(){
+  chooseDate() {
     this.datePicker.show({
       date: new Date(),
       mode: 'date',
       androidTheme: this.datePicker.ANDROID_THEMES.THEME_HOLO_DARK,
     }).then(
-      date =>this.seleteDate = date,
+      date => this.seleteDate = date,
       err => console.log('Error occurred while getting date: ', err)
-    );
+      );
   }
 
-  seleteCustomer(){
+  seleteCustomer() {
     this.navCtrl.push(CustomerListPage);
   }
 
