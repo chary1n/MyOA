@@ -31,9 +31,11 @@ export class CamCardPage {
   saleman_name:any;
   saleman_id:any;
   checkAll:any;
+  isClickAll:any;
   constructor(public navCtrl: NavController, public navParams: NavParams,private contacts: Contacts
   ,public storage:Storage,public chooseService:ChooseService,public cd: ChangeDetectorRef,public platform: Platform) {
     this.checkAll = false;
+    this.isClickAll = false;
     this.storage.get('user')
       .then(res => {
         console.log(res);
@@ -72,14 +74,14 @@ export class CamCardPage {
 
   insertUserToArray(item)
   {
-    
+    // alert(item.displayName);
     if (item.isCheckBox == '0')
     {
       item.isCheckBox = '1';
     }
     else
     {
-      item.isCheckBox = '0';
+      item.isCheckBox = '0';      
     }
     let out_int = 0
     for (var group of this.formatContacts) {
@@ -92,11 +94,12 @@ export class CamCardPage {
         {
           group.value[in_int - 1] = item;
           this.formatContacts[out_int - 1] = group;
-          break;
+          // break;
         }
       }
     }
     this.cal_choose_card();
+    
   }
 
   uploadCard()
@@ -164,6 +167,7 @@ export class CamCardPage {
         }
       }
     }
+    this.isClickAll = false;
   } 
 
   isCheck(item)
@@ -379,6 +383,7 @@ export class CamCardPage {
 
   changeAll(){
     // alert("1");
+    this.isClickAll = true;
     this.checkAll = !this.checkAll;
     if (this.checkAll)
     {

@@ -26,6 +26,7 @@ export class MyApp {
     splashScreen: SplashScreen, private appVersion: AppVersion,
     private nativeService: NativeService,public firService:FirService, private alertCtrl: AlertController,
     private inAppBrowser: InAppBrowser, private storage: Storage) {
+     
     platform.ready().then(() => {
       
       storage.get('user')
@@ -90,6 +91,8 @@ export class MyApp {
   openUrlByBrowser(url:string):void {
     this.inAppBrowser.create(url, '_system');
   }
+
+
 
 }
 

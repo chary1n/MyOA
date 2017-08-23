@@ -21,7 +21,7 @@
                     <ion-row>
                        <ion-col style="width:40px;height:40px;">
                          <ion-item>
-                           <ion-checkbox tappable style="margin-left:-10px;margin-top:20px;" (ionChange)="insertUserToArray(item)" [checked]="isCheck(item) ? true : false"></ion-checkbox>
+                           <ion-checkbox tappable style="margin-left:-10px;margin-top:20px;" (click) = "insertUserToArray(item)"  [checked]="isCheck(item) ? true : false"></ion-checkbox>
                          </ion-item>
                         </ion-col>
                       <ion-col col-11 tappable (click)="calling(item,g,i)">
