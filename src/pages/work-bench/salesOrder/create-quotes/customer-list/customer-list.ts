@@ -1,3 +1,4 @@
+import { Utils } from './../../../../../providers/Utils';
 import { CustomerService } from './../../../../customer/CustomerService';
 import { Storage } from '@ionic/storage';
 import { Component } from '@angular/core';
@@ -33,10 +34,11 @@ export class CustomerListPage {
   searchName2 :string ;
   searchName3 :string ;
   searchName4 :string ;
+  mCreateQuotesPage ;
   constructor(public navCtrl: NavController, public navParams: NavParams,
   public customerService:CustomerService,private storage: Storage) {
     this.starArr = ['1','1','1','1','1'];
-    
+    this.mCreateQuotesPage = Utils.getViewController("CreateQuotesPage", navCtrl)
   }
 
   ionViewDidLoad() {
@@ -284,5 +286,11 @@ export class CustomerListPage {
         this.dataSourceFourth = res.result.res_data ;
       }
     })
+  }
+
+  updateCucumber(item){
+    console.log(item)
+    this.mCreateQuotesPage.data.customer = item ;
+    this.navCtrl.pop();
   }
 }

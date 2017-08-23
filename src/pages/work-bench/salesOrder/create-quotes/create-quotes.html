@@ -19,17 +19,15 @@
           <ion-label item-start >客户
           <span style="color:red;"> *</span>
           </ion-label>
-          <ion-note item-end>请选择客户</ion-note>
+          <ion-note item-end>{{customerName}}</ion-note>
         </button>
 
   <ion-item>
     <ion-label>交货规则</ion-label>
     <span style="color:red;"> *</span>
     <ion-select [(ngModel)]="deliveryRuls">
-      <ion-option value="deliveryRuls1">一次性发货</ion-option>
-      <ion-option value="deliveryRuls2">允许部分发货，并产生欠单</ion-option>
-      <ion-option value="deliveryRuls3">允许部分发货，不产生欠单</ion-option>
-    </ion-select>
+        <ion-option *ngFor="let item of deliveryRulsList;" value={{item[0]}}>{{item[1]}}</ion-option>
+      </ion-select>
   </ion-item>
 
 
@@ -38,9 +36,8 @@
     <ion-label>税率</ion-label>
     <span style="color:red;"> *</span>
     <ion-select [(ngModel)]="tax">
-      <ion-option value="tax1">0%销</ion-option>
-      <ion-option value="tax2">17%销</ion-option>
-    </ion-select>
+        <ion-option *ngFor="let item of taxList;" value={{item.id}}>{{item.name}}</ion-option>
+      </ion-select>
   </ion-item>
 
 
@@ -49,6 +46,15 @@
     <span style="color:red;"> *</span>
     <ion-label >{{seleteDate}}</ion-label>
   </ion-item>
+
+  <ion-item>
+      <ion-label>价格表</ion-label>
+      <span style="color:red;"> *</span>
+      <ion-select [(ngModel)]="priceForm">
+          <ion-option *ngFor="let item of priceFormList;" value={{item.id}}>{{item.name}}</ion-option>
+        </ion-select>
+    </ion-item>
+  
 
   <ion-label style="color:blue;text-align:center" (click)="improveQuotation()">
     完善报价单信息 <span style="color:red;"> *</span>

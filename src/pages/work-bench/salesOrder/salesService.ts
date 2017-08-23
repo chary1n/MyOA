@@ -192,6 +192,35 @@ export class SalesSearvice {
         return this.httpservice.postBody("get_all_customers", body);
     }
 
+      // 获取价格表
+      getPriceFormList() {
+        let body = JSON.stringify({
+            type: "pricelist"
+        });
+        return this.httpservice.postBody("get_all_customers", body);
+    }
+
+     // 获取送货地址
+     getDeliveryAddressList(mid) {
+        let body = JSON.stringify({
+            type: "delivery",
+            id : mid
+        });
+        return this.httpservice.postBody("choose_customer", body);
+    }
+
+     // 获取付款条款列表
+     getPaymentList(mid) {
+        let body = JSON.stringify({
+            type: "invoice",
+            id :mid
+        });
+        return this.httpservice.postBody("choose_customer", body);
+    }
+
+
+
+
 }
 
 
