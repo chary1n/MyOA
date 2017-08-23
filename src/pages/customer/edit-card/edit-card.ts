@@ -207,4 +207,8 @@ export class EditCardPage {
     self.camPage.formatContacts = this.sourceArr;
     self.navCtrl.popTo(self.camPage);
   }
+
+  drag(){
+     alert(1)
+  }
 }

@@ -130,4 +130,8 @@ export class IncomingPage {
    
   }
 
+  swipeEvent(e) {
+    alert('1');
+  }
+
 }
