@@ -16,10 +16,10 @@ export class FirService {
 
   //type 不填是OA,填1是linkloving_app_apu
   public get(url: string, paramObj: any, type: number = 0) {
-    let loading = this.loadingCreate(true);  
+    // let loading = this.loadingCreate(true);  
     console.log(this.getAppPath(url,type));
     return this.http.get(this.getAppPath(url,type))
-      .map(data=>this.dealRe(data,loading))
+      .map(data=>this.dealRe(data,null))
       .toPromise()
       .then(res => this.handleSuccess(
         res.json())
@@ -55,7 +55,7 @@ export class FirService {
 
    //返回处理  
   private dealRe(re,loading){  
-    loading.dismiss();  
+    // loading.dismiss();  
     return re;  
   }  
   public postBody(url: string, paramObj: any, type: number = 0) {
