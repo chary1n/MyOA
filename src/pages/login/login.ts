@@ -42,7 +42,9 @@ export class LoginPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginPage');    
+    console.log('ionViewDidLoad LoginPage');   
+
+    
     this.storage.get('user')
       .then(res => {
         console.log(res);

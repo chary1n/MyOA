@@ -99,7 +99,8 @@ export class NativeService {
   }
 
   checkNeedToUpdate(version) {
-    return this.httpService.getWithUrl(AndroidAppVersion).then(res => {
+    
+    return this.httpService.getWithUrlNoLoading(AndroidAppVersion).then(res => {
       console.log(res)
       if (res.version) {
         if (res.version > version) {

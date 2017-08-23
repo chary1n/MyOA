@@ -1,10 +1,11 @@
+import { Utils } from './../../../../providers/Utils';
 import { SalesSearvice } from './../salesService';
 import { CustomerListPage } from './customer-list/customer-list';
 import { DatePicker } from '@ionic-native/date-picker';
 import { AddProductionPage } from './add-production/add-production';
 import { ImproveQuotationPage } from './improve-quotation/improve-quotation';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 
 /**
  * Generated class for the CreateQuotesPage page.
@@ -37,7 +38,8 @@ export class CreateQuotesPage {
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    private datePicker: DatePicker,private salesSearvive:SalesSearvice) {
+    private datePicker: DatePicker,private salesSearvive:SalesSearvice,
+    private toastCtrl :ToastController) {
     this.items = [];
     this.salesSearvive.getDeliveryList().then(res=>{
       this.deliveryRulsList = res.result.res_data
@@ -48,7 +50,6 @@ export class CreateQuotesPage {
     this.salesSearvive.getPriceFormList().then(res=>{
       this.priceFormList = res.result.res_data
     })
-    
   }
 
   ionViewDidLoad() {
@@ -63,6 +64,7 @@ export class CreateQuotesPage {
     this.isAdd = this.navParams.get("isAdd")
     if (this.isAdd) {
       this.items.push(item);
+      this.navParams.data.isAdd= false ;
     }
     this.customer = this.navParams.get("customer")
     if(this.customer){
@@ -72,8 +74,11 @@ export class CreateQuotesPage {
 
 
   improveQuotation() {
-    this.navCtrl.push(ImproveQuotationPage)
-
+    if(this.customer){
+      this.navCtrl.push(ImproveQuotationPage,{id:this.customer.id})
+    }else{
+      Utils.toastButtom("请先选择客户",this.toastCtrl)
+    }
   }
 
   addProductions() {

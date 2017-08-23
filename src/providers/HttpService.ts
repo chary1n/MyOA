@@ -32,6 +32,17 @@ export class HttpService {
       ));
   }
 
+  public  getWithUrlNoLoading(url :string){
+      return this.http.get(url)
+        .toPromise()
+        .then(res => this.handleSuccess(
+          res.json())
+        )
+        .catch(error => this.handleError(
+          error
+        ));
+    }
+
   //type 不填是OA,填1是linkloving_app_apu
   public get(url: string, paramObj: any, type: number = 0) {
     let loading = this.loadingCreate(true);  
@@ -45,6 +56,20 @@ export class HttpService {
         error
       ));
   }
+
+
+  //type 不填是OA,填1是linkloving_app_apu
+  public getNoLoading(url: string, paramObj: any, type: number = 0) {
+    return this.http.get(this.getAppPath(url,type) + this.toQueryString(paramObj))
+      .toPromise()
+      .then(res => this.handleSuccess(
+        res.json())
+      )
+      .catch(error => this.handleError(
+        error
+      ));
+  }
+
 
   public post(url: string, paramObj: any, type: number = 0) {
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });

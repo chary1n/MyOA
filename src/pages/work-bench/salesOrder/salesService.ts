@@ -206,16 +206,16 @@ export class SalesSearvice {
             type: "delivery",
             id : mid
         });
-        return this.httpservice.postBody("choose_customer", body);
+        return this.httpservice.postBodyNoLoading("choose_customer", body);
     }
 
-     // 获取付款条款列表
-     getPaymentList(mid) {
+     // 获取发票地址
+     getPaymentAddressList(mid) {
         let body = JSON.stringify({
             type: "invoice",
             id :mid
         });
-        return this.httpservice.postBody("choose_customer", body);
+        return this.httpservice.postBodyNoLoading("choose_customer", body);
     }
 
 
