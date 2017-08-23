@@ -42,8 +42,12 @@ export class CamCardPage {
       .then(res => {
         console.log(res);
         if (res != null) {
-          this.saleteam_id = res.result.res_data.team.team_id ? res.result.res_data.team.team_id : '';
+          if (res.result.res_data.team)
+          {
+            this.saleteam_id = res.result.res_data.team.team_id ? res.result.res_data.team.team_id : '';
           this.saleteam_name = res.result.res_data.team.team_name ? res.result.res_data.team.team_name : '';
+          }
+          
           this.saleman_id = res.result.res_data.user_id;
           this.saleman_name = res.result.res_data.name;
         } 
