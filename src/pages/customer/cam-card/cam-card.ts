@@ -42,8 +42,8 @@ export class CamCardPage {
       .then(res => {
         console.log(res);
         if (res != null) {
-          this.saleteam_id = res.result.res_data.team.team_id;
-          this.saleteam_name = res.result.res_data.team.team_name;
+          this.saleteam_id = res.result.res_data.team.team_id ? res.result.res_data.team.team_id : '';
+          this.saleteam_name = res.result.res_data.team.team_name ? res.result.res_data.team.team_name : '';
           this.saleman_id = res.result.res_data.user_id;
           this.saleman_name = res.result.res_data.name;
         } 
@@ -279,10 +279,10 @@ export class CamCardPage {
         jobtitle:'',
       };  
       
-      obj.sale_team = this.saleteam_name;
-      obj.sale_person = this.saleman_name;
-      obj.saleteam_id = this.saleteam_id;
-      obj.saleman_id = this.saleman_id;
+      obj.sale_team = this.saleteam_name ? this.saleteam_name : '';
+      obj.sale_person = this.saleman_name ? this.saleman_name : '';
+      obj.saleteam_id = this.saleteam_id ? this.saleteam_id : '';
+      obj.saleman_id = this.saleman_id ? this.saleman_id : '';
       obj.type = "联系人";
       obj.id = contacts[i].id;
 
