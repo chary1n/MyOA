@@ -27,16 +27,27 @@ export class ProductlistPage {
     this.chooseService.get_product_series().then((res) => {
         console.log(res);
         this.dataArr = res.result;
-       
+        
         for (var item of this.dataArr) {
            let obj = {
               name:'',
               id:'',
               isCheck:'',
            }
+           let isCheck = false;
            obj.name = item.name;
            obj.id = item.series_id;
-           obj.isCheck = "0";
+          
+           for (var detail of this.items.series_ids) {
+            //  alert (item.series_id + " " + this.items.series_ids);
+             if (item.series_id == detail)
+             {
+                // alert(this.items.series_ids + item.series_id);
+                isCheck = true;
+             }
+           }
+           
+           obj.isCheck = isCheck ? "1" :"0"  ;
           this.arr.push(obj);
         }
       }); 
@@ -87,10 +98,8 @@ export class ProductlistPage {
     for (var item of this.arr) {
       if (item.isCheck == "1")
       {
-        // alert()
         series_selected.push(item);
-      }
-      
+      } 
       index ++;
     }
     for (var detail of series_selected) {

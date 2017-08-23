@@ -33,13 +33,62 @@ export class BiaoQianPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,public chooseService:ChooseService) {
     this.editPage = Utils.getViewController("EditCardPage", navCtrl);
     this.starArr = ['1','1','1','1','1'];
-    this.priority = 0;
+    // this.priority = 0;
     this.items = this.navParams.get("items");
-    this.level_one_selected = false;
-    this.level_two_selected = false;
-    this.level_three_selected = false;
-    this.customer_selected = false;
-    this.supplier_selected = false;
+    if (this.items.partner_type == "customer")
+    {
+      this.customer_selected = true;
+    }
+    else
+    {
+      this.customer_selected = false;
+    }
+
+    if (this.items.partner_type =="supplier")
+    {
+      this.supplier_selected = true;
+    }
+    else
+    {
+      this.supplier_selected = false;
+    }
+
+    if (this.items.partner_lv == 1)
+    {
+      this.level_one_selected = true;
+    }
+    else
+    {
+      this.level_one_selected = false;
+    }
+
+    if (this.items.partner_lv == 2)
+    {
+      this.level_two_selected = true;
+    }
+    else
+    {
+      this.level_two_selected = false;
+    }
+
+    if (this.items.partner_lv == 3)
+    {
+      this.level_three_selected = true;
+    }
+    else
+    {
+      this.level_three_selected = false;
+    }
+
+    if (this.items.star_cnt)
+    {
+      this.priority = this.items.star_cnt;
+    }
+    else
+    {
+      this.priority = 0;
+    }
+    
     this.chooseService.get_partner_tag_list().then((res) => {
       this.arr = res.result;
     })

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,ViewChild} from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ChoosePage } from './../choose/choose';
 import { Utils } from './../../../providers/Utils';
@@ -19,7 +19,7 @@ declare let cordova: any;
   templateUrl: 'edit-card.html',
 })
 export class EditCardPage {
-  
+  @ViewChild('scroll') scrollElement: any;
   companyName:any;
   cardName:any;
   telephoneName:any;
@@ -46,6 +46,10 @@ export class EditCardPage {
     this.index_group = this.navParams.get('index_group');
     this.sourceArr = this.navParams.get('sourceArr');
     this.reloadView();
+
+    this.scrollElement._scrollContent.nativeElement.onscroll = event =>{
+      alert(1);
+    }
   }
 
   ionViewDidLoad() {
@@ -210,5 +214,20 @@ export class EditCardPage {
 
   drag(){
      alert(1)
+  }
+
+  goBack(){
+    // this.alertCtrl.create({
+    //               title: '升级',
+    //               subTitle: '发现新版本,是否立即升级？',
+    //               buttons: [{ text: '取消' },
+    //              {
+    //                 text: '确定',
+    //                 handler: () => {
+    //                   this.openUrlByBrowser('http://fir.im/MyOa');
+    //              }
+    //          }
+    //   ]
+    // }).present();
   }
 }

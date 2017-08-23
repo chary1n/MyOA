@@ -43,7 +43,7 @@ export class MyApp {
           this.getVersionNumber();
         }
         else if (this.platform.is('ios')) {
-          // this.getiOSVersionNumber();
+          this.getiOSVersionNumber();
         }
       
     });

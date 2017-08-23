@@ -137,6 +137,7 @@ export class CamCardPage {
               }
         }
         this.dealWithList(nameArr);
+        this.cal_choose_card();
       });  
              
             }
@@ -239,7 +240,7 @@ export class CamCardPage {
       obj.sale_person = this.saleman_name;
       obj.saleteam_id = this.saleteam_id;
       obj.saleman_id = this.saleman_id;
-      
+      obj.type = "联系人";
       obj.id = contacts[i].id;
 
         obj.isCheckBox = '0';
@@ -281,7 +282,7 @@ export class CamCardPage {
         }
       // }  
   
-      //去掉名称3非汉字，英文的        
+      //去掉名称3、非汉字，英文的        
       let reg = /^[A-Za-z]+$/;  
       //名字为空或非字母，加到最后一组  
       for (var items of contacts[i].phoneNumbers) {
@@ -307,7 +308,8 @@ export class CamCardPage {
       //       break;  
       //     }  
       //   }  
-      // } else {  
+      // }
+      //  else {  
         //不排序，供搜索使用的数组  
         this.allSearchContacts.push(obj);  
         let camelChar = pinyin.getCamelChars(obj.displayName).substring(0, 1);  

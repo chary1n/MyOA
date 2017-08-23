@@ -5,7 +5,19 @@
   Ionic pages and navigation.
 -->
 <ion-header>
+  <!--<ion-buttons 
+left>
 
+      <button 
+ion-button icon-only (click)="goBack()">
+
+        <ion-icon 
+ios="ios-arrow-back" 
+md="md-arrow-back"></ion-icon>
+
+      </button>
+
+    </ion-buttons>-->
   <ion-navbar>
     <ion-title>编辑客户</ion-title>
     <ion-buttons end>
@@ -18,12 +30,13 @@
 </ion-header>
 
 
-<ion-content draggable = "true" on-drag = "drag()">
+<ion-content >
+  <!--<ion-scroll scrollY = "true" #scroll>-->
   <ion-item-group>
     <ion-item-divider color="light"></ion-item-divider>
     <ion-item>
       <ion-label style="color:black" class="label_class">公司</ion-label>
-      <ion-input item-end text-wrap class="input_class" [(ngModel)]="companyName" style="direction:rtl"></ion-input>
+      <ion-input item-end class="input_class" [(ngModel)]="companyName" text-right></ion-input>
     </ion-item>
     <ion-item>
       <ion-label  class="label_class">国家</ion-label>
@@ -63,23 +76,24 @@
     </ion-item>
     <ion-item>
       <ion-label style="color:black" class="label_class">姓名</ion-label>
-      <ion-input item-end text-wrap class="input_class" [(ngModel)]="cardName" style="direction:rtl"></ion-input>
+      <ion-input item-end text-wrap class="input_class" [(ngModel)]="cardName" text-right></ion-input>
     </ion-item>
     <ion-item>
       <ion-label style="color:black" class="label_class">电话</ion-label>
-      <ion-input item-end class="input_class" [(ngModel)]="telephoneName" style="direction:rtl"></ion-input>
+      <ion-input item-end class="input_class" [(ngModel)]="telephoneName" text-right></ion-input>
     </ion-item>
     <ion-item>
       <ion-label style="color:black" class="label_class">工作岗位</ion-label>
-      <ion-input item-end class="input_class" [(ngModel)]="departmentName" style="direction:rtl"></ion-input>
+      <ion-input item-end class="input_class" [(ngModel)]="departmentName" text-right></ion-input>
     </ion-item>
     <ion-item>
       <ion-label style="color:black" class="label_class">Email</ion-label>
-      <ion-input item-end class="input_class" [(ngModel)]="emailName" style="direction:rtl"></ion-input>
+      <ion-input item-end class="input_class" [(ngModel)]="emailName" text-right></ion-input>
     </ion-item>
     <ion-item>
       <ion-label style="color:black" class="label_class">地址</ion-label>
-      <ion-input item-end class="input_class" [(ngModel)]="addressName" style="direction:rtl"></ion-input>
+      <ion-input item-end class="input_class" [(ngModel)]="addressName" text-right></ion-input>
     </ion-item>
   </ion-item-group>
+  <!--</ion-scroll>-->
 </ion-content>
