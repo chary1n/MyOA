@@ -15,7 +15,7 @@ import { Camera } from '@ionic-native/camera';
 import { WorkBenchPageModule } from './../pages/work-bench/work-bench.module';
 import { ContactPersonPageModule } from './../pages/contact-person/contact-person.module';
 import { MePageModule } from './../pages/me/me.module';
-import { MsgPageModule } from './../pages/msg/msg.module';
+// import { MsgPageModule } from './../pages/msg/msg.module';
 import { TabsPageModule } from './../pages/tabs/tabs.module';
 
 import { NgModule, ErrorHandler } from '@angular/core';
@@ -35,17 +35,12 @@ import { Utils } from '../providers/Utils'
 import { HttpModule } from "@angular/http";
 import { IonicStorageModule } from '@ionic/storage';
 import { MsgPage } from './../pages/msg/msg';
-
-import { WorkSpaceButtonComponent } from '../components/work-space-button/work-space-button';
-import { CustomerStarComponent } from '../components/customer-star/customer-star';
 import { DatePicker } from '@ionic-native/date-picker';
 
 
 @NgModule({
   declarations: [
     MyApp,
-    WorkSpaceButtonComponent,
-    CustomerStarComponent,
   ],
   imports: [
     BrowserModule,
@@ -55,9 +50,9 @@ import { DatePicker } from '@ionic-native/date-picker';
     MePageModule,
     ContactPersonPageModule,
     WorkBenchPageModule,
-    MsgPageModule,
+    // MsgPageModule,
     TabsPageModule,
-    LoginPageModule
+    LoginPageModule,
 
   ],
   bootstrap: [IonicApp],

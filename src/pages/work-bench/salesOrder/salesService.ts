@@ -218,6 +218,11 @@ export class SalesSearvice {
         return this.httpservice.postBodyNoLoading("choose_customer", body);
     }
 
+    // 创建报价单
+    createSoOrder(mbody){
+        let body = JSON.stringify(mbody);
+        return this.httpservice.postBodyNoLoading("create_so_order_draft", body);
+    }
 
 
 

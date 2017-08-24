@@ -22,21 +22,21 @@
 <ion-content padding>
 
   <button ion-item (click)="seleteProduction()"> 
-        <ion-label item-start >产品
+        <ion-label  >产品
         <span style="color:red;"> *</span>
         </ion-label>
         <ion-note item-end >{{name}}</ion-note>
       </button>
 
   <ion-item>
-    <ion-label item-start>订购数量
+    <ion-label >订购数量
       <span style="color:red;"> *</span>
     </ion-label>
     <ion-input style="direction:rtl" placeholder="请填写数量" type="number" [(ngModel)]="mNumber" (ionChange)="change()"></ion-input>
   </ion-item>
 
   <ion-item>
-    <ion-label item-start>国内简称
+    <ion-label >国内简称
     </ion-label>
     <ion-label item-end style="font-size: 70%;color: #605E5E ;" >{{pro_spec}}</ion-label>
   </ion-item>

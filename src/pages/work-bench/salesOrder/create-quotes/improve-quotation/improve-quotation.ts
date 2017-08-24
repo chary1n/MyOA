@@ -1,3 +1,4 @@
+import { Utils } from './../../../../../providers/Utils';
 import { CustomerListPage } from './../customer-list/customer-list';
 import { DatePicker } from '@ionic-native/date-picker';
 import { SalesSearvice } from './../../salesService';
@@ -5,7 +6,7 @@ import { BillingInfoPage } from './billing-info/billing-info';
 import { SalesInfoPage } from './sales-info/sales-info';
 import { DeliveryInfoPage } from './delivery-info/delivery-info';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 
 /**
  * Generated class for the ImproveQuotationPage page.
@@ -17,50 +18,55 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 @Component({
   selector: 'page-improve-quotation',
   templateUrl: 'improve-quotation.html',
-  providers:[SalesSearvice]
+  providers: [SalesSearvice]
 })
 export class ImproveQuotationPage {
-  remarks :any ;
-  myDate :any ;
-  PINumber ;
-  customer ;
-  seleteDate ;
-  paymentList :any ;
-  payment :any ;
-  taxList ;
-  tax ;
-  deliveryRuls ;
-  deliveryRulsList ;
-  invoiceAddress ;
-  invoiceAddressList ;
-  deliveryAddress ;
-  deliveryAddressList ;
-  productID ;
+  remarks: any;
+  myDate: any;
+  PINumber;
+  customer;
+  seleteDate;
+  paymentList: any;
+  payment: any;
+  taxList;
+  tax;
+  deliveryRuls;
+  deliveryRulsList;
+  invoiceAddress;
+  invoiceAddressList;
+  deliveryAddress;
+  deliveryAddressList;
+  customerID;
+  deliveryInfo;
+  salesInfo;
+  mCreateQuotesPage;
+
+
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    private salesSearvice :SalesSearvice,
-    private datePicker :DatePicker) {
-     this.productID =  this.navParams.get("id")
-      this.salesSearvice.getPaymentTermList().then(res=>{
-        console.log(res)
-        this.paymentList= res.result.res_data
-      })
-      // this.salesSearvice.getTaxList().then(res=>{
-      //   console.log(res)
-      //   this.taxList= res.result.res_data
-      // })
-      // this.salesSearvice.getDeliveryList().then(res=>{
-      //   console.log(res)
-      //   this.deliveryRulsList= res.result.res_data
-      // })
-      this.salesSearvice.getDeliveryAddressList(this.productID).then(res=>{
-        this.deliveryAddressList = res.result.res_data
-      })
-      this.salesSearvice.getPaymentAddressList(this.productID).then(res=>{
-        this.invoiceAddressList = res.result.res_data
-      })
-
-
+    private salesSearvice: SalesSearvice,
+    private datePicker: DatePicker, private toastCtrl: ToastController) {
+    this.mCreateQuotesPage = Utils.getViewController("CreateQuotesPage", navCtrl);
+    this.customerID = this.navParams.get("id")
+    this.salesSearvice.getPaymentTermList().then(res => {
+      console.log(res)
+      this.paymentList = res.result.res_data
+    })
+    // this.salesSearvice.getTaxList().then(res=>{
+    //   console.log(res)
+    //   this.taxList= res.result.res_data
+    // })
+    // this.salesSearvice.getDeliveryList().then(res=>{
+    //   console.log(res)
+    //   this.deliveryRulsList= res.result.res_data
+    // })
+    this.salesSearvice.getDeliveryAddressList(this.customerID).then(res => {
+      this.deliveryAddressList = res.result.res_data
+    })
+    this.salesSearvice.getPaymentAddressList(this.customerID).then(res => {
+      this.invoiceAddressList = res.result.res_data
+    })
+    this.seleteDate = new Date().toISOString().split("T")[0];
 
   }
 
@@ -68,33 +74,85 @@ export class ImproveQuotationPage {
     console.log('ionViewDidLoad ImproveQuotationPage');
   }
 
-  chooseDate(){
+  ionViewDidEnter() {
+    this.deliveryInfo = this.navParams.get("deliveryInfo")
+    this.salesInfo = this.navParams.get("salesInfo")
+  }
+
+
+  chooseDate() {
     this.datePicker.show({
       date: new Date(),
       mode: 'date',
       androidTheme: this.datePicker.ANDROID_THEMES.THEME_HOLO_DARK,
     }).then(
-      date =>this.seleteDate = date,
+      date => this.seleteDate = date,
       err => console.log('Error occurred while getting date: ', err)
-    );
+      );
   }
 
 
-  clickDeliveryInfo(){
+  clickDeliveryInfo() {
     this.navCtrl.push(DeliveryInfoPage)
   }
 
-  clickSalesInfo(){
+
+  deliveryCallback = (params) => {
+    return new Promise((resolve, reject) => {
+      if (typeof (params) != 'undefined') {
+        resolve("ok");
+      } else {
+        reject(Error("error"))
+      }
+    })
+
+  }
+
+  clickSalesInfo() {
     this.navCtrl.push(SalesInfoPage)
 
   }
 
-  seleteCustomer(){
-    this.navCtrl.push(CustomerListPage);
-  }
+  // seleteCustomer() {
+  //   this.navCtrl.push(CustomerListPage);
+  // }
 
-  save(){
-
+  save() {
+    let mString = "";
+    if(!this.invoiceAddressList){
+      this.invoiceAddress = this.customerID
+    }
+    if(!this.deliveryAddressList){
+      this.deliveryAddress = this.customerID
+    }
+    if (!this.invoiceAddress) {
+      mString = mString + "   请填写发票地址"
+    }
+    if (!this.deliveryAddress) {
+      mString = mString + "   请填写送货地址"
+    }
+    if (!this.deliveryInfo) {
+      mString = mString + "   请完善送货信息"
+    }
+    if (!this.salesInfo) {
+      mString = mString + "   请完善销售信息"
+    }
+    if (mString != "") {
+      Utils.toastButtom(mString, this.toastCtrl)
+    } else {
+      let dateTime =  new Date().getTime();
+      this.mCreateQuotesPage.data.improveQuotesInfo = {
+        invoiceAddress :this.invoiceAddress,
+        deliveryAddress :this.deliveryAddress,
+        PINumber : this.PINumber,
+        billsDate : dateTime ,
+        payment_term :this.payment,
+        remarks :this.remarks,
+        deliveryInfo :this.deliveryInfo ,
+        salesInfo :this.salesInfo
+      }
+      this.navCtrl.pop();
+    }
   }
 
 

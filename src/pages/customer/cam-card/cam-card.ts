@@ -132,30 +132,28 @@ export class CamCardPage {
              }
       ]
     }).present();
-        for (var contact of this.nameList) {
-          for (var result of resultArr) {
+        for (let contact of this.nameList) {
+          for (let result of resultArr) {
             if (result.id == contact.id)
             {
               contact.remove();
               // alert(this.formatContacts);
                let options = new ContactFindOptions();  
                let fields: ContactFieldType[];  
-               fields = ["displayName", "phoneNumbers"];  
+               fields = [];  
                options.filter = "";  
                options.multiple = true;  
                options.hasPhoneNumber = true;  
-               this.contacts.find(fields, options).then((result) => {  
-                let nameArr = [];
-              for (var contact of result) {
-              if (contact.organizations)
-              {
-                 console.log(contact);
-                 nameArr.push(contact);
-              }
-        }
-        this.dealWithList(nameArr);
-        this.cal_choose_card();
-      });  
+               this.contacts.find(null, null).then((result) => {  
+                for (var contact of result) {
+                  if (contact.organizations){
+                    console.log(contact);
+                    this.nameList.push(contact);
+                  }
+                }
+                this.dealWithList(this.nameList);
+                this.cal_choose_card();
+              });  
              
             }
           }

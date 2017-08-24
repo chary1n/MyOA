@@ -17,12 +17,12 @@ import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angu
 @Component({
   selector: 'page-create-quotes',
   templateUrl: 'create-quotes.html',
-  providers :[SalesSearvice]
+  providers: [SalesSearvice]
 })
 export class CreateQuotesPage {
   deliveryRuls: string = "一次性发货"
-  deliveryRulsList ;
-  taxList ;
+  deliveryRulsList;
+  taxList;
   tax: string
   seleteDate: any
   products: any
@@ -32,22 +32,24 @@ export class CreateQuotesPage {
   taxTotal: number;
   total: number;
   customer;
-  customerName  = "请选择客户";
-  priceForm ;
-  priceFormList ;
+  customerName = "请选择客户";
+  priceForm;
+  priceFormList;
+  mimproveQuotesInfo;
+
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    private datePicker: DatePicker,private salesSearvive:SalesSearvice,
-    private toastCtrl :ToastController) {
+    private datePicker: DatePicker, private salesSearvive: SalesSearvice,
+    private toastCtrl: ToastController) {
     this.items = [];
-    this.salesSearvive.getDeliveryList().then(res=>{
+    this.salesSearvive.getDeliveryList().then(res => {
       this.deliveryRulsList = res.result.res_data
     })
-    this.salesSearvive.getTaxList().then(res=>{
+    this.salesSearvive.getTaxList().then(res => {
       this.taxList = res.result.res_data
     })
-    this.salesSearvive.getPriceFormList().then(res=>{
+    this.salesSearvive.getPriceFormList().then(res => {
       this.priceFormList = res.result.res_data
     })
   }
@@ -61,23 +63,25 @@ export class CreateQuotesPage {
 
   ionViewDidEnter() {
     let item = this.navParams.get("productItem")
+    this.mimproveQuotesInfo = this.navParams.get("improveQuotesInfo")
     this.isAdd = this.navParams.get("isAdd")
     if (this.isAdd) {
       this.items.push(item);
-      this.navParams.data.isAdd= false ;
+      this.navParams.data.isAdd = false;
     }
     this.customer = this.navParams.get("customer")
-    if(this.customer){
+    if (this.customer) {
       this.customerName = this.customer.name
     }
+
   }
 
 
   improveQuotation() {
-    if(this.customer){
-      this.navCtrl.push(ImproveQuotationPage,{id:this.customer.id})
-    }else{
-      Utils.toastButtom("请先选择客户",this.toastCtrl)
+    if (this.customer) {
+      this.navCtrl.push(ImproveQuotationPage, { id: this.customer.id })
+    } else {
+      Utils.toastButtom("请先选择客户", this.toastCtrl)
     }
   }
 
@@ -101,4 +105,43 @@ export class CreateQuotesPage {
     this.navCtrl.push(CustomerListPage);
   }
 
+  save() {
+    let mString = "";
+    if (!this.customerName) {
+      mString = mString + "   请选择客户"
+    }
+    if (!this.deliveryRuls) {
+      mString = mString + "   请选择交货规则"
+    }
+     if (!this.tax) {
+      mString = mString + "   请选择税率"
+    }
+    if (!this.seleteDate) {
+      mString = mString + "   请选择交货日期"
+    }
+    if (!this.mimproveQuotesInfo) {
+      mString = mString + "   请完善报价单"
+    }
+    if(this.items.length==0){
+      mString = mString + "   请选择产品"
+    }
+    if (mString != "") {
+      Utils.toastButtom(mString, this.toastCtrl)
+    } else{
+      let mbody = {
+        cusomer :this.customer.id,
+        delivery :this.deliveryRuls,
+        tax:this.tax,
+        deliveryDate:this.seleteDate,
+        improveQuotation :this.mimproveQuotesInfo,
+        productions : this.items
+      }
+      let body = {
+        data :mbody
+      }
+      this.salesSearvive.createSoOrder(body).then(res=>{
+        console.log(res)
+      })
+    }
+  }
 }

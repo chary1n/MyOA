@@ -25,11 +25,14 @@ export class SalesInfoPage {
   salesTeamList: any;
   salesTeam: any;
   tagsList: any;
+  mImproveQuotationPage;
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private salesSearvice: SalesSearvice, private storage: Storage,
     private toastCtrl: ToastController) {
+      this.mImproveQuotationPage = Utils.getViewController("ImproveQuotationPage", navCtrl);
+      
     this.salesSearvice.getTagsList().then(res => {
       this.tagsList = res.result.res_data
     })
@@ -55,6 +58,15 @@ export class SalesInfoPage {
     }
     if (mString != "") {
       Utils.toastButtom(mString, this.toastCtrl)
+    }else{
+      this.mImproveQuotationPage.data.salesInfo = { 
+        salesMan:this.salesMan,
+        tags :this.tag,
+        team:this.salesTeam,
+        customerRefer :this.customerInfo ,
+        analytic_account :this.analyAccount
+      }
+      this.navCtrl.pop();
     }
 
   }

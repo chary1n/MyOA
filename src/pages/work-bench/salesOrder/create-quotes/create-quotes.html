@@ -23,8 +23,8 @@
 
 
   <ion-item>
-    <ion-label>交货规则</ion-label>
-    <span style="color:red;"> *</span>
+    <ion-label>交货规则
+    <span style="color:red;"> *</span> </ion-label>
     <ion-select [(ngModel)]="deliveryRuls">
       <ion-option *ngFor="let item of deliveryRulsList;" value={{item[0]}}>{{item[1]}}</ion-option>
     </ion-select>
@@ -33,8 +33,8 @@
 
 
   <ion-item>
-    <ion-label>税率</ion-label>
-    <span style="color:red;"> *</span>
+    <ion-label>税率
+    <span style="color:red;"> *</span> </ion-label>
     <ion-select [(ngModel)]="tax">
       <ion-option *ngFor="let item of taxList;" value={{item.id}}>{{item.name}}</ion-option>
     </ion-select>
@@ -42,8 +42,8 @@
 
 
   <ion-item>
-    <ion-label>请选择交货日期</ion-label>
-    <span style="color:red;"> *</span>
+    <ion-label>请选择交货日期
+    <span style="color:red;"> *</span> </ion-label>
     <ion-datetime displayFormat="DDD DD.MM.YYYY" min="2017" max="2020" [(ngModel)]="seleteDate"></ion-datetime>
   </ion-item>
 
@@ -80,7 +80,7 @@
 </ion-content>
 
 <ion-footer style="background:gainsboro">
-  <ion-grid>
+  <!-- <ion-grid>
     <ion-row>
       <ion-col col-5>
         <div>
@@ -93,9 +93,14 @@
       <ion-col col-5>
         <p> 总计：<span style="color:red;"> ￥ {{total}}</span></p>
       </ion-col>
-      <ion-col col-2>
-        <button ion-button full> 保存</button>
-      </ion-col>
+      <ion-col col-2> -->
+        <!-- <button ion-button full> 保存</button> -->
+      <!-- </ion-col>
     </ion-row>
-  </ion-grid>
+  </ion-grid> -->
+
+
+  <ion-toolbar  >
+       <button ion-button full (click)="save()"> 保存</button>  
+         </ion-toolbar>
 </ion-footer>

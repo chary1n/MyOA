@@ -13,8 +13,10 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'contact-person.html',
 })
 export class ContactPersonPage {
+  products ;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.products=["222","22222","22222","2222"] 
   }
 
   ionViewDidLoad() {
