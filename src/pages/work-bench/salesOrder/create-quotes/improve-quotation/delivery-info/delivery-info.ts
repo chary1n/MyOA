@@ -24,6 +24,7 @@ export class DeliveryInfoPage {
   deliveryRulsList: any;
   tradeTermsList: any;
   mImproveQuotationPage;
+  deliveryInfo;
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
@@ -46,7 +47,28 @@ export class DeliveryInfoPage {
       console.log(res)
       this.tradeTermsList = res.result.res_data
     })
+
+
   }
+
+  ionViewDidEnter() {
+    let self = this ;
+    self.initView()
+  }
+
+  initView() {
+    this.deliveryInfo = this.navParams.get("deliveryInfo");
+    console.log(this.deliveryInfo)
+    if (this.deliveryInfo) {
+      this.wareHouse = this.deliveryInfo.warehouse
+      this.tradeTerms = this.deliveryInfo.incoterm
+      this.deliveryRuls = this.deliveryInfo.picking_policy
+    }
+  }
+
+
+
+
 
   save() {
     let mString = "";
@@ -59,11 +81,11 @@ export class DeliveryInfoPage {
 
     if (mString != "") {
       Utils.toastButtom(mString, this.toastCtrl)
-    }else{
-      this.mImproveQuotationPage.data.deliveryInfo = { 
-        warehouse:this.wareHouse,
-        incoterm :this.tradeTerms,
-        picking_policy:this.deliveryRuls
+    } else {
+      this.mImproveQuotationPage.data.deliveryInfo = {
+        warehouse: this.wareHouse,
+        incoterm: this.tradeTerms,
+        picking_policy: this.deliveryRuls
       }
       this.navCtrl.pop();
     }

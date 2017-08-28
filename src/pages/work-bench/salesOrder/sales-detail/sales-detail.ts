@@ -1,3 +1,4 @@
+import { CreateInvoicePage } from './create-invoice/create-invoice';
 import { SalesSearvice } from './../salesService';
 import { DeliveryPage } from './delivery/delivery';
 import { Component } from '@angular/core';
@@ -78,6 +79,7 @@ export class SalesDetailPage {
       })
   }
   createInvoice() {
+    this.navCtrl.push(CreateInvoicePage,{id:this.id})
 
   }
   conformSales() {
@@ -123,21 +125,27 @@ export class SalesDetailPage {
     <ion-list>
       <button ion-item (click)="close()">编辑</button>
       <button ion-item (click)="close()">联系电话</button>
-      <button ion-item (click)="close()">交货</button>
+      <button ion-item *ngIf="type=='salesOrder'" (click)="clickDelivery()">交货</button>
     </ion-list>
   `
 })
 export class PopoverPage {
 
   salesDetailPage: any
+  type ;
 
   constructor(public viewCtrl: ViewController, public navCtrl: NavController,
     public navParams: NavParams) {
     this.salesDetailPage = this.navParams.get("item")
+    this.type = this.navParams.get("item").navParams.data.type
   }
 
-  close() {
+  clickDelivery() {
     this.salesDetailPage.navCtrl.push(DeliveryPage)
+  }
+
+  close(){
+    
   }
 
 }

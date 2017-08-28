@@ -271,13 +271,13 @@ export class SalesOrderPage {
             this.createQuotes();
           }
         },
-        {
-          text: '销售退货',
-          handler: () => {
-            console.log('Archive clicked');
-            this.createSalesReturn();
-          }
-        },
+        // {
+        //   text: '销售退货',
+        //   handler: () => {
+        //     console.log('Archive clicked');
+        //     this.createSalesReturn();
+        //  }
+        // },
         {
           text: '取消',
           role: 'cancel',

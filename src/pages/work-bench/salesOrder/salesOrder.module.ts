@@ -1,3 +1,4 @@
+import { CreateInvoicePage } from './sales-detail/create-invoice/create-invoice';
 import { CustomerListPage } from './create-quotes/customer-list/customer-list';
 import { SalesInfoPage } from './create-quotes/improve-quotation/sales-info/sales-info';
 import { DeliveryInfoPage } from './create-quotes/improve-quotation/delivery-info/delivery-info';
@@ -17,14 +18,14 @@ import { IonicPageModule } from 'ionic-angular';
   declarations: [
     SalesOrderPage,SalesDetailPage,PopoverPage,DeliveryPage,CreateQuotesPage,ImproveQuotationPage
     ,AddProductionPage,ProductionListPage,BillingInfoPage,DeliveryInfoPage,SalesInfoPage
-    ,CustomerListPage
+    ,CustomerListPage,CreateInvoicePage
   ],
   imports: [
     IonicPageModule.forChild(SalesOrderPage),
   ],
   entryComponents:[SalesDetailPage,PopoverPage,DeliveryPage,CreateQuotesPage,ImproveQuotationPage
   ,AddProductionPage,ProductionListPage,BillingInfoPage,DeliveryInfoPage,SalesInfoPage
-  ,CustomerListPage
+  ,CustomerListPage,CreateInvoicePage
   ],
   exports: [
     SalesOrderPage,

@@ -40,7 +40,8 @@ export class ImproveQuotationPage {
   deliveryInfo;
   salesInfo;
   mCreateQuotesPage;
-
+  improveQuotaInfo;
+  dateTime ;
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
@@ -72,11 +73,30 @@ export class ImproveQuotationPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ImproveQuotationPage');
+
+   
   }
+
+  initView(){
+    this.improveQuotaInfo = this.navParams.get("improveQuotaInfo")
+    console.log(this.improveQuotaInfo)
+    if(this.improveQuotaInfo){
+      this.invoiceAddress = this.improveQuotaInfo.invoiceAddress
+      this.deliveryAddress = this.improveQuotaInfo.deliveryAddress
+      this.PINumber = this.improveQuotaInfo.PINumber
+      this.dateTime = this.improveQuotaInfo.billsDate
+      this.payment = this.improveQuotaInfo.payment_term
+      this.remarks = this.improveQuotaInfo.remarks
+      this.deliveryInfo = this.improveQuotaInfo.deliveryInfo
+      this.salesInfo = this.improveQuotaInfo.salesInfo
+    }
+  }
+
 
   ionViewDidEnter() {
     this.deliveryInfo = this.navParams.get("deliveryInfo")
     this.salesInfo = this.navParams.get("salesInfo")
+    this.initView()
   }
 
 
@@ -93,7 +113,7 @@ export class ImproveQuotationPage {
 
 
   clickDeliveryInfo() {
-    this.navCtrl.push(DeliveryInfoPage)
+    this.navCtrl.push(DeliveryInfoPage, { deliveryInfo: this.deliveryInfo })
   }
 
 
@@ -109,8 +129,7 @@ export class ImproveQuotationPage {
   }
 
   clickSalesInfo() {
-    this.navCtrl.push(SalesInfoPage)
-
+    this.navCtrl.push(SalesInfoPage, { salesInfo: this.salesInfo })
   }
 
   // seleteCustomer() {
@@ -119,10 +138,10 @@ export class ImproveQuotationPage {
 
   save() {
     let mString = "";
-    if(!this.invoiceAddressList){
+    if (!this.invoiceAddressList) {
       this.invoiceAddress = this.customerID
     }
-    if(!this.deliveryAddressList){
+    if (!this.deliveryAddressList) {
       this.deliveryAddress = this.customerID
     }
     if (!this.invoiceAddress) {
@@ -140,16 +159,16 @@ export class ImproveQuotationPage {
     if (mString != "") {
       Utils.toastButtom(mString, this.toastCtrl)
     } else {
-      let dateTime =  new Date().getTime();
+      this.dateTime = new Date().getTime();
       this.mCreateQuotesPage.data.improveQuotesInfo = {
-        invoiceAddress :this.invoiceAddress,
-        deliveryAddress :this.deliveryAddress,
-        PINumber : this.PINumber,
-        billsDate : dateTime ,
-        payment_term :this.payment,
-        remarks :this.remarks,
-        deliveryInfo :this.deliveryInfo ,
-        salesInfo :this.salesInfo
+        invoiceAddress: this.invoiceAddress,
+        deliveryAddress: this.deliveryAddress,
+        PINumber: this.PINumber,
+        billsDate: this.dateTime,
+        payment_term: this.payment,
+        remarks: this.remarks,
+        deliveryInfo: this.deliveryInfo,
+        salesInfo: this.salesInfo
       }
       this.navCtrl.pop();
     }

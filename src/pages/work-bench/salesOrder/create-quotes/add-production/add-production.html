@@ -25,7 +25,7 @@
         <ion-label  >产品
         <span style="color:red;"> *</span>
         </ion-label>
-        <ion-note item-end >{{name}}</ion-note>
+        <ion-note item-end  style="font-size:50%" >{{name}}</ion-note>
       </button>
 
   <ion-item>
@@ -38,23 +38,23 @@
   <ion-item>
     <ion-label >国内简称
     </ion-label>
-    <ion-label item-end style="font-size: 70%;color: #605E5E ;" >{{pro_spec}}</ion-label>
+    <ion-label text-right item-end style="font-size: 70%;color: #605E5E ;" >{{pro_spec}}</ion-label>
   </ion-item>
 
   <ion-item>
-    <ion-label item-start>国内型号
+    <ion-label >国内型号
     </ion-label>
-    <ion-label item-end style="font-size: 70%;color: #605E5E ;"> {{pro_code}}</ion-label>
+    <ion-label item-end  text-right style="font-size: 70%;color: #605E5E ;"> {{pro_code}}</ion-label>
   </ion-item>
 
   <ion-item>
-    <ion-label item-start>计量单位
+    <ion-label >计量单位
     </ion-label>
-    <ion-label item-end style="font-size: 70%;color: #605E5E ;">{{pro_uom}}</ion-label>
+    <ion-label item-end  text-right style="font-size: 70%;color: #605E5E ;">{{pro_uom}}</ion-label>
   </ion-item>
 
   <ion-item>
-    <ion-label item-start>单价
+    <ion-label >单价
       <span style="color:red;"> *</span>
     </ion-label>
     <ion-input style="direction:rtl"  placeholder="请填写产品单价" type="number" [(ngModel)]="mPrice" (ionChange)="change()"></ion-input>

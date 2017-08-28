@@ -26,6 +26,8 @@ export class SalesInfoPage {
   salesTeam: any;
   tagsList: any;
   mImproveQuotationPage;
+  salesManId ;
+  salesInfo ;
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
@@ -45,11 +47,32 @@ export class SalesInfoPage {
     this.storage.get('user')
       .then(res => {
         this.salesMan = res.result.res_data.name;
+        this.salesManId = res.result.res_data.user_id;
       });
   }
   ionViewDidLoad() {
     console.log('ionViewDidLoad SalesInfoPage');
+   
   }
+
+  ionViewDidEnter(){
+    let  self = this ;
+    self.initView()
+  }
+
+  initView(){
+    this.salesInfo = this.navParams.get("salesInfo");
+    console.log(this.salesInfo)
+    if(this.salesInfo){
+      this.salesManId = this.salesInfo.salesMan
+      this.tag = this.salesInfo.tags
+      this.salesTeam = this.salesInfo.team
+      this.customerInfo = this.salesInfo.customerRefer
+      this.analyAccount = this.salesInfo.analytic_account
+    }
+  }
+
+
 
   save() {
     let mString = "";
@@ -60,7 +83,7 @@ export class SalesInfoPage {
       Utils.toastButtom(mString, this.toastCtrl)
     }else{
       this.mImproveQuotationPage.data.salesInfo = { 
-        salesMan:this.salesMan,
+        salesMan:this.salesManId,
         tags :this.tag,
         team:this.salesTeam,
         customerRefer :this.customerInfo ,

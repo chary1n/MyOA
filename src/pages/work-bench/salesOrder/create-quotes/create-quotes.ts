@@ -27,6 +27,7 @@ export class CreateQuotesPage {
   seleteDate: any
   products: any
   isAdd = false;
+  isChange = false;
   items: any[];
   noTaxTotal: number;
   taxTotal: number;
@@ -36,6 +37,7 @@ export class CreateQuotesPage {
   priceForm;
   priceFormList;
   mimproveQuotesInfo;
+  index ;
 
 
 
@@ -65,9 +67,14 @@ export class CreateQuotesPage {
     let item = this.navParams.get("productItem")
     this.mimproveQuotesInfo = this.navParams.get("improveQuotesInfo")
     this.isAdd = this.navParams.get("isAdd")
+    this.isChange = this.navParams.get("isChange")
     if (this.isAdd) {
       this.items.push(item);
       this.navParams.data.isAdd = false;
+    }
+    if(this.isChange){
+      this.items.splice(this.index , 1);
+      this.navParams.data.isChange = false ;
     }
     this.customer = this.navParams.get("customer")
     if (this.customer) {
@@ -79,7 +86,10 @@ export class CreateQuotesPage {
 
   improveQuotation() {
     if (this.customer) {
-      this.navCtrl.push(ImproveQuotationPage, { id: this.customer.id })
+      this.navCtrl.push(ImproveQuotationPage, {
+        id: this.customer.id,
+        improveQuotaInfo: this.mimproveQuotesInfo
+      })
     } else {
       Utils.toastButtom("请先选择客户", this.toastCtrl)
     }
@@ -88,6 +98,16 @@ export class CreateQuotesPage {
   addProductions() {
     this.isAdd = false;
     this.navCtrl.push(AddProductionPage)
+  }
+
+
+  changeProductItem(i) {
+    this.index = i ;
+    this.navCtrl.push(AddProductionPage, { item: this.items[i], index: i })
+  }
+
+  deleteProductItem(i) {
+    this.items.splice(i, 1)
   }
 
   chooseDate() {
@@ -113,7 +133,7 @@ export class CreateQuotesPage {
     if (!this.deliveryRuls) {
       mString = mString + "   请选择交货规则"
     }
-     if (!this.tax) {
+    if (!this.tax) {
       mString = mString + "   请选择税率"
     }
     if (!this.seleteDate) {
@@ -122,25 +142,28 @@ export class CreateQuotesPage {
     if (!this.mimproveQuotesInfo) {
       mString = mString + "   请完善报价单"
     }
-    if(this.items.length==0){
+    if (this.items.length == 0) {
       mString = mString + "   请选择产品"
     }
     if (mString != "") {
       Utils.toastButtom(mString, this.toastCtrl)
-    } else{
+    } else {
       let mbody = {
-        cusomer :this.customer.id,
-        delivery :this.deliveryRuls,
-        tax:this.tax,
-        deliveryDate:this.seleteDate,
-        improveQuotation :this.mimproveQuotesInfo,
-        productions : this.items
+        cusomer: this.customer.id,
+        delivery: this.deliveryRuls,
+        tax: this.tax,
+        deliveryDate: this.seleteDate,
+        improveQuotation: this.mimproveQuotesInfo,
+        productions: this.items
       }
       let body = {
-        data :mbody
+        data: mbody
       }
-      this.salesSearvive.createSoOrder(body).then(res=>{
+      this.salesSearvive.createSoOrder(body).then(res => {
         console.log(res)
+        if(res.result&&res.result.res_code==1){
+          this.navCtrl.pop()
+        }
       })
     }
   }
