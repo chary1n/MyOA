@@ -119,7 +119,7 @@ export class EditCardPage {
 
   reloadView(){
     this.cardName = this.item.displayName;
-    this.telephoneName = this.item.phoneNumber;
+    this.telephoneName = this.item.all_phonenumers;
     this.departmentName = this.item.departmentName;
     this.emailName = this.item.email;
     this.addressName = this.item.address;

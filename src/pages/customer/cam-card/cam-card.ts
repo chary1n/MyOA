@@ -281,6 +281,7 @@ export class CamCardPage {
         crm_source_id:'',
         type:'',
         jobtitle:'',
+        all_phonenumers:'',
       };  
       
       obj.sale_team = this.saleteam_name ? this.saleteam_name : '';
@@ -329,10 +330,14 @@ export class CamCardPage {
           let country_str;
           let locality_str;
           let street_str;
-          country_str = contacts[i].addresses[0].country ? contacts[i].addresses[0].country: '';
-          locality_str = contacts[i].addresses[0].locality ? contacts[i].addresses[0].locality: '';
-          street_str =  contacts[i].addresses[0].streetAddress ? contacts[i].addresses[0].streetAddress : '';
-          obj.address =  country_str + " " + locality_str + " "+ street_str;
+          let region_str;
+          let postal_str;
+          country_str = contacts[i].addresses[0].country ? contacts[i].addresses[0].country + " ": '';
+          region_str = contacts[i].addresses[0].region ? contacts[i].addresses[0].region + " " : '';
+          locality_str = contacts[i].addresses[0].locality ? contacts[i].addresses[0].locality + " ": '';
+          street_str =  contacts[i].addresses[0].streetAddress ? contacts[i].addresses[0].streetAddress + " " : '';
+          postal_str = contacts[i].addresses[0].postalCode ? contacts[i].addresses[0].postalCode + " " : '';
+          obj.address =  country_str  + region_str + locality_str + street_str + postal_str;
           // alert( country_str + locality_str + street_str);
         }
       // }  
@@ -340,6 +345,7 @@ export class CamCardPage {
       //去掉名称3、非汉字，英文的        
       let reg = /^[A-Za-z]+$/;  
       //名字为空或非字母，加到最后一组  
+      obj.all_phonenumers = '';
       for (var items of contacts[i].phoneNumbers) {
         if (items.type == "mobile")
         {
@@ -351,7 +357,18 @@ export class CamCardPage {
           obj.phoneNumber = contacts[i].phoneNumbers[0].value;
         }
       }
-       
+
+      for (var items of contacts[i].phoneNumbers) {
+        if (obj.all_phonenumers != '')
+        {
+          obj.all_phonenumers = obj.all_phonenumers +"," + items.value;
+        }
+        else
+        {
+          obj.all_phonenumers = items.value;
+        }
+      }
+      // alert (obj.all_phonenumers); 
       //有名字  
       // console.log('one contact==' + i + '  ' + JSON.stringify(obj));  
       obj.pinyinName = pinyin.getFullChars(obj.displayName);  
