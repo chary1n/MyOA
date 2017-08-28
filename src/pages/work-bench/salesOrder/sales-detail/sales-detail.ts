@@ -28,11 +28,11 @@ export class SalesDetailPage {
     public popoverCtrl: PopoverController,
     public salesSearvice: SalesSearvice, private alertCtrl: AlertController,
     private toast:ToastController) {
+    this.id = this.navParams.get('id');
+    this.type = this.navParams.get("type");
     this.popover = this.popoverCtrl.create(PopoverPage, {
       item: this
     });
-    this.id = this.navParams.get('id');
-    this.type = this.navParams.get("type");
     this.salesSearvice.getSalesOrderDetail(this.id).then((res) => {
       if (res.result && res.result.res_code == 1) {
         this.item = res.result.res_data;
@@ -46,6 +46,9 @@ export class SalesDetailPage {
   }
 
   presentPopover(myEvent) {
+    this.popover = this.popoverCtrl.create(PopoverPage, {
+      item: this
+    });
     this.popover.present({ ev: myEvent })
   }
 
@@ -110,6 +113,7 @@ export class SalesDetailPage {
                 
                   toast.onDidDismiss(() => {
                     this.type = "salesOrder"
+                    console.log(this.type + "this.type是")
                   });
                   toast.present();
                 }
