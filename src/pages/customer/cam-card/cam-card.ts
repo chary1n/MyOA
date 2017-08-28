@@ -44,8 +44,8 @@ export class CamCardPage {
         if (res != null) {
           if (res.result.res_data.team)
           {
-          this.saleteam_id = res.result.res_data.team.team_id ? res.result.res_data.team.team_id : '';
-          this.saleteam_name = res.result.res_data.team.team_name ? res.result.res_data.team.team_name : '';
+            this.saleteam_id = res.result.res_data.team.team_id ? res.result.res_data.team.team_id : '';
+            this.saleteam_name = res.result.res_data.team.team_name ? res.result.res_data.team.team_name : '';
           }
           this.saleman_id = res.result.res_data.user_id;
           this.saleman_name = res.result.res_data.name;
@@ -120,6 +120,7 @@ export class CamCardPage {
     {
       this.chooseService.add_partners(resultArr).then(res => {
       if (res.result){
+        this.chooseCount = 0;
         this.alertCtrl.create({
                   title: '提示',
                   subTitle: '导入成功',
@@ -144,16 +145,18 @@ export class CamCardPage {
                options.filter = "";  
                options.multiple = true;  
                options.hasPhoneNumber = true;  
-               this.contacts.find(null, null).then((result) => {  
-                for (var contact of result) {
-                  if (contact.organizations){
-                    console.log(contact);
-                    this.nameList.push(contact);
-                  }
-                }
-                this.dealWithList(this.nameList);
-                this.cal_choose_card();
-              });  
+               this.contacts.find(fields, options).then((result) => {  
+                let nameArr = [];
+              for (var contact of result) {
+              if (contact.organizations)
+              {
+                 console.log(contact);
+                 nameArr.push(contact);
+              }
+        }
+        this.dealWithList(nameArr);
+        // this.cal_choose_card();
+      });  
              
             }
           }
@@ -200,7 +203,7 @@ export class CamCardPage {
   }
 
   cal_choose_card(){
-    this.chooseCount = 0;
+     this.chooseCount = 0;
     for (var group of this.formatContacts) {
       for (var items of group.value) {
         if (items.isCheckBox == '1')
@@ -285,6 +288,7 @@ export class CamCardPage {
       obj.saleteam_id = this.saleteam_id ? this.saleteam_id : '';
       obj.saleman_id = this.saleman_id ? this.saleman_id : '';
       obj.type = "联系人";
+      obj.partner_type = "customer";
       obj.id = contacts[i].id;
 
         obj.isCheckBox = '0';
@@ -322,7 +326,14 @@ export class CamCardPage {
         }
         if (contacts[i].addresses != null)
         {
-          obj.address = contacts[i].addresses[0].locality + contacts[i].addresses[0].streetAddress;
+          let country_str;
+          let locality_str;
+          let street_str;
+          country_str = contacts[i].addresses[0].country ? contacts[i].addresses[0].country: '';
+          locality_str = contacts[i].addresses[0].locality ? contacts[i].addresses[0].locality: '';
+          street_str =  contacts[i].addresses[0].streetAddress ? contacts[i].addresses[0].streetAddress : '';
+          obj.address =  country_str + " " + locality_str + " "+ street_str;
+          // alert( country_str + locality_str + street_str);
         }
       // }  
   
@@ -333,6 +344,11 @@ export class CamCardPage {
         if (items.type == "mobile")
         {
           obj.phoneNumber = items.value; 
+          break;
+        }
+        else
+        {
+          obj.phoneNumber = contacts[i].phoneNumbers[0].value;
         }
       }
        

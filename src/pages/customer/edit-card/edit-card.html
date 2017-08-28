@@ -30,7 +30,7 @@ md="md-arrow-back"></ion-icon>
 </ion-header>
 
 
-<ion-content >
+<ion-content (pan)="panEvent($event)">
   <!--<ion-scroll scrollY = "true" #scroll>-->
   <ion-item-group>
     <ion-item-divider color="light"></ion-item-divider>
@@ -92,7 +92,7 @@ md="md-arrow-back"></ion-icon>
     </ion-item>
     <ion-item>
       <ion-label style="color:black" class="label_class">地址</ion-label>
-      <ion-input item-end class="input_class" [(ngModel)]="addressName" text-right></ion-input>
+      <ion-textarea item-end class="input_class" [(ngModel)]="addressName" text-right></ion-textarea>
     </ion-item>
   </ion-item-group>
   <!--</ion-scroll>-->

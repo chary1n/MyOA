@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { CustomerService } from './CustomerService';
 import { AddCustomerPage } from './../customer/add-customer/add-customer';
 import { Storage} from '@ionic/storage';
-
+import { CustomerDetailPage } from './../customer/customer-detail/customer-detail';
 /**
  * Generated class for the CustomerPage page.
  *
@@ -288,6 +288,52 @@ export class CustomerPage {
     .then(res=>{
       if(res.result&&res.result.res_code==1){
         this.dataSourceFourth = res.result.res_data ;
+      }
+    })
+  }
+
+  clickOne(item){
+    this.customerService.customer_details(item.id).then((res) => {
+      if(res.result&&res.result.res_code==1){
+        console.log(res);
+        this.navCtrl.push(CustomerDetailPage,{
+           items:res.result.res_data
+        });
+      }
+    })
+
+    
+  }
+
+  clickTwo(item){
+    this.customerService.customer_details(item.id).then((res) => {
+      if(res.result&&res.result.res_code==1){
+        console.log(res);
+        this.navCtrl.push(CustomerDetailPage,{
+           items:res.result.res_data
+        });
+      }
+    })
+  }
+
+  clickThree(item){
+    this.customerService.customer_details(item.id).then((res) => {
+      if(res.result&&res.result.res_code==1){
+        console.log(res);
+        this.navCtrl.push(CustomerDetailPage,{
+           items:res.result.res_data
+        });
+      }
+    })
+  }
+
+  clickFour(item){
+    this.customerService.customer_details(item.id).then((res) => {
+      if(res.result&&res.result.res_code==1){
+        console.log(res);
+        this.navCtrl.push(CustomerDetailPage, {
+          items: res.result.res_data
+        });
       }
     })
   }

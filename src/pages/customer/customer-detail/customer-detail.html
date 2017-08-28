@@ -1,0 +1,92 @@
+<!--
+  Generated template for the CustomerDetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>客户详情</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <ion-grid class="grid_header">
+<ion-row class="row_class" align-items-center>
+      <ion-col>
+         <div style="border-color:black;border:1px" class="first_div" >
+          <h3>订单</h3><br>
+          <h2>{{items.purchase_count}}</h2>
+        </div>
+      </ion-col>
+      <ion-col>
+        <div class="first_div" >
+          <h3>对账</h3><br>
+          <h2>{{items.supplier}}</h2>
+        </div>
+      </ion-col>
+      <ion-col>
+        <div class="first_div" >
+          <h3>退货入库</h3><br>
+          <h2>{{items.return_count}}</h2> 
+        </div>
+      </ion-col>
+    </ion-row>
+</ion-grid>
+
+<ion-item-group >
+    <ion-item-divider class="divider" color="light"></ion-item-divider>
+
+    <ion-item>
+      <ion-label class="left_label">公司</ion-label>
+      <ion-label text-wrap class="right_label" item-end>{{items.name}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label class="left_label">国家</ion-label>
+      <ion-label text-wrap class="right_label" item-end>{{items.country}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label class="left_label">地址</ion-label>
+      <ion-label text-wrap class="right_label" item-end>{{items.address}}</ion-label>
+    </ion-item>
+    <ion-item tappable (click)="callPhone('15751158935')">
+      <ion-label class="left_label">电话</ion-label>
+      <ion-label text-wrap item-end class="right_label" style="color:#55c4f5">{{items.phone}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label class="left_label">来源</ion-label>
+      <ion-label text-wrap item-end class="right_label">{{items.crm_source}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label class="left_label">渠道</ion-label>
+      <ion-label text-wrap item-end class="right_label">{{items.source}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label class="left_label">销售团队</ion-label>
+      <ion-label item-end class="right_label">{{items.team}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label class="left_label">销售员</ion-label>
+      <ion-label text-wrap item-end class="right_label">{{items.user_id}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label class="left_label">标签</ion-label>
+      <ion-label text-wrap item-end class="right_label">{{biaoqian}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label class="left_label">感兴趣的产品</ion-label>
+      <ion-label text-wrap item-end class="right_label"></ion-label>
+    </ion-item>
+  </ion-item-group>
+
+  <ion-item-group>
+  <ion-item-divider item-height="20" color="light"></ion-item-divider>
+  <ion-item tappable (click) = 'contact_detail()'>
+      <ion-label class="left_label">联系人&地址</ion-label>
+      <ion-label class="right_label" item-end>{{items.contracts_count}}</ion-label>
+    </ion-item>
+</ion-item-group>
+</ion-content>
