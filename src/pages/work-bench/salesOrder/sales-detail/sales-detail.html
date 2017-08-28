@@ -76,19 +76,16 @@
       <ion-label item-start style="font-size:75%">计量单位 ：{{item_detail.uom}}</ion-label>
     </ion-item>
     <ion-item>
-      <ion-label item-end style="font-size:75%">小计 {{item_detail.qty_delivered}}</ion-label>
+      <ion-label item-end style="font-size:75%">小计 {{item_detail.price_total}}</ion-label>
       <ion-label item-end style="font-size:75%" *ngIf="type=='salesOrder'">已开票 {{(item_detail.qty_invoiced)*(item_detail.price_unit)}}</ion-label>
     </ion-item>
   </ion-item-group>
 </ion-content>
 
 <ion-footer>
-    <ion-toolbar  *ngIf="type=='salesOrder'" >
-        <button ion-button ion-start style='width:48%' tappable (click)='cancelOrder()'> 取消订单 </button>
-         <!-- <button ion-button  *ngIf="type=='salesOrder'"  ion-end style='width:48%' tappable (click)='createInvoice()'> 创建发票</button>  -->
-         <button ion-button  *ngIf="type=='quotesOrder'" ion-end style='width:48%' tappable (click)='conformSales()'> 确认销售</button> 
-      </ion-toolbar>
-      <ion-toolbar  *ngIf="type=='salesOrder'" >
-           <button ion-button full tappable (click)='createInvoice()'> 创建发票</button> 
+      <ion-toolbar  >
+          <button ion-button    *ngIf="type!='salesOrder'"  ion-start style='width:48%' tappable (click)='cancelOrder()'> 取消订单 </button>
+          <button ion-button  *ngIf="type!='salesOrder'" ion-end style='width:48%' tappable (click)='conformSales()'> 确认销售</button> 
+           <button ion-button    *ngIf="type=='salesOrder'"  full tappable (click)='cancelOrder()'> 取消订单</button> 
         </ion-toolbar>
 </ion-footer>

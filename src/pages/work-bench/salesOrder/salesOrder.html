@@ -89,7 +89,8 @@
       </ion-refresher>
       <ion-list>
         <ion-item *ngFor='let item of salesOrder' tappable (click)='orderDetail2(item.id)'>
-        <p text-wrap style="font-size:100%;float:right;color:#fc6621;">待对账</p>
+        <p text-wrap  *ngIf="item.state=='cancel'"   style="font-size:100%;float:right;color:#fc6621;">已取消</p>
+        <p text-wrap  *ngIf="item.state!='cancel'"   style="font-size:100%;float:right;color:#fc6621;">待对账</p>
           <h2 text-wrap>{{item.name}}</h2>
           <h4 text-wrap style="font-size:70%;">交货日期 {{item.date_order}}</h4>
           <p text-wrap style="font-size:125%;float:right;color:#000000;font-weight:bold"> {{item.amount_total}} </p>
@@ -123,7 +124,7 @@
         <ion-item *ngFor='let item of salesReturnOrder' tappable (click)='orderDetail3(item.id)'>
           <p text-wrap style="font-size:100%;float:right;color:#fc6621;">{{item.state[1]}}</p>
           <h2 text-wrap>{{item.name}}</h2>
-          <h4 text-wrap style="font-size:70%;word-break:break-all">退货日期 {{item.date_order}}</h4>
+          <h4 text-wrap style="font-size:70%;word-break:break-all">退货日期 {{item.date}}</h4>
           <p text-wrap style="font-size:125%;float:right;color:#000000;font-weight:bold"> {{item.amount_total}} </p>
           <p text-wrap>客户 : {{item.customer}} </p>
           <p text-wrap>退货原因 :{{item.remark}}</p>
