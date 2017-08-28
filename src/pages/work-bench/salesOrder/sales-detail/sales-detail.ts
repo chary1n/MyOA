@@ -1,3 +1,4 @@
+import { Utils } from './../../../../providers/Utils';
 import { CreateInvoicePage } from './create-invoice/create-invoice';
 import { SalesSearvice } from './../salesService';
 import { DeliveryPage } from './delivery/delivery';
@@ -75,6 +76,8 @@ export class SalesDetailPage {
       .then(res => {
         if (res.result && res.result.res_code == 1) {
           this.navCtrl.pop()
+        }else{
+          Utils.toastButtom(res.error.data.arguments[0],this.toast)
         }
       })
   }

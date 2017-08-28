@@ -131,6 +131,7 @@ export class CustomerPage {
     }
   }
   searchClick1(){
+    this.isMoreData1=false ;
     this.customerService.searchClues(this.searchName1,this.user_id)
       .then(res=>{
         if(res.result&&res.result.res_code==1){
@@ -182,6 +183,7 @@ export class CustomerPage {
   }
 
   searchClick2(){
+    this.isMoreData2=false ;
     this.customerService.searchHiddenCustomer(this.searchName2,this.user_id)
     .then(res=>{
       if(res.result&&res.result.res_code==1){
@@ -233,6 +235,7 @@ export class CustomerPage {
   }
 
   searchClick3(){
+    this.isMoreData3=false ;
     this.customerService.searchNormalCustomer(this.searchName3,this.user_id)
     .then(res=>{
       if(res.result&&res.result.res_code==1){
@@ -284,6 +287,7 @@ export class CustomerPage {
   }
 
   searchClick4(){
+    this.isMoreData4=false ;
     this.customerService.searchPublicCustomer(this.searchName4,this.user_id)
     .then(res=>{
       if(res.result&&res.result.res_code==1){
