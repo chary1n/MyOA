@@ -52,7 +52,7 @@
         <ion-refresher-content></ion-refresher-content>
       </ion-refresher>
       <ion-list>
-        <ion-item *ngFor='let item of dataSourceFirst'>
+        <ion-item *ngFor='let item of dataSourceFirst' tappable (click) = 'clickOne(item)'>
           <h2 text-wrap>{{item.name}}</h2>
           <p text-wrap class="team_p">联系人：{{item.contact_name}}</p>
           <p text-wrap class="team_p">销售团队：{{item.team}}</p>
@@ -89,7 +89,7 @@
         <ion-refresher-content></ion-refresher-content>
       </ion-refresher>
       <ion-list>
-        <ion-item *ngFor='let item of dataSourceSecond'>
+        <ion-item *ngFor='let item of dataSourceSecond' tappable (click) = 'clickTwo(item)'>
           <h2 text-wrap>{{item.name}}</h2>
           <p text-wrap class="team_p">销售团队：{{item.team}}</p>
           <p text-wrap class="team_p">销售员：{{item.user}}</p>
@@ -125,7 +125,7 @@
         <ion-refresher-content></ion-refresher-content>
       </ion-refresher>
       <ion-list>
-        <ion-item *ngFor='let item of dataSourceThird'>
+        <ion-item *ngFor='let item of dataSourceThird' tappable (click) = 'clickThree(item)'>
           <h2 text-wrap>{{item.name}}</h2>
           <p text-wrap class="team_p">销售团队：{{item.team}}</p>
           <p text-wrap class="team_p">销售员：{{item.user}}</p>
@@ -160,7 +160,7 @@
         <ion-refresher-content></ion-refresher-content>
       </ion-refresher>
       <ion-list>
-        <ion-item *ngFor='let item of dataSourceFourth'>
+        <ion-item *ngFor='let item of dataSourceFourth' tappable (click) = 'clickFourz(item)'>
           <h2 text-wrap>{{item.name}}</h2>
           <p text-wrap class="team_p">销售团队：{{item.team}}</p>
           <p text-wrap class="team_p">销售员：{{item.user}}</p>

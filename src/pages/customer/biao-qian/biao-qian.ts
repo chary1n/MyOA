@@ -173,6 +173,9 @@ export class BiaoQianPage {
   save_biaoqian()
   {
     let self = this;
+    this.items.partner_type = "";
+    this.items.category_id = "";
+    this.items.partner_lv = "";
     if (this.customer_selected)
     {
       for (var item of this.arr) {

@@ -8,6 +8,13 @@ export class CustomerService {
 
     }
 
+    customer_details(id){
+        let body = JSON.stringify({
+            id:id
+        });
+        return this.httpservice.postBody("customer_details", body);
+    }
+
     //获取线索
     get_clues(limit, offset, user_id) {
         let body = JSON.stringify({

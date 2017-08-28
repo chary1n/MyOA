@@ -212,6 +212,10 @@ export class EditCardPage {
     self.navCtrl.popTo(self.camPage);
   }
 
+  panEvent($event){
+     cordova.plugins.Keyboard.close();
+  }
+
   drag(){
      alert(1)
   }
