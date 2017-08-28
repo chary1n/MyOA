@@ -78,7 +78,7 @@ export class SalesDetailPage {
         }
       })
   }
-  createInvoice() {
+  cancelOrdercreateInvoice() {
     this.navCtrl.push(CreateInvoicePage,{id:this.id})
 
   }
