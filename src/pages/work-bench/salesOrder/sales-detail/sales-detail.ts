@@ -123,7 +123,6 @@ export class SalesDetailPage {
 @Component({
   template: `
     <ion-list>
-      <button ion-item (click)="close()">编辑</button>
       <button ion-item (click)="close()">联系电话</button>
       <button ion-item *ngIf="type=='salesOrder'" (click)="clickDelivery()">交货</button>
     </ion-list>
@@ -137,7 +136,7 @@ export class PopoverPage {
   constructor(public viewCtrl: ViewController, public navCtrl: NavController,
     public navParams: NavParams) {
     this.salesDetailPage = this.navParams.get("item")
-    this.type = this.navParams.get("item").navParams.data.type
+    this.type = this.navParams.get("item").navParams.data.type 
   }
 
   clickDelivery() {
@@ -145,7 +144,7 @@ export class PopoverPage {
   }
 
   close(){
-    
+
   }
 
 }

@@ -14,7 +14,8 @@ export class Utils {
     }
 
     public static  toastButtom(toastString :string ,toastCtrl:ToastController ){
-        let toast = toastCtrl.create({
+
+        const toast = toastCtrl.create({
             message: toastString,
             duration: 1000,
             position: 'buttom'
@@ -22,7 +23,6 @@ export class Utils {
           toast.onDidDismiss(() => {
             console.log('Dismissed toast');
           });
-        
           toast.present();
     }
 
