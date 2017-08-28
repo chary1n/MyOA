@@ -128,40 +128,39 @@ export class CamCardPage {
                  {
                     text: '确定',
                     handler: () => {
-                     
-                 }
-             }
-      ]
-    }).present();
-        for (let contact of this.nameList) {
+                      for (let contact of this.nameList) {
           for (let result of resultArr) {
             if (result.id == contact.id)
             {
               contact.remove();
               // alert(this.formatContacts);
-               let options = new ContactFindOptions();  
-               let fields: ContactFieldType[];  
-               fields = [];  
-               options.filter = "";  
-               options.multiple = true;  
-               options.hasPhoneNumber = true;  
-               this.contacts.find(fields, options).then((result) => {  
-                let nameArr = [];
-              for (var contact of result) {
-              if (contact.organizations)
-              {
-                 console.log(contact);
-                 nameArr.push(contact);
-              }
+              let options = new ContactFindOptions();  
+      let fields: ContactFieldType[];  
+      fields = ["displayName", "phoneNumbers"];  
+      options.filter = "";  
+      options.multiple = true;  
+      options.hasPhoneNumber = true;    
+      let nameArr = [];
+      this.contacts.find(fields, options).then((result) => {  
+        for (var contact of result) {
+          if (contact.organizations){
+            console.log(contact);
+            nameArr.push(contact);
+          }
         }
         this.dealWithList(nameArr);
-        // this.cal_choose_card();
-      });  
+        this.cal_choose_card();
+      }); 
              
             }
           }
         }
-         this.cd.detectChanges();
+                 }
+             }
+      ]
+    }).present();
+        
+        //  this.cd.detectChanges();
       }
       else
       {
