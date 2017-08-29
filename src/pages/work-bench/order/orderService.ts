@@ -82,6 +82,14 @@ export class orderService {
         return this.httpservice.postBody("get_delivery_notes", body);
     }
 
+    get_purchase_delivery_notes(id){
+        let body = JSON.stringify({
+            id: id,
+            receive:1,
+        });
+        return this.httpservice.postBody("get_delivery_notes", body);
+    }
+
     get_back_delivery_notes(id) {
         let body = JSON.stringify({
             id: id,

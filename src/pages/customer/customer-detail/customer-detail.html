@@ -37,6 +37,14 @@
     </ion-row>
 </ion-grid>
 
+<ion-item-group>
+  <ion-item-divider item-height="20" color="light"></ion-item-divider>
+  <ion-item tappable (click) = 'contact_detail()'>
+      <ion-label class="left_label">联系人&地址</ion-label>
+      <ion-label class="right_label" item-end>{{items.contracts_count}} ></ion-label>
+    </ion-item>
+</ion-item-group>
+
 <ion-item-group >
     <ion-item-divider class="divider" color="light"></ion-item-divider>
 
@@ -82,11 +90,5 @@
     </ion-item>
   </ion-item-group>
 
-  <ion-item-group>
-  <ion-item-divider item-height="20" color="light"></ion-item-divider>
-  <ion-item tappable (click) = 'contact_detail()'>
-      <ion-label class="left_label">联系人&地址</ion-label>
-      <ion-label class="right_label" item-end>{{items.contracts_count}}</ion-label>
-    </ion-item>
-</ion-item-group>
+  
 </ion-content>
