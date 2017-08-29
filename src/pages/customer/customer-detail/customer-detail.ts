@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
+import { ContactListPage} from './../../work-bench/contact-list/contact-list'
 /**
  * Generated class for the CustomerDetailPage page.
  *
@@ -24,6 +24,12 @@ export class CustomerDetailPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CustomerDetailPage');
+  }
+
+  contact_detail(){
+    this.navCtrl.push(ContactListPage,{
+          contactList:this.items.contracts,
+       });  
   }
 
 }
