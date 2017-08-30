@@ -13,12 +13,14 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'bom.html',
 })
 export class BomPage {
-
+  item ;
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.item = this.navParams.get("item")
+    console.log(this.item)
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad BomPage');
   }
-
+  
 }

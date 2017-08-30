@@ -89,7 +89,11 @@ export class ProductionSearchPage {
   }
 
   toDetail(index){
-    this.navCtrl.push(ProductionDetailPage,{item : this.items[index]})
+    this.salesSearvice.getProductionDetailById(this.items[index].id).then(res=>{
+      if(res.result&&res.result.res_code==1){
+        this.navCtrl.push(ProductionDetailPage,{item :res.result.res_data})
+      }
+    });
   }
 
 
@@ -109,7 +113,7 @@ export class ProductionSearchPage {
     this.barcodeScanner.scan().then((barcodeData) => {
       // Success! Barcode data is here
       console.log(barcodeData)
-      this.salesSearvice.searchProductionByScan(barcodeData.text).then(res => {
+      this.salesSearvice.getProductionDetailByCode(barcodeData.text).then(res => {
         console.log(res)
         this.navCtrl.push(ProductionDetailPage,{item : res.result.res_data})
       })

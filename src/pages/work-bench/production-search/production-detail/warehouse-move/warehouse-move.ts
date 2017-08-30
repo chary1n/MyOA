@@ -13,8 +13,9 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'warehouse-move.html',
 })
 export class WarehouseMovePage {
-
+  items ;
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.items =  this.navParams.get("item").stock_move ;
   }
 
   ionViewDidLoad() {

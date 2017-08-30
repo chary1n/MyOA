@@ -14,6 +14,10 @@
 
 
 <ion-content>
+<div class="divCenter" > 
+  <img src={{imgRes}} class="image1" />
+</div>
+
   <ion-grid class="grid_header">
     <ion-row class="row_class" align-items-center>
       <ion-col>
@@ -32,62 +36,54 @@
   </ion-grid>
 
   <button ion-item (click)="clickBOM()">
-      <ion-label  >BOM 
-      <span style="color:red;"> *</span>
+      <ion-label>BOM 
     </ion-label>
     </button>
 
   <ion-item>
     <ion-label>内部参考
     </ion-label>
-    <ion-label text-right item-end style="font-size: 70%;color: #605E5E ;">{{pro_spec}}</ion-label>
+    <ion-label text-right item-end style="font-size: 70%;color: #605E5E ;">{{item.code}}</ion-label>
   </ion-item>
 
   <ion-item>
     <ion-label>产品名
     </ion-label>
-    <ion-label text-right item-end style="font-size: 70%;color: #605E5E ;">{{pro_spec}}</ion-label>
+    <ion-label text-right item-end style="font-size: 70%;color: #605E5E ;">{{item.name}}</ion-label>
   </ion-item>
 
   <ion-item>
     <ion-label>位置
     </ion-label>
-    <ion-label text-right item-end style="font-size: 70%;color: #605E5E ;">{{pro_spec}}</ion-label>
+    <ion-label text-right item-end style="font-size: 70%;color: #605E5E ;">{{item.area}}</ion-label>
   </ion-item>
 
   <ion-item>
     <ion-label>国内简称
     </ion-label>
-    <ion-label text-right item-end style="font-size: 70%;color: #605E5E ;">{{pro_spec}}</ion-label>
-  </ion-item>
-
-  <ion-item>
-    <ion-label>国内简称
-    </ion-label>
-    <ion-label text-right item-end style="font-size: 70%;color: #605E5E ;">{{pro_spec}}</ion-label>
+    <ion-label text-right item-end style="font-size: 70%;color: #605E5E ;">{{item.inner_spec}}</ion-label>
   </ion-item>
 
   <ion-item>
     <ion-label>国内类型
     </ion-label>
-    <ion-label text-right item-end style="font-size: 70%;color: #605E5E ;">{{pro_spec}}</ion-label>
+    <ion-label text-right item-end style="font-size: 70%;color: #605E5E ;">{{item.inner_code}}</ion-label>
   </ion-item>
 
   <ion-item>
     <ion-label>产品规格
     </ion-label>
-    <ion-label text-right item-end style="font-size: 70%;color: #605E5E ;">{{pro_spec}}</ion-label>
+    <ion-label text-right item-end text-wrap style="font-size: 70%;color: #605E5E ;">{{product_specs}}</ion-label>
   </ion-item>
 
   <ion-item>
     <ion-label>内部类别
     </ion-label>
-    <ion-label text-right item-end style="font-size: 70%;color: #605E5E ;">{{pro_spec}}</ion-label>
+    <ion-label text-right item-end style="font-size: 70%;color: #605E5E ;">{{item.categ_id}}</ion-label>
   </ion-item>
 
   <button ion-item (click)="warehouseMobile()">
         <ion-label  >库存移动
-        <span style="color:red;"> *</span>
       </ion-label>
       </button>
 
