@@ -57,12 +57,12 @@
           <p text-wrap class="team_p">联系人：{{item.contact_name}}</p>
           <p text-wrap class="team_p">销售团队：{{item.team}}</p>
           <p text-wrap class="team_p">销售员：{{item.user}}</p>
-          <div class="item row row-wrap row-no-padding" style="height: 50px;border: none;">
+          <!--<div class="item row row-wrap row-no-padding" style="height: 30px;border: none;">-->
             <!--<button ion-button style="background-color:#d9f2e4;color:#48ce3d" small>客户</button> -->
-            <div class="col col-center">
-              <ion-icon *ngFor='let item of starArr | slice:(5 - item.priority)' name="star" style="color:#fdc03b"></ion-icon>
-            </div>
-          </div>
+            <!--<div class="col col-center">-->
+              <!--<ion-icon *ngFor='let item of starArr | slice:(5 - item.priority)' name="star" style="color:#fdc03b"></ion-icon>-->
+            <!--</div>-->
+          <!--</div>-->
         </ion-item>
       </ion-list>
 
@@ -93,7 +93,7 @@
           <h2 text-wrap>{{item.name}}</h2>
           <p text-wrap class="team_p">销售团队：{{item.team}}</p>
           <p text-wrap class="team_p">销售员：{{item.user}}</p>
-          <div class="item row row-wrap row-no-padding" style="height: 50px;border: none;">
+          <div class="item row row-wrap row-no-padding" style="height: 30px;border: none;">
             <button ion-button *ngFor='let detail of item.category' style="background-color:#d9f2e4;color:#48ce3d" small>{{detail}}</button>
             <button ion-button style="background-color:#d4f3fc;color:#4c8dfb" small>{{item.level}}st</button>
             <div class="col col-center">
@@ -129,7 +129,7 @@
           <h2 text-wrap>{{item.name}}</h2>
           <p text-wrap class="team_p">销售团队：{{item.team}}</p>
           <p text-wrap class="team_p">销售员：{{item.user}}</p>
-          <div class="item row row-wrap row-no-padding" style="height: 50px;border: none;">
+          <div class="item row row-wrap row-no-padding" style="height: 30px;border: none;">
             <button ion-button *ngFor='let detail of item.category' style="background-color:#d9f2e4;color:#48ce3d" small>{{detail}}</button>
             <button ion-button style="background-color:#d4f3fc;color:#4c8dfb" small>{{item.level}}st</button>
             <div class="col col-center">
@@ -164,7 +164,7 @@
           <h2 text-wrap>{{item.name}}</h2>
           <p text-wrap class="team_p">销售团队：{{item.team}}</p>
           <p text-wrap class="team_p">销售员：{{item.user}}</p>
-          <div class="item row row-wrap row-no-padding" style="height: 50px;border: none;">
+          <div class="item row row-wrap row-no-padding" style="height: 30px;border: none;">
             <button ion-button *ngFor='let detail of item.category' style="background-color:#d9f2e4;color:#48ce3d" small>{{detail}}</button>
             <button ion-button style="background-color:#d4f3fc;color:#4c8dfb" small>{{item.level}}st</button>
             <div class="col col-center">
