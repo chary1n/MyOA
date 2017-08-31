@@ -168,60 +168,76 @@ export class SalesSearvice {
         return this.httpservice.postBody("get_all_customers", body);
     }
 
-      // 获取交货规则
-      getDeliveryList() {
+    // 获取交货规则
+    getDeliveryList() {
         let body = JSON.stringify({
             type: "delivery"
         });
         return this.httpservice.postBodyNoLoading("get_all_customers", body);
     }
 
-      // 获取税金列表
-      getTaxList() {
+    // 获取税金列表
+    getTaxList() {
         let body = JSON.stringify({
             type: "tax"
         });
         return this.httpservice.postBodyNoLoading("get_all_customers", body);
     }
 
-      // 获取付款条款列表
-      getPaymentTermList() {
+    // 获取付款条款列表
+    getPaymentTermList() {
         let body = JSON.stringify({
             type: "payment_term"
         });
         return this.httpservice.postBody("get_all_customers", body);
     }
 
-      // 获取价格表
-      getPriceFormList() {
+    // 获取价格表
+    getPriceFormList() {
         let body = JSON.stringify({
             type: "pricelist"
         });
         return this.httpservice.postBody("get_all_customers", body);
     }
 
-     // 获取送货地址
-     getDeliveryAddressList(mid) {
+    // 获取送货地址
+    getDeliveryAddressList(mid) {
         let body = JSON.stringify({
             type: "delivery",
-            id : mid
+            id: mid
         });
         return this.httpservice.postBodyNoLoading("choose_customer", body);
     }
 
-     // 获取发票地址
-     getPaymentAddressList(mid) {
+    // 获取发票地址
+    getPaymentAddressList(mid) {
         let body = JSON.stringify({
             type: "invoice",
-            id :mid
+            id: mid
         });
         return this.httpservice.postBodyNoLoading("choose_customer", body);
     }
 
     // 创建报价单
-    createSoOrder(mbody){
+    createSoOrder(mbody) {
         let body = JSON.stringify(mbody);
         return this.httpservice.postBodyNoLoading("create_so_order_draft", body);
+    }
+
+    // 获取产品详细
+    getProductionDetailById(mid) {
+        let body = JSON.stringify({
+            id: mid
+        });
+        return this.httpservice.postBodyNoLoading("product_details", body);
+    }
+
+    // 获取产品详细
+    getProductionDetailByCode(mCode) {
+        let body = JSON.stringify({
+            code: mCode
+        });
+        return this.httpservice.postBodyNoLoading("product_details", body);
     }
 
 

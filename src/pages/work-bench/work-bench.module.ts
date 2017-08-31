@@ -1,3 +1,4 @@
+import { ProductionSearchPageModule } from './production-search/production-search.module';
 import { SalesOrderPageModule } from './salesOrder/salesOrder.module';
 import { DeliveryInitialRequestPage } from './delivery-initial-request/delivery-initial-request';
 import { DeliveryExtraPage } from './delivery-extra/delivery-extra';
@@ -43,7 +44,7 @@ import { XiansuoDetailPage } from './../customer/xiansuo-detail/xiansuo-detail';
     XiansuoDetailPage
   ],
   imports: [
-    IonicPageModule.forChild(WorkBenchPage),SalesOrderPageModule
+    IonicPageModule.forChild(WorkBenchPage),SalesOrderPageModule,ProductionSearchPageModule
 
   ],
   entryComponents:[ WorkBenchPage,CardinfoPage,IncomingPage,IncomingDetailPage,
