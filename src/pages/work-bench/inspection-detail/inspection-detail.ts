@@ -31,7 +31,7 @@ export class InspectionDetailPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private alertCtrl: AlertController,
     private inspectionService: InspectionService, ) {
-      this.item = this.navParams.get('item')
+    this.item = this.navParams.get('item')
     this.initData(this.item)
     this.mIncomingDetailPage = Utils.getViewController("IncomingDetailPage", navCtrl)
   }

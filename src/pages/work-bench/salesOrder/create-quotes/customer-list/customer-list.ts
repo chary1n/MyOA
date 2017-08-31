@@ -35,9 +35,11 @@ export class CustomerListPage {
   searchName3 :string ;
   searchName4 :string ;
   mCreateQuotesPage ;
+  type ;
   constructor(public navCtrl: NavController, public navParams: NavParams,
   public customerService:CustomerService,private storage: Storage) {
     this.starArr = ['1','1','1','1','1'];
+    this.type = this.navParams.get("type")
     this.mCreateQuotesPage = Utils.getViewController("CreateQuotesPage", navCtrl)
   }
 

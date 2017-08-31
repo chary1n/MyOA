@@ -47,6 +47,7 @@ export class CreateQuotesPage {
     this.items = [];
     this.salesSearvive.getDeliveryList().then(res => {
       this.deliveryRulsList = res.result.res_data
+      this.deliveryRuls = res.result.res_data[0][0] ;
     })
     this.salesSearvive.getTaxList().then(res => {
       this.taxList = res.result.res_data
@@ -122,7 +123,7 @@ export class CreateQuotesPage {
   }
 
   seleteCustomer() {
-    this.navCtrl.push(CustomerListPage);
+    this.navCtrl.push(CustomerListPage,{type : "createQuotes"});
   }
 
   save() {
