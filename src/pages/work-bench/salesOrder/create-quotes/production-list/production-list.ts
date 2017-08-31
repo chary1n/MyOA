@@ -21,7 +21,7 @@ export class ProductionListPage {
   searchName: any
   isMoreData = true
   limit: any
-  offset: any
+  offset: any = 0 ;
   items: any
   mAddProductionPage: any
 

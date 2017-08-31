@@ -25,39 +25,39 @@
         <ion-label  >产品
         <span style="color:red;"> *</span>
         </ion-label>
-        <ion-note item-end  style="font-size:50%" >{{name}}</ion-note>
+        <ion-label item-end text-wrap   text-right >{{name}}</ion-label>
       </button>
 
   <ion-item>
     <ion-label >订购数量
       <span style="color:red;"> *</span>
     </ion-label>
-    <ion-input style="direction:rtl" placeholder="请填写数量" type="number" [(ngModel)]="mNumber" (ionChange)="change()"></ion-input>
+    <ion-input style="direction:rtl" #mNumberCon placeholder="请填写数量" type="number" [(ngModel)]="mNumber" (ionChange)="change()"></ion-input>
   </ion-item>
 
   <ion-item>
     <ion-label >国内简称
     </ion-label>
-    <ion-label text-right item-end style="font-size: 70%;color: #605E5E ;" >{{pro_spec}}</ion-label>
+    <ion-label text-right item-end  >{{pro_spec}}</ion-label>
   </ion-item>
 
   <ion-item>
     <ion-label >国内型号
     </ion-label>
-    <ion-label item-end  text-right style="font-size: 70%;color: #605E5E ;"> {{pro_code}}</ion-label>
+    <ion-label item-end  text-right > {{pro_code}}</ion-label>
   </ion-item>
 
   <ion-item>
     <ion-label >计量单位
     </ion-label>
-    <ion-label item-end  text-right style="font-size: 70%;color: #605E5E ;">{{pro_uom}}</ion-label>
+    <ion-label item-end  text-right >{{pro_uom}}</ion-label>
   </ion-item>
 
   <ion-item>
-    <ion-label >单价
+    <ion-label >单价 ￥
       <span style="color:red;"> *</span>
     </ion-label>
-    <ion-input style="direction:rtl"  placeholder="请填写产品单价" type="number" [(ngModel)]="mPrice" (ionChange)="change()"></ion-input>
+    <ion-input style="direction:rtl" #mPriceCon placeholder="请填写产品单价" type="number" [(ngModel)]="mPrice" (ionChange)="change()"></ion-input>
   </ion-item>
 
 

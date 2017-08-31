@@ -69,7 +69,7 @@
         <p text-wrap>国内型号 {{detail.inner_code}}</p>
         <p>计量单位 {{detail.uom}}</p>
         <p>订购： {{detail.orderNumber}} * {{detail.orderPrice}}</p>
-        <p>小计 {{detail.orderNumber * detail.orderPrice}}</p>
+        <p>小计 ￥{{detail.orderNumber * detail.orderPrice}}</p>
       </ion-item>
       <ion-item-options side="right">
         <button ion-button color="primary" (click)="changeProductItem(i)">

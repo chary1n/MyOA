@@ -1,7 +1,7 @@
 import { BomPage } from './bom/bom';
 import { WarehouseMovePage } from './warehouse-move/warehouse-move';
 import { ContactPersonPageModule } from './../../../contact-person/contact-person.module';
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 /**
