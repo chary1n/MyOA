@@ -1,6 +1,6 @@
 import { Utils } from './../../../../../providers/Utils';
 import { ProductionListPage } from './../production-list/production-list';
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, ToastController } from 'ionic-angular';
 
 /**
@@ -18,7 +18,7 @@ export class AddProductionPage {
   mNumber: number
   deliveryRuls: any
   mPrice: number
-  total = 0;
+  total :any = 0;
   item: any;
   name: any;
   pro_spec: any;
@@ -28,6 +28,8 @@ export class AddProductionPage {
   mcreateQuotesPage: any;
   // 从上个界面传过来的修改的item 
   changeItem;
+  @ViewChild('mNumberCon') mNumberConpent ;
+  @ViewChild('mPriceCon') mPriceCon ;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private toast: ToastController) {
@@ -67,9 +69,11 @@ export class AddProductionPage {
     if (!this.productionItem) {
       alertString = alertString + "请选择产品"
     }
+    this.mNumber = this.mNumberConpent._value ;
     if (!this.mNumber) {
       alertString = alertString + "  请填写订购数量"
     }
+    this.mPrice = this.mPriceCon._value ;
     if (!this.mPrice) {
       alertString = alertString + "  请填写产品单价"
     }
@@ -94,6 +98,7 @@ export class AddProductionPage {
   change() {
     if (this.mNumber && this.mPrice) {
       this.total = this.mNumber * this.mPrice
+      this.total = this.total.toFixed(2);
     }
   }
 
