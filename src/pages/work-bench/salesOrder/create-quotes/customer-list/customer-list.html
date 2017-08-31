@@ -16,8 +16,11 @@
   </ion-navbar>
   <ion-toolbar no-border-top>
     <ion-segment [(ngModel)]="pet">
-      <ion-segment-button tappable (click)='clickXianSuo()' value="1">线索
-      </ion-segment-button>
+      <ng-template *ngIf="type!='createQuetes'"  >
+          <ion-segment-button  (click)='clickXianSuo()' value="1">线索
+            </ion-segment-button>
+      </ng-template>
+    
       <ion-segment-button tappable (click)='clickQianZaiCustomer()' value="2">
         潜在客户
       </ion-segment-button>
@@ -35,7 +38,7 @@
 <ion-content>
   <div [ngSwitch]="pet">
 
-    <ng-template [ngSwitchCase]='1'>
+    <ng-template  *ngIf="type!='createQuetes'" [ngSwitchCase]='1'>
       <ion-grid>
         <ion-row>
           <ion-col col-6>

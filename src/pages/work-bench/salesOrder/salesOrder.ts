@@ -184,10 +184,10 @@ export class SalesOrderPage {
     this.salesSearvice.getSalesReturn(0, 20, this.userId).then((res) => {
       console.log(res)
       refresh.complete();
-      if (res.result && res.result.res_code == 1) {
-        this.salesReturnOrder = res.result.res_data
-        console.log(this.salesReturnOrder)
-      }
+       if (res.result && res.result.res_code == 1) {
+          this.salesReturnOrder = res.result.res_data
+          console.log(this.salesReturnOrder)
+        }
     })
   }
 
