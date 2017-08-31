@@ -4,6 +4,7 @@ import { CustomerService } from './CustomerService';
 import { AddCustomerPage } from './../customer/add-customer/add-customer';
 import { Storage} from '@ionic/storage';
 import { CustomerDetailPage } from './../customer/customer-detail/customer-detail';
+import { XiansuoDetailPage} from './../customer/xiansuo-detail/xiansuo-detail';
 /**
  * Generated class for the CustomerPage page.
  *
@@ -297,10 +298,12 @@ export class CustomerPage {
   }
 
   clickOne(item){
-    this.customerService.customer_details(item.id).then((res) => {
+    console.log(item.id);
+    this.customerService.curstomer_clues_details(item.id).then((res) => {
+      console.log(res);
       if(res.result&&res.result.res_code==1){
         console.log(res);
-        this.navCtrl.push(CustomerDetailPage,{
+        this.navCtrl.push(XiansuoDetailPage,{
            items:res.result.res_data
         });
       }

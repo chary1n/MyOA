@@ -29,6 +29,8 @@ import { EditCardPage } from './../customer/edit-card/edit-card';
 import { ChoosePage } from './../customer/choose/choose';
 import { BiaoQianPage } from './../customer/biao-qian/biao-qian';
 import { CustomerDetailPage } from './../customer/customer-detail/customer-detail';
+import { XiansuoDetailPage } from './../customer/xiansuo-detail/xiansuo-detail';
+
 @NgModule({
   declarations: [
     WorkBenchPage,
@@ -37,7 +39,8 @@ import { CustomerDetailPage } from './../customer/customer-detail/customer-detai
     IncomingDetailPage,InspectionDetailPage,SupplierListPage,SupplierDetailPage
     ,ContactListPage,OrderPage,ReturnOrderDetailPage,OrderDetailPage,PopoverPage,PoContactPage,ReturnPopoverPage
     ,DeliveryPage,DeliveryExtraPage,DeliveryInitialRequestPage,DeliveryNotesPage,DeliveryNotesDetailPage,CustomerPage
-    ,AddCustomerPage,PurchaseBackOrderPage,CamCardPage,ProductlistPage,EditCardPage,ChoosePage,BiaoQianPage,CustomerDetailPage
+    ,AddCustomerPage,PurchaseBackOrderPage,CamCardPage,ProductlistPage,EditCardPage,ChoosePage,BiaoQianPage,CustomerDetailPage,
+    XiansuoDetailPage
   ],
   imports: [
     IonicPageModule.forChild(WorkBenchPage),SalesOrderPageModule
@@ -46,7 +49,7 @@ import { CustomerDetailPage } from './../customer/customer-detail/customer-detai
   entryComponents:[ WorkBenchPage,CardinfoPage,IncomingPage,IncomingDetailPage,
     InspectionDetailPage,SupplierListPage,SupplierDetailPage,OrderPage,ContactListPage,ReturnOrderDetailPage,OrderDetailPage,PopoverPage,PoContactPage,ReturnPopoverPage
      ,DeliveryPage,DeliveryExtraPage,DeliveryInitialRequestPage,DeliveryNotesPage,DeliveryNotesDetailPage,CustomerPage,AddCustomerPage,PurchaseBackOrderPage,CamCardPage,
-     ProductlistPage,EditCardPage,ChoosePage,BiaoQianPage,CustomerDetailPage],
+     ProductlistPage,EditCardPage,ChoosePage,BiaoQianPage,CustomerDetailPage,XiansuoDetailPage],
   exports: [
     WorkBenchPage
   ]
