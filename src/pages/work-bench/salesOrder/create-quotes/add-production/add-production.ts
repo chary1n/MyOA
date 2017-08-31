@@ -32,7 +32,7 @@ export class AddProductionPage {
   @ViewChild('mPriceCon') mPriceCon ;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    private toast: ToastController) {
+    private toast: ToastController, private alertCtrl: AlertController) {
     this.mcreateQuotesPage = Utils.getViewController("CreateQuotesPage", navCtrl);
   }
 
@@ -99,6 +99,30 @@ export class AddProductionPage {
     if (this.mNumber && this.mPrice) {
       this.total = this.mNumber * this.mPrice
       this.total = this.total.toFixed(2);
+    }
+  }
+
+  goBack(){
+    this.mNumber = this.mNumberConpent._value
+    console.log(this.mNumber);
+    if (this.mNumber)
+    {
+      this.alertCtrl.create({
+                  title: '提示',
+                  subTitle: '已输入内容，是否确认返回？',
+                  buttons: [{ text: '取消' },
+                 {
+                    text: '确定',
+                    handler: () => {
+                      this.navCtrl.pop();
+                 }
+             }
+      ]
+    }).present();
+    }
+    else
+    {
+      this.navCtrl.pop();
     }
   }
 
