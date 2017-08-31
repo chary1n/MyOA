@@ -9,6 +9,7 @@ export class CustomerService {
     }
 
     customer_details(id){
+        
         let body = JSON.stringify({
             id:id
         });
