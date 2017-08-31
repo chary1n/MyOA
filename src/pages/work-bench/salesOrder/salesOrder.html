@@ -89,10 +89,9 @@
       </ion-refresher>
       <ion-list>
         <ion-item *ngFor='let item of salesOrder' tappable (click)='orderDetail2(item.id)'>
-        <p text-wrap    style="font-size:100%;float:right;">{{item.invoice_status[1]}}</p>
+        <p text-wrap    style="font-size:70%;float:right;">{{item.invoice_status[1]}}</p>
           <h2 text-wrap>{{item.name}}</h2>
-          <p text-wrap  **ngIf="item.state"   style="font-size:100%;float:right;">{{item.invoice_status[1]}}</p>
-          <h4 text-wrap style="font-size:70%;">交货日期 {{item.validity_date}}</h4>
+          <h2 text-wrap style="font-size:70%;">交货日期 {{item.validity_date}}</h2>
           <p text-wrap style="font-size:125%;float:right;color:#000000;font-weight:bold"> {{item.amount_total}} </p>
           <p text-wrap>{{item.team}}  销售员 :{{item.salesman}}</p>
           <p text-wrap>客户 : {{item.customer}}  PI号码 :{{item.pi_number}}</p>
