@@ -31,19 +31,19 @@ export class CustomerDetailPage {
     let priority = '';
     if (this.items.level == 1)
     {
-      level = ",1st";
+      level = " 1st";
     }
     else if (this.items.level == 2)
     {
-      level = ",2nd";
+      level = " 2nd";
     }
     else if (this.items.level == 3)
     {
-      level = ",3rd";
+      level = " 3rd";
     }
     if (this.items.priority)
     {
-      priority = ",星级:" + this.items.priority;
+      priority = " 星级:" + this.items.priority;
     }
     this.biaoqian = tag + level + priority;
   }

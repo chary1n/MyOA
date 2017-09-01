@@ -56,6 +56,7 @@ export class ChooseService {
         obj.members = [member];
         obj.partner_lv = item.partner_lv;
         arr.push(obj);
+        console.log(obj);
     }
         let body = JSON.stringify({
             partners:arr,

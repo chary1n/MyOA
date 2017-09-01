@@ -46,13 +46,15 @@ export class ChoosePage {
     {
       this.title = "来源";
       this.chooseService.get_origins().then((res) => {
+        console.log(res);
         for (var item of res.result) {
           let obj = {  
                 name:'',
                   id:'',
           }; 
           obj.name = item.name;
-          obj.id = item.crm_source_id;
+          obj.id = item.src_id;
+          // alert(item.src_id);
           this.data.push(obj);
         }
       });
@@ -146,6 +148,7 @@ export class ChoosePage {
     }
     else if (this.type == 'source')
     {
+      // alert(item.id + item.name);
       let self = this;
      this.items.series_name = item.name;
       this.items.crm_source_id = item.id;
