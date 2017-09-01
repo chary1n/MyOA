@@ -38,6 +38,7 @@
         "@ionic-native/toast": "^4.0.1",
         "@ionic-native/transfer": "^3.14.0",
         "@ionic/storage": "^2.0.1",
+        "add": "^2.0.6",
         "ansi-escapes": "^2.0.0",
         "call-number": "^1.0.1",
         "cli-cursor": "^2.1.0",
@@ -231,8 +232,7 @@
         },
         "platforms": [
             "android",
-            "browser",
-            "ios"
+            "browser"
         ]
     }
 }

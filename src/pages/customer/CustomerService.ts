@@ -70,11 +70,10 @@ export class CustomerService {
 
     searchClues(mName,mId) {
         let body = JSON.stringify({
-            type: "public",
             name: mName,
             user_id :mId 
         });
-        return this.httpservice.postBody("search_customer", body);
+        return this.httpservice.postBody("search_clues", body);
     }
 
     searchHiddenCustomer(mName,mId) {
