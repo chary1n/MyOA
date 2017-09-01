@@ -221,7 +221,7 @@ export class SalesSearvice {
     // 创建报价单
     createSoOrder(mbody) {
         let body = JSON.stringify(mbody);
-        return this.httpservice.postBodyNoLoading("create_so_order_draft", body);
+        return this.httpservice.postBody("create_so_order_draft", body);
     }
 
     // 获取产品详细
@@ -229,7 +229,7 @@ export class SalesSearvice {
         let body = JSON.stringify({
             id: mid
         });
-        return this.httpservice.postBodyNoLoading("product_details", body);
+        return this.httpservice.postBody("product_details", body);
     }
 
     // 获取产品详细
@@ -237,7 +237,17 @@ export class SalesSearvice {
         let body = JSON.stringify({
             code: mCode
         });
-        return this.httpservice.postBodyNoLoading("product_details", body);
+        return this.httpservice.postBody("product_details", body);
+    }
+
+
+    // 设置为报价单的接口
+    setToQuotes(mId){
+        let body = JSON.stringify({
+            id: mId
+        });
+        return this.httpservice.postBody("to_draft", body);
+
     }
 
 

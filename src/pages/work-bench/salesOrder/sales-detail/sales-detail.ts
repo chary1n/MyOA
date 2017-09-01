@@ -23,7 +23,8 @@ export class SalesDetailPage {
   popover: Popover;
   id: any;
   item: any = "";
-  type: string
+  type: string ;
+  state ;
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
@@ -42,6 +43,7 @@ export class SalesDetailPage {
         detail.amount_total =  detail.amount_total.toFixed(2);
         detail.amount_untaxed = detail.amount_untaxed.toFixed(2);
         this.item =detail
+        this.state = detail.state 
         console.log(this.item)
       }
     })
@@ -94,6 +96,17 @@ export class SalesDetailPage {
     this.navCtrl.push(CreateInvoicePage,{id:this.id})
 
   }
+
+  setToQuotes(){
+    this.salesSearvice.setToQuotes(this.id).then(res=>{
+      if (res.result && res.result.res_code == 1) {
+        this.navCtrl.pop()
+      }
+    })
+  }
+
+
+
   conformSales() {
     let alert = this.alertCtrl.create({
       message: '确定转为销售订单?',

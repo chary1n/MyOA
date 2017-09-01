@@ -5,7 +5,7 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-  <ion-navbar  hideBackButton="true">
+  <ion-navbar hideBackButton="true">
     <ion-buttons left>
       <button ion-button icon-only (click)="goBack()">
         <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
@@ -24,7 +24,6 @@
 
 
 <ion-content padding>
-
   <button ion-item (click)="seleteProduction()"> 
         <ion-label  >产品
         <span style="color:red;"> *</span>
@@ -33,42 +32,39 @@
       </button>
 
   <ion-item>
-    <ion-label >订购数量
+    <ion-label>订购数量
       <span style="color:red;"> *</span>
     </ion-label>
     <ion-input style="direction:rtl" #mNumberCon placeholder="请填写数量" type="number" [(ngModel)]="mNumber" (ionChange)="change()"></ion-input>
   </ion-item>
 
   <ion-item>
-    <ion-label >国内简称
+    <ion-label>国内简称
     </ion-label>
-    <ion-label text-right item-end  >{{pro_spec}}</ion-label>
+    <ion-label text-right item-end>{{pro_spec}}</ion-label>
   </ion-item>
 
   <ion-item>
-    <ion-label >国内型号
+    <ion-label>国内型号
     </ion-label>
-    <ion-label item-end  text-right > {{pro_code}}</ion-label>
+    <ion-label item-end text-right> {{pro_code}}</ion-label>
   </ion-item>
 
   <ion-item>
-    <ion-label >计量单位
+    <ion-label>计量单位
     </ion-label>
-    <ion-label item-end  text-right >{{pro_uom}}</ion-label>
+    <ion-label item-end text-right>{{pro_uom}}</ion-label>
   </ion-item>
 
   <ion-item>
-    <ion-label >单价 ￥
+    <ion-label>单价 ￥
       <span style="color:red;"> *</span>
     </ion-label>
     <ion-input style="direction:rtl" #mPriceCon placeholder="请填写产品单价" type="number" [(ngModel)]="mPrice" (ionChange)="change()"></ion-input>
   </ion-item>
 
-
   <ion-label item-end style="text-align:right;">
     小计 ： <span style="color:red;">￥ {{total}}</span>
   </ion-label>
-
-
 
 </ion-content>

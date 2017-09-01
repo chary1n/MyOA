@@ -6,7 +6,12 @@
 -->
 <ion-header>
 
-  <ion-navbar>
+  <ion-navbar  hideBackButton="true">
+      <ion-buttons left>
+          <button ion-button icon-only (click)="goBack()">
+            <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+          </button>
+        </ion-buttons>
     <ion-title>创建报价单</ion-title>
   </ion-navbar>
 

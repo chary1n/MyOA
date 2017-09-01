@@ -1,7 +1,7 @@
 import { Utils } from './../../../../../../providers/Utils';
 import { SalesSearvice } from './../../../salesService';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController, ViewController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, ViewController, AlertController } from 'ionic-angular';
 
 /**
  * Generated class for the DeliveryInfoPage page.
@@ -29,7 +29,7 @@ export class DeliveryInfoPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private salesSearvice: SalesSearvice, private toastCtrl: ToastController,
-    private viewCtrl: ViewController) {
+    private viewCtrl: ViewController,private alertCtrl :AlertController) {
     this.mImproveQuotationPage = Utils.getViewController("ImproveQuotationPage", navCtrl);
   }
 
@@ -66,7 +66,25 @@ export class DeliveryInfoPage {
     }
   }
 
-
+  goBack(){
+    if(this.wareHouse||this.tradeTerms||this.deliveryRuls){
+        this.alertCtrl.create({
+          title: '提示',
+          subTitle: '已输入内容，是否确认返回？',
+          buttons: [{ text: '取消' },
+          {
+            text: '确定',
+            handler: () => {
+              this.navCtrl.pop();
+            }
+          }
+          ]
+        }).present();
+      }
+      else {
+        this.navCtrl.pop();
+      }
+  }
 
 
 

@@ -5,7 +5,7 @@ import { DatePicker } from '@ionic-native/date-picker';
 import { AddProductionPage } from './add-production/add-production';
 import { ImproveQuotationPage } from './improve-quotation/improve-quotation';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, AlertController } from 'ionic-angular';
 
 /**
  * Generated class for the CreateQuotesPage page.
@@ -39,11 +39,9 @@ export class CreateQuotesPage {
   mimproveQuotesInfo;
   index ;
 
-
-
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private datePicker: DatePicker, private salesSearvive: SalesSearvice,
-    private toastCtrl: ToastController) {
+    private toastCtrl: ToastController,private alertCtrl :AlertController) {
     this.items = [];
     this.salesSearvive.getDeliveryList().then(res => {
       this.deliveryRulsList = res.result.res_data
@@ -167,5 +165,26 @@ export class CreateQuotesPage {
         }
       })
     }
+  }
+
+  goBack(){
+    if(this.customerName||this.tax||this.seleteDate
+      || this.mimproveQuotesInfo||this.items.length> 0){
+        this.alertCtrl.create({
+          title: '提示',
+          subTitle: '已输入内容，是否确认返回？',
+          buttons: [{ text: '取消' },
+          {
+            text: '确定',
+            handler: () => {
+              this.navCtrl.pop();
+            }
+          }
+          ]
+        }).present();
+      }
+      else {
+        this.navCtrl.pop();
+      }
   }
 }

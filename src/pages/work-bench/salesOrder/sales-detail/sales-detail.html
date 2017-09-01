@@ -83,9 +83,10 @@
 </ion-content>
 
 <ion-footer>
-      <ion-toolbar  >
-          <button ion-button    *ngIf="type!='salesOrder'"  ion-start style='width:48%' tappable (click)='cancelOrder()'> 取消订单 </button>
-          <button ion-button  *ngIf="type!='salesOrder'" ion-end style='width:48%' tappable (click)='conformSales()'> 确认销售</button> 
-           <button ion-button    *ngIf="type=='salesOrder'"  full tappable (click)='cancelOrder()'> 取消订单</button> 
-        </ion-toolbar>
+  <ion-toolbar>
+    <button ion-button *ngIf="type!='salesOrder'" ion-start style='width:48%' tappable (click)='cancelOrder()'> 取消订单 </button>
+    <button ion-button *ngIf="type!='salesOrder'" ion-end style='width:48%' tappable (click)='conformSales()'> 确认销售</button>
+    <button ion-button *ngIf="type=='salesOrder'&&state!='cancel'" full tappable (click)='cancelOrder()'> 取消订单</button>
+    <button ion-button *ngIf="type=='salesOrder'&&state=='cancel'" full tappable (click)='setToQuotes()'> 设为报价单</button>
+  </ion-toolbar>
 </ion-footer>

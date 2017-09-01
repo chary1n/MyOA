@@ -6,13 +6,18 @@
 -->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>销售信息</ion-title>
-    <ion-buttons end>
-      <button ion-button (click)='save()'>
+  <ion-navbar hideBackButton="true">
+    <ion-buttons left>
+      <button ion-button icon-only (click)="goBack()">
+            <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+          </button>
+    </ion-buttons>
+      <ion-title>销售信息</ion-title>
+      <ion-buttons end>
+        <button ion-button (click)='save()'>
              保存
             </button>
-    </ion-buttons>
+      </ion-buttons>
   </ion-navbar>
 
 </ion-header>
@@ -46,7 +51,7 @@
   </ion-item>
 
   <ion-item>
-    <ion-label >
+    <ion-label>
       客户参考
     </ion-label>
     <ion-input text-right placeholder="请输入客户参考信息" item-end [(ngModel)]="customerInfo">

@@ -234,11 +234,15 @@ export class SalesOrderPage {
     this.isMoreData2 = false;
     this.salesSearvice.searchSalesList(this.searchName2)
       .then(res => {
-        let list = res.result.res_data
-        for (let item of list) {
-          item.amount_total = item.amount_total.toFixed(2)
+        if(res.result&&res.result.res_code==1){
+          let list = res.result.res_data
+          if(list){
+            for (let item of list) {
+              item.amount_total = item.amount_total.toFixed(2)
+            }
+          }
+          this.salesOrder = list
         }
-        this.salesOrder = list
       })
   }
 
@@ -259,7 +263,7 @@ export class SalesOrderPage {
 
   orderDetail2(mid) {
     this.navCtrl.push(SalesDetailPage, {
-      id: mid, type: "salesOrder"
+      id: mid, type: "salesOrder",
     })
 
   }
