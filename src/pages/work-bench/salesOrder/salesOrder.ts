@@ -109,11 +109,7 @@ export class SalesOrderPage {
     this.salesSearvice.getSalesOrder(0, 20, this.userId)
       .then(res => {
         if (res.result && res.result.res_code == 1) {
-          let list = res.result.res_data
-          for (let item of list) {
-            item.amount_total = item.amount_total.toFixed(2)
-          }
-          this.salesOrder = list
+          this.salesOrder   = res.result.res_data
           console.log(this.salesOrder)
         }
       })
@@ -126,11 +122,7 @@ export class SalesOrderPage {
     this.salesSearvice.getSalesOrder(0, 20, this.userId).then((res) => {
       console.log(res)
       refresh.complete();
-      let list = res.result.res_data
-      for (let item of list) {
-        item.amount_total = item.amount_total.toFixed(2)
-      }
-      this.salesOrder = list
+      this.salesOrder   = res.result.res_data
     })
   }
 
@@ -152,7 +144,6 @@ export class SalesOrderPage {
             this.isMoreData2 = false;
           }
           for (let item of item_data) {
-            item.amount_total = item.amount_total.toFixed(2)
             this.salesOrder.push(item);
           }
         }
@@ -235,13 +226,7 @@ export class SalesOrderPage {
     this.salesSearvice.searchSalesList(this.searchName2)
       .then(res => {
         if(res.result&&res.result.res_code==1){
-          let list = res.result.res_data
-          if(list){
-            for (let item of list) {
-              item.amount_total = item.amount_total.toFixed(2)
-            }
-          }
-          this.salesOrder = list
+          this.salesOrder   = res.result.res_data
         }
       })
   }

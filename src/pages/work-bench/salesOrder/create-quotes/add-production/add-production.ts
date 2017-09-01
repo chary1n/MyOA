@@ -98,7 +98,6 @@ export class AddProductionPage {
   change() {
     if (this.mNumber && this.mPrice) {
       this.total = this.mNumber * this.mPrice
-      this.total = this.total.toFixed(2);
     }
   }
 
