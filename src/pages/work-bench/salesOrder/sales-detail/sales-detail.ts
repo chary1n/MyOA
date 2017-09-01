@@ -40,8 +40,6 @@ export class SalesDetailPage {
     this.salesSearvice.getSalesOrderDetail(this.id).then((res) => {
       if (res.result && res.result.res_code == 1) {
         let detail =  res.result.res_data;
-        detail.amount_total =  detail.amount_total.toFixed(2);
-        detail.amount_untaxed = detail.amount_untaxed.toFixed(2);
         this.item =detail
         this.state = detail.state 
         console.log(this.item)
