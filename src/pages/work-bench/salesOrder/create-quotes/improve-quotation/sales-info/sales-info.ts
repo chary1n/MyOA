@@ -26,15 +26,15 @@ export class SalesInfoPage {
   salesTeam: any;
   tagsList: any;
   mImproveQuotationPage;
-  salesManId ;
-  salesInfo ;
+  salesManId;
+  salesInfo;
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private salesSearvice: SalesSearvice, private storage: Storage,
-    private toastCtrl: ToastController,private alertCtrl :AlertController) {
-      this.mImproveQuotationPage = Utils.getViewController("ImproveQuotationPage", navCtrl);
-      
+    private toastCtrl: ToastController, private alertCtrl: AlertController) {
+    this.mImproveQuotationPage = Utils.getViewController("ImproveQuotationPage", navCtrl);
+
     this.salesSearvice.getTagsList().then(res => {
       this.tagsList = res.result.res_data
     })
@@ -52,18 +52,18 @@ export class SalesInfoPage {
   }
   ionViewDidLoad() {
     console.log('ionViewDidLoad SalesInfoPage');
-   
+
   }
 
-  ionViewDidEnter(){
-    let  self = this ;
+  ionViewDidEnter() {
+    let self = this;
     self.initView()
   }
 
-  initView(){
+  initView() {
     this.salesInfo = this.navParams.get("salesInfo");
     console.log(this.salesInfo)
-    if(this.salesInfo){
+    if (this.salesInfo) {
       this.salesManId = this.salesInfo.salesMan
       this.tag = this.salesInfo.tags
       this.salesTeam = this.salesInfo.team
@@ -72,8 +72,8 @@ export class SalesInfoPage {
     }
   }
 
-  goBack(){
-    if(this.salesManId||this.tag||this.salesTeam||this.customerInfo||this.analyAccount){
+  goBack() {
+    if (this.salesManId || this.tag || this.salesTeam || this.customerInfo || this.analyAccount) {
       this.alertCtrl.create({
         title: '提示',
         subTitle: '已输入内容，是否确认返回？',
@@ -99,13 +99,13 @@ export class SalesInfoPage {
     }
     if (mString != "") {
       Utils.toastButtom(mString, this.toastCtrl)
-    }else{
-      this.mImproveQuotationPage.data.salesInfo = { 
-        salesMan:this.salesManId,
-        tags :this.tag,
-        team:this.salesTeam,
-        customerRefer :this.customerInfo ,
-        analytic_account :this.analyAccount
+    } else {
+      this.mImproveQuotationPage.data.salesInfo = {
+        salesMan: this.salesManId,
+        tags: this.tag,
+        team: this.salesTeam,
+        customerRefer: this.customerInfo,
+        analytic_account: this.analyAccount
       }
       this.navCtrl.pop();
     }
