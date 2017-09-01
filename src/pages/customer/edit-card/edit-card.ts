@@ -21,6 +21,7 @@ declare let cordova: any;
 export class EditCardPage {
   @ViewChild('scroll') scrollElement: any;
   companyName:any;
+  webName:any;
   cardName:any;
   telephoneName:any;
   departmentName:any;
@@ -119,6 +120,7 @@ export class EditCardPage {
 
   reloadView(){
     this.cardName = this.item.displayName;
+    this.webName = this.item.web_site;
     this.telephoneName = this.item.all_phonenumers;
     this.departmentName = this.item.departmentName;
     this.emailName = this.item.email;
@@ -201,6 +203,7 @@ export class EditCardPage {
   save_camcard(){
     let self = this;   
      this.item.displayName = this.cardName ;
+     this.item.web_site = this.webName;
      this.item.phoneNumber = this.telephoneName;
      this.item.departmentName = this.departmentName;
      this.item.email = this.emailName;

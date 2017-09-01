@@ -39,6 +39,10 @@ md="md-arrow-back"></ion-icon>
       <ion-textarea item-end class="input_class" [(ngModel)]="companyName" text-right></ion-textarea>
     </ion-item>
     <ion-item>
+      <ion-label style="color:black" class="label_class">网址</ion-label>
+      <ion-input item-end text-wrap class="input_class" [(ngModel)]="webName" text-right></ion-input>
+    </ion-item>
+    <ion-item>
       <ion-label  class="label_class">国家</ion-label>
       <ion-label item-end text-wrap tappable (click) = 'clickCountry()' style="margin-right:15px;" class="text_class">{{countryName}}</ion-label>
     </ion-item>

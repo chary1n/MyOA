@@ -281,6 +281,7 @@ export class CamCardPage {
         type:'',
         jobtitle:'',
         all_phonenumers:'',
+        web_site:'',
       };  
       
       obj.sale_team = this.saleteam_name ? this.saleteam_name : '';
@@ -313,6 +314,11 @@ export class CamCardPage {
         } else if (contacts[i]._objectInstance.name != null && contacts[i]._objectInstance.name.formatted != null) {
           obj.displayName = contacts[i]._objectInstance.name.formatted;
         }
+      }
+
+      if (contacts[i].urls != null)
+      {
+        obj.web_site = contacts[i].urls[0].value;
       }
          
         if (contacts[i].emails != null)

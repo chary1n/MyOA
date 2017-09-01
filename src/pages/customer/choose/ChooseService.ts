@@ -24,7 +24,7 @@ export class ChooseService {
            series_ids:[],
            members:[],
            partner_lv:'', 
-           
+           website:'',
         }
 
         let member = {
@@ -43,6 +43,7 @@ export class ChooseService {
         member.job_title = item.departmentName;
 
         obj.company_id = item.company_id;
+        obj.website = item.web_site;
         obj.saleman_id = item.saleman_id;
         obj.company_name = item.companyName;
         obj.saleteam_id = item.saleteam_id;
