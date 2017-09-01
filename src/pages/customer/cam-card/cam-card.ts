@@ -360,6 +360,7 @@ export class CamCardPage {
       for (var items of contacts[i].phoneNumbers) {
         if (obj.all_phonenumers != '')
         {
+          if (items.type != "work fax")
           obj.all_phonenumers = obj.all_phonenumers +"," + items.value;
         }
         else
