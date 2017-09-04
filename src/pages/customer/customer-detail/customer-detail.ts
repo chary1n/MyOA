@@ -15,6 +15,7 @@ import { ContactListPage} from './../../work-bench/contact-list/contact-list'
 export class CustomerDetailPage {
   items:any;
   biaoqian:any;
+  productName;
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.items = navParams.get('items');
     let tag = '';
@@ -46,7 +47,26 @@ export class CustomerDetailPage {
       priority = " 星级:" + this.items.priority;
     }
     this.biaoqian = tag + level + priority;
+
+    if (this.items.product_series.length > 0)
+    {
+      let index = 0;
+      let name = '';
+      for (var item_pro of this.items.product_series) {
+        if (name != '')
+        {
+          name = name + ',' + item_pro.name; 
+        }
+        else
+        {
+          name = item_pro.name;
+        }
+        index ++;
+      }
+      this.productName = name;
+    }
   }
+
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CustomerDetailPage');
