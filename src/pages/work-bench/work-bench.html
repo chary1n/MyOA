@@ -1,81 +1,138 @@
-
 <ion-header>
   <ion-navbar>
     <ion-title>工作台</ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content test-d>
-<ion-grid>
-<ion-row row-wrap align-items-center>
-      <ion-col col-3 *ngFor='let item of dataSource' tappable (click) = 'click(item)'>
-         <div class="other_incoming_div">
-          <img src = {{item.image}}>
-          <p>{{item.title}}</p>
-        </div>
-      </ion-col>
-      <!--<ion-col>
-        <div class="supplier_div" tappable (click) = 'supplier_clicked()'>
-          <img src="assets/img/apply.png">
-          <p>供应商</p>
-        </div>
-      </ion-col>
-      <ion-col>
-         <div class="supplier_div" tappable (click) = 'order_clicked()'>
-          <img src="assets/img/apply.png">
-          <p>订单</p>
-        </div>
-      </ion-col>
-      <ion-col>
-        <div></div>
-      </ion-col>-->
-    </ion-row>
-</ion-grid>
-
-  <!--<p>
-    |  常用
-  </p>
-  <ion-grid >
-    <ion-row>
-      <ion-col>
-        <div class="one_div" offset-2>
-          <img src="assets/img/apply.png" (click)='edit_detail()'>
-          <p>申 请</p>
-        </div>
-      </ion-col>
-      <ion-col col-6> 
-        <div class="two_div">
-          <img src="assets/img/shenpi.png">
-          <p>审 批</p>
-        </div>
-      </ion-col>
-    </ion-row>
-    
-  </ion-grid>
-
-  <p padding>
-    |  其他
-  </p>
+<ion-content>
+  <div class="externalDiv">
+    <div class="titleFont">常用</div>
+  </div>
   <ion-grid>
     <ion-row>
-      <ion-col>
-        <div class="other_card_div" offset-2 (click)='card_info_clicked()'>
-          <img src="assets/img/apply.png">
-          <p>客 户</p>
-        </div>
+      <ion-col col-3>
+        <img src="assets/img/work_bench/qiandao.png">
+        <div>签到</div>
       </ion-col>
-      <ion-col col-6 (click) = 'incoming_clicked()'> 
-        <div class="other_incoming_div" >
-          <img src="assets/img/shenpi.png">
-          <p>采购入库</p>
-        </div>
+      <ion-col col-3>
+        <img src="assets/img/work_bench/shenqing.png">
+        <div>申请</div>
       </ion-col>
-      <ion-col>
-        <div class="other_card_div">
-          <img src="assets/img/apply.png">
-          <p>供应商</p>
-        </div>
+      <ion-col col-3>
+        <img src="assets/img/work_bench/shenpi.png">
+        <div>审批</div>
       </ion-col>
-    </ion-row> 
-  </ion-grid>-->
+      <ion-col col-3>
+        <img src="assets/img/work_bench/gonggao.png">
+        <div>公告</div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <div class='dividingLine'></div>
+
+<div *ngIf="isShowSale" >
+  <div class="externalDiv">
+    <div class="titleFont">销售</div>
+  </div>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-3>
+        <img src="assets/img/work_bench/yibiaopan.png">
+        <div>仪表盘</div>
+      </ion-col>
+      <ion-col col-3 (click)="camCard()">
+        <img src="assets/img/work_bench/daorumingpian.png">
+        <div>导入名片</div>
+      </ion-col>
+      <ion-col col-3 (click)="customerSearch()">
+        <img src="assets/img/work_bench/kehu.png">
+        <div>客户</div>
+      </ion-col>
+      <ion-col col-3 (click)="ProductionSearch()">
+        <img src="assets/img/work_bench/chanping.png">
+        <div>产品</div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-3 (click)="salesOrder()">
+        <img src="assets/img/work_bench/dingdan.png">
+        <div>订单</div>
+      </ion-col>
+      <ion-col col-3>
+        <img src="assets/img/work_bench/duizhang.png">
+        <div>对账</div>
+      </ion-col>
+      <ion-col col-3>
+        <img src="assets/img/work_bench/tuihuoruku.png">
+        <div>退货入库</div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <div class='dividingLine'></div>
+</div>
+
+  <div *ngIf="isShowPurchase">
+    <div class="externalDiv">
+      <div class="titleFont">采购</div>
+    </div>
+    <ion-grid>
+      <ion-row>
+        <ion-col col-3>
+          <img src="assets/img/work_bench/yibiaopan.png">
+          <div>仪表盘</div>
+        </ion-col>
+        <ion-col col-3 (click)="supplierList()">
+          <img src="assets/img/work_bench/gongyingshang.png">
+          <div>供应商</div>
+        </ion-col>
+        <ion-col col-3 (click)="ProductionSearch()">
+          <img src="assets/img/work_bench/chanping.png">
+          <div>产品</div>
+        </ion-col>
+        <ion-col col-3 (click)="purchaseOrder()">
+          <img src="assets/img/work_bench/dingdan.png">
+          <div>订单</div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-3>
+          <img src="assets/img/work_bench/duizhang.png">
+          <div>对账</div>
+        </ion-col>
+        <ion-col col-3 (click)="clickInComingWareHouse()">
+          <img src="assets/img/work_bench/ruku.png">
+          <div>入库</div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <div class='dividingLine'></div>
+  </div>
+
+<div *ngIf="isHR" >
+
+
+  <div class="externalDiv">
+    <div class="titleFont">人事</div>
+  </div>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-3>
+        <img src="assets/img/work_bench/ruzhi.png">
+        <div>入职</div>
+      </ion-col>
+      <ion-col col-3>
+        <img src="assets/img/work_bench/yuangong.png">
+        <div>员工</div>
+      </ion-col>
+      <ion-col col-3>
+        <img src="assets/img/work_bench/heyue.png">
+        <div>合约</div>
+      </ion-col>
+      <ion-col col-3>
+        <img src="assets/img/work_bench/lizhidan.png">
+        <div>离职单</div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</div>
 </ion-content>

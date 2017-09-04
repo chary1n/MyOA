@@ -1,3 +1,36 @@
 page-work-bench {
-    
+
+    .externalDiv{
+        margin-top: 20px ;
+        height: 20px ;
+    }
+
+    .titleFont{
+        height: 20px;
+        font-size: 15px;
+        color: #3A3A3A;
+        letter-spacing: -0.34px;
+        margin-left: 15px;
+        display: inline-block;
+        border-left: 3px solid #4fc3f7;
+        padding-left: 10px;
+        font-weight: bold;
+        
+    }
+    ion-col {
+       text-align: center ;
+    }
+    ion-col div{
+        margin-top: 3px ;
+    }
+
+    ion-row{
+        margin-top: 10px;
+    }
+
+    .dividingLine{
+        background:#EAE9E9;
+        height: 10px;
+        width: 100% ;
+    }
 }
