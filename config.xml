@@ -55,7 +55,6 @@
     </platform>
     <platform name="ios">
         <allow-intent href="market:*" />
-        <name>OA</name>
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
         <icon height="57" src="resources/ios/icon/icon.png" width="57" />
