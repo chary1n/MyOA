@@ -34,7 +34,7 @@
             </div>
           </ion-col>
           <ion-col>
-            <div><button (click)='searchClick1()' style="height:40px;font-size:15px;font-weight:bold;background-color:white">搜索</button></div>
+            <div><button (click)='searchClick1()' class="searchFont">搜索</button></div>
           </ion-col>
         </ion-row>
       </ion-grid>
@@ -43,7 +43,7 @@
       </ion-refresher>
       <ion-list>
         <ion-item *ngFor='let item of orderMRP' tappable (click)='orderDetail(item.id)'>
-          <p text-wrap style="font-size:100%;float:right;color:#fc6621;">由MRP生成</p>
+          <p text-wrap class="rightStateFont">由MRP生成</p>
           <h2 text-wrap>{{item.name}}</h2>
           <h4 text-wrap style="font-size:70%;word-break:break-all">{{item.order_line}}</h4>
           <p text-wrap>负责人：{{item.creater}}</p>
@@ -69,7 +69,7 @@
             </div>
           </ion-col>
           <ion-col>
-            <div><button (click)='searchClick2()' style="height:40px;font-size:15px;font-weight:bold;background-color:white">搜索</button></div>
+            <div><button (click)='searchClick2()' class="searchFont">搜索</button></div>
           </ion-col>
         </ion-row>
       </ion-grid>
@@ -78,7 +78,7 @@
       </ion-refresher>
       <ion-list>
         <ion-item *ngFor='let item of priceOrder' tappable (click)='orderDetail(item.id)'>
-          <p text-wrap style="font-size:100%;float:right;color:#fc6621;">询价单</p>
+          <p text-wrap class="rightStateFont">询价单</p>
           <h2 text-wrap >{{item.name}}</h2>
           <h4 text-wrap >{{item.order_line}}</h4>
           <p text-wrap >负责人：{{item.creater}}</p>
@@ -102,7 +102,7 @@
             </div>
           </ion-col>
           <ion-col>
-            <div><button (click)='searchClick3()' style="height:40px;font-size:15px;font-weight:bold;background-color:white">搜索</button></div>
+            <div><button (click)='searchClick3()' class="searchFont">搜索</button></div>
           </ion-col>
         </ion-row>
       </ion-grid>
@@ -111,7 +111,7 @@
       </ion-refresher>
       <ion-list>
         <ion-item *ngFor='let item of incomingOrder' tappable (click)='orderDetailShowNumber(item.id)'>
-          <p text-wrap style="font-size:100%;float:right;color:#fc6621;">采购确认</p>
+          <p text-wrap class="rightStateFont">采购确认</p>
           <h2 text-wrap >{{item.name}}</h2>
           <h4 text-wrap >{{item.order_line}}</h4>
           <p text-wrap >负责人：{{item.creater}}</p>
@@ -134,7 +134,7 @@
             </div>
           </ion-col>
           <ion-col>
-            <div><button (click)='returnOrderSearchClick()' style="height:40px;font-size:15px;font-weight:bold;background-color:white">搜索</button></div>
+            <div><button (click)='returnOrderSearchClick()' class="searchFont">搜索</button></div>
           </ion-col>
         </ion-row>
       </ion-grid>
@@ -143,7 +143,7 @@
       </ion-refresher>
       <ion-list>
         <ion-item *ngFor='let item of returnOrder' tappable (click)='returnOrderDetail(item.id)'>
-          <p  text-wrap style="font-size:100%;float:right;color:#fc6621;">退货单</p>
+          <p  text-wrap class="rightStateFont">退货单</p>
           <h2 text-wrap >{{item.name}}</h2>
           <h4 text-wrap >{{item.order_line}}</h4>
           <p text-wrap >退货日期：{{item.date}}</p>
