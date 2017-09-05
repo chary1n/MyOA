@@ -59,6 +59,7 @@
         "cordova-plugin-http": "^1.2.0",
         "cordova-plugin-image-picker": "^1.1.3",
         "cordova-plugin-inappbrowser": "^1.7.1",
+        "cordova-plugin-jcore": "^1.1.8",
         "cordova-plugin-network-information": "^1.3.3",
         "cordova-plugin-splashscreen": "^4.0.3",
         "cordova-plugin-statusbar": "^2.2.3",
@@ -71,6 +72,7 @@
         "ionic-angular": "^3.6.0",
         "ionic-plugin-keyboard": "^2.2.1",
         "ionicons": "3.0.0",
+        "jpush-phonegap-plugin": "git+https://github.com/jpush/jpush-phonegap-plugin.git",
         "mute-stream": "0.0.7",
         "mx.ferreyra.callnumber": "~0.0.2",
         "ng2-tree": "^2.0.0-alpha.10",
@@ -119,7 +121,10 @@
             "phonegap-plugin-barcodescanner": {
                 "CAMERA_USAGE_DESCRIPTION": " "
             },
-            "cordova-plugin-datepicker": {}
+            "cordova-plugin-datepicker": {},
+            "jpush-phonegap-plugin": {
+                "APP_KEY": "f2ae889d6e4c3400fef49696"
+            }
         },
         "dependencies": {
             "@angular/common": "4.1.3",
