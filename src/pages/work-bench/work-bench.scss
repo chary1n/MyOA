@@ -23,6 +23,10 @@ page-work-bench {
     ion-col div{
         margin-top: 3px ;
     }
+    ion-col img{
+        width: 50px;
+        height: 50px;
+    }
 
     ion-row{
         margin-top: 10px;
@@ -33,4 +37,6 @@ page-work-bench {
         height: 10px;
         width: 100% ;
     }
+
+
 }

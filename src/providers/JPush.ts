@@ -62,7 +62,7 @@ export class JPush {
       console.log(result);
     }, false);
 
-    // this.setAlias(123);
+    // this.setAlias(124);
 
   }
 
