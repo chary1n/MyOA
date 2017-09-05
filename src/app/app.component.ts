@@ -6,17 +6,19 @@ import { Platform,AlertController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { AppVersion } from '@ionic-native/app-version';
 import { SplashScreen } from '@ionic-native/splash-screen';
+// import { JPushPlugin } from '@ionic-native/jpush';
 
 
 import { LoginPage } from '../pages/login/login';
 import { HttpService } from '../providers/HttpService'
+import { JPush} from '../providers/JPush'
 import { HttpModule } from "@angular/http";
 import { FirService} from './FirService';
 import {InAppBrowser} from '@ionic-native/in-app-browser';
 
 @Component({
   templateUrl: 'app.html',
-  providers: [FirService]
+  providers: [FirService,JPush]
 })
 export class MyApp {
   rootPage: any = LoginPage;
@@ -25,9 +27,10 @@ export class MyApp {
   constructor(public platform: Platform, statusBar: StatusBar,
     splashScreen: SplashScreen, private appVersion: AppVersion,
     private nativeService: NativeService,public firService:FirService, private alertCtrl: AlertController,
-    private inAppBrowser: InAppBrowser, private storage: Storage) {
+    private inAppBrowser: InAppBrowser, private storage: Storage,public jpush: JPush) {
      
     platform.ready().then(() => {
+      this.jpush.initJpush();
       storage.get('user')
       .then(res => {
        this.user_env = res.result.res_data
@@ -92,7 +95,15 @@ export class MyApp {
     this.inAppBrowser.create(url, '_system');
   }
 
-
+  // jPushInit(){
+  //   //初始化极光
+  //   this.jpush.init().then(res => { console.log(res) });
+    
+  //   //收到通知时会触发该事件。
+  //   document.addEventListener("jpush.receiveNotification", function (event) {
+  //       alert( JSON.stringify( event ) );
+  //   }, false);
+  // }
 
 }
 
