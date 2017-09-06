@@ -1,10 +1,9 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { MsgPage } from './msg';
-
 @NgModule({
   declarations: [
-    MsgPage,
+    MsgPage
   ],
   imports: [
     IonicPageModule.forChild(MsgPage),
