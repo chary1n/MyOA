@@ -18,3 +18,16 @@
     font-size: 70%!important;
     color: #605E5E !important;
 }
+.searchBackground{
+    background: #D6D6D6!important;
+}
+
+.divLine{
+    width: 100%;
+    height: 1px;
+    background: #D6D6D6;
+}
+
+ion-list ion-col{
+    font-size: 80%;
+}

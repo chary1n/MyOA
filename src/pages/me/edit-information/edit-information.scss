@@ -4,6 +4,19 @@ page-edit-information {
     text-align: right;
     padding-right: 10px;
   }
+  img{
+    border-radius:50px; 
+  
+  }
+  ion-img{
+    width: 100px ;
+    height: 100px ;
+  }
+
+  ion-item ion-label{
+    white-space: normal!important ;
+    font-size: 80%;
+  }
  
 
 }

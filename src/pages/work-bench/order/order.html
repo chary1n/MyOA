@@ -47,10 +47,10 @@
           <h2 text-wrap>{{item.name}}</h2>
           <h4 text-wrap style="font-size:70%;word-break:break-all">{{item.order_line}}</h4>
           <p text-wrap>负责人：{{item.creater}}</p>
-          <p text-wrap style="float:right;color:#1e1e1e;font-weight:bold;font-size:70%;">汇总数量：{{item.amount_total}}</p>
+          <p text-wrap class="totalStyleRight">汇总数量:  {{item.amount_total}}</p>
           <p text-wrap>供应商 ：{{item.supplier}}</p>
 
-          <p text-wrap style="float:right">汇总金额 :{{item.product_count}}</p>
+          <p text-wrap class="totalStyleRight">汇总金额:  {{item.product_count}}</p>
         </ion-item>
       </ion-list>
 
@@ -82,9 +82,9 @@
           <h2 text-wrap >{{item.name}}</h2>
           <h4 text-wrap >{{item.order_line}}</h4>
           <p text-wrap >负责人：{{item.creater}}</p>
-          <p text-wrap  style="float:right;color:#1e1e1e;font-weight:bold;font-size:70%;">汇总数量：{{item.amount_total}}</p>
+          <p text-wrap class="totalStyleRight">汇总数量：{{item.amount_total}}</p>
           <p text-wrap >供应商 ：{{item.supplier}}</p>
-          <p text-wrap style="float:right">汇总金额 :{{item.product_count}}</p>
+          <p text-wrap class="totalStyleRight">汇总金额 :{{item.product_count}}</p>
         </ion-item>
       </ion-list>
 
@@ -115,9 +115,9 @@
           <h2 text-wrap >{{item.name}}</h2>
           <h4 text-wrap >{{item.order_line}}</h4>
           <p text-wrap >负责人：{{item.creater}}</p>
-          <p text-wrap  style="float:right;color:#1e1e1e;font-weight:bold;font-size:70%;">汇总数量：{{item.amount_total}}</p>
+          <p text-wrap class="totalStyleRight">汇总数量：{{item.amount_total}}</p>
           <p text-wrap >供应商 ：{{item.supplier}}</p>
-          <p text-wrap style="float:right">汇总金额 :{{item.product_count}}</p>
+          <p text-wrap class="totalStyleRight">汇总金额 :{{item.product_count}}</p>
         </ion-item>
       </ion-list>
       <ion-infinite-scroll (ionInfinite)="doInfinite3($event)">
@@ -147,7 +147,7 @@
           <h2 text-wrap >{{item.name}}</h2>
           <h4 text-wrap >{{item.order_line}}</h4>
           <p text-wrap >退货日期：{{item.date}}</p>
-          <p text-wrap  style="float:right;color:#1e1e1e;font-weight:bold;font-size:70%;">退货金额：{{item.amount_total}}</p>
+          <p text-wrap  class="totalStyleRight">退货金额：{{item.amount_total}}</p>
           <p text-wrap >供应商 ：{{item.supplier}}</p>
           <p text-wrap >退货原因 :{{item.remark}}</p>
         </ion-item>
