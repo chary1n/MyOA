@@ -1,5 +1,5 @@
 import { Component,ViewChild} from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams,AlertController } from 'ionic-angular';
 import { ChoosePage } from './../choose/choose';
 import { Utils } from './../../../providers/Utils';
 import { ProductlistPage} from './../productlist/productlist'
@@ -40,7 +40,7 @@ export class EditCardPage {
   index:any;
   index_group:any;
   sourceArr:any;
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,private alertCtrl: AlertController) {
     this.camPage = Utils.getViewController("CamCardPage", navCtrl)
     this.item = this.navParams.get('item');
     this.index = this.navParams.get('index');
@@ -209,10 +209,26 @@ export class EditCardPage {
      this.item.email = this.emailName;
      this.item.address = this.addressName;
      this.item.companyName = this.companyName;
-    this.sourceArr[this.index_group].value[this.index] = this.item; 
-    // alert(this.telephoneName);
-    self.camPage.formatContacts = this.sourceArr;
-    self.navCtrl.popTo(self.camPage);
+     
+    if (this.item.companyName.length > 0)
+    {
+      this.sourceArr[this.index_group].value[this.index] = this.item;
+      self.camPage.formatContacts = this.sourceArr;
+      self.navCtrl.popTo(self.camPage);
+    }
+    else
+    {
+      this.alertCtrl.create({
+                  title: '提示',
+                  subTitle: '请输入公司名',
+                  buttons: [
+                 {
+                    text: '确定',
+             }
+      ]
+    }).present();
+    }
+    
   }
 
   panEvent($event){

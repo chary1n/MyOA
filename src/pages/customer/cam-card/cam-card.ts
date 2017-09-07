@@ -118,7 +118,16 @@ export class CamCardPage {
 
     if (resultArr.length > 0)
     {
-      this.chooseService.add_partners(resultArr).then(res => {
+      let isCompanyEmpty = true;
+
+      for (var result of resultArr) {
+        if (result.companyName.length <= 0) {
+          isCompanyEmpty = false;
+        }
+      } 
+      if (isCompanyEmpty)
+      {
+        this.chooseService.add_partners(resultArr).then(res => {
       if (res.result){
         this.chooseCount = 0;
         this.alertCtrl.create({
@@ -181,6 +190,21 @@ export class CamCardPage {
         }
       }
     });
+      }
+      else
+      {
+        this.alertCtrl.create({
+                  title: '提示',
+                  subTitle: '请确保选择导入的名片的公司名填写',
+                  buttons: [
+                 {
+                    text: '确定',
+             }
+      ]
+    }).present();
+      }
+
+      
     }
     else
     {
