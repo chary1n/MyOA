@@ -215,7 +215,7 @@ export class SalesOrderPage {
 
   searchClick1() {
     this.isMoreData1 = false;
-    this.salesSearvice.searchQuotesList(this.searchName1)
+    this.salesSearvice.searchQuotesList(this.searchName1,this.userId)
       .then(res => {
         this.quotesOrder = res.result.res_data
       })
@@ -223,7 +223,7 @@ export class SalesOrderPage {
 
   searchClick2() {
     this.isMoreData2 = false;
-    this.salesSearvice.searchSalesList(this.searchName2)
+    this.salesSearvice.searchSalesList(this.searchName2,this.userId)
       .then(res => {
         if(res.result&&res.result.res_code==1){
           this.salesOrder   = res.result.res_data
@@ -234,7 +234,7 @@ export class SalesOrderPage {
 
   searchClick3() {
     this.isMoreData3 = false;
-    this.salesSearvice.searchSalesReturnList(this.searchName3)
+    this.salesSearvice.searchSalesReturnList(this.searchName3,this.userId)
       .then(res => {
         this.salesReturnOrder = res.result.res_data
       })

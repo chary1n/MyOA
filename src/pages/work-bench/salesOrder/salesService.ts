@@ -47,28 +47,31 @@ export class SalesSearvice {
     }
 
 
-    searchQuotesList(number) {
+    searchQuotesList(number,id) {
         let body = JSON.stringify({
             name: number,
             model: "sale.order",
-            state: "draft"
+            state: "draft",
+            user_id: id
         });
         return this.httpservice.postBody("search_sale_orders", body);
     }
 
-    searchSalesList(number) {
+    searchSalesList(number,id) {
         let body = JSON.stringify({
             name: number,
             model: "sale.order",
-            state: "purchase"
+            state: "purchase",
+            user_id: id
         });
         return this.httpservice.postBody("search_sale_orders", body);
     }
 
-    searchSalesReturnList(number) {
+    searchSalesReturnList(number,id) {
         let body = JSON.stringify({
             name: number,
             model: "return.goods",
+            user_id: id
         });
         return this.httpservice.postBody("search_sale_orders", body);
     }
