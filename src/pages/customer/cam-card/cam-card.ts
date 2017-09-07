@@ -49,10 +49,7 @@ export class CamCardPage {
           }
           this.saleman_id = res.result.res_data.user_id;
           this.saleman_name = res.result.res_data.name;
-        } 
-      });
-
-    let options = new ContactFindOptions();  
+          let options = new ContactFindOptions();  
       let fields: ContactFieldType[];  
       fields = ["displayName", "phoneNumbers"];  
       options.filter = "";  
@@ -68,6 +65,10 @@ export class CamCardPage {
         }
         this.dealWithList(this.nameList);
       });  
+        } 
+      });
+
+    
   }
 
   ionViewDidLoad() {
