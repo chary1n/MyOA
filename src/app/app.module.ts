@@ -48,10 +48,10 @@ import { DatePicker } from '@ionic-native/date-picker';
     IonicModule.forRoot(MyApp),
     HttpModule,
     IonicStorageModule.forRoot(),
-    MePageModule,
-    ContactPersonPageModule,
-    WorkBenchPageModule,
-    MsgPageModule,
+    // MePageModule,
+    // ContactPersonPageModule,
+    // WorkBenchPageModule,
+    // MsgPageModule,
     TabsPageModule,
     LoginPageModule,TreeModule
 

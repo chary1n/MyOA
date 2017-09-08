@@ -21,7 +21,7 @@ import {InAppBrowser} from '@ionic-native/in-app-browser';
   providers: [FirService,JPush]
 })
 export class MyApp {
-  rootPage: any = LoginPage;
+  rootPage: any = 'LoginPage';
   version: any;
   user_env: any;
   constructor(public platform: Platform, statusBar: StatusBar,
