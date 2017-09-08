@@ -93,7 +93,7 @@ export class MePage {
   }
 
   editInformation(){
-    this.navCtrl.push(EditInformationPage)
+    this.navCtrl.push("EditInformationPage")
   }
 
 }
