@@ -9,8 +9,8 @@ import { EditInformationPage } from './edit-information';
   imports: [
     IonicPageModule.forChild(EditInformationPage),
   ],
-  exports: [
-    EditInformationPage
-  ]
+  // exports: [
+  //   EditInformationPage
+  // ]
 })
 export class EditInformationPageModule {}

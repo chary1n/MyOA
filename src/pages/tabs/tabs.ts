@@ -19,10 +19,17 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class TabsPage {
   @ViewChild('mainTabs') tabs:Tabs;
+<<<<<<< HEAD
   meRoot :any ='MePage';
   msgRoot:any = 'MsgPage';
   workRoot :any = 'WorkBenchPage';
   contactRoot  = 'ContactPersonPage' ;
+=======
+  meRoot :any ="MePage";
+  msgRoot:any = MsgPage;
+  workRoot :any = WorkBenchPage;
+  contactRoot  = ContactPersonPage ;
+>>>>>>> 2ca99e8347d78b359acd99d303f325f8b70ae297
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }

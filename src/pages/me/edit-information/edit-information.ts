@@ -89,7 +89,7 @@ export class EditInformationPage {
   }
 
   toPhoneNumberPage() {
-    this.navCtrl.push(PhoneNumberPage);
+    this.navCtrl.push("PhoneNumberPage");
   }
 
   getPicture(type) {//1拍照,0从图库选择

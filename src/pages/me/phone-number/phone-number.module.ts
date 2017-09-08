@@ -9,8 +9,8 @@ import { PhoneNumberPage } from './phone-number';
   imports: [
     IonicPageModule.forChild(PhoneNumberPage),
   ],
-  exports: [
-    PhoneNumberPage
-  ]
+  // exports: [
+  //   PhoneNumberPage
+  // ]
 })
 export class PhoneNumberPageModule {}
