@@ -31,3 +31,8 @@
 ion-list ion-col{
     font-size: 80%;
 }
+
+.right_label{
+    font-size:70%!important;
+    text-align:right!important;
+}

@@ -1,0 +1,85 @@
+<!--
+  Generated template for the ReimbursementPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>报销</ion-title>
+  </ion-navbar>
+
+  <ion-toolbar no-border-top>
+    <ion-segment [(ngModel)]="pet">
+      <ion-segment-button tappable (click)='clickMyApply()' value="1">
+        我的申请
+      </ion-segment-button>
+      <ion-segment-button tappable (click)='clickWaitMeApply()' value="2">
+        待我审批
+      </ion-segment-button>
+      <ion-segment-button tappable (click)='clickAlreadyApply()' value="3">
+        我已审批
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <div [ngSwitch]="pet">
+
+    <ng-template [ngSwitchCase]='1'>
+      <ion-list>
+        <ion-grid>
+          <ion-row>
+            <ion-col col-2>
+              <img src="">
+            </ion-col>
+            <ion-col col-8>
+              <div>
+                Amy :报销
+              </div>
+              <div>
+                Amy :报销
+              </div>
+              <div>
+                Amy :报销
+              </div>
+              <div>
+                Amy :报销
+              </div>
+            </ion-col>
+            <ion-col col-2>
+              10：00
+              </ion-col>
+          </ion-row>
+        </ion-grid>
+        <!-- <ion-item *ngFor='let item of salesReturnOrder' tappable (click)='orderDetail3(item.id)'>
+          <ion-grid>
+            <ion-row>
+              <ion-col col-6>
+                <div>
+                  <ion-input [(ngModel)]="searchName3" placeholder="输入订单编号" style="margin-left:20px;;"></ion-input>
+                </div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item> -->
+      </ion-list>
+    </ng-template>
+
+    <ng-template [ngSwitchCase]='2'>
+
+    </ng-template>
+
+    <ng-template [ngSwitchCase]='3'>
+    </ng-template>
+
+  </div>
+</ion-content>
+
+<ion-footer>
+  <button ion-button full (click)="apply()"> + 我要申请</button>
+</ion-footer>

@@ -64,6 +64,10 @@ export class LoginPage {
 
   // 登录
   toLogin() {
+    if(this.employee==null){
+      alert("请选择数据库")
+      return
+    }
     this.loginservice.toLogin(this.email, this.password, this.employee)
       .then(res => {
         if (res.result && res.result.res_code == 1) {
