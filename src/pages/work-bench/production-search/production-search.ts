@@ -1,4 +1,4 @@
-import { ProductionDetailPage } from './production-detail/production-detail';
+// import { ProductionDetailPage } from './production-detail/production-detail';
 import { Utils } from './../../../providers/Utils';
 import { SalesSearvice } from './../salesOrder/salesService';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
@@ -91,7 +91,7 @@ export class ProductionSearchPage {
   toDetail(index){
     this.salesSearvice.getProductionDetailById(this.items[index].id).then(res=>{
       if(res.result&&res.result.res_code==1){
-        this.navCtrl.push(ProductionDetailPage,{item :res.result.res_data})
+        this.navCtrl.push('ProductionDetailPage',{item :res.result.res_data})
       }
     });
   }
@@ -115,7 +115,7 @@ export class ProductionSearchPage {
       console.log(barcodeData)
       this.salesSearvice.getProductionDetailByCode(barcodeData.text).then(res => {
         console.log(res)
-        this.navCtrl.push(ProductionDetailPage,{item : res.result.res_data})
+        this.navCtrl.push('ProductionDetailPage',{item : res.result.res_data})
       })
     }, (err) => {
       // An error occurred

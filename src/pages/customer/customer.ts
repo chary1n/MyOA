@@ -303,7 +303,7 @@ export class CustomerPage {
       console.log(res);
       if(res.result&&res.result.res_code==1){
         console.log(res);
-        this.navCtrl.push(XiansuoDetailPage,{
+        this.navCtrl.push('XiansuoDetailPage',{
            items:res.result.res_data
         });
       }
@@ -316,7 +316,7 @@ export class CustomerPage {
     this.customerService.customer_details(item.id).then((res) => {
       if(res.result&&res.result.res_code==1){
         console.log(res);
-        this.navCtrl.push(CustomerDetailPage,{
+        this.navCtrl.push('CustomerDetailPage',{
            items:res.result.res_data
         });
       }
@@ -327,7 +327,7 @@ export class CustomerPage {
     this.customerService.customer_details(item.id).then((res) => {
       if(res.result&&res.result.res_code==1){
         console.log(res);
-        this.navCtrl.push(CustomerDetailPage,{
+        this.navCtrl.push('CustomerDetailPage',{
            items:res.result.res_data
         });
       }
@@ -338,7 +338,7 @@ export class CustomerPage {
     this.customerService.customer_details(item.id).then((res) => {
       if(res.result&&res.result.res_code==1){
         console.log(res);
-        this.navCtrl.push(CustomerDetailPage, {
+        this.navCtrl.push('CustomerDetailPage', {
           items: res.result.res_data
         });
       }

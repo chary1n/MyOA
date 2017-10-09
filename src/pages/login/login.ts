@@ -49,6 +49,15 @@ export class LoginPage {
         console.log(res);
         if (res != null) {
           this.navCtrl.setRoot('TabsPage');
+
+            this.loginservice.toLogin(this.email, this.password, this.employee)
+        .then(res => {
+        console.log(res);
+        if (res.result && res.result.res_code == 1) {
+            this.storage.set("user", res).then(() => {
+          });
+        }
+      })
         } else {
           this.getdbInfo();
         }
@@ -70,6 +79,7 @@ export class LoginPage {
     }
     this.loginservice.toLogin(this.email, this.password, this.employee)
       .then(res => {
+        console.log(res);
         if (res.result && res.result.res_code == 1) {
           this.storage.set("user", res).then(() => {
              this.navCtrl.setRoot('TabsPage');

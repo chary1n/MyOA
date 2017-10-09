@@ -1,5 +1,5 @@
-import { ReturnOrderDetailPage } from './../return-order-detail/return-order-detail';
-import { OrderDetailPage } from './../order-detail/order-detail';
+// import { ReturnOrderDetailPage } from './../return-order-detail/return-order-detail';
+// import { OrderDetailPage } from './../order-detail/order-detail';
 import { orderService } from './orderService';
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
@@ -260,7 +260,7 @@ export class OrderPage {
     this.orderService.requestOrderDetail(id)
       .then(res => {
         if (res.result && res.result.res_code == 1) {
-          this.navCtrl.push(OrderDetailPage, {
+          this.navCtrl.push('OrderDetailPage', {
             item: res.result,
             showNumber :false 
           })
@@ -273,7 +273,7 @@ export class OrderPage {
     this.orderService.requestOrderDetail(id)
       .then(res => {
         if (res.result && res.result.res_code == 1) {
-          this.navCtrl.push(OrderDetailPage, {
+          this.navCtrl.push('OrderDetailPage', {
             item: res.result,
             showNumber :true 
           })
@@ -285,7 +285,7 @@ export class OrderPage {
     this.orderService.requestReturnOrderDetail(id)
       .then(res => {
         if (res.result && res.result.res_code == 1) {
-          this.navCtrl.push(ReturnOrderDetailPage, {
+          this.navCtrl.push('ReturnOrderDetailPage', {
             item: res.result,
             id:id,
           })

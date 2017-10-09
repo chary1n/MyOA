@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { SupplierlistService } from './supplierlistService';
 import { LoadingController } from 'ionic-angular';
-import { SupplierDetailPage } from './../supplier-detail/supplier-detail'
+// import { SupplierDetailPage } from './../supplier-detail/supplier-detail'
 import { CompleteTestService } from './supplierauto-service';
 /**
  * Generated class for the SupplierListPage page.
@@ -10,7 +10,7 @@ import { CompleteTestService } from './supplierauto-service';
  * See http://ionicframework.com/docs/components/#navigation for more info
  * on Ionic pages and navigation.
  */
-// @IonicPage()
+@IonicPage()
 @Component({
   selector: 'page-supplier-list',
   templateUrl: 'supplier-list.html',
@@ -46,11 +46,12 @@ export class SupplierListPage {
     })
   }
 
+
   supplier_detail(id) {
       this.supplierService.getSupplierDetai(this.limit, this.offset, id).then((res) => {
         console.log(res)
         this.items_detail = res.result.res_data;
-        this.navCtrl.push(SupplierDetailPage, {
+        this.navCtrl.push('SupplierDetailPage', {
           items: this.items_detail,
         });
       })

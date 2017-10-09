@@ -263,7 +263,7 @@ export class CamCardPage {
   calling(item,g,i)
   {
     // alert(item.phoneNumber);
-    this.navCtrl.push(EditCardPage, {
+    this.navCtrl.push('EditCardPage', {
       item:item,
       index:i,
       index_group:g,
