@@ -37,7 +37,8 @@ import { HttpModule } from "@angular/http";
 import { IonicStorageModule } from '@ionic/storage';
 import { MsgPage } from './../pages/msg/msg';
 import { DatePicker } from '@ionic-native/date-picker';
-
+import { SupplierListPage} from '../pages/work-bench/supplier-list/supplier-list'
+// import { AutocompleteServiceProvider } from '../providers/autocomplete-service/autocomplete-service';
 
 @NgModule({
   declarations: [
@@ -48,12 +49,12 @@ import { DatePicker } from '@ionic-native/date-picker';
     IonicModule.forRoot(MyApp),
     HttpModule,
     IonicStorageModule.forRoot(),
-    // MePageModule,
-    // ContactPersonPageModule,
-    // WorkBenchPageModule,
-    // MsgPageModule,
+    MePageModule,
+    ContactPersonPageModule,
+    WorkBenchPageModule,
+    MsgPageModule,
     TabsPageModule,
-    LoginPageModule,TreeModule
+    LoginPageModule,TreeModule,
 
   ],
   bootstrap: [IonicApp],
@@ -78,7 +79,7 @@ import { DatePicker } from '@ionic-native/date-picker';
     GlobalData,
     Utils,
     BarcodeScanner,
-    DatePicker
+    DatePicker,
   ]
 })
 export class AppModule { }

@@ -32,6 +32,7 @@ import { BiaoQianPage } from './../customer/biao-qian/biao-qian';
 import { CustomerDetailPage } from './../customer/customer-detail/customer-detail';
 import { XiansuoDetailPage } from './../customer/xiansuo-detail/xiansuo-detail';
 import { MsgDetailPage } from './../msg/msg-detail/msg-detail';
+import { AutoCompleteModule } from 'ionic2-auto-complete';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,7 @@ import { MsgDetailPage } from './../msg/msg-detail/msg-detail';
     XiansuoDetailPage,MsgDetailPage
   ],
   imports: [
-    IonicPageModule.forChild(WorkBenchPage),SalesOrderPageModule,ProductionSearchPageModule
+    IonicPageModule.forChild(WorkBenchPage),SalesOrderPageModule,ProductionSearchPageModule,AutoCompleteModule,
 
   ],
   entryComponents:[ WorkBenchPage,CardinfoPage,IncomingPage,IncomingDetailPage,

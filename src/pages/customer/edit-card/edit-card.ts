@@ -66,6 +66,7 @@ export class EditCardPage {
   }
 
   clickCountry(){
+    this.saveInput();
     this.navCtrl.push(ChoosePage, {
       items:this.item,
       type:'country',
@@ -210,7 +211,9 @@ export class EditCardPage {
      this.item.address = this.addressName;
      this.item.companyName = this.companyName;
      
-    if (this.item.companyName.length > 0)
+     if (this.item.companyName)
+     {
+        if (this.item.companyName.length > 0)
     {
       this.sourceArr[this.index_group].value[this.index] = this.item;
       self.camPage.formatContacts = this.sourceArr;
@@ -228,7 +231,31 @@ export class EditCardPage {
       ]
     }).present();
     }
+     }
+     else
+     {
+        this.alertCtrl.create({
+                  title: '提示',
+                  subTitle: '请输入公司名',
+                  buttons: [
+                 {
+                    text: '确定',
+             }
+      ]
+    }).present();
+     }
     
+    
+  }
+
+  saveInput(){
+     this.item.displayName = this.cardName ;
+     this.item.web_site = this.webName;
+     this.item.phoneNumber = this.telephoneName;
+     this.item.departmentName = this.departmentName;
+     this.item.email = this.emailName;
+     this.item.address = this.addressName;
+     this.item.companyName = this.companyName;
   }
 
   panEvent($event){

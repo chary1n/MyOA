@@ -122,7 +122,15 @@ export class CamCardPage {
       let isCompanyEmpty = true;
 
       for (var result of resultArr) {
-        if (result.companyName.length <= 0) {
+        if (result.companyName)
+        {
+          if (result.companyName.length <= 0) 
+          {
+            isCompanyEmpty = false;
+          }
+        }
+        else
+        {
           isCompanyEmpty = false;
         }
       } 

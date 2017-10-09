@@ -3,18 +3,18 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { SupplierlistService } from './supplierlistService';
 import { LoadingController } from 'ionic-angular';
 import { SupplierDetailPage } from './../supplier-detail/supplier-detail'
-
+import { CompleteTestService } from './supplierauto-service';
 /**
  * Generated class for the SupplierListPage page.
  *
  * See http://ionicframework.com/docs/components/#navigation for more info
  * on Ionic pages and navigation.
  */
-@IonicPage()
+// @IonicPage()
 @Component({
   selector: 'page-supplier-list',
   templateUrl: 'supplier-list.html',
-  providers: [SupplierlistService]
+  providers: [SupplierlistService,CompleteTestService]
 })
 export class SupplierListPage {
   items_detail: any;
@@ -25,7 +25,7 @@ export class SupplierListPage {
   searchName:any;
   isSearch = false;
   constructor(public navCtrl: NavController, 
-    public navParams: NavParams, public supplierService: SupplierlistService) {
+    public navParams: NavParams, public supplierService: SupplierlistService,public completeTestService: CompleteTestService) {
   }
 
   ionViewDidLoad() {
@@ -35,6 +35,17 @@ export class SupplierListPage {
         this.items = res.result.res_data;
       })
   }
+
+  itemSelected(event)
+  {
+    // this.searchName = '';
+    // console.log(event.name.replace("搜 供应商：",""));
+    // this.isSearch = true;
+    this.supplierService.searchSupplier(event.name.replace("搜 供应商：","")).then((res) => {
+      this.items = res.result.res_data;
+    })
+  }
+
   supplier_detail(id) {
       this.supplierService.getSupplierDetai(this.limit, this.offset, id).then((res) => {
         console.log(res)
@@ -103,5 +114,9 @@ export class SupplierListPage {
     this.supplierService.searchSupplier(this.searchName).then((res) => {
       this.items = res.result.res_data;
     })
+  }
+
+  goBack(){
+    this.navCtrl.pop();
   }
 }
