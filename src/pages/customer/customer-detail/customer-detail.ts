@@ -15,7 +15,7 @@ import { CallNumber } from '@ionic-native/call-number';
   templateUrl: 'customer-detail.html',
   providers:[CallNumber],
 })
-export class CustomerDetailPage {4
+export class CustomerDetailPage {
   items:any;
   biaoqian:any;
   productName;
@@ -76,7 +76,7 @@ export class CustomerDetailPage {4
   }
 
   contact_detail(){
-    this.navCtrl.push(ContactListPage,{
+    this.navCtrl.push('ContactListPage',{
           contactList:this.items.contracts,
        });  
   }

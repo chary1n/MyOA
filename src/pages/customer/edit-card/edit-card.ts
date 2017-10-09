@@ -67,53 +67,53 @@ export class EditCardPage {
 
   clickCountry(){
     this.saveInput();
-    this.navCtrl.push(ChoosePage, {
+    this.navCtrl.push('ChoosePage', {
       items:this.item,
       type:'country',
     });
   }
 
   clickSource(){
-    this.navCtrl.push(ChoosePage, {
+    this.navCtrl.push('ChoosePage', {
       items:this.item,
       type:'source',
     });
   }
 
   clickComefrom(){
-    this.navCtrl.push(ChoosePage, {
+    this.navCtrl.push('ChoosePage', {
       items:this.item,
       type:'comefrom',
     });
   }
 
   clickSeries(){
-    this.navCtrl.push(ProductlistPage, {
+    this.navCtrl.push('ProductlistPage', {
       items:this.item,
     })
   }
 
   clickBiaoQian(){
-    this.navCtrl.push(BiaoQianPage, {
+    this.navCtrl.push('BiaoQianPage', {
       items:this.item,
     })
   }
   clickType(){
-    this.navCtrl.push(ChoosePage, {
+    this.navCtrl.push('ChoosePage', {
       items:this.item,
       type:'type',
     });
   }
 
   clickTeam(){
-    this.navCtrl.push(ChoosePage, {
+    this.navCtrl.push('ChoosePage', {
       items:this.item,
       type:'team',
     });
   }
 
   clicksaleman(){
-    this.navCtrl.push(ChoosePage, {
+    this.navCtrl.push('ChoosePage', {
       items:this.item,
       type:'saleman',
     });

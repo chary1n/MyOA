@@ -3,53 +3,7 @@ import { IonicPage, NavController, NavParams,PopoverController ,ViewController,E
 import { orderService } from '../order/orderService';
 import { PoContactPage } from './../po-contact/po-contact';
 import { DeliveryNotesPage } from './../delivery-notes/delivery-notes';
-@Component({
-  template: `
-    <ion-list>
-      <button ion-item tappable (click)="click_phone()">联系电话</button>
-      <button ion-item tappable (click)="delivery_back()">交货</button>
-    </ion-list>
-  `,
-  providers: [orderService,PoContactPage]
-})
-export class ReturnPopoverPage {
-  id:any;
-  
-  constructor(public viewCtrl: ViewController,public orderService:orderService,public pocontactCtrl:PoContactPage,public events: Events) {
-    this.id = viewCtrl.getNavParams().get('id');
-    
-  }
-  close() {
-    this.viewCtrl.dismiss();
-  }
-  click_phone()
-  {
-    
-    this.orderService.get_contact_phone_number(this.id,"return.goods").then((res) => {
-        let item_detai = res.result.res_data;
-        if (item_detai)
-        {
-          this.events.publish('click:return.goods', item_detai);
-        }
-         
-         
-    
-    })
-  }
-  
 
-  delivery_back()
-  {
-    this.orderService.get_back_delivery_notes(this.id).then((res) => {
-        let item_detai = res.result.res_data;
-        if (item_detai)
-        {
-          this.events.publish('delivery_back', item_detai);
-          
-      }
-    })
-  }
-}
 
 @IonicPage()
 @Component({
@@ -76,7 +30,7 @@ export class ReturnOrderDetailPage {
     this.events.unsubscribe('click:return.goods');
     this.events.unsubscribe('delivery_back');
     this.events.subscribe('click:return.goods', (eventData) => {
-      this.navCtrl.push(PoContactPage, {
+      this.navCtrl.push('PoContactPage', {
             items: eventData,
             type:"back_order"
           })
@@ -85,7 +39,7 @@ export class ReturnOrderDetailPage {
     });
 
     this.events.subscribe('delivery_back', (eventData) => {
-      this.navCtrl.push(DeliveryNotesPage, {
+      this.navCtrl.push('DeliveryNotesPage', {
               items: eventData,
              type: "back_order"
            })
@@ -96,7 +50,7 @@ export class ReturnOrderDetailPage {
 
   presentPopover(ev) {
     
-    this.popover = this.popoverCtrl.create(ReturnPopoverPage, {
+    this.popover = this.popoverCtrl.create('ReturnPopoverPage', {
          id:this.id
     });
 

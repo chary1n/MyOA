@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams ,AlertController} from 'ionic-angular';
 import { SupplierlistService } from '../supplier-list/supplierlistService';
 import { LoadingController } from 'ionic-angular';
-import { ContactListPage} from './../contact-list/contact-list'
+// import { ContactListPage} from './../contact-list/contact-list'
 import { CallNumber } from '@ionic-native/call-number';
 /**
  * Generated class for the SupplierDetailPage page.
@@ -55,7 +55,7 @@ export class SupplierDetailPage {
   contact_detail()
   {
     console.log(this.items.contracts);
-    this.navCtrl.push(ContactListPage,{
+    this.navCtrl.push('ContactListPage',{
           contactList:this.items.contracts,
        });  
   }

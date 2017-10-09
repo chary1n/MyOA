@@ -1,4 +1,3 @@
-import { TreeComponent, TreeModule } from 'ng2-tree';
 import { WarehouseMovePage } from './production-detail/warehouse-move/warehouse-move';
 import { BomPage } from './production-detail/bom/bom';
 import { ProductionDetailPage } from './production-detail/production-detail';
@@ -8,12 +7,16 @@ import { ProductionSearchPage } from './production-search';
 
 @NgModule({
   declarations: [
-    ProductionSearchPage,ProductionDetailPage,BomPage,WarehouseMovePage,
+    ProductionSearchPage,
+    // ProductionDetailPage,BomPage,WarehouseMovePage,
   ],
   imports: [
-    IonicPageModule.forChild(ProductionSearchPage),TreeModule
+    IonicPageModule.forChild(ProductionSearchPage)
   ],
-  entryComponents :[ProductionDetailPage,BomPage,WarehouseMovePage,],
+  entryComponents :[
+    // ProductionDetailPage,
+  // BomPage,WarehouseMovePage,
+  ],
   exports: [
     ProductionSearchPage,
   ]

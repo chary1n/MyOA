@@ -1,18 +1,7 @@
-import { ProductionSearchPage } from './production-search/production-search';
-import { SalesOrderPage } from './salesOrder/salesOrder';
-import { OrderPage } from './order/order';
-import { InspectionDetailPage } from './inspection-detail/inspection-detail';
-import { CardinfoPage } from './cardinfo/cardinfo';
-import { IncomingPage } from './incoming/incoming';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { SupplierListPage } from './supplier-list/supplier-list';
-import { CustomerPage } from './../customer/customer';
 import { WorkBenchModel } from './../../model/WorkBenchModel';
 import { Storage } from '@ionic/storage';
-import { CamCardPage } from './../customer/cam-card/cam-card'
-import { ProductlistPage } from './../customer/productlist/productlist';
-import { BiaoQianPage } from './../customer/biao-qian/biao-qian';
 
 /**
  * Generated class for the WorkBenchPage page.
@@ -55,30 +44,30 @@ export class WorkBenchPage {
   }
 
   clickInComingWareHouse() {
-    this.navCtrl.push(IncomingPage);
+    this.navCtrl.push('IncomingPage');
   }
   supplierList() {
-    this.navCtrl.push(SupplierListPage);
+    this.navCtrl.push('SupplierListPage');
   }
 
   purchaseOrder() {
-    this.navCtrl.push(OrderPage);
+    this.navCtrl.push('OrderPage');
   }
 
   salesOrder() {
-    this.navCtrl.push(SalesOrderPage);
+    this.navCtrl.push('SalesOrderPage');
   }
 
   customerSearch() {
-    this.navCtrl.push(CustomerPage);
+    this.navCtrl.push('CustomerPage');
   }
 
   camCard() {
-    this.navCtrl.push(CamCardPage);
+    this.navCtrl.push('CamCardPage');
   }
 
   ProductionSearch() {
-    this.navCtrl.push(ProductionSearchPage);
+    this.navCtrl.push('ProductionSearchPage');
   }
 
 }

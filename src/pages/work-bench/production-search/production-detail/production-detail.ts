@@ -30,11 +30,11 @@ export class ProductionDetailPage {
   }
 
   warehouseMobile(){
-    this.navCtrl.push(WarehouseMovePage,{item:this.item})
+    this.navCtrl.push('WarehouseMovePage',{item:this.item})
   }
 
   clickBOM(){
-    this.navCtrl.push(BomPage,{item:this.item})
+    this.navCtrl.push('BomPage',{item:this.item})
   }
 
 }

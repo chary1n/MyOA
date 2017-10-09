@@ -47,7 +47,7 @@ export class XiansuoDetailPage {
   }
 
   contact_detail(){
-    this.navCtrl.push(ContactListPage,{
+    this.navCtrl.push('ContactListPage',{
           contactList:this.items.contracts,
        });  
   }

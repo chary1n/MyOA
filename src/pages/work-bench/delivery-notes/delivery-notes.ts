@@ -26,7 +26,7 @@ export class DeliveryNotesPage {
     console.log('ionViewDidLoad DeliveryNotesPage');
   }
   incoming_detail(item) {
-    this.navCtrl.push(DeliveryNotesDetailPage, {
+    this.navCtrl.push('DeliveryNotesDetailPage', {
       item: item,
       type: this.type
     });

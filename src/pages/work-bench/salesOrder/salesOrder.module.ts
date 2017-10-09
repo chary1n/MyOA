@@ -16,16 +16,18 @@ import { IonicPageModule } from 'ionic-angular';
 
 @NgModule({
   declarations: [
-    SalesOrderPage,SalesDetailPage,PopoverPage,DeliveryPage,CreateQuotesPage,ImproveQuotationPage
-    ,AddProductionPage,ProductionListPage,BillingInfoPage,DeliveryInfoPage,SalesInfoPage
-    ,CustomerListPage,CreateInvoicePage
+    SalesOrderPage,
+    // SalesDetailPage,PopoverPage,DeliveryPage,CreateQuotesPage,ImproveQuotationPage
+    // ,AddProductionPage,ProductionListPage,BillingInfoPage,DeliveryInfoPage,SalesInfoPage
+    // ,CustomerListPage,CreateInvoicePage
   ],
   imports: [
     IonicPageModule.forChild(SalesOrderPage),
   ],
-  entryComponents:[SalesDetailPage,PopoverPage,DeliveryPage,CreateQuotesPage,ImproveQuotationPage
-  ,AddProductionPage,ProductionListPage,BillingInfoPage,DeliveryInfoPage,SalesInfoPage
-  ,CustomerListPage,CreateInvoicePage
+  entryComponents:[
+  //   SalesDetailPage,PopoverPage,DeliveryPage,CreateQuotesPage,ImproveQuotationPage
+  // ,AddProductionPage,ProductionListPage,BillingInfoPage,DeliveryInfoPage,SalesInfoPage
+  // ,CustomerListPage,CreateInvoicePage
   ],
   exports: [
     SalesOrderPage,

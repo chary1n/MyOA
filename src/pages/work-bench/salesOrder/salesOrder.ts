@@ -241,13 +241,13 @@ export class SalesOrderPage {
   }
 
   orderDetail1(mid) {
-    this.navCtrl.push(SalesDetailPage, {
+    this.navCtrl.push('SalesDetailPage', {
       id: mid, type: "quotesOrder"
     })
   }
 
   orderDetail2(mid) {
-    this.navCtrl.push(SalesDetailPage, {
+    this.navCtrl.push('SalesDetailPage', {
       id: mid, type: "salesOrder",
     })
 
@@ -256,7 +256,7 @@ export class SalesOrderPage {
   orderDetail3(mid) {
     this.salesSearvice.getSalesReturnOrderDetail(mid).then((res) => {
       console.log(res);
-      this.navCtrl.push(PurchaseBackOrderPage, {
+      this.navCtrl.push('PurchaseBackOrderPage', {
         items: res.result.res_data
       })
     })
@@ -299,7 +299,7 @@ export class SalesOrderPage {
 
   // 报价单
   createQuotes() {
-    this.navCtrl.push(CreateQuotesPage)
+    this.navCtrl.push('CreateQuotesPage')
   }
   // 销售退货
   createSalesReturn() {
