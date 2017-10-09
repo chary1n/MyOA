@@ -8,7 +8,6 @@ import { AddProductionPage } from './create-quotes/add-production/add-production
 import { ImproveQuotationPage } from './create-quotes/improve-quotation/improve-quotation';
 import { CreateQuotesPage } from './create-quotes/create-quotes';
 import { DeliveryPage } from './sales-detail/delivery/delivery';
-import { PopoverPage } from './sales-detail/sales-detail';
 import { SalesOrderPage } from './salesOrder';
 import { SalesDetailPage } from './sales-detail/sales-detail';
 import { NgModule } from '@angular/core';

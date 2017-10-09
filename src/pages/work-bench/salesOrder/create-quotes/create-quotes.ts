@@ -1,9 +1,9 @@
 import { Utils } from './../../../../providers/Utils';
 import { SalesSearvice } from './../salesService';
-import { CustomerListPage } from './customer-list/customer-list';
+// import { CustomerListPage } from './customer-list/customer-list';
 import { DatePicker } from '@ionic-native/date-picker';
-import { AddProductionPage } from './add-production/add-production';
-import { ImproveQuotationPage } from './improve-quotation/improve-quotation';
+// import { AddProductionPage } from './add-production/add-production';
+// import { ImproveQuotationPage } from './improve-quotation/improve-quotation';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController, AlertController } from 'ionic-angular';
 
@@ -85,7 +85,7 @@ export class CreateQuotesPage {
 
   improveQuotation() {
     if (this.customer) {
-      this.navCtrl.push(ImproveQuotationPage, {
+      this.navCtrl.push('ImproveQuotationPage', {
         id: this.customer.id,
         improveQuotaInfo: this.mimproveQuotesInfo
       })
@@ -96,13 +96,13 @@ export class CreateQuotesPage {
 
   addProductions() {
     this.isAdd = false;
-    this.navCtrl.push(AddProductionPage)
+    this.navCtrl.push('AddProductionPage')
   }
 
 
   changeProductItem(i) {
     this.index = i ;
-    this.navCtrl.push(AddProductionPage, { item: this.items[i], index: i })
+    this.navCtrl.push('AddProductionPage', { item: this.items[i], index: i })
   }
 
   deleteProductItem(i) {
@@ -121,7 +121,7 @@ export class CreateQuotesPage {
   }
 
   seleteCustomer() {
-    this.navCtrl.push(CustomerListPage,{type : "createQuotes"});
+    this.navCtrl.push('CustomerListPage',{type : "createQuotes"});
   }
 
   save() {

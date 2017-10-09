@@ -1,10 +1,10 @@
-import { CreateQuotesPage } from './create-quotes/create-quotes';
+// import { CreateQuotesPage } from './create-quotes/create-quotes';
 import { Storage } from '@ionic/storage';
-import { SalesDetailPage } from './sales-detail/sales-detail';
+// import { SalesDetailPage } from './sales-detail/sales-detail';
 import { SalesSearvice } from './salesService';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ActionSheetController } from 'ionic-angular';
-import { PurchaseBackOrderPage } from './sales-detail/purchase-back-order/purchase-back-order';
+// import { PurchaseBackOrderPage } from './sales-detail/purchase-back-order/purchase-back-order';
 /**
  * Generated class for the SalesPage page.
  *

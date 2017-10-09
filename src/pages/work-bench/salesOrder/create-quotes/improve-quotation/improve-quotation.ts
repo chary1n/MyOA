@@ -3,8 +3,8 @@ import { CustomerListPage } from './../customer-list/customer-list';
 import { DatePicker } from '@ionic-native/date-picker';
 import { SalesSearvice } from './../../salesService';
 import { BillingInfoPage } from './billing-info/billing-info';
-import { SalesInfoPage } from './sales-info/sales-info';
-import { DeliveryInfoPage } from './delivery-info/delivery-info';
+// import { SalesInfoPage } from './sales-info/sales-info';
+// import { DeliveryInfoPage } from './delivery-info/delivery-info';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 
@@ -113,7 +113,7 @@ export class ImproveQuotationPage {
 
 
   clickDeliveryInfo() {
-    this.navCtrl.push(DeliveryInfoPage, { deliveryInfo: this.deliveryInfo })
+    this.navCtrl.push('DeliveryInfoPage', { deliveryInfo: this.deliveryInfo })
   }
 
 
@@ -129,7 +129,7 @@ export class ImproveQuotationPage {
   }
 
   clickSalesInfo() {
-    this.navCtrl.push(SalesInfoPage, { salesInfo: this.salesInfo })
+    this.navCtrl.push('SalesInfoPage', { salesInfo: this.salesInfo })
   }
 
   // seleteCustomer() {
