@@ -9,7 +9,6 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 // import { JPushPlugin } from '@ionic-native/jpush';
 
 
-import { LoginPage } from '../pages/login/login';
 import { HttpService } from '../providers/HttpService'
 import { JPush} from '../providers/JPush'
 import { HttpModule } from "@angular/http";

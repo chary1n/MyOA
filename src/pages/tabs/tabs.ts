@@ -1,7 +1,3 @@
-import { ContactPersonPage } from './../contact-person/contact-person';
-import { WorkBenchPage } from './../work-bench/work-bench';
-import { MsgPage } from './../msg/msg';
-import { MePage } from './../me/me';
 import {Tabs} from "ionic-angular";
 import { Component,ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
@@ -19,10 +15,10 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class TabsPage {
   @ViewChild('mainTabs') tabs:Tabs;
-  meRoot :any =MePage;
-  msgRoot:any = MsgPage;
-  workRoot :any = WorkBenchPage;
-  contactRoot  = ContactPersonPage;
+  meRoot :any ='MePage';
+  msgRoot:any = 'MsgPage';
+  workRoot :any = 'WorkBenchPage';
+  contactRoot  = 'ContactPersonPage';
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }

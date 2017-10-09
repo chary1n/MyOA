@@ -49,13 +49,7 @@ import { SupplierListPage} from '../pages/work-bench/supplier-list/supplier-list
     IonicModule.forRoot(MyApp),
     HttpModule,
     IonicStorageModule.forRoot(),
-    MePageModule,
-    ContactPersonPageModule,
-    WorkBenchPageModule,
-    MsgPageModule,
-    TabsPageModule,
-    LoginPageModule,TreeModule,
-
+    TreeModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [

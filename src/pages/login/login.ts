@@ -1,4 +1,3 @@
-import { TabsPage } from './../tabs/tabs';
 import { dbBean } from './../../model/dbInfoModel';
 import { Storage } from '@ionic/storage';
 
@@ -69,7 +68,7 @@ export class LoginPage {
       .then(res => {
         if (res.result && res.result.res_code == 1) {
           this.storage.set("user", res).then(() => {
-             this.navCtrl.setRoot(TabsPage);
+             this.navCtrl.setRoot('TabsPage');
           });
         }
         else if(res.result && res.result.res_code == -1){
