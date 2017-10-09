@@ -1,5 +1,5 @@
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Component } from '@angular/core';
-$IMPORTSTATEMENT
 
 /**
  * Generated class for the WaitMeApplyPage page.
@@ -7,7 +7,7 @@ $IMPORTSTATEMENT
  * See http://ionicframework.com/docs/components/#navigation for more info
  * on Ionic pages and navigation.
  */
-$IONICPAGE
+@IonicPage()
 @Component({
   selector: 'page-wait-me-apply',
   templateUrl: 'wait-me-apply.html',
@@ -19,6 +19,12 @@ export class WaitMeApplyPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad WaitMeApplyPage');
+  }
+  agree(){
+
+  }
+  disagree(){
+
   }
 
 }
