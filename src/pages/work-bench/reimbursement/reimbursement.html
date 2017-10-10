@@ -35,10 +35,10 @@
         <ion-grid>
           <ion-row>
             <ion-col col-2>
-              <img src="">
+              <!-- <img src={{user_heard}}> -->
             </ion-col>
             <ion-col col-8>
-              <div>
+              <div> 
                 Amy :报销
               </div>
               <div>
@@ -80,6 +80,6 @@
   </div>
 </ion-content>
 
-<ion-footer>
+<ion-footer *ngIf="pet=='1'" >
   <button ion-button full (click)="apply()"> + 我要申请</button>
 </ion-footer>

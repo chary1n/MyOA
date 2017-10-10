@@ -5,33 +5,61 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-    <ion-navbar hideBackButton="true">
-        <ion-buttons left>
-          <button ion-button icon-only (click)="goBack()">
-            <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
-          </button>
-        </ion-buttons>
-        <ion-title>报销申请</ion-title>
-        <ion-buttons end>
-          <button ion-button (click)='save()'>
-             提交
-            </button>
-        </ion-buttons>
-      </ion-navbar>
+  <ion-navbar hideBackButton="true">
+    <ion-buttons left>
+      <button ion-button icon-only (click)="goBack()">
+        <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>报销申请</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)='save()'>
+        提交
+      </button>
+    </ion-buttons>
+  </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-    <ion-item>
-        <ion-label class="left_label">申请人</ion-label>
-        <ion-label item-end class="right_label">ray</ion-label>
-      </ion-item>
-      <ion-item>
-          <ion-label>费用归属
-            <!-- <span style="color:red;"> *</span> -->
-          </ion-label>
-          <!-- <ion-select [(ngModel)]="salesTeam">
+<ion-content>
+  <ion-item>
+    <ion-label class="left_label">申请人</ion-label>
+    <ion-label item-end class="right_label">ray</ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-label>费用归属
+      <!-- <span style="color:red;"> *</span> -->
+    </ion-label>
+    <!-- <ion-select [(ngModel)]="salesTeam">
             <ion-option *ngFor="let item of salesTeamList;" value={{item.id}}>{{item.name}}</ion-option>
           </ion-select> -->
-        </ion-item>
+  </ion-item>
+  <ion-item-divider class="divider" color="light"></ion-item-divider>
+  <ion-list>
+    <div *ngFor="let item of detailList">
+      <div class='redFont' padding>
+        报销明细1
+      </div>
+      <ion-label>报销类别
+      </ion-label>
+      <!-- <ion-select [(ngModel)]="salesTeam">
+                    <ion-option *ngFor="let item of salesTeamList;" value={{item.id}}>{{item.name}}</ion-option>
+                  </ion-select> -->
+      <ion-item>
+        <ion-label class="left_label">报销金额(元)</ion-label>
+        <ion-input text-right class="right_label" placeholder="请输入数字" type="number"> </ion-input>
+      </ion-item>
+      <ion-grid>
+        <ion-row class="rowStyle">
+          <ion-col col-2 class="textCenter">
+            发票
+          </ion-col>
+          <ion-col col-3>
+            <img src='assets/img/photo.png'>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </ion-list>
+  <button block ion-button (check)='addDetailItem()'> + 报销明细</button>
 
 </ion-content>
