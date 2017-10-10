@@ -14,7 +14,10 @@ import { Component } from '@angular/core';
 })
 export class MyApplyPage {
 
+  detailList :any ;
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.detailList =[1,2]
   }
 
   ionViewDidLoad() {
@@ -27,5 +30,11 @@ export class MyApplyPage {
   save(){
     this.navCtrl.pop()
   }
+
+  addDetailItem(){
+
+  }
+
+
 
 }
