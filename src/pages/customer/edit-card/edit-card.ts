@@ -21,6 +21,7 @@ declare let cordova: any;
 export class EditCardPage {
   @ViewChild('scroll') scrollElement: any;
   companyName:any;
+  commentText;
   webName:any;
   cardName:any;
   telephoneName:any;
@@ -74,6 +75,7 @@ export class EditCardPage {
   }
 
   clickSource(){
+    this.saveInput();
     this.navCtrl.push('ChoosePage', {
       items:this.item,
       type:'source',
@@ -81,6 +83,7 @@ export class EditCardPage {
   }
 
   clickComefrom(){
+    this.saveInput();
     this.navCtrl.push('ChoosePage', {
       items:this.item,
       type:'comefrom',
@@ -88,17 +91,20 @@ export class EditCardPage {
   }
 
   clickSeries(){
+    this.saveInput();
     this.navCtrl.push('ProductlistPage', {
       items:this.item,
     })
   }
 
   clickBiaoQian(){
+    this.saveInput();
     this.navCtrl.push('BiaoQianPage', {
       items:this.item,
     })
   }
   clickType(){
+    this.saveInput();
     this.navCtrl.push('ChoosePage', {
       items:this.item,
       type:'type',
@@ -106,6 +112,7 @@ export class EditCardPage {
   }
 
   clickTeam(){
+    this.saveInput();
     this.navCtrl.push('ChoosePage', {
       items:this.item,
       type:'team',
@@ -113,6 +120,7 @@ export class EditCardPage {
   }
 
   clicksaleman(){
+    this.saveInput();
     this.navCtrl.push('ChoosePage', {
       items:this.item,
       type:'saleman',
@@ -127,6 +135,7 @@ export class EditCardPage {
     this.emailName = this.item.email;
     this.addressName = this.item.address;
     this.companyName = this.item.companyName;
+    this.commentText = this.item.comment;
     this.salePersonName = this.item.sale_person ? this.item.sale_person : "请选择 >";
     this.saleTeamName = this.item.sale_team ? this.item.sale_team :"请选择 >";
     this.typeName = this.item.type ? this.item.type : "请选择 >";
@@ -210,6 +219,7 @@ export class EditCardPage {
      this.item.email = this.emailName;
      this.item.address = this.addressName;
      this.item.companyName = this.companyName;
+     this.item.comment = this.commentText;
      
      if (this.item.companyName)
      {
@@ -256,6 +266,7 @@ export class EditCardPage {
      this.item.email = this.emailName;
      this.item.address = this.addressName;
      this.item.companyName = this.companyName;
+     this.item.comment = this.commentText;
   }
 
   panEvent($event){

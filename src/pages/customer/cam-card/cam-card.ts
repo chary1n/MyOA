@@ -7,6 +7,8 @@ import { EditCardPage } from './../edit-card/edit-card';
 import { Storage } from '@ionic/storage';
 import { ChooseService} from './../choose/ChooseService';
 import { ChangeDetectorRef } from '@angular/core';
+import { InAppBrowser} from '@ionic-native/in-app-browser';
+import { AppAvailability } from '@ionic-native/app-availability';
 /**
  * Generated class for the CamCardPage page.
  *
@@ -17,7 +19,7 @@ import { ChangeDetectorRef } from '@angular/core';
 @Component({
   selector: 'page-cam-card',
   templateUrl: 'cam-card.html',
-  providers:[Contacts,ChooseService],
+  providers:[Contacts,ChooseService,AppAvailability],
 })
 export class CamCardPage {
   titleList:any;
@@ -34,7 +36,7 @@ export class CamCardPage {
   nameList:any = [];
   constructor(public navCtrl: NavController, public navParams: NavParams,private contacts: Contacts
   ,public storage:Storage,public chooseService:ChooseService,public cd: ChangeDetectorRef,public platform: Platform,
-  private alertCtrl: AlertController,) {
+  private alertCtrl: AlertController,private appAvailability: AppAvailability) {
     
     this.checkAll = false;
     this.isClickAll = false;
@@ -144,8 +146,9 @@ export class CamCardPage {
                   subTitle: '导入成功',
                   buttons: [
                  {
-                    text: '确定',
+                    text: '继续导入',
                     handler: () => {
+                      // this.openAppWith("camcard://","");
                       for (let contact of this.nameList) {
           for (let result of resultArr) {
             if (result.id == contact.id)
@@ -174,6 +177,40 @@ export class CamCardPage {
           }
         }
                  }
+             }
+             ,
+             {
+                 text: '返回扫描',
+                    handler: () => {
+                      this.openAppWith('camcard://','');
+                      for (let contact of this.nameList) {
+          for (let result of resultArr) {
+            if (result.id == contact.id)
+            {
+              contact.remove();
+              // alert(this.formatContacts);
+              let options = new ContactFindOptions();  
+      let fields: ContactFieldType[];  
+      fields = ["displayName", "phoneNumbers"];  
+      options.filter = "";  
+      options.multiple = true;  
+      options.hasPhoneNumber = true;    
+      let nameArr = [];
+      this.contacts.find(fields, options).then((result) => {  
+        for (var contact of result) {
+          if (contact.organizations){
+            console.log(contact);
+            nameArr.push(contact);
+          }
+        }
+        this.dealWithList(nameArr);
+        this.cal_choose_card();
+      }); 
+             
+            }
+          }
+        }
+                    }
              }
       ]
     }).present();
@@ -315,6 +352,7 @@ export class CamCardPage {
         jobtitle:'',
         all_phonenumers:'',
         web_site:'',
+        comment:'',
       };  
       
       obj.sale_team = this.saleteam_name ? this.saleteam_name : '';
@@ -537,4 +575,27 @@ export class CamCardPage {
   isCheckAll(){
     return this.checkAll;
   }
+
+  openAppWith(ios_bundle_id,android_bundle_id)
+  {
+    let app;
+
+    if (this.platform.is('ios')) {
+        app = ios_bundle_id;
+    } 
+    else if (this.platform.is('android')) {
+        app = 'com.twitter.android';
+    }
+
+    this.appAvailability.check(app).then(
+      
+     () => { // success callback
+      //  console.log('2');
+			let browser = new InAppBrowser();
+      browser.create('camcard://','_system', 'location=yes');
+      // window.open('camcard://','_system',  'location=yes');
+		}
+    );
+  }
+
 }

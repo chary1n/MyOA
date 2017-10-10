@@ -1,11 +1,12 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget android-versionCode="10" id="com.linkloving.oa" version="0.1.7" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget android-versionCode="10" id="com.linkloving.oa" version="0.1.8" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>OA</name>
     <description>An awesome Ionic/Cordova app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
     <content src="index.html" />
     <access origin="*" />
     <access launch-external="yes" origin="tel:*" />
+    <allow-navigation href="*" />
     <allow-navigation href="http://ionic.local/*" />
     <allow-navigation href="http://192.168.88.146:8100" />
     <allow-navigation href="http://192.168.2.8:8100" />
@@ -57,6 +58,9 @@
         <allow-intent href="market:*" />
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
+        <feature name="InAppBrowser">
+            <param name="ios-package" value="CDVInAppBrowser" />
+        </feature>
         <icon height="57" src="resources/ios/icon/icon.png" width="57" />
         <icon height="114" src="resources/ios/icon/icon@2x.png" width="114" />
         <icon height="40" src="resources/ios/icon/icon-40.png" width="40" />
@@ -95,6 +99,7 @@
     <engine name="browser" spec="^4.1.0" />
     <engine name="ios" spec="^4.4.0" />
     <plugin name="cordova-plugin-app-version" spec="^0.1.9" />
+    <plugin name="cordova-plugin-appavailability" spec="^0.4.2" />
     <plugin name="cordova-plugin-appminimize" spec="^1.0.0" />
     <plugin name="cordova-plugin-camera" spec="^2.4.1">
         <variable name="CAMERA_USAGE_DESCRIPTION" value=" " />
@@ -103,6 +108,12 @@
     <plugin name="cordova-plugin-console" spec="^1.0.7" />
     <plugin name="cordova-plugin-contacts" spec="^2.3.1">
         <variable name="CONTACTS_USAGE_DESCRIPTION" value=" " />
+    </plugin>
+    <plugin name="cordova-plugin-customurlscheme" spec="git+https://github.com/EddyVerbruggen/LaunchMyApp-PhoneGap-Plugin.git">
+        <variable name="URL_SCHEME" value="camcard" />
+        <variable name="ANDROID_SCHEME" value=" " />
+        <variable name="ANDROID_HOST" value=" " />
+        <variable name="ANDROID_PATHPREFIX" value="/" />
     </plugin>
     <plugin name="cordova-plugin-datepicker" spec="^0.9.3" />
     <plugin name="cordova-plugin-device" spec="^1.1.6" />

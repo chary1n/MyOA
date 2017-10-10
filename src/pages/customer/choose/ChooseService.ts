@@ -25,6 +25,7 @@ export class ChooseService {
            members:[],
            partner_lv:'', 
            website:'',
+           comment:'',
         }
 
         let member = {
@@ -56,6 +57,7 @@ export class ChooseService {
         obj.series_ids = item.series_ids;
         obj.members = [member];
         obj.partner_lv = item.partner_lv;
+        obj.comment = item.comment;
         arr.push(obj);
         console.log(obj);
     }
