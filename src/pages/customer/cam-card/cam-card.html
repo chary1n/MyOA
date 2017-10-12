@@ -7,7 +7,12 @@
 <ion-header>
   
   <ion-navbar>
-    <ion-title tappable>通讯录</ion-title>
+    <ion-title>通讯录</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only tappable (click)="refreshContact()">
+        <p>刷新</p>
+      </button>
+    </ion-buttons> 
   </ion-navbar>
 
 </ion-header>

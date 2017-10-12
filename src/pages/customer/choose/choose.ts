@@ -20,6 +20,7 @@ export class ChoosePage {
   type:any;
   title:any;
   data:any = [];
+  origin_data:any = [];
   editPage:any;
   constructor(public navCtrl: NavController, public navParams: NavParams,public chooseService :ChooseService) {
     this.editPage = Utils.getViewController("EditCardPage", navCtrl)
@@ -131,6 +132,7 @@ export class ChoosePage {
         }
       })
     }
+    this.origin_data = this.data;
   }
 
   ionViewDidLoad() {
@@ -192,6 +194,28 @@ export class ChoosePage {
       this.items.saleman_id = item.id;
       self.editPage.item = this.items;
       self.navCtrl.popTo(self.editPage);
+    }
+  }
+
+  getItems(ev: any) {
+    // Reset items back to all of the items
+    // this.initializeItems();
+
+    // set val to the value of the searchbar
+    let val = ev.target.value;
+
+    // if the value is an empty string don't filter the items
+    if (val && val.trim() != '') {
+      this.data = this.origin_data.filter((item) => {
+        if (item.name != '')
+        {
+          return (item.name.toLowerCase().indexOf(val.toLowerCase()) > -1);
+        }
+        else
+        {
+          return this.origin_data;
+        }
+      })
     }
   }
 
