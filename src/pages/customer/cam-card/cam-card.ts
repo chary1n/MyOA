@@ -60,10 +60,10 @@ export class CamCardPage {
       
       this.contacts.find(fields, options).then((result) => {  
         for (var contact of result) {
-          if (contact.organizations){
+          // if (contact.organizations){
             console.log(contact);
             this.nameList.push(contact);
-          }
+          // }
         }
         this.dealWithList(this.nameList);
       });  
@@ -72,9 +72,26 @@ export class CamCardPage {
 
     
   }
+  
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CamCardPage');
+    // this.nameList = [];
+    //  let options = new ContactFindOptions();  
+    //   let fields: ContactFieldType[];  
+    //   fields = ["displayName", "phoneNumbers"];  
+    //   options.filter = "";  
+    //   options.multiple = true;  
+    //   options.hasPhoneNumber = true;  
+    // this.contacts.find(fields, options).then((result) => {  
+    //     for (var contact of result) {
+    //       if (contact.organizations){
+    //         console.log(contact);
+    //         this.nameList.push(contact);
+    //       }
+    //     }
+    //     this.dealWithList(this.nameList);
+    //   });  
   }
 
   insertUserToArray(item)
@@ -454,14 +471,14 @@ export class CamCardPage {
       // if (!reg.test(obj.pinyinName) || obj.displayName == '') {  
       //   // console.log('非正常联系人信息 名字不对==' + JSON.stringify(obj));  
   
-      //   let len = this.formatContacts.length;  
-      //   for (let j = 0; j < len; j++) {  
-      //     // console.log("ffff");  
-      //     if ((this.formatContacts[j] as any).key == 'Z') {  
-      //       (this.formatContacts[j] as any).value.push(obj);  
-      //       break;  
-      //     }  
-      //   }  
+        // let len = this.formatContacts.length;  
+        // for (let j = 0; j < len; j++) {  
+        //   // console.log("ffff");  
+        //   if ((this.formatContacts[j] as any).key == 'Z') {  
+        //     (this.formatContacts[j] as any).value.push(obj);  
+        //     break;  
+        //   }  
+        // }  
       // }
       //  else {  
         //不排序，供搜索使用的数组  
@@ -487,6 +504,17 @@ export class CamCardPage {
             };  
           }  
         }  
+        else
+        {
+          let len = this.formatContacts.length;  
+        for (let j = 0; j < len; j++) {  
+          // console.log("ffff");  
+          if ((this.formatContacts[j] as any).key == 'Z') {  
+            (this.formatContacts[j] as any).value.push(obj);  
+            break;  
+          }  
+        }
+        }
       // }  
       // console.log('obj format==' + JSON.stringify(obj));  
       obj = null;  
@@ -596,6 +624,26 @@ export class CamCardPage {
       // window.open('camcard://','_system',  'location=yes');
 		}
     );
+  }
+
+  refreshContact(){
+    this.nameList = [];
+    let options = new ContactFindOptions();  
+      let fields: ContactFieldType[];  
+      fields = ["displayName", "phoneNumbers"];  
+      options.filter = "";  
+      options.multiple = true;  
+      options.hasPhoneNumber = true;    
+      
+      this.contacts.find(fields, options).then((result) => {  
+        for (var contact of result) {
+          // if (contact.organizations){
+            console.log(contact);
+            this.nameList.push(contact);
+          // }
+        }
+        this.dealWithList(this.nameList);
+      });   
   }
 
 }
