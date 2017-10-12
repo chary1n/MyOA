@@ -73,5 +73,9 @@ export class WorkBenchPage {
   reimbursement(){
     this.navCtrl.push('ReimbursementPage')
   }
+  // 申请
+  apply(){
+    this.navCtrl.push('ApplyPage')
+  }
 
 }
