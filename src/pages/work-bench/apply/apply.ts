@@ -13,6 +13,7 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'page-apply',
   templateUrl: 'apply.html',
+  providers: [CommonUseServices],
 })
 export class ApplyPage {
   applyList :any ;
