@@ -15,4 +15,16 @@ export class CommonUseServices {
         });
         return this.httpservice.postBody("get_applylist", body);
     }
+    getApplyDetail(id){
+        let body = JSON.stringify({
+            id : id
+        });
+        return this.httpservice.postBody("get_applylist_detail", body);
+    }
+    getPaymentReminding(id){
+        let body = JSON.stringify({
+            id : id
+        });
+        return this.httpservice.postBody("get_payment_reminding", body);
+    }
 }
