@@ -7,24 +7,21 @@
 <ion-header>
   
   <ion-navbar>
-    <!-- <ion-title>apply</ion-title> -->
-    <ion-searchbar (ionInput)="getSearchItems($event)">
-    
-    </ion-searchbar>
+ 
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-    <div class="date_apply" tappable (click)='editInformation()'>
+    <!-- <div class="date_apply" tappable (click)='editInformation()'>
         <div>
           <ion-icon name="create"></ion-icon>
           <span>lala</span>
           <ion-icon name="create"></ion-icon>
           <span>筛选</span>
         </div>
-    </div>
+    </div> -->
       <ion-list>
           <ion-item *ngFor='let item of applyList' tappable (click) = 'clickApply(item.id)'>
             <h2 text-wrap>{{item.name}}</h2>
@@ -33,7 +30,8 @@
             <p text-wrap class="team_p">部门：{{item.department}}</p>
           </ion-item>
         </ion-list>
-        <div class="bar bar-footer">
-          <button class="button button-block button-positive" (click) = 'showRadio()'>我要申请</button>
-        </div>
+      
 </ion-content>
+<ion-footer>
+  <button ion-button (click)="showActionSheet()" full>  我要申请</button>
+</ion-footer>
