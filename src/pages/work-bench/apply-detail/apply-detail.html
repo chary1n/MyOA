@@ -1,0 +1,59 @@
+<!--
+  Generated template for the ApplyDetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{res_data.name}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <div>
+    <span>申请人</span>
+    <span>{{res_data.employee}}</span>
+  </div>
+  <div>
+    <span>部门（费用归属）</span>
+    <span>{{res_data.department}}</span>
+  </div>
+  <div>
+    <span>暂支金额</span>
+    <span>{{res_data.pre_payment_reminding}}</span>
+  </div>
+  <div>
+    <span>金额总计（元）：{{res_data.payment}}</span>
+  </div>
+  <div>
+    <span>报销明细</span>
+  </div>
+  <ion-list>
+    <ion-item *ngFor='let item of res_data.expense_line_ids'>
+      <p text-wrap class="team_p">产品：{{item.name}}</p>
+      <p text-wrap class="team_p">金额：{{item.amount}}</p>
+      <p text-wrap class="team_p">费用说明：{{item.description}}</p>
+    </ion-item>
+  </ion-list>
+  <div>
+    <span>审批记录</span>
+  </div>
+  <ion-list>
+    <ion-item *ngFor='let item of res_data.message_ids'>
+      <div>
+          <span  class="team_p">{{item.create_person}}</span>
+          <span  class="team_p">{{item.create_time}}</span>
+      </div>
+      <p text-wrap class="team_p">{{item.new_state}}</p>
+      <p text-wrap class="team_p">原因：{{item.description}}</p>
+    </ion-item>
+  </ion-list>
+  <div class="bar bar-footer">
+      <button class="button button-block button-positive" (click) = 'showRadio()'>撤回申请</button>
+    </div>
+</ion-content>
