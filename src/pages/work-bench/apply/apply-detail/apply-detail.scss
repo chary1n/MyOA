@@ -1,0 +1,29 @@
+page-apply-detail {
+    .total_amount{
+        color:rgb(219, 105, 90);
+        font-size:100%;
+        text-align:right;
+        font-weight:bold;
+    }
+    .middle_item{
+        width: 80%;
+        margin-left: 10%;
+        margin-top: 6px;
+    }
+
+    .redFont{
+        color: red;
+        font-size: 70%;
+    }
+    .textCenter{
+        font-size: 120%;
+        margin-top: 10px;
+
+    }
+    .rowStyle{
+        height: 100px;
+    }
+    ion-col div{
+        margin-top: 5px;
+    }
+}

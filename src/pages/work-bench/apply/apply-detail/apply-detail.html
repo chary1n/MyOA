@@ -1,0 +1,68 @@
+<!--
+  Generated template for the ApplyDetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{res_data.name}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content   style="background:#f0f0f0">
+  <ion-item>
+    <ion-label class="left_label">申请人</ion-label>
+    <ion-label item-end class="right_label">{{res_data.employee}}</ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-label class="left_label">部门（费用归属）</ion-label>
+    <ion-label item-end class="right_label">{{res_data.department}}</ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-label class="left_label">暂支金额</ion-label>
+    <ion-label item-end class="right_label">{{res_data.pre_payment_reminding}}</ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-label class="total_amount">金额总计（元）：{{res_data.payment}}</ion-label>
+  </ion-item>
+
+  <ion-list style="margin-top:10px">
+    <ion-item *ngFor='let item of res_data.expense_line_ids;let i = index'>
+      <div >报销明细{{i+1}}</div>
+      <p text-wrap class="team_p">产品：{{item.name}}</p>
+      <p text-wrap class="team_p">金额：{{item.amount}}</p>
+      <p text-wrap class="team_p">费用说明：{{item.description}}</p>
+    </ion-item>
+  </ion-list>
+  <div style="margin:10px;">审批记录</div>
+  <ion-list>
+    <ion-item *ngFor='let item of res_data.message_ids' class="middle_item">
+        <ion-grid>
+            <ion-row class="rowStyle">
+              <ion-col col-2 class="textCenter">
+                  <img src={{item.create_person_ava}}>
+              </ion-col>
+              <ion-col col-6>
+                <div >{{item.create_person}}</div>
+                <div *ngIf="item.old_state || item.new_state" >{{item.old_state}}=>{{item.new_state}}</div>
+                <div text-wrap>{{item.description}}</div>
+              </ion-col>
+              <ion-col col-4>
+                  <div>{{item.create_time}}</div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+    </ion-item>
+  </ion-list>
+
+</ion-content>
+
+<ion-footer>
+  <button  *ngIf="res_data.state!='cancel'"  ion-button full (click)="callbackApply()">
+    撤回申请
+  </button>
+</ion-footer>

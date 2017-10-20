@@ -231,8 +231,6 @@ export class OrderPage {
       this.limit = 20;
       this.offset = this.offset + 20;
       this.orderService.requestReturnOrder(this.offset, this.limit).then((res) => {
-        console.log(this.offset)
-        console.log(this.limit)
         let item_data = [];
         if (res.result.res_data) {
           item_data = res.result.res_data;

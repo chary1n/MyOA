@@ -15,3 +15,20 @@
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
 // @import "../../node_modules/ionic2-auto-complete/auto-complete";
+
+.alert-ios .alert-radio-label {
+    white-space: normal;
+}
+
+.alert-md .alert-radio-label {
+    white-space: normal;
+}
+
+.alert-wp .alert-radio-label {
+    white-space: normal;
+}
+
+
+.normal-select .select-text{
+    // white-space: normal;
+}

@@ -1,5 +1,4 @@
 import { Utils } from './../../../../../providers/Utils';
-import { ProductionListPage } from './../production-list/production-list';
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, ToastController } from 'ionic-angular';
 
@@ -92,7 +91,7 @@ export class AddProductionPage {
   }
 
   seleteProduction() {
-    this.navCtrl.push(ProductionListPage)
+    this.navCtrl.push('ProductionListPage')
   }
 
   change() {
