@@ -2,7 +2,7 @@ export const APP_SERVER_URL_T= 'http://erp.robotime.com/';
 export const APPSUBPATH = 'linkloving_app_api/';
 export const OAUBPATH = 'linkloving_oa_api/';
 
-export const APP_SERVER_URL= 'http://192.168.88.117:8069/';
+export const APP_SERVER_URL= 'http://192.168.88.122:8069/';
 // export const APP_SERVER_URL= 'http://erp.robotime.com/';
 
 
