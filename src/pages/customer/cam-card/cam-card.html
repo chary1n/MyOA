@@ -9,8 +9,11 @@
   <ion-navbar>
     <ion-title>通讯录</ion-title>
     <ion-buttons end>
+      <button style="color:black;" ion-button icon-only tappable (click)="skipToScan()">
+          <ion-icon name="qr-scanner"></ion-icon>
+      </button>
       <button ion-button icon-only tappable (click)="refreshContact()">
-        <p>刷新</p>
+         <p>刷新</p>
       </button>
     </ion-buttons> 
   </ion-navbar>

@@ -646,4 +646,8 @@ export class CamCardPage {
       });   
   }
 
+  skipToScan(){
+    this.openAppWith('camcard://','');
+  }
+
 }

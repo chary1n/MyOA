@@ -19,6 +19,7 @@ export class ReimbursementPage {
   pet: string = "1";
   user_id;
   wait_approval_list:any;
+  already_approval_list:any;
   constructor(public navCtrl: NavController, public navParams: NavParams,public baoxiaoService:ReimbursementService,public storage:Storage) {
      this.storage.get('user')
       .then(res => {
@@ -29,12 +30,16 @@ export class ReimbursementPage {
             if (res.result && res.result.res_code == 1) {
             this.wait_approval_list = res.result.res_data
             let index = 0;
-            for (let item of this.wait_approval_list) {
+            if(this.wait_approval_list)
+            {
+              for (let item of this.wait_approval_list) {
               item.state = this.changeState(item.state);
               this.wait_approval_list[index] = item;
               index ++;
             }
-            console.log(this.wait_approval_list)
+            }
+             console.log(this.wait_approval_list)
+
         }
     })
       });
@@ -50,10 +55,36 @@ export class ReimbursementPage {
   }
 
   clickAlreadyApply() {
-    
+    this.baoxiaoService.getAlreadApprovalList(10,0,this.user_id).then((res) => {
+      console.log(res);
+            if (res.result && res.result.res_code == 1) {
+            this.already_approval_list = res.result.res_data
+            let index = 0;
+            for (let item of this.already_approval_list) {
+              item.state = "完成";
+              this.already_approval_list[index] = item;
+              index ++;
+            }
+        }
+    })
   }
   clickWaitMeApply() {
-
+    this.baoxiaoService.getApprovalList(10,0,this.user_id).then((res) => {
+            console.log(res);
+            if (res.result && res.result.res_code == 1) {
+            this.wait_approval_list = res.result.res_data
+            let index = 0;
+            if(this.wait_approval_list)
+            {
+              for (let item of this.wait_approval_list) {
+              item.state = this.changeState(item.state);
+              this.wait_approval_list[index] = item;
+              index ++;
+            }
+            }
+            console.log(this.wait_approval_list)
+        }
+    })
   }
 
   // 我要申请
@@ -61,8 +92,17 @@ export class ReimbursementPage {
     this.navCtrl.push('MyApplyPage')
   }
 
-  approval_detail(){
+  approval_detail(item){
+    this.navCtrl.push('ReimbursementDetailPage',{
+      item:item,
+    });
+  }
 
+  approved_detail(item)
+  {
+    this.navCtrl.push('ReimbursementDetailPage',{
+      item:item,
+    });
   }
 
   changeState(state)
