@@ -34,12 +34,21 @@ export class CamCardPage {
   checkAll:any;
   isClickAll:any;
   nameList:any = [];
+  can_upload:any;
+  enter_count = 0;
+  need_fresh:any;
+  isNeed:any;
+  piliangText:any;
+  isChangeColor:any;
   constructor(public navCtrl: NavController, public navParams: NavParams,private contacts: Contacts
   ,public storage:Storage,public chooseService:ChooseService,public cd: ChangeDetectorRef,public platform: Platform,
-  private alertCtrl: AlertController,private appAvailability: AppAvailability) {
-    
+  public alertCtrl: AlertController,private appAvailability: AppAvailability) {
+    this.need_fresh = false;
     this.checkAll = false;
     this.isClickAll = false;
+    this.isNeed = false;
+    this.isChangeColor = "NO";
+    this.piliangText = "导入";
     this.storage.get('user')
       .then(res => {
         console.log(res);
@@ -51,6 +60,8 @@ export class CamCardPage {
           }
           this.saleman_id = res.result.res_data.user_id;
           this.saleman_name = res.result.res_data.name;
+          this.nameList = [];
+          this.formatContacts = [];
           let options = new ContactFindOptions();  
       let fields: ContactFieldType[];  
       fields = ["displayName", "phoneNumbers"];  
@@ -69,29 +80,19 @@ export class CamCardPage {
       });  
         } 
       });
+  }
 
+  ionViewWillEnter(){
     
   }
-  
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad CamCardPage');
-    // this.nameList = [];
-    //  let options = new ContactFindOptions();  
-    //   let fields: ContactFieldType[];  
-    //   fields = ["displayName", "phoneNumbers"];  
-    //   options.filter = "";  
-    //   options.multiple = true;  
-    //   options.hasPhoneNumber = true;  
-    // this.contacts.find(fields, options).then((result) => {  
-    //     for (var contact of result) {
-    //       if (contact.organizations){
-    //         console.log(contact);
-    //         this.nameList.push(contact);
-    //       }
-    //     }
-    //     this.dealWithList(this.nameList);
-    //   });  
+  ionViewDidEnter() {
+    console.log(this.navParams)
+    if (this.navParams.get('need_fresh') == true)
+    {
+      this.refreshContact1();
+      this.navParams.data.need_fresh = false;
+    }
   }
 
   insertUserToArray(item)
@@ -299,6 +300,22 @@ export class CamCardPage {
       }
     }
     this.isClickAll = false;
+    if (this.chooseCount > 0)
+    {
+      if (this.chooseCount == 1)
+      {
+        this.isChangeColor = "ONE";
+      }
+      else
+      {
+        this.isChangeColor = "MORE";
+      }
+      
+    }
+    else
+    {
+      this.isChangeColor = "NO";
+    }
   } 
 
   isCheck(item)
@@ -515,15 +532,9 @@ export class CamCardPage {
           }  
         }
         }
-      // }  
-      // console.log('obj format==' + JSON.stringify(obj));  
       obj = null;  
     }  
-  
     this.formatContacts = this.sortContacts(this.formatContacts);  
-    // context.loader.dismiss();  
-    // alert(this.formatContacts);
-   
     console.log('this.allSearchContacts==' + this.allSearchContacts.length);  
   
   }
@@ -565,8 +576,19 @@ export class CamCardPage {
 
   changeAll(){
     // alert("1");
-    this.isClickAll = true;
-    this.checkAll = !this.checkAll;
+    // this.isClickAll = true;
+    console.log('1');
+    if (this.isNeed)
+    {
+      console.log('2');
+    }
+    else
+    {
+      console.log('3');
+      this.checkAll = !this.checkAll;
+    }
+    this.isNeed = false;
+    
     if (this.checkAll)
     {
       for (var i = 0;i < this.formatContacts.length;i++ ){
@@ -612,22 +634,68 @@ export class CamCardPage {
         app = ios_bundle_id;
     } 
     else if (this.platform.is('android')) {
-        app = 'com.twitter.android';
+        // app = 'com.twitter.android';
     }
-
+    let ctrl = this.alertCtrl;
     this.appAvailability.check(app).then(
       
-     () => { // success callback
-      //  console.log('2');
-			let browser = new InAppBrowser();
-      browser.create('camcard://','_system', 'location=yes');
+     function() { // success callback
+      
+          let browser = new InAppBrowser();
+          browser.create(app,'_system', 'location=yes');
+       
+			
+      
       // window.open('camcard://','_system',  'location=yes');
-		}
+		},
+    function(){
+      console.log('1');
+      // alert('123')
+      // alertCt = new AlertController();
+      // let alertCt = this.alertCtrl;
+      ctrl.create({
+                  title: '提示',
+                  subTitle: "请先下载名片全能王再扫描",
+                  buttons: [
+                 {
+                    text: '取消',
+                    handler: () => {
+                     
+                 }
+             },{
+                text: '跳转下载',
+                    handler: () => {
+                     let browser = new InAppBrowser();
+                     browser.create('https://itunes.apple.com/cn/app/id349447615');
+             }
+             }
+      ]
+    }).present();
+    }
     );
   }
 
   refreshContact(){
-    this.nameList = [];
+    
+    if (this.checkAll)
+    {
+      this.alertCtrl.create({
+                  title: '提示',
+                  subTitle: "取消全选再刷新",
+                  buttons: [
+                 {
+                    text: '确定',
+                    handler: () => {
+                     
+                 }
+             }
+      ]
+    }).present();
+    }
+    else
+    {
+       this.nameList = [];
+    this.formatContacts = [];
     let options = new ContactFindOptions();  
       let fields: ContactFieldType[];  
       fields = ["displayName", "phoneNumbers"];  
@@ -643,8 +711,45 @@ export class CamCardPage {
           // }
         }
         this.dealWithList(this.nameList);
-      });   
+        // this.chooseCount = 0;
+      
+        
+      });  
+    }
+    
+    // this.isClickAll = false;
+   
+
   }
+
+refreshContact1(){
+  
+       this.nameList = [];
+    this.formatContacts = [];
+    let options = new ContactFindOptions();  
+      let fields: ContactFieldType[];  
+      fields = ["displayName", "phoneNumbers"];  
+      options.filter = "";  
+      options.multiple = true;  
+      options.hasPhoneNumber = true;    
+      
+      this.contacts.find(fields, options).then((result) => {  
+        for (var contact of result) {
+          // if (contact.organizations){
+            console.log(contact);
+            this.nameList.push(contact);
+          // }
+        }
+        this.dealWithList(this.nameList);
+        // this.chooseCount = 0;
+      
+        
+      });  
+    }
+    
+    // this.isClickAll = false;
+  
+
 
   skipToScan(){
     this.openAppWith('camcard://','');

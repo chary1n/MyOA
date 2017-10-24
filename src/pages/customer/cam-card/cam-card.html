@@ -10,9 +10,9 @@
     <ion-title>通讯录</ion-title>
     <ion-buttons end>
       <button style="color:black;" ion-button icon-only tappable (click)="skipToScan()">
-          <ion-icon name="qr-scanner"></ion-icon>
+          <ion-icon name="camera"></ion-icon>
       </button>
-      <button ion-button icon-only tappable (click)="refreshContact()">
+      <button style="color:black;" ion-button icon-only tappable (click)="refreshContact()">
          <p>刷新</p>
       </button>
     </ion-buttons> 
@@ -37,9 +37,13 @@
                           <ion-avatar item-start>
                             <img src="assets/img/avatar.jpg">
                           </ion-avatar>
+                          <p style="float:right;margin-top:10px;">去编辑 ></p>
                            <h2>{{item.displayName}}</h2>  
                            <p>{{item.phoneNumber}}</p>
+                           
+                           <!--<ion-label>去编辑 ></ion-label>-->
                         </ion-item>
+              
                       </ion-col>
                     </ion-row>
                   </ion-grid>
@@ -64,9 +68,11 @@
                            </ion-label>
                         </ion-item>
                       </ion-col>
-                       <ion-col>
-                         <button style="float:right;margin-top:-2px;" ion-button ion-start (click) = "uploadCard()" small>导入</button>
-                        </ion-col>
+                      <ion-col>
+                         <button *ngIf="isChangeColor=='ONE'" style="float:right;margin-top:-2px;"  ion-button ion-start (click) = "uploadCard()" small >导入</button>
+                         <button *ngIf="isChangeColor=='MORE'" style="float:right;margin-top:-2px;"  ion-button ion-start (click) = "uploadCard()" small >批量导入</button>
+                         <button *ngIf="isChangeColor=='NO'" style="float:right;margin-top:-2px;color:white;background-color:gray"  ion-button ion-start (click) = "uploadCard()" small >请选择</button>
+                      </ion-col>
                     </ion-row>
                   </ion-grid>
 </ion-footer>

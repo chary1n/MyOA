@@ -1,10 +1,14 @@
 import { Component,ViewChild} from '@angular/core';
-import { IonicPage, NavController, NavParams,AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams,AlertController ,Platform} from 'ionic-angular';
 import { ChoosePage } from './../choose/choose';
 import { Utils } from './../../../providers/Utils';
 import { ProductlistPage} from './../productlist/productlist'
 import { BiaoQianPage } from './../biao-qian/biao-qian';
 import { CamCardPage } from './../cam-card/cam-card';
+import { ChooseService} from './../choose/ChooseService'
+import { Contacts, Contact, ContactField, ContactName,ContactFindOptions ,ContactFieldType,} from '@ionic-native/contacts';
+import { pinyin } from './../cam-card/pinyin'; 
+import { Storage } from '@ionic/storage'; 
 declare let cordova: any; 
 
 /**
@@ -17,6 +21,7 @@ declare let cordova: any;
 @Component({
   selector: 'page-edit-card',
   templateUrl: 'edit-card.html',
+  providers:[ChooseService,Contacts],
 })
 export class EditCardPage {
   @ViewChild('scroll') scrollElement: any;
@@ -41,7 +46,13 @@ export class EditCardPage {
   index:any;
   index_group:any;
   sourceArr:any;
-  constructor(public navCtrl: NavController, public navParams: NavParams,private alertCtrl: AlertController) {
+
+  saleteam_name:any;
+  saleteam_id:any;
+  saleman_id:any;
+  saleman_name:any;
+  constructor(public navCtrl: NavController, public navParams: NavParams,private alertCtrl: AlertController,
+  public chooseService:ChooseService,private contacts: Contacts,public platform:Platform,public storage:Storage) {
     this.camPage = Utils.getViewController("CamCardPage", navCtrl)
     this.item = this.navParams.get('item');
     this.index = this.navParams.get('index');
@@ -52,6 +63,8 @@ export class EditCardPage {
     // this.scrollElement._scrollContent.nativeElement.onscroll = event =>{
     //   alert(1);
     // }
+
+
   }
 
   ionViewDidLoad() {
@@ -290,5 +303,83 @@ export class EditCardPage {
     //          }
     //   ]
     // }).present();
+  }
+
+  upload(){
+    this.saveInput();
+    if (this.item.companyName)
+    {
+      this.chooseService.add_partners([this.item]).then((res) => {
+      if (res.result){
+        this.alertCtrl.create({
+                  title: '提示',
+                  subTitle: '导入成功',
+                  buttons: [
+                 {
+                    text: '确定',
+                    handler: () => {
+                     let options = new ContactFindOptions();  
+      let fields: ContactFieldType[];  
+      fields = ["displayName", "phoneNumbers"];  
+      options.filter = "";  
+      options.multiple = true;  
+      options.hasPhoneNumber = true;    
+      let list = [];
+      this.contacts.find(fields, options).then((result) => {  
+        for (var contact of result) {
+          // if (contact.organizations){
+            console.log(contact);
+            if (contact.id == this.item.id)
+            {
+              contact.remove();
+              this.camPage.data.need_fresh = true;
+              this.navCtrl.popTo(this.camPage,{
+                need_fresh:true,
+              });
+            }
+        }
+      });  
+                 }
+             }
+  
+           
+      ]
+    }).present();
+        
+        //  this.cd.detectChanges();
+      }
+      else
+      {
+        if (res.error)
+        {
+          this.alertCtrl.create({
+                  title: '提示',
+                  subTitle: res.error.data.message,
+                  buttons: [
+                 {
+                    text: '确定',
+                    handler: () => {
+                     
+                 }
+             }
+      ]
+    }).present();
+        }
+      }
+    });
+  }
+  else
+  {
+    this.alertCtrl.create({
+                  title: '提示',
+                  subTitle: '请确保选择导入的名片的公司名填写',
+                  buttons: [
+                 {
+                    text: '确定',
+             }
+      ]
+    }).present();
+  }
+    
   }
 }
