@@ -11,16 +11,45 @@ page-customer-detail {
         height:1%;
     }
     .grid_header{
-        background: #55c4f5;
+        // background: #55c4f5;
     }
 
     .first_div h3{
-        text-align: center;
+        // text-align: center;
+        
         color: white;
     }
 
     .first_div h2{
         text-align: center;
         color: white;
+    }
+    
+    .test_one{
+        color:black;
+        width:60px;
+        height: 45px;
+        line-height: 45px;
+        border-bottom:#5bc5f3 3px solid;
+    }
+
+    .test_two{
+        color:black;
+        width:85px;
+        height: 45px;
+        line-height: 45px;
+        border-bottom:#5bc5f3 3px solid;
+    }
+
+    .test_three{
+        color:black;
+        width:60px;
+        height: 45px;
+        line-height: 45px;
+        border-bottom:#5bc5f3 3px solid;
+    }
+
+    .group_bottom{
+        border-top:lightgray 0.5px solid;    
     }
 }

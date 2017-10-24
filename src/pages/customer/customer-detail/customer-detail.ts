@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams,AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams,AlertController,Platform } from 'ionic-angular';
 import { ContactListPage} from './../../work-bench/contact-list/contact-list'
 import { CallNumber } from '@ionic-native/call-number';
+import { InAppBrowser} from '@ionic-native/in-app-browser';
+import { AppAvailability } from '@ionic-native/app-availability';
 
 /**
  * Generated class for the CustomerDetailPage page.
@@ -13,14 +15,17 @@ import { CallNumber } from '@ionic-native/call-number';
 @Component({
   selector: 'page-customer-detail',
   templateUrl: 'customer-detail.html',
-  providers:[CallNumber],
+  providers:[CallNumber,AppAvailability],
 })
 export class CustomerDetailPage {
   items:any;
   biaoqian:any;
   productName;
-  constructor(public navCtrl: NavController, public navParams: NavParams,public alertCtrl: AlertController,private callNumber: CallNumber) {
+  show_type:any;
+  constructor(public navCtrl: NavController, public navParams: NavParams,public alertCtrl: AlertController,private callNumber: CallNumber,
+  private appAvailability: AppAvailability,public platform: Platform) {
     this.items = navParams.get('items');
+    this.show_type = "one";
     let tag = '';
     if (this.items.tag.length == 1)
     {
@@ -111,5 +116,67 @@ export class CustomerDetailPage {
       .then(() => console.log('Launched dialer!'))  
       .catch(() => console.log('Error launching dialer'));  
   } 
+
+  click_one(){
+    this.show_type = "one";
+  }
+
+  click_two(){
+    this.show_type = "two";
+  }
+
+  click_three(){
+    this.show_type = "three";
+  }
+
+  sendEmail(){
+    this.openAppWith('alicloudmail://','')
+  }
+
+  openAppWith(ios_bundle_id,android_bundle_id)
+  {
+    let app;
+
+    if (this.platform.is('ios')) {
+        app = ios_bundle_id;
+    } 
+    else if (this.platform.is('android')) {
+        // app = 'com.twitter.android';
+    }
+    let ctrl = this.alertCtrl;
+    this.appAvailability.check(app).then(
+      
+     function() { // success callback
+      
+          let browser = new InAppBrowser();
+          browser.create(app,'_system', 'location=yes');
+       
+			
+      
+      // window.open('camcard://','_system',  'location=yes');
+		},
+    function(){
+      console.log('1');
+      ctrl.create({
+                  title: '提示',
+                  subTitle: "请先下载阿里邮箱",
+                  buttons: [
+                 {
+                    text: '取消',
+                    handler: () => {
+                     
+                 }
+             },{
+                text: '跳转下载',
+                    handler: () => {
+                     let browser = new InAppBrowser();
+                     browser.create('https://itunes.apple.com/cn/app/a-li-you-xiang/id923828102?mt=8');
+             }
+             }
+      ]
+    }).present();
+    }
+    );
+  }
 
 }
