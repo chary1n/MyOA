@@ -8,6 +8,7 @@ export class CommonUseServices {
 
     }
     getApplyList(moffset, mlimit, id) {
+        console.log("getApplyList"+moffset +"     "+mlimit)
         let body = JSON.stringify({
             offset: moffset,
             limit: mlimit,

@@ -8,7 +8,8 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class HttpService {
 
-  constructor(private http: Http,private loading :LoadingController) {
+  constructor(private http: Http,private loading :LoadingController,
+  ) {
   }
 
   getAppPath(url: string, type: number = 0) {
@@ -105,7 +106,7 @@ export class HttpService {
   public postBody(url: string, paramObj: any, type: number = 0) {
     let loading = this.loadingCreate(true);  
     let headers = new Headers({'Content-Type': 'application/json' });
-    return this.http.post(this.getAppPath(url,type), paramObj, new RequestOptions({ headers: headers }))
+    return this.http.post(this.getAppPath(url,type), paramObj, new RequestOptions({ headers: headers}))
       .map(data=>this.dealRe(data,loading))
       .toPromise()
       .then(res => 

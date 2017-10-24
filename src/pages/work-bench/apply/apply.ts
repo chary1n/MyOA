@@ -77,8 +77,9 @@ export class ApplyPage {
           else {
             this.isMoreData = false;
           }
-          for (let item of this.applyList) {
+          for (let item of item_data) {
             item.stateCN = this.change(item.state)
+            console.log(item.stateCN)
             this.applyList.push(item)
           }
         }

@@ -12,7 +12,7 @@ import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Headers, RequestOptions } from '@angular/http';
-import {AppVersion} from '@ionic-native/app-version';
+import { AppVersion } from '@ionic-native/app-version';
 import { Platform } from 'ionic-angular';
 
 
@@ -35,29 +35,28 @@ export class LoginPage {
   employee: string;
   resUser: any;
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    private loginservice: LoginService, private myHttp: Http, private storage: Storage,public platform: Platform,public appVersion: AppVersion) {
+    private loginservice: LoginService, private myHttp: Http, private storage: Storage, public platform: Platform, public appVersion: AppVersion) {
 
 
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginPage');   
+    console.log('ionViewDidLoad LoginPage');
 
-    
+
     this.storage.get('user')
       .then(res => {
         console.log(res);
         if (res != null) {
           this.navCtrl.setRoot('TabsPage');
-
-            this.loginservice.toLogin(this.email, this.password, this.employee)
-        .then(res => {
-        console.log(res);
-        if (res.result && res.result.res_code == 1) {
-            this.storage.set("user", res).then(() => {
-          });
-        }
-      })
+          this.loginservice.toLogin(this.email, this.password, this.employee)
+            .then(res => {
+              console.log(res);
+              if (res.result && res.result.res_code == 1) {
+                this.storage.set("user", res).then(() => {
+                });
+              }
+            })
         } else {
           this.getdbInfo();
         }
@@ -73,7 +72,7 @@ export class LoginPage {
 
   // 登录
   toLogin() {
-    if(this.employee==null){
+    if (this.employee == null) {
       alert("请选择数据库")
       return
     }
@@ -82,10 +81,10 @@ export class LoginPage {
         console.log(res);
         if (res.result && res.result.res_code == 1) {
           this.storage.set("user", res).then(() => {
-             this.navCtrl.setRoot('TabsPage');
+            this.navCtrl.setRoot('TabsPage');
           });
         }
-        else if(res.result && res.result.res_code == -1){
+        else if (res.result && res.result.res_code == -1) {
           alert(res.result.res_data.error);
         }
       })

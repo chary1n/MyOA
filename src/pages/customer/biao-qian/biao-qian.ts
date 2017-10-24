@@ -189,7 +189,7 @@ export class BiaoQianPage {
     }
     if (this.supplier_selected)
     {
-      for (var item of this.arr) {
+      for (let item of this.arr) {
         if (item.name != "客户"){
           this.items.partner_type = "supplier";
           this.items.category_id = item.category_id;
