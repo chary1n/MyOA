@@ -19,6 +19,7 @@ import { Component } from '@angular/core';
 })
 export class ApplyPage {
   applyList: any;
+  leaveList;
   user;
   user_id;
   actionSheetCtrl;
@@ -43,6 +44,7 @@ export class ApplyPage {
 
   ionViewWillEnter() {
     this.getApplyList(20, 0, this.user_id)
+    this.getLeaveList(20,0,this.user_id)
   }
 
   doRefresh(refresh) {
@@ -50,7 +52,7 @@ export class ApplyPage {
     this.limit = 20;
     this.offset = 0;
     this.commonService.getApplyList(this.offset, this.limit, this.user_id).then(res => {
-      if (res.result && res.result.res_code == 1) {
+      if (res.result && res.result.res_data) {
         refresh.complete();
         this.applyList = res.result.res_data;
         if (this.applyList.length > 0) {
@@ -97,7 +99,7 @@ export class ApplyPage {
 
   getApplyList(limit, offset, id) {
     this.commonService.getApplyList(offset, limit, id).then(res => {
-      if (res.result && res.result.res_code == 1) {
+      if (res.result && res.result.res_data) {
         this.applyList = res.result.res_data;
         if (this.applyList.length > 0) {
           for (let item of this.applyList) {
@@ -107,6 +109,22 @@ export class ApplyPage {
       }
     })
   }
+// 请假
+  getLeaveList(limit, offset, id) {
+    this.commonService.getLeaveList(offset, limit, id).then(res => {
+      if (res.result && res.result.res_data) {
+        this.leaveList = res.result.res_data;
+        if (this.leaveList.length > 0) {
+          for (let item of this.leaveList) {
+            item.stateCN = this.change(item.type)
+          }
+        }
+      }
+    })
+  }
+
+
+
 
   showActionSheet() {
     let actionSheet = this.actionSheetCtrl.create({
@@ -140,7 +158,7 @@ export class ApplyPage {
 
   clickApply(id) {
     this.commonService.getApplyDetail(id).then(res => {
-      if (res.result && res.result.res_code == 1) {
+      if (res.result && res.result.res_data) {
         console.log(res);
         this.navCtrl.push('ApplyDetailPage', {
           res_data: res.result.res_data
@@ -169,6 +187,20 @@ export class ApplyPage {
       return '已支付'
     } else if (state == "cancel") {
       return '已拒绝'
+    }
+  }
+
+  changeLeave(state){
+    if (state == 'draft') {
+      return '待提交'
+    } else if (state == "submit") {
+      return '发送'
+    } else if (state == "manager1_approve") {
+      return '1级审核'
+    } else if (state == "manager2_approve") {
+      return '2级审核'
+    } else if (state == "manager3_approve") {
+      return 'General Manager Approved'
     }
   }
 
