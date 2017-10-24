@@ -39,8 +39,27 @@ export class ReimbursementDetailPage {
   conform(){
     if (this.item.state == '发送')
     {
+      let ctrl = this.alertCtrl;
       this.baoxiaoService.confirm1(this.item.sheet_id).then((res) => {
-        console.log(res);
+        if (res)
+        {
+          
+          if (res.result.res_data.success == 1)
+          {
+            console.log(res.result.res_data.success)
+            ctrl.create({
+                  title: '提示',
+                  subTitle: "审批成功",
+                  buttons: [{
+                text: '确定',
+                    handler: () => {
+                    this.navCtrl.pop();
+             }
+             }
+      ]
+    }).present();
+          }
+        }
     })
   }
   else if (this.item.state == '1级审核')
