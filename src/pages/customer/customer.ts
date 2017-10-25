@@ -188,6 +188,7 @@ export class CustomerPage {
     this.customerService.searchHiddenCustomer(this.searchName2,this.user_id)
     .then(res=>{
       if(res.result&&res.result.res_code==1){
+        console.log (res.result.res_data)
         this.dataSourceSecond = res.result.res_data ;
       }
     })
@@ -239,7 +240,9 @@ export class CustomerPage {
     this.isMoreData3=false ;
     this.customerService.searchNormalCustomer(this.searchName3,this.user_id)
     .then(res=>{
+      console.log(res)
       if(res.result&&res.result.res_code==1){
+        
         this.dataSourceThird = res.result.res_data ;
       }
     })

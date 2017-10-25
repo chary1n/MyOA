@@ -4,6 +4,7 @@ import { ContactListPage} from './../../work-bench/contact-list/contact-list'
 import { CallNumber } from '@ionic-native/call-number';
 import { InAppBrowser} from '@ionic-native/in-app-browser';
 import { AppAvailability } from '@ionic-native/app-availability';
+import { CustomerService } from './../CustomerService';
 
 /**
  * Generated class for the CustomerDetailPage page.
@@ -15,7 +16,7 @@ import { AppAvailability } from '@ionic-native/app-availability';
 @Component({
   selector: 'page-customer-detail',
   templateUrl: 'customer-detail.html',
-  providers:[CallNumber,AppAvailability],
+  providers:[CallNumber,AppAvailability,CustomerService],
 })
 export class CustomerDetailPage {
   items:any;
@@ -23,8 +24,18 @@ export class CustomerDetailPage {
   productName;
   show_type:any;
   constructor(public navCtrl: NavController, public navParams: NavParams,public alertCtrl: AlertController,private callNumber: CallNumber,
-  private appAvailability: AppAvailability,public platform: Platform) {
+  private appAvailability: AppAvailability,public platform: Platform,public customerService:CustomerService) {
     this.items = navParams.get('items');
+    
+    let index = 0;
+    for (let item of this.items.message_ids) {
+      // console.log(new Date(item.date.replace(' ','T')+'Z').getTime())
+      // let newDate = new Date(item.date.replace(' ','T')+'Z').getTime()+8*3600;
+        item.date = new Date(item.date.replace(' ','T')+'Z').getTime();
+        this.items.message_ids[index] = item;
+        index ++;
+    }
+
     this.show_type = "one";
     let tag = '';
     if (this.items.tag.length == 1)
@@ -109,6 +120,20 @@ export class CustomerDetailPage {
     });  
       confirm.present();  
      } 
+     else
+     {
+        let confirm = this.alertCtrl.create({  
+      title: "该客户没有录入手机号",  
+      buttons: [  
+        {  
+          text: '确定',  
+          handler: () => {  
+          }  
+        }
+      ]  
+    });  
+      confirm.present(); 
+     }
   }
 
   call(number){  
@@ -179,4 +204,37 @@ export class CustomerDetailPage {
     );
   }
 
+  createInfo(){
+    this.navCtrl.push('CreateInfoPage',{
+      res_id:this.items.id,
+    })
+  }
+
+  call_contact(item){
+    // console.log()
+
+    if(item.phone != 'false' && item.phone != '')
+     {
+        let confirm = this.alertCtrl.create({  
+      title: item.phone,  
+      buttons: [  
+        {  
+          text: '取消',  
+          handler: () => {  
+          }  
+        },  
+        {  
+          text: '确定',  
+          handler: () => {  
+            this.call(item.phone)  
+          }  
+        }  
+      ]  
+    });  
+      confirm.present();  
+     } 
+  }
+
+  
+  
 }

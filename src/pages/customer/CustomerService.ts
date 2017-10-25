@@ -102,4 +102,22 @@ export class CustomerService {
         });
         return this.httpservice.postBody("search_customer", body);
     }
+
+    createInfo(obj){
+        let body = JSON.stringify({
+            body:obj.body,
+            res_id:obj.res_id,
+            message_label_ids:obj.message_label_ids,
+            author_id:obj.author_id,
+            create_uid:obj.create_uid,
+        });
+        return this.httpservice.postBody("create_info", body);
+    }
+
+    get_all_message_label(){
+        let body = JSON.stringify({
+            
+        });
+        return this.httpservice.postBody("get_all_message_label", body);
+    }
 }

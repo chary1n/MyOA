@@ -16,7 +16,7 @@
 <ion-content>
   <ion-grid style="margin-top:10px;width:80%;" class="grid_header">
 <ion-row class="row_class" align-items-center>
-      <ion-col>
+      <ion-col tappable (click) = "createInfo()">
          <div align="center">
           <img style="width:44px;" src="assets/img/write_message.png"><br>
           <p style="color:#5bc5f3">新增记录</p>
@@ -161,21 +161,22 @@
 
   <ion-item-group *ngIf = "show_type == 'two'" style="background-color:#f2f2f2">
     <ion-item no-lines style="margin-top:10px;" *ngFor='let item of items.contracts'>
-      <img style="width:20px;margin-top:-55px;" item-start src="assets/img/user_avater.png">
+      <img style="width:20px;margin-top:-60px;" item-start src="assets/img/user_avater.png">
       <button ion-button style="background-color:white;color:#55c4f5;border-color:#55c4f5;border-width:1px;border-style:solid;margin-left:10px;" small>{{item.type[1]}}</button>
       <p style="font-size:15px;color:black;float:left;margin-top:7px;">{{item.name}}</p>
       <p style="margin-top:3px;">地址：{{item.street}}</p>
-      <p>Email：{{item.email}}</p>
-      <p>电话：{{item.phone}}</p>
+      <p >Email：{{item.email}}</p>
+      <p tappable (click) = "call_contact(item)">电话：{{item.phone}}</p>
     </ion-item>
   </ion-item-group>
 
   <ion-item-group *ngIf = "show_type == 'three'" style="background-color:#f2f2f2">
     <ion-item *ngFor='let item of items.message_ids' no-lines style="margin-top:10px;">
       <img style="width:15px;margin-top:-15px;" item-start src="assets/img/edit_message.png">
-      <p style="float:right;margin-top:3px;">{{item.date}}</p>
+      <p style="float:right;margin-top:3px;">{{item.date | date:'yyyy-MM-dd HH:mm:ss'}}</p>
       <p style="font-size:15px;color:black;">{{item.create_uid[0].name}}</p>
       <p style="margin-top:3px;">{{item.body}}</p>
+      <!--<javascript >{{item.body}}</javascript>-->
     </ion-item>
   </ion-item-group>
   
