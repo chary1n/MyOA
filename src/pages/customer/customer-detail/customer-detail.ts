@@ -141,7 +141,7 @@ export class CustomerDetailPage {
         app = ios_bundle_id;
     } 
     else if (this.platform.is('android')) {
-        // app = 'com.twitter.android';
+        app = android_bundle_id;
     }
     let ctrl = this.alertCtrl;
     this.appAvailability.check(app).then(
@@ -150,8 +150,6 @@ export class CustomerDetailPage {
       
           let browser = new InAppBrowser();
           browser.create(app,'_system', 'location=yes');
-       
-			
       
       // window.open('camcard://','_system',  'location=yes');
 		},

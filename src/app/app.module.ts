@@ -39,8 +39,6 @@ import { MsgPage } from './../pages/msg/msg';
 import { DatePicker } from '@ionic-native/date-picker';
 import { SupplierListPage } from '../pages/work-bench/supplier-list/supplier-list'
 // import { AutocompleteServiceProvider } from '../providers/autocomplete-service/autocomplete-service';
-import { RequestOptions } from '@angular/http'
-import { ArRequestOptions } from '../providers/ArRequestOptions'
 
 @NgModule({
   declarations: [
@@ -61,7 +59,6 @@ import { ArRequestOptions } from '../providers/ArRequestOptions'
     StatusBar,
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
-    { provide: RequestOptions, useClass: ArRequestOptions },
     HttpService,
     Camera,
     AppVersion,
