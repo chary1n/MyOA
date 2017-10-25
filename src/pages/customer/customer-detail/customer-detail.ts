@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams,AlertController,Platform } from 'ionic-angular';
-import { ContactListPage} from './../../work-bench/contact-list/contact-list'
+import { IonicPage, NavController, NavParams, AlertController, Platform } from 'ionic-angular';
+import { ContactListPage } from './../../work-bench/contact-list/contact-list'
 import { CallNumber } from '@ionic-native/call-number';
-import { InAppBrowser} from '@ionic-native/in-app-browser';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { AppAvailability } from '@ionic-native/app-availability';
+import { WebIntent } from "@ionic-native/web-intent"
+declare let cordova: any; 
 
 /**
  * Generated class for the CustomerDetailPage page.
@@ -15,61 +17,53 @@ import { AppAvailability } from '@ionic-native/app-availability';
 @Component({
   selector: 'page-customer-detail',
   templateUrl: 'customer-detail.html',
-  providers:[CallNumber,AppAvailability],
+  providers: [CallNumber, AppAvailability,WebIntent],
 })
 export class CustomerDetailPage {
-  items:any;
-  biaoqian:any;
+  items: any;
+  biaoqian: any;
   productName;
-  show_type:any;
-  constructor(public navCtrl: NavController, public navParams: NavParams,public alertCtrl: AlertController,private callNumber: CallNumber,
-  private appAvailability: AppAvailability,public platform: Platform) {
+  show_type: any;
+  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, private callNumber: CallNumber,
+    private appAvailability: AppAvailability, public platform: Platform,
+    private webIntent :WebIntent) {
     this.items = navParams.get('items');
     this.show_type = "one";
     let tag = '';
-    if (this.items.tag.length == 1)
-    {
-      tag =  this.items.tag[0] ;
+    if (this.items.tag.length == 1) {
+      tag = this.items.tag[0];
     }
-    else if (this.items.tag.length == 2)
-    {
+    else if (this.items.tag.length == 2) {
       tag = this.items.tag[0] + "/" + this.items.tag[1];
     }
-    
+
     let level = '';
     let priority = '';
-    if (this.items.level == 1)
-    {
+    if (this.items.level == 1) {
       level = " 1st";
     }
-    else if (this.items.level == 2)
-    {
+    else if (this.items.level == 2) {
       level = " 2nd";
     }
-    else if (this.items.level == 3)
-    {
+    else if (this.items.level == 3) {
       level = " 3rd";
     }
-    if (this.items.priority)
-    {
+    if (this.items.priority) {
       priority = " 星级:" + this.items.priority;
     }
     this.biaoqian = tag + level + priority;
 
-    if (this.items.product_series.length > 0)
-    {
+    if (this.items.product_series.length > 0) {
       let index = 0;
       let name = '';
       for (var item_pro of this.items.product_series) {
-        if (name != '')
-        {
-          name = name + ',' + item_pro.name; 
+        if (name != '') {
+          name = name + ',' + item_pro.name;
         }
-        else
-        {
+        else {
           name = item_pro.name;
-        }
-        index ++;
+        } 
+        index++;
       }
       this.productName = name;
     }
@@ -80,101 +74,118 @@ export class CustomerDetailPage {
     console.log('ionViewDidLoad CustomerDetailPage');
   }
 
-  contact_detail(){
-    this.navCtrl.push('ContactListPage',{
-          contactList:this.items.contracts,
-       });  
+  contact_detail() {
+    this.navCtrl.push('ContactListPage', {
+      contactList: this.items.contracts,
+    });
   }
 
 
-  callPhone(){  
+  callPhone() {
     //  alert(this.items.phone);
-     if(this.items.phone != 'false' && this.items.phone != '')
-     {
-        let confirm = this.alertCtrl.create({  
-      title: this.items.phone,  
-      buttons: [  
-        {  
-          text: '取消',  
-          handler: () => {  
-          }  
-        },  
-        {  
-          text: '确定',  
-          handler: () => {  
-            this.call(this.items.phone);  
-          }  
-        }  
-      ]  
-    });  
-      confirm.present();  
-     } 
+    if (this.items.phone != 'false' && this.items.phone != '') {
+      let confirm = this.alertCtrl.create({
+        title: this.items.phone,
+        buttons: [
+          {
+            text: '取消',
+            handler: () => {
+            }
+          },
+          {
+            text: '确定',
+            handler: () => {
+              this.call(this.items.phone);
+            }
+          }
+        ]
+      });
+      confirm.present();
+    }
   }
 
-  call(number){  
-    this.callNumber.callNumber(number, true)  
-      .then(() => console.log('Launched dialer!'))  
-      .catch(() => console.log('Error launching dialer'));  
-  } 
+  call(number) {
+    this.callNumber.callNumber(number, true)
+      .then(() => console.log('Launched dialer!'))
+      .catch(() => console.log('Error launching dialer'));
+  }
 
-  click_one(){
+  click_one() {
     this.show_type = "one";
   }
 
-  click_two(){
+  click_two() {
     this.show_type = "two";
   }
 
-  click_three(){
+  click_three() {
     this.show_type = "three";
   }
 
-  sendEmail(){
-    this.openAppWith('alicloudmail://','')
+  sendEmail() {
+    this.openAppWith('alicloudmail://', 'com.alibaba.cloudmail')
   }
 
-  openAppWith(ios_bundle_id,android_bundle_id)
-  {
+  openAppWith(ios_bundle_id, android_bundle_id) {
     let app;
-
     if (this.platform.is('ios')) {
-        app = ios_bundle_id;
-    } 
+      app = ios_bundle_id;
+    }
     else if (this.platform.is('android')) {
-        app = android_bundle_id;
+      app = android_bundle_id;
     }
     let ctrl = this.alertCtrl;
-    this.appAvailability.check(app).then(
-      
-     function() { // success callback
-      
-          let browser = new InAppBrowser();
-          browser.create(app,'_system', 'location=yes');
-      
-      // window.open('camcard://','_system',  'location=yes');
-		},
-    function(){
-      console.log('1');
-      ctrl.create({
-                  title: '提示',
-                  subTitle: "请先下载阿里邮箱",
-                  buttons: [
-                 {
-                    text: '取消',
-                    handler: () => {
-                     
-                 }
-             },{
-                text: '跳转下载',
-                    handler: () => {
-                     let browser = new InAppBrowser();
-                     browser.create('https://itunes.apple.com/cn/app/a-li-you-xiang/id923828102?mt=8');
-             }
-             }
-      ]
-    }).present();
-    }
-    );
+   this.webIntent.startActivity({
+              action: 'android.intent.action.VIEW',
+              url: 'market://details?id=' + app
+            }).then(() => { }, (err) => {
+              console.log("error"+err)
+
+              // this.noticeSer.showToast('提示：当前手机暂不支持打分鼓励功能哦，请确保安装了应用市场APP~');
+            });
+
+    // this.appAvailability.check(app).then(
+
+    //   function () { // success callback
+    //     if (self.platform.is('ios')) {
+    //       let browser = new InAppBrowser();
+    //       browser.create(app, '_system', 'location=yes');
+    //     } else {
+    //       self.mwebIntent.startActivity({
+    //         action: 'android.intent.action.VIEW',
+    //         url: 'market://details?id=' + ""
+    //       }).then(() => { }, (err) => {
+    //         this.noticeSer.showToast('提示：当前手机暂不支持打分鼓励功能哦，请确保安装了应用市场APP~');
+    //       });
+
+    //     }
+    //     // window.open('camcard://','_system',  'location=yes');
+    //   },
+    //   function () {
+    //     console.log('1');
+    //     ctrl.create({
+    //       title: '提示',
+    //       subTitle: "请先下载阿里邮箱",
+    //       buttons: [
+    //         {
+    //           text: '取消',
+    //           handler: () => {
+    //           }
+    //         }, {
+    //           text: '跳转下载',
+    //           handler: () => {
+    //             let browser = new InAppBrowser();
+    //             if (this.platform.is('ios')) {
+    //               browser.create('https://itunes.apple.com/cn/app/a-li-you-xiang/id923828102?mt=8');
+    //             } else {
+    //               window.open("market://details?id=ccom.alibaba.cloudmail");
+    //             }
+    //           }
+    //         }
+    //       ]
+    //     }).present();
+    //   }
+    // );
   }
 
 }
