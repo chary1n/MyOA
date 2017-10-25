@@ -18,15 +18,15 @@
     <ion-refresher-content></ion-refresher-content> 
   </ion-refresher>
   <ion-list>
-    <ion-item *ngFor='let item of applyList' tappable (click)='clickApply(item.id)'>
-      <p text-wrap style="float:right;color:#000000;">{{item.create_time}}</p>
-      <p text-wrap style="font-size:110%;color:#000000;">{{item.name}}
-        <span style="font-size:90%;color:#394bec;margin-left:20px;">报销
+    <ion-item *ngFor='let item of leaveList' tappable (click)='clickApply(item.id)'>
+      <p text-wrap style="float:right;color:#000000;">{{item.create_date}}</p>
+      <p text-wrap style="font-size:110%;color:#000000;">休假申请-{{item.holiday_status_id}}
+        <span style="font-size:90%;color:#394bec;margin-left:20px;">休假
         </span>
       </p>
       <p text-wrap style="float:right;color:#fc6621;font-weight:bold"> {{item.stateCN}} </p>
-      <p text-wrap style="color:gray">金额总计(元)：{{item.payment}} </p>
-      <p text-wrap style="color:gray">部门：{{item.department}} </p>
+      <p text-wrap style="color:gray">时间：{{item.date_from}}  ~ {{item.date_to}}</p>
+      <p text-wrap style="color:gray">说明：{{item.description}} </p>
     </ion-item>
   </ion-list>
   <ion-list>

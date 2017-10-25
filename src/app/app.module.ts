@@ -23,6 +23,7 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
+import{WebIntent} from '@ionic-native/web-intent';
 
 
 import { TabsPage } from '../pages/tabs/tabs';
@@ -37,7 +38,7 @@ import { HttpModule } from "@angular/http";
 import { IonicStorageModule } from '@ionic/storage';
 import { MsgPage } from './../pages/msg/msg';
 import { DatePicker } from '@ionic-native/date-picker';
-import { SupplierListPage} from '../pages/work-bench/supplier-list/supplier-list'
+import { SupplierListPage } from '../pages/work-bench/supplier-list/supplier-list'
 // import { AutocompleteServiceProvider } from '../providers/autocomplete-service/autocomplete-service';
 
 @NgModule({
@@ -62,6 +63,7 @@ import { SupplierListPage} from '../pages/work-bench/supplier-list/supplier-list
     HttpService,
     Camera,
     AppVersion,
+    WebIntent,
     Toast,
     File,
     Transfer,

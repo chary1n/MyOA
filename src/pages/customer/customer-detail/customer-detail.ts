@@ -235,6 +235,7 @@ export class CustomerDetailPage {
      } 
   }
 
-  
-  
+  reload_info(){
+    
+  } 
 }

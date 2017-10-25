@@ -6,6 +6,7 @@ export const OAUBPATH = 'linkloving_oa_api/';
 export const APP_SERVER_URL= 'http://192.168.3.3:8069/';
 // export const APP_SERVER_URL= 'http://erp.robotime.com/';
 // export const APP_SERVER_URL= 'http://192.168.2.38:8111/';
+// export const APP_SERVER_URL= 'http://192.168.3.7:8111/';
 
 
 
