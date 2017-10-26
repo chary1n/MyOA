@@ -71,10 +71,10 @@ export class CamCardPage {
 
           this.contacts.find(fields, options).then((result) => {
             for (var contact of result) {
-              // if (contact.organizations){
-              console.log(contact);
-              this.nameList.push(contact);
-              // }
+              if (contact.organizations) {
+                console.log(contact);
+                this.nameList.push(contact);
+              }
             }
             this.dealWithList(this.nameList);
           });
@@ -163,23 +163,48 @@ export class CamCardPage {
                         }
                       }
                     }
-                    let options = new ContactFindOptions();
-                    let fields: ContactFieldType[];
-                    fields = ["displayName", "phoneNumbers"];
-                    options.filter = "";
-                    options.multiple = true;
-                    options.hasPhoneNumber = true;
-                    let nameArr = [];
-                    this.contacts.find(fields, options).then((result) => {
-                      for (var contact of result) {
-                        // if (contact.organizations) {
-                        console.log(contact);
-                        nameArr.push(contact);
-                        // }
-                      }
-                      this.dealWithList(nameArr);
-                      this.cal_choose_card();
-                    });
+                    if (self.platform.is('android')) {
+                      setTimeout(function () {
+                        self.nameList = [];
+                        self.formatContacts = [];
+                        let options = new ContactFindOptions();
+                        let fields: ContactFieldType[];
+                        fields = ["displayName", "phoneNumbers"];
+                        options.filter = "";
+                        options.multiple = true;
+                        options.hasPhoneNumber = true;
+
+                        self.contacts.find(fields, options).then((result) => {
+                          for (var contact of result) {
+                            if (contact.organizations) {
+                              console.log(contact);
+                              self.nameList.push(contact);
+                            }
+                          }
+                          self.dealWithList(self.nameList);
+                          // this.chooseCount = 0;
+
+                        });
+                      }, 500);
+                    } else {
+                      let options = new ContactFindOptions();
+                      let fields: ContactFieldType[];
+                      fields = ["displayName", "phoneNumbers"];
+                      options.filter = "";
+                      options.multiple = true;
+                      options.hasPhoneNumber = true;
+                      let nameArr = [];
+                      this.contacts.find(fields, options).then((result) => {
+                        for (var contact of result) {
+                          if (contact.organizations) {
+                            console.log(contact);
+                            nameArr.push(contact);
+                          }
+                        }
+                        this.dealWithList(nameArr);
+                        this.cal_choose_card();
+                      });
+                    }
                   }
                 }
                 ,
@@ -194,23 +219,49 @@ export class CamCardPage {
                         }
                       }
                     }
-                    let options = new ContactFindOptions();
-                    let fields: ContactFieldType[];
-                    fields = ["displayName", "phoneNumbers"];
-                    options.filter = "";
-                    options.multiple = true;
-                    options.hasPhoneNumber = true;
-                    let nameArr = [];
-                    this.contacts.find(fields, options).then((result) => {
-                      for (var contact of result) {
-                        // if (contact.organizations) {
-                        console.log(contact);
-                        nameArr.push(contact);
-                        // }
-                      }
-                      this.dealWithList(nameArr);
-                      this.cal_choose_card();
-                    });
+                    if (self.platform.is('android')) {
+                      setTimeout(function () {
+                        self.nameList = [];
+                        self.formatContacts = [];
+                        let options = new ContactFindOptions();
+                        let fields: ContactFieldType[];
+                        fields = ["displayName", "phoneNumbers"];
+                        options.filter = "";
+                        options.multiple = true;
+                        options.hasPhoneNumber = true;
+
+                        self.contacts.find(fields, options).then((result) => {
+                          for (var contact of result) {
+                            if (contact.organizations) {
+                              console.log(contact);
+                              self.nameList.push(contact);
+                            }
+                          }
+                          self.dealWithList(self.nameList);
+                          // this.chooseCount = 0;
+
+                        });
+                      }, 500);
+                    }
+                    else {
+                      let options = new ContactFindOptions();
+                      let fields: ContactFieldType[];
+                      fields = ["displayName", "phoneNumbers"];
+                      options.filter = "";
+                      options.multiple = true;
+                      options.hasPhoneNumber = true;
+                      let nameArr = [];
+                      this.contacts.find(fields, options).then((result) => {
+                        for (var contact of result) {
+                          if (contact.organizations) {
+                            console.log(contact);
+                            nameArr.push(contact);
+                          }
+                        }
+                        this.dealWithList(nameArr);
+                        this.cal_choose_card();
+                      });
+                    }
                   }
                 }
               ]
@@ -662,14 +713,13 @@ export class CamCardPage {
 
       this.contacts.find(fields, options).then((result) => {
         for (var contact of result) {
-          // if (contact.organizations){
-          console.log(contact);
-          this.nameList.push(contact);
-          // }
+          if (contact.organizations) {
+            console.log(contact);
+            this.nameList.push(contact);
+          }
         }
         this.dealWithList(this.nameList);
         // this.chooseCount = 0;
-
 
       });
     }
@@ -692,10 +742,10 @@ export class CamCardPage {
 
     this.contacts.find(fields, options).then((result) => {
       for (var contact of result) {
-        // if (contact.organizations){
-        console.log(contact);
-        this.nameList.push(contact);
-        // }
+        if (contact.organizations) {
+          console.log(contact);
+          this.nameList.push(contact);
+        }
       }
       this.dealWithList(this.nameList);
       this.chooseCount = 0;
