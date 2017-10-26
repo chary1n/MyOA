@@ -47,6 +47,7 @@
         "cli-cursor": "^2.1.0",
         "cli-width": "^2.1.0",
         "com-darryncampbell-cordova-plugin-intent": "0.0.14",
+        "com.lampa.startapp": "^0.1.4",
         "cordova-android": "^6.2.3",
         "cordova-browser": "^4.1.0",
         "cordova-ios": "^4.4.0",
@@ -140,7 +141,8 @@
                 "ANDROID_HOST": " ",
                 "ANDROID_PATHPREFIX": "/"
             },
-            "com-darryncampbell-cordova-plugin-intent": {}
+            "com-darryncampbell-cordova-plugin-intent": {},
+            "com.lampa.startapp": {}
         },
         "dependencies": {
             "@angular/common": "4.1.3",
