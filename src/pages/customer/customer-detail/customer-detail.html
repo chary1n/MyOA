@@ -175,7 +175,10 @@
       <img style="width:15px;margin-top:-15px;" item-start src="assets/img/edit_message.png">
       <p style="float:right;margin-top:3px;">{{item.date | date:'yyyy-MM-dd HH:mm:ss'}}</p>
       <p style="font-size:15px;color:black;">{{item.create_uid[0].name}}</p>
-      <p style="margin-top:3px;">{{item.body}}</p>
+     <div style="width:200px;">
+       <!--<ion-label text-wrap>{{item.body}}</ion-label>-->
+        <p style="margin-top:3px;">{{item.body}}</p>
+     </div>
       <!--<javascript >{{item.body}}</javascript>-->
     </ion-item>
   </ion-item-group>
