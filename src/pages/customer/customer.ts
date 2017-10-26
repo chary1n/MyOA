@@ -320,7 +320,7 @@ export class CustomerPage {
       if(res.result&&res.result.res_code==1){
         console.log(res);
         this.navCtrl.push('CustomerDetailPage',{
-           items:res.result.res_data
+           items:res.result.res_data,
         });
       }
     })
@@ -331,7 +331,7 @@ export class CustomerPage {
       if(res.result&&res.result.res_code==1){
         console.log(res);
         this.navCtrl.push('CustomerDetailPage',{
-           items:res.result.res_data
+           items:res.result.res_data,
         });
       }
     })
@@ -342,7 +342,7 @@ export class CustomerPage {
       if(res.result&&res.result.res_code==1){
         console.log(res);
         this.navCtrl.push('CustomerDetailPage', {
-          items: res.result.res_data
+          items: res.result.res_data,
         });
       }
     })

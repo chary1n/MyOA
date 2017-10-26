@@ -15,9 +15,9 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content>
+<ion-content (pan)="panEvent($event)">
   <ion-list>
-    <ion-item style="height:10px" *ngFor="let item of arr ; let i = index">  
+    <ion-item no-lines style="height:10px" *ngFor="let item of arr ; let i = index">  
         <ion-label>{{item.name}}</ion-label>
         <ion-checkbox tappable style="margin-left:-10px;" (ionChange)="insertUserToArray(item)" [checked]="isCheck(item) ? true : false"></ion-checkbox>
      </ion-item>

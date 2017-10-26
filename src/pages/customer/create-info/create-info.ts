@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams,AlertController,Platform } from 'ionic-angular';
 import { CustomerService } from './../CustomerService';
 import { Storage } from '@ionic/storage';
-
+import { Utils } from './../../../providers/Utils';
+declare let cordova: any; 
 /**
  * Generated class for the CreateInfoPage page.
  *
@@ -21,9 +22,11 @@ export class CreateInfoPage {
   res_id:any;
   create_uid:any;
   author_id:any;
+  frontPage:any;
   constructor(public navCtrl: NavController, public navParams: NavParams,public customerService:CustomerService,
   public storage:Storage) {
-    this.res_id = navParams.get('res_id');
+    this.frontPage = Utils.getViewController("CustomerDetailPage", navCtrl)
+    this.res_id = navParams.get('res_id')
      this.storage.get('user')
       .then(res => {
         console.log(res)
@@ -34,7 +37,6 @@ export class CreateInfoPage {
       console.log(res);
       if(res.result.res_code == 1)
       {
-        // this.arr = res.result.res_data;
         for (let item of res.result.res_data) {
             let obj = {
               id:item.id,
@@ -103,8 +105,22 @@ export class CreateInfoPage {
     
     this.customerService.createInfo(obj).then((res) => {
       console.log(res);
+      if(res)
+      {
+        if(res.result.res_data.success == 1)
+        {
+          this.frontPage.data.need_fresh = true;
+              this.navCtrl.popTo(this.frontPage,{
+                need_fresh:true,
+              });
+        }
+      }
     })
 
+  }
+
+  panEvent($event){
+     cordova.plugins.Keyboard.close();
   }
  
 

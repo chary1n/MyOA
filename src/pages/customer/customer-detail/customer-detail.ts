@@ -6,6 +6,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { AppAvailability } from '@ionic-native/app-availability';
 import { CustomerService } from './../CustomerService';
 import { WebIntent } from "@ionic-native/web-intent";
+import { Storage } from '@ionic/storage';
 declare let startApp: any;
 
 /**
@@ -25,6 +26,9 @@ export class CustomerDetailPage {
   biaoqian: any;
   productName;
   show_type: any;
+  type:any;
+  create_uid:any;
+  author_id:any;
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, private callNumber: CallNumber,
     private appAvailability: AppAvailability,
     public platform: Platform, public customerService: CustomerService,
@@ -92,41 +96,84 @@ export class CustomerDetailPage {
     });
   }
 
+  ionViewDidEnter() {
+    console.log(this.navParams)
+    if (this.navParams.get('need_fresh') == true) {
+      this.reload_info();
+      this.navParams.data.need_fresh = false;
+    }
+  }
 
   callPhone() {
     //  alert(this.items.phone);
-    if (this.items.phone != 'false' && this.items.phone != '') {
-      let confirm = this.alertCtrl.create({
-        title: this.items.phone,
-        buttons: [
-          {
-            text: '取消',
-            handler: () => {
-            }
-          },
-          {
-            text: '确定',
-            handler: () => {
-              this.call(this.items.phone);
-            }
-          }
-        ]
-      });
-      confirm.present();
+     if(this.items.phone != 'false' && this.items.phone != '')
+     {
+        let confirm = this.alertCtrl.create({  
+      title: this.items.phone,  
+      buttons: [  
+        {  
+          text: '取消',  
+          handler: () => {  
+          }  
+        },  
+        {  
+          text: '确定',  
+          handler: () => {  
+            this.call(this.items.phone);  
+
+            this.customerService.get_all_message_label().then((res) => {
+         console.log(res);
+      if(res.result.res_code == 1)
+      {
+        let result_arr = ["question"];
+        for (let item of res.result.res_data) {
+           if (item.name == "电话")
+           {
+             result_arr.push(item.id);
+              let obj = {
+      body:"<p>" + "电话:" + this.items.phone + "</p>",
+      res_id:this.items.id,
+      create_uid:this.create_uid,
+      message_label_ids:result_arr,
+      author_id:this.author_id,  
     }
-    else {
-      let confirm = this.alertCtrl.create({
-        title: "该客户没有录入手机号",
-        buttons: [
-          {
-            text: '确定',
-            handler: () => {
-            }
-          }
-        ]
-      });
-      confirm.present();
-    }
+    console.log(obj);
+    
+    this.customerService.createInfo(obj).then((res) => {
+      console.log(res);
+      if(res)
+      {
+        if(res.result.res_data.success == 1)
+        {
+          this.reload_info();
+        }
+      }
+    })
+           }
+      }
+      }
+    })
+            
+          }  
+        }  
+      ]  
+    });  
+      confirm.present();  
+     } 
+     else
+     {
+        let confirm = this.alertCtrl.create({  
+      title: "该客户没有录入手机号",  
+      buttons: [  
+        {  
+          text: '确定',  
+          handler: () => {  
+          }  
+        }
+      ]  
+    });  
+      confirm.present(); 
+     }
   }
 
   call(number) {
@@ -208,31 +255,78 @@ export class CustomerDetailPage {
     })
   }
 
-  call_contact(item) {
-    // console.log()
+  call_contact(item){
 
-    if (item.phone != 'false' && item.phone != '') {
-      let confirm = this.alertCtrl.create({
-        title: item.phone,
-        buttons: [
-          {
-            text: '取消',
-            handler: () => {
-            }
-          },
-          {
-            text: '确定',
-            handler: () => {
-              this.call(item.phone)
-            }
-          }
-        ]
-      });
-      confirm.present();
+    if(item.phone != 'false' && item.phone != '')
+     {
+        let confirm = this.alertCtrl.create({  
+      title: item.phone,  
+      buttons: [  
+        {  
+          text: '取消',  
+          handler: () => {  
+          }  
+        },  
+        {  
+          text: '确定',  
+          handler: () => {  
+            console.log("start");
+            this.customerService.get_all_message_label().then((res) => {
+         console.log(res);
+      if(res.result.res_code == 1)
+      {
+        let result_arr = ["question"];
+        for (let item of res.result.res_data) {
+           if (item.name == "电话")
+           {
+             result_arr.push(item.id);
+              let obj = {
+      body:"<p>" + "电话:" + item.phone + "</p>",
+      res_id:this.items.id,
+      create_uid:this.create_uid,
+      message_label_ids:result_arr,
+      author_id:this.author_id,  
     }
+    console.log(obj);
+    
+    this.customerService.createInfo(obj).then((res) => {
+      console.log(res);
+      if(res)
+      {
+        if(res.result.res_data.success == 1)
+        {
+          this.reload_info();
+        }
+      }
+    })
+           }
+      }
+      }
+    })
+    this.call(item.phone);
+          }  
+        }  
+      ]  
+    });  
+      confirm.present();  
+     } 
   }
 
-  reload_info() {
+  reload_info(){
+      this.customerService.customer_details(this.items.id).then((res) => {
+      if(res.result&&res.result.res_code==1){
+        console.log(res);
+       this.items = res.result.res_data;
+       let index = 0;
+       for (let item of this.items.message_ids) {
+     
+        item.date = new Date(item.date.replace(' ','T')+'Z').getTime();
+        this.items.message_ids[index] = item;
+        index ++;
+    }
+      }
+    })
+  } 
 
-  }
+  
 }
