@@ -99,6 +99,7 @@
     <engine name="android" spec="^6.2.3" />
     <engine name="browser" spec="^4.1.0" />
     <engine name="ios" spec="^4.4.0" />
+    <plugin name="com-darryncampbell-cordova-plugin-intent" spec="0.0.14" />
     <plugin name="cordova-plugin-app-version" spec="^0.1.9" />
     <plugin name="cordova-plugin-appavailability" spec="^0.4.2" />
     <plugin name="cordova-plugin-appminimize" spec="^1.0.0" />
@@ -138,4 +139,7 @@
     <plugin name="phonegap-plugin-barcodescanner" spec="~6.0.8">
         <variable name="CAMERA_USAGE_DESCRIPTION" value=" " />
     </plugin>
+    <plugin name="com.lampa.startapp" spec="^0.1.4" />
+    <allow-navigation href="http://192.168.3.7:8100" />
+    <allow-navigation href="http://192.168.88.120:8100" />
 </widget>

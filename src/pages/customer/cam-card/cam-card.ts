@@ -9,6 +9,7 @@ import { ChooseService } from './../choose/ChooseService';
 import { ChangeDetectorRef } from '@angular/core';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { AppAvailability } from '@ionic-native/app-availability';
+declare let startApp: any;
 /**
  * Generated class for the CamCardPage page.
  *
@@ -587,8 +588,17 @@ export class CamCardPage {
     if (this.platform.is('ios')) {
       app = ios_bundle_id;
     }
+    
     else if (this.platform.is('android')) {
-      app = android_bundle_id;
+      let sApp = startApp.set({
+        "component": ["com.intsig.BizCardReader", "com.intsig.camcard.BcrFirstLaunchGuide"]
+      });
+      sApp.start(function () { /* success */
+        console.log("OK");
+      }, function (error) { /* fail */
+        alert("请先下载名片全能王再扫描");
+      });
+      return ;
     }
     let ctrl = this.alertCtrl;
     this.appAvailability.check(app).then(
