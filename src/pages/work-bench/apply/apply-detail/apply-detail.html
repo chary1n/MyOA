@@ -46,13 +46,13 @@
               <ion-col col-2 class="textCenter">
                   <img src={{item.create_person_ava}}>
               </ion-col>
-              <ion-col col-6>
+              <ion-col col-5>
                 <div >{{item.create_person}}</div>
                 <div *ngIf="item.old_state || item.new_state" >{{item.old_state}}=>{{item.new_state}}</div>
                 <div text-wrap>{{item.description}}</div>
               </ion-col>
-              <ion-col col-4>
-                  <div>{{item.create_time}}</div>
+              <ion-col col-5>
+                  <div style="font-size:80%">{{item.create_time}}</div>
               </ion-col>
             </ion-row>
           </ion-grid>

@@ -44,7 +44,7 @@ export class ApplyPage {
 
   ionViewWillEnter() {
     this.getApplyList(20, 0, this.user_id)
-    this.getLeaveList(20,0,this.user_id)
+    this.getLeaveList(20, 0, this.user_id)
   }
 
   doRefresh(refresh) {
@@ -91,7 +91,7 @@ export class ApplyPage {
         infinite.complete();
       })
     } else {
-      infinite.complete(); 
+      infinite.complete();
     }
   }
 
@@ -109,14 +109,15 @@ export class ApplyPage {
       }
     })
   }
-// 请假
+  // 请假
   getLeaveList(limit, offset, id) {
     this.commonService.getLeaveList(offset, limit, id).then(res => {
       if (res.result && res.result.res_data) {
         this.leaveList = res.result.res_data;
         if (this.leaveList.length > 0) {
           for (let item of this.leaveList) {
-            item.stateCN = this.change(item.type)
+            item.stateCN = this.changeLeave(item.state)
+            console.log(item.stateCN)
           }
         }
       }
@@ -142,7 +143,7 @@ export class ApplyPage {
         }, {
           text: '请假',
           handler: () => {
-            
+
           }
         }, {
           text: '取消',
@@ -165,8 +166,20 @@ export class ApplyPage {
         });
       }
     })
-
   }
+
+
+  clickLeave(id){
+    this.commonService.getLeaveDetail(id).then(res => {
+      if (res.result && res.result.res_data) {
+        console.log(res);
+        this.navCtrl.push('LeaveDetailPage', {
+          res_data: res.result.res_data
+        });
+      }
+    })
+  }
+
 
   change(state) {
     if (state == 'draft') {
@@ -190,17 +203,19 @@ export class ApplyPage {
     }
   }
 
-  changeLeave(state){
+  changeLeave(state) {
     if (state == 'draft') {
       return '待提交'
-    } else if (state == "submit") {
-      return '发送'
-    } else if (state == "manager1_approve") {
-      return '1级审核'
-    } else if (state == "manager2_approve") {
-      return '2级审核'
-    } else if (state == "manager3_approve") {
-      return 'General Manager Approved'
+    } else if (state == "cancel") {
+      return '已取消'
+    } else if (state == "confirm") {
+      return '待批准'
+    } else if (state == "refuse") {
+      return '已拒绝'
+    } else if (state == "validate1") {
+      return '第二次审批'
+    } else if (state == "validate") {
+      return '已批准'
     }
   }
 

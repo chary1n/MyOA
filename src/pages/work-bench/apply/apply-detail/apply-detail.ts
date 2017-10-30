@@ -36,13 +36,13 @@ export class ApplyDetailPage {
       ],
       buttons: [
         {
-          text: 'Cancel',
+          text: '取消',
           handler: data => {
             console.log('Cancel clicked');
           }
         },
         {
-          text: 'Save',
+          text: '确定',
           handler: data => {
             console.log(data['descrption'])
             this.commonService.get_retract(data['descrption'],this.res_data.id).then(res=>{

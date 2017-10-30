@@ -22,13 +22,20 @@ export class CommonUseServices {
         return this.httpservice.postBody("get_applylist_detail", body);
     }
 
+    getLeaveDetail(id){
+        let body = JSON.stringify({
+            id : id
+        });
+        return this.httpservice.postBody("get_leavelist_detail", body);
+    }
+
     getLeaveList(moffset, mlimit, id) {
         let body = JSON.stringify({
             offset: moffset,
             limit: mlimit,
             user_id: id
         });
-        return this.httpservice.postBody("get_leavelist", body);
+        return this.httpservice.postBodyNoLoading("get_leavelist", body);
     }
 
     //  获取暂支金额,部门,产品名
