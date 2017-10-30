@@ -45,9 +45,17 @@ export class ReimbursementPage {
       });
   }
 
+  ionViewDidEnter() {
+    console.log(this.navParams)
+    if (this.navParams.get('need_fresh') == true) {
+      // console.log(111);
+      this.reloadData();
+      this.navParams.data.need_fresh = false;
+    }
+  }
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad ReimbursementPage');
-
   }
 
   clickMyApply() {
@@ -119,6 +127,26 @@ export class ReimbursementPage {
     {
       return "2级审核";
     }
+  }
+
+  reloadData(){
+    this.baoxiaoService.getApprovalList(10,0,this.user_id).then((res) => {
+            console.log(res);
+            if (res.result && res.result.res_code == 1) {
+            this.wait_approval_list = res.result.res_data
+            let index = 0;
+            if(this.wait_approval_list)
+            {
+              for (let item of this.wait_approval_list) {
+              item.state = this.changeState(item.state);
+              this.wait_approval_list[index] = item;
+              index ++;
+            }
+            }
+             console.log(this.wait_approval_list)
+
+        }
+    })
   }
 
 }

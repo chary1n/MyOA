@@ -719,7 +719,7 @@ export class CamCardPage {
           }
         }
         this.dealWithList(this.nameList);
-        // this.chooseCount = 0;
+        this.chooseCount = 0;
 
       });
     }
