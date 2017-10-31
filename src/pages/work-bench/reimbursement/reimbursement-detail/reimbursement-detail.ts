@@ -113,7 +113,7 @@ export class ReimbursementDetailPage {
 
   showPrompt() {
     let ctrl = this.alertCtrl;
-    let prompt = this.alertCtrl.create({
+      ctrl.create({
       title: '提示',
       message: "输入拒绝的原因",
       inputs: [
@@ -160,8 +160,7 @@ export class ReimbursementDetailPage {
           }
         }
       ]
-    });
-    prompt.present();
+    }).present();
   }
 
 }
