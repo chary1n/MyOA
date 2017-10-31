@@ -481,7 +481,7 @@ export class CamCardPage {
         }
       }
 
-      for (var items of contacts[i].phoneNumbers) {
+      for (let items of contacts[i].phoneNumbers) {
         if (obj.all_phonenumers != '') {
           if (items.type != "work fax")
             obj.all_phonenumers = obj.all_phonenumers + "," + items.value;
@@ -611,9 +611,9 @@ export class CamCardPage {
       this.cal_choose_card();
     }
     else {
-      for (var i = 0; i < this.formatContacts.length; i++) {
-        var group_detail = this.formatContacts[i];
-        for (var j = 0; j < group_detail.value.length; j++) {
+      for (let i = 0; i < this.formatContacts.length; i++) {
+        let group_detail = this.formatContacts[i];
+        for (let j = 0; j < group_detail.value.length; j++) {
           let items = group_detail.value[j];
           if (items.isCheckBox == '1') {
             items.isCheckBox = '0';

@@ -18,7 +18,7 @@
     <ion-refresher-content></ion-refresher-content> 
   </ion-refresher>
   <ion-list>
-    <ion-item *ngFor='let item of leaveList' tappable (click)='clickApply(item.id)'>
+    <ion-item *ngFor='let item of leaveList' tappable (click)='clickLeave(item.id)'>
       <p text-wrap style="float:right;color:#000000;">{{item.create_date}}</p>
       <p text-wrap style="font-size:110%;color:#000000;">休假申请-{{item.holiday_status_id}}
         <span style="font-size:90%;color:#394bec;margin-left:20px;">休假

@@ -22,13 +22,20 @@ export class CommonUseServices {
         return this.httpservice.postBody("get_applylist_detail", body);
     }
 
+    getLeaveDetail(id){
+        let body = JSON.stringify({
+            id : id
+        });
+        return this.httpservice.postBody("get_leavelist_detail", body);
+    }
+
     getLeaveList(moffset, mlimit, id) {
         let body = JSON.stringify({
             offset: moffset,
             limit: mlimit,
             user_id: id
         });
-        return this.httpservice.postBody("get_leavelist", body);
+        return this.httpservice.postBodyNoLoading("get_leavelist", body);
     }
 
     //  获取暂支金额,部门,产品名
@@ -40,10 +47,11 @@ export class CommonUseServices {
     }
 
     // 撤回
-    get_retract(descrpiction,id){ 
+    get_retract(descrpiction,id,userId){ 
         let body = JSON.stringify({
             active_id : id,
-            description :descrpiction
+            description :descrpiction,
+            user_id:userId
         });
         return this.httpservice.postBody("get_retract", body);
     }
@@ -53,5 +61,12 @@ export class CommonUseServices {
         let body = JSON.stringify(data);
         console.log("JSON 的body 是"+body)
         return this.httpservice.postBody("create_apply_order", body);
+    }
+
+    get_leaveType(){
+        let body = JSON.stringify({
+            limit:10
+        });
+        return this.httpservice.postBody("get_leaveType", body);
     }
 }
