@@ -42,9 +42,9 @@
 
 <ion-footer *ngIf="isShowFooter">
   <ion-toolbar>
-    <ion-item>
-      <button ion-button ion-start style='width:50%' tappable (click)='cancel()'> 取消 </button>
-      <button ion-button ion-end style='width:50%' tappable (click)='conform()'> 确认</button>
-    </ion-item> 
+    <!--<ion-item>-->
+     <button ion-button ion-end  style='width:48%;float:right;' tappable (click)='conform()' full> 确认</button>
+    <button ion-button ion-start  style='width:48%' tappable (click)='cancel()' full> 取消 </button>
+    <!--</ion-item> -->
   </ion-toolbar>
 </ion-footer>

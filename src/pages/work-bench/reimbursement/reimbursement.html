@@ -25,8 +25,10 @@
 </ion-header>
 
 
-<ion-content padding>
-  <div [ngSwitch]="pet">
+<ion-content>
+  <ion-auto-complete style="width: 100vw;" (itemSelected) = "itemSelected($event)"  [dataProvider]="reimbursementAutoService"></ion-auto-complete>
+
+  <div [ngSwitch]="pet" style="margin-top:10px;">
 
     <ng-template [ngSwitchCase]='1'>
        <ion-list>

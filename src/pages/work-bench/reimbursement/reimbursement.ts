@@ -2,7 +2,7 @@ import { NavController, NavParams, IonicPage } from 'ionic-angular';
 import { Component } from '@angular/core';
 import { ReimbursementService} from './reimbursementService';
 import { Storage } from '@ionic/storage';
-
+import { ReimbursementAutoService }from './reimbursement-auto'
 /**
  * Generated class for the ReimbursementPage page.
  *
@@ -13,14 +13,15 @@ import { Storage } from '@ionic/storage';
 @Component({
   selector: 'page-reimbursement',
   templateUrl: 'reimbursement.html',
-  providers: [ReimbursementService]
+  providers: [ReimbursementService,ReimbursementAutoService]
 })
 export class ReimbursementPage {
   pet: string = "1";
   user_id;
   wait_approval_list:any;
   already_approval_list:any;
-  constructor(public navCtrl: NavController, public navParams: NavParams,public baoxiaoService:ReimbursementService,public storage:Storage) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,public baoxiaoService:ReimbursementService,public storage:Storage,
+  public reimbursementAutoService:ReimbursementAutoService) {
      this.storage.get('user')
       .then(res => {
         console.log(res);
@@ -147,6 +148,58 @@ export class ReimbursementPage {
 
         }
     })
+  }
+
+  itemSelected(event)
+  {
+    let type ;
+    let search_text;
+    if (event.id == 1)
+    {
+      type = "expense_no";
+      search_text = event.name.replace("搜 单号：","")
+    }
+    else if (event.id == 2)
+    {
+      type = "name";
+      search_text = event.name.replace("搜 申请人：","")
+    }
+
+    if (this.pet == "1")
+    {
+      this.baoxiaoService.searchApproveList(type,this.user_id,search_text).then((res) => {
+      if (res.result && res.result.res_code == 1) {
+            this.wait_approval_list = res.result.res_data
+            let index = 0;
+            if(this.wait_approval_list)
+            {
+              for (let item of this.wait_approval_list) {
+              item.state = this.changeState(item.state);
+              this.wait_approval_list[index] = item;
+              index ++;
+            }
+          }
+      }
+    })
+  }
+    else
+    {
+      this.baoxiaoService.searchAlreadyApproveList(type,this.user_id,search_text).then((res) => {
+      if (res.result && res.result.res_code == 1) {
+            this.already_approval_list = res.result.res_data
+            let index = 0;
+            if(this.already_approval_list)
+            {
+              for (let item of this.already_approval_list) {
+              item.state = this.changeState(item.state);
+              this.already_approval_list[index] = item;
+              index ++;
+            }
+          }
+      }
+    })
+    }
+    
   }
 
 }

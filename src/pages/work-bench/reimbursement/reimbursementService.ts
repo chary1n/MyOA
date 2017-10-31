@@ -52,4 +52,24 @@ export class ReimbursementService {
         });
        return this.httpservice.postBody("refuse_approve",body);
     }
+
+    searchApproveList(type,user_id,search_text)
+    {
+        let body = JSON.stringify({
+            type:type,
+            user_id:user_id,
+            search_text:search_text,
+        });
+       return this.httpservice.postBody("search_approve",body);
+    }
+
+    searchAlreadyApproveList(type,user_id,search_text)
+    {
+        let body = JSON.stringify({
+            type:type,
+            user_id:user_id,
+            search_text:search_text,
+        });
+       return this.httpservice.postBody("search_already_approve",body);
+    }
 }
