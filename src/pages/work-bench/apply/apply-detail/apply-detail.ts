@@ -16,10 +16,12 @@ import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angu
 })
 export class ApplyDetailPage {
   res_data: any;
+  userId ;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public alertCtrl: AlertController,public commonService:CommonUseServices) {
     this.res_data = navParams.get('res_data');
     console.log(this.res_data);
+    this.userId = window.localStorage.getItem('id')
   }
 
   ionViewDidLoad() {
@@ -45,7 +47,7 @@ export class ApplyDetailPage {
           text: '确定',
           handler: data => {
             console.log(data['descrption'])
-            this.commonService.get_retract(data['descrption'],this.res_data.id).then(res=>{
+            this.commonService.get_retract(data['descrption'],this.res_data.id,this.userId).then(res=>{
               if(res.result&&res.result.res_code==1){
                 alert("撤回成功")
                 this.navCtrl.pop()

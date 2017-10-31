@@ -1,0 +1,30 @@
+<!--
+  Generated template for the LeaveApplyPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+    <ion-navbar hideBackButton="true">
+        <ion-buttons left>
+          <button ion-button icon-only (click)="goBack()">
+            <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+          </button>
+        </ion-buttons>
+        <ion-title>新建休假</ion-title>
+      </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+    <ion-item>
+        <ion-label>休假类型</ion-label>
+        <ion-select [(ngModel)]="leaveType" class="normal-select">
+          <ion-option *ngFor="let item of leaveTypeList;let i = index;" value={{item.id}}>{{item.name}}</ion-option>
+        </ion-select>
+      </ion-item>
+
+</ion-content>

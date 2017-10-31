@@ -20,6 +20,7 @@ export class AddApplyDetailPage {
   mBaoxiaoApplyPage;
   production;
   productIndex;
+  changeItem;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public alertCtrl: AlertController,
     public toastCtrl: ToastController) {
@@ -29,6 +30,17 @@ export class AddApplyDetailPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AddApplyDetailPage');
+  }
+
+  ionViewDidEnter() {
+    this.productList = this.navParams.get("product");
+    this.changeItem = this.navParams.get("item");
+    if (this.changeItem) {
+      this.production = this.changeItem;
+      this.amount = this.production.amount;
+      this.remark = this.production.remark;
+      this.productIndex = this.production.productIndex;
+    }
   }
   goBack() {
     if (this.productIndex || this.amount || this.remark) {
@@ -70,8 +82,10 @@ export class AddApplyDetailPage {
         this.production.productName = this.productList[this.productIndex].name;
         this.production.amount = this.amount;
         this.production.remark = this.remark;
+        this.production.productIndex = this.productIndex;
         this.mBaoxiaoApplyPage.data.production = this.production;
         this.mBaoxiaoApplyPage.data.isAdd = true;
+        this.mBaoxiaoApplyPage.data.isChange = this.changeItem ? true : false;;
         this.navCtrl.pop();
       }
     }

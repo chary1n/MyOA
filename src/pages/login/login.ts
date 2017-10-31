@@ -48,6 +48,7 @@ export class LoginPage {
       .then(res => {
         console.log(res);
         if (res != null) {
+          window.localStorage.setItem("id",res.result.res_data.user_id)
           this.navCtrl.setRoot('TabsPage');
           this.loginservice.toLogin(this.email, this.password, this.employee)
             .then(res => {

@@ -139,11 +139,12 @@ export class ApplyPage {
         }, {
           text: '申购',
           handler: () => {
+
           }
         }, {
           text: '请假',
           handler: () => {
-
+            this.navCtrl.push('LeaveApplyPage')
           }
         }, {
           text: '取消',

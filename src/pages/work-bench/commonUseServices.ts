@@ -47,10 +47,11 @@ export class CommonUseServices {
     }
 
     // 撤回
-    get_retract(descrpiction,id){ 
+    get_retract(descrpiction,id,userId){ 
         let body = JSON.stringify({
             active_id : id,
-            description :descrpiction
+            description :descrpiction,
+            user_id:userId
         });
         return this.httpservice.postBody("get_retract", body);
     }
@@ -60,5 +61,12 @@ export class CommonUseServices {
         let body = JSON.stringify(data);
         console.log("JSON 的body 是"+body)
         return this.httpservice.postBody("create_apply_order", body);
+    }
+
+    get_leaveType(){
+        let body = JSON.stringify({
+            limit:10
+        });
+        return this.httpservice.postBody("get_leaveType", body);
     }
 }

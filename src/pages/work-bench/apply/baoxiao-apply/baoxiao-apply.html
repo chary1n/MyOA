@@ -42,13 +42,25 @@
     <ion-label item-end text-right>{{pre_payment_reminding}}</ion-label>
   </ion-item>
 
-  <ion-list style="margin-top:10px">
-      <ion-item *ngFor='let item of addProductionList;let i = index'>
+  <ion-list style="margin-top:10px" lines>
+      <ion-item-sliding  *ngFor='let item of items;let i = index'>
+      <ion-item >
         <div >报销明细{{i+1}}</div>
         <p text-wrap class="team_p">产品：{{item.productName}}</p>
         <p text-wrap class="team_p">金额：{{item.amount}}</p>
         <p text-wrap class="team_p">费用说明：{{item.remark}}</p>
       </ion-item>
+      <ion-item-options side="right">
+          <button ion-button color="primary" (click)="changeProductItem(i)">
+              <ion-icon name="create"></ion-icon>
+              修改
+            </button>
+          <button ion-button color="primary" (click)="deleteProductItem(i)">
+                <ion-icon name="trash"></ion-icon>
+                删除
+              </button>
+        </ion-item-options>
+      </ion-item-sliding>
     </ion-list>
 
 

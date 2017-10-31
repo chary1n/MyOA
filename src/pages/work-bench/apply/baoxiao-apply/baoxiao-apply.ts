@@ -26,12 +26,13 @@ export class BaoxiaoApplyPage {
   productList;
   production;
   // 添加的报销明细
-  addProductionList = [];
+  items = [];
   total: number = 0;
   data: any = [];
   employee_id;
   isAdd = false;
-
+  index ;
+  isChange = false ;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public commonService: CommonUseServices,
     public storage: Storage,
@@ -63,19 +64,24 @@ export class BaoxiaoApplyPage {
 
   ionViewWillEnter() {
     this.isAdd = this.navParams.get("isAdd")
+    this.isChange = this.navParams.get("isChange")
     if (this.isAdd) {
       console.log(this.production)
       this.production = this.navParams.get('production')
       if (this.production) {
-        this.addProductionList.push(this.production)
+        this.items.push(this.production)
         this.total = this.total + parseInt(this.production.amount)
       }
       this.navParams.data.isAdd = false;
     }
+    if(this.isChange){
+      this.items.splice(this.index , 1);
+      this.navParams.data.isChange = false ;
+    }
   }
 
   goBack() {
-    if (this.department || this.addProductionList.length > 0) {
+    if (this.department || this.items.length > 0) {
       this.alertCtrl.create({
         title: '提示',
         subTitle: '已输入内容，是否确认返回？',
@@ -94,6 +100,19 @@ export class BaoxiaoApplyPage {
     }
   }
 
+
+  changeProductItem(i){
+    this.index = i ;
+    this.navCtrl.push('AddApplyDetailPage', { item: this.items[i], index: i 
+      ,product :this.productList})
+  }
+
+
+
+  deleteProductItem(i){
+    this.items.splice(i, 1)
+  }
+
   addApplyDetail() {
     this.navCtrl.push('AddApplyDetailPage', {
       product: this.productList
@@ -104,14 +123,14 @@ export class BaoxiaoApplyPage {
     if (!this.department) {
       mString = mString + "   请选择部门"
     }
-    if (this.addProductionList.length <= 0) {
+    if (this.items.length <= 0) {
       mString = mString + "   请填写报销明细"
     }
     if (mString != "") {
       Utils.toastButtom(mString, this.toastCtrl)
     } else {
       let productionList = []
-      for (let item of this.addProductionList) {
+      for (let item of this.items) {
         let pro = {
           name: item.remark,
           department_id: parseInt(this.department),
@@ -124,7 +143,8 @@ export class BaoxiaoApplyPage {
       let mbody = {
         department_id: parseInt(this.department),
         employee_id: parseInt(this.employee_id),
-        expense_line_ids: productionList
+        expense_line_ids: productionList,
+        user_id : window.localStorage.getItem('id')
       }
       let body = {
         data: mbody
