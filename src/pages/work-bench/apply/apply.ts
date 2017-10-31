@@ -1,3 +1,4 @@
+import { ApplyAutoService } from './apply-auto';
 import { CreateApplyPage } from './../create-apply/create-apply';
 import { Storage } from '@ionic/storage';
 import { CommonUseServices } from './../commonUseServices';
@@ -15,7 +16,7 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'page-apply',
   templateUrl: 'apply.html',
-  providers: [CommonUseServices],
+  providers: [CommonUseServices, ApplyAutoService],
 })
 export class ApplyPage {
   applyList: any;
@@ -28,7 +29,8 @@ export class ApplyPage {
   isMoreData = true;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public commonService: CommonUseServices, public storage: Storage,
-    actionSheetCtrl: ActionSheetController) {
+    actionSheetCtrl: ActionSheetController,
+  public  applyAutoService: ApplyAutoService) {
     this.actionSheetCtrl = actionSheetCtrl
     this.storage.get('user')
       .then(res => {
@@ -44,8 +46,43 @@ export class ApplyPage {
 
   ionViewWillEnter() {
     this.getApplyList(20, 0, this.user_id)
-    this.getLeaveList(20, 0, this.user_id)
+    // this.getLeaveList(20, 0, this.user_id)
   }
+
+
+
+  itemSelected(event) {
+    let type;
+    let search_text;
+    if (event.id == 1) {
+      type = "number";
+      search_text = event.name.replace("搜 单号:", "")
+    }
+    else if (event.id == 2) {
+      type = "department";
+      search_text = event.name.replace("搜 部门:", "")
+    } else if (event.id == 3) {
+      type = "employee";
+      search_text = event.name.replace("搜 员工:", "")
+    }
+    this.commonService.searchApplyList(this.user_id, type, search_text).then((res) => {
+      if (res.result && res.result.res_code == 1) {
+        this.isMoreData = false ;
+        this.applyList = res.result.res_data
+        let index = 0;
+        if (this.applyList) {
+          for (let item of this.applyList) {
+            item.stateCN = this.change(item.state)
+            this.applyList[index] = item;
+            index++;
+
+          }
+        }
+      }
+    })
+
+  }
+
 
   doRefresh(refresh) {
     this.isMoreData = true;
@@ -170,7 +207,7 @@ export class ApplyPage {
   }
 
 
-  clickLeave(id){
+  clickLeave(id) {
     this.commonService.getLeaveDetail(id).then(res => {
       if (res.result && res.result.res_data) {
         console.log(res);

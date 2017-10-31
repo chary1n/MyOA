@@ -14,10 +14,11 @@
 
 
 <ion-content style="background:#f0f0f0">
+    <ion-auto-complete style="width: 100vw;" (itemSelected) = "itemSelected($event)"  [dataProvider]="applyAutoService"></ion-auto-complete>
   <ion-refresher (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content> 
   </ion-refresher>
-  <ion-list>
+  <!-- <ion-list>
     <ion-item *ngFor='let item of leaveList' tappable (click)='clickLeave(item.id)'>
       <p text-wrap style="float:right;color:#000000;">{{item.create_date}}</p>
       <p text-wrap style="font-size:110%;color:#000000;">休假申请-{{item.holiday_status_id}}
@@ -28,7 +29,7 @@
       <p text-wrap style="color:gray">时间：{{item.date_from}}  ~ {{item.date_to}}</p>
       <p text-wrap style="color:gray">说明：{{item.description}} </p>
     </ion-item>
-  </ion-list>
+  </ion-list> -->
   <ion-list>
     <ion-item *ngFor='let item of applyList' tappable (click)='clickApply(item.id)'>
       <p text-wrap style="float:right;color:#000000;">{{item.create_time}}</p>

@@ -1,3 +1,4 @@
+import { AutoCompleteModule } from 'ionic2-auto-complete';
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { ApplyPage } from './apply';
@@ -7,7 +8,7 @@ import { ApplyPage } from './apply';
     ApplyPage,
   ],
   imports: [
-    IonicPageModule.forChild(ApplyPage),
+    IonicPageModule.forChild(ApplyPage),AutoCompleteModule
   ],
 })
 export class ApplyPageModule {}
