@@ -41,6 +41,7 @@ export class ReimbursementDetailPage {
     {
       this.isShowFooter = false;
     }
+    console.log(this.item)
   }
 
   ionViewDidLoad() {

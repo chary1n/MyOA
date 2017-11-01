@@ -4,7 +4,7 @@ import { Storage } from '@ionic/storage';
 import { CommonUseServices } from './../commonUseServices';
 import { IonicPage, NavController, NavParams, ActionSheetController } from 'ionic-angular';
 import { Component } from '@angular/core';
-
+declare let cordova: any; 
 
 /**
  * Generated class for the ApplyPage page.

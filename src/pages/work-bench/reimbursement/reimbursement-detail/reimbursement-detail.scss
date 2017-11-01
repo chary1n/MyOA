@@ -1,3 +1,36 @@
-page-reimbursement-detail {
 
+page-reimbursement-detail {
+    .total_amount{
+        color:rgb(219, 105, 90);
+        font-size:100%;
+        text-align:right;
+        font-weight:bold;
+    }
+    .middle_item{
+        width: 85%;
+        margin-left: 10%;
+        margin-top: 6px;
+        height:80px;
+        border-radius:5px;
+    }
+
+    .redFont{
+        color: red;
+        font-size: 70%;
+    }
+    .textCenter{
+        font-size: 120%;
+        margin-top: 10px;
+
+    }
+    .rowStyle{
+        height: 100px;
+    }
+    ion-col div{
+        margin-top: 5px;
+    }
+
+    .smallFont{
+        font-size: 60%;
+    }
 }

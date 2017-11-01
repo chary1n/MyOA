@@ -1,6 +1,7 @@
 import { Utils } from './../../../../../providers/Utils';
 import { IonicPage, NavController, NavParams, AlertController, ToastController } from 'ionic-angular';
 import { Component } from '@angular/core';
+declare let cordova: any; 
 
 /**
  * Generated class for the AddApplyDetailPage page.
@@ -42,6 +43,11 @@ export class AddApplyDetailPage {
       this.productIndex = this.production.productIndex;
     }
   }
+
+  ionViewWillLeave(){
+    cordova.plugins.Keyboard.close();
+  }
+
   goBack() {
     if (this.productIndex || this.amount || this.remark) {
       this.alertCtrl.create({
