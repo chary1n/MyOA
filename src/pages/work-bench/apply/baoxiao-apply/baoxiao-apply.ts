@@ -31,13 +31,13 @@ export class BaoxiaoApplyPage {
   data: any = [];
   employee_id;
   isAdd = false;
-  index ;
-  isChange = false ;
+  index;
+  isChange = false;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public commonService: CommonUseServices,
     public storage: Storage,
     public alertCtrl: AlertController,
-    public toastCtrl :ToastController) {
+    public toastCtrl: ToastController) {
     this.storage.get('user')
       .then(res => {
         this.user_id = res.result.res_data.user_id;
@@ -70,13 +70,23 @@ export class BaoxiaoApplyPage {
       this.production = this.navParams.get('production')
       if (this.production) {
         this.items.push(this.production)
-        this.total = this.total + parseInt(this.production.amount)
       }
       this.navParams.data.isAdd = false;
     }
-    if(this.isChange){
-      this.items.splice(this.index , 1);
-      this.navParams.data.isChange = false ;
+    if (this.isChange) {
+      this.items.splice(this.index, 1);
+      this.navParams.data.isChange = false;
+    }
+    this.getTotalAmount()
+  }
+
+  getTotalAmount() {
+    if (this.items) {
+      let total = 0;
+      for (let item of this.items) {
+        total = total + parseInt(item.amount)
+      }
+      this.total = total
     }
   }
 
@@ -101,16 +111,19 @@ export class BaoxiaoApplyPage {
   }
 
 
-  changeProductItem(i){
-    this.index = i ;
-    this.navCtrl.push('AddApplyDetailPage', { item: this.items[i], index: i 
-      ,product :this.productList})
+  changeProductItem(i) {
+    this.index = i;
+    this.navCtrl.push('AddApplyDetailPage', {
+      item: this.items[i], index: i
+      , product: this.productList
+    })
   }
 
 
 
-  deleteProductItem(i){
+  deleteProductItem(i) {
     this.items.splice(i, 1)
+    this.getTotalAmount()
   }
 
   addApplyDetail() {
@@ -129,33 +142,48 @@ export class BaoxiaoApplyPage {
     if (mString != "") {
       Utils.toastButtom(mString, this.toastCtrl)
     } else {
-      let productionList = []
-      for (let item of this.items) {
-        let pro = {
-          name: item.remark,
-          department_id: parseInt(this.department),
-          employee_id: parseInt(this.employee_id),
-          product_id: parseInt(item.productId),
-          unit_amount: parseInt(item.amount)
+      this.alertCtrl.create({
+        title: '提示',
+        subTitle: '是否立即提交审核？',
+        buttons: [{ text: '取消' },
+        {
+          text: '确定',
+          handler: () => {
+            this.createApply()
+          }
         }
-        productionList.push(pro)
-      }
-      let mbody = {
+        ]
+      }).present();
+    }
+  }
+
+  createApply() {
+    let productionList = []
+    for (let item of this.items) {
+      let pro = {
+        name: item.remark,
         department_id: parseInt(this.department),
         employee_id: parseInt(this.employee_id),
-        expense_line_ids: productionList,
-        user_id : window.localStorage.getItem('id')
+        product_id: parseInt(item.productId),
+        unit_amount: parseInt(item.amount)
       }
-      let body = {
-        data: mbody
-      }
-      console.log(body)
-      this.commonService.createApply(body).then(res => {
-        console.log(res)
-        if(res.result&&res.result.res_code ==1){
-          this.navCtrl.pop()
-        }
-      })
+      productionList.push(pro)
     }
+    let mbody = {
+      department_id: parseInt(this.department),
+      employee_id: parseInt(this.employee_id),
+      expense_line_ids: productionList,
+      user_id: window.localStorage.getItem('id')
+    }
+    let body = {
+      data: mbody
+    }
+    console.log(body)
+    this.commonService.createApply(body).then(res => {
+      console.log(res)
+      if (res.result && res.result.res_code == 1) {
+        this.navCtrl.pop()
+      }
+    })
   }
 }

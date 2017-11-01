@@ -32,11 +32,6 @@ export class ApplyPage {
     actionSheetCtrl: ActionSheetController,
   public  applyAutoService: ApplyAutoService) {
     this.actionSheetCtrl = actionSheetCtrl
-    this.storage.get('user')
-      .then(res => {
-        this.user_id = res.result.res_data.user_id;
-        console.log(this.user_id);
-      });
   }
 
   ionViewDidLoad() {
@@ -44,12 +39,14 @@ export class ApplyPage {
 
   }
 
-  ionViewWillEnter() {
-    this.getApplyList(20, 0, this.user_id)
-    // this.getLeaveList(20, 0, this.user_id)
+  ionViewDidEnter(){
+    let self = this 
+    this.storage.get('user')
+    .then(res => {
+      this.user_id = res.result.res_data.user_id;
+      self.getApplyList(20, 0, this.user_id)
+    });
   }
-
-
 
   itemSelected(event) {
     let type;
@@ -75,7 +72,6 @@ export class ApplyPage {
             item.stateCN = this.change(item.state)
             this.applyList[index] = item;
             index++;
-
           }
         }
       }
