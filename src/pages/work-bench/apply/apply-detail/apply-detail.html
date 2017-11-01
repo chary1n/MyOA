@@ -41,7 +41,7 @@
   <div style="margin:10px;">审批记录</div>
   <ion-list>
     <ion-item no-lines *ngFor='let item of res_data.message_ids' class="middle_item">
-        <ion-grid>
+        <!--<ion-grid>
             <ion-row class="rowStyle">
               <ion-col col-2 class="textCenter">
                   <img src={{item.create_person_ava}}>
@@ -53,7 +53,16 @@
                 <p text-wrap style="font-size:95%">{{item.description}}</p>
               </ion-col>
             </ion-row>
-          </ion-grid>
+          </ion-grid>-->
+
+          <img item-start style="width:40px;" src={{item.create_person_ava}}>
+          <div style="overflow:hidden">
+          <span style="margin-top:3px;color:black;font-size:80%;float:left">{{item.create_person}}</span>
+
+          <span style="font-size:70%;margin-top:5px;margin-left:-5px;float:right">{{item.create_time}}</span>
+          </div>
+          <p *ngIf="item.old_state || item.new_state" style="font-size:80%;">{{item.old_state}}=>{{item.new_state}}</p>
+          <p text-wrap style="font-size:80%;">{{item.description}}</p>
     </ion-item>
   </ion-list>
 
