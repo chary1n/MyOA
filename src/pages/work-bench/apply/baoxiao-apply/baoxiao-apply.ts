@@ -33,6 +33,7 @@ export class BaoxiaoApplyPage {
   isAdd = false;
   index;
   isChange = false;
+  department_id ;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public commonService: CommonUseServices,
     public storage: Storage,
@@ -51,6 +52,7 @@ export class BaoxiaoApplyPage {
             this.productList = res.result.res_data.product.res_data
             this.pre_payment_reminding = res.result.res_data.pre_payment_reminding
             this.employee_id = res.result.res_data.employee_id;
+            this.department = res.result.res_data.department_id ;
             console.log(this.employee_id)
           }
         })

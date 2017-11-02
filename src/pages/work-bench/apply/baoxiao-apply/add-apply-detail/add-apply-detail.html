@@ -32,7 +32,7 @@
   <ion-item>
     <ion-label>金额 (元)
     </ion-label>
-    <ion-input style="direction:rtl" #mNumberCon  type="number" [(ngModel)]="amount"></ion-input>
+    <ion-input  #mNumberCon  item-end  text-wrap type="number" text-right [(ngModel)]="amount"></ion-input>
   </ion-item>
 
   <ion-item no-lines>
@@ -40,9 +40,9 @@
     <ion-label>费用说明</ion-label>
 
   </ion-item>
-  <ion-textarea style="margin-left:10px;" placeholder='请输入费用明细描述'  [(ngModel)]="remark" class='area_class' >
-    
-
-  </ion-textarea>
+  <ion-item>
+    <ion-textarea  rows = "15" style="margin-left:10px;"  text-wrap placeholder='请输入费用明细描述'  [(ngModel)]="remark" class='area_class' >
+    </ion-textarea>
+  </ion-item>
 
 </ion-content>
