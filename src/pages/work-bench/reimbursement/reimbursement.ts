@@ -72,7 +72,7 @@ export class ReimbursementPage {
   clickAlreadyApply() {
     this.limit = 20;
     this.offset = 0;
-    this.baoxiaoService.getAlreadApprovalList(10,0,this.user_id).then((res) => {
+    this.baoxiaoService.getAlreadApprovalList(this.limit,this.offset,this.user_id).then((res) => {
       console.log(res);
             if (res.result && res.result.res_code == 1) {
             this.already_approval_list = res.result.res_data
@@ -162,12 +162,16 @@ export class ReimbursementPage {
     {
       return "已拒绝";
     }
+    else
+    {
+      return state;
+    }
   }
 
   reloadData(){
     this.limit = 20;
     this.offset = 0;
-    this.baoxiaoService.getApprovalList(10,0,this.user_id).then((res) => {
+    this.baoxiaoService.getApprovalList(this.limit,this.offset,this.user_id).then((res) => {
             console.log(res);
             if (res.result && res.result.res_code == 1) {
             this.wait_approval_list = res.result.res_data
