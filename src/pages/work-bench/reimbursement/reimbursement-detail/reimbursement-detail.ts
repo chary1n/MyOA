@@ -133,7 +133,9 @@ export class ReimbursementDetailPage {
         {
           text: '确定',
           handler: data => {
-            this.baoxiaoService.refuse(this.item.sheet_id,data.title,this.user_id).then((res) => {
+            if (data.title)
+            {
+                this.baoxiaoService.refuse(this.item.sheet_id,data.title,this.user_id).then((res) => {
                if (res)
         {
           
@@ -157,7 +159,21 @@ export class ReimbursementDetailPage {
           }
         }
             })
-
+          }
+          else
+          {
+              ctrl.create({
+                  title: '提示',
+                  subTitle: "请填写拒绝原因",
+                  buttons: [{
+                text: '确定',
+                    handler: () => {
+                   
+             }
+             }
+      ]
+    }).present();
+          }
           }
         }
       ]

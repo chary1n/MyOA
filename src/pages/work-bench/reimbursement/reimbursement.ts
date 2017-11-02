@@ -20,13 +20,19 @@ export class ReimbursementPage {
   user_id;
   wait_approval_list:any;
   already_approval_list:any;
+  isMoreData1 = true;
+  isMoreData2 = true;
+  limit:any;
+  offset:any;
   constructor(public navCtrl: NavController, public navParams: NavParams,public baoxiaoService:ReimbursementService,public storage:Storage,
   public reimbursementAutoService:ReimbursementAutoService) {
+    this.limit = 20;
+    this.offset = 0;
      this.storage.get('user')
       .then(res => {
         console.log(res);
         this.user_id = res.result.res_data.user_id;
-        this.baoxiaoService.getApprovalList(10,0,this.user_id).then((res) => {
+        this.baoxiaoService.getApprovalList(this.limit,this.offset,this.user_id).then((res) => {
             console.log(res);
             if (res.result && res.result.res_code == 1) {
             this.wait_approval_list = res.result.res_data
@@ -64,13 +70,15 @@ export class ReimbursementPage {
   }
 
   clickAlreadyApply() {
+    this.limit = 20;
+    this.offset = 0;
     this.baoxiaoService.getAlreadApprovalList(10,0,this.user_id).then((res) => {
       console.log(res);
             if (res.result && res.result.res_code == 1) {
             this.already_approval_list = res.result.res_data
             let index = 0;
             for (let item of this.already_approval_list) {
-              item.state = "完成";
+              item.state = this.changeState(item.state);
               this.already_approval_list[index] = item;
               index ++;
             }
@@ -78,7 +86,9 @@ export class ReimbursementPage {
     })
   }
   clickWaitMeApply() {
-    this.baoxiaoService.getApprovalList(10,0,this.user_id).then((res) => {
+    this.limit = 20;
+    this.offset = 0;
+    this.baoxiaoService.getApprovalList(this.limit,this.offset,this.user_id).then((res) => {
             console.log(res);
             if (res.result && res.result.res_code == 1) {
             this.wait_approval_list = res.result.res_data
@@ -128,9 +138,35 @@ export class ReimbursementPage {
     {
       return "2级审核";
     }
+    else if (state == 'manager3_approve')
+    {
+      return "General Manager Approve";
+    }
+    else if (state == 'approve')
+    {
+      return "已批准";
+    }
+    else if (state == 'post')
+    {
+      return "已过账";
+    }
+    else if (state == 'post')
+    {
+      return "已过账";
+    }
+    else if (state == 'done')
+    {
+      return "已支付";
+    }
+    else if (state == 'cancel')
+    {
+      return "已拒绝";
+    }
   }
 
   reloadData(){
+    this.limit = 20;
+    this.offset = 0;
     this.baoxiaoService.getApprovalList(10,0,this.user_id).then((res) => {
             console.log(res);
             if (res.result && res.result.res_code == 1) {
@@ -202,4 +238,131 @@ export class ReimbursementPage {
     
   }
 
+  doRefresh(refresh) {
+    this.limit = 20;
+    this.offset = 0;
+    if (this.pet == "1")
+    {
+      this.isMoreData1 = true;
+      this.baoxiaoService.getApprovalList(this.limit,this.offset,this.user_id).then((res) => {
+            console.log(res);
+            if (res.result && res.result.res_code == 1) {
+            this.wait_approval_list = res.result.res_data
+            let index = 0;
+            if(this.wait_approval_list)
+            {
+              for (let item of this.wait_approval_list) {
+              item.state = this.changeState(item.state);
+              this.wait_approval_list[index] = item;
+              index ++;
+            }
+           
+            }
+             console.log(this.wait_approval_list)
+        }
+         refresh.complete();
+    })
+    }
+    else
+    {
+      this.isMoreData2 = true;
+      this.baoxiaoService.getAlreadApprovalList(this.limit,this.offset,this.user_id).then((res) => {
+      console.log(res);
+            if (res.result && res.result.res_code == 1) {
+            this.already_approval_list = res.result.res_data
+            let index = 0;
+            for (let item of this.already_approval_list) {
+              item.state = this.changeState(item.state);
+              this.already_approval_list[index] = item;
+              index ++;
+            }
+            
+        }
+        refresh.complete();
+    })
+    }
+  }
+
+  doInfinite(infiniteScroll) {
+    if (this.pet == "1")
+    {
+      if (this.isMoreData1 == true) {
+        this.limit = 20;
+      this.offset = this.offset + 20;
+      this.baoxiaoService.getApprovalList(this.limit,this.offset,this.user_id).then((res) => {
+            console.log(res);
+            if (res.result && res.result.res_code == 1) {
+               if (res.result.res_data.length == 20) {
+                 this.isMoreData1 = true;
+                }
+               else {
+                 this.isMoreData1 = false;
+               }
+            
+            let index = 0;
+            if(res.result.res_data)
+            {
+              for (let item of res.result.res_data) {
+                 this.wait_approval_list.push(item);
+              }
+              for (let item of this.wait_approval_list) {
+              item.state = this.changeState(item.state);
+              this.wait_approval_list[index] = item;
+              index ++;
+            }
+            
+            }
+             console.log(this.wait_approval_list)
+
+        }
+        else {
+          this.isMoreData1 = false;
+        }
+        infiniteScroll.complete();
+    })
+      }
+      else
+      {
+        infiniteScroll.complete();
+      }
+    }
+    else
+    {
+      if (this.isMoreData2 == true) {
+      this.limit = 20;
+      this.offset = this.offset + 20;
+      this.baoxiaoService.getAlreadApprovalList(this.limit,this.offset,this.user_id).then((res) => {
+      console.log(res);
+            if (res.result && res.result.res_code == 1) {
+               if (res.result.res_data.length == 20) {
+            this.isMoreData2 = true;
+          }
+          else {
+            this.isMoreData2 = false;
+          }
+            let index = 0;
+            if (res.result.res_data)
+            {
+                 for (let item of res.result.res_data) {
+                    this.already_approval_list.push(item);
+                 }
+                for (let item of this.already_approval_list) {
+                   item.state = this.changeState(item.state);
+                   this.already_approval_list[index] = item;
+                   index ++;
+                }
+            } 
+        }
+        else {
+            this.isMoreData2 = false;
+          }
+          infiniteScroll.complete();
+    })
+  }
+  else
+      {
+        infiniteScroll.complete();
+      }
+    }
+  }
 }

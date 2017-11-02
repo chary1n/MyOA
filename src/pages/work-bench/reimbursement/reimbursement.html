@@ -28,6 +28,9 @@
 <ion-content>
   <ion-auto-complete style="width: 100vw;" (itemSelected) = "itemSelected($event)"  [dataProvider]="reimbursementAutoService"></ion-auto-complete>
 
+   <ion-refresher (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
   <div [ngSwitch]="pet" style="margin-top:10px;">
 
     <ng-template [ngSwitchCase]='1'>
@@ -56,4 +59,7 @@
       </ion-list>        
     </ng-template>
   </div>
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
 </ion-content>
