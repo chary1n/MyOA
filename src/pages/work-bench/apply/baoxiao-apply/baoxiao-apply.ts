@@ -74,7 +74,9 @@ export class BaoxiaoApplyPage {
       this.navParams.data.isAdd = false;
     }
     if (this.isChange) {
-      this.items.splice(this.index, 1);
+      let changeItem = this.items[this.items.length-1]
+      this.items.splice(this.index, 1,changeItem);
+      this.items.pop()
       this.navParams.data.isChange = false;
     }
     this.getTotalAmount()

@@ -1,6 +1,8 @@
+import { Utils } from './../../../../providers/Utils';
+import { Toast } from '@ionic-native/toast';
 import { CommonUseServices } from './../../commonUseServices';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, ToastController } from 'ionic-angular';
 
 /**
  * Generated class for the ApplyDetailPage page.
@@ -18,7 +20,8 @@ export class ApplyDetailPage {
   res_data: any;
   userId ;
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    public alertCtrl: AlertController,public commonService:CommonUseServices) {
+    public alertCtrl: AlertController,public commonService:CommonUseServices,
+    public toastCtrl :ToastController) {
     this.res_data = navParams.get('res_data');
     console.log(this.res_data);
     this.userId = window.localStorage.getItem('id')
@@ -47,12 +50,16 @@ export class ApplyDetailPage {
           text: '确定',
           handler: data => {
             console.log(data['descrption'])
-            this.commonService.get_retract(data['descrption'],this.res_data.id,this.userId).then(res=>{
-              if(res.result&&res.result.res_code==1){
-                alert("撤回成功")
-                this.navCtrl.pop()
-              }
-            })
+            if(data['descrption']){
+              this.commonService.get_retract(data['descrption'],this.res_data.id,this.userId).then(res=>{
+                if(res.result&&res.result.res_code==1){
+                  alert("撤回成功")
+                  this.navCtrl.pop()
+                }
+              })
+            }else{
+              Utils.toastButtom("请填写撤回理由",this.toastCtrl)
+            }
           }
         }
       ]
