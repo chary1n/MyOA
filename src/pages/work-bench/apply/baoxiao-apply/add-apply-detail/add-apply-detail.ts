@@ -1,5 +1,5 @@
 import { Utils } from './../../../../../providers/Utils';
-import { IonicPage, NavController, NavParams, AlertController, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, ToastController, Platform } from 'ionic-angular';
 import { Component } from '@angular/core';
 declare let cordova: any; 
 
@@ -23,6 +23,7 @@ export class AddApplyDetailPage {
   productIndex;
   changeItem;
   constructor(public navCtrl: NavController, public navParams: NavParams,
+    public platform: Platform,
     public alertCtrl: AlertController,
     public toastCtrl: ToastController) {
     this.productList = this.navParams.get("product");
@@ -45,7 +46,9 @@ export class AddApplyDetailPage {
   }
 
   ionViewWillLeave(){
-    cordova.plugins.Keyboard.close();
+    if(this.platform.is('ios')){
+      cordova.plugins.Keyboard.close();
+    }
   }
 
   goBack() {

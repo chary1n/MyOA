@@ -69,12 +69,23 @@ export class CommonUseServices {
         return this.httpservice.postBody("get_retract", body);
     }
 
+     // 提交审核
+     submit_apply( id, userId) {
+        let body = JSON.stringify({
+            id: id,
+            user_id: userId
+        });
+        return this.httpservice.postBody("submit_apply", body);
+    }
+
+
     // 创建审批单
     createApply(data) {
         let body = JSON.stringify(data);
         console.log("JSON 的body 是" + body)
         return this.httpservice.postBody("create_apply_order", body);
     }
+
 
     get_leaveType() {
         let body = JSON.stringify({

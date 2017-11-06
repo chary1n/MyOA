@@ -69,7 +69,13 @@
 </ion-content>
 
 <ion-footer>
-  <button  *ngIf="res_data.state!='cancel'"  ion-button full (click)="callbackApply()">
+  <button  *ngIf="res_data.state=='draft' "  ion-end style='width:48%'
+   ion-button  (click)="submitApply()">
+    提交申请
+  </button>
+  <button  *ngIf="res_data.state=='draft'" 
+   ion-start style='width:48%' ion-button  (click)="callbackApply()">
     撤回申请
   </button>
+
 </ion-footer>
