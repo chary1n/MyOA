@@ -78,4 +78,7 @@ export class WorkBenchPage {
     this.navCtrl.push('ApplyPage')
   }
 
+  shengou(){
+    this.navCtrl.push('ShengoupagePage');
+  }
 }

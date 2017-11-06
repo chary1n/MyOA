@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>{{title}}</ion-title>
+    <ion-title>{{item.name}}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -24,20 +24,16 @@
       <ion-label item-end style="font-size:75%;text-align:right;">{{item.department}}</ion-label>
     </ion-item>
     <ion-item>
-      <ion-label style="font-size:85%;font-weight:bold">暂支余额</ion-label>
-      <ion-label item-end style="font-size:75%;text-align:right;">{{item.pre_payment_reminding}}</ion-label>
-    </ion-item>
-    <ion-item>
-    <ion-label class="total_amount">金额总计（元）：{{item.amount}}</ion-label>
+    <ion-label class="total_amount">金额总计（元）：{{item.total_amount}}</ion-label>
   </ion-item>
   </ion-list>
 
   <ion-item-group >
     <ion-item *ngFor='let items of item.line_ids'>
-          <h3 text-wrap>报销明细</h3>
+          <h3 text-wrap>申购明细</h3>
           <p text-wrap style="font-size:80%;color:gray;">产品：{{items.product_id}}</p>
-          <p text-wrap style="font-size:80%;">金额：{{items.unit_amount}}</p>
-          <p text-wrap style="font-size:80%;color:gray">费用说明：{{items.name}} </p>
+          <p text-wrap style="font-size:80%;">金额：{{items.quantity * items.price_unit}}        数量：{{items.price_unit}}</p>
+          <p text-wrap style="font-size:80%;color:gray">费用说明：{{items.description}} </p>
     </ion-item>
   </ion-item-group>
 
@@ -48,7 +44,7 @@
           <div style="overflow:hidden">
           <span style="margin-top:3px;color:black;font-size:80%;float:left">{{items.create_person}}</span>
 
-          <span style="font-size:70%;margin-top:5px;margin-left:-5px;float:right">{{items.create_time}}</span>
+          <span style="font-size:70%;margin-top:5px;margin-left:-5px;float:right">{{changeDate(items.create_time) | date:'yyyy-MM-dd HH:mm:ss'}}</span>
           </div>
           <p *ngIf="items.old_state || items.new_state" style="font-size:80%;">{{items.old_state}}=>{{items.new_state}}</p>
           <p text-wrap style="font-size:80%;">{{items.description}}</p>
@@ -57,9 +53,11 @@
   
 </ion-content>
 
-<ion-footer *ngIf="isShowFooter">
-  <ion-toolbar>
-    <button ion-button ion-end  style='width:50%;float:right;background-color:#1eabfe' tappable (click)='conform()' full>通过</button>
-    <button ion-button ion-start  style='width:50%;background-color:red' tappable (click)='cancel()' full>拒绝</button>
-  </ion-toolbar>
+<ion-footer *ngIf = "item.state != 'done'">
+  <button  *ngIf="item.state!='cancel'"  ion-button full (click)="backApply()">
+    撤回申请
+  </button>
+  <button *ngIf="item.state == 'cancel'"  ion-button full (click)="reApply()">
+    重新申请
+  </button>
 </ion-footer>
