@@ -26,7 +26,7 @@
   <ion-item>
     <ion-label>产品</ion-label>
     <ion-select [(ngModel)]="productIndex" class="normal-select">
-      <ion-option *ngFor="let item of productList;let i = index;" value={{i}}>{{item.name}}</ion-option>
+      <ion-option *ngFor="let item of productList;let i = index;" >{{item.name}}</ion-option>
     </ion-select>
   </ion-item>
   <ion-item>
