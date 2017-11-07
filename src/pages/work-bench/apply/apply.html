@@ -10,42 +10,90 @@
     <ion-title>我的申请</ion-title>
   </ion-navbar>
 
+  <ion-toolbar no-border-top>
+    <ion-segment [(ngModel)]="pet">
+      <ion-segment-button tappable (click)='clickWaitMeApply()' value="0">
+        我的报销
+      </ion-segment-button>
+      <ion-segment-button tappable (click)='clickWaitMeApply()' value="1">
+        待我审批
+      </ion-segment-button>
+      <ion-segment-button tappable (click)='clickAlreadyApply()' value="2">
+        我已审批
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+
+
 </ion-header>
 
 
 <ion-content style="background:#f0f0f0">
-    <ion-auto-complete style="width: 100vw;" (itemSelected) = "itemSelected($event)"  [dataProvider]="applyAutoService"></ion-auto-complete>
-  <ion-refresher (ionRefresh)="doRefresh($event)">
-    <ion-refresher-content></ion-refresher-content> 
-  </ion-refresher>
-  <!-- <ion-list>
-    <ion-item *ngFor='let item of leaveList' tappable (click)='clickLeave(item.id)'>
-      <p text-wrap style="float:right;color:#000000;">{{item.create_date}}</p>
-      <p text-wrap style="font-size:110%;color:#000000;">休假申请-{{item.holiday_status_id}}
-        <span style="font-size:90%;color:#394bec;margin-left:20px;">休假
-        </span>
-      </p>
-      <p text-wrap style="float:right;color:#fc6621;font-weight:bold"> {{item.stateCN}} </p>
-      <p text-wrap style="color:gray">时间：{{item.date_from}}  ~ {{item.date_to}}</p>
-      <p text-wrap style="color:gray">说明：{{item.description}} </p>
-    </ion-item>
-  </ion-list> -->
-  <ion-list>
-    <ion-item *ngFor='let item of applyList' tappable (click)='clickApply(item.id)'>
-      <p text-wrap style="float:right;color:#000000;">{{item.create_time}}</p>
-      <p text-wrap style="font-size:110%;color:#000000;">{{item.name}}
-        <span style="font-size:90%;color:#394bec;margin-left:10px;">报销
-        </span>
-      </p>
-      <p text-wrap style="float:right;color:#fc6621;font-weight:bold"> {{item.stateCN}} </p>
-      <p text-wrap style="color:gray">金额总计(元)：{{item.payment}} </p>
-      <p text-wrap style="color:gray">部门：{{item.department}} </p>
-    </ion-item>
-  </ion-list>
-  <ion-infinite-scroll immediate-check="false" (ionInfinite)="doInfinite($event)">
-    <ion-infinite-scroll-content></ion-infinite-scroll-content>
-  </ion-infinite-scroll>
+  <div [ngSwitch]="pet" style="margin-top:10px;">
+    <ng-template [ngSwitchCase]='0'>
+      <ion-auto-complete style="width: 100vw;" (itemSelected)="itemSelected0($event)" [dataProvider]="applyAutoService"></ion-auto-complete>
+      <ion-refresher (ionRefresh)="doRefresh0($event)">
+        <ion-refresher-content></ion-refresher-content>
+      </ion-refresher>
+      <ion-list>
+        <ion-item *ngFor='let item of applyList' tappable (click)='clickApply(item.id)'>
+          <p text-wrap style="float:right;color:#000000;">{{item.create_time}}</p>
+          <p text-wrap style="font-size:110%;color:#000000;">{{item.name}}
+            <span style="font-size:90%;color:#394bec;margin-left:10px;">报销
+            </span>
+          </p>
+          <p text-wrap style="float:right;color:#fc6621;font-weight:bold"> {{item.stateCN}} </p>
+          <p text-wrap style="color:gray">金额总计(元)：{{item.payment}} </p>
+          <p text-wrap style="color:gray">部门：{{item.department}} </p>
+        </ion-item>
+      </ion-list>
+      <ion-infinite-scroll immediate-check="false" (ionInfinite)="doInfinite0($event)">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+    </ng-template>
+
+
+    <ng-template [ngSwitchCase]='1'>
+        <ion-auto-complete style="width: 100vw;" (itemSelected)="itemSelected($event)" [dataProvider]="reimbursementAutoService"></ion-auto-complete>
+        <ion-refresher (ionRefresh)="doRefresh($event)">
+          <ion-refresher-content></ion-refresher-content>
+        </ion-refresher>
+        <ion-list>
+          <ion-item *ngFor='let item of wait_approval_list' tappable (click)='approval_detail(item)'>
+            <h3 text-wrap>{{item.employee_name}}</h3>
+            <p text-wrap style="font-size:70%;float:right;color:gray;">{{item.create_date}}</p>
+            <h4 text-wrap style="font-size:80%;">{{item.expense_name}}</h4>
+            <p text-wrap style="font-size:70%;float:right;color:red;font-weight:bold"> {{item.state}} </p>
+            <p text-wrap style="font-size:80%;color:gray">金额总计(元)：{{item.amount}} </p>
+            <p text-wrap style="font-size:80%;color:gray">部门：{{item.department}} </p>
+          </ion-item>
+        </ion-list>
+        <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+          <ion-infinite-scroll-content></ion-infinite-scroll-content>
+        </ion-infinite-scroll>
+      </ng-template>
+  
+      <ng-template [ngSwitchCase]='2'>
+        <ion-auto-complete style="width: 100vw;" (itemSelected)="itemSelected($event)" [dataProvider]="reimbursementAutoService"></ion-auto-complete>
+        <ion-refresher (ionRefresh)="doRefresh($event)">
+          <ion-refresher-content></ion-refresher-content>
+        </ion-refresher>
+        <ion-list>
+          <ion-item *ngFor='let item of already_approval_list' tappable (click)='approved_detail(item)'>
+            <h3 text-wrap>{{item.employee_name}}</h3>
+            <p text-wrap style="font-size:70%;float:right;color:gray;">{{item.create_date}}</p>
+            <h4 text-wrap style="font-size:80%;">{{item.expense_name}}</h4>
+            <p text-wrap style="font-size:70%;float:right;color:red;font-weight:bold"> {{item.state}} </p>
+            <p text-wrap style="font-size:80%;color:gray">金额总计(元)：{{item.amount}} </p>
+            <p text-wrap style="font-size:80%;color:gray">部门：{{item.department}} </p>
+          </ion-item>
+        </ion-list>
+        <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+          <ion-infinite-scroll-content></ion-infinite-scroll-content>
+        </ion-infinite-scroll>
+      </ng-template>
+    </div>
 </ion-content>
-<ion-footer>
+<ion-footer ng-if="type==0">
   <button ion-button (click)="showActionSheet()" full> 我要申请</button>
 </ion-footer>

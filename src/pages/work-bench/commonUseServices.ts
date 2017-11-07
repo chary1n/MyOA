@@ -17,6 +17,16 @@ export class CommonUseServices {
         return this.httpservice.postBody("get_applylist", body);
     }
 
+    getApplyListNoLoading(moffset, mlimit, id) {
+        id =  parseInt(id)
+        let body = JSON.stringify({
+            offset: moffset,
+            limit: mlimit,
+            user_id: id
+        });
+        return this.httpservice.postBodyNoLoading("get_applylist", body);
+    }
+
 
     searchApplyList(id, type, data) {
         let body = JSON.stringify({

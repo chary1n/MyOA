@@ -36,6 +36,7 @@ export class BaoxiaoApplyPage {
   department_id;
   editItem;
   isResetItem  = false;
+  record_id ;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public commonService: CommonUseServices,
     public storage: Storage,
@@ -55,7 +56,6 @@ export class BaoxiaoApplyPage {
             this.pre_payment_reminding = res.result.res_data.pre_payment_reminding
             this.employee_id = res.result.res_data.employee_id;
             this.department = res.result.res_data.department_id;
-            console.log(this.employee_id)
           }
         })
       });
@@ -66,12 +66,14 @@ export class BaoxiaoApplyPage {
       this.employee_id = this.editItem.employee_id
       this.department_id = this.editItem.department_id
       this.department = this.editItem.department_id
+      this.record_id = this.editItem.id
       for(let item  of this.editItem.expense_line_ids ){
         let mitem  : any = [];
         mitem.remark =  item.description 
         mitem.productId = item.productId
         mitem.amount = item.amount
         mitem.productName = item.name
+        mitem.id = item.id 
         this.items.push(mitem)
       }
     }
@@ -187,7 +189,8 @@ export class BaoxiaoApplyPage {
         department_id: parseInt(this.department),
         employee_id: parseInt(this.employee_id),
         product_id: parseInt(item.productId),
-        unit_amount: parseInt(item.amount)
+        unit_amount: parseInt(item.amount),
+        id :parseInt(item.id)
       }
       productionList.push(pro)
     }
@@ -196,7 +199,8 @@ export class BaoxiaoApplyPage {
       employee_id: parseInt(this.employee_id),
       expense_line_ids: productionList,
       user_id: window.localStorage.getItem('id'),
-      is_reset :this.isResetItem
+      is_reset :this.isResetItem,
+      id : this.record_id
     }
     let body = {
       data: mbody
