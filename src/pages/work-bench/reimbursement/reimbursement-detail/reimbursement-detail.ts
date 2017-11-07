@@ -26,7 +26,7 @@ export class ReimbursementDetailPage {
   public alertCtrl:AlertController,public storage:Storage) {
     this.item = this.navParams.get('item');
     this.title = this.item.expense_name;
-    this.frontPage = Utils.getViewController("ReimbursementPage", navCtrl)
+    this.frontPage = Utils.getViewController("ApplyPage", navCtrl)
     this.storage.get('user')
       .then(res => {
         console.log(res)
