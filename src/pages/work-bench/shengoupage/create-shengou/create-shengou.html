@@ -1,0 +1,72 @@
+<!--
+  Generated template for the BaoxiaoApplyPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar hideBackButton="true">
+    <!--<ion-buttons left>
+      <button ion-button icon-only (click)="goBack()">
+        <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>-->
+    <ion-title>新建申购</ion-title>
+  </ion-navbar>
+
+
+</ion-header>
+
+
+<ion-content style="background:#f0f0f0">
+  <ion-item>
+    <ion-label>申请人
+      <!-- <span style="color:red;"> *</span> -->
+    </ion-label>
+    <ion-label item-end text-right>{{user_name}}</ion-label>
+  </ion-item>
+
+  <ion-item>
+    <ion-label style="color:black">部门(费用归属)</ion-label> 
+    <ion-select [(ngModel)]="department" class="normal-select">
+      <ion-option *ngFor="let item of departmentList;" value={{item.id}} 
+       >{{item.name}}</ion-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-list style="margin-top:10px" lines>
+      <ion-item-sliding  *ngFor='let item of items;let i = index'>
+      <ion-item >
+        <div >报销明细{{i+1}}</div>
+        <p text-wrap class="team_p">产品：{{item.productName}}</p>
+        <p text-wrap class="team_p">金额：{{item.amount}}</p>
+        <p text-wrap class="team_p">费用说明：{{item.remark}}</p>
+      </ion-item>
+      <ion-item-options side="right">
+          <button ion-button color="primary" (click)="changeProductItem(i)">
+              <ion-icon name="create"></ion-icon>
+              修改
+            </button>
+          <button ion-button color="primary" (click)="deleteProductItem(i)">
+                <ion-icon name="trash"></ion-icon>
+                删除
+              </button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+
+
+
+  <button ion-button full (click)="addApplyDetail()">
+    + 申购明细
+  </button>
+
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <button ion-button ion-start style='width:66%' clear> 金额总计 (元) : {{total}}</button>
+    <button ion-button ion-end style='width:30%' (click)='save()'> 保存</button>
+  </ion-toolbar>
+
+</ion-footer>
