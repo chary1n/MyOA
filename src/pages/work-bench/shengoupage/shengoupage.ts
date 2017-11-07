@@ -109,7 +109,7 @@ export class ShengoupagePage {
 
   createApply(){
     this.navCtrl.push('CreateShengouPage',{
-
+      // item:this.item,
     });
   }
 }

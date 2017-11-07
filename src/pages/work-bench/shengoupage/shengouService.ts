@@ -33,4 +33,18 @@ export class ShenGouService {
         });
        return this.httpservice.postBody("reset_shengou",body);
     }
+
+    get_all_departments(){
+        let body = JSON.stringify({
+           
+        });
+        return this.httpservice.postBody("get_all_departments",body);
+    }
+
+    get_all_products(){
+         let body = JSON.stringify({
+           
+        });
+        return this.httpservice.postBody("get_all_products",body);
+    }
 }
