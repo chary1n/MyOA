@@ -92,6 +92,10 @@ export class ApplyDetailPage {
     });
     prompt.present();
   }
+
+  edit_apply(){
+      this.navCtrl.push("BaoxiaoApplyPage",{data :this.res_data} )
+  }
 }
 
 

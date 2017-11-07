@@ -33,7 +33,9 @@ export class BaoxiaoApplyPage {
   isAdd = false;
   index;
   isChange = false;
-  department_id ;
+  department_id;
+  editItem;
+  isResetItem  = false;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public commonService: CommonUseServices,
     public storage: Storage,
@@ -52,11 +54,27 @@ export class BaoxiaoApplyPage {
             this.productList = res.result.res_data.product.res_data
             this.pre_payment_reminding = res.result.res_data.pre_payment_reminding
             this.employee_id = res.result.res_data.employee_id;
-            this.department = res.result.res_data.department_id ;
+            this.department = res.result.res_data.department_id;
             console.log(this.employee_id)
           }
         })
       });
+    this.editItem = this.navParams.get("data");
+    if (this.editItem) {
+      this.isResetItem = true ;
+      console.log(this.editItem)
+      this.employee_id = this.editItem.employee_id
+      this.department_id = this.editItem.department_id
+      this.department = this.editItem.department_id
+      for(let item  of this.editItem.expense_line_ids ){
+        let mitem  : any = [];
+        mitem.remark =  item.description 
+        mitem.productId = item.productId
+        mitem.amount = item.amount
+        mitem.productName = item.name
+        this.items.push(mitem)
+      }
+    }
   }
 
   ionViewDidLoad() {
@@ -76,8 +94,8 @@ export class BaoxiaoApplyPage {
       this.navParams.data.isAdd = false;
     }
     if (this.isChange) {
-      let changeItem = this.items[this.items.length-1]
-      this.items.splice(this.index, 1,changeItem);
+      let changeItem = this.items[this.items.length - 1]
+      this.items.splice(this.index, 1, changeItem);
       this.items.pop()
       this.navParams.data.isChange = false;
     }
@@ -177,7 +195,8 @@ export class BaoxiaoApplyPage {
       department_id: parseInt(this.department),
       employee_id: parseInt(this.employee_id),
       expense_line_ids: productionList,
-      user_id: window.localStorage.getItem('id')
+      user_id: window.localStorage.getItem('id'),
+      is_reset :this.isResetItem
     }
     let body = {
       data: mbody
