@@ -34,9 +34,9 @@ export class ShenGouService {
        return this.httpservice.postBody("reset_shengou",body);
     }
 
-    get_all_departments(){
+    get_all_departments(user_id){
         let body = JSON.stringify({
-           
+           partner_id:user_id,
         });
         return this.httpservice.postBody("get_all_departments",body);
     }
@@ -46,5 +46,19 @@ export class ShenGouService {
            
         });
         return this.httpservice.postBody("get_all_products",body);
+    }
+
+    create_shengou(data) {
+        let body = JSON.stringify(data);
+        console.log("JSON 的body 是" + body)
+        return this.httpservice.postBody("create_shengou", body);
+    }
+
+    search_shengou(search_text,user_id){
+        let body = JSON.stringify({
+           search_text:search_text,
+           user_id:user_id,
+        });
+        return this.httpservice.postBody("search_shengou",body);
     }
 }

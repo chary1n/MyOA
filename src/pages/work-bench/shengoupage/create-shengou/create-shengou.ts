@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, IonicPage ,AlertController} from 'ionic-angular';
+import { NavController, NavParams, IonicPage ,AlertController,ToastController} from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { CommonUseServices } from './../../commonUseServices';
 import { ShenGouService} from './../shengouService'
+import { Utils } from './../../../../providers/Utils';
 
 /**
  * Generated class for the CreateShengouPage page.
@@ -33,17 +34,32 @@ export class CreateShengouPage {
   isAdd = false;
   index;
   isChange = false;
+  partner_id;
+  frontPage;
   constructor(public navCtrl: NavController, public navParams: NavParams,public storage :Storage,
-  public commonService:CommonUseServices,public shenGouService:ShenGouService,public alertCtrl:AlertController) {
+  public commonService:CommonUseServices,public shenGouService:ShenGouService,public alertCtrl:AlertController,
+  public toastCtrl:ToastController) {
+    this.frontPage = Utils.getViewController("ShengoupagePage", navCtrl)
     this.storage.get('user')
     .then(res => {
-      console.log(res);
       this.user_id = res.result.res_data.user_id;
       this.user_name = res.result.res_data.name;
+      this.partner_id = res.result.res_data.partner_id;
       // this.department_id = res.result.res_data.department_id
-      this.shenGouService.get_all_departments().then((res) => {
-        console.log(res);
-        this.departmentList = res.result.res_data.res_data;
+      this.shenGouService.get_all_departments(this.partner_id).then((res) => {
+        if (res.result.res_data.all_departments)
+        {
+           this.departmentList = res.result.res_data.all_departments.res_data;
+        }
+        if (res.result.res_data.default_department)
+        {
+           this.department = res.result.res_data.default_department.res_data[0].id;
+        }
+        if (res.result.res_data.employee_id)
+        {
+          console.log(res.result.res_data.employee_id)
+          this.employee_id = res.result.res_data.employee_id;
+        }
       })
     });
   }
@@ -74,7 +90,7 @@ export class CreateShengouPage {
 
   changeProductItem(i) {
     this.index = i;
-    this.navCtrl.push('AddApplyDetailPage', {
+    this.navCtrl.push('AddShengouDetailPage', {
       item: this.items[i], index: i
       // , product: this.productList
     })
@@ -90,14 +106,14 @@ export class CreateShengouPage {
     if (this.items) {
       let total = 0;
       for (let item of this.items) {
-        total = total + parseInt(item.amount)
+        total = total + parseInt(item.amount) * parseInt(item.unit)
       }
       this.total = total
     }
   }
 
   goBack() {
-    if (this.department || this.items.length > 0) {
+    if (this.items.length > 0) {
       this.alertCtrl.create({
         title: '提示',
         subTitle: '已输入内容，是否确认返回？',
@@ -114,5 +130,82 @@ export class CreateShengouPage {
     else {
       this.navCtrl.pop();
     }
+  }
+
+  deleteProductItem(i) {
+    this.items.splice(i, 1)
+    this.getTotalAmount()
+  }
+
+  save() {
+    let mString = "";
+    if (!this.department) {
+      mString = mString + "   请选择部门"
+    }
+    if (this.items.length <= 0) {
+      mString = mString + "   请填写申购明细"
+    }
+    if (mString != "") {
+      Utils.toastButtom(mString, this.toastCtrl)
+    } else {
+      this.alertCtrl.create({
+        title: '提示',
+        subTitle: '是否立即提交审核？',
+        buttons: [{ text: '取消' },
+        {
+          text: '确定',
+          handler: () => {
+            this.createApply()
+          }
+        }
+        ]
+      }).present();
+    }
+  }
+
+  createApply() {
+    let ctrl = this.alertCtrl;
+    let productionList = []
+    for (let item of this.items) {
+      let pro = {
+        description: item.remark,
+        quantity:parseInt(item.unit),
+        // department_id: parseInt(this.department),
+        product_id: parseInt(item.productId),
+        price_unit: parseInt(item.amount)
+      }
+      productionList.push(pro)
+    }
+    let mbody = {
+      department_id: parseInt(this.department),
+      employee_id: parseInt(this.employee_id),
+      line_ids: productionList,
+      create_uid:this.user_id,
+      total_amount:this.total,
+    }
+    let body = {
+      data: mbody
+    }
+    console.log(body)
+    this.shenGouService.create_shengou(body).then(res => {
+      console.log(res)
+      if (res.result && res.result.res_code == 1) {
+        // this.navCtrl.pop()
+        ctrl.create({
+                  title: '提示',
+                  subTitle: "提交成功",
+                  buttons: [{
+                text: '确定',
+                    handler: () => {
+                    this.frontPage.data.need_fresh = true;
+              this.navCtrl.popTo(this.frontPage,{
+                need_fresh:true,
+              });
+             }
+             }
+      ]
+    }).present();
+      }
+    })
   }
 }

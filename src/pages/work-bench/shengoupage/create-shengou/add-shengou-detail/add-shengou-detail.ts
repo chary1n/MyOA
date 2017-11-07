@@ -23,8 +23,11 @@ export class AddShengouDetailPage {
   productIndex;
   production;
   changeItem;
+  mShenGoupage;
   constructor(public navCtrl: NavController, public navParams: NavParams,public shenGouService:ShenGouService,
   public alertCtrl:AlertController,public toastCtrl:ToastController) {
+    this.mShenGoupage = Utils.getViewController("CreateShengouPage", navCtrl);
+
     this.shenGouService.get_all_products().then((res) => {
       console.log(res);
       if (res.result.res_code == 1)
@@ -45,6 +48,7 @@ export class AddShengouDetailPage {
       this.amount = this.production.amount;
       this.remark = this.production.remark;
       this.productIndex = this.production.productIndex;
+      this.unit = this.production.unit;
     }
   }
 
@@ -83,16 +87,22 @@ export class AddShengouDetailPage {
       Utils.toastButtom(mString, this.toastCtrl)
     } else {
       if (this.productIndex && this.amount && this.remark) {
-        // this.production = [];
-        // this.production.productId = this.productList[this.productIndex].id;
-        // this.production.productName = this.productList[this.productIndex].name;
-        // this.production.amount = this.amount;
-        // this.production.remark = this.remark;
-        // this.production.productIndex = this.productIndex;
-        // this.mBaoxiaoApplyPage.data.production = this.production;
-        // this.mBaoxiaoApplyPage.data.isAdd = true;
-        // this.mBaoxiaoApplyPage.data.isChange = this.changeItem ? true : false;;
-        // this.navCtrl.pop();
+        console.log(this.productIndex);
+        this.production = [];
+        for (let item of this.productList) {
+          if(item.name == this.productIndex){
+            this.production.productId = item.id;
+          }
+        }
+        this.production.productName = this.productIndex;
+        this.production.amount = this.amount;
+        this.production.remark = this.remark;
+        this.production.unit = this.unit;
+        this.production.productIndex = this.productIndex;
+        this.mShenGoupage.data.production = this.production;
+        this.mShenGoupage.data.isAdd = true;
+        this.mShenGoupage.data.isChange = this.changeItem ? true : false;;
+        this.navCtrl.pop();
       }
     }
   }

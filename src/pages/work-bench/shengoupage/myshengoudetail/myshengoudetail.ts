@@ -25,6 +25,7 @@ export class MyshengoudetailPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,
   public shengouService:ShenGouService,public alertCtrl:AlertController,public storage:Storage) {
      this.item = this.navParams.get('item');
+     console.log(this.item.state)
      this.frontPage = Utils.getViewController("ShengoupagePage", navCtrl)
      this.storage.get('user')
     .then(res => {

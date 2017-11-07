@@ -28,14 +28,26 @@
   </ion-item>
   </ion-list>
 
-  <ion-item-group >
-    <ion-item *ngFor='let items of item.line_ids'>
-          <h3 text-wrap>申购明细</h3>
+  <ion-list style="margin-top:10px" lines>
+      <ion-item-sliding  *ngFor='let items of item.line_ids;let i = index'>
+      <ion-item>
+        <div>申购明细</div>
           <p text-wrap style="font-size:80%;color:gray;">产品：{{items.product_id}}</p>
-          <p text-wrap style="font-size:80%;">金额：{{items.quantity * items.price_unit}}        数量：{{items.price_unit}}</p>
+          <p text-wrap style="font-size:80%;">金额：{{items.price_unit}}        数量：{{items.quantity}}</p>
           <p text-wrap style="font-size:80%;color:gray">费用说明：{{items.description}} </p>
-    </ion-item>
-  </ion-item-group>
+      </ion-item>
+      <ion-item-options side="right">
+          <button ion-button color="primary" (click)="changeProductItem(i)">
+              <ion-icon name="create"></ion-icon>
+              修改
+            </button>
+          <button ion-button color="primary" (click)="deleteProductItem(i)">
+                <ion-icon name="trash"></ion-icon>
+                删除
+              </button>
+        </ion-item-options>
+      </ion-item-sliding>
+  </ion-list>
 
   <div style="margin:10px;">审批记录</div>
   <ion-list>

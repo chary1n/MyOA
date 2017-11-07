@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, IonicPage } from 'ionic-angular';
 import { ShenGouService} from './shengouService'
 import { Storage } from '@ionic/storage';
+import { ShenGouAutoService }from './shengouAutoService'
+
+
 /**
  * Generated class for the ShengoupagePage page.
  *
@@ -12,19 +15,26 @@ import { Storage } from '@ionic/storage';
 @Component({
   selector: 'page-shengoupage',
   templateUrl: 'shengoupage.html',
-  providers:[ShenGouService],
+  providers:[ShenGouService,ShenGouAutoService],
 })
 export class ShengoupagePage {
   pet: string = "1";
   items:any;
   user_id:any;
-  myApplyList:any
+  myApplyList:any;
+  limit;
+  offset;
+  isMoreData1 = true;
+  isMoreData2 = true;
+  isMoreData3 = true;
   constructor(public navCtrl: NavController, public navParams: NavParams,public shengouService:ShenGouService
-            ,public storage:Storage) {
+            ,public storage:Storage,public shenGouAutoService:ShenGouAutoService) {
     this.storage.get('user')
     .then(res => {
       this.user_id = res.result.res_data.user_id;
-      this.shengouService.getshengouList(10,0,this.user_id).then((res) =>{
+      this.limit = 20;
+      this.offset = 0;
+      this.shengouService.getshengouList(this.limit,this.offset,this.user_id).then((res) =>{
         console.log(res.result.res_data)
         if (res.result.res_data)
         {
@@ -41,22 +51,21 @@ export class ShengoupagePage {
   ionViewDidEnter() {
     console.log(this.navParams)
     if (this.navParams.get('need_fresh') == true) {
-      // console.log(111);
-      this.reloadData();
+      this.reloadData(null);
       this.navParams.data.need_fresh = false;
     }
   }
 
   clickMyApply(){
-    this.reloadData();
+    this.reloadData(null);
   }
 
   clickWaitMeApply(){
-    this.reloadData();
+    this.reloadData(null);
   }
 
   clickAlreadyApply(){
-    this.reloadData();
+    this.reloadData(null);
   }
 
   changeState(item){
@@ -94,11 +103,18 @@ export class ShengoupagePage {
     })
   }
 
-  reloadData(){
+  reloadData(refresh){
+    this.limit = 20;
+    this.offset = 0;
     if (this.pet == "1")
     {
-      this.shengouService.getshengouList(10,0,this.user_id).then((res) =>{
+      this.isMoreData1 = true;
+      this.shengouService.getshengouList(this.limit,this.offset,this.user_id).then((res) =>{
         console.log(res.result.res_data)
+        if (refresh)
+        {
+          refresh.complete();
+        }
         if (res.result.res_data)
         {
           this.myApplyList = res.result.res_data;
@@ -111,5 +127,56 @@ export class ShengoupagePage {
     this.navCtrl.push('CreateShengouPage',{
       // item:this.item,
     });
+  }
+
+  doRefresh(refresh) {
+    this.reloadData(refresh);
+  }
+  doInfinite(infiniteScroll) {
+    if (this.pet == "1")
+    {
+      if (this.isMoreData1 == true) {
+          this.limit += 20;
+          this.offset += 20;
+          this.shengouService.getshengouList(this.limit,this.offset,this.user_id).then((res) =>{
+          console.log(res.result.res_data)
+          if (res.result.res_data)
+          {
+            if (res.result.res_data.length == 20) {
+                 this.isMoreData1 = true;
+                }
+               else {
+                 this.isMoreData1 = false;
+               }
+             for (let item of res.result.res_data) {
+               this.myApplyList.push(item);
+             }
+          }
+          else {
+          this.isMoreData1 = false;
+        }
+        infiniteScroll.complete(); 
+        })
+      }
+      else
+      {
+        infiniteScroll.complete();
+      }
+    }
+  }
+
+  itemSelected(event){
+    let search_text = event.name.replace("搜 单号：","")
+    this.shengouService.search_shengou(search_text,this.user_id).then((res) => {
+      console.log(res)
+        if (res.result.res_data)
+        {
+          this.myApplyList = res.result.res_data;
+        } 
+        else
+        {
+          this.myApplyList = [];
+        }
+    })
   }
 }

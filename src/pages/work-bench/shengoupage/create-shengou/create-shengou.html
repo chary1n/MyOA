@@ -7,11 +7,11 @@
 <ion-header>
 
   <ion-navbar hideBackButton="true">
-    <!--<ion-buttons left>
+    <ion-buttons left>
       <button ion-button icon-only (click)="goBack()">
         <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
       </button>
-    </ion-buttons>-->
+    </ion-buttons>
     <ion-title>新建申购</ion-title>
   </ion-navbar>
 
@@ -37,10 +37,10 @@
 
   <ion-list style="margin-top:10px" lines>
       <ion-item-sliding  *ngFor='let item of items;let i = index'>
-      <ion-item >
-        <div >报销明细{{i+1}}</div>
+      <ion-item tappable (click) = "changeProductItem(i)">
+        <div >申购明细{{i+1}}</div>
         <p text-wrap class="team_p">产品：{{item.productName}}</p>
-        <p text-wrap class="team_p">金额：{{item.amount}}</p>
+        <p text-wrap class="team_p">金额：{{item.amount}}    数量：{{item.unit}}</p>
         <p text-wrap class="team_p">费用说明：{{item.remark}}</p>
       </ion-item>
       <ion-item-options side="right">
