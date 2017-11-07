@@ -35,7 +35,7 @@
       <ion-refresher (ionRefresh)="doRefresh0($event)">
         <ion-refresher-content></ion-refresher-content>
       </ion-refresher>
-      <ion-list>
+      <ion-list style="margin-top:7px">
         <ion-item *ngFor='let item of applyList' tappable (click)='clickApply(item.id)'>
           <p text-wrap style="float:right;color:#000000;">{{item.create_time}}</p>
           <p text-wrap style="font-size:110%;color:#000000;">{{item.name}}
@@ -58,7 +58,7 @@
         <ion-refresher (ionRefresh)="doRefresh($event)">
           <ion-refresher-content></ion-refresher-content>
         </ion-refresher>
-        <ion-list>
+        <ion-list style="margin-top:7px">
           <ion-item *ngFor='let item of wait_approval_list' tappable (click)='approval_detail(item)'>
             <h3 text-wrap>{{item.employee_name}}</h3>
             <p text-wrap style="font-size:70%;float:right;color:gray;">{{item.create_date}}</p>
@@ -78,7 +78,7 @@
         <ion-refresher (ionRefresh)="doRefresh($event)">
           <ion-refresher-content></ion-refresher-content>
         </ion-refresher>
-        <ion-list>
+        <ion-list style="margin-top:7px">
           <ion-item *ngFor='let item of already_approval_list' tappable (click)='approved_detail(item)'>
             <h3 text-wrap>{{item.employee_name}}</h3>
             <p text-wrap style="font-size:70%;float:right;color:gray;">{{item.create_date}}</p>
@@ -94,6 +94,6 @@
       </ng-template>
     </div>
 </ion-content>
-<ion-footer ng-if="type==0">
+<ion-footer *ngIf="pet == '0'">
   <button ion-button (click)="showActionSheet()" full> 我要申请</button>
 </ion-footer>
