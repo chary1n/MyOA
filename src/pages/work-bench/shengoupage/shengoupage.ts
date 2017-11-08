@@ -136,7 +136,7 @@ export class ShengoupagePage {
     if (this.pet == "1")
     {
       if (this.isMoreData1 == true) {
-          this.limit += 20;
+          this.limit = 20;
           this.offset += 20;
           this.shengouService.getshengouList(this.limit,this.offset,this.user_id).then((res) =>{
           console.log(res.result.res_data)

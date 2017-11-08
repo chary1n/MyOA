@@ -462,7 +462,7 @@ export class ApplyPage {
         this.offset = this.offset + 20;
         this.baoxiaoService.getApprovalList(this.limit, this.offset, this.user_id).then((res) => {
           console.log(res);
-          if (res.result && res.result.res_code == 1) {
+          if (res.result.res_data && res.result.res_code == 1) {
             if (res.result.res_data.length == 20) {
               this.isMoreData1 = true;
             }
@@ -501,7 +501,7 @@ export class ApplyPage {
         this.offset = this.offset + 20;
         this.baoxiaoService.getAlreadApprovalList(this.limit, this.offset, this.user_id).then((res) => {
           console.log(res);
-          if (res.result && res.result.res_code == 1) {
+          if (res.result.res_data && res.result.res_code == 1) {
             if (res.result.res_data.length == 20) {
               this.isMoreData2 = true;
             }
