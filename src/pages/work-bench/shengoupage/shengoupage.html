@@ -50,17 +50,33 @@
     </ng-template>
 
     <ng-template [ngSwitchCase]='2'>
-        <ion-list>
-        <ion-item *ngFor='let item of already_approval_list' tappable (click)='approved_detail(item)'>
-          <h3 text-wrap>{{item.employee_name}}</h3>
-          <p text-wrap style="font-size:70%;float:right;color:gray;">{{item.create_date}}</p>
-          <h4 text-wrap style="font-size:80%;">{{item.expense_name}}</h4>
-          <p text-wrap style="font-size:70%;float:right;color:red;font-weight:bold"> {{item.state}} </p>
-          <p text-wrap style="font-size:80%;color:gray">金额总计(元)：{{item.amount}} </p>
+      <ion-list>
+        <ion-item *ngFor='let item of wait_me_audit_list' tappable (click)='wait_audit_detail(item)'>
+          <h3 text-wrap>{{item.employee}}</h3>
+          <p text-wrap style="font-size:70%;float:right;color:gray;">{{item.apply_date}}</p>
+          <h4 text-wrap style="font-size:80%;">{{item.name}}</h4>
+          <p text-wrap style="font-size:70%;float:right;color:red;font-weight:bold"> {{changeState(item.state)}} </p>
+          <p text-wrap style="font-size:80%;color:gray">金额总计(元)：{{item.total_amount}} </p>
           <p text-wrap style="font-size:80%;color:gray">部门：{{item.department}} </p>
         </ion-item>
-      </ion-list>        
+      </ion-list>          
     </ng-template>
+
+
+    <ng-template [ngSwitchCase]='3'>
+      <ion-list>
+      <ion-item *ngFor='let item of audited_list' tappable (click)='audited_detail(item)'>
+        <h3 text-wrap>{{item.employee}}</h3>
+        <p text-wrap style="font-size:70%;float:right;color:gray;">{{item.apply_date}}</p>
+        <h4 text-wrap style="font-size:80%;">{{item.name}}</h4>
+        <p text-wrap style="font-size:70%;float:right;color:red;font-weight:bold"> {{changeState(item.state)}} </p>
+        <p text-wrap style="font-size:80%;color:gray">金额总计(元)：{{item.total_amount}} </p>
+        <p text-wrap style="font-size:80%;color:gray">部门：{{item.department}} </p>
+      </ion-item>
+    </ion-list>        
+  </ng-template>
+
+
   </div>
   <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
       <ion-infinite-scroll-content></ion-infinite-scroll-content>
