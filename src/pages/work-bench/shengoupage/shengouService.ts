@@ -62,4 +62,68 @@ export class ShenGouService {
         });
         return this.httpservice.postBody("search_shengou",body);
     }
+    search_wait_me_audit(search_text,user_id){
+        let body = JSON.stringify({
+           search_text:search_text,
+           user_id:user_id,
+           type:'wait'
+        });
+        return this.httpservice.postBody("search_shengou2",body);
+    }
+
+    search_audited(search_text,user_id){
+        let body = JSON.stringify({
+           search_text:search_text,
+           user_id:user_id,
+           type :'audited'
+        });
+        return this.httpservice.postBody("search_shengou2",body);
+    }
+
+
+    get_audited_purchase(limit,offset,user_id){
+        let body = JSON.stringify({
+            limit:limit,
+            offset:offset,
+            user_id:user_id,
+            type : "audited"
+        });
+       return this.httpservice.postBody("audited_purchase",body);
+    }
+
+    get_wait_audit_purchase(limit,offset,user_id){
+        let body = JSON.stringify({
+            limit:limit,
+            offset:offset,
+            user_id:user_id,
+            type :"wait"
+        });
+       return this.httpservice.postBody("audited_purchase",body);
+    }
+
+    confirm1(sheet_id,user_id){
+        let body = JSON.stringify({
+            sheet_id:sheet_id,
+            user_id:user_id,
+        });
+       return this.httpservice.postBody("confirm_purchase",body);
+    }
+
+    refuse(sheet_id,reason,user_id)
+    {
+        let body = JSON.stringify({
+            sheet_id:sheet_id,
+            reason:reason,
+            user_id:user_id,
+        });
+       return this.httpservice.postBody("refuse_approve",body);
+    }
+
+
+    getAuditDetail(id) {
+        let body = JSON.stringify({
+            id: id
+        });
+        return this.httpservice.postBody("get_audit_detail", body);
+    }
 }

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, IonicPage } from 'ionic-angular';
-import { ShenGouService} from './shengouService'
+import { ShenGouService } from './shengouService'
 import { Storage } from '@ionic/storage';
-import { ShenGouAutoService }from './shengouAutoService'
+import { ShenGouAutoService } from './shengouAutoService'
 
 
 /**
@@ -15,33 +15,34 @@ import { ShenGouAutoService }from './shengouAutoService'
 @Component({
   selector: 'page-shengoupage',
   templateUrl: 'shengoupage.html',
-  providers:[ShenGouService,ShenGouAutoService],
+  providers: [ShenGouService, ShenGouAutoService],
 })
 export class ShengoupagePage {
   pet: string = "1";
-  items:any;
-  user_id:any;
-  myApplyList:any;
+  items: any;
+  user_id: any;
+  myApplyList: any;
   limit;
   offset;
+  audited_list;
+  wait_me_audit_list;
   isMoreData1 = true;
   isMoreData2 = true;
   isMoreData3 = true;
-  constructor(public navCtrl: NavController, public navParams: NavParams,public shengouService:ShenGouService
-            ,public storage:Storage,public shenGouAutoService:ShenGouAutoService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public shengouService: ShenGouService
+    , public storage: Storage, public shenGouAutoService: ShenGouAutoService) {
     this.storage.get('user')
-    .then(res => {
-      this.user_id = res.result.res_data.user_id;
-      this.limit = 20;
-      this.offset = 0;
-      this.shengouService.getshengouList(this.limit,this.offset,this.user_id).then((res) =>{
-        console.log(res.result.res_data)
-        if (res.result.res_data)
-        {
-          this.myApplyList = res.result.res_data;
-        } 
-      })
-    });
+      .then(res => {
+        this.user_id = res.result.res_data.user_id;
+        this.limit = 20;
+        this.offset = 0;
+        this.shengouService.getshengouList(this.limit, this.offset, this.user_id).then((res) => {
+          console.log(res.result.res_data)
+          if (res.result.res_data) {
+            this.myApplyList = res.result.res_data;
+          }
+        })
+      });
   }
 
   ionViewDidLoad() {
@@ -56,75 +57,94 @@ export class ShengoupagePage {
     }
   }
 
-  clickMyApply(){
+  clickMyApply() {
     this.reloadData(null);
   }
 
-  clickWaitMeApply(){
+  clickWaitMeApply() {
     this.reloadData(null);
   }
 
-  clickAlreadyApply(){
+  clickAlreadyApply() {
     this.reloadData(null);
   }
 
-  changeState(item){
-    if (item == "draft"){
+  changeState(item) {
+    if (item == "draft") {
       return "草稿";
     }
-    else if (item == "submit"){
+    else if (item == "submit") {
       return "提交";
     }
-    else if (item == "manager1_approve"){
+    else if (item == "manager1_approve") {
       return "一级审核";
     }
-    else if (item == "manager2_approve"){
+    else if (item == "manager2_approve") {
       return "二级审核";
     }
-    else if (item == "cancel"){
+    else if (item == "cancel") {
       return "取消";
     }
-    else if (item == "approve"){
+    else if (item == "approve") {
       return "批准";
     }
-    else if (item == "done"){
+    else if (item == "done") {
       return "完成";
     }
   }
 
-  changeDate(date){
+  changeDate(date) {
     let new_date = new Date(date.replace(' ', 'T') + 'Z').getTime();
     return new_date;
   }
 
-  shengou_detail(item){
-    this.navCtrl.push('MyshengoudetailPage',{
-      item:item,
+  shengou_detail(item) {
+    this.navCtrl.push('MyshengoudetailPage', {
+      item: item,
     })
   }
 
-  reloadData(refresh){
+  reloadData(refresh) {
     this.limit = 20;
     this.offset = 0;
-    if (this.pet == "1")
-    {
+    if (this.pet == "1") {
       this.isMoreData1 = true;
-      this.shengouService.getshengouList(this.limit,this.offset,this.user_id).then((res) =>{
+      this.shengouService.getshengouList(this.limit, this.offset, this.user_id).then((res) => {
         console.log(res.result.res_data)
-        if (refresh)
-        {
+        if (refresh) {
           refresh.complete();
         }
-        if (res.result.res_data)
-        {
+        if (res.result) {
           this.myApplyList = res.result.res_data;
-        } 
+        }
+      })
+    } else if (this.pet == "3") {
+      this.isMoreData3 = true;
+      this.shengouService.get_audited_purchase(this.limit, this.offset, this.user_id).then((res) => {
+        console.log(res.result.res_data)
+        if (refresh) {
+          refresh.complete();
+        }
+        if (res.result) {
+          this.audited_list = res.result.res_data;
+        }
+      })
+    } else if (this.pet == "2") {
+      this.isMoreData2 = true;
+      this.shengouService.get_wait_audit_purchase(this.limit, this.offset, this.user_id).then((res) => {
+        console.log(res.result.res_data)
+        if (refresh) {
+          refresh.complete();
+        }
+        if (res.result) {
+          this.wait_me_audit_list = res.result.res_data;
+        }
       })
     }
   }
 
-  createApply(){
-    this.navCtrl.push('CreateShengouPage',{
+  createApply() {
+    this.navCtrl.push('CreateShengouPage', {
       // item:this.item,
     });
   }
@@ -133,50 +153,139 @@ export class ShengoupagePage {
     this.reloadData(refresh);
   }
   doInfinite(infiniteScroll) {
-    if (this.pet == "1")
-    {
+    if (this.pet == "1") {
       if (this.isMoreData1 == true) {
-          this.limit = 20;
-          this.offset += 20;
-          this.shengouService.getshengouList(this.limit,this.offset,this.user_id).then((res) =>{
+        this.limit += 20;
+        this.offset += 20;
+        this.shengouService.getshengouList(this.limit, this.offset, this.user_id).then((res) => {
           console.log(res.result.res_data)
-          if (res.result.res_data)
-          {
+          if (res.result.res_data) {
             if (res.result.res_data.length == 20) {
-                 this.isMoreData1 = true;
-                }
-               else {
-                 this.isMoreData1 = false;
-               }
-             for (let item of res.result.res_data) {
-               this.myApplyList.push(item);
-             }
+              this.isMoreData1 = true;
+            }
+            else {
+              this.isMoreData1 = false;
+            }
+            for (let item of res.result.res_data) {
+              this.myApplyList.push(item);
+            }
           }
           else {
-          this.isMoreData1 = false;
-        }
-        infiniteScroll.complete(); 
+            this.isMoreData1 = false;
+          }
+          infiniteScroll.complete();
         })
       }
-      else
-      {
+      else {
+        infiniteScroll.complete();
+      }
+    } else if (this.pet == "2") {
+      if (this.isMoreData2 == true) {
+        this.limit += 20;
+        this.offset += 20;
+        this.shengouService.get_wait_audit_purchase(this.limit, this.offset, this.user_id).then((res) => {
+          console.log(res.result.res_data)
+          if (res.result.res_data) {
+            if (res.result.res_data.length == 20) {
+              this.isMoreData2 = true;
+            }
+            else {
+              this.isMoreData2 = false;
+            }
+            for (let item of res.result.res_data) {
+              this.wait_me_audit_list.push(item);
+            }
+          }
+          else {
+            this.isMoreData2 = false;
+          }
+          infiniteScroll.complete();
+        })
+      }
+      else {
+        infiniteScroll.complete();
+      }
+    } else if (this.pet == "3") {
+      if (this.isMoreData3 == true) {
+        this.limit += 20;
+        this.offset += 20;
+        this.shengouService.get_audited_purchase(this.limit, this.offset, this.user_id).then((res) => {
+          console.log(res.result.res_data)
+          if (res.result.res_data) {
+            if (res.result.res_data.length == 20) {
+              this.isMoreData3 = true;
+            }
+            else {
+              this.isMoreData3 = false;
+            }
+            for (let item of res.result.res_data) {
+              this.myApplyList.push(item);
+            }
+          }
+          else {
+            this.isMoreData3 = false;
+          }
+          infiniteScroll.complete();
+        })
+      }
+      else {
         infiniteScroll.complete();
       }
     }
   }
 
-  itemSelected(event){
-    let search_text = event.name.replace("搜 单号：","")
-    this.shengouService.search_shengou(search_text,this.user_id).then((res) => {
-      console.log(res)
-        if (res.result.res_data)
-        {
+  itemSelected(event) {
+    let search_text = event.name.replace("搜 单号：", "")
+    if(this.pet == "1"){
+      this.shengouService.search_shengou(search_text, this.user_id).then((res) => {
+        console.log(res)
+        if (res.result&&res.result.res_data) {
           this.myApplyList = res.result.res_data;
-        } 
-        else
-        {
+        }
+        else {
           this.myApplyList = [];
         }
+      })
+    }else if(this.pet == "2"){
+      this.shengouService.search_wait_me_audit(search_text, this.user_id).then((res) => {
+        console.log(res)
+        if (res.result&&res.result.res_data) {
+          this.wait_me_audit_list = res.result.res_data;
+        }
+        else {
+          this.wait_me_audit_list = [];
+        }
+      })
+    }else if(this.pet == "3"){
+      this.shengouService.search_audited(search_text, this.user_id).then((res) => {
+        console.log(res)
+        if (res.result&&res.result.res_data) {
+          this.audited_list = res.result.res_data;
+        }
+        else {
+          this.audited_list = [];
+        }
+      })
+    }
+   
+  }
+
+  audited_detail(item) {
+    this.shengouService.getAuditDetail(item.id).then(res=>{
+      if(res.result&&res.result.res_data){
+        this.navCtrl.push("AuditedPurchasePage", { item: res.result.res_data })
+      }
     })
   }
+
+  wait_audit_detail(item) {
+    this.shengouService.getAuditDetail(item.id).then(res=>{
+      if(res.result&&res.result.res_data){
+        this.navCtrl.push("AuditedPurchasePage", { item: res.result.res_data })
+      }
+    })
+  }
+
+
+
 }

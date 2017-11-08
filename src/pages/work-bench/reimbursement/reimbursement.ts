@@ -46,7 +46,6 @@ export class ReimbursementPage {
               }
             }
             console.log(this.wait_approval_list)
-
           }
         })
       });
