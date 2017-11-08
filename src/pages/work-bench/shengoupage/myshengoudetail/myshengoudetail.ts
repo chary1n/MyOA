@@ -27,6 +27,9 @@ export class MyshengoudetailPage {
   isChange = false;
   production;
   total;
+  department;
+  partner_id;
+  departmentList;
   constructor(public navCtrl: NavController, public navParams: NavParams,
   public shengouService:ShenGouService,public alertCtrl:AlertController,public storage:Storage) {
      this.item = this.navParams.get('item');
@@ -35,7 +38,28 @@ export class MyshengoudetailPage {
      this.storage.get('user')
     .then(res => {
       this.user_id = res.result.res_data.user_id;
+      this.partner_id = res.result.res_data.partner_id;
+
+      if (this.item.state == "cancel")
+      {
+        this.shengouService.get_all_departments(this.partner_id).then((res) => {
+        if (res.result.res_data.all_departments)
+        {
+          this.departmentList = res.result.res_data.all_departments.res_data;
+          for (let item of res.result.res_data.all_departments.res_data) {
+            console.log(item + " " + this.item.department)
+            if(item.id == this.item.department.id)
+            {
+              this.department = item.id;
+            }
+          }
+        }
+      })
+      }
+      
     });
+
+    
   }
 
   ionViewDidLoad() {
@@ -207,6 +231,16 @@ export class MyshengoudetailPage {
 
   addApplyDetail(){
     this.navCtrl.push('EditAddShengouPage')
+  }
+
+  edit(i){
+    if (this.item.state == 'cancel'){
+      this.index = i;
+      console.log(this.item.line_ids[i])
+      this.navCtrl.push('EditShengouPage', {
+      item: this.item.line_ids[i], index: i
+      })
+    }
   }
 
 }
