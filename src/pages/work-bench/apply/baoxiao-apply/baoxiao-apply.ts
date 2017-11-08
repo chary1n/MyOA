@@ -108,7 +108,7 @@ export class BaoxiaoApplyPage {
     if (this.items) {
       let total = 0;
       for (let item of this.items) {
-        total = total + parseInt(item.amount)
+        total = total + parseFloat(item.amount)
       }
       this.total = total
     }
@@ -198,7 +198,7 @@ export class BaoxiaoApplyPage {
       department_id: parseInt(this.department),
       employee_id: parseInt(this.employee_id),
       expense_line_ids: productionList,
-      user_id: window.localStorage.getItem('id'),
+      user_id: this.user_id,
       is_reset :this.isResetItem,
       id : this.record_id
     }
