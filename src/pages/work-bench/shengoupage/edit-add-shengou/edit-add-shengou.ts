@@ -1,21 +1,20 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, IonicPage ,AlertController,ToastController} from 'ionic-angular';
-import { ShenGouService} from './../../shengouService'
-import { Utils } from './../../../../../providers/Utils';
-
+import { ShenGouService} from './../shengouService'
+import { Utils } from './../../../../providers/Utils';
 /**
- * Generated class for the AddShengouDetailPage page.
+ * Generated class for the EditAddShengouPage page.
  *
  * See http://ionicframework.com/docs/components/#navigation for more info
  * on Ionic pages and navigation.
  */
 @IonicPage()
 @Component({
-  selector: 'page-add-shengou-detail',
-  templateUrl: 'add-shengou-detail.html',
+  selector: 'page-edit-add-shengou',
+  templateUrl: 'edit-add-shengou.html',
   providers:[ShenGouService]
 })
-export class AddShengouDetailPage {
+export class EditAddShengouPage {
   amount;
   unit;
   remark;
@@ -24,9 +23,9 @@ export class AddShengouDetailPage {
   production;
   changeItem;
   mShenGoupage;
-  constructor(public navCtrl: NavController, public navParams: NavParams,public shenGouService:ShenGouService,
+  constructor(public navCtrl: NavController, public navParams: NavParams, public shenGouService:ShenGouService,
   public alertCtrl:AlertController,public toastCtrl:ToastController) {
-    this.mShenGoupage = Utils.getViewController("CreateShengouPage", navCtrl);
+    this.mShenGoupage = Utils.getViewController("MyshengoudetailPage", navCtrl);
 
     this.shenGouService.get_all_products().then((res) => {
       console.log(res);
@@ -35,21 +34,21 @@ export class AddShengouDetailPage {
         this.productList = res.result.res_data.res_data;
       }
     })
-}
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad AddShengouDetailPage');
   }
 
   ionViewDidEnter() {
     this.changeItem = this.navParams.get("item");
     if (this.changeItem) {
       this.production = this.changeItem;
-      this.amount = this.production.amount;
-      this.remark = this.production.remark;
-      this.productIndex = this.production.productIndex;
-      this.unit = this.production.unit;
+      this.amount = this.production.price_unit;
+      this.remark = this.production.description;
+      this.productIndex = this.production.product_id.name;
+      this.unit = this.production.quantity;
     }
+  }
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad EditAddShengouPage');
   }
 
   goBack() {
@@ -89,19 +88,21 @@ export class AddShengouDetailPage {
     if (mString != "") {
       Utils.toastButtom(mString, this.toastCtrl)
     } else {
-      if (this.productIndex && this.amount && this.remark) {
+      if (this.productIndex && this.amount && this.remark && this.unit) {
         console.log(this.productIndex);
         this.production = [];
         for (let item of this.productList) {
           if(item.name == this.productIndex){
-            this.production.productId = item.id;
+            this.production.product_id = {
+              id:item.id,
+              name:this.productIndex
+            };
           }
         }
-        this.production.productName = this.productIndex;
-        this.production.amount = this.amount;
-        this.production.remark = this.remark;
-        this.production.unit = this.unit;
-        this.production.productIndex = this.productIndex;
+        this.production.price_unit = this.amount;
+        this.production.description = this.remark;
+        this.production.quantity = this.unit;
+
         this.mShenGoupage.data.production = this.production;
         this.mShenGoupage.data.isAdd = true;
         this.mShenGoupage.data.isChange = this.changeItem ? true : false;;

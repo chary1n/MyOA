@@ -155,9 +155,15 @@ export class ShengoupagePage {
   doInfinite(infiniteScroll) {
     if (this.pet == "1") {
       if (this.isMoreData1 == true) {
+<<<<<<< HEAD
         this.limit += 20;
         this.offset += 20;
         this.shengouService.getshengouList(this.limit, this.offset, this.user_id).then((res) => {
+=======
+          this.limit = 20;
+          this.offset += 20;
+          this.shengouService.getshengouList(this.limit,this.offset,this.user_id).then((res) =>{
+>>>>>>> d4d89cb84cbb42ab10bd1fb3605e05c6aa32c541
           console.log(res.result.res_data)
           if (res.result.res_data) {
             if (res.result.res_data.length == 20) {

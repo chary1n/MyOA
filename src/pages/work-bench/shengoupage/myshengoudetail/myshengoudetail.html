@@ -24,7 +24,7 @@
       <ion-label item-end style="font-size:75%;text-align:right;">{{item.department}}</ion-label>
     </ion-item>
     <ion-item>
-    <ion-label class="total_amount">金额总计（元）：{{item.total_amount}}</ion-label>
+    <ion-label class="total_amount">金额总计（元）：{{total}}</ion-label>
   </ion-item>
   </ion-list>
 
@@ -32,11 +32,11 @@
       <ion-item-sliding  *ngFor='let items of item.line_ids;let i = index'>
       <ion-item>
         <div>申购明细</div>
-          <p text-wrap style="font-size:80%;color:gray;">产品：{{items.product_id}}</p>
+          <p text-wrap style="font-size:80%;color:gray;">产品：{{items.product_id.name}}</p>
           <p text-wrap style="font-size:80%;">金额：{{items.price_unit}}        数量：{{items.quantity}}</p>
           <p text-wrap style="font-size:80%;color:gray">费用说明：{{items.description}} </p>
       </ion-item>
-      <ion-item-options side="right">
+      <ion-item-options *ngIf = "item.state == 'cancel'" side="right">
           <button ion-button color="primary" (click)="changeProductItem(i)">
               <ion-icon name="create"></ion-icon>
               修改
@@ -48,6 +48,9 @@
         </ion-item-options>
       </ion-item-sliding>
   </ion-list>
+  <button *ngIf = "item.state == 'cancel'" ion-button full (click)="addApplyDetail()">
+    + 申购明细
+  </button>
 
   <div style="margin:10px;">审批记录</div>
   <ion-list>

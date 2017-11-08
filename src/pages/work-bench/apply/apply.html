@@ -95,5 +95,5 @@
     </div>
 </ion-content>
 <ion-footer *ngIf="pet == '0'">
-  <button ion-button (click)="showActionSheet()" full> 我要申请</button>
+  <button ion-button *ngIf="pet == '0'" (click)="showActionSheet()" full> 我要申请</button>
 </ion-footer>
