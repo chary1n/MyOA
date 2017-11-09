@@ -1,4 +1,4 @@
-import { NavController, ViewController, ToastController } from 'ionic-angular';
+import { NavController, ViewController, ToastController, AlertController } from 'ionic-angular';
 import { Injectable } from '@angular/core';
 @Injectable()
 export class Utils {
@@ -13,18 +13,34 @@ export class Utils {
         return null;
     }
 
-    public static  toastButtom(toastString :string ,toastCtrl:ToastController ){
+    public static toastButtom(toastString: string, toastCtrl: ToastController) {
 
         const toast = toastCtrl.create({
             message: toastString,
             duration: 2000,
             position: 'buttom'
-          });
-          toast.onDidDismiss(() => {
+        });
+        toast.onDidDismiss(() => {
             console.log('Dismissed toast');
-          });
-          toast.present();
+        });
+        toast.present();
     }
+
+    public static conformAlert(alertString: string, alert: AlertController) {
+        alert.create({
+            title: '提示',
+            subTitle: alertString,
+            buttons: [
+                {
+                    text: '确定',
+                    handler: () => {
+                    }
+                }
+            ]
+        }).present();
+    }
+
+
 
 
 

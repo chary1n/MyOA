@@ -12,7 +12,8 @@
         <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
       </button>
     </ion-buttons>
-    <ion-title>新建报销</ion-title>
+    <ion-title *ngIf="editItem" >{{editItem.name}}</ion-title>
+    <ion-title *ngIf="!editItem">新建报销</ion-title>
   </ion-navbar>
 
 

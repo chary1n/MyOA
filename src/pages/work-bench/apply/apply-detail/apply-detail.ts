@@ -70,8 +70,18 @@ export class ApplyDetailPage {
             if(data['descrption']){
               this.commonService.get_retract(data['descrption'],this.res_data.id,this.userId).then(res=>{
                 if(res.result&&res.result.res_code==1){
-                  alert("撤回成功")
-                  this.navCtrl.pop()
+                  this.alertCtrl.create({
+                    title: '提示',
+                    subTitle: "撤回成功",
+                    buttons: [
+                        {
+                            text: '确定',
+                            handler: () => {
+                              this.navCtrl.pop()
+                            }
+                        }
+                    ]
+                 }).present();
                 }
               })
             }else{
@@ -99,8 +109,18 @@ export class ApplyDetailPage {
           handler: data => {
             this.commonService.submit_apply(this.res_data.id,this.userId).then(res=>{
               if(res.result&&res.result.res_code==1){
-                alert("提交成功")
-                this.navCtrl.pop()
+                this.alertCtrl.create({
+                  title: '提示',
+                  subTitle: "提交成功",
+                  buttons: [
+                      {
+                          text: '确定',
+                          handler: () => {
+                            this.navCtrl.pop()
+                          }
+                      }
+                  ]
+               }).present();
               }
             })
           }
