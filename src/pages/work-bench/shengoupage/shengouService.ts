@@ -126,4 +126,12 @@ export class ShenGouService {
         });
         return this.httpservice.postBody("get_audit_detail", body);
     }
+
+    push_apply(sheet_id,user_id){
+        let body = JSON.stringify({
+            sheet_id: sheet_id,
+            user_id:user_id,
+        });
+        return this.httpservice.postBody("push_apply", body);
+    }
 }

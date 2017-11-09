@@ -78,7 +78,13 @@
 </ion-content>
 
 <ion-footer *ngIf = "item.state != 'done'">
-  <button  *ngIf="item.state!='cancel'"  ion-button full (click)="backApply()">
+  <button  *ngIf="item.state =='draft'" ion-end style='width:48%' ion-button (click)="pushApply()">
+    提交申请
+  </button>
+  <button  *ngIf="item.state == 'draft'" ion-start style='width:48%' ion-button (click)="backApply()">
+    撤回申请
+  </button>
+  <button  *ngIf="item.state!= 'cancel' && item.state != 'draft'" ion-start full ion-button (click)="backApply()">
     撤回申请
   </button>
   <button *ngIf="item.state == 'cancel'"  ion-button full (click)="reApply()">

@@ -243,4 +243,28 @@ export class MyshengoudetailPage {
     }
   }
 
+  pushApply(){
+    let ctrl = this.alertCtrl;
+    this.shengouService.push_apply(this.item.sheet_id,this.user_id).then((res) => {
+        if (res.result.res_data.success == 1)
+          {
+            console.log(res.result.res_data.success)
+            ctrl.create({
+                  title: '提示',
+                  subTitle: "提交审核成功",
+                  buttons: [{
+                text: '确定',
+                    handler: () => {
+                    this.frontPage.data.need_fresh = true;
+              this.navCtrl.popTo(this.frontPage,{
+                need_fresh:true,
+              });
+             }
+             }
+      ]
+    }).present();
+          }
+    })
+  }
+
 }
