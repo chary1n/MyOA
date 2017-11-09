@@ -1,3 +1,4 @@
+import { Storage } from '@ionic/storage';
 import { Utils } from './../../../../providers/Utils';
 import { Toast } from '@ionic-native/toast';
 import { CommonUseServices } from './../../commonUseServices';
@@ -22,11 +23,16 @@ export class ApplyDetailPage {
   id ; 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public alertCtrl: AlertController,public commonService:CommonUseServices,
-    public toastCtrl :ToastController) {
+    public toastCtrl :ToastController,
+    public storage :Storage) {
     this.res_data = navParams.get('res_data');
     this.id = this.res_data.id
     console.log(this.res_data);
-    this.userId = window.localStorage.getItem('id')
+    this.storage.get('user')
+    .then(res => {
+      console.log(res)
+      this.userId = res.result.res_data.user_id;
+    });
   }
 
   ionViewDidLoad() {
