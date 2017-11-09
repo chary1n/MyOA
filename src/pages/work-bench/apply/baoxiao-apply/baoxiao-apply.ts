@@ -35,8 +35,8 @@ export class BaoxiaoApplyPage {
   isChange = false;
   department_id;
   editItem;
-  isResetItem  = false;
-  record_id ;
+  isResetItem = false;
+  record_id;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public commonService: CommonUseServices,
     public storage: Storage,
@@ -61,19 +61,19 @@ export class BaoxiaoApplyPage {
       });
     this.editItem = this.navParams.get("data");
     if (this.editItem) {
-      this.isResetItem = true ;
+      this.isResetItem = true;
       console.log(this.editItem)
       this.employee_id = this.editItem.employee_id
       this.department_id = this.editItem.department_id
       this.department = this.editItem.department_id
       this.record_id = this.editItem.id
-      for(let item  of this.editItem.expense_line_ids ){
-        let mitem  : any = [];
-        mitem.remark =  item.description 
+      for (let item of this.editItem.expense_line_ids) {
+        let mitem: any = [];
+        mitem.remark = item.description
         mitem.productId = item.productId
         mitem.amount = item.amount
         mitem.productName = item.name
-        mitem.id = item.id 
+        mitem.id = item.id
         this.items.push(mitem)
       }
     }
@@ -168,7 +168,7 @@ export class BaoxiaoApplyPage {
     } else {
       this.alertCtrl.create({
         title: '提示',
-        subTitle: '是否立即提交审核？',
+        subTitle: '是否保存?',
         buttons: [{ text: '取消' },
         {
           text: '确定',
@@ -182,6 +182,7 @@ export class BaoxiaoApplyPage {
   }
 
   createApply() {
+    let self = this
     let productionList = []
     for (let item of this.items) {
       let pro = {
@@ -189,8 +190,8 @@ export class BaoxiaoApplyPage {
         department_id: parseInt(this.department),
         employee_id: parseInt(this.employee_id),
         product_id: parseInt(item.productId),
-        unit_amount: parseInt(item.amount),
-        id :parseInt(item.id)
+        unit_amount: parseFloat(item.amount),
+        id: parseInt(item.id)
       }
       productionList.push(pro)
     }
@@ -199,8 +200,8 @@ export class BaoxiaoApplyPage {
       employee_id: parseInt(this.employee_id),
       expense_line_ids: productionList,
       user_id: this.user_id,
-      is_reset :this.isResetItem,
-      id : this.record_id
+      is_reset: this.isResetItem,
+      id: this.record_id
     }
     let body = {
       data: mbody
@@ -209,7 +210,29 @@ export class BaoxiaoApplyPage {
     this.commonService.createApply(body).then(res => {
       console.log(res)
       if (res.result && res.result.res_code == 1) {
-        this.navCtrl.pop()
+        self.record_id = res.result.res_data.id
+        self.alertCtrl.create({
+          title: '提示',
+          subTitle: '是否立即提交审核？',
+          buttons: [{
+            text: '取消'
+            , handler: () => {
+              this.navCtrl.pop();
+            }
+          },
+          {
+            text: '确定',
+            handler: () => {
+              this.commonService.submit_apply(self.record_id, self.user_id).then(res => {
+                if (res.result && res.result.res_code == 1) {
+                  this.navCtrl.pop();
+                }
+              }
+              )
+            }
+          }
+          ]
+        }).present();
       }
     })
   }
