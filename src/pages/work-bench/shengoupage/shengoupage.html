@@ -38,9 +38,9 @@
     <ng-template [ngSwitchCase]='1'>
        <ion-list>
         <ion-item *ngFor='let item of myApplyList' tappable (click)='shengou_detail(item)'>
-          <h3 text-wrap>{{item.employee_name}}</h3>
+          <!--<h3 text-wrap>{{item.employee_name}}</h3>-->
           <p text-wrap style="font-size:70%;float:right;color:gray;">{{changeDate(item.create_date) | date:'yyyy-MM-dd HH:mm:ss'}}</p>
-          <h4 text-wrap style="font-size:80%;">{{item.name}}</h4>
+          <h4 text-wrap style="font-size:90%;">{{item.name}}</h4>
           <p text-wrap style="font-size:70%;float:right;color:red;font-weight:bold"> {{changeState(item.state)}} </p>
           <p text-wrap style="font-size:80%;color:gray">金额总计(元)：{{item.total_amount}} </p>
           <p text-wrap style="font-size:80%;color:gray">部门：{{item.department.name}} </p>

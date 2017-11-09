@@ -1,4 +1,4 @@
-import { NavController, NavParams, IonicPage,AlertController } from 'ionic-angular';
+import { NavController, NavParams, IonicPage,AlertController,ToastController } from 'ionic-angular';
 import { Component } from '@angular/core';
 import { ReimbursementService} from './../reimbursementService';
 import { Storage } from '@ionic/storage';
@@ -23,7 +23,7 @@ export class ReimbursementDetailPage {
   user_id:any;
   frontPage;
   constructor(public navCtrl: NavController, public navParams: NavParams,public baoxiaoService:ReimbursementService,
-  public alertCtrl:AlertController,public storage:Storage) {
+  public alertCtrl:AlertController,public storage:Storage,public toastCtrl:ToastController) {
     this.item = this.navParams.get('item');
     this.title = this.item.expense_name;
     this.frontPage = Utils.getViewController("ApplyPage", navCtrl)
@@ -162,17 +162,18 @@ export class ReimbursementDetailPage {
           }
           else
           {
-              ctrl.create({
-                  title: '提示',
-                  subTitle: "请填写拒绝原因",
-                  buttons: [{
-                text: '确定',
-                    handler: () => {
+            Utils.toastButtom("请填写拒绝原因", this.toastCtrl)
+    //           ctrl.create({
+    //               title: '提示',
+    //               subTitle: "请填写拒绝原因",
+    //               buttons: [{
+    //             text: '确定',
+    //                 handler: () => {
                    
-             }
-             }
-      ]
-    }).present();
+    //          }
+    //          }
+    //   ]
+    // }).present();
           }
           }
         }

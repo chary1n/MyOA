@@ -26,7 +26,7 @@ export class EditShengouPage {
   mShenGoupage;
   constructor(public navCtrl: NavController, public navParams: NavParams,public shenGouService:ShenGouService,
   public alertCtrl:AlertController,public toastCtrl:ToastController) {
-    this.mShenGoupage = Utils.getViewController("MyshengoudetailPage", navCtrl);    
+    this.mShenGoupage = Utils.getViewController("EditNewShengouPage", navCtrl);    
   }
 
   ionViewDidLoad() {

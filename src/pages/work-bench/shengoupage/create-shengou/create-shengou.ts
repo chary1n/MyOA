@@ -150,7 +150,7 @@ export class CreateShengouPage {
     } else {
       this.alertCtrl.create({
         title: '提示',
-        subTitle: '是否立即提交审核？',
+        subTitle: '是否保存当前申购单？',
         buttons: [{ text: '取消' },
         {
           text: '确定',
@@ -186,16 +186,41 @@ export class CreateShengouPage {
     let body = {
       data: mbody
     }
-    console.log(body)
+    // console.log(body)
     this.shenGouService.create_shengou(body).then(res => {
       console.log(res)
       if (res.result && res.result.res_code == 1) {
         // this.navCtrl.pop()
         ctrl.create({
                   title: '提示',
-                  subTitle: "提交成功",
+                  subTitle: "保存成功，是否提交审核？",
+                  buttons: [{
+                    text: '立即提交',
+                    handler: () => {
+                      this.shenGouService.push_apply(res.result.res_data.sheet_id,this.user_id).then((res) => {
+                        if (res.result.res_data.success == 1)
+          {
+            console.log(res.result.res_data.success)
+            ctrl.create({
+                  title: '提示',
+                  subTitle: "提交审核成功",
                   buttons: [{
                 text: '确定',
+                    handler: () => {
+                    this.frontPage.data.need_fresh = true;
+              this.navCtrl.popTo(this.frontPage,{
+                need_fresh:true,
+              });
+             }
+             }
+      ]
+    }).present();
+          }
+                      })
+                    }
+                  },
+                  {
+                text: '暂不提交',
                     handler: () => {
                     this.frontPage.data.need_fresh = true;
               this.navCtrl.popTo(this.frontPage,{

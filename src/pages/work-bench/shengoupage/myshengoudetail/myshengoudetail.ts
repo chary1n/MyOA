@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, IonicPage ,AlertController} from 'ionic-angular';
+import { NavController, NavParams, IonicPage ,AlertController,ToastController} from 'ionic-angular';
 import { ShenGouService} from './../shengouService'
 import { Storage } from '@ionic/storage';
 import { Utils } from './../../../../providers/Utils';
@@ -31,7 +31,8 @@ export class MyshengoudetailPage {
   partner_id;
   departmentList;
   constructor(public navCtrl: NavController, public navParams: NavParams,
-  public shengouService:ShenGouService,public alertCtrl:AlertController,public storage:Storage) {
+  public shengouService:ShenGouService,public alertCtrl:AlertController,public storage:Storage,
+  public toastCtrl:ToastController) {
      this.item = this.navParams.get('item');
      console.log(this.item.state)
      this.frontPage = Utils.getViewController("ShengoupagePage", navCtrl)
@@ -40,22 +41,22 @@ export class MyshengoudetailPage {
       this.user_id = res.result.res_data.user_id;
       this.partner_id = res.result.res_data.partner_id;
 
-      if (this.item.state == "cancel")
-      {
-        this.shengouService.get_all_departments(this.partner_id).then((res) => {
-        if (res.result.res_data.all_departments)
-        {
-          this.departmentList = res.result.res_data.all_departments.res_data;
-          for (let item of res.result.res_data.all_departments.res_data) {
-            console.log(item + " " + this.item.department)
-            if(item.id == this.item.department.id)
-            {
-              this.department = item.id;
-            }
-          }
-        }
-      })
-      }
+      // if (this.item.state == "cancel")
+      // {
+      //   this.shengouService.get_all_departments(this.partner_id).then((res) => {
+      //   if (res.result.res_data.all_departments)
+      //   {
+      //     this.departmentList = res.result.res_data.all_departments.res_data;
+      //     for (let item of res.result.res_data.all_departments.res_data) {
+      //       console.log(item + " " + this.item.department)
+      //       if(item.id == this.item.department.id)
+      //       {
+      //         this.department = item.id;
+      //       }
+      //     }
+      //   }
+      // })
+      // }
       
     });
 
@@ -160,17 +161,18 @@ export class MyshengoudetailPage {
           }
           else
           {
-              ctrl.create({
-                  title: '提示',
-                  subTitle: "请填写拒绝原因",
-                  buttons: [{
-                text: '确定',
-                    handler: () => {
+            Utils.toastButtom("请填写拒绝原因", this.toastCtrl)
+    //           ctrl.create({
+    //               title: '提示',
+    //               subTitle: "请填写拒绝原因",
+    //               buttons: [{
+    //             text: '确定',
+    //                 handler: () => {
                    
-             }
-             }
-      ]
-    }).present();
+    //          }
+    //          }
+    //   ]
+    // }).present();
           }
           }
         }
@@ -180,48 +182,51 @@ export class MyshengoudetailPage {
 
 
   reApply(){
-    let ctrl = this.alertCtrl;
-
-    let productionList = []
-    for (let item of this.item.line_ids) {
-      let pro = {
-        description: item.description,
-        quantity:parseInt(item.quantity),
-        // department_id: parseInt(this.department),
-        product_id: parseInt(item.product_id.id),
-        price_unit: parseInt(item.price_unit)
-      }
-      productionList.push(pro)
-    }
-    let mbody = {
-      line_ids: productionList,
-      create_uid:this.user_id,
-      total_amount:this.total,
-    }
-    let body = {
-      data: mbody
-    }
-
-    this.shengouService.reset_shengou(this.user_id,this.item.sheet_id,body).then((res) => {
-        if (res.result.res_data.success == 1)
-          {
-            console.log(res.result.res_data.success)
-            ctrl.create({
-                  title: '提示',
-                  subTitle: "重新申请成功,等待审核",
-                  buttons: [{
-                text: '确定',
-                    handler: () => {
-                    this.frontPage.data.need_fresh = true;
-              this.navCtrl.popTo(this.frontPage,{
-                need_fresh:true,
-              });
-             }
-             }
-      ]
-    }).present();
-          }
+    this.navCtrl.push('EditNewShengouPage',{
+      item:this.item,
     })
+    // let ctrl = this.alertCtrl;
+
+    // let productionList = []
+    // for (let item of this.item.line_ids) {
+    //   let pro = {
+    //     description: item.description,
+    //     quantity:parseInt(item.quantity),
+    //     // department_id: parseInt(this.department),
+    //     product_id: parseInt(item.product_id.id),
+    //     price_unit: parseInt(item.price_unit)
+    //   }
+    //   productionList.push(pro)
+    // }
+    // let mbody = {
+    //   line_ids: productionList,
+    //   create_uid:this.user_id,
+    //   total_amount:this.total,
+    // }
+    // let body = {
+    //   data: mbody
+    // }
+
+    // this.shengouService.reset_shengou(this.user_id,this.item.sheet_id,body).then((res) => {
+    //     if (res.result.res_data.success == 1)
+    //       {
+    //         console.log(res.result.res_data.success)
+    //         ctrl.create({
+    //               title: '提示',
+    //               subTitle: "重新申请成功,等待审核",
+    //               buttons: [{
+    //             text: '确定',
+    //                 handler: () => {
+    //                 this.frontPage.data.need_fresh = true;
+    //           this.navCtrl.popTo(this.frontPage,{
+    //             need_fresh:true,
+    //           });
+    //          }
+    //          }
+    //   ]
+    // }).present();
+    //       }
+    // })
   }
 
   changeDate(date){

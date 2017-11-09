@@ -38,10 +38,7 @@
       <ion-list style="margin-top:7px">
         <ion-item *ngFor='let item of applyList' tappable (click)='clickApply(item.id)'>
           <p text-wrap style="float:right;color:#000000;">{{item.create_time}}</p>
-          <p text-wrap style="font-size:110%;color:#000000;">{{item.name}}
-            <span style="font-size:90%;color:#394bec;margin-left:10px;">报销
-            </span>
-          </p>
+          <p text-wrap style="font-size:110%;color:#000000;">{{item.name}}</p>
           <p text-wrap style="float:right;color:#fc6621;font-weight:bold"> {{item.stateCN}} </p>
           <p text-wrap style="color:gray">金额总计(元)：{{item.payment}} </p>
           <p text-wrap style="color:gray">部门：{{item.department}} </p>
