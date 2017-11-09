@@ -89,7 +89,7 @@ export class CommonUseServices {
     }
 
 
-    // 创建审批单
+    // 创建审批单草稿
     createApply(data) {
         let body = JSON.stringify(data);
         console.log("JSON 的body 是" + body)

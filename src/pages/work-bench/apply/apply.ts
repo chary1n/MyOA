@@ -195,34 +195,7 @@ export class ApplyPage {
 
 
   showActionSheet() {
-    let actionSheet = this.actionSheetCtrl.create({
-      title: '请选择类型',
-      buttons: [
-        {
-          text: '报销',
-          handler: () => {
-            this.navCtrl.push('BaoxiaoApplyPage')
-          }
-        }, {
-          text: '申购',
-          handler: () => {
-
-          }
-        }, {
-          text: '请假',
-          handler: () => {
-            this.navCtrl.push('LeaveApplyPage')
-          }
-        }, {
-          text: '取消',
-          role: 'cancel',
-          handler: () => {
-            console.log('Cancel clicked');
-          }
-        }
-      ]
-    });
-    actionSheet.present();
+    this.navCtrl.push('BaoxiaoApplyPage')
   }
 
   clickApply(id) {
