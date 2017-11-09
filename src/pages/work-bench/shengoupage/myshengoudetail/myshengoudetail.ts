@@ -91,7 +91,7 @@ export class MyshengoudetailPage {
     if (this.item.line_ids) {
       let total = 0;
       for (let item of this.item.line_ids) {
-        total = total + parseInt(item.price_unit) * parseInt(item.quantity)
+        total = total + parseFloat(item.price_unit) * parseFloat(item.quantity) 
       }
       this.total = total
     }
@@ -272,8 +272,8 @@ export class MyshengoudetailPage {
     })
   }
 
-  transInt(intValue){
-    return parseFloat(intValue)
+  transInt(intValue,intOtherValue){
+    return (parseFloat(intValue) * parseInt(intOtherValue)).toFixed(2)
   }
 
 }

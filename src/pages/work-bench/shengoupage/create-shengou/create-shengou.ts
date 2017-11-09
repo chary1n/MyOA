@@ -106,9 +106,10 @@ export class CreateShengouPage {
     if (this.items) {
       let total = 0;
       for (let item of this.items) {
-        total = total + parseInt(item.amount) * parseInt(item.unit)
+        console.log(parseFloat((parseFloat(item.amount) * parseFloat(item.unit)).toFixed(2)))
+        total = total + parseFloat((parseFloat(item.amount) * parseFloat(item.unit)).toFixed(2))
       }
-      this.total = total
+      this.total = parseFloat(total.toFixed(2))
     }
   }
 
@@ -172,7 +173,7 @@ export class CreateShengouPage {
         quantity:parseInt(item.unit),
         // department_id: parseInt(this.department),
         product_id: parseInt(item.productId),
-        price_unit: parseInt(item.amount)
+        price_unit: parseFloat(item.amount)
       }
       productionList.push(pro)
     }
@@ -234,7 +235,7 @@ export class CreateShengouPage {
     })
   }
 
-  transInt(intValue){
-    return parseFloat(intValue)
+  transInt(intValue,intOtherValue){
+    return (parseFloat(intValue) * parseInt(intOtherValue)).toFixed(2)
   }
 }

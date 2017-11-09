@@ -33,7 +33,7 @@
   </ion-item>-->
 
     <ion-item>
-    <ion-label class="total_amount">金额总计（元）：{{total}}</ion-label>
+    <ion-label class="total_amount">金额总计（元）：{{item.total_amount}}</ion-label>
   </ion-item>
   </ion-list>
 
@@ -42,7 +42,7 @@
       <ion-item>
         <div tappable (click) = "edit(i)">申购明细{{i+1}}</div>
           <p text-wrap style="font-size:80%;color:gray;">产品：{{items.product_id.name}}</p>
-          <p text-wrap style="font-size:80%;">单价：{{items.price_unit}}        数量：{{items.quantity}} 小计：{{transInt(items.price_unit) * transInt(items.quantity)}}</p>
+          <p text-wrap style="font-size:80%;">单价：{{items.price_unit}}        数量：{{items.quantity}} 小计：{{transInt(items.price_unit,items.quantity)}}</p>
           <p text-wrap style="font-size:80%;color:gray">费用说明：{{items.description}} </p>
       </ion-item>
       <!--<ion-item-options *ngIf = "item.state == 'cancel'" side="right">

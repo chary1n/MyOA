@@ -87,9 +87,9 @@ export class EditNewShengouPage {
     if (this.item.line_ids) {
       let total = 0;
       for (let item of this.item.line_ids) {
-        total = total + parseInt(item.price_unit) * parseInt(item.quantity)
+        total = total + parseFloat((parseFloat(item.price_unit) * parseFloat(item.quantity)).toFixed(2))
       }
-      this.total = total
+      this.total = total.toFixed(2)
     }
   }
 
@@ -117,10 +117,19 @@ export class EditNewShengouPage {
   }
 
   reApply(){
-    this.navCtrl.push('EditNewShengouPage',{
-      item:this.item,
-    })
-    let ctrl = this.alertCtrl;
+     let mString = "";
+    if (!this.department) {
+      mString = mString + "   请选择部门"
+    }
+    if (this.item.line_ids.length <= 0) {
+      mString = mString + "   请填写申购明细"
+    }
+    if (mString != "") {
+      Utils.toastButtom(mString, this.toastCtrl)
+    }
+    else
+    {
+      let ctrl = this.alertCtrl;
 
     let productionList = []
     for (let item of this.item.line_ids) {
@@ -129,7 +138,7 @@ export class EditNewShengouPage {
         quantity:parseInt(item.quantity),
         // department_id: parseInt(this.department),
         product_id: parseInt(item.product_id.id),
-        price_unit: parseInt(item.price_unit)
+        price_unit: parseFloat(item.price_unit)
       }
       productionList.push(pro)
     }
@@ -162,6 +171,7 @@ export class EditNewShengouPage {
     }).present();
           }
     })
+    } 
   }
 
   goBack() {
@@ -169,9 +179,7 @@ export class EditNewShengouPage {
   }
 
   transInt(intValue,intOtherValue){
-    console.log(intValue)
-    console.log(parseInt(intValue))
-    return parseInt(intValue) * parseInt(intOtherValue)
+    return (parseFloat(intValue) * parseFloat(intOtherValue)).toFixed(2)
   }
 
 }
