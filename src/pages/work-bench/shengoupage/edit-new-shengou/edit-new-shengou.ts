@@ -168,4 +168,10 @@ export class EditNewShengouPage {
       this.navCtrl.pop();
   }
 
+  transInt(intValue,intOtherValue){
+    console.log(intValue)
+    console.log(parseInt(intValue))
+    return parseInt(intValue) * parseInt(intOtherValue)
+  }
+
 }

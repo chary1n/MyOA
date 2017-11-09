@@ -163,17 +163,6 @@ export class ReimbursementDetailPage {
           else
           {
             Utils.toastButtom("请填写拒绝原因", this.toastCtrl)
-    //           ctrl.create({
-    //               title: '提示',
-    //               subTitle: "请填写拒绝原因",
-    //               buttons: [{
-    //             text: '确定',
-    //                 handler: () => {
-                   
-    //          }
-    //          }
-    //   ]
-    // }).present();
           }
           }
         }

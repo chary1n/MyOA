@@ -32,7 +32,7 @@
     <ion-item *ngFor='let items of item.line_ids'>
       <h3 text-wrap>申购明细</h3>
       <p text-wrap style="font-size:80%;color:gray;">产品：{{items.product_id.name}}</p>
-      <p text-wrap style="font-size:80%;">金额：{{items.price_unit}}       数量:{{items.quantity}}</p>
+      <p text-wrap style="font-size:80%;">单价：{{items.price_unit}}       数量:{{items.quantity}} 小计：{{items.price_unit * items.quantity}}</p>
       <p text-wrap style="font-size:80%;color:gray">费用说明：{{items.description}} </p>
     </ion-item>
   </ion-item-group>

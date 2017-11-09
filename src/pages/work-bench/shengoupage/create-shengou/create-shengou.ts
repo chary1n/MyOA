@@ -233,4 +233,8 @@ export class CreateShengouPage {
       }
     })
   }
+
+  transInt(intValue){
+    return parseFloat(intValue)
+  }
 }

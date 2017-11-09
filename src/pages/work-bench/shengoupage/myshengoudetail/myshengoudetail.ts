@@ -272,4 +272,8 @@ export class MyshengoudetailPage {
     })
   }
 
+  transInt(intValue){
+    return parseFloat(intValue)
+  }
+
 }
