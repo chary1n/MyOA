@@ -169,7 +169,7 @@ export class BaoxiaoApplyPage {
     } else {
       this.alertCtrl.create({
         title: '提示',
-        subTitle: '是否保存?',
+        subTitle: this.isResetItem?"是否提交?":'是否保存?',
         buttons: [{ text: '取消' },
         {
           text: '确定',
@@ -211,29 +211,43 @@ export class BaoxiaoApplyPage {
     this.commonService.createApply(body).then(res => {
       console.log(res)
       if (res.result && res.result.res_code == 1) {
-        self.record_id = res.result.res_data.id
-        self.alertCtrl.create({
-          title: '提示',
-          subTitle: '是否立即提交审核？',
-          buttons: [{
-            text: '取消'
-            , handler: () => {
-              this.navCtrl.pop();
-            }
-          },
-          {
-            text: '确定',
-            handler: () => {
-              this.commonService.submit_apply(self.record_id, self.user_id).then(res => {
-                if (res.result && res.result.res_code == 1) {
-                  this.navCtrl.pop();
-                }
+        if (this.isResetItem) {
+          self.alertCtrl.create({
+            title: '提示',
+            subTitle: '提交成功',
+            buttons: [{
+              text: '确定'
+              , handler: () => {
+                this.navCtrl.pop();
               }
-              )
             }
-          }
-          ]
-        }).present();
+            ]
+          }).present();
+        } else {
+          self.record_id = res.result.res_data.id
+          self.alertCtrl.create({
+            title: '提示',
+            subTitle: '是否立即提交审核？',
+            buttons: [{
+              text: '取消'
+              , handler: () => {
+                this.navCtrl.pop();
+              }
+            },
+            {
+              text: '确定',
+              handler: () => {
+                this.commonService.submit_apply(self.record_id, self.user_id).then(res => {
+                  if (res.result && res.result.res_code == 1) {
+                    this.navCtrl.pop();
+                  }
+                }
+                )
+              }
+            }
+            ]
+          }).present();
+        }
       }
     })
   }
