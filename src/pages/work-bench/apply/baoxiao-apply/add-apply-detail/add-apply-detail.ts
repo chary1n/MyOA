@@ -41,7 +41,11 @@ export class AddApplyDetailPage {
       this.production = this.changeItem;
       this.amount = this.production.amount;
       this.remark = this.production.remark;
-      this.productIndex = this.production.productIndex;
+      for(let i = 0 ;i<this.productList.length;i++){
+        if(this.productList[i].id== this.production.productId){
+          this.productIndex = i
+        }
+      }
     }
   }
 
