@@ -16,7 +16,7 @@ declare let cordova: any;
 })
 export class AddApplyDetailPage {
   productList;
-  amount: number;
+  amount: any;
   remark;
   mBaoxiaoApplyPage;
   production;
@@ -76,6 +76,11 @@ export class AddApplyDetailPage {
   }
 
   save() {
+    if (parseFloat(this.amount) <= 0)
+    {
+      Utils.toastButtom("金额必须大于0",this.toastCtrl)
+      return;
+    }
     let mString = "";
     if (!this.productIndex) {
       mString = mString + "   请选择产品"
