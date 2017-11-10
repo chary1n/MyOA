@@ -117,7 +117,7 @@ export class ShenGouService {
             reason:reason,
             user_id:user_id,
         });
-       return this.httpservice.postBody("refuse_approve",body);
+       return this.httpservice.postBody("refuse_audit",body);
     }
 
 

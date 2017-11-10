@@ -138,8 +138,9 @@ export class BaoxiaoApplyPage {
   changeProductItem(i) {
     this.index = i;
     this.navCtrl.push('AddApplyDetailPage', {
-      item: this.items[i], index: i
-      , product: this.productList
+      item: this.items[i],
+      index: i,
+      product: this.productList
     })
   }
 

@@ -128,7 +128,7 @@ export class AuditedPurchasePage {
                     console.log(res.result.res_data.success)
                     ctrl.create({
                       title: '提示',
-                      subTitle: "审批成功",
+                      subTitle: "拒绝成功",
                       buttons: [{
                         text: '确定',
                         handler: () => {
