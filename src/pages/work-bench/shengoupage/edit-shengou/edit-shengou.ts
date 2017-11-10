@@ -96,7 +96,21 @@ export class EditShengouPage {
       Utils.toastButtom(mString, this.toastCtrl)
     } else {
       if (this.productIndex && this.amount && this.remark && this.unit) {
-        console.log(this.productIndex);
+        let intString = "";
+        if (parseFloat(this.amount) <= 0)
+        {
+          intString = intString + "   单价不能为0"
+        }
+        if (parseFloat(this.unit) <= 0)
+        {
+          intString = intString + "   数量不能为0"
+        }
+        if (intString != "") {
+          Utils.toastButtom(intString, this.toastCtrl)
+        }
+        else
+        {
+          console.log(this.productIndex);
         this.production = [];
         for (let item of this.productList) {
           if(item.name == this.productIndex){
@@ -114,6 +128,8 @@ export class EditShengouPage {
         this.mShenGoupage.data.isAdd = true;
         this.mShenGoupage.data.isChange = this.changeItem ? true : false;;
         this.navCtrl.pop();
+        }
+        
       }
     }
   }

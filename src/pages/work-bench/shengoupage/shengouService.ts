@@ -26,11 +26,12 @@ export class ShenGouService {
        return this.httpservice.postBody("refuse_shengou",body);
     }
 
-    reset_shengou(user_id,sheet_id,data){
+    reset_shengou(user_id,sheet_id,data,department_id){
         let body = JSON.stringify({
             sheet_id:sheet_id,
             user_id:user_id,
-            line_data:data
+            line_data:data,
+            department_id:department_id,
         });
        return this.httpservice.postBody("reset_shengou",body);
     }

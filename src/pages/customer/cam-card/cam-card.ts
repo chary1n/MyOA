@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Platform, AlertController } from 'ionic-angular';
+import { Component ,ViewChild} from '@angular/core';
+import { IonicPage, NavController, NavParams, Platform, AlertController ,Content} from 'ionic-angular';
 import { Contacts, Contact, ContactField, ContactName, ContactFindOptions, ContactFieldType, } from '@ionic-native/contacts';
 import { pinyin } from './pinyin';
 import { ProductlistPage } from './../productlist/productlist';
@@ -41,6 +41,7 @@ export class CamCardPage {
   isNeed: any;
   piliangText: any;
   isChangeColor: any;
+  @ViewChild(Content) content: Content;
   constructor(public navCtrl: NavController, public navParams: NavParams, private contacts: Contacts
     , public storage: Storage, public chooseService: ChooseService, public cd: ChangeDetectorRef, public platform: Platform,
     public alertCtrl: AlertController, private appAvailability: AppAvailability) {
@@ -408,12 +409,14 @@ export class CamCardPage {
         all_phonenumers: '',
         web_site: '',
         comment: '',
+        user_id:'',
       };
 
       obj.sale_team = this.saleteam_name ? this.saleteam_name : '';
       obj.sale_person = this.saleman_name ? this.saleman_name : '';
       obj.saleteam_id = this.saleteam_id ? this.saleteam_id : '';
       obj.saleman_id = this.saleman_id ? this.saleman_id : '';
+      obj.user_id = this.saleman_id ? this.saleman_id : '';
       obj.type = "联系人";
       obj.partner_type = "customer";
       obj.id = contacts[i].id;
@@ -757,6 +760,26 @@ export class CamCardPage {
 
   skipToScan() {
     this.openAppWith('camcard://', 'com.intsig.BizCardReader');
+  }
+
+  clickA(index){
+    let offset = 0;
+    let index_in = 0;
+    for (let item of this.formatContacts) {
+      
+      if (index_in == index)
+      {
+        break;
+      }
+      else
+      {
+        offset += parseInt(item.value.length) * 60 + 44;
+        index_in ++;
+      }
+    }
+    console.log(index)
+    console.log(offset)
+    this.content.scrollTo(0,offset,300)
   }
 
 }

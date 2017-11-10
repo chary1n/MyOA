@@ -151,7 +151,7 @@ export class EditNewShengouPage {
       data: mbody
     }
 
-    this.shengouService.reset_shengou(this.user_id,this.item.sheet_id,body).then((res) => {
+    this.shengouService.reset_shengou(this.user_id,this.item.sheet_id,body,this.department).then((res) => {
         if (res.result.res_data.success == 1)
           {
             console.log(res.result.res_data.success)
