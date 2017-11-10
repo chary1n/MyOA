@@ -1,6 +1,19 @@
 page-cam-card {
    
-
+ #indexs-bar {
+    width: 20px;
+    text-align: center;
+    float: right;
+    position: absolute;
+    right: 0;
+    z-index: 101;
+    height: 100%;
+    .index-bar {
+      margin: 1px 0;
+      line-height: 20px;
+    }
+     vertical-align:center;
+  }
 
 
 }

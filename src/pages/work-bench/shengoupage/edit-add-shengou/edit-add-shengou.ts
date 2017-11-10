@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, IonicPage ,AlertController,ToastController} from 'ionic-angular';
+import { NavController, NavParams, IonicPage ,AlertController,ToastController,Platform} from 'ionic-angular';
 import { ShenGouService} from './../shengouService'
 import { Utils } from './../../../../providers/Utils';
+declare let cordova: any; 
 /**
  * Generated class for the EditAddShengouPage page.
  *
@@ -24,7 +25,7 @@ export class EditAddShengouPage {
   changeItem;
   mShenGoupage;
   constructor(public navCtrl: NavController, public navParams: NavParams, public shenGouService:ShenGouService,
-  public alertCtrl:AlertController,public toastCtrl:ToastController) {
+  public alertCtrl:AlertController,public toastCtrl:ToastController,public platform:Platform) {
     this.mShenGoupage = Utils.getViewController("EditNewShengouPage", navCtrl);
 
     this.shenGouService.get_all_products().then((res) => {
@@ -34,6 +35,18 @@ export class EditAddShengouPage {
         this.productList = res.result.res_data.res_data;
       }
     })
+  }
+
+  ionViewWillLeave(){
+    if(this.platform.is('ios')){
+      cordova.plugins.Keyboard.close();
+    }
+  }
+
+  panEvent($event){
+    if(this.platform.is('ios')){
+      cordova.plugins.Keyboard.close();
+    }
   }
 
   ionViewDidEnter() {

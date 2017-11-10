@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
+import { ContactService} from './contact-persionService'
 /**
  * Generated class for the ContactPersonPage page.
  *
@@ -11,12 +11,18 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 @Component({
   selector: 'page-contact-person',
   templateUrl: 'contact-person.html',
+  providers:[ContactService]
 })
 export class ContactPersonPage {
-  products ;
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-    this.products=["222","22222","22222","2222"] 
+  departmentList;
+  constructor(public navCtrl: NavController, public navParams: NavParams,public contactService:ContactService) {
+      this.contactService.get_departments().then((res) => {
+        if (res.result && res.result.res_code == 1)
+        {
+          console.log(res)
+          this.departmentList = res.result.res_data;
+        }
+      })
   }
 
   ionViewDidLoad() {
