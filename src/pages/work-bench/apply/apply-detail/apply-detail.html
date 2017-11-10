@@ -81,7 +81,7 @@
   </button>
 
 
-  <button *ngIf="res_data.state!='cancel' && res_data.state!='draft' " ion-start full ion-button (click)="callbackApply()">
+  <button *ngIf="res_data.state!='cancel' && res_data.state!='draft' && res_data.state!='post'&& res_data.state!='done' " ion-start full ion-button (click)="callbackApply()">
     撤回申请
   </button>
 
