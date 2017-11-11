@@ -43,6 +43,14 @@
     <ion-label item-end text-right>{{pre_payment_reminding}}</ion-label>
   </ion-item>
 
+  <button ion-item (click)="addShengouItem()">
+    <ion-label>申购余额(可报销)
+      <!-- <span style="color:red;"> *</span> -->
+    </ion-label> 
+     <ion-label  item-end text-right>申购余额</ion-label>
+  </button>
+
+
   <ion-list style="margin-top:10px" lines>
       <ion-item-sliding  *ngFor='let item of items;let i = index'>
       <ion-item >

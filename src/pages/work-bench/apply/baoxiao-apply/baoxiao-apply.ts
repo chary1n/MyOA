@@ -251,4 +251,8 @@ export class BaoxiaoApplyPage {
       }
     })
   }
+
+  addShengouItem(){
+    this.navCtrl.push("ShengouItemPage")
+  }
 }
