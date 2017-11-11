@@ -14,7 +14,7 @@
 
 
 <ion-content (pan)="panEvent($event)">
-  <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+  <ion-searchbar placeholder = "搜索" (ionInput)="getItems($event)"></ion-searchbar>
   <ion-item *ngIf = "showAll == 'YES'">
     <ion-label>组织架构</ion-label>
     <ion-label tappable (click) = "clickAll()" text-right item-end>-</ion-label>

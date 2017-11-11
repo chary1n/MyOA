@@ -23,7 +23,7 @@ export class EmployeeListPage {
     this.items = navParams.get('items');
     this.title = navParams.get('title');
     this.origin_data = this.items;
-    console.log(this.items)
+    // console.log(this.items)
   }
 
   ionViewDidLoad() {
@@ -40,10 +40,10 @@ export class EmployeeListPage {
     let val = ev.target.value;
     if (val && val.trim() != '') {
       this.items = this.origin_data.filter((item) => {
-        console.log(item)
+        // console.log(item)
         if (item[0].name != '')
         {
-          console.log(item[0].name.toLowerCase().indexOf(val.toLowerCase()) > -1)
+          // console.log(item[0].name.toLowerCase().indexOf(val.toLowerCase()) > -1)
           return (item[0].name.toLowerCase().indexOf(val.toLowerCase()) > -1);
         }
       })
