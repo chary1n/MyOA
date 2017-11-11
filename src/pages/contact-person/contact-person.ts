@@ -30,14 +30,15 @@ export class ContactPersonPage {
   }
 
   clickItem(item){
-    // this.contactService.get_department_detail(item.id).then((res) => {
-    //   if (res.result && res.result.res_code == 1)
-    //     {
-    //       this.navCtrl.push('EmployeeListPage',{
-    //           items:res.result.res_data,
-    //       })
-    //     }
-    // })
+    this.contactService.get_department_detail(item.id).then((res) => {
+      if (res.result && res.result.res_code == 1)
+        {
+          this.navCtrl.push('EmployeeListPage',{
+              items:res.result.res_data,
+              title:item.name,
+          })
+        }
+    })
   }
 
 }
