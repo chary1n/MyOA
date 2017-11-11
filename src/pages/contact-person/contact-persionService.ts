@@ -21,4 +21,10 @@ export class ContactService {
         });
        return this.httpservice.postBody("get_department_detail",body);
     }
+
+    get_all_employees(){
+        let body = JSON.stringify({
+        });
+       return this.httpservice.postBody("get_all_employees",body);
+    }
 }

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ContactService} from './../contact-persionService'
+declare let cordova: any; 
 /**
  * Generated class for the EmployeeListPage page.
  *
@@ -17,6 +18,7 @@ export class EmployeeListPage {
   items:any;
   title;
   origin_data;
+  
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.items = navParams.get('items');
     this.title = navParams.get('title');
@@ -35,13 +37,7 @@ export class EmployeeListPage {
   }
 
   getItems(ev: any) {
-    // Reset items back to all of the items
-    // this.initializeItems();
-
-    // set val to the value of the searchbar
     let val = ev.target.value;
-    // console.log(val)
-    // if the value is an empty string don't filter the items
     if (val && val.trim() != '') {
       this.items = this.origin_data.filter((item) => {
         console.log(item)
@@ -50,16 +46,15 @@ export class EmployeeListPage {
           console.log(item[0].name.toLowerCase().indexOf(val.toLowerCase()) > -1)
           return (item[0].name.toLowerCase().indexOf(val.toLowerCase()) > -1);
         }
-        // else
-        // {
-        //   return this.items;
-        // }
       })
     }
     else{
       this.items = this.origin_data;
-    }
-    
+    } 
+  }
+
+  panEvent($event){
+     cordova.plugins.Keyboard.close();
   }
 
 }
