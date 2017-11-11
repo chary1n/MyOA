@@ -37,8 +37,8 @@ export class ShengoupagePage {
         this.limit = 20;
         this.offset = 0;
         this.shengouService.getshengouList(this.limit, this.offset, this.user_id).then((res) => {
-          console.log(res.result.res_data)
-          if (res.result.res_data) {
+          // console.log(res.result.res_data)
+          if (res.result && res.result.res_code == 1) {
             this.myApplyList = res.result.res_data;
           }
         })
@@ -109,14 +109,23 @@ export class ShengoupagePage {
     this.offset = 0;
     if (this.pet == "1") {
       this.isMoreData1 = true;
+
+      this.shengouService.getshengouList(this.limit, this.offset, this.user_id).then((res) => {
+          // console.log(res.result.res_data)
+          if (res.result && res.result.res_code == 1) {
+            this.myApplyList = res.result.res_data;
+          }
+        })
+
+
       this.shengouService.getshengouList(this.limit, this.offset, this.user_id).then((res) => {
         console.log(res.result.res_data)
         if (refresh) {
           refresh.complete();
         }
-        if (res.result) {
-          this.myApplyList = res.result.res_data;
-        }
+           if (res.result && res.result.res_code == 1) {
+            this.myApplyList = res.result.res_data;
+          }
       })
     } else if (this.pet == "3") {
       this.isMoreData3 = true;
@@ -125,7 +134,7 @@ export class ShengoupagePage {
         if (refresh) {
           refresh.complete();
         }
-        if (res.result) {
+        if (res.result && res.result.res_code == 1) {
           this.audited_list = res.result.res_data;
         }
       })
@@ -136,7 +145,7 @@ export class ShengoupagePage {
         if (refresh) {
           refresh.complete();
         }
-        if (res.result) {
+        if (res.result && res.result.res_code == 1) {
           this.wait_me_audit_list = res.result.res_data;
         }
       })
@@ -155,11 +164,11 @@ export class ShengoupagePage {
   doInfinite(infiniteScroll) {
     if (this.pet == "1") {
       if (this.isMoreData1 == true) {
-        this.limit += 20;
+        this.limit = 20;
         this.offset += 20;
         this.shengouService.getshengouList(this.limit, this.offset, this.user_id).then((res) => {
           console.log(res.result.res_data)
-          if (res.result.res_data) {
+          if (res.result && res.result.res_code == 1) {
             if (res.result.res_data.length == 20) {
               this.isMoreData1 = true;
             }
@@ -181,11 +190,11 @@ export class ShengoupagePage {
       }
     } else if (this.pet == "2") {
       if (this.isMoreData2 == true) {
-        this.limit += 20;
+        this.limit = 20;
         this.offset += 20;
         this.shengouService.get_wait_audit_purchase(this.limit, this.offset, this.user_id).then((res) => {
-          console.log(res.result.res_data)
-          if (res.result.res_data) {
+          // console.log(res.result.res_data)
+          if (res.result && res.result.res_code == 1) {
             if (res.result.res_data.length == 20) {
               this.isMoreData2 = true;
             }
@@ -207,11 +216,11 @@ export class ShengoupagePage {
       }
     } else if (this.pet == "3") {
       if (this.isMoreData3 == true) {
-        this.limit += 20;
+        this.limit = 20;
         this.offset += 20;
         this.shengouService.get_audited_purchase(this.limit, this.offset, this.user_id).then((res) => {
           console.log(res.result.res_data)
-          if (res.result.res_data) {
+          if (res.result && res.result.res_code == 1) {
             if (res.result.res_data.length == 20) {
               this.isMoreData3 = true;
             }
@@ -239,7 +248,7 @@ export class ShengoupagePage {
     if(this.pet == "1"){
       this.shengouService.search_shengou(search_text, this.user_id).then((res) => {
         console.log(res)
-        if (res.result&&res.result.res_data) {
+        if (res.result&&res.result.res_code == 1) {
           this.myApplyList = res.result.res_data;
         }
         else {
@@ -249,7 +258,7 @@ export class ShengoupagePage {
     }else if(this.pet == "2"){
       this.shengouService.search_wait_me_audit(search_text, this.user_id).then((res) => {
         console.log(res)
-        if (res.result&&res.result.res_data) {
+        if (res.result&&res.result.res_code == 1) {
           this.wait_me_audit_list = res.result.res_data;
         }
         else {
@@ -259,7 +268,7 @@ export class ShengoupagePage {
     }else if(this.pet == "3"){
       this.shengouService.search_audited(search_text, this.user_id).then((res) => {
         console.log(res)
-        if (res.result&&res.result.res_data) {
+        if (res.result&&res.result.res_code == 1) {
           this.audited_list = res.result.res_data;
         }
         else {
@@ -272,7 +281,7 @@ export class ShengoupagePage {
 
   audited_detail(item) {
     this.shengouService.getAuditDetail(item.id).then(res=>{
-      if(res.result&&res.result.res_data){
+      if(res.result && res.result.res_code == 1){
         this.navCtrl.push("AuditedPurchasePage", { item: res.result.res_data })
       }
     })
@@ -280,7 +289,7 @@ export class ShengoupagePage {
 
   wait_audit_detail(item) {
     this.shengouService.getAuditDetail(item.id).then(res=>{
-      if(res.result&&res.result.res_data){
+      if(res.result&&res.result.res_code == 1){
         this.navCtrl.push("AuditedPurchasePage", { item: res.result.res_data })
       }
     })

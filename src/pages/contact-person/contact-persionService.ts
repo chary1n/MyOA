@@ -14,4 +14,11 @@ export class ContactService {
         });
        return this.httpservice.postBody("get_departments",body);
     }
+    
+    get_department_detail(department_id){
+        let body = JSON.stringify({
+           department_id:department_id,
+        });
+       return this.httpservice.postBody("get_department_detail",body);
+    }
 }
