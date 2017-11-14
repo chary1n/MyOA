@@ -21,6 +21,7 @@
 
 
 <ion-content style="background:#f0f0f0">
+
   <ion-item>
     <ion-label>申请人
       <!-- <span style="color:red;"> *</span> -->
@@ -29,7 +30,7 @@
   </ion-item>
 
   <ion-item>
-    <ion-label>部门(费用归属)</ion-label> 
+    <ion-label  style="color:black">部门(费用归属)</ion-label> 
     <ion-select [(ngModel)]="department" class="normal-select">
       <ion-option *ngFor="let item of departmentList;" value={{item.id}} 
        >{{item.name}}</ion-option>
@@ -43,21 +44,22 @@
     <ion-label item-end text-right>{{pre_payment_reminding}}</ion-label>
   </ion-item>
 
-  <button ion-item (click)="addShengouItem()">
+  <!-- <button ion-item (click)="addShengouItem()">
     <ion-label>申购余额(可报销)
-      <!-- <span style="color:red;"> *</span> -->
     </ion-label> 
      <ion-label  item-end text-right>申购余额</ion-label>
-  </button>
+  </button> -->
 
 
   <ion-list style="margin-top:10px" lines>
       <ion-item-sliding  *ngFor='let item of items;let i = index'>
       <ion-item >
-        <div >报销明细{{i+1}}</div>
-        <p text-wrap class="team_p">产品：{{item.productName}}</p>
-        <p text-wrap class="team_p">金额：{{item.amount}}</p>
-        <p text-wrap class="team_p">费用说明：{{item.remark}}</p>
+        <p text-wrap style="float:right;">金额：<span style=" color:rgb(219, 105, 90)"> {{item.amount}}</span></p>
+        <div>报销明细{{i+1}}</div>
+        <p text-wrap class="team_p">消费用途：{{item.remark}}</p>
+        <p style="float:right;"> 税金:{{item.tax}}</p>
+        <p text-wrap class="team_p">费用类别：{{item.productName}}</p>
+        <p text-wrap class="team_p">备注:{{item.remarks}}</p>
       </ion-item>
       <ion-item-options side="right">
           <button ion-button color="primary" (click)="changeProductItem(i)">

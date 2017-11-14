@@ -18,15 +18,17 @@ export class AddApplyDetailPage {
   productList;
   amount: any;
   remark;
+  remarks;  //备注
   mBaoxiaoApplyPage;
   production;
   productIndex;
   changeItem;
+  taxIndex
+  taxList;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public platform: Platform,
     public alertCtrl: AlertController,
     public toastCtrl: ToastController) {
-    this.productList = this.navParams.get("product");
     this.mBaoxiaoApplyPage = Utils.getViewController("BaoxiaoApplyPage", navCtrl);
   }
 
@@ -37,13 +39,20 @@ export class AddApplyDetailPage {
   ionViewDidEnter() {
     this.productList = this.navParams.get("product");
     this.changeItem = this.navParams.get("item");
+    this.taxList = this.navParams.get("taxList");
     if (this.changeItem) {
       this.production = this.changeItem;
       this.amount = this.production.amount;
       this.remark = this.production.remark;
+      this.remarks = this.production.remarks;
       for(let i = 0 ;i<this.productList.length;i++){
         if(this.productList[i].id== this.production.productId){
           this.productIndex = i
+        }
+      }
+      for(let i = 0 ;i<this.taxList.length;i++){
+        if(this.taxList[i].name== this.production.tax){
+          this.taxIndex = i
         }
       }
     }
@@ -82,7 +91,7 @@ export class AddApplyDetailPage {
       return;
     }
     let mString = "";
-    if (!this.productIndex) {
+    if (this.productIndex!=0 &&!this.productIndex) {
       mString = mString + "   请选择产品"
     }
     if (!this.amount) {
@@ -94,12 +103,15 @@ export class AddApplyDetailPage {
     if (mString != "") {
       Utils.toastButtom(mString, this.toastCtrl)
     } else {
-      if (this.productIndex && this.amount && this.remark) {
+      if (this.amount && this.remark) {
         this.production = [];
         this.production.productId = this.productList[this.productIndex].id;
         this.production.productName = this.productList[this.productIndex].name;
         this.production.amount = this.amount;
         this.production.remark = this.remark;
+        this.production.remarks = this.remarks;
+        this.production.taxIndex = this.taxIndex ;
+        this.production.tax= this.taxList[this.taxIndex].name;
         this.production.productIndex = this.productIndex;
         this.mBaoxiaoApplyPage.data.production = this.production;
         this.mBaoxiaoApplyPage.data.isAdd = true;

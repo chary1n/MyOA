@@ -37,6 +37,8 @@ export class BaoxiaoApplyPage {
   editItem;
   isResetItem = false;
   record_id;
+  taxList ;
+  taxIndx;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public commonService: CommonUseServices,
     public storage: Storage,
@@ -56,6 +58,7 @@ export class BaoxiaoApplyPage {
             this.pre_payment_reminding = res.result.res_data.pre_payment_reminding
             this.employee_id = res.result.res_data.employee_id;
             this.department = res.result.res_data.department_id;
+            this.taxList = res.result.res_data.taxList.res_data ;
           }
         })
       });
@@ -67,6 +70,7 @@ export class BaoxiaoApplyPage {
       this.department_id = this.editItem.department_id
       this.department = this.editItem.department_id
       this.record_id = this.editItem.id
+      this.taxList = this.editItem.taxList
       for (let item of this.editItem.expense_line_ids) {
         let mitem: any = [];
         mitem.remark = item.description
@@ -74,6 +78,8 @@ export class BaoxiaoApplyPage {
         mitem.amount = item.amount
         mitem.productName = item.name
         mitem.id = item.id
+        mitem.tax = item.tax 
+        mitem.remarks = item.remarks
         this.items.push(mitem)
       }
     }
@@ -140,7 +146,9 @@ export class BaoxiaoApplyPage {
     this.navCtrl.push('AddApplyDetailPage', {
       item: this.items[i],
       index: i,
-      product: this.productList
+      product: this.productList,
+      taxList:this.taxList,
+      taxIndex :this.taxIndx
     })
   }
 
@@ -153,7 +161,7 @@ export class BaoxiaoApplyPage {
 
   addApplyDetail() {
     this.navCtrl.push('AddApplyDetailPage', {
-      product: this.productList
+      product: this.productList ,taxList :this.taxList
     })
   }
   save() {
@@ -192,7 +200,9 @@ export class BaoxiaoApplyPage {
         employee_id: parseInt(this.employee_id),
         product_id: parseInt(item.productId),
         unit_amount: parseFloat(item.amount),
-        id: parseInt(item.id)
+        id: parseInt(item.id),
+        taxid: this.taxList[item.taxIndex].id,
+        remarks:item.remarks 
       }
       productionList.push(pro)
     }
@@ -253,6 +263,6 @@ export class BaoxiaoApplyPage {
   }
 
   addShengouItem(){
-    this.navCtrl.push("ShengouItemPage")
+    this.navCtrl.push("ShengouItemPage",{employee_id  :this.employee_id})
   }
 }

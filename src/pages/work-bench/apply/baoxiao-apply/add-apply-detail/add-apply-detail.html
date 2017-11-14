@@ -22,26 +22,38 @@
 
 
 <ion-content>
+  <ion-item>
+    <ion-label style="color:black">消费用途</ion-label>
+    <ion-input [(ngModel)]="remark" placeholder="例如xx-xx火车票，xx接待午餐费" text-right></ion-input>
+  </ion-item>
 
   <ion-item>
-    <ion-label>产品</ion-label>
+    <ion-label style="color:black">费用类别</ion-label>
     <ion-select [(ngModel)]="productIndex" class="normal-select">
-      <ion-option *ngFor="let item of productList;let i = index;" value={{i}}  >{{item.name}}</ion-option>
+      <ion-option *ngFor="let item of productList;let i = index;" value={{i}}>{{item.name}}</ion-option>
     </ion-select>
   </ion-item>
+
   <ion-item>
-    <ion-label>金额 (元)
+    <ion-label style="color:black">税金</ion-label>
+    <ion-select [(ngModel)]="taxIndex" class="normal-select">
+      <ion-option *ngFor="let item of taxList;let i = index;" value={{i}}>{{item.name}}</ion-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label style="color:black">金额 (元)
     </ion-label>
-    <ion-input  #mNumberCon  item-end  text-wrap type="number" text-right [(ngModel)]="amount"></ion-input>
+    <ion-input #mNumberCon item-end text-wrap type="number" text-right [(ngModel)]="amount"></ion-input>
   </ion-item>
 
   <ion-item no-lines>
 
-    <ion-label>费用说明</ion-label>
+    <ion-label>备注</ion-label>
 
   </ion-item>
   <ion-item>
-    <ion-textarea  rows = "15" style="margin-left:10px;"  text-wrap placeholder='请输入费用明细描述'  [(ngModel)]="remark" class='area_class' >
+    <ion-textarea rows="15" style="margin-left:10px;" text-wrap placeholder='请输入该消费用途的具体事由' [(ngModel)]="remarks" class='area_class'>
     </ion-textarea>
   </ion-item>
 

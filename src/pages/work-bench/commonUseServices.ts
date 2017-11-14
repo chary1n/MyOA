@@ -103,4 +103,11 @@ export class CommonUseServices {
         });
         return this.httpservice.postBody("get_leaveType", body);
     }
+
+    get_shengou_item(employee_id){
+        let body = JSON.stringify({
+            employee_id: employee_id
+        });
+        return this.httpservice.postBody("get_shengou_item", body);
+    }
 }

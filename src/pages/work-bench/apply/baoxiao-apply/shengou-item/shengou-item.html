@@ -22,11 +22,22 @@
 </ion-header>
 
 
-<ion-content padding>
-    <ion-list>
-        <!-- <ion-item style="height:60px" *ngFor="let item of arr ; let i = index">  
-            <ion-label>{{item.name}}</ion-label>
-            <ion-checkbox tappable style="margin-left:-10px;" (ionChange)="insertUserToArray(item)" [checked]="isCheck(item) ? true : false"></ion-checkbox>
-         </ion-item> -->
-      </ion-list>
+<ion-content >
+  <ion-list>
+    <ion-item *ngFor="let item of shengou_list ; let i = index">
+      <ion-row>
+        <ion-col col-2>
+          <ion-item>
+            <ion-checkbox tappable (ionChange)="checkChange(item)"></ion-checkbox>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <h2> {{item.orderNumber}}</h2>
+          <p>申购产品: {{item.productionName}}</p>
+          <p>金额: {{item.price_unit}} 数量: {{item.product_qty}}</p>
+          <p>申购说明:{{item.description}}</p>
+        </ion-col>
+      </ion-row>
+      </ion-item>
+  </ion-list>
 </ion-content>

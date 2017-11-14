@@ -1,3 +1,4 @@
+import { CommonUseServices } from './../../../commonUseServices';
 import { IonicPage } from 'ionic-angular';
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular/navigation/nav-controller';
@@ -13,21 +14,35 @@ import { NavParams } from 'ionic-angular/navigation/nav-params';
 @Component({
   selector: 'page-shengou-item',
   templateUrl: 'shengou-item.html',
+  providers: [CommonUseServices]
 })
 export class ShengouItemPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  employee_id;
+  shengou_list;
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+    public commonService: CommonUseServices) {
+    this.employee_id = this.navParams.get("employee_id")
+    this.commonService.get_shengou_item(this.employee_id).then(res => {
+      console.log(res)
+      if(res.result && res.result.res_code == 1){
+        this.shengou_list = res.result.res_data
+      }
+    })
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ShengouItemPage');
   }
 
-  goBack(){
+  goBack() {
+    this.navCtrl.pop()
+  }
+
+  save() {
 
   }
 
-  save(){
-      
+  checkChange(item){
+
   }
 }
