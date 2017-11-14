@@ -27,18 +27,20 @@ export class ReimbursementService {
        return this.httpservice.postBody("already_approved",body);
     }
 
-    confirm1(sheet_id,user_id){
+    confirm1(sheet_id,user_id,reason){
         let body = JSON.stringify({
             sheet_id:sheet_id,
             user_id:user_id,
+            reason:reason,
         });
        return this.httpservice.postBody("confirm_approve1",body);
     }
 
-    confirm2(sheet_id,user_id){
+    confirm2(sheet_id,user_id,reason){
         let body = JSON.stringify({
             sheet_id:sheet_id,
-            user_id:user_id
+            user_id:user_id,
+            reason:reason,
         });
        return this.httpservice.postBody("confirm_approve2",body);
     }

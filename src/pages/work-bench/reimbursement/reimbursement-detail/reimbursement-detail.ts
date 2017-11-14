@@ -52,8 +52,29 @@ export class ReimbursementDetailPage {
     let ctrl = this.alertCtrl;
     if (this.item.state == '发送')
     {
-      
-      this.baoxiaoService.confirm1(this.item.sheet_id,this.user_id).then((res) => {
+      let ctrl = this.alertCtrl;
+      ctrl.create({
+      title: '提示',
+      message: "填写审批备注",
+      inputs: [
+        {
+          name: 'title',
+          placeholder: '审批备注(选填)'
+        },
+      ],
+      buttons: [
+        {
+          text: '取消',
+          handler: data => {
+            // console.log('Cancel clicked');
+          }
+        },
+        {
+          text: '通过',
+          handler: data => {
+            if (data.title)
+            {
+              this.baoxiaoService.confirm1(this.item.sheet_id,this.user_id,data.title).then((res) => {
         if (res)
         {
           
@@ -77,10 +98,63 @@ export class ReimbursementDetailPage {
           }
         }
     })
+            }
+            else
+            {
+              this.baoxiaoService.confirm1(this.item.sheet_id,this.user_id,null).then((res) => {
+        if (res)
+        {
+          
+          if (res.result.res_data.success == 1)
+          {
+            console.log(res.result.res_data.success)
+            ctrl.create({
+                  title: '提示',
+                  subTitle: "审批成功",
+                  buttons: [{
+                text: '确定',
+                    handler: () => {
+                    this.frontPage.data.need_fresh = true;
+              this.navCtrl.popTo(this.frontPage,{
+                need_fresh:true,
+              });
+             }
+             }
+      ]
+    }).present();
+          }
+        }
+    })
+            }
+          }
+        }]
+      }).present();
   }
   else if (this.item.state == '1级审核')
   {
-      this.baoxiaoService.confirm2(this.item.sheet_id,this.user_id).then((res) => {
+      let ctrl = this.alertCtrl;
+      ctrl.create({
+      title: '提示',
+      message: "填写审批备注",
+      inputs: [
+        {
+          name: 'title',
+          placeholder: '审批备注(选填)'
+        },
+      ],
+      buttons: [
+        {
+          text: '取消',
+          handler: data => {
+            // console.log('Cancel clicked');
+          }
+        },
+        {
+          text: '通过',
+          handler: data => {
+            if (data.title)
+            {
+              this.baoxiaoService.confirm2(this.item.sheet_id,this.user_id,data.title).then((res) => {
          if (res)
         {
           
@@ -104,6 +178,40 @@ export class ReimbursementDetailPage {
           }
         }
       })
+            }
+            else
+            {
+                this.baoxiaoService.confirm2(this.item.sheet_id,this.user_id,null).then((res) => {
+         if (res)
+        {
+          
+          if (res.result.res_data.success == 1)
+          {
+            console.log(res.result.res_data.success)
+            ctrl.create({
+                  title: '提示',
+                  subTitle: "审批成功",
+                  buttons: [{
+                text: '确定',
+                    handler: () => {
+                    this.frontPage.data.need_fresh = true;
+              this.navCtrl.popTo(this.frontPage,{
+                need_fresh:true,
+              });
+             }
+             }
+      ]
+    }).present();
+          }
+        }
+      })
+            }
+          }
+        }]
+      }).present();
+
+
+      
   }
     
   }

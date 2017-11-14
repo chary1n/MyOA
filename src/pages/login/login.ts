@@ -1,6 +1,7 @@
 import { dbBean } from './../../model/dbInfoModel';
 import { Storage } from '@ionic/storage';
 
+import { JPush} from '../../providers/JPush'
 
 import { LoginService } from './loginService';
 import { Component, ErrorHandler } from '@angular/core';
@@ -26,7 +27,7 @@ import { Platform } from 'ionic-angular';
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html',
-  providers: [LoginService]
+  providers: [LoginService,JPush]
 })
 export class LoginPage {
   email: string;
@@ -35,7 +36,8 @@ export class LoginPage {
   employee: string;
   resUser: any;
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    private loginservice: LoginService, private myHttp: Http, private storage: Storage, public platform: Platform, public appVersion: AppVersion) {
+    private loginservice: LoginService, private myHttp: Http, private storage: Storage, public platform: Platform, public appVersion: AppVersion,
+    public jpush:JPush) {
 
 
   }
@@ -82,6 +84,7 @@ export class LoginPage {
         console.log(res);
         if (res.result && res.result.res_code == 1) {
           this.storage.set("user", res).then(() => {
+            this.jpush.setAlias(res.result.res_data.user_id);
             this.navCtrl.setRoot('TabsPage');
           });
         }
