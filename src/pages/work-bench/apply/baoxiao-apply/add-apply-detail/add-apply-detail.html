@@ -23,12 +23,12 @@
 
 <ion-content>
   <ion-item>
-    <ion-label style="color:black">消费用途</ion-label>
+    <ion-label style="color:black">消费用途   <span style="color:red;"> *</span></ion-label>
     <ion-input [(ngModel)]="remark" placeholder="例如xx-xx火车票，xx接待午餐费" text-right></ion-input>
   </ion-item>
 
   <ion-item>
-    <ion-label style="color:black">费用类别</ion-label>
+    <ion-label style="color:black">费用类别   <span style="color:red;"> *</span></ion-label>
     <ion-select [(ngModel)]="productIndex" class="normal-select">
       <ion-option *ngFor="let item of productList;let i = index;" value={{i}}>{{item.name}}</ion-option>
     </ion-select>
@@ -42,7 +42,7 @@
   </ion-item>
 
   <ion-item>
-    <ion-label style="color:black">金额 (元)
+    <ion-label style="color:black">金额 (元)   <span style="color:red;"> *</span>
     </ion-label>
     <ion-input #mNumberCon item-end text-wrap type="number" text-right [(ngModel)]="amount"></ion-input>
   </ion-item>

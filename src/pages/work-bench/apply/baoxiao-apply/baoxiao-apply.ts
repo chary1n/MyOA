@@ -194,6 +194,10 @@ export class BaoxiaoApplyPage {
     let self = this
     let productionList = []
     for (let item of this.items) {
+      let taxId;
+      if(item.taxIndex==0||item.taxIndex){
+        taxId =  this.taxList[item.taxIndex].id
+      }
       let pro = {
         name: item.remark,
         department_id: parseInt(this.department),
@@ -201,7 +205,7 @@ export class BaoxiaoApplyPage {
         product_id: parseInt(item.productId),
         unit_amount: parseFloat(item.amount),
         id: parseInt(item.id),
-        taxid: this.taxList[item.taxIndex].id,
+        taxid:taxId,
         remarks:item.remarks 
       }
       productionList.push(pro)

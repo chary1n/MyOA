@@ -92,13 +92,13 @@ export class AddApplyDetailPage {
     }
     let mString = "";
     if (this.productIndex!=0 &&!this.productIndex) {
-      mString = mString + "   请选择产品"
+      mString = mString + "   请选择费用类别"
     }
     if (!this.amount) {
       mString = mString + "   请填写金额"
     }
     if (!this.remark) {
-      mString = mString + "   请填写费用说明"
+      mString = mString + "   请填写消费用途"
     }
     if (mString != "") {
       Utils.toastButtom(mString, this.toastCtrl)
@@ -111,7 +111,9 @@ export class AddApplyDetailPage {
         this.production.remark = this.remark;
         this.production.remarks = this.remarks;
         this.production.taxIndex = this.taxIndex ;
-        this.production.tax= this.taxList[this.taxIndex].name;
+        if(this.taxIndex==0||this.taxIndex){
+          this.production.tax= this.taxList[this.taxIndex].name;
+        }
         this.production.productIndex = this.productIndex;
         this.mBaoxiaoApplyPage.data.production = this.production;
         this.mBaoxiaoApplyPage.data.isAdd = true;
