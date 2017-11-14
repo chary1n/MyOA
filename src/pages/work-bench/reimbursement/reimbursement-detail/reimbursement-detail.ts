@@ -278,4 +278,29 @@ export class ReimbursementDetailPage {
     }).present();
   }
 
+  getTax(items)
+  {
+    if (items.tax_ids)
+    {
+      if (items.tax_ids[0])
+      {
+        if (items.tax_ids[0].display_name)
+    {
+      return items.tax_ids[0].display_name;
+    }
+    else
+    {
+      return "";
+    }
+      }
+      else
+      {
+        return "";
+      }
+  }
+  else
+  {
+    return "";
+  }
+  }
 }

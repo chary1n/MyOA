@@ -37,7 +37,7 @@
           <p style="float:right">金额：{{items.unit_amount}}</p>
           <h3 text-wrap>报销明细</h3>
           <p text-wrap style="font-size:80%;color:gray;">消费用途：{{items.name}}</p>
-          <p text-wrap style="font-size:80%;color:gray;float:right;margin-right:140px;">税金：{{items.tax_ids[0].display_name}}</p>
+          <p text-wrap style="font-size:80%;color:gray;float:right;margin-right:140px;">税金：{{getTax(items)}}</p>
           <p text-wrap style="font-size:80%;color:gray;">费用类别：{{items.product_id}}</p>
           <p text-wrap style="font-size:80%;color:gray">备注：{{items.description}} </p>
     </ion-item>
