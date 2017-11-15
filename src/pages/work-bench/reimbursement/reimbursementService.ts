@@ -27,29 +27,32 @@ export class ReimbursementService {
        return this.httpservice.postBody("already_approved",body);
     }
 
-    confirm1(sheet_id,user_id,reason){
+    confirm1(sheet_id,user_id,reason,expense_line_ids){
         let body = JSON.stringify({
             sheet_id:sheet_id,
             user_id:user_id,
             reason:reason,
+            expense_line_ids:expense_line_ids,
         });
        return this.httpservice.postBody("confirm_approve1",body);
     }
 
-    confirm2(sheet_id,user_id,reason){
+    confirm2(sheet_id,user_id,reason,expense_line_ids){
         let body = JSON.stringify({
             sheet_id:sheet_id,
             user_id:user_id,
             reason:reason,
+            expense_line_ids:expense_line_ids,
         });
        return this.httpservice.postBody("confirm_approve2",body);
     }
 
-    confirm_approve3(sheet_id,user_id,reason){
+    confirm_approve3(sheet_id,user_id,reason,expense_line_ids){
         let body = JSON.stringify({
             sheet_id:sheet_id,
             user_id:user_id,
             reason:reason,
+            expense_line_ids:expense_line_ids,
         });
        return this.httpservice.postBody("confirm_approve3",body);
     }
