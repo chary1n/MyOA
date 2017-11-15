@@ -102,10 +102,12 @@ export class ShenGouService {
        return this.httpservice.postBody("audited_purchase",body);
     }
 
-    confirm1(sheet_id,user_id){
+    confirm1(sheet_id,user_id ,title,type){
         let body = JSON.stringify({
             sheet_id:sheet_id,
             user_id:user_id,
+            reason :title,
+            type :type
         });
        return this.httpservice.postBody("confirm_purchase",body);
     }
