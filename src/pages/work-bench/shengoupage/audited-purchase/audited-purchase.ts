@@ -20,7 +20,7 @@ export class AuditedPurchasePage {
 
   item: any;
   title: any;
-  isShowFooter: any;
+  isShowFooter: boolean;
   user_id: any;
   frontPage;
   constructor(public navCtrl: NavController, public navParams: NavParams, public shengouService: ShenGouService,
@@ -34,7 +34,7 @@ export class AuditedPurchasePage {
         this.user_id = res.result.res_data.user_id;
       });
     console.log(this.item.state);
-    if (this.item.state == 'submit') {
+    if (this.item.state == 'submit'||this.item.state == 'manager1_approve'||this.item.state == 'manager2_approve') {
       this.isShowFooter = true;
     }
     else {
@@ -52,7 +52,13 @@ export class AuditedPurchasePage {
     let ctrl = this.alertCtrl;
       ctrl.create({
         title: '提示',
-        subTitle: "确定审核通过?",
+        message: "填写审批备注",
+        inputs: [
+          {
+            name: 'title',
+            placeholder: '审批备注(选填)'
+          },
+        ],
         buttons: [
         {
           text: '取消',
@@ -61,17 +67,16 @@ export class AuditedPurchasePage {
         },
         {
           text: '确定',
-          handler: () => {
-            this.submit()
+          handler: data => {
+            this.submit(data.title)
           }
         }
         ],
       }).present();
   }
-  submit(){
+  submit(reason){
     let ctrl = this.alertCtrl;
-    if (this.item.state == 'submit') {
-      this.shengouService.confirm1(this.item.sheet_id, this.user_id).then((res) => {
+      this.shengouService.confirm1(this.item.sheet_id, this.user_id,reason,this.item.state).then((res) => {
         if (res) {
           if (res.result.res_data.success == 1) {
             console.log(res.result.res_data.success)
@@ -92,7 +97,6 @@ export class AuditedPurchasePage {
           }
         }
       })
-    }
   }
 
   cancel() {

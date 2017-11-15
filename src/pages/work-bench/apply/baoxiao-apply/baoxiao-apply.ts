@@ -27,7 +27,7 @@ export class BaoxiaoApplyPage {
   production;
   // 添加的报销明细
   items = [];
-  total: number = 0;
+  total: any = 0;
   data: any = [];
   employee_id;
   isAdd = false;
@@ -37,8 +37,10 @@ export class BaoxiaoApplyPage {
   editItem;
   isResetItem = false;
   record_id;
-  taxList ;
+  taxList;
   taxIndx;
+  // 选的申购List
+  chooseList;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public commonService: CommonUseServices,
     public storage: Storage,
@@ -58,7 +60,7 @@ export class BaoxiaoApplyPage {
             this.pre_payment_reminding = res.result.res_data.pre_payment_reminding
             this.employee_id = res.result.res_data.employee_id;
             this.department = res.result.res_data.department_id;
-            this.taxList = res.result.res_data.taxList.res_data ;
+            this.taxList = res.result.res_data.taxList.res_data;
           }
         })
       });
@@ -78,7 +80,7 @@ export class BaoxiaoApplyPage {
         mitem.amount = item.amount
         mitem.productName = item.name
         mitem.id = item.id
-        mitem.tax = item.tax 
+        mitem.tax = item.tax
         mitem.remarks = item.remarks
         this.items.push(mitem)
       }
@@ -93,6 +95,18 @@ export class BaoxiaoApplyPage {
   ionViewWillEnter() {
     this.isAdd = this.navParams.get("isAdd")
     this.isChange = this.navParams.get("isChange")
+    this.chooseList = this.navParams.get("chooseList")
+    if (this.chooseList) {
+      for (let i = 0; i < this.chooseList.length; i++) {
+        this.chooseList[i].amount =
+          (this.chooseList[i].price_unit * this.chooseList[i].product_qty).toFixed(2)
+        this.chooseList[i].productName = this.chooseList[i].productionName
+        this.chooseList[i].description = this.chooseList[i].remark
+        this.items.push(this.chooseList[i])
+      }
+      this.chooseList = []
+    }
+
     if (this.isAdd) {
       console.log(this.production)
       this.production = this.navParams.get('production')
@@ -116,7 +130,7 @@ export class BaoxiaoApplyPage {
       for (let item of this.items) {
         total = total + parseFloat(item.amount)
       }
-      this.total = total
+      this.total = total.toFixed(2)
     }
   }
 
@@ -147,8 +161,8 @@ export class BaoxiaoApplyPage {
       item: this.items[i],
       index: i,
       product: this.productList,
-      taxList:this.taxList,
-      taxIndex :this.taxIndx
+      taxList: this.taxList,
+      taxIndex: this.taxIndx
     })
   }
 
@@ -161,7 +175,7 @@ export class BaoxiaoApplyPage {
 
   addApplyDetail() {
     this.navCtrl.push('AddApplyDetailPage', {
-      product: this.productList ,taxList :this.taxList
+      product: this.productList, taxList: this.taxList
     })
   }
   save() {
@@ -177,7 +191,7 @@ export class BaoxiaoApplyPage {
     } else {
       this.alertCtrl.create({
         title: '提示',
-        subTitle: this.isResetItem?"是否提交?":'是否保存?',
+        subTitle: this.isResetItem ? "是否提交?" : '是否保存?',
         buttons: [{ text: '取消' },
         {
           text: '确定',
@@ -195,8 +209,8 @@ export class BaoxiaoApplyPage {
     let productionList = []
     for (let item of this.items) {
       let taxId;
-      if(item.taxIndex==0||item.taxIndex){
-        taxId =  this.taxList[item.taxIndex].id
+      if (item.taxIndex == 0 || item.taxIndex) {
+        taxId = this.taxList[item.taxIndex].id
       }
       let pro = {
         name: item.remark,
@@ -205,8 +219,8 @@ export class BaoxiaoApplyPage {
         product_id: parseInt(item.productId),
         unit_amount: parseFloat(item.amount),
         id: parseInt(item.id),
-        taxid:taxId,
-        remarks:item.remarks 
+        taxid: taxId,
+        remarks: item.remarks
       }
       productionList.push(pro)
     }
@@ -266,7 +280,7 @@ export class BaoxiaoApplyPage {
     })
   }
 
-  addShengouItem(){
-    this.navCtrl.push("ShengouItemPage",{employee_id  :this.employee_id})
+  addShengouItem() {
+    this.navCtrl.push("ShengouItemPage", { employee_id: this.employee_id })
   }
 }

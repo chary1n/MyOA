@@ -1,3 +1,4 @@
+import { Utils } from './../../../../../providers/Utils';
 import { CommonUseServices } from './../../../commonUseServices';
 import { IonicPage } from 'ionic-angular';
 import { Component } from '@angular/core';
@@ -19,9 +20,13 @@ import { NavParams } from 'ionic-angular/navigation/nav-params';
 export class ShengouItemPage {
   employee_id;
   shengou_list;
+  indexList=[];
+  chooseList = [];
+  mBaoxiaoApplyPage;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public commonService: CommonUseServices) {
     this.employee_id = this.navParams.get("employee_id")
+    this.mBaoxiaoApplyPage = Utils.getViewController("BaoxiaoApplyPage", navCtrl);
     this.commonService.get_shengou_item(this.employee_id).then(res => {
       console.log(res)
       if(res.result && res.result.res_code == 1){
@@ -39,10 +44,19 @@ export class ShengouItemPage {
   }
 
   save() {
-
+    for(let i = 0 ; i<this.indexList.length;i++){
+        this.chooseList.push(this.shengou_list[this.indexList[i]])
+    }
+    this.mBaoxiaoApplyPage.data.chooseList = this.chooseList
+    this.navCtrl.pop()
   }
 
-  checkChange(item){
-
+  checkChange(index){
+    console.log(index)
+    if(this.indexList.indexOf(index)==-1){
+      this.indexList.push(index)
+    }else{
+      this.indexList.splice(this.indexList.indexOf(index),1)  
+    }
   }
 }

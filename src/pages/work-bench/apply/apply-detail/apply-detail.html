@@ -36,12 +36,15 @@
 
   <ion-list style="margin-top:10px">
     <ion-item *ngFor='let item of res_data.expense_line_ids;let i = index'>
-      <p text-wrap style="float:right;">金额：<span style=" color:rgb(219, 105, 90)"> {{item.amount}}</span></p>
-      <div>报销明细{{i+1}}</div>
-      <p text-wrap class="team_p">消费用途：{{item.description}}</p>
-      <p text-wrap style="font-size:80%;color:gray;float:right;margin-right:140px;">税金：{{item.tax}}</p>
-      <p text-wrap class="team_p">费用类别：{{item.name}}</p>
-      <p text-wrap class="team_p">备注:{{item.remarks}}</p>
+        <ion-item>
+            <div class="detail_div">
+              <span style="font-size:80%;color:#00a7f1;float:left;font-weight:bold;margin-top:-2px">● {{item.name}}</span>
+              <span style="float:right;font-size:80%;margin-top:-2px">￥{{item.amount}}</span>
+              <span style="font-size:80%;color:gray;float:right;margin-right:20px;margin-top:-2px">税金：{{item.tax}}</span>
+            </div>
+            <p text-wrap style="font-size:80%;color:gray;margin-top:5px;">消费用途：{{item.description}}</p>
+            <p text-wrap style="font-size:80%;color:gray;margin-top:2px;">备注：{{item.remarks}} </p>
+          </ion-item>
     </ion-item>
   </ion-list>
   <div style="margin:10px;">审批记录</div>
