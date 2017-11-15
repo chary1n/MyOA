@@ -456,8 +456,15 @@ changeProductItem(i) {
     for (let item of this.item.line_ids) {
       let taxId;
       for (let tax_detail of this.taxList) {
-        if (tax_detail.name == item.tax_ids[0].display_name){
+        if (item.tax_ids.length > 0)
+        {
+          if (tax_detail.name == item.tax_ids[0].display_name){
           taxId = tax_detail.id;
+        }
+        }
+        else
+        {
+         taxId = 4;
         }
       }
       let productIndex;
