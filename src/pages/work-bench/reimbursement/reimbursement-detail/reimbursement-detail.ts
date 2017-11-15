@@ -213,7 +213,86 @@ export class ReimbursementDetailPage {
 
       
   }
-    
+    else if (this.item.state == '2级审核')
+    {
+      let ctrl = this.alertCtrl;
+      ctrl.create({
+      title: '提示',
+      message: "填写审批备注",
+      inputs: [
+        {
+          name: 'title',
+          placeholder: '审批备注(选填)'
+        },
+      ],
+      buttons: [
+        {
+          text: '取消',
+          handler: data => {
+            // console.log('Cancel clicked');
+          }
+        },
+        {
+          text: '通过',
+          handler: data => {
+            if (data.title)
+            {
+              this.baoxiaoService.confirm_approve3(this.item.sheet_id,this.user_id,data.title).then((res) => {
+         if (res)
+        {
+          
+          if (res.result.res_data.success == 1)
+          {
+            console.log(res.result.res_data.success)
+            ctrl.create({
+                  title: '提示',
+                  subTitle: "审批成功",
+                  buttons: [{
+                text: '确定',
+                    handler: () => {
+                    this.frontPage.data.need_fresh = true;
+              this.navCtrl.popTo(this.frontPage,{
+                need_fresh:true,
+              });
+             }
+             }
+      ]
+    }).present();
+          }
+        }
+      })
+            }
+            else
+            {
+                this.baoxiaoService.confirm_approve3(this.item.sheet_id,this.user_id,null).then((res) => {
+         if (res)
+        {
+          
+          if (res.result.res_data.success == 1)
+          {
+            console.log(res.result.res_data.success)
+            ctrl.create({
+                  title: '提示',
+                  subTitle: "审批成功",
+                  buttons: [{
+                text: '确定',
+                    handler: () => {
+                    this.frontPage.data.need_fresh = true;
+              this.navCtrl.popTo(this.frontPage,{
+                need_fresh:true,
+              });
+             }
+             }
+      ]
+    }).present();
+          }
+        }
+      })
+            }
+          }
+        }]
+      }).present();
+    }
   }
 
   cancel(){

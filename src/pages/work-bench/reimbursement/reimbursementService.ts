@@ -45,6 +45,15 @@ export class ReimbursementService {
        return this.httpservice.postBody("confirm_approve2",body);
     }
 
+    confirm_approve3(sheet_id,user_id,reason){
+        let body = JSON.stringify({
+            sheet_id:sheet_id,
+            user_id:user_id,
+            reason:reason,
+        });
+       return this.httpservice.postBody("confirm_approve3",body);
+    }
+
     refuse(sheet_id,reason,user_id)
     {
         let body = JSON.stringify({
