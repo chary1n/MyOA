@@ -52,11 +52,18 @@ export class ReimbursementDetailPage {
     if (this.item.state == '发送' || this.item.state == '1级审核' || this.item.state == '2级审核')
     {
       this.isShowFooter = true;
+      this.storage.get('user')
+      .then(res => {
+        if (res.result.res_data.user_id != this.item.to_approve_id){
+          this.isShowFooter = false;
+        }
+      })
     }
     else
     {
       this.isShowFooter = false;
     }
+    
     console.log(this.item)
   }
 
