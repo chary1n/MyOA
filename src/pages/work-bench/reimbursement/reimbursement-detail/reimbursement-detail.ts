@@ -88,7 +88,7 @@ export class ReimbursementDetailPage {
     if (this.item.line_ids) {
       let total = 0;
       for (let item of this.item.line_ids) {
-        total = total + parseFloat(item.amount)
+        total = total + parseFloat(item.unit_amount)
       }
       this.item.amount = total
     }
