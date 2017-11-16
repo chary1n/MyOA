@@ -3,6 +3,8 @@ import { CommonUseServices } from './../../commonUseServices';
 import { Storage } from '@ionic/storage';
 import { IonicPage, NavController, NavParams, AlertController, ToastController } from 'ionic-angular';
 import { Component } from '@angular/core';
+import { fail } from 'assert';
+import { flatten } from '@angular/compiler';
 
 /**
  * Generated class for the BaoxiaoApplyPage page.
@@ -39,8 +41,10 @@ export class BaoxiaoApplyPage {
   record_id;
   taxList;
   taxIndx;
+  addChooseItem;
   // 选的申购List
   chooseList;
+  balance ;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public commonService: CommonUseServices,
     public storage: Storage,
@@ -61,6 +65,7 @@ export class BaoxiaoApplyPage {
             this.employee_id = res.result.res_data.employee_id;
             this.department = res.result.res_data.department_id;
             this.taxList = res.result.res_data.taxList.res_data;
+            this.balance = res.result.res_data.balance;
           }
         })
       });
@@ -96,15 +101,20 @@ export class BaoxiaoApplyPage {
     this.isAdd = this.navParams.get("isAdd")
     this.isChange = this.navParams.get("isChange")
     this.chooseList = this.navParams.get("chooseList")
-    if (this.chooseList) {
+    this.addChooseItem = this.navParams.get("addChooseItem")
+    if (this.addChooseItem&&this.chooseList) {
+      console.log(this.chooseList)
       for (let i = 0; i < this.chooseList.length; i++) {
         this.chooseList[i].amount =
           (this.chooseList[i].price_unit * this.chooseList[i].product_qty).toFixed(2)
         this.chooseList[i].productName = this.chooseList[i].productionName
-        this.chooseList[i].description = this.chooseList[i].remark
+        this.chooseList[i].remark = this.chooseList[i].description
+        this.chooseList[i].productId = this.chooseList[i].productionId 
+        this.chooseList[i].employee_id = this.employee_id
+        this.chooseList[i].department = this.department_id
         this.items.push(this.chooseList[i])
       }
-      this.chooseList = []
+      this.navParams.data.addChooseItem = false
     }
 
     if (this.isAdd) {

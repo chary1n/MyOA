@@ -48,6 +48,7 @@ export class ShengouItemPage {
         this.chooseList.push(this.shengou_list[this.indexList[i]])
     }
     this.mBaoxiaoApplyPage.data.chooseList = this.chooseList
+    this.mBaoxiaoApplyPage.data.addChooseItem = true
     this.navCtrl.pop()
   }
 
