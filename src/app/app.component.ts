@@ -14,7 +14,7 @@ import { JPush} from '../providers/JPush'
 import { HttpModule } from "@angular/http";
 import { FirService} from './FirService';
 import {InAppBrowser} from '@ionic-native/in-app-browser';
-
+declare let cordova: any; 
 @Component({
   templateUrl: 'app.html',
   providers: [FirService,JPush]
@@ -30,6 +30,7 @@ export class MyApp {
      
     platform.ready().then(() => {
       this.jpush.initJpush();
+      
       storage.get('user')
       .then(res => {
        this.user_env = res.result.res_data;
@@ -46,6 +47,9 @@ export class MyApp {
           this.getVersionNumber();
         }
         else if (this.platform.is('ios')) {
+          cordova.plugins.jPushPlugin.setBadge(0);  
+      cordova.plugins.jPushPlugin.resetBadge();  
+      cordova.plugins.jPushPlugin.setApplicationIconBadgeNumber(0);
           this.getiOSVersionNumber();
         }
       

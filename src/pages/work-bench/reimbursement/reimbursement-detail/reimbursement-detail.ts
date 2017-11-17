@@ -491,4 +491,9 @@ changeProductItem(i) {
     return body
   }
 
+  changeDate(date){
+    let new_date = new Date(date.replace(' ', 'T') + 'Z').getTime();
+    return new_date;
+  }
+
 }
