@@ -16,6 +16,7 @@ import { JPush} from '../../providers/JPush'
 @Component({
   selector: 'page-me',
   templateUrl: 'me.html',
+  providers:[JPush],
 })
 export class MePage {
   name: string;
