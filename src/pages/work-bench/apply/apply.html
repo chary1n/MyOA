@@ -37,16 +37,19 @@
       </ion-refresher>
       <ion-list style="margin-top:7px">
         <ion-item *ngFor='let item of applyList' tappable (click)='clickApply(item.id)'>
-            <p text-wrap style="float:right;color:#000000;">{{item.create_time}}</p>
-            <p text-wrap style="font-size:110%;color:#000000;">{{item.name}}</p>
-            <p text-wrap style="float:right;color:#fc6621;font-weight:bold"> {{item.stateCN}} </p>
-            <p text-wrap style="color:gray">金额总计(元)：{{item.payment}} </p>
-            <p text-wrap style="color:gray">部门：{{item.department}} </p>
+            <p text-wrap style="float:right;color:#000000;font-size:80%;color:gray;">{{changeDate(item.create_time) | date:'yyyy-MM-dd HH:mm:ss'}}</p>
+            <p text-wrap style="font-size:100%;color:#000000;">{{item.name}}</p>
+            <p text-wrap style="float:right;color:red;font-weight:bold;font-size:80%;"> {{item.stateCN}} </p>
+            <p text-wrap style="font-size:80%;color:gray">金额总计(元)：{{item.payment}} </p>
+            <p text-wrap style="font-size:80%;color:gray">部门：{{item.department}} </p>
           </ion-item>
       </ion-list>
       <ion-infinite-scroll immediate-check="false" (ionInfinite)="doInfinite0($event)">
         <ion-infinite-scroll-content></ion-infinite-scroll-content>
       </ion-infinite-scroll>
+      <ion-footer *ngIf="pet == '0'">
+  <button ion-button (click)="showActionSheet()" full> 我要申请</button>
+</ion-footer>
     </ng-template>
 
 
@@ -57,7 +60,7 @@
         </ion-refresher>
         <ion-list style="margin-top:7px">
           <ion-item *ngFor='let item of wait_approval_list' tappable (click)='approval_detail(item)'>
-            <p text-wrap style="font-size:80%;float:right;color:gray;margin-top:5px;">{{item.create_date}}</p>
+            <p text-wrap style="font-size:80%;float:right;color:gray;">{{changeDate(item.create_date) | date:'yyyy-MM-dd HH:mm:ss'}}</p>
             <p style="font-size:100%;color:black;">{{item.expense_name}} {{item.employee_name}}</p>
             <p text-wrap style="font-size:80%;float:right;color:red;font-weight:bold"> {{item.state}} </p>
             <p text-wrap style="font-size:80%;color:gray">金额总计(元)：{{item.amount}} </p>
@@ -76,7 +79,7 @@
         </ion-refresher>
         <ion-list style="margin-top:7px">
           <ion-item *ngFor='let item of already_approval_list' tappable (click)='approved_detail(item)'>
-            <p text-wrap style="font-size:80%;float:right;color:gray;">{{item.create_date}}</p>
+            <p text-wrap style="font-size:80%;float:right;color:gray;">{{changeDate(item.create_date) | date:'yyyy-MM-dd HH:mm:ss'}}</p>
             <p style="font-size:100%;color:black;">{{item.expense_name}} {{item.employee_name}}</p>
             <p text-wrap style="font-size:80%;float:right;color:red;font-weight:bold"> {{item.state}} </p>
             <p text-wrap style="font-size:80%;color:gray">金额总计(元)：{{item.amount}} </p>
@@ -89,6 +92,4 @@
       </ng-template>
     </div>
 </ion-content>
-<ion-footer *ngIf="pet == '0'">
-  <button ion-button *ngIf="pet == '0'" (click)="showActionSheet()" full> 我要申请</button>
-</ion-footer>
+

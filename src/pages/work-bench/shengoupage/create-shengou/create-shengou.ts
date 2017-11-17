@@ -42,23 +42,24 @@ export class CreateShengouPage {
     this.frontPage = Utils.getViewController("ShengoupagePage", navCtrl)
     this.storage.get('user')
     .then(res => {
+      console.log(res)
       this.user_id = res.result.res_data.user_id;
       this.user_name = res.result.res_data.name;
       this.partner_id = res.result.res_data.partner_id;
       // this.department_id = res.result.res_data.department_id
-      this.shenGouService.get_all_departments(this.partner_id).then((res) => {
+      this.shenGouService.get_all_departments(this.user_id).then((res) => {
+        console.log(res)
+        if (res.result.res_data.employee_id)
+        {
+          this.employee_id = res.result.res_data.employee_id;
+        }
         if (res.result.res_data.all_departments)
         {
            this.departmentList = res.result.res_data.all_departments.res_data;
-        }
+        }  
         if (res.result.res_data.default_department)
         {
            this.department = res.result.res_data.default_department.res_data[0].id;
-        }
-        if (res.result.res_data.employee_id)
-        {
-          console.log(res.result.res_data.employee_id)
-          this.employee_id = res.result.res_data.employee_id;
         }
       })
     });

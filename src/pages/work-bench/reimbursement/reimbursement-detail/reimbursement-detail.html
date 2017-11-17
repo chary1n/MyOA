@@ -60,7 +60,7 @@
           <div style="overflow:hidden">
           <span style="margin-top:3px;color:black;font-size:80%;float:left">{{items.create_person}}</span>
 
-          <span style="font-size:70%;margin-top:5px;margin-left:-5px;float:right">{{items.create_time}}</span>
+          <span style="font-size:70%;margin-top:5px;margin-left:-5px;float:right">{{changeDate(items.create_time) | date:'yyyy-MM-dd HH:mm:ss'}}</span>
           </div>
           <p *ngIf="items.old_state || items.new_state" style="font-size:80%;">{{items.old_state}}=>{{items.new_state}}</p>
           <p text-wrap style="font-size:80%;">{{items.description}}</p>
