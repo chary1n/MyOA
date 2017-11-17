@@ -127,7 +127,15 @@ export class HttpService {
   }
 
   private handleSuccess(result) {
-    return result;
+    if (result.error)
+    {
+      alert(result.error.message)
+    }
+    else
+    {
+      return result;
+    }
+    
   }
 
   private handleError(error: Response | any) {

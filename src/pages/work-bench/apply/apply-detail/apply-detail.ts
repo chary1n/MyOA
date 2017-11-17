@@ -26,6 +26,7 @@ export class ApplyDetailPage {
     public toastCtrl :ToastController,
     public storage :Storage) {
     this.res_data = navParams.get('res_data');
+    console.log(this.res_data)
     this.id = this.res_data.id
     console.log(this.res_data);
     this.storage.get('user')
@@ -108,6 +109,7 @@ export class ApplyDetailPage {
           text: '确定',
           handler: data => {
             this.commonService.submit_apply(this.res_data.id,this.userId).then(res=>{
+              console.log(res)
               if(res.result&&res.result.res_code==1){
                 this.alertCtrl.create({
                   title: '提示',

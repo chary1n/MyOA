@@ -52,7 +52,8 @@ export class LoginPage {
         if (res != null) {
           window.localStorage.setItem("id",res.result.res_data.user_id)
           this.navCtrl.setRoot('TabsPage');
-          this.loginservice.toLogin(this.email, this.password, this.employee)
+          this.storage.get('user_psd').then(res => {
+              this.loginservice.toLogin(res.user_email, res.user_psd, res.db_name)
             .then(res => {
               console.log(res);
               if (res.result && res.result.res_code == 1) {
@@ -60,6 +61,8 @@ export class LoginPage {
                 });
               }
             })
+          })
+          
         } else {
           this.getdbInfo();
         }
@@ -83,6 +86,11 @@ export class LoginPage {
       .then(res => {
         console.log(res);
         if (res.result && res.result.res_code == 1) {
+        this.storage.set("user_psd",{
+          user_email:this.email,
+          user_psd:this.password,
+          db_name:this.employee,
+        })
           this.storage.set("user", res).then(() => {
             this.jpush.setAlias(res.result.res_data.user_id);
             this.navCtrl.setRoot('TabsPage');
