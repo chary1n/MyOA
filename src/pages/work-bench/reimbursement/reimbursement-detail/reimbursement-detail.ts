@@ -479,6 +479,7 @@ changeProductItem(i) {
         unit_amount: parseFloat(item.unit_amount),
         taxid:taxId,
         remarks:item.description, 
+        line_id:item.line_id,
       }
       productionList.push(pro)
     }
