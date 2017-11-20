@@ -4,9 +4,15 @@ export const OAUBPATH = 'linkloving_oa_api/';
 
 // export const APP_SERVER_URL= 'http://192.168.88.117:8069/';
 // export const APP_SERVER_URL= 'http://192.168.2.51:8069/';
+<<<<<<< HEAD
 export const APP_SERVER_URL= 'http://erp.robotime.com/';
 // export const APP_SERVER_URL= 'http://192.168.2.38:8111/';
 // export const APP_SERVER_URL= 'http://192.168.88.120:8069/';
+=======
+// export const APP_SERVER_URL= 'http://erp.robotime.com/';
+// export const APP_SERVER_URL= 'http://192.168.2.38:8111/';
+export const APP_SERVER_URL= 'http://192.168.88.120:8069/';
+>>>>>>> 58ac128a887befcefb2de7aeb29aea59c51c5c64
 
 
 
