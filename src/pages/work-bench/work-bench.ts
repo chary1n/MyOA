@@ -81,4 +81,11 @@ export class WorkBenchPage {
   shengou(){
     this.navCtrl.push('ShengoupagePage');
   }
+
+  zanzhi(){
+    this.navCtrl.push("ZanzhiPage")
+  }
+  zhishifenxiang(){
+    
+  }
 }
