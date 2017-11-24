@@ -53,6 +53,7 @@ export class LoginPage {
           window.localStorage.setItem("id",res.result.res_data.user_id)
           this.navCtrl.setRoot('TabsPage');
           this.storage.get('user_psd').then(res => {
+            console.log(res)
               this.loginservice.toLogin(res.user_email, res.user_psd, res.db_name)
             .then(res => {
               console.log(res);

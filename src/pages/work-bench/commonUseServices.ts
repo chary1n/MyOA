@@ -110,4 +110,55 @@ export class CommonUseServices {
         });
         return this.httpservice.postBody("get_shengou_item", body);
     }
+
+
+    // 暂支
+    get_zanzhi_list(id,limit,offset,type){
+        let body = JSON.stringify({
+            user_id:id,
+            limit :limit,
+            offset:offset,
+            type :type 
+        });
+        return this.httpservice.postBody("get_zanzhi_list", body);
+    }
+
+    searchZanzhiList(id,type,data,text){
+        let body = JSON.stringify({
+            user_id:id,
+            type :type ,
+            data :data ,
+            text:text 
+        });
+        return this.httpservice.postBody("search_zanzhi_list", body);
+    }
+
+
+
+    confirm(sheet_id,user_id ,title,type){
+        let body = JSON.stringify({
+            sheet_id:sheet_id,
+            user_id:user_id,
+            reason :title,
+            type :type
+        });
+       return this.httpservice.postBody("confirm_zanzhi",body);
+    }
+
+    refuse(sheet_id,reason,user_id)
+    {
+        let body = JSON.stringify({
+            sheet_id:sheet_id,
+            reason:reason,
+            user_id:user_id,
+        });
+       return this.httpservice.postBody("refuse_zanzhi",body);
+    }
+
+
+
+
+
+
+
 }

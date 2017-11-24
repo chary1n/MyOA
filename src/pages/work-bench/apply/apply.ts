@@ -21,7 +21,8 @@ declare let cordova: any;
   providers: [CommonUseServices, ApplyAutoService, ReimbursementService, ReimbursementAutoService],
 })
 export class ApplyPage {
-  pet: string = "0"; wait_approval_list: any;
+  pet: string = "0"; 
+  wait_approval_list: any;
   already_approval_list: any;
   isMoreData1 = true;
   isMoreData2 = true;
