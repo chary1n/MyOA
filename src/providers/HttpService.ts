@@ -130,6 +130,7 @@ export class HttpService {
     if (result.error)
     {
       alert(result.error.message)
+      return result;
     }
     else
     {

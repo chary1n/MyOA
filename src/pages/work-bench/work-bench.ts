@@ -81,4 +81,8 @@ export class WorkBenchPage {
   shengou(){
     this.navCtrl.push('ShengoupagePage');
   }
+
+  material_request(){
+    this.navCtrl.push('MaterialRequestPage');
+  }
 }

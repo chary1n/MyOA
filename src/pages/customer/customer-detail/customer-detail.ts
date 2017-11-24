@@ -41,6 +41,7 @@ export class CustomerDetailPage {
       // let newDate = new Date(item.date.replace(' ','T')+'Z').getTime()+8*3600;
       item.date = new Date(item.date.replace(' ', 'T') + 'Z').getTime();
       this.items.message_ids[index] = item;
+      // item.body = item.body.compile()
       index++;
     }
 

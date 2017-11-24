@@ -40,13 +40,17 @@ export class ReimbursementDetailPage {
         console.log(res)
         this.user_id = res.result.res_data.user_id;
 
-        this.commonService.getPaymentReminding(this.user_id).then(res => {
+        if (this.user_id != 1)
+        {
+          this.commonService.getPaymentReminding(this.user_id).then(res => {
           if (res.result && res.result.res_code == 1) {
             console.log(res.result.res_data)
             this.productList = res.result.res_data.product.res_data
             this.taxList = res.result.res_data.taxList.res_data ;
           }
         })
+        }
+        
       });
     console.log(this.item.state);
     if (this.item.state == '发送' || this.item.state == '1级审核' || this.item.state == '2级审核')

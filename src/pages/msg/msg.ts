@@ -22,7 +22,7 @@ export class MsgPage {
   }
 
   click_detail(){
-    this.navCtrl.push(MsgDetailPage, {
+    this.navCtrl.push('MsgDetailPage', {
       
     });
   }
