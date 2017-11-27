@@ -79,7 +79,7 @@ export class WorkBenchPage {
   }
 
   shengou(){
-    this.navCtrl.push('ShengoupagePage');
+    this.navCtrl.push('ShengoupagePage')
   }
 
 
@@ -92,5 +92,8 @@ export class WorkBenchPage {
   }
   zhishifenxiang(){
     
+  }
+  shareKnowledge(){
+    this.navCtrl.push('ShareKnowledgePage')
   }
 }

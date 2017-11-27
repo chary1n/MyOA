@@ -55,7 +55,7 @@
 
   <div *ngIf="item.review_process_line_ids.length > 0" style="margin:10px;color:gray">审批记录</div>
   <ion-list>
-    <ion-item no-lines *ngFor='let items of item.review_process_line_ids' style="overflow:hidden" class="middle_item">
+    <ion-item no-lines *ngFor='let items of item.review_process_line_ids.reverse()' style="overflow:hidden" class="middle_item">
           <img item-start style="width:40px;vertical-align:top;" src={{items.user_ava}}>
           <div style="overflow:hidden">
           <span style="margin-top:3px;color:black;font-size:80%;float:left">{{items.write_uid.name}}</span>

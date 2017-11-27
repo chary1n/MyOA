@@ -4,6 +4,7 @@ import { Segment } from "ionic-angular";
 import { materialService} from "./materialService";
 import { Storage } from '@ionic/storage';
 import { MaterialAutoService} from './material-auto'
+import { MaterialTwoAutoService} from './material-two-auto'
 /**
  * Generated class for the MaterialRequestPage page.
  *
@@ -14,7 +15,7 @@ import { MaterialAutoService} from './material-auto'
 @Component({
   selector: 'page-material-request',
   templateUrl: 'material-request.html',
-  providers:[materialService,MaterialAutoService],
+  providers:[materialService,MaterialAutoService,MaterialTwoAutoService],
 })
 export class MaterialRequestPage {
   user_id;
@@ -25,20 +26,34 @@ export class MaterialRequestPage {
   isMoreData;
   waitMeList;
   alreadyList;
+  waitMeTitle;
   constructor(public navCtrl: NavController, public navParams: NavParams,public mService:materialService,
-  public storage:Storage,public materialAutoService:MaterialAutoService) {
-    this.pet = "1"
+  public storage:Storage,public materialAutoService:MaterialAutoService,public twoAuto:MaterialTwoAutoService) {
+    this.pet = "2"
+    this.waitMeTitle = "待我审批"
       this.storage.get('user')
       .then(res => {
         this.user_id = res.result.res_data.user_id
         this.limit = 20;
         this.offset = 0;
-        this.mService.get_material_request_list(this.limit,this.offset,this.user_id).then(res => {
+        this.mService.get_wait_me_material_request_list(this.limit,this.offset,this.user_id).then(res => {
           console.log(res)
-          if (res.result && res.result.res_code == 1) {
-            this.materialList = res.result.res_data;
+          if (res.result && res.result.res_code == 1 && res.result.res_data) {
+            this.waitMeList = res.result.res_data.data;
+            this.waitMeTitle = "待我审批(" + res.result.res_data.count + ")"
+          }
+          else
+          {
+            this.waitMeList = [];
+            this.waitMeTitle = "待我审批(0)"
           }
         })
+        // this.mService.get_material_request_list(this.limit,this.offset,this.user_id).then(res => {
+        //   console.log(res)
+        //   if (res.result && res.result.res_code == 1) {
+        //     this.materialList = res.result.res_data;
+        //   }
+        // })
       })
   }
 
@@ -55,7 +70,50 @@ export class MaterialRequestPage {
   }
 
   itemSelected(event){
-    // event.name
+    let search_text = event.name.replace("搜 单号：", "")   
+    if (this.pet == "1"){
+      this.mService.search_material_request(search_text,"my",this.user_id,"").then(res => {
+        if (res.result && res.result.res_code == 1 && res.result.res_data) {
+            this.materialList = res.result.res_data;
+          }
+      })
+    }
+    else if (this.pet == "2"){
+
+    }
+    else
+    {
+      this.mService.search_material_request(search_text,"already",this.user_id,"").then(res => {
+        console.log(res)
+        if (res.result && res.result.res_code == 1 && res.result.res_data) {
+            this.alreadyList = res.result.res_data;
+          }
+      })
+    }
+  }
+
+  itemSelected_two(event){
+      let search_text;
+      if (event.id == 1)
+      {
+        search_text = event.name.replace("搜 单号：", "")
+        this.mService.search_material_request(search_text,"waitme",this.user_id,"expense_no").then(res => {
+        console.log(res)
+        if (res.result && res.result.res_code == 1 && res.result.res_data) {
+            this.waitMeList = res.result.res_data;
+          }
+      })
+      }
+      else
+      {
+        search_text = event.name.replace("搜 申请人：", "")
+        this.mService.search_material_request(search_text,"waitme",this.user_id,"name").then(res => {
+        console.log(res)
+        if (res.result && res.result.res_code == 1 && res.result.res_data) {
+            this.waitMeList = res.result.res_data;
+          }
+      })
+      }
   }
 
   changeType(state){
@@ -104,16 +162,19 @@ export class MaterialRequestPage {
     else if (this.pet == "2")
     {
         this.mService.get_wait_me_material_request_list(this.limit,this.offset,this.user_id).then(res => {
+          console.log(res)
           if(refresh)
           {
             refresh.complete();
           }
           if (res.result && res.result.res_code == 1 && res.result.res_data) {
-            this.waitMeList = res.result.res_data;
+            this.waitMeList = res.result.res_data.data;
+            this.waitMeTitle = "待我审批(" + res.result.res_data.count + ")"
           }
           else
           {
             this.waitMeList = [];
+            this.waitMeTitle = "待我审批(0)"
           }
         })
     }
