@@ -97,7 +97,7 @@ export class ShenheMaterialRequestPage {
 
   upload(){
     if (this.type == "final"){
-      if (this.select_name.name){
+      if (this.select_name){
         if (this.item.picking_type == "pick_type"){
         if (this.select_name.id == this.line_final){
           this.mService.action_to_next(this.item.id,this.beizhuText,this.user_id,true,this.item.picking_type,this.select_name.name,parseInt(this.select_name.id)).then(res => {
@@ -141,7 +141,7 @@ export class ShenheMaterialRequestPage {
     }
     else
     {
-      if (this.select_name.name){
+      if (this.select_name){
         this.mService.action_to_next(this.item.id,this.beizhuText,this.user_id,false,this.item.picking_type,this.select_name.name,parseInt(this.select_name.id)).then(res => {
             if (res.result.res_data.success == 1){
                Utils.toastButtom("送审成功", this.toastCtrl)

@@ -79,4 +79,13 @@ export class materialService {
         });
         return this.httpservice.postBody("action_to_next", body);
     }
+
+    search_material_request(search_text,type,user_id){
+        let body = JSON.stringify({
+           search_text:search_text,
+           type:type,
+           user_id:user_id,
+        });
+        return this.httpservice.postBody("search_material_request", body);
+    }
 }
