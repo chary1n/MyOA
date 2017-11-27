@@ -82,6 +82,11 @@ export class WorkBenchPage {
     this.navCtrl.push('ShengoupagePage');
   }
 
+
+  material_request(){
+    this.navCtrl.push('MaterialRequestPage');
+  }
+
   zanzhi(){
     this.navCtrl.push("ZanzhiPage")
   }

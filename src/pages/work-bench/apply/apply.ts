@@ -120,8 +120,8 @@ export class ApplyPage {
     this.limit = 20;
     this.offset = 0;
     this.commonService.getApplyList(this.offset, this.limit, this.user_id).then(res => {
+      refresh.complete();
       if (res.result && res.result.res_data) {
-        refresh.complete();
         this.applyList = res.result.res_data;
         if (this.applyList.length > 0) {
           for (let item of this.applyList) {
@@ -294,7 +294,7 @@ export class ApplyPage {
     this.offset = 0;
     this.baoxiaoService.getAlreadApprovalList(this.limit, this.offset, this.user_id).then((res) => {
       console.log(res);
-      if (res.result && res.result.res_code == 1) {
+      if (res.result && res.result.res_code == 1 && res.result.res_data) {
         this.already_approval_list = res.result.res_data
         let index = 0;
         for (let item of this.already_approval_list) {
@@ -414,7 +414,7 @@ export class ApplyPage {
       this.isMoreData2 = true;
       this.baoxiaoService.getAlreadApprovalList(this.limit, this.offset, this.user_id).then((res) => {
         console.log(res);
-        if (res.result && res.result.res_code == 1) {
+        if (res.result && res.result.res_code == 1 && res.result.res_data) {
           this.already_approval_list = res.result.res_data
           let index = 0;
           for (let item of this.already_approval_list) {

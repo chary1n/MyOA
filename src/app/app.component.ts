@@ -47,9 +47,6 @@ export class MyApp {
           this.getVersionNumber();
         }
         else if (this.platform.is('ios')) {
-          cordova.plugins.jPushPlugin.setBadge(0);  
-      cordova.plugins.jPushPlugin.resetBadge();  
-      cordova.plugins.jPushPlugin.setApplicationIconBadgeNumber(0);
           this.getiOSVersionNumber();
         }
       
@@ -73,6 +70,7 @@ export class MyApp {
     return new Promise((resolve) => {
       this.appVersion.getVersionNumber().then((value: string) => {
           this.firService.get('fir_ios',1).then(res => {
+            console.log(res)
               if(res.version > value)
               {
                 this.alertCtrl.create({
