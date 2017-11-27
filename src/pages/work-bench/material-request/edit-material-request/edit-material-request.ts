@@ -21,8 +21,10 @@ export class EditMaterialRequestPage {
   item;
   partner_id;
   isShow;
+  frontPage;
   constructor(public navCtrl: NavController, public navParams: NavParams,public mService:materialService,
   public storage:Storage,public alertCtrl:AlertController,public toastCtrl:ToastController) {
+    this.frontPage = Utils.getViewController("MaterialRequestPage", navCtrl)
     this.item = navParams.get('item')
     this.isShow = "normal"
      this.storage.get('user')
@@ -33,8 +35,11 @@ export class EditMaterialRequestPage {
           console.log(res)
           if (res.result && res.result.res_code == 1 && res.result.res_data)
           {
+            console.log(this.item.picking_type)
+            console.log(res.result.res_data)
             if (this.item.picking_type == "pick_type")
             {
+              console.log(1)
               for (let items of res.result.res_data) {
                 if (items.review_type == "picking_review_line")
                 {
@@ -45,9 +50,11 @@ export class EditMaterialRequestPage {
                 }
               }
             }
-            else if (this.item.pick_type == "proofing")
+            else if (this.item.picking_type == "proofing")
             {
+              console.log(2)
               for (let items of res.result.res_data) {
+                console.log(items.review_type)
                 if (items.review_type == "picking_review_project")
                 {
                   if (items.final_review_partner_id.id == this.partner_id)
@@ -179,12 +186,26 @@ export class EditMaterialRequestPage {
           handler: data => {
             if (data.title)
             {
-                
+                this.mService.action_deny(this.item.id,data.title,this.user_id).then(res => {
+                if (res.result.res_data.success == 1)
+                {
+                  Utils.toastButtom("已拒绝", this.toastCtrl)
+                  this.frontPage.data.need_fresh = true;
+              this.navCtrl.popTo(this.frontPage,{
+                need_fresh:true,
+              });
+                }
+                else
+                {
+                  Utils.toastButtom("请求失败", this.toastCtrl)
+                }
+            })
           }
           else
           {
             Utils.toastButtom("请填写拒绝原因", this.toastCtrl)
           }
+          
           }
         }
       ]
@@ -192,15 +213,73 @@ export class EditMaterialRequestPage {
   }
 
   confirm(){
-
+    this.navCtrl.push('ShenheMaterialRequestPage',{
+      item:this.item,
+      type:"normal",
+    })
   }
 
   confirmFinal(){
-
+    this.navCtrl.push('ShenheMaterialRequestPage',{
+      item:this.item,
+      type:"final",
+    })
   }
 
   confirmOK(){
 
+    let ctrl = this.alertCtrl;
+      ctrl.create({
+      title: '提示',
+      message: "填写审批备注",
+      inputs: [
+        {
+          name: 'title',
+          placeholder: '审批备注'
+        },
+      ],
+      buttons: [
+        {
+          text: '取消',
+          handler: data => {
+          }
+        },
+        {
+          text: '确定',
+          handler: data => {
+            let remark_str = "";
+            if (data.title)
+            {
+                remark_str = data.title;
+          }
+          else
+          {
+            remark_str = "";
+          }
+            this.mService.action_pass(this.item.id,remark_str,this.user_id).then(res => {
+                if (res.result.res_data.success == 1)
+                {
+                  Utils.toastButtom("终审通过", this.toastCtrl)
+                  this.frontPage.data.need_fresh = true;
+              this.navCtrl.popTo(this.frontPage,{
+                need_fresh:true,
+              });
+                }
+                else
+                {
+                  Utils.toastButtom("请求失败", this.toastCtrl)
+                }
+            })
+          }
+        }
+      ]
+    }).present();
+
+
+    
+    // this.navCtrl.push('ShenheMaterialRequestPage',{
+    //   item:this.item,
+    // })
   }
 
 }

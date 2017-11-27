@@ -41,4 +41,42 @@ export class materialService {
         });
         return this.httpservice.postBody("get_final_review", body);
     }
+
+    search_employee(name){
+        let body = JSON.stringify({
+           name:name,
+        });
+        return this.httpservice.postBody("search_employee", body);
+    }
+
+    action_pass(id,remark,create_uid){
+        let body = JSON.stringify({
+           id:id,
+           remark:remark,
+           create_uid:create_uid,
+        });
+        return this.httpservice.postBody("action_pass", body);
+    }
+
+    action_deny(id,remark,create_uid){
+        let body = JSON.stringify({
+           id:id,
+           remark:remark,
+           create_uid:create_uid,
+        });
+        return this.httpservice.postBody("action_deny", body);
+    }
+
+    action_to_next(id,remark,create_uid,to_last_review,type,partner_name,partner_id){
+        let body = JSON.stringify({
+           id:id,
+           remark:remark,
+           create_uid:create_uid,
+           to_last_review:to_last_review,
+           type:type,
+           partner_name:partner_name,
+           partner_id:partner_id,
+        });
+        return this.httpservice.postBody("action_to_next", body);
+    }
 }

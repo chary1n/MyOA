@@ -46,8 +46,16 @@ export class MaterialRequestPage {
     console.log('ionViewDidLoad MaterialRequestPage');
   }
 
-  itemSelected($event){
+  ionViewDidEnter() {
+    console.log(this.navParams)
+    if (this.navParams.get('need_fresh') == true) {
+      this.doRefresh(null);
+      this.navParams.data.need_fresh = false;
+    }
+  }
 
+  itemSelected(event){
+    // event.name
   }
 
   changeType(state){
