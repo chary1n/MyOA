@@ -26,6 +26,7 @@ export class EditMaterialRequestPage {
   public storage:Storage,public alertCtrl:AlertController,public toastCtrl:ToastController) {
     this.frontPage = Utils.getViewController("MaterialRequestPage", navCtrl)
     this.item = navParams.get('item')
+    this.item.review_process_line_ids = this.item.review_process_line_ids.reverse()
     this.isShow = "normal"
      this.storage.get('user')
       .then(res => {
