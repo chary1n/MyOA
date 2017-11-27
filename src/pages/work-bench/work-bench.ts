@@ -82,9 +82,18 @@ export class WorkBenchPage {
     this.navCtrl.push('ShengoupagePage')
   }
 
-  //知识分享
+
+  material_request(){
+    this.navCtrl.push('MaterialRequestPage');
+  }
+
+  zanzhi(){
+    this.navCtrl.push("ZanzhiPage")
+  }
+  zhishifenxiang(){
+    
+  }
   shareKnowledge(){
     this.navCtrl.push('ShareKnowledgePage')
   }
-
 }

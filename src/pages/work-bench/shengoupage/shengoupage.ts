@@ -167,17 +167,26 @@ export class ShengoupagePage {
         this.limit = 20;
         this.offset += 20;
         this.shengouService.getshengouList(this.limit, this.offset, this.user_id).then((res) => {
-          console.log(res.result.res_data)
+          // console.log(res)
           if (res.result && res.result.res_code == 1) {
-            if (res.result.res_data.length == 20) {
-              this.isMoreData1 = true;
+            if (res.result.res_data)
+            {
+               if (res.result.res_data.length == 20) {
+                  this.isMoreData1 = true;
+                  
+               }
+               else {
+                  this.isMoreData1 = false;
+               }
+               for (let item of res.result.res_data) {
+                  this.myApplyList.push(item);
+               }
             }
-            else {
+            else
+            {
               this.isMoreData1 = false;
             }
-            for (let item of res.result.res_data) {
-              this.myApplyList.push(item);
-            }
+            
           }
           else {
             this.isMoreData1 = false;
@@ -195,7 +204,9 @@ export class ShengoupagePage {
         this.shengouService.get_wait_audit_purchase(this.limit, this.offset, this.user_id).then((res) => {
           // console.log(res.result.res_data)
           if (res.result && res.result.res_code == 1) {
-            if (res.result.res_data.length == 20) {
+            if (res.result.res_data)
+            {
+              if (res.result.res_data.length == 20) {
               this.isMoreData2 = true;
             }
             else {
@@ -204,6 +215,12 @@ export class ShengoupagePage {
             for (let item of res.result.res_data) {
               this.wait_me_audit_list.push(item);
             }
+          }
+          else
+          {
+            this.isMoreData2 = false;
+          }
+            
           }
           else {
             this.isMoreData2 = false;
@@ -219,9 +236,11 @@ export class ShengoupagePage {
         this.limit = 20;
         this.offset += 20;
         this.shengouService.get_audited_purchase(this.limit, this.offset, this.user_id).then((res) => {
-          console.log(res.result.res_data)
+          // console.log(res.result.res_data)
           if (res.result && res.result.res_code == 1) {
-            if (res.result.res_data.length == 20) {
+            if (res.result.res_data)
+            {
+              if (res.result.res_data.length == 20) {
               this.isMoreData3 = true;
             }
             else {
@@ -230,6 +249,12 @@ export class ShengoupagePage {
             for (let item of res.result.res_data) {
               this.myApplyList.push(item);
             }
+          }
+          else
+          {
+            this.isMoreData3 = false;
+          }
+            
           }
           else {
             this.isMoreData3 = false;

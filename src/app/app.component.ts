@@ -14,7 +14,7 @@ import { JPush} from '../providers/JPush'
 import { HttpModule } from "@angular/http";
 import { FirService} from './FirService';
 import {InAppBrowser} from '@ionic-native/in-app-browser';
-
+declare let cordova: any; 
 @Component({
   templateUrl: 'app.html',
   providers: [FirService,JPush]
@@ -30,9 +30,11 @@ export class MyApp {
      
     platform.ready().then(() => {
       this.jpush.initJpush();
+      
       storage.get('user')
       .then(res => {
-       this.user_env = res.result.res_data
+       this.user_env = res.result.res_data;
+       this.jpush.setAlias(res.result.res_data.user_id);
       });
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -68,6 +70,7 @@ export class MyApp {
     return new Promise((resolve) => {
       this.appVersion.getVersionNumber().then((value: string) => {
           this.firService.get('fir_ios',1).then(res => {
+            console.log(res)
               if(res.version > value)
               {
                 this.alertCtrl.create({

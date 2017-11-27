@@ -21,7 +21,8 @@ declare let cordova: any;
   providers: [CommonUseServices, ApplyAutoService, ReimbursementService, ReimbursementAutoService],
 })
 export class ApplyPage {
-  pet: string = "0"; wait_approval_list: any;
+  pet: string = "0"; 
+  wait_approval_list: any;
   already_approval_list: any;
   isMoreData1 = true;
   isMoreData2 = true;
@@ -119,8 +120,8 @@ export class ApplyPage {
     this.limit = 20;
     this.offset = 0;
     this.commonService.getApplyList(this.offset, this.limit, this.user_id).then(res => {
+      refresh.complete();
       if (res.result && res.result.res_data) {
-        refresh.complete();
         this.applyList = res.result.res_data;
         if (this.applyList.length > 0) {
           for (let item of this.applyList) {
@@ -293,7 +294,7 @@ export class ApplyPage {
     this.offset = 0;
     this.baoxiaoService.getAlreadApprovalList(this.limit, this.offset, this.user_id).then((res) => {
       console.log(res);
-      if (res.result && res.result.res_code == 1) {
+      if (res.result && res.result.res_code == 1 && res.result.res_data) {
         this.already_approval_list = res.result.res_data
         let index = 0;
         for (let item of this.already_approval_list) {
@@ -413,7 +414,7 @@ export class ApplyPage {
       this.isMoreData2 = true;
       this.baoxiaoService.getAlreadApprovalList(this.limit, this.offset, this.user_id).then((res) => {
         console.log(res);
-        if (res.result && res.result.res_code == 1) {
+        if (res.result && res.result.res_code == 1 && res.result.res_data) {
           this.already_approval_list = res.result.res_data
           let index = 0;
           for (let item of this.already_approval_list) {
@@ -503,5 +504,10 @@ export class ApplyPage {
         infiniteScroll.complete();
       }
     }
+  }
+
+  changeDate(date){
+    let new_date = new Date(date.replace(' ', 'T') + 'Z').getTime();
+    return new_date;
   }
 }

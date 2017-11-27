@@ -17,12 +17,12 @@
   <ion-searchbar placeholder = "搜索" (ionInput)="getItems($event)"></ion-searchbar>
   <ion-item *ngIf = "showAll == 'YES'">
     <ion-label>组织架构</ion-label>
-    <ion-label tappable (click) = "clickAll()" text-right item-end>-</ion-label>
+    <ion-label tappable (click) = "clickAll()" text-right item-end style="font-size:150%">-</ion-label>
   </ion-item>
 
-  <ion-item *ngIf = "showAll == 'NO'">
+  <ion-item no-lines *ngIf = "showAll == 'NO'">
     <ion-label>组织架构</ion-label>
-    <ion-label tappable (click) = "clickAll()" text-right item-end>+</ion-label>
+    <ion-label tappable (click) = "clickAll()" text-right item-end style="font-size:150%">+</ion-label>
   </ion-item>
 
   <ion-item-group *ngIf = "showAll == 'YES'">

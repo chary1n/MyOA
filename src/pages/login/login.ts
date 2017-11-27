@@ -1,6 +1,7 @@
 import { dbBean } from './../../model/dbInfoModel';
 import { Storage } from '@ionic/storage';
 
+import { JPush} from '../../providers/JPush'
 
 import { LoginService } from './loginService';
 import { Component, ErrorHandler } from '@angular/core';
@@ -26,7 +27,7 @@ import { Platform } from 'ionic-angular';
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html',
-  providers: [LoginService]
+  providers: [LoginService,JPush]
 })
 export class LoginPage {
   email: string;
@@ -35,7 +36,8 @@ export class LoginPage {
   employee: string;
   resUser: any;
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    private loginservice: LoginService, private myHttp: Http, private storage: Storage, public platform: Platform, public appVersion: AppVersion) {
+    private loginservice: LoginService, private myHttp: Http, private storage: Storage, public platform: Platform, public appVersion: AppVersion,
+    public jpush:JPush) {
 
 
   }
@@ -50,7 +52,9 @@ export class LoginPage {
         if (res != null) {
           window.localStorage.setItem("id",res.result.res_data.user_id)
           this.navCtrl.setRoot('TabsPage');
-          this.loginservice.toLogin(this.email, this.password, this.employee)
+          this.storage.get('user_psd').then(res => {
+            console.log(res)
+              this.loginservice.toLogin(res.user_email, res.user_psd, res.db_name)
             .then(res => {
               console.log(res);
               if (res.result && res.result.res_code == 1) {
@@ -58,6 +62,8 @@ export class LoginPage {
                 });
               }
             })
+          })
+          
         } else {
           this.getdbInfo();
         }
@@ -81,7 +87,13 @@ export class LoginPage {
       .then(res => {
         console.log(res);
         if (res.result && res.result.res_code == 1) {
+        this.storage.set("user_psd",{
+          user_email:this.email,
+          user_psd:this.password,
+          db_name:this.employee,
+        })
           this.storage.set("user", res).then(() => {
+            this.jpush.setAlias(res.result.res_data.user_id);
             this.navCtrl.setRoot('TabsPage');
           });
         }

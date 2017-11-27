@@ -10,10 +10,6 @@
   </div>
   <ion-grid>
     <ion-row>
-      <ion-col col-3>
-        <img src="assets/img/work_bench/qiandao.png">
-        <div>签到</div>
-      </ion-col>
       <ion-col col-3 tappable (click)="apply()">
         <img src="assets/img/work_bench/shenqing.png">
         <div>报销</div>
@@ -22,10 +18,21 @@
           <img src="assets/img/work_bench/shenpi.png">
           <div>申购</div>
         </ion-col>
+<<<<<<< HEAD
       <ion-col col-3 tappable (click) = "shareKnowledge()" >
         <img src="assets/img/work_bench/gonggao.png">
         <div>知识分享</div>
       </ion-col>
+=======
+        <ion-col col-3 tappable (click) = "zanzhi()">
+          <img src="assets/img/work_bench/zanzhi.png">
+          <div>暂支</div>
+        </ion-col>
+        <ion-col col-3 tappable (click) = "zhishifenxiang()">
+            <img src="assets/img/work_bench/zhishifenxiang.png">
+            <div>知识分享</div>
+          </ion-col>
+>>>>>>> 92132e26dc6bc7e2417b70d640e648dced66491a
     </ion-row>
   </ion-grid>
   <div class='dividingLine'></div>
@@ -36,10 +43,10 @@
   </div>
   <ion-grid>
     <ion-row>
-      <ion-col col-3>
+      <!--<ion-col col-3>
         <img src="assets/img/work_bench/yibiaopan.png">
         <div>仪表盘</div>
-      </ion-col>
+      </ion-col>-->
       <ion-col col-3 tappable (click)="camCard()">
         <img src="assets/img/work_bench/daorumingpian.png">
         <div>导入名片</div>
@@ -52,20 +59,24 @@
         <img src="assets/img/work_bench/chanping.png">
         <div>产品</div>
       </ion-col>
-    </ion-row>
-    <ion-row>
       <ion-col col-3 tappable (click)="salesOrder()">
         <img src="assets/img/work_bench/dingdan.png">
         <div>订单</div>
       </ion-col>
-      <ion-col col-3>
+    </ion-row>
+    <ion-row>
+      <!--<ion-col col-3 tappable (click)="salesOrder()">
+        <img src="assets/img/work_bench/dingdan.png">
+        <div>订单</div>
+      </ion-col>-->
+      <!--<ion-col col-3>
         <img src="assets/img/work_bench/duizhang.png">
         <div>对账</div>
-      </ion-col>
-      <ion-col col-3>
+      </ion-col>-->
+      <!--<ion-col col-3>
         <img src="assets/img/work_bench/tuihuoruku.png">
         <div>退货入库</div>
-      </ion-col>
+      </ion-col>-->
     </ion-row>
   </ion-grid>
   <div class='dividingLine'></div>
@@ -77,10 +88,10 @@
     </div>
     <ion-grid>
       <ion-row>
-        <ion-col col-3>
+        <!--<ion-col col-3>
           <img src="assets/img/work_bench/yibiaopan.png">
           <div>仪表盘</div>
-        </ion-col>
+        </ion-col>-->
         <ion-col col-3 tappable (click)="supplierList()">
           <img src="assets/img/work_bench/gongyingshang.png">
           <div>供应商</div>
@@ -93,20 +104,37 @@
           <img src="assets/img/work_bench/dingdan.png">
           <div>订单</div>
         </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col col-3>
-          <img src="assets/img/work_bench/duizhang.png">
-          <div>对账</div>
-        </ion-col>
         <ion-col col-3 tappable (click)="clickInComingWareHouse()">
           <img src="assets/img/work_bench/ruku.png">
           <div>入库</div>
         </ion-col>
       </ion-row>
+      <ion-row>
+        <!--<ion-col col-3>
+          <img src="assets/img/work_bench/duizhang.png">
+          <div>对账</div>
+        </ion-col>-->
+        <!--<ion-col col-3 tappable (click)="clickInComingWareHouse()">
+          <img src="assets/img/work_bench/ruku.png">
+          <div>入库</div>
+        </ion-col>-->
+      </ion-row>
     </ion-grid>
     <div class='dividingLine'></div>
   </div>
+
+  <div class="externalDiv">
+    <div class="titleFont">工程</div>
+  </div>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-3 tappable (click)="material_request()">
+        <img src="assets/img/work_bench/shenqing.png">
+        <div>工程领料</div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <div class='dividingLine'></div>
 
 <div *ngIf="isHR" >
 

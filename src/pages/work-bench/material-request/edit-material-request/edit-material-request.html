@@ -1,0 +1,116 @@
+<!--
+  Generated template for the MaterialRequestDetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{item.name}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content style="background:#f0f0f0">
+  <ion-list>
+    <!--<ion-item>
+        <img item-start style="width:40px;float:left" src="{{item.user_ava}}">
+      <span style="margin-top:50px">{{item.my_create_uid.name}}</span>
+      <span style="float:right;color:#de5622;font-size:13px;">{{changeStateWithName(item)}}</span>
+    </ion-item>-->
+    <ion-item>
+      <ion-label style="font-size:85%;font-weight:bold">交货日期</ion-label>
+      <ion-label text-wrap item-end style="font-size:75%;text-align:right;">{{item.delivery_date}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label style="font-size:85%;font-weight:bold">领料类型</ion-label>
+      <ion-label item-end style="font-size:75%;text-align:right;">{{changeType(item.picking_type)}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label style="font-size:85%;font-weight:bold">领料原因</ion-label>
+      <ion-label item-end style="font-size:75%;text-align:right;">{{item.picking_cause}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label style="font-size:85%;font-weight:bold">备注</ion-label>
+      <ion-label text-wrap item-end style="font-size:75%;text-align:right;">{{item.remark}}</ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-item-group >
+
+    <ion-item >
+      <ion-label style="font-size:80%;color:#00a7f1;float:left;font-weight:bold;margin-top:12px;">● 领料明细</ion-label>
+    </ion-item>
+    <ion-item  *ngFor='let items of item.line_ids;let i = index'>    
+      <p text-wrap>{{changeName(i+1,items.product_id.name)}}</p>
+      <div style="margin-top:5px">
+        <span style="float:left;color:gray;font-size:80%;margin-top:-2px">需求：{{items.product_qty}}</span>
+        <span style="font-size:80%;color:gray;float:left;margin-left:20px;margin-top:-2px">库存：{{items.qty_available}}</span>
+        <span style="font-size:80%;color:gray;float:left;margin-left:20px;margin-top:-2px">领料：{{items.quantity_done}}</span>
+      </div>  
+    </ion-item>
+  </ion-item-group>
+
+  <div *ngIf="item.review_process_line_ids.length > 0" style="margin:10px;color:gray">审批记录</div>
+  <ion-list>
+    <ion-item no-lines *ngFor='let items of item.review_process_line_ids' style="overflow:hidden" class="middle_item">
+          <img item-start style="width:40px;vertical-align:top;" src={{items.user_ava}}>
+          <div style="overflow:hidden">
+          <span style="margin-top:3px;color:black;font-size:80%;float:left">{{items.write_uid.name}}</span>
+
+          <span style="font-size:70%;margin-top:5px;margin-left:-5px;float:right">{{changeDate(items.write_date) | date:'yyyy-MM-dd HH:mm:ss'}}</span>
+          </div>
+          <p  style="font-size:80%;margin-top:2px;">{{changeShenpiState(items.state)}}</p>
+          <p *ngIf="items.remark" text-wrap style="font-size:80%;">备注：{{items.remark}}</p>
+          
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+<ion-footer *ngIf = "isShow == 'normal'">
+  <ion-toolbar >
+    <ion-grid style="width:100%;height:44px">
+    <ion-row class="row_class" align-items-center>
+      <ion-col>
+         <div align="center" >
+             <button ion-button  style='background-color:red;border-radius:20px;' tappable (click)='cancel()' full>拒绝</button>
+        </div>
+      </ion-col>
+      <ion-col>
+        <div align="center">
+          <button ion-button  style='background-color:#1eabfe;border-radius:20px;' tappable (click)='confirm()' full>送审</button>
+        </div>
+      </ion-col>
+      <ion-col>
+        <div align="center">
+            <button ion-button  style='background-color:#1eabfe;border-radius:20px;' tappable (click)='confirmFinal()' full>送终审</button>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  </ion-toolbar>
+</ion-footer>
+
+<ion-footer *ngIf = "isShow == 'final'">
+  <ion-toolbar>
+    <ion-grid style="width:100%;height:44px">
+    <ion-row class="row_class" align-items-center>
+      <ion-col>
+         <div align="center" >
+             <button ion-button  style='background-color:red;border-radius:20px;' tappable (click)='cancel()' full>拒绝</button>
+        </div>
+      </ion-col>
+
+      <ion-col>
+        <div align="center">
+            <button ion-button  style='background-color:#1eabfe;border-radius:20px;' tappable (click)='confirmOK()' full>通过</button>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  </ion-toolbar>
+</ion-footer>
+
+

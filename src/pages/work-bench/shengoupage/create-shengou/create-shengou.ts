@@ -42,23 +42,24 @@ export class CreateShengouPage {
     this.frontPage = Utils.getViewController("ShengoupagePage", navCtrl)
     this.storage.get('user')
     .then(res => {
+      console.log(res)
       this.user_id = res.result.res_data.user_id;
       this.user_name = res.result.res_data.name;
       this.partner_id = res.result.res_data.partner_id;
       // this.department_id = res.result.res_data.department_id
-      this.shenGouService.get_all_departments(this.partner_id).then((res) => {
+      this.shenGouService.get_all_departments(this.user_id).then((res) => {
+        console.log(res)
+        if (res.result.res_data.employee_id)
+        {
+          this.employee_id = res.result.res_data.employee_id;
+        }
         if (res.result.res_data.all_departments)
         {
            this.departmentList = res.result.res_data.all_departments.res_data;
-        }
+        }  
         if (res.result.res_data.default_department)
         {
            this.department = res.result.res_data.default_department.res_data[0].id;
-        }
-        if (res.result.res_data.employee_id)
-        {
-          console.log(res.result.res_data.employee_id)
-          this.employee_id = res.result.res_data.employee_id;
         }
       })
     });
@@ -151,7 +152,7 @@ export class CreateShengouPage {
     } else {
       this.alertCtrl.create({
         title: '提示',
-        subTitle: '是否保存当前申购单？',
+        subTitle: '是否提交?',
         buttons: [{ text: '取消' },
         {
           text: '确定',
@@ -194,8 +195,17 @@ export class CreateShengouPage {
         // this.navCtrl.pop()
         ctrl.create({
                   title: '提示',
-                  subTitle: "保存成功，是否提交审核？",
-                  buttons: [{
+                  subTitle: "是否立即提交审核？",
+                  buttons: [
+                  {
+                text: '暂不提交',
+                    handler: () => {
+                    this.frontPage.data.need_fresh = true;
+              this.navCtrl.popTo(this.frontPage,{
+                need_fresh:true,
+              });
+             }
+             },{
                     text: '立即提交',
                     handler: () => {
                       this.shenGouService.push_apply(res.result.res_data.sheet_id,this.user_id).then((res) => {
@@ -219,16 +229,7 @@ export class CreateShengouPage {
           }
                       })
                     }
-                  },
-                  {
-                text: '暂不提交',
-                    handler: () => {
-                    this.frontPage.data.need_fresh = true;
-              this.navCtrl.popTo(this.frontPage,{
-                need_fresh:true,
-              });
-             }
-             }
+                  }
       ]
     }).present();
       }
