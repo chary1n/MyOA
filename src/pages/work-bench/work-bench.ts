@@ -79,6 +79,12 @@ export class WorkBenchPage {
   }
 
   shengou(){
-    this.navCtrl.push('ShengoupagePage');
+    this.navCtrl.push('ShengoupagePage')
   }
+
+  //知识分享
+  shareKnowledge(){
+    this.navCtrl.push('ShareKnowledgePage')
+  }
+
 }
