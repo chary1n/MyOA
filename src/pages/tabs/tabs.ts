@@ -24,7 +24,7 @@ export class TabsPage {
   }
 
   ionViewDidLoad() {
-   this.tabs.select(0);     
+   this.tabs.select(1);     
   }
 
 }
