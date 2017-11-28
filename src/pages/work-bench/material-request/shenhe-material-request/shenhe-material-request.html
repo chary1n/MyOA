@@ -13,15 +13,18 @@
 </ion-header>
 
 
-<ion-content style="background:#f0f0f0">
+<ion-content scroll="false" style="background:#f0f0f0">
  <ion-auto-complete  style="width: 100vw;" (itemSelected)="itemSelected($event)" [dataProvider]="spMaterialAutoService"></ion-auto-complete>
- <ion-list style="margin-top:2px;bottom:200px">
+  <div style="overflow:scroll;margin-top:2px;height:70%">
+    <ion-list >
       <ion-item tappable (click) = "itemSelect(item)" *ngFor = 'let item of employeeList;let i = index'>
         <div>
           <span>{{item.name}}</span><span style="margin-left:15px;margin-top:-5px;color:red;font-size:10px">{{touxianList[i]}}</span>
         </div>
       </ion-item>
   </ion-list>
+  </div>
+ 
   <div class="buttom_div">
     <p style="margin-top:-5px;"></p>
     <span style="margin-left:20px;color:gray">提交给..审核：</span> <span style="font-size:17px;">{{select}}</span>

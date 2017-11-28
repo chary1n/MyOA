@@ -22,12 +22,13 @@ export class EditMaterialRequestPage {
   partner_id;
   isShow;
   frontPage;
+  showData;
+  temp_data;
   constructor(public navCtrl: NavController, public navParams: NavParams,public mService:materialService,
   public storage:Storage,public alertCtrl:AlertController,public toastCtrl:ToastController) {
     this.frontPage = Utils.getViewController("MaterialRequestPage", navCtrl)
     this.item = navParams.get('item')
     console.log(this.item)
-    this.item.review_process_line_ids = this.item.review_process_line_ids.reverse()
     this.isShow = "normal"
      this.storage.get('user')
       .then(res => {

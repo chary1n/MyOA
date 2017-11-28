@@ -15,10 +15,11 @@ import { Storage } from '@ionic/storage';
 })
 export class MaterialRequestDetailPage {
   item;
+  showData;
+  temp_data;
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.item = navParams.get('item');
     console.log(this.item)
-    this.item.review_process_line_ids = this.item.review_process_line_ids.reverse()
   }
 
   ionViewDidLoad() {

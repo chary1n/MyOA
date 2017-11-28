@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, LoadingController,ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, LoadingController,ToastController} from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { materialService} from "./../materialService";
 import { Utils } from './../../../../providers/Utils';
@@ -30,10 +30,13 @@ export class ShenheMaterialRequestPage {
   select;
   beizhuText;
   frontPage;
+  grid_height;
   constructor(public navCtrl: NavController, public navParams: NavParams,public mService:materialService,
-  public storage:Storage,public spMaterialAutoService:ShenPiMaterialAutoService,public toastCtrl:ToastController) {
+  public storage:Storage,public spMaterialAutoService:ShenPiMaterialAutoService,public toastCtrl:ToastController,
+  ) {
     this.type = navParams.get('type')
     this.item = navParams.get('item')
+    // this.grid_height={height:667-340+'px'}
     this.frontPage = Utils.getViewController("MaterialRequestPage", navCtrl)
     if (this.type == "final"){
       this.title = "送终审"
