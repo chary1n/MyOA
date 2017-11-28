@@ -48,7 +48,7 @@
       <div style="margin-top:5px">
         <span style="float:left;color:gray;font-size:80%;margin-top:-2px">需求：{{items.product_qty}}</span>
         <span style="font-size:80%;color:gray;float:left;margin-left:20px;margin-top:-2px">库存：{{items.qty_available}}</span>
-        <span style="font-size:80%;color:gray;float:left;margin-left:20px;margin-top:-2px">领料：{{items.quantity_done}}</span>
+        <span *ngIf="item.picking_state == 'approved_finish' || item.picking_state == 'finish_pick'" style="font-size:80%;color:gray;float:left;margin-left:20px;margin-top:-2px">领料：{{items.quantity_done}}</span>
       </div>  
     </ion-item>
   </ion-item-group>

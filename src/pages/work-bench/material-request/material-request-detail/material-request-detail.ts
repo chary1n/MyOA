@@ -17,6 +17,7 @@ export class MaterialRequestDetailPage {
   item;
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.item = navParams.get('item');
+    console.log(this.item)
     this.item.review_process_line_ids = this.item.review_process_line_ids.reverse()
   }
 

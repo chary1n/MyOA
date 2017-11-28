@@ -200,7 +200,7 @@ export class MaterialRequestPage {
   doInfinite(infinite){
     this.limit = 20;
     this.offset = this.offset + 20;
-    if (this.pet == 1){
+    if (this.pet == "1"){
       if (this.isMoreData == true) {        
         this.mService.get_material_request_list(this.limit,this.offset,this.user_id).then(res => {
           let item_data = [];
@@ -214,6 +214,60 @@ export class MaterialRequestPage {
              }
              for (let item of item_data) {
                this.materialList.push(item)
+             }
+          }
+          else {
+          this.isMoreData = false;
+        }
+        infinite.complete();
+        })
+      }
+      else
+      {
+        infinite.complete();
+      }
+    }
+    else if (this.pet == "2"){
+      if (this.isMoreData == true) {        
+        this.mService.get_wait_me_material_request_list(this.limit,this.offset,this.user_id).then(res => {
+          let item_data = [];
+          if (res.result && res.result.res_code == 1 && res.result.res_data) {
+             item_data = res.result.res_data;
+             if (item_data.length == 20) {
+                this.isMoreData = true;
+             }
+             else {
+               this.isMoreData = false;
+             }
+             for (let item of item_data) {
+               this.waitMeList.push(item)
+             }
+          }
+          else {
+          this.isMoreData = false;
+        }
+        infinite.complete();
+        })
+      }
+      else
+      {
+        infinite.complete();
+      }
+    }
+    else if (this.pet == "3"){
+      if (this.isMoreData == true) {        
+        this.mService.get_already_material_request_list(this.limit,this.offset,this.user_id).then(res => {
+          let item_data = [];
+          if (res.result && res.result.res_code == 1 && res.result.res_data) {
+             item_data = res.result.res_data;
+             if (item_data.length == 20) {
+                this.isMoreData = true;
+             }
+             else {
+               this.isMoreData = false;
+             }
+             for (let item of item_data) {
+               this.alreadyList.push(item)
              }
           }
           else {
@@ -267,7 +321,15 @@ export class MaterialRequestPage {
   changeStateWithName(item){
     if (item.who_review_now.name)
     {
-      return this.changeState(item.picking_state) + '/' +item.who_review_now.name
+      if (item.picking_state == "approved_finish" || item.picking_state == "finish_pick" || item.picking_state == "cancel")
+      {
+        return this.changeState(item.picking_state)
+      }
+      else
+      {
+        return this.changeState(item.picking_state) + '/' +item.who_review_now.name
+      }
+      
     } 
     else
     {
