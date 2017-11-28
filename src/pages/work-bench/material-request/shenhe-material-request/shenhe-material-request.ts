@@ -142,7 +142,9 @@ export class ShenheMaterialRequestPage {
     else
     {
       if (this.select_name){
-        this.mService.action_to_next(this.item.id,this.beizhuText,this.user_id,false,this.item.picking_type,this.select_name.name,parseInt(this.select_name.id)).then(res => {
+        if (this.item.picking_type == "pick_type"){
+          if (this.select_name.id != this.product_final){
+            this.mService.action_to_next(this.item.id,this.beizhuText,this.user_id,false,this.item.picking_type,this.select_name.name,parseInt(this.select_name.id)).then(res => {
             if (res.result.res_data.success == 1){
                Utils.toastButtom("送审成功", this.toastCtrl)
                   this.frontPage.data.need_fresh = true;
@@ -151,6 +153,29 @@ export class ShenheMaterialRequestPage {
               });
             }
           })
+        }
+        else
+        {
+            Utils.toastButtom("请选择正确的审核人", this.toastCtrl)
+        }
+      }
+      else{
+          if (this.select_name.id != this.line_final){
+            this.mService.action_to_next(this.item.id,this.beizhuText,this.user_id,false,this.item.picking_type,this.select_name.name,parseInt(this.select_name.id)).then(res => {
+            if (res.result.res_data.success == 1){
+               Utils.toastButtom("送审成功", this.toastCtrl)
+                  this.frontPage.data.need_fresh = true;
+              this.navCtrl.popTo(this.frontPage,{
+                need_fresh:true,
+              });
+            }
+          })
+        }
+        else
+        {
+            Utils.toastButtom("请选择正确的审核人", this.toastCtrl)
+        }
+      }
       }
       else
       {

@@ -30,7 +30,7 @@
     </ion-item>
     <ion-item>
       <ion-label style="font-size:85%;font-weight:bold">领料原因</ion-label>
-      <ion-label item-end style="font-size:75%;text-align:right;">{{item.picking_cause}}</ion-label>
+      <ion-label item-end text-wrap style="font-size:75%;text-align:right;">{{item.picking_cause}}</ion-label>
     </ion-item>
     <ion-item>
       <ion-label style="font-size:85%;font-weight:bold">备注</ion-label>
@@ -62,7 +62,7 @@
 
           <span style="font-size:70%;margin-top:5px;margin-left:-5px;float:right">{{changeDate(items.write_date) | date:'yyyy-MM-dd HH:mm:ss'}}</span>
           </div>
-          <p  style="font-size:80%;margin-top:2px;">{{changeShenpiState(items.state)}}</p>
+          <p  style="font-size:80%;margin-top:2px;">{{changeShenpiState(items)}}</p>
           <p *ngIf="items.remark" text-wrap style="font-size:80%;">备注：{{items.remark}}</p>
           
     </ion-item>
@@ -83,11 +83,11 @@
           <button ion-button  style='background-color:#1eabfe;border-radius:20px;' tappable (click)='confirm()' full>送审</button>
         </div>
       </ion-col>
-      <ion-col>
+      <!--<ion-col>
         <div align="center">
             <button ion-button  style='background-color:#1eabfe;border-radius:20px;' tappable (click)='confirmFinal()' full>送终审</button>
         </div>
-      </ion-col>
+      </ion-col>-->
     </ion-row>
   </ion-grid>
   </ion-toolbar>

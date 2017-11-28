@@ -94,7 +94,9 @@ export class MaterialRequestPage {
 
   itemSelected_two(event){
       let search_text;
-      if (event.id == 1)
+      if (this.pet == "2")
+      {
+          if (event.id == 1)
       {
         search_text = event.name.replace("搜 单号：", "")
         this.mService.search_material_request(search_text,"waitme",this.user_id,"expense_no").then(res => {
@@ -114,6 +116,30 @@ export class MaterialRequestPage {
           }
       })
       }
+    }
+    else if (this.pet == "3"){
+      if (event.id == 1)
+      {
+        search_text = event.name.replace("搜 单号：", "")
+        this.mService.search_material_request(search_text,"already",this.user_id,"expense_no").then(res => {
+        console.log(res)
+        if (res.result && res.result.res_code == 1 && res.result.res_data) {
+            this.alreadyList = res.result.res_data;
+          }
+      })
+      }
+      else
+      {
+        search_text = event.name.replace("搜 申请人：", "")
+        this.mService.search_material_request(search_text,"already",this.user_id,"name").then(res => {
+        console.log(res)
+        if (res.result && res.result.res_code == 1 && res.result.res_data) {
+            this.alreadyList = res.result.res_data;
+          }
+      })
+      }
+    }
+      
   }
 
   changeType(state){

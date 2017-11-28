@@ -69,7 +69,7 @@
   </ng-template>
 
   <ng-template [ngSwitchCase]='3'>
-      <ion-auto-complete style="width: 100vw;" (itemSelected)="itemSelected($event)" [dataProvider]="materialAutoService"></ion-auto-complete>
+      <ion-auto-complete style="width: 100vw;" (itemSelected)="itemSelected_two($event)" [dataProvider]="twoAuto"></ion-auto-complete>
       <ion-refresher (ionRefresh)="doRefresh($event)">
         <ion-refresher-content></ion-refresher-content>
       </ion-refresher>

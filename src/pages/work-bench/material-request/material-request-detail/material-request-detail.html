@@ -61,7 +61,7 @@
           <span style="margin-top:3px;color:black;font-size:80%;float:left">{{items.write_uid.name}}</span>
           <span style="font-size:70%;margin-top:5px;margin-left:-5px;float:right">{{changeDate(items.write_date) | date:'yyyy-MM-dd HH:mm:ss'}}</span>
           </div>
-          <p  style="font-size:80%;margin-top:2px;">{{changeShenpiState(items.state)}}</p>
+          <p  style="font-size:80%;margin-top:2px;">{{changeShenpiState(items)}}</p>
           <p *ngIf="items.remark" text-wrap style="font-size:80%;">备注：{{items.remark}}</p> 
     </ion-item>
   </ion-list>

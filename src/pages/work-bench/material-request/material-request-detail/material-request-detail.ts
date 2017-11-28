@@ -94,19 +94,26 @@ export class MaterialRequestDetailPage {
   }
 
   changeShenpiState(state){
-    if (state.toLowerCase() == "waiting_review")
+    if (state.state.toLowerCase() == "waiting_review")
     {
       return "等待审核"
     }
-    else if (state.toLowerCase() == "review_success")
+    else if (state.state.toLowerCase() == "review_success")
     {
-      return "审核通过"
+      if (state.last_review_line_id)
+      {
+        return "审核通过"
+      }
+      else
+      {
+        return "提交审核"
+      }
     }
-    else if (state.toLowerCase() == "review_fail")
+    else if (state.state.toLowerCase() == "review_fail")
     {
       return "审核不通过"
     }
-    else if (state.toLowerCase() == "review_canceled")
+    else if (state.state.toLowerCase() == "review_canceled")
     {
       return "取消审核"
     }
