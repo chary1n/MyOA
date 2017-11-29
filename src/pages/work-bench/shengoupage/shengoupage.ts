@@ -18,7 +18,7 @@ import { ShenGouAutoService } from './shengouAutoService'
   providers: [ShenGouService, ShenGouAutoService],
 })
 export class ShengoupagePage {
-  pet: string = "1";
+  pet: string = "2";
   items: any;
   user_id: any;
   myApplyList: any;
