@@ -87,7 +87,19 @@ export class ShenheMaterialRequestPage {
       {
          for (let items of res.result.res_data) {
                this.employeeList.push(items.partner_id);
-               this.touxianList.push("");
+               console.log(this.product_final)
+               if (this.product_final == items.partner_id.id)
+               {
+                this.touxianList.push("工程领用终审人");
+               }
+               else if(this.line_final == items.partner_id.id)
+               {
+                 this.touxianList.push("产线领用终审人");
+               }
+               else
+               {
+                 this.touxianList.push("");
+               }
           } 
       }
     })
