@@ -14,7 +14,7 @@
 
 <ion-content padding class="total_color">
   <div class="center_x">
-    <img src="assets/img/login.png" padding="auto" width="100px" height="100px" style="margin-top:100px">
+    <img src="assets/img/login.png" padding="auto" width="100px" height="100px" style="margin-top:40px">
   </div>
 
 
@@ -28,16 +28,16 @@
     <ion-grid>
       <ion-row style="height:100px">
         <ion-col col-4 (click)="chooseJiangsu()" style="text-align:center">
-          <img src="assets/img/jiangsu.png"  [ngClass]="{true:'img_select',false:'img_unselect'}[isSelected1]">
+          <img src="assets/img/jiangsu.png"  [ngClass]="{true:'img_select',false:'img_unselect'}[isSelected1]" tappable>
 
         </ion-col>
         <ion-col col-4  (click)="chooseDiy()"  style="text-align:center" >
-          <img src="assets/img/diy.png"  [ngClass]="{true:'img_select',false:'img_unselect'}[isSelected2]">
+          <img src="assets/img/diy.png"  [ngClass]="{true:'img_select',false:'img_unselect'}[isSelected2]" tappable>
 
 
         </ion-col>
         <ion-col col-4 (click)="chooseWanju()"  style="text-align:center" >
-          <img src="assets/img/wanju.png" [ngClass]="{true:'img_select',false:'img_unselect'}[isSelected3]">
+          <img src="assets/img/wanju.png" [ngClass]="{true:'img_select',false:'img_unselect'}[isSelected3]" tappable>
         </ion-col>
       </ion-row>
     </ion-grid>
