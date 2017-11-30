@@ -1,22 +1,26 @@
+import { UrlServer } from './UrlServer';
 import { LoadingController } from 'ionic-angular';
 import * as constansts from './Constants';
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
+import { Storage } from '@ionic/storage';
+
 
 
 @Injectable()
 export class HttpService {
-
+  static appUrl ;
   constructor(private http: Http,private loading :LoadingController,
+    public storage :Storage
   ) {
   }
 
   getAppPath(url: string, type: number = 0) {
     if (type == 1) {
-      return constansts.APP_SERVER_URL + constansts.APPSUBPATH + url;
+      return HttpService.appUrl + constansts.APPSUBPATH + url;
     } else {
-      return constansts.APP_SERVER_URL + constansts.OAUBPATH + url;
+      return HttpService.appUrl + constansts.OAUBPATH + url;
     }
   }
 

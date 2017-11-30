@@ -98,7 +98,6 @@
     <allow-navigation href="http://192.168.2.38:8100" />
     <allow-navigation href="http://192.168.3.7:8100" />
     <allow-navigation href="http://192.168.88.120:8100" />
-<<<<<<< HEAD
     <engine name="android" spec="^6.2.3" />
     <engine name="browser" spec="^4.1.0" />
     <engine name="ios" spec="^4.4.0" />
@@ -109,13 +108,6 @@
     <plugin name="cordova-plugin-whitelist" spec="^1.3.1" />
     <plugin name="ionic-plugin-keyboard" spec="^2.2.1" />
     <plugin name="cordova-plugin-http" spec="^1.2.0" />
-=======
-    <plugin name="com-darryncampbell-cordova-plugin-intent" spec="0.0.14" />
-    <plugin name="com.lampa.startapp" spec="^0.1.4" />
-    <plugin name="cordova-plugin-app-version" spec="^0.1.9" />
-    <plugin name="cordova-plugin-appavailability" spec="^0.4.2" />
-    <plugin name="cordova-plugin-appminimize" spec="^1.0.0" />
->>>>>>> 3454034a46ac19ed68293fdaad80a045180ca5ed
     <plugin name="cordova-plugin-camera" spec="^2.4.1">
         <variable name="CAMERA_USAGE_DESCRIPTION" value=" " />
         <variable name="PHOTOLIBRARY_USAGE_DESCRIPTION" value=" " />

@@ -8,28 +8,45 @@
   .center_x {
     text-align: center;
   }
+
 </style>
 
 
 <ion-content padding class="total_color">
   <div class="center_x">
-    <img src="assets/icon/ruotai_icon.png" padding="auto" width="200px" height="auto" style="margin-top:100px">
+    <img src="assets/img/login.png" padding="auto" width="100px" height="100px" style="margin-top:100px">
   </div>
 
 
   <ion-list style="margin-top:20px">
-      <ion-item>
-      <ion-label>选择数据库</ion-label>
-    <ion-select [(ngModel)]="employee" tappable (click)="chooseDb()">
-    <ion-option *ngFor="let db of dbs" [value]="db">{{db}}</ion-option>
-      </ion-select>
+    <ion-item no-lines>
+      <ion-label>请选择公司</ion-label>
+
     </ion-item>
 
-    <ion-item >
+
+    <ion-grid>
+      <ion-row style="height:100px">
+        <ion-col col-4 (click)="chooseJiangsu()" style="text-align:center">
+          <img src="assets/img/jiangsu.png"  [ngClass]="{true:'img_select',false:'img_unselect'}[isSelected1]">
+
+        </ion-col>
+        <ion-col col-4  (click)="chooseDiy()"  style="text-align:center" >
+          <img src="assets/img/diy.png"  [ngClass]="{true:'img_select',false:'img_unselect'}[isSelected2]">
+
+
+        </ion-col>
+        <ion-col col-4 (click)="chooseWanju()"  style="text-align:center" >
+          <img src="assets/img/wanju.png" [ngClass]="{true:'img_select',false:'img_unselect'}[isSelected3]">
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-item>
       <ion-label floating>请输入公司邮箱</ion-label>
       <ion-input type="text" [(ngModel)]="email"></ion-input>
     </ion-item>
-    
+
     <ion-item>
       <ion-label floating>请输入密码</ion-label>
       <ion-input type="password" [(ngModel)]="password"></ion-input>
@@ -39,7 +56,7 @@
 
   <br />
 
-  <button id="login_button" ion-button color="light" outline block tappable (click)="toLogin()">
+  <button id="login_button" ion-button style="background:#438dbd ;color:white" outline block tappable (click)="toLogin()">
     登录
   </button>
 
