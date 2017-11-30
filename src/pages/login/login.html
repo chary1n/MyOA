@@ -24,19 +24,17 @@
 
     </ion-item>
 
-
-    <ion-grid>
-      <ion-row style="height:100px">
-        <ion-col col-4 (click)="chooseJiangsu()" style="text-align:center">
+    <ion-grid style="line-height:13">
+      <ion-row style="height:100px;text-align:center;">
+        <ion-col col-4 (click)="chooseJiangsu()" >
           <img src="assets/img/jiangsu.png"  [ngClass]="{true:'img_select',false:'img_unselect'}[isSelected1]" tappable>
 
         </ion-col>
-        <ion-col col-4  (click)="chooseDiy()"  style="text-align:center" >
+        <ion-col col-4  (click)="chooseDiy()">
           <img src="assets/img/diy.png"  [ngClass]="{true:'img_select',false:'img_unselect'}[isSelected2]" tappable>
 
-
         </ion-col>
-        <ion-col col-4 (click)="chooseWanju()"  style="text-align:center" >
+        <ion-col col-4 (click)="chooseWanju()"  >
           <img src="assets/img/wanju.png" [ngClass]="{true:'img_select',false:'img_unselect'}[isSelected3]" tappable>
         </ion-col>
       </ion-row>

@@ -51,8 +51,9 @@ export class LoginPage {
     console.log('ionViewDidLoad LoginPage');
     this.storage.get('user')
       .then(res => {
-        console.log(res);
-        if (res != null) {
+        // console.log("123")
+        // console.log(res);
+        if (res) {
           window.localStorage.setItem("id", res.result.res_data.user_id)
           this.storage.get('user_psd').then(res => {
             HttpService.appUrl = res.url
