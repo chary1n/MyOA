@@ -35,9 +35,20 @@ export class AuditedPurchasePage {
       });
     console.log(this.item.state);
     if (this.item.state == 'submit'||this.item.state == 'manager1_approve'||this.item.state == 'manager2_approve') {
-      this.isShowFooter = true;
+      
+      this.storage.get('user')
+      .then(res => {
+        if (res.result.res_data.user_id != this.item.to_approve_id){
+          this.isShowFooter = false;
+        }
+        else
+        {
+          this.isShowFooter = true;
+        }
+      })
     }
-    else {
+    else
+    {
       this.isShowFooter = false;
     }
     console.log(this.item)
@@ -165,6 +176,11 @@ export class AuditedPurchasePage {
         }
       ]
     }).present();
+  }
+
+  changeDate(date){
+    let new_date = new Date(date.replace(' ', 'T') + 'Z').getTime();
+    return new_date;
   }
 
 }
