@@ -18,7 +18,7 @@ import { ZanzhiAutoService } from './zanzhi-auto';
   providers:[CommonUseServices,ZanzhiAutoService]
 })
 export class ZanzhiPage {
-  pet: string = "0"; 
+  pet: string = "1"; 
   wait_approval_list: any;
   already_approval_list: any;
   isMoreData1 = true;
