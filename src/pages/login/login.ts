@@ -41,10 +41,12 @@ export class LoginPage {
   isSelected2 = false;
   isSelected3 = false;
   db;
+  email_length;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private loginservice: LoginService, private myHttp: Http, private storage: Storage, public platform: Platform, public appVersion: AppVersion,
     public jpush: JPush, public urlServer: UrlServer,
    ) {
+     this.email_length = 0;
   }
 
   ionViewDidLoad() {
@@ -126,6 +128,42 @@ export class LoginPage {
             db_name: this.employee,
             url: HttpService.appUrl
           })
+
+          this.storage.get("history_users").then(res => {
+           if (res){
+              let arr = res
+            let need_add = true;
+            for (let item of arr) {
+              if (item.email == this.email){
+                arr.remove(item);
+                arr.push({
+                  email:this.email,
+                  password:this.password,
+                })
+                need_add = false;
+                break;
+              }
+            }
+            if (need_add){
+              arr.push({
+                  email:this.email,
+                  password:this.password,
+                })
+            }
+            this.storage.set("history_users",arr);
+           }
+           else
+           {
+             let arr = []
+             arr.push({
+                  email:this.email,
+                  password:this.password,
+                })
+             this.storage.set("history_users",arr);   
+           }
+          })
+          
+
           this.storage.set("user", res).then(() => {
             this.jpush.setAlias(res.result.res_data.user_id);
             this.navCtrl.setRoot('TabsPage');
@@ -135,5 +173,32 @@ export class LoginPage {
           alert(res.result.res_data.error);
         }
       })
+  }
+  watch(event){
+    console.log(this.email_length)
+    if (this.email)
+    {
+      if (this.email_length < this.email.length)
+    {
+      this.storage.get("history_users").then(res => {
+      if(res){
+        console.log(res)
+        console.log(this.email)
+        for (let item of res) {
+          console.log((new RegExp(this.email).test(item.email)))
+        if ((new RegExp(this.email).test(item.email)))
+        {
+          this.email = item.email;
+          this.password = item.password;
+          break;
+        }
+       }
+      }  
+    })
+  }
+  this.email_length = this.email.length;
+    }
+    
+  
   }
 }

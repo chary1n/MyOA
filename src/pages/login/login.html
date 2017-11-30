@@ -42,12 +42,12 @@
 
     <ion-item>
       <ion-label floating>请输入公司邮箱</ion-label>
-      <ion-input type="text" [(ngModel)]="email"></ion-input>
+      <ion-input (ngModelChange)="watch($event)" type="text" [(ngModel)]="email"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label floating>请输入密码</ion-label>
-      <ion-input type="password" [(ngModel)]="password"></ion-input>
+      <ion-input  type="password" [(ngModel)]="password"></ion-input>
     </ion-item>
   </ion-list>
 
