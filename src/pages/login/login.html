@@ -14,11 +14,11 @@
 
 <ion-content padding class="total_color">
   <div class="center_x">
-    <img src="assets/img/login.png" padding="auto" width="100px" height="100px" style="margin-top:40px">
+    <img src="assets/img/login.png" padding="auto" width="100px" height="100px" style="margin-top:30px">
   </div>
 
 
-  <ion-list style="margin-top:20px">
+  <ion-list style="margin-top:10px">
     <ion-item no-lines>
       <ion-label>请选择公司</ion-label>
 
@@ -49,6 +49,7 @@
       <ion-label floating>请输入密码</ion-label>
       <ion-input  type="password" [(ngModel)]="password"></ion-input>
     </ion-item>
+ 
   </ion-list>
   <ion-list *ngIf="history_arr" style="position:absolute;z-index:999;width:inherit;margin-top:-85px;width:95%">
     <ion-item  *ngFor='let item of history_arr' tappable (click)="click(item)">
@@ -63,10 +64,14 @@
         
   </ion-list>
 
+    <ion-checkbox  style="margin-left:10px;" (click)="isAutoLogin()" [checked]="autoLogin"></ion-checkbox>
+    <span style="vertical-align:super"> 自动登录</span>
+    <ion-checkbox  style="margin-left:100px;" (click)="isRemerberPassword()" [checked]="remerberPassword"></ion-checkbox>
+    <span style="vertical-align:super"> 记住密码</span>
+  
 
-  <br />
 
-  <button id="login_button" ion-button style="background:#438dbd ;color:white;position:absolute" outline block tappable (click)="toLogin()">
+  <button id="login_button" ion-button style="background:#438dbd ;color:white ;margin-top:10px" outline block tappable (click)="toLogin()">
     登录
   </button>
 

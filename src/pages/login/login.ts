@@ -1,3 +1,4 @@
+
 import { HttpService } from './../../providers/HttpService';
 import { dbBean } from './../../model/dbInfoModel';
 import { Storage } from '@ionic/storage';
@@ -19,6 +20,9 @@ import { Platform } from 'ionic-angular';
 import { UrlServer } from '../../providers/UrlServer';
 
 
+
+// import { ChangeDetectorRef } from '@angular/core/src/change_detection/change_detector_ref';
+
 /**
  * Generated class for the LoginPage page.
  *
@@ -31,6 +35,7 @@ import { UrlServer } from '../../providers/UrlServer';
   templateUrl: 'login.html',
   providers: [LoginService, JPush, UrlServer]
 })
+
 export class LoginPage {
   email: string;
   password: string;
@@ -41,21 +46,42 @@ export class LoginPage {
   isSelected2 = false;
   isSelected3 = false;
   db;
-  email_length;
   history_arr = [];
+  email_length = 0;
+  autoLogin = false;
+  remerberPassword = false;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private loginservice: LoginService, private myHttp: Http, private storage: Storage, public platform: Platform, public appVersion: AppVersion,
     public jpush: JPush, public urlServer: UrlServer,
-   ) {
-     this.email_length = 0;
+  ) {
+    this.storage.get("login").then(res => {
+      if (res) {
+        this.autoLogin = res.autoLogin
+        this.remerberPassword = res.remerberPassword
+      }
+    })
+
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
+    this.storage.get("login").then(res => {
+      if (res) {
+        if (res.autoLogin) {
+          this.toAutoLogin()
+        } else if (res.remerberPassword) {
+          this.storage.get('user_psd').then(res => {
+            this.email = res.user_email
+            this.password = res.user_psd
+          })
+        }
+      }
+    })
+  }
+
+  toAutoLogin() {
     this.storage.get('user')
       .then(res => {
-        // console.log("123")
-        // console.log(res);
         if (res) {
           window.localStorage.setItem("id", res.result.res_data.user_id)
           this.storage.get('user_psd').then(res => {
@@ -107,14 +133,31 @@ export class LoginPage {
     });
   }
 
-
-  itemSelected(event){
-
+  isAutoLogin() {
+    console.log(this.autoLogin)
+    this.autoLogin = !this.autoLogin
+    console.log(this.autoLogin)
+    if (this.autoLogin) {
+      this.remerberPassword = true
+    }
   }
+
+  isRemerberPassword() {
+    this.remerberPassword = !this.remerberPassword
+    if (!this.remerberPassword) {
+      this.autoLogin = false
+    }
+  }
+
 
 
   // 登录
   toLogin() {
+    console.log(this.remerberPassword)
+    this.storage.set("login", {
+      autoLogin: this.autoLogin,
+      remerberPassword: this.remerberPassword,
+    })
     if (this.employee == null) {
       alert("请选择公司")
       return
@@ -131,42 +174,41 @@ export class LoginPage {
           })
 
           this.storage.get("history_users").then(res => {
-           if (res){
+            if (res) {
               let arr = res
-            let need_add = true;
-            let index = 0;
-            for (let item of arr) {
-              
-              if (item.email == this.email){
-                arr.splice(index,1);
-                arr.push({
-                  email:this.email,
-                  password:this.password,
-                })
-                need_add = false;
-                break;
+              let need_add = true;
+              let index = 0;
+              for (let item of arr) {
+
+                if (item.email == this.email) {
+                  arr.splice(index, 1);
+                  arr.push({
+                    email: this.email,
+                    password: this.password,
+                  })
+                  need_add = false;
+                  break;
+                }
+                index = index + 1;
               }
-              index = index + 1;
+              if (need_add) {
+                arr.push({
+                  email: this.email,
+                  password: this.password,
+                })
+              }
+              this.storage.set("history_users", arr);
             }
-            if (need_add){
+            else {
+              let arr = []
               arr.push({
-                  email:this.email,
-                  password:this.password,
-                })
+                email: this.email,
+                password: this.password,
+              })
+              this.storage.set("history_users", arr);
             }
-            this.storage.set("history_users",arr);
-           }
-           else
-           {
-             let arr = []
-             arr.push({
-                  email:this.email,
-                  password:this.password,
-                })
-             this.storage.set("history_users",arr);   
-           }
           })
-          
+
 
           this.storage.set("user", res).then(() => {
             this.jpush.setAlias(res.result.res_data.user_id);
