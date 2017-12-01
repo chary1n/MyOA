@@ -1,5 +1,5 @@
 import { UrlServer } from './UrlServer';
-import { LoadingController } from 'ionic-angular';
+import { LoadingController ,AlertController} from 'ionic-angular';
 import * as constansts from './Constants';
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
@@ -12,7 +12,7 @@ import { Storage } from '@ionic/storage';
 export class HttpService {
   static appUrl ;
   constructor(private http: Http,private loading :LoadingController,
-    public storage :Storage
+    public storage :Storage,public ctrl:AlertController
   ) {
   }
 
@@ -133,7 +133,18 @@ export class HttpService {
   private handleSuccess(result) {
     if (result.error)
     {
-      alert(result.error.message)
+      this.ctrl.create({
+                  title: result.error.data.name,
+                  subTitle: result.error.data.message,
+                  buttons: [{
+                text: '确定',
+                    handler: () => {
+                   
+             }
+             }
+      ]
+    }).present();
+
       return result;
     }
     else

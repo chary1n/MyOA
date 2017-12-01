@@ -7,7 +7,7 @@ import { JPush } from '../../providers/JPush'
 
 import { LoginService } from './loginService';
 import { Component, ErrorHandler } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams ,AlertController} from 'ionic-angular';
 import { FormBuilder, Validators } from '@angular/forms';
 
 
@@ -52,7 +52,7 @@ export class LoginPage {
   remerberPassword = false;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private loginservice: LoginService, private myHttp: Http, private storage: Storage, public platform: Platform, public appVersion: AppVersion,
-    public jpush: JPush, public urlServer: UrlServer,
+    public jpush: JPush, public urlServer: UrlServer,public ctrl:AlertController
   ) {
     this.storage.get("login").then(res => {
       if (res) {
@@ -159,7 +159,17 @@ export class LoginPage {
       remerberPassword: this.remerberPassword,
     })
     if (this.employee == null) {
-      alert("请选择公司")
+      this.ctrl.create({
+                  title: '提示',
+                  subTitle: "请选择公司",
+                  buttons: [{
+                text: '确定',
+                    handler: () => {
+                   
+             }
+             }
+      ]
+    }).present();
       return
     }
     this.loginservice.toLogin(this.email, this.password, this.employee)
@@ -224,7 +234,7 @@ export class LoginPage {
       })
   }
   watch(event){
-    console.log(this.email)
+    this.password = "";
     if (this.email)
     {
       this.history_arr = []

@@ -51,7 +51,7 @@
     </ion-item>
  
   </ion-list>
-  <ion-list *ngIf="history_arr" style="position:absolute;z-index:999;width:inherit;margin-top:-110px;width:95%">
+  <ion-list *ngIf="history_arr" style="position:absolute;z-index:999;width:inherit;margin-top:-105px;width:95%">
     <ion-item  *ngFor='let item of history_arr' tappable (click)="click(item)">
           <p>{{item.email}}</p>
         </ion-item>
