@@ -133,9 +133,11 @@ export class LoginPage {
            if (res){
               let arr = res
             let need_add = true;
+            let index = 0;
             for (let item of arr) {
+              
               if (item.email == this.email){
-                arr.remove(item);
+                arr.splice(index,1);
                 arr.push({
                   email:this.email,
                   password:this.password,
@@ -143,6 +145,7 @@ export class LoginPage {
                 need_add = false;
                 break;
               }
+              index = index + 1;
             }
             if (need_add){
               arr.push({

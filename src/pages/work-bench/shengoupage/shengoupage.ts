@@ -37,7 +37,7 @@ export class ShengoupagePage {
         this.limit = 20;
         this.offset = 0;
         this.shengouService.getshengouList(this.limit, this.offset, this.user_id).then((res) => {
-          // console.log(res.result.res_data)
+          console.log(res)
           if (res.result && res.result.res_code == 1) {
             this.myApplyList = res.result.res_data;
           }
