@@ -40,21 +40,33 @@
       </ion-row>
     </ion-grid>
 
+
     <ion-item>
       <ion-label floating>请输入公司邮箱</ion-label>
       <ion-input (ngModelChange)="watch($event)" type="text" [(ngModel)]="email"></ion-input>
     </ion-item>
-
     <ion-item>
       <ion-label floating>请输入密码</ion-label>
       <ion-input  type="password" [(ngModel)]="password"></ion-input>
     </ion-item>
   </ion-list>
+  <ion-list *ngIf="history_arr" style="position:absolute;z-index:999;width:inherit;margin-top:-85px;width:95%">
+    <ion-item  *ngFor='let item of history_arr' tappable (click)="click(item)">
+          <p>{{item.email}}</p>
+        </ion-item>
+        <!--<ion-item tappable (click)="click()">
+          <p>candy.guo@robotime.com</p>
+        </ion-item>
+        <ion-item tappable (click)="click()">
+          <p>julia.liu@robotime.com</p>
+        </ion-item>-->
+        
+  </ion-list>
 
 
   <br />
 
-  <button id="login_button" ion-button style="background:#438dbd ;color:white" outline block tappable (click)="toLogin()">
+  <button id="login_button" ion-button style="background:#438dbd ;color:white;position:absolute" outline block tappable (click)="toLogin()">
     登录
   </button>
 

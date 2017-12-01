@@ -42,6 +42,7 @@ export class LoginPage {
   isSelected3 = false;
   db;
   email_length;
+  history_arr = [];
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private loginservice: LoginService, private myHttp: Http, private storage: Storage, public platform: Platform, public appVersion: AppVersion,
     public jpush: JPush, public urlServer: UrlServer,
@@ -178,30 +179,28 @@ export class LoginPage {
       })
   }
   watch(event){
-    console.log(this.email_length)
+    console.log(this.email)
     if (this.email)
     {
-      if (this.email_length < this.email.length)
-    {
-      this.storage.get("history_users").then(res => {
+      this.history_arr = []
+    this.storage.get("history_users").then(res => {
       if(res){
         console.log(res)
-        console.log(this.email)
+        
         for (let item of res) {
-          console.log((new RegExp(this.email).test(item.email)))
+          // console.log((new RegExp(this.email).test(item.email)))
         if ((new RegExp(this.email).test(item.email)))
         {
-          this.email = item.email;
-          this.password = item.password;
-          break;
+          this.history_arr.push(item);
         }
        }
       }  
     })
-  }
-  this.email_length = this.email.length;
     }
-    
-  
+  }
+  click(item){
+    this.email = item.email;
+    this.password = item.password;
+    this.history_arr = [];
   }
 }
