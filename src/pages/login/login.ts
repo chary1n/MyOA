@@ -172,8 +172,9 @@ export class LoginPage {
             db_name: this.employee,
             url: HttpService.appUrl
           })
-
-          this.storage.get("history_users").then(res => {
+          if (this.remerberPassword)
+          {
+            this.storage.get("history_users").then(res => {
             if (res) {
               let arr = res
               let need_add = true;
@@ -208,6 +209,8 @@ export class LoginPage {
               this.storage.set("history_users", arr);
             }
           })
+          }
+          
 
 
           this.storage.set("user", res).then(() => {
