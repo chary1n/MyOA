@@ -123,6 +123,16 @@ export class CommonUseServices {
         return this.httpservice.postBody("get_zanzhi_list", body);
     }
 
+    get_zanzhi_listNoLoading(id,limit,offset,type){
+        let body = JSON.stringify({
+            user_id:id,
+            limit :limit,
+            offset:offset,
+            type :type 
+        });
+        return this.httpservice.postBodyNoLoading("get_zanzhi_list", body);
+    }
+
     searchZanzhiList(id,type,data,text){
         let body = JSON.stringify({
             user_id:id,

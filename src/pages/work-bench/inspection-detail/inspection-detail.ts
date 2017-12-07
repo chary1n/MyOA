@@ -5,7 +5,6 @@ import { APK_DOWNLOAD } from './../../../providers/Constants';
 import { InspectionService } from './inspectionService';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
-import { reject } from 'q';
 
 /**
  * Generated class for the InspectionDetailPage page.

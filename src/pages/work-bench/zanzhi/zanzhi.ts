@@ -46,8 +46,19 @@ export class ZanzhiPage {
       this.commonServices.get_zanzhi_list( this.user_id,this.limit, this.offset,"wait_apply").then((res) => {
         console.log(res);
         if (res.result && res.result.res_code == 1) {
+          this.wait_approval_list = res.result.res_data
+        }
+      })
+      this.commonServices.get_zanzhi_listNoLoading( this.user_id,this.limit, this.offset,"apply").then((res) => {
+        console.log(res);
+        if (res.result && res.result.res_code == 1) {
           this.applyList = res.result.res_data
-          this.waitMeNumber = this.applyList?this.applyList.length:0 ;
+        }
+      })
+      this.commonServices.get_zanzhi_listNoLoading( this.user_id,this.limit, this.offset,"applyed").then((res) => {
+        console.log(res);
+        if (res.result && res.result.res_code == 1) {
+          this.already_approval_list = res.result.res_data
         }
       })
     });

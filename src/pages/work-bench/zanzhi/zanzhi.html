@@ -16,7 +16,7 @@
           我的暂支
         </ion-segment-button>
         <ion-segment-button tappable (click)='clickState()' value="1">
-          待我审批({{waitMeNumber}})
+          待我审批({{applyList?applyList.length:0 }})
         </ion-segment-button>
         <ion-segment-button tappable (click)='clickState()' value="2">
           我已审批
