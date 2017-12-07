@@ -19,6 +19,7 @@ import { AppVersion } from '@ionic-native/app-version';
 import { Platform } from 'ionic-angular';
 import { UrlServer } from '../../providers/UrlServer';
 
+declare let cordova: any;
 
 
 // import { ChangeDetectorRef } from '@angular/core/src/change_detection/change_detector_ref';
@@ -105,7 +106,8 @@ export class LoginPage {
     this.isSelected1 = true;
     this.isSelected2 = false;
     this.isSelected3 = false;
-    HttpService.appUrl = "http://js.robotime.com/"
+    // HttpService.appUrl = "http://js.robotime.com/"
+    HttpService.appUrl = "http://192.168.88.135:8069/"
     this.getDB();
   }
 
@@ -254,8 +256,31 @@ export class LoginPage {
     }
   }
   click(item){
+    console.log("2")
     this.email = item.email;
     this.password = item.password;
     this.history_arr = [];
+    if (this.platform.is('ios'))
+    {
+      cordova.plugins.Keyboard.close();
+    }
   }
+
+  panEvent($event){
+    this.history_arr = []
+    if (this.platform.is('ios'))
+    {
+      cordova.plugins.Keyboard.close();
+    }
+     
+  }
+
+  tap(){
+    this.history_arr = []
+    if (this.platform.is('ios'))
+    {
+      cordova.plugins.Keyboard.close();
+    }
+  }
+
 }

@@ -67,7 +67,7 @@ export class WorkBenchPage {
   }
 
   ProductionSearch() {
-    this.navCtrl.push('ProductionSearchPage');
+    this.navCtrl.push('NewProductionPage');
   }
 
   reimbursement(){

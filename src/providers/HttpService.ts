@@ -131,6 +131,7 @@ export class HttpService {
   }
 
   private handleSuccess(result) {
+    console.log(result)
     if (result.error)
     {
       this.ctrl.create({
