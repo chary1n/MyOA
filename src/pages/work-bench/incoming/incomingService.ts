@@ -14,7 +14,8 @@ export class IncomingService {
             picking_type_id: 1,
             state: "validate",
             limit:mlimit,
-            offset:moffset
+            offset:moffset,
+            uid:HttpService.user_id
         });
        return this.httpservice.postBody("get_stock_picking_list",body,1);
     }

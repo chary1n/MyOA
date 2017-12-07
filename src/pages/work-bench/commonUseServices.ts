@@ -156,8 +156,54 @@ export class CommonUseServices {
     }
 
 
+    get_zanzhi_reminding(){
+        let body = JSON.stringify({
+            uid:HttpService.user_id,
+        });
+       return this.httpservice.postBody("get_zanzhi_reminding",body);
+    }
 
 
+
+    save_zanzhi(amount,remark,submit){
+        let body = JSON.stringify({
+            uid:HttpService.user_id,
+            amount:amount,
+            remark:remark,
+            submit:submit
+        });
+       return this.httpservice.postBody("create_zanzhi",body);
+    }
+
+    save_edit_zanzhi(amount,remark,submit,id){
+        let body = JSON.stringify({
+            uid:HttpService.user_id,
+            amount:amount,
+            remark:remark,
+            submit:submit,
+            order_id:id
+        });
+       return this.httpservice.postBody("save_edit_zanzhi",body);
+    }
+
+
+    submitOrder(id){
+        let body = JSON.stringify({
+            uid:HttpService.user_id,
+            id:id
+        });
+       return this.httpservice.postBody("submit_order",body);
+    }
+
+
+    callbackOrder(description,id){
+        let body = JSON.stringify({
+            uid:HttpService.user_id,
+            id:id,
+            description:description
+        });
+       return this.httpservice.postBody("callback_order",body);
+    }
 
 
 

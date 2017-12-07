@@ -5,6 +5,7 @@ import { APK_DOWNLOAD } from './../../../providers/Constants';
 import { InspectionService } from './inspectionService';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { reject } from 'q';
 
 /**
  * Generated class for the InspectionDetailPage page.
@@ -26,7 +27,8 @@ export class InspectionDetailPage {
   qc_color: any;
   pack: any;
   mIncomingDetailPage: any;
-  isClick = false ;
+  isClick = false;
+  showFenjian = false ;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private alertCtrl: AlertController,
@@ -37,6 +39,13 @@ export class InspectionDetailPage {
   }
   initData(mitem) {
     this.item = mitem
+    let rejectQTY = 0;
+    for (let item of this.item.pack_operation_product_ids) {
+      rejectQTY += item.rejects_qty
+    }
+    if(rejectQTY>0){
+      this.showFenjian = true ;
+    }
     if (this.item.qc_result == 'success') {
       this.qc_result = '品检通过'
     } else if (this.item.qc_result == 'no_result') {
@@ -89,7 +98,7 @@ export class InspectionDetailPage {
       .then(res => {
         if (res.result && res.result.res_code == 1) {
           self.mIncomingDetailPage.data.item = res.result.res_data;
-          this.initData(res.result.res_data );
+          this.initData(res.result.res_data);
           self.mIncomingDetailPage.data.isPop = true;
           self.navCtrl.popTo(self.mIncomingDetailPage);
         }
@@ -121,9 +130,9 @@ export class InspectionDetailPage {
     }
     if (rejectQTY > 0) {
       // 有不良品
-      if(!this.isClick){
+      if (!this.isClick) {
         this.contansBadProduct(QTYDone - rejectQTY, rejectQTY, productQTY, QTYDone)
-      }else{
+      } else {
         this.contansBadProduct(QTYDone, rejectQTY, productQTY, QTYDone)
       }
     } else {
@@ -165,8 +174,8 @@ export class InspectionDetailPage {
             this.inspectionService.allIncoming(this.pack, this.item.picking_id)
               .then(res => {
                 if (res.result && res.result.res_code == 1) {
-                  this.initData(res.result.res_data );
-                  this.isClick = true ;
+                  this.initData(res.result.res_data);
+                  this.isClick = true;
                   this.checkIfHaveDebt(productQTY, QTYDone, rejectQTY, true)
                 }
               })
@@ -178,8 +187,8 @@ export class InspectionDetailPage {
             this.inspectionService.onlyGoodProductsIncoming(this.pack, this.item.picking_id)
               .then(res => {
                 if (res.result && res.result.res_code == 1) {
-                  this.initData(res.result.res_data );
-                  this.isClick = true ;
+                  this.initData(res.result.res_data);
+                  this.isClick = true;
                   this.checkIfHaveDebt(productQTY, QTYDone, rejectQTY, false)
                 }
               })
@@ -207,7 +216,7 @@ export class InspectionDetailPage {
               .then(res => {
                 if (res.result && res.result.res_code == 1) {
                   self.mIncomingDetailPage.data.item = res.result.res_data;
-                  this.initData(res.result.res_data );
+                  this.initData(res.result.res_data);
                   self.mIncomingDetailPage.data.isPop = true;
                   self.navCtrl.popTo(self.mIncomingDetailPage);
                 }
@@ -222,7 +231,7 @@ export class InspectionDetailPage {
               .then(res => {
                 if (res.result && res.result.res_code == 1) {
                   self.mIncomingDetailPage.data.item = res.result.res_data;
-                  this.initData(res.result.res_data );
+                  this.initData(res.result.res_data);
                   self.mIncomingDetailPage.data.isPop = true;
                   self.navCtrl.popTo(self.mIncomingDetailPage);
                 }
@@ -239,30 +248,107 @@ export class InspectionDetailPage {
     alert.present()
   }
 
+
+  goFenJian() {
+    let self = this
+    let alert = this.alertCtrl.create({
+      title: "提示",
+      subTitle: '确定全部送去分拣?',
+      message: "说明:分拣后将按照分拣结果良品入库,不良品退回",
+      buttons: [
+        {
+          text: '取消',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: '确定',
+          handler: () => {
+            this.inspectionService.goFenjian(this.pack, this.item.picking_id)
+            .then(res => {
+                if (res.result && res.result.res_code == 1) {
+                  this.initData(res.result.res_data);
+                  this.isClick = true;
+                  let rejectQTY = 0;
+                  let productQTY = 0;
+                  let QTYDone = 0;
+                  for (let item of this.item.pack_operation_product_ids) {
+                    rejectQTY += item.rejects_qty
+                    productQTY += item.product_qty
+                    QTYDone += item.qty_done
+                  }
+                  if (productQTY > QTYDone - rejectQTY) {
+                    // 有未完成数量
+                    this.alertCreateDebt()
+                  } else {
+                    // 入库调拨成功，等待分拣
+                    this.alertWaitingFenjian()
+                  }
+              }
+              console.log(res)
+            })
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+
+
+
   alertWaitingIncoming() {
     let self = this
     this.inspectionService.noDebtOrder(this.pack, this.item.picking_id)
-    .then(res => {
-      if (res.result && res.result.res_code == 1) {
-        self.mIncomingDetailPage.data.item = res.result.res_data;
-        this.initData(res.result.res_data );
-        self.mIncomingDetailPage.data.isPop = true;
-        let alert = this.alertCtrl.create({
-          title: '提示',
-          message: "入库调拨成功，等待入库",
-          buttons: [
-            {
-              text: '确定',
-              handler: () => {
-                self.navCtrl.popTo(self.mIncomingDetailPage);
-              }
-            },
-          ]
-        })
-        alert.present()
-      }
-      console.log(res)
-    })
+      .then(res => {
+        if (res.result && res.result.res_code == 1) {
+          self.mIncomingDetailPage.data.item = res.result.res_data;
+          this.initData(res.result.res_data);
+          self.mIncomingDetailPage.data.isPop = true;
+          let alert = this.alertCtrl.create({
+            title: '提示',
+            message: "入库调拨成功，等待入库",
+            buttons: [
+              {
+                text: '确定',
+                handler: () => {
+                  self.navCtrl.popTo(self.mIncomingDetailPage);
+                }
+              },
+            ]
+          })
+          alert.present()
+        }
+        console.log(res)
+      })
+  }
+
+
+  alertWaitingFenjian() {
+    let self = this
+    this.inspectionService.noDebtOrder(this.pack, this.item.picking_id)
+      .then(res => {
+        if (res.result && res.result.res_code == 1) {
+          self.mIncomingDetailPage.data.item = res.result.res_data;
+          this.initData(res.result.res_data);
+          self.mIncomingDetailPage.data.isPop = true;
+          let alert = this.alertCtrl.create({
+            title: '提示',
+            message: "入库调拨成功，等待分拣",
+            buttons: [
+              {
+                text: '确定',
+                handler: () => {
+                  self.navCtrl.popTo(self.mIncomingDetailPage);
+                }
+              },
+            ]
+          })
+          alert.present()
+        }
+        console.log(res)
+      })
   }
 
 }

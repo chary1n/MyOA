@@ -11,6 +11,8 @@ import { Storage } from '@ionic/storage';
 @Injectable()
 export class HttpService {
   static appUrl ;
+  static user_id ;
+  static user ;
   constructor(private http: Http,private loading :LoadingController,
     public storage :Storage,public ctrl:AlertController
   ) {

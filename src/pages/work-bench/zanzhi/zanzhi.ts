@@ -1,3 +1,4 @@
+import { IMAGE_SIZE } from './../../../providers/Constants';
 import { Storage } from '@ionic/storage';
 import { CommonUseServices } from './../commonUseServices';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
@@ -23,7 +24,7 @@ export class ZanzhiPage {
   already_approval_list: any;
   isMoreData1 = true;
   isMoreData2 = true;
-  applyList: any;
+  applyList;
   leaveList;
   user;
   user_id;
@@ -31,6 +32,8 @@ export class ZanzhiPage {
   limit = 20;
   offset = 0;
   isMoreData = true;
+  waitMeNumber  ;
+  need_fresh ;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public commonServices :CommonUseServices ,
@@ -40,10 +43,11 @@ export class ZanzhiPage {
     .then(res => {
       console.log(res);
       this.user_id = res.result.res_data.user_id;
-      this.commonServices.get_zanzhi_list( this.user_id,this.limit, this.offset,"apply").then((res) => {
+      this.commonServices.get_zanzhi_list( this.user_id,this.limit, this.offset,"wait_apply").then((res) => {
         console.log(res);
         if (res.result && res.result.res_code == 1) {
           this.applyList = res.result.res_data
+          this.waitMeNumber = this.applyList?this.applyList.length:0 ;
         }
       })
     });
@@ -198,6 +202,12 @@ export class ZanzhiPage {
     return new_date;
   }
 
+
+  showActionSheet(){
+    this.navCtrl.push("ZanzhiApplyPage")
+  }
+    
+
   changeState(state) {
     if (state == 'draft') {
       return '草稿'
@@ -219,6 +229,8 @@ export class ZanzhiPage {
       return state;
     }
   }
+
+
 
 
 }
