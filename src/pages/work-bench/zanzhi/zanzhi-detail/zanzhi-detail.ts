@@ -4,6 +4,7 @@ import { NavController, NavParams, IonicPage } from 'ionic-angular';
 import { Component } from '@angular/core';
 import { AlertController } from 'ionic-angular/components/alert/alert-controller';
 import { Storage } from '@ionic/storage/es2015/storage';
+import { ToastController } from 'ionic-angular/components/toast/toast-controller';
 
 /**
  * Generated class for the ZanzhiDetailPage page.
@@ -22,12 +23,15 @@ export class ZanzhiDetailPage {
   pet ;
   user_id ;
   frontPage ;
+  state ;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public alertCtrl :AlertController,
     public storage :Storage,
-    public commonServices :CommonUseServices) {
+    public commonServices :CommonUseServices,
+    public toastCtrl :ToastController) {
     this.frontPage = Utils.getViewController("ZanzhiPage", navCtrl)
     this.res_data = this.navParams.get('item')
+    this.state = this.res_data.state
     this.pet = this.navParams.get('pet')
     this.storage.get('user')
     .then(res => {
@@ -164,5 +168,106 @@ export class ZanzhiDetailPage {
   changeDate(date){
     let new_date = new Date(date.replace(' ', 'T') + 'Z').getTime();
     return new_date;
+  }
+
+  callbackOrder(){
+    let prompt = this.alertCtrl.create({
+      title: '确定撤回暂支单?',
+      inputs: [
+        {
+          name: 'descrption',
+        },
+      ],
+      buttons: [
+        {
+          text: '取消',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: '确定',
+          handler: data => {
+            console.log(data['descrption'])
+            if(data['descrption']){
+              this.commonServices.callbackOrder(data['descrption'],this.res_data.id).then(res=>{
+                if(res.result&&res.result.res_code==1){
+                  this.alertCtrl.create({
+                    title: '提示',
+                    subTitle: "撤回成功",
+                    buttons: [
+                        {
+                            text: '确定',
+                            handler: () => {
+                              this.frontPage.data.need_fresh=true
+                              this.navCtrl.pop()
+                            }
+                        }
+                    ]
+                 }).present();
+                }
+              })
+            }else{
+              Utils.toastButtom("请填写撤回理由",this.toastCtrl)
+            }
+          }
+        }
+      ]
+    });
+    prompt.present();
+  }
+
+  editOrder(){
+    this.navCtrl.push("ZanzhiApplyPage",{res_data:this.res_data})
+  }
+
+  
+  submitOrder(){
+    let ctrl = this.alertCtrl;
+    ctrl.create({
+      title: '提示',
+      message: "确定提交审核?",
+      buttons: [
+      {
+        text: '取消',
+        handler: () => {
+        }
+      },
+      {
+        text: '确定',
+        handler: () => {
+          this.commonServices.submitOrder( this.res_data.id).then(res=>{
+            if(res.result&&res.result.res_code==1){
+              this.frontPage.data.need_fresh = true;
+              this.navCtrl.pop()
+            }
+          })
+        }
+      }
+      ],
+    }).present();
+  }
+
+
+  changeState(state) {
+    if (state == 'draft') {
+      return '草稿'
+    } else if (state == "confirm") {
+      return '确认'
+    } else if (state == "manager1_approve") {
+      return '1级审核'
+    } else if (state == "manager2_approve") {
+      return '2级审核'
+    } else if (state == "manager3_approve") {
+      return 'General Manager Approved'
+    } else if (state == "approve") {
+      return '批准'
+    } else if (state == "paid") {
+      return '已支付'
+    } else if (state == "cancel") {
+      return '取消'
+    } else {
+      return state;
+    }
   }
 }

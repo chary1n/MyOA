@@ -13,7 +13,8 @@ export class InspectionService {
         let body = JSON.stringify({
             state: 'reject',
             pack_operation_product_ids: production_ids,
-            picking_id: pickIds
+            picking_id: pickIds,
+            uid:HttpService.user_id
         });
         return this.httpservice.postBody("change_stock_picking_state", body, 1);
     }
@@ -22,7 +23,8 @@ export class InspectionService {
         let body = JSON.stringify({
             state: 'process',
             pack_operation_product_ids: production_ids,
-            picking_id: pickIds
+            picking_id: pickIds,
+            uid:HttpService.user_id
         });
         return this.httpservice.postBody("change_stock_picking_state", body, 1);
     }
@@ -33,7 +35,21 @@ export class InspectionService {
         let body = JSON.stringify({
             state: 'cancel_backorder',
             pack_operation_product_ids: production_ids,
-            picking_id: pickIds
+            picking_id: pickIds,
+            uid:HttpService.user_id
+        });
+        return this.httpservice.postBody("change_stock_picking_state", body, 1);
+    }
+
+
+    //去分拣
+    goFenjian(production_ids, pickIds) {
+        let body = JSON.stringify({
+            state: 'picking_done',
+            is_all: "part",
+            pack_operation_product_ids: production_ids,
+            picking_id: pickIds,
+            uid:HttpService.user_id
         });
         return this.httpservice.postBody("change_stock_picking_state", body, 1);
     }
@@ -45,7 +61,8 @@ export class InspectionService {
             state: 'transfer_way',
             pack_operation_product_ids: production_ids,
             picking_id: pickIds,
-            is_all: 'all'
+            is_all: 'all',
+            uid:HttpService.user_id
         });
         return this.httpservice.postBody("change_stock_picking_state", body, 1);
     }
@@ -57,7 +74,8 @@ export class InspectionService {
             state: 'transfer_way',
             pack_operation_product_ids: production_ids,
             picking_id: pickIds,
-            is_all: 'part'
+            is_all: 'part',
+            uid:HttpService.user_id
         });
         return this.httpservice.postBody("change_stock_picking_state", body, 1);
     }

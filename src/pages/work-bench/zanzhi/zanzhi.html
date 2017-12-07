@@ -16,7 +16,7 @@
           我的暂支
         </ion-segment-button>
         <ion-segment-button tappable (click)='clickState()' value="1">
-          待我审批
+          待我审批({{waitMeNumber}})
         </ion-segment-button>
         <ion-segment-button tappable (click)='clickState()' value="2">
           我已审批
@@ -87,5 +87,10 @@
       </ng-template>
     </div>
   </ion-content>
+
+  <ion-footer *ngIf="pet == '0'">
+      <button ion-button (click)="showActionSheet()" full> 我要申请</button>
+    </ion-footer>
+
   
   
