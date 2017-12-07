@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { IonicPage, NavController, NavParams, PopoverController, ViewController, Events,Slides } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, PopoverController, ViewController, Events,Slides,LoadingController } from 'ionic-angular';
 import { NewProductionService} from './../new-productionService'
 import { NewProductionAutoService} from './../new-production-auto'
 
@@ -19,13 +19,12 @@ export class NewProductListPage {
   item;
   origin_arr = [];
   constructor(public navCtrl: NavController, public navParams: NavParams,public newProductionService:NewProductionService,
-  public newProductionAutoService:NewProductionAutoService) {
+  public newProductionAutoService:NewProductionAutoService,public loading:LoadingController) {
     this.item = navParams.get('item')
     if (this.item)
     {
       this.origin_arr = this.item.concat()
-    }
-    
+    }    
   }
 
   ionViewDidLoad() {
@@ -45,12 +44,17 @@ export class NewProductListPage {
   }
 
   itemClick(items){
-    this.navCtrl.push('NewProductDetailPage',{
-      item:items,
-    })
+      this.navCtrl.push('NewProductDetailPage',{
+        item:items,
+      }) 
   }
 
   itemSelected(event){
+    let loading = this.loading.create({  
+      enableBackdropDismiss: true
+    });  
+    loading.present();  
+     
     if (event.id == 1)
     {
        let search_text = event.name.replace("搜 产品名：", "")
@@ -75,6 +79,8 @@ export class NewProductListPage {
        }
        this.item = result_arr;
     }
+    loading.dismiss();
   }
+  
 
 }

@@ -26,7 +26,7 @@ export class NewProductionPage {
   @ViewChild('contentSlides') contentSlides: Slides;
   constructor(public navCtrl: NavController, public navParams: NavParams,public newProductionService:NewProductionService,
   public newProductionAutoService:NewProductionAutoService) {
-    this.newProductionService.search_product_category("若态物料",null).then(res_2 => {
+    this.newProductionService.search_product_category_no_loading("若态物料",null).then(res_2 => {
       if (res_2.result && res_2.result.res_code == 1) {
         this.menus =res_2.result.res_data
         this.newProductionService.search_product_category(null,this.menus[0].id).then(res => {

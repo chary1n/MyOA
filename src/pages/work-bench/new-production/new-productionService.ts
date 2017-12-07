@@ -8,6 +8,13 @@ export class NewProductionService {
     constructor(private httpservice: HttpService) {
 
     }
+    search_product_category_no_loading(type,parent_id){
+        let body = JSON.stringify({
+            type: type,
+            parent_id:parent_id,
+        });
+        return this.httpservice.postBodyNoLoading("search_product_category", body);
+    }
     search_product_category(type,parent_id){
         let body = JSON.stringify({
             type: type,
