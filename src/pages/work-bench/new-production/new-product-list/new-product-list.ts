@@ -21,7 +21,11 @@ export class NewProductListPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,public newProductionService:NewProductionService,
   public newProductionAutoService:NewProductionAutoService) {
     this.item = navParams.get('item')
-    this.origin_arr = this.item.concat()
+    if (this.item)
+    {
+      this.origin_arr = this.item.concat()
+    }
+    
   }
 
   ionViewDidLoad() {
