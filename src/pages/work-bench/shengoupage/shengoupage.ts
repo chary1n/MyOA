@@ -3,6 +3,7 @@ import { NavController, NavParams, IonicPage } from 'ionic-angular';
 import { ShenGouService } from './shengouService'
 import { Storage } from '@ionic/storage';
 import { ShenGouAutoService } from './shengouAutoService'
+import { HttpService } from '../../../providers/HttpService';
 
 
 /**
@@ -29,6 +30,7 @@ export class ShengoupagePage {
   isMoreData1 = true;
   isMoreData2 = true;
   isMoreData3 = true;
+  wait_approval_count
   constructor(public navCtrl: NavController, public navParams: NavParams, public shengouService: ShenGouService
     , public storage: Storage, public shenGouAutoService: ShenGouAutoService) {
     this.storage.get('user')
@@ -36,10 +38,10 @@ export class ShengoupagePage {
         this.user_id = res.result.res_data.user_id;
         this.limit = 20;
         this.offset = 0;
-        this.shengouService.getshengouList(this.limit, this.offset, this.user_id).then((res) => {
+        this.shengouService.get_wait_audit_purchase(this.limit, this.offset, this.user_id).then((res) => {
           console.log(res)
           if (res.result && res.result.res_code == 1) {
-            this.myApplyList = res.result.res_data;
+            this.wait_me_audit_list = res.result.res_data;
           }
         })
       });
@@ -55,6 +57,12 @@ export class ShengoupagePage {
       this.reloadData(null);
       this.navParams.data.need_fresh = false;
     }
+    this.shengouService.get_shengou_count(HttpService.user_id).then((res) => {
+      console.log(res);
+      if (res.result && res.result.res_code == 1) {
+        this.wait_approval_count = res.result.res_data
+      }
+    })
   }
 
   clickMyApply() {

@@ -45,7 +45,7 @@ export class InspectionService {
     //去分拣
     goFenjian(production_ids, pickIds) {
         let body = JSON.stringify({
-            state: 'picking_done',
+            state: 'to_picking',
             is_all: "part",
             pack_operation_product_ids: production_ids,
             picking_id: pickIds,
