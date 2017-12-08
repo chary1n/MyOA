@@ -13,7 +13,7 @@ export class ShareknowledgeService{
                 type:type,
             });
             return this.httpservice.postBody("get_blog_list",body);
-    }
+    } 
     getblogCloum(){
         let body = JSON.stringify({
     
@@ -36,6 +36,15 @@ export class ShareknowledgeService{
             is_tag_id : true,
             is_first: true,
             tag_id : tag_id,
+        });
+        return this.httpservice.postBody("get_blog_list", body)
+    }
+    //搜索
+    getSearchList(search_type, search_body){
+        let body = JSON.stringify({
+            type : "search",
+            search_type: search_type,
+            search_body: search_body,
         });
         return this.httpservice.postBody("get_blog_list", body)
     }

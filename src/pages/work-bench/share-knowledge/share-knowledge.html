@@ -28,6 +28,7 @@
 
 
 <ion-content padding style="background:#f0f0f0">
+  <ion-auto-complete style="width: 100vw;" (itemSelected)="itemSelected0($event)" [dataProvider]="shareAutoService"></ion-auto-complete>
     <ion-refresher (ionRefresh)="doRefresh($event)">
         <ion-refresher-content></ion-refresher-content>
     </ion-refresher>
@@ -60,14 +61,15 @@
           <ion-list>
             <ion-item *ngFor='let item of columBlogList' tappable (click)='getblogDetailfirst(item)'>
               <img src="assets/img/colum_blog.png" class="image2" style="float:left;">
-              <h4 text-wrap style="font-size:80%;font-weight:bold;color:#04AAF4;line-height:10px;margin-left: 20px">{{item.name}}</h4>
+              <h4 text-wrap style="font-size:80%;font-weight:bold;color:#04AAF4;line-height:12px;margin-left: 20px">{{item.name}}</h4>
               <ion-grid>
                       <ion-row>
-                          <ion-col col-3 class="gridview" *ngFor='let items of item.blog_tag_ids' (click)='getblogDetailFrom(items);$event.stopPropagation()'>{{items.tag_name}}</ion-col>
+                          <ion-col col-5 class="gridview" wider  *ngFor='let items of item.blog_tag_ids' (click)='getblogDetailFrom(items);$event.stopPropagation()'>{{items.tag_name}}</ion-col>
                       </ion-row>
               </ion-grid>
             </ion-item>
           </ion-list>
+          
         </ng-template>
   </div>
 </ion-content>
