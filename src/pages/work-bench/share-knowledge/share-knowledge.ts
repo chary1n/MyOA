@@ -1,8 +1,8 @@
-import { CompleteTestService } from './../supplier-list/supplierauto-service';
 import { ShareknowledgeService } from './shareknowledgeService';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams ,ToastController} from 'ionic-angular';
 import { Utils } from './../../../providers/Utils';
+import { ShareAutoService } from './share-service'
 
 /**
  * Generated class for the ShareKnowledgePage page.
@@ -14,7 +14,7 @@ import { Utils } from './../../../providers/Utils';
 @Component({
   selector: 'page-share-knowledge',
   templateUrl: 'share-knowledge.html',
-  providers: [ShareknowledgeService],
+  providers: [ShareknowledgeService,ShareAutoService],
 })
 export class ShareKnowledgePage {
   pet : String = "1";
@@ -25,7 +25,8 @@ export class ShareKnowledgePage {
   allBlogList: any;
   columBlogList: any;
   constructor(public navCtrl: NavController, public navParams: NavParams, 
-    public shareknowledgeService: ShareknowledgeService,public toastCtrl:ToastController) {
+    public shareknowledgeService: ShareknowledgeService,public toastCtrl:ToastController
+  ,public shareAutoService: ShareAutoService) {
     this.shareknowledgeService.getblogList("hot",20,0).then((res) =>{
           this.hotBlogList = res.result.res_data
     })
@@ -40,6 +41,34 @@ export class ShareKnowledgePage {
 
   }
 
+  itemSelected0(event){
+    let type;
+    let search_text;
+    if (event.id == 1) {
+      type = "name";
+      search_text = event.name.replace("搜 标题:", "")
+    }
+    else if (event.id == 2) {
+      type = "content";
+      search_text = event.name.replace("搜 正文:", "")
+    } 
+    else if (event.id == 3) {
+      type = "create_uid";
+      search_text = event.name.replace("搜 发布人:", "")
+    }
+    console.log(search_text);
+    this.shareknowledgeService.getSearchList(type, search_text).then((res) =>{
+      console.log(res);
+      if(res.result.res_data!=null && res.result.res_code==1){
+        if(res.result.res_data.length>0){
+          this.navCtrl.push('ShareknowlelistPage', {
+            item: res.result.res_data,  
+            tag_name: '搜索',
+          })
+        }
+      }
+})
+  }
   changeDate(date) {
     let new_date = new Date(date.replace(' ', 'T') + 'Z').getTime();
     return new_date;
