@@ -110,8 +110,8 @@ export class LoginPage {
     this.isSelected1 = true;
     this.isSelected2 = false;
     this.isSelected3 = false;
-    // HttpService.appUrl = "http://js.robotime.com/"
-    HttpService.appUrl = "http://192.168.88.135:8069/"
+    HttpService.appUrl = "http://js.robotime.com/"
+    // HttpService.appUrl = "http://192.168.88.135:8069/"
     this.getDB();
   }
 
@@ -127,8 +127,8 @@ export class LoginPage {
     this.isSelected3 = true;
     this.isSelected2 = false;
     this.isSelected1 = false;
-    // HttpService.appUrl = "http://erp.robotime.com/"
-    HttpService.appUrl = "http://192.168.2.38:8111/"
+    HttpService.appUrl = "http://erp.robotime.com/"
+    // HttpService.appUrl = "http://192.168.2.38:8111/"
     this.getDB();
   }
 
