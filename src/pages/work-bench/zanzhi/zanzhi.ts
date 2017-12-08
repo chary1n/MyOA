@@ -1,3 +1,4 @@
+import { IMAGE_SIZE } from './../../../providers/Constants';
 import { Storage } from '@ionic/storage';
 import { CommonUseServices } from './../commonUseServices';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
@@ -20,10 +21,11 @@ import { ZanzhiAutoService } from './zanzhi-auto';
 export class ZanzhiPage {
   pet: string = "1"; 
   wait_approval_list: any;
+  wait_approval_count ;
   already_approval_list: any;
   isMoreData1 = true;
   isMoreData2 = true;
-  applyList: any;
+  applyList;
   leaveList;
   user;
   user_id;
@@ -31,6 +33,10 @@ export class ZanzhiPage {
   limit = 20;
   offset = 0;
   isMoreData = true;
+  waitMeNumber  ;
+  need_fresh ;
+  already_approval_count;
+  apply_count;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public commonServices :CommonUseServices ,
@@ -40,13 +46,19 @@ export class ZanzhiPage {
     .then(res => {
       console.log(res);
       this.user_id = res.result.res_data.user_id;
-      this.commonServices.get_zanzhi_list( this.user_id,this.limit, this.offset,"apply").then((res) => {
-        console.log(res);
-        if (res.result && res.result.res_code == 1) {
-          this.applyList = res.result.res_data
-        }
-      })
+      this.refreshCount()
     });
+  }
+
+
+  refreshCount(){
+    this.commonServices.get_zanzhi_listNoLoading( this.user_id,this.limit, this.offset,"wait_apply").then((res) => {
+      console.log(res);
+      if (res.result && res.result.res_code == 1) {
+        this.wait_approval_list = res.result.res_data.data
+        this.wait_approval_count = res.result.res_data.count
+      }
+    })
   }
 
   ionViewDidLoad() {
@@ -59,6 +71,7 @@ export class ZanzhiPage {
       this.navParams.data.need_fresh = false;
       this.addData()
     }
+    this.refreshCount()
   }
 
   addData(){
@@ -67,7 +80,7 @@ export class ZanzhiPage {
     this.offset = 0;
     this.commonServices.get_zanzhi_list(this.user_id,20,0,this.getType()).then(res=>{
       if(res.result&&res.result.res_code==1){
-        let list = res.result.res_data ;
+        let list = res.result.res_data.data ;
         if(this.pet=="0"){
           this.applyList=list
         }else if(this.pet=='1'){
@@ -86,7 +99,7 @@ export class ZanzhiPage {
     this.commonServices.get_zanzhi_list(this.user_id,20,0,this.getType()).then(res=>{
       refresh.complete();
       if(res.result&&res.result.res_code==1){
-        let list = res.result.res_data ;
+        let list = res.result.res_data.data ;
         if(this.pet=="0"){
           this.applyList=list
         }else if(this.pet=='1'){
@@ -104,8 +117,8 @@ export class ZanzhiPage {
       this.offset = this.offset + 20;
       this.commonServices.get_zanzhi_list(this.user_id,this.limit,this.offset,this.getType()).then(res=>{
         let item_data = [];
-        if (res.result.res_data) {
-          item_data = res.result.res_data;
+        if (res.result.res_data.data) {
+          item_data = res.result.res_data.data;
           if (item_data.length == 20) {
             this.isMoreData = true;
           }
@@ -137,7 +150,7 @@ export class ZanzhiPage {
     this.offset = 0 ;
     this.commonServices.get_zanzhi_list(this.user_id,20,0,this.getType()).then(res=>{
       if(res.result&&res.result.res_code==1){
-        let list = res.result.res_data ;
+        let list = res.result.res_data.data ;
         if(this.pet=="0"){
           this.applyList=list
         }else if(this.pet=='1'){
@@ -159,7 +172,7 @@ export class ZanzhiPage {
     }
     else if (event.id == 2) {
       data = 'name'
-      search_text = event.name.replace("搜 SN:", "")
+      search_text = event.name.replace("搜 单号:", "")
     }
     this.commonServices.searchZanzhiList(this.user_id, this.getType(), data,search_text).then((res) => {
       if (res.result && res.result.res_code == 1) {
@@ -198,6 +211,12 @@ export class ZanzhiPage {
     return new_date;
   }
 
+
+  showActionSheet(){
+    this.navCtrl.push("ZanzhiApplyPage")
+  }
+    
+
   changeState(state) {
     if (state == 'draft') {
       return '草稿'
@@ -219,6 +238,4 @@ export class ZanzhiPage {
       return state;
     }
   }
-
-
 }

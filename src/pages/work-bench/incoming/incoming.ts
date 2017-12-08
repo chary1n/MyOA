@@ -1,3 +1,4 @@
+import { IncomingAutoService } from './incomingAutoService';
 import { IncomingService } from './incomingService';
 import { APK_DOWNLOAD } from './../../../providers/Constants';
 import { Component } from '@angular/core';
@@ -14,7 +15,7 @@ import { Loading, LoadingController } from 'ionic-angular';
 @Component({
   selector: 'page-incoming',
   templateUrl: 'incoming.html',
-  providers: [IncomingService]
+  providers: [IncomingService,IncomingAutoService]
 })
 export class IncomingPage {
 
@@ -25,7 +26,8 @@ export class IncomingPage {
   searchName:any;
   isSearch = false;
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    public incomingService: IncomingService) {
+    public incomingService: IncomingService,
+    public  incomingAuto :IncomingAutoService) {
   }
 
 
@@ -43,9 +45,8 @@ export class IncomingPage {
     // });
   }
 
-  ionViewDidEnter(){
-   
-      this.incomingService.getIncomingList(this.limit, this.offset).then((res) => {
+  ionViewWillEnter(){
+      this.incomingService.getIncomingList(20, 0).then((res) => {
         console.log(res)
         this.items = res.result.res_data;
       })
@@ -65,6 +66,24 @@ export class IncomingPage {
       })
   }
 
+  itemSelected(event) {
+    let search_text;
+    let data ;
+    if (event.id == 1) {
+      search_text = event.name.replace("搜 合作伙伴:", "")
+    }
+    else if (event.id == 2) {
+      search_text = event.name.replace("搜 源单据:", "")
+    }
+    else if (event.id == 3) {
+      search_text = event.name.replace("搜 产品:", "")
+    }
+    this.incomingService.searchIncoming(event.id,search_text).then((res) => {
+      if (res.result && res.result.res_code == 1) {
+        this.items = res.result.res_data ;
+      }
+    })
+  }
 
   
 
@@ -73,8 +92,8 @@ export class IncomingPage {
     {
       if (this.isMoreData == true)
     {
-      this.limit += 20;
-    this.offset += 20;
+      this.limit = 20;
+      this.offset = this.offset + 20;
 
     // setTimeout(() => {
       this.incomingService.getIncomingList(this.limit, this.offset).then((res) => {
@@ -114,7 +133,7 @@ export class IncomingPage {
   }
 
   incoming_detail(item) {
-    this.navCtrl.push(IncomingDetailPage, {
+    this.navCtrl.push("IncomingDetailPage", {
       type: "incoming_detail",
       item: item,
       isPop:false 

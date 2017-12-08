@@ -84,7 +84,12 @@ export class MePage {
           handler: () => {
             this.storage.set('user', null)
               .then(() => {
-                this.storage.set('user_psd',null)
+                this.storage.get("login").then(res=>{
+                  if(!(res&&res.remerberPassword)){
+                    this.storage.set('user_psd',null)
+                    console.log("密码设置为空")
+                  }
+                })
                 // this.navCtrl.setRoot(LoginPage);
                 this.jpush.setAlias(null);
                let modal = this.modalctrl.create(LoginPage);

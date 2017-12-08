@@ -123,6 +123,16 @@ export class CommonUseServices {
         return this.httpservice.postBody("get_zanzhi_list", body);
     }
 
+    get_zanzhi_listNoLoading(id,limit,offset,type){
+        let body = JSON.stringify({
+            user_id:id,
+            limit :limit,
+            offset:offset,
+            type :type 
+        });
+        return this.httpservice.postBodyNoLoading("get_zanzhi_list", body);
+    }
+
     searchZanzhiList(id,type,data,text){
         let body = JSON.stringify({
             user_id:id,
@@ -156,8 +166,70 @@ export class CommonUseServices {
     }
 
 
+    get_zanzhi_reminding(){
+        let body = JSON.stringify({
+            uid:HttpService.user_id,
+        });
+       return this.httpservice.postBody("get_zanzhi_reminding",body);
+    }
 
 
+
+    save_zanzhi(amount,remark,submit){
+        let body = JSON.stringify({
+            uid:HttpService.user_id,
+            amount:amount,
+            remark:remark,
+            submit:submit
+        });
+       return this.httpservice.postBody("create_zanzhi",body);
+    }
+
+    save_edit_zanzhi(amount,remark,submit,id){
+        let body = JSON.stringify({
+            uid:HttpService.user_id,
+            amount:amount,
+            remark:remark,
+            submit:submit,
+            order_id:id
+        });
+       return this.httpservice.postBody("save_edit_zanzhi",body);
+    }
+
+
+    submitOrder(id){
+        let body = JSON.stringify({
+            uid:HttpService.user_id,
+            id:id
+        });
+       return this.httpservice.postBody("submit_order",body);
+    }
+
+
+    callbackOrder(description,id){
+        let body = JSON.stringify({
+            uid:HttpService.user_id,
+            id:id,
+            description:description
+        });
+       return this.httpservice.postBody("callback_order",body);
+    }
+
+
+    get_apply_count(id){
+        let body = JSON.stringify({
+            user_id:id,
+        });
+        return this.httpservice.postBodyNoLoading("get_apply_count", body);
+    }
+
+
+    get_shengou_count(id){
+        let body = JSON.stringify({
+            user_id:id,
+        });
+        return this.httpservice.postBodyNoLoading("get_shengou_count", body);
+    }
 
 
 

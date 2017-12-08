@@ -21,11 +21,11 @@
         <ion-col col-2>
           <img src={{res_data.create_person_ava}} class="imgHeard">
         </ion-col>
-        <ion-col col-5 style="padding-top:14px">
+        <ion-col col-7 style="padding-top:14px">
           <span style="font-size:80%;">{{res_data.employee}} </span>
         </ion-col>
-        <ion-col col-5 style="padding-top:14px">
-          <span style="margin-left:5px;font-size:80%;color:#E0540E">待审批 / {{res_data.to_approve_id}} </span>
+        <ion-col col-3 style="padding-top:14px">
+          <span style="margin-left:5px;font-size:80%;color:#E0540E">{{changeState(state)}} </span>
         </ion-col>
       </ion-row>
     </ion-grid>
@@ -63,12 +63,24 @@
 
 </ion-content>
 
-<ion-footer *ngIf="pet=='1'">
-  <button round ion-start style='width:40%;margin-left:5%; background-color:red' ion-button (click)="cancel()">
-    拒绝
-  </button>
-  <button ion-end round style='width:40%;float:right;margin-right:5%;background-color:#1eabfe' ion-button (click)="conform()">
-    通过
-  </button>
+<ion-footer>
+  <div style="display:flex ;justify-content:space-around">
+    <button *ngIf="pet=='1'" round ion-start style='width:40%;margin-left:5%; background-color:red' ion-button (click)="cancel()">
+      拒绝
+    </button>
+    <button *ngIf="pet=='1'" ion-end round style='width:40%;float:right;margin-right:5%;background-color:#1eabfe' ion-button
+      (click)="conform()">
+      通过
+    </button>
+    <button *ngIf="pet=='0'&& state!='paid' && state!='cancel'" round style='background-color:#f5a623;flex :1 1 100%' ion-button (click)="callbackOrder()">
+      撤回申请
+    </button>
+    <button *ngIf="pet=='0'&& state=='cancel'" round style='background-color:#f5a623;flex :1 1 100%' ion-button (click)="editOrder()">
+      编辑
+    </button>
+    <button *ngIf="pet=='0'&& state=='draft'" round style='background-color:#f5a623;flex :1 1 100%' ion-button (click)="submitOrder()">
+      提交审核
+    </button>
+  </div>
 
 </ion-footer>

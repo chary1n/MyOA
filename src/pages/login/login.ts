@@ -19,6 +19,7 @@ import { AppVersion } from '@ionic-native/app-version';
 import { Platform } from 'ionic-angular';
 import { UrlServer } from '../../providers/UrlServer';
 
+declare let cordova: any;
 
 
 // import { ChangeDetectorRef } from '@angular/core/src/change_detection/change_detector_ref';
@@ -66,16 +67,18 @@ export class LoginPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
     this.storage.get("login").then(res => {
-      if (res) {
-        if (res.autoLogin) {
-          this.toAutoLogin()
-        } else if (res.remerberPassword) {
-          this.storage.get('user_psd').then(res => {
-            this.email = res.user_email
-            this.password = res.user_psd
-          })
+      this.storage.get("user").then(user=>{
+        if (res) {
+          if (res.autoLogin&&user) {
+            this.toAutoLogin()
+          } else if (res.remerberPassword) {
+            this.storage.get('user_psd').then(res => {
+              this.email = res.user_email
+              this.password = res.user_psd
+            })
+          }
         }
-      }
+      })
     })
   }
 
@@ -92,6 +95,8 @@ export class LoginPage {
               .then(res => {
                 console.log(res);
                 if (res.result && res.result.res_code == 1) {
+                  HttpService.user_id = res.result.res_data.user_id;
+                  HttpService.user = res.result.res_data ;
                   this.storage.set("user", res).then(() => {
                   });
                 }
@@ -105,7 +110,8 @@ export class LoginPage {
     this.isSelected1 = true;
     this.isSelected2 = false;
     this.isSelected3 = false;
-    HttpService.appUrl = "http://js.robotime.com/"
+    // HttpService.appUrl = "http://js.robotime.com/"
+    HttpService.appUrl = "http://192.168.88.135:8069/"
     this.getDB();
   }
 
@@ -121,7 +127,8 @@ export class LoginPage {
     this.isSelected3 = true;
     this.isSelected2 = false;
     this.isSelected1 = false;
-    HttpService.appUrl = "http://erp.robotime.com/"
+    // HttpService.appUrl = "http://erp.robotime.com/"
+    HttpService.appUrl = "http://192.168.2.38:8111/"
     this.getDB();
   }
 
@@ -176,6 +183,8 @@ export class LoginPage {
       .then(res => {
         console.log(res);
         if (res.result && res.result.res_code == 1) {
+          HttpService.user_id = res.result.res_data.user_id;
+          HttpService.user = res.result.res_data ;
           this.storage.set("user_psd", {
             user_email: this.email,
             user_psd: this.password,
@@ -254,8 +263,31 @@ export class LoginPage {
     }
   }
   click(item){
+    console.log("2")
     this.email = item.email;
     this.password = item.password;
     this.history_arr = [];
+    if (this.platform.is('ios'))
+    {
+      cordova.plugins.Keyboard.close();
+    }
   }
+
+  panEvent($event){
+    this.history_arr = []
+    if (this.platform.is('ios'))
+    {
+      cordova.plugins.Keyboard.close();
+    }
+     
+  }
+
+  tap(){
+    this.history_arr = []
+    if (this.platform.is('ios'))
+    {
+      cordova.plugins.Keyboard.close();
+    }
+  }
+
 }

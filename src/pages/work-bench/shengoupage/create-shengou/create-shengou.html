@@ -29,7 +29,7 @@
 
   <ion-item>
     <ion-label style="color:black">部门(费用归属)</ion-label> 
-    <ion-select [(ngModel)]="department" class="normal-select">
+    <ion-select [(ngModel)]="department" class="normal-select" okText="确定" cancelText="取消">
       <ion-option *ngFor="let item of departmentList;" value={{item.id}} 
        >{{item.name}}</ion-option>
     </ion-select>

@@ -137,4 +137,11 @@ export class ShenGouService {
         });
         return this.httpservice.postBody("push_apply", body);
     }
+
+    get_shengou_count(id){
+        let body = JSON.stringify({
+            user_id:id,
+        });
+        return this.httpservice.postBodyNoLoading("get_shengou_count", body);
+    }
 }

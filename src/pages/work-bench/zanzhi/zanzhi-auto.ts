@@ -24,7 +24,7 @@ export class ZanzhiAutoService implements AutoCompleteService {
         let arr = [];
         obj1.name = "搜 员工:" + keyword;
         arr.push(obj1);
-        obj2.name = "搜 SN:" + keyword;
+        obj2.name = "搜 单号:" + keyword;
         arr.push(obj2);
         return arr;
     }

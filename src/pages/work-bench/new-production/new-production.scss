@@ -1,0 +1,89 @@
+page-new-production {
+    .pageMenuSlides {
+    border-bottom: 0.55px solid rgba(0, 0, 0, 0.3);
+    .swiper-container {
+      width: 100%;
+      height: 44px;
+    }
+    .swiper-slide {
+      background: #fff;
+      color: #333;
+      font-size: 15px;
+    }
+    .bottomLine {
+      border-bottom: 2px solid #1eabf1;
+    }
+    .swiper-wrapper{
+        width: 20%;
+    }
+  }
+  ion-slides {
+    background-color: white;
+    .slide-zoom {
+      height: 100%;
+    }
+  }
+
+  background: #efefef;
+  .menus {
+    border-right: 1px solid lightgray;
+    height: 100%;
+    ion-scroll {
+      background-color: #efefef;
+    }
+  }
+  .items {
+    height: 100%;
+    overflow:scroll;
+    ion-scroll {
+      background-color: #fff;
+    }
+    
+  }
+  .menu_left{
+      color:#1eabf1;
+  }  
+  ion-grid {
+    padding: 0px;
+    margin: 0px;
+    height: 100%;
+    ion-row {
+      padding: 0px;
+      margin: 0px;
+      height: 100%;
+      ion-col {
+        padding: 0px;
+        margin: 0px;
+      }
+    }
+  }
+  ion-list {
+    ion-item {
+      background: #efefef;
+    }
+  }
+  .product {
+    .scroll-content {
+      margin-bottom: 0px;
+    }
+  }
+  .menus {
+    height:100%;
+    .active {
+      color:#1eabf1;
+    }
+    ion-item {
+      background: #efefef;
+      ion-label {
+        font-family: "黑体";
+        font-size: 80%;
+      }
+    }
+  }
+  .item_label{
+        font-family: "黑体";
+        font-size: 80%;
+        width: 200px;
+        color:black;
+  }
+}
