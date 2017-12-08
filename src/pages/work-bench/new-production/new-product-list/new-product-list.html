@@ -15,6 +15,9 @@
 
 <ion-content>
   <ion-auto-complete style="width: 100vw;" (itemSelected) = "itemSelected($event)"  [dataProvider]="newProductionAutoService"></ion-auto-complete>
+   <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+      </ion-refresher>
   <ion-list>
     <ion-item tappable *ngFor="let items of item" (click)="itemClick(items)">
       <p text-wrap style="color:black">{{showText(items)}}</p>

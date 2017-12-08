@@ -45,4 +45,11 @@ export class NewProductionService {
         });
         return this.httpservice.postBody("search_product", body);
     }
+
+    get_stock_moves_by_product_id(product_id){
+        let body = JSON.stringify({
+            product_id: product_id,
+        });
+        return this.httpservice.postBody("get_stock_moves_by_product_id", body);
+    }
 }

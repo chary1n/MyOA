@@ -36,9 +36,10 @@ export class NewProductDetailPage {
   }
 
   clickStockMove(){
-    this.newProductionService.product_bom_stock_move(this.item.id,"stock_move").then(res => {
+    this.newProductionService.get_stock_moves_by_product_id(this.item.id).then(res => {
+      console.log(res)
       if (res.result && res.result.res_code == 1) {
-          this.navCtrl.push('WarehouseMovePage',{
+          this.navCtrl.push('NewStockMovePage',{
             item:res.result.res_data,
           })
         }

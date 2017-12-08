@@ -82,5 +82,9 @@ export class NewProductListPage {
     loading.dismiss();
   }
   
+  doRefresh(event){
+    this.item = this.origin_arr
+    event.complete();
+  }
 
 }
