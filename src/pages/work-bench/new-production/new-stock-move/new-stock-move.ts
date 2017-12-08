@@ -37,7 +37,7 @@ export class NewStockMovePage {
   }
 
   getType(items){
-    let str = "";
+    let str = "333";
     if (items.move_order_type == "procurement_warehousing")
     {
       str = "采购入库"
@@ -81,6 +81,10 @@ export class NewStockMovePage {
     else if (items.state == "confirmed")
     {
       state_str = "已确认"
+    }
+    else if (items.state == "cancel")
+    {
+      state_str = "已取消"
     }
     return state_str
   }
