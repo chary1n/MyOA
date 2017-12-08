@@ -25,16 +25,16 @@ export class InspectionDetailPage {
   picture: Array<string>;
   qc_color: any;
   pack: any;
-  mIncomingDetailPage: any;
   isClick = false;
   showFenjian = false ;
+  frontPage ;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private alertCtrl: AlertController,
     private inspectionService: InspectionService, ) {
     this.item = this.navParams.get('item')
     this.initData(this.item)
-    this.mIncomingDetailPage = Utils.getViewController("IncomingDetailPage", navCtrl)
+    this.frontPage = Utils.getViewController("IncomingPage", navCtrl)
   }
   initData(mitem) {
     this.item = mitem
@@ -96,10 +96,11 @@ export class InspectionDetailPage {
     this.inspectionService.requestBack(this.pack, this.item.picking_id)
       .then(res => {
         if (res.result && res.result.res_code == 1) {
-          self.mIncomingDetailPage.data.item = res.result.res_data;
-          this.initData(res.result.res_data);
-          self.mIncomingDetailPage.data.isPop = true;
-          self.navCtrl.popTo(self.mIncomingDetailPage);
+          // self.mIncomingDetailPage.data.item = res.result.res_data;
+          // this.initData(res.result.res_data);
+          // self.mIncomingDetailPage.data.isPop = true;
+          // self.navCtrl.popTo(self.mIncomingDetailPage);
+          this.navCtrl.popTo(this.frontPage)
         }
         console.log(res)
       })
@@ -207,6 +208,8 @@ export class InspectionDetailPage {
     let alert = this.alertCtrl.create({
       title: '请选择入库方式',
       message: "有未完成的数量，是否创建欠单",
+      enableBackdropDismiss :false,
+      
       buttons: [
         {
           text: '创建欠单',
@@ -214,10 +217,11 @@ export class InspectionDetailPage {
             this.inspectionService.createDebtOrder(this.pack, this.item.picking_id)
               .then(res => {
                 if (res.result && res.result.res_code == 1) {
-                  self.mIncomingDetailPage.data.item = res.result.res_data;
-                  this.initData(res.result.res_data);
-                  self.mIncomingDetailPage.data.isPop = true;
-                  self.navCtrl.popTo(self.mIncomingDetailPage);
+                  // self.mIncomingDetailPage.data.item = res.result.res_data;
+                  // this.initData(res.result.res_data);
+                  // self.mIncomingDetailPage.data.isPop = true;
+                  // self.navCtrl.popTo(self.mIncomingDetailPage);
+                  this.navCtrl.popTo(this.frontPage)
                 }
                 console.log(res)
               })
@@ -229,18 +233,15 @@ export class InspectionDetailPage {
             this.inspectionService.noDebtOrder(this.pack, this.item.picking_id)
               .then(res => {
                 if (res.result && res.result.res_code == 1) {
-                  self.mIncomingDetailPage.data.item = res.result.res_data;
-                  this.initData(res.result.res_data);
-                  self.mIncomingDetailPage.data.isPop = true;
-                  self.navCtrl.popTo(self.mIncomingDetailPage);
+                  // self.mIncomingDetailPage.data.item = res.result.res_data;
+                  // this.initData(res.result.res_data);
+                  // self.mIncomingDetailPage.data.isPop = true;
+                  // self.navCtrl.popTo(self.mIncomingDetailPage);
+                  this.navCtrl.popTo(this.frontPage)
                 }
                 console.log(res)
               })
           }
-        },
-        {
-          text: '取消',
-          role: 'cancel',
         }
       ]
     })
@@ -270,21 +271,7 @@ export class InspectionDetailPage {
                 if (res.result && res.result.res_code == 1) {
                   this.initData(res.result.res_data);
                   this.isClick = true;
-                  let rejectQTY = 0;
-                  let productQTY = 0;
-                  let QTYDone = 0;
-                  for (let item of this.item.pack_operation_product_ids) {
-                    rejectQTY += item.rejects_qty
-                    productQTY += item.product_qty
-                    QTYDone += item.qty_done
-                  }
-                  if (productQTY > QTYDone - rejectQTY) {
-                    // 有未完成数量
-                    this.alertCreateDebt()
-                  } else {
-                    // 入库调拨成功，等待分拣
-                    this.alertWaitingFenjian()
-                  }
+                  this.alertCreateDebt()
               }
               console.log(res)
             })
@@ -302,9 +289,9 @@ export class InspectionDetailPage {
     this.inspectionService.noDebtOrder(this.pack, this.item.picking_id)
       .then(res => {
         if (res.result && res.result.res_code == 1) {
-          self.mIncomingDetailPage.data.item = res.result.res_data;
+          // self.mIncomingDetailPage.data.item = res.result.res_data;
           this.initData(res.result.res_data);
-          self.mIncomingDetailPage.data.isPop = true;
+          // self.mIncomingDetailPage.data.isPop = true;
           let alert = this.alertCtrl.create({
             title: '提示',
             message: "入库调拨成功，等待入库",
@@ -312,7 +299,8 @@ export class InspectionDetailPage {
               {
                 text: '确定',
                 handler: () => {
-                  self.navCtrl.popTo(self.mIncomingDetailPage);
+                  // self.navCtrl.popTo(self.mIncomingDetailPage);
+                  this.navCtrl.popTo(this.frontPage)
                 }
               },
             ]
@@ -329,9 +317,9 @@ export class InspectionDetailPage {
     this.inspectionService.noDebtOrder(this.pack, this.item.picking_id)
       .then(res => {
         if (res.result && res.result.res_code == 1) {
-          self.mIncomingDetailPage.data.item = res.result.res_data;
+          // self.mIncomingDetailPage.data.item = res.result.res_data;
           this.initData(res.result.res_data);
-          self.mIncomingDetailPage.data.isPop = true;
+          // self.mIncomingDetailPage.data.isPop = true;
           let alert = this.alertCtrl.create({
             title: '提示',
             message: "入库调拨成功，等待分拣",
@@ -339,7 +327,8 @@ export class InspectionDetailPage {
               {
                 text: '确定',
                 handler: () => {
-                  self.navCtrl.popTo(self.mIncomingDetailPage);
+                  // self.navCtrl.popTo(self.mIncomingDetailPage);
+                  this.navCtrl.popTo(this.frontPage)
                 }
               },
             ]

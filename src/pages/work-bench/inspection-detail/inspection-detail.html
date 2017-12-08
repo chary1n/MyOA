@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>InspectionDetail</ion-title>
+    <ion-title>品检详细</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -36,9 +36,9 @@
 <ion-footer>
   <ion-toolbar>
     <div style="display:flex ;justify-content:space-around">
-    <button ion-button round ion-start tappable (click)='clickBack()'> 退回 </button>
-    <button ion-button round ion-end  tappable (click)='agreeIncoming()'> 采购确认</button>
-    <button  *ngIf="showFenjian"   ion-button round ion-end tappable (click)='goFenJian()'> 去分拣</button>
+    <button ion-button round ion-start tappable (click)='clickBack()' style="flex :1 1 100%"> 退回 </button>
+    <button ion-button round ion-end  tappable (click)='agreeIncoming()' style="flex :1 1 100%"> 采购确认</button>
+    <button  *ngIf="showFenjian" style="flex :1 1 100%"  ion-button round ion-end tappable (click)='goFenJian()'> 去分拣</button>
   </div>
   </ion-toolbar>
 </ion-footer>

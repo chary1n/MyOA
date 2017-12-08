@@ -72,13 +72,13 @@
       (click)="conform()">
       通过
     </button>
-    <button *ngIf="pet=='0'&& state!='paid'" round style='background-color:#f5a623' ion-button (click)="callbackOrder()">
+    <button *ngIf="pet=='0'&& state!='paid' && state!='cancel'" round style='background-color:#f5a623;flex :1 1 100%' ion-button (click)="callbackOrder()">
       撤回申请
     </button>
-    <button *ngIf="pet=='0'&& state=='cancel'" round style='background-color:#f5a623' ion-button (click)="editOrder()">
+    <button *ngIf="pet=='0'&& state=='cancel'" round style='background-color:#f5a623;flex :1 1 100%' ion-button (click)="editOrder()">
       编辑
     </button>
-    <button *ngIf="pet=='0'&& state=='draft'" round style='background-color:#f5a623' ion-button (click)="submitOrder()">
+    <button *ngIf="pet=='0'&& state=='draft'" round style='background-color:#f5a623;flex :1 1 100%' ion-button (click)="submitOrder()">
       提交审核
     </button>
   </div>

@@ -28,4 +28,16 @@ export class IncomingService {
         return this.httpservice.postBody("search_stock_picking_name",body,1);
     }
 
+
+    searchIncoming(eventId,text){
+        let body = JSON.stringify({
+            eventId:eventId,
+            text:text,
+            uid:HttpService.user_id
+        });
+        return this.httpservice.postBody("search_stock_picking",body,1);
+
+    }
+
+
 }
