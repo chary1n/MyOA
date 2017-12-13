@@ -48,6 +48,10 @@ export class ReturnOrderDetailPage {
     });
   }
 
+  returnProductDetail(detail){
+    this.navCtrl.push("ReturnProductDetailPage",{"data":detail})
+  }
+
   presentPopover(ev) {
     
     this.popover = this.popoverCtrl.create('ReturnPopoverPage', {

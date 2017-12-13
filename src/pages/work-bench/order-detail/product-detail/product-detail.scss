@@ -1,4 +1,4 @@
-page-order-detail {
+page-product-detail {
   .first_label {
     font-size: 85%;
     font-weight: bold;
@@ -9,19 +9,17 @@ page-order-detail {
   }
   .div_all {
     padding-left: 16px;
-    padding-top: 6px;
+    padding-top: 16px;
     overflow: hidden
   }
   .div_right {
-    float: right;
-    font-size: 80%;
+    float:right;
     width: 70%;
     color: #8b8b8b;
     margin-top: 2px;
     margin-left: 20px;
   }
   .div_left {
-    font-size: 80%;
     width: 30%;
   }
   .span_x {

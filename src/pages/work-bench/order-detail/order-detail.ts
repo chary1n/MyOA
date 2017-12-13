@@ -48,6 +48,10 @@ export class OrderDetailPage {
     });
   }
 
+  toProductDetail(detail){
+    this.navCtrl.push("ProductDetailPage",{"data":detail})
+  }
+
 
   presentPopover(ev) {
 
