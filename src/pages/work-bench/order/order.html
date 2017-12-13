@@ -26,31 +26,23 @@
   <div [ngSwitch]="pet">
 
     <ng-template [ngSwitchCase]='1'>
-      <ion-grid>
-        <ion-row>
-          <ion-col col-6>
-            <div>
-              <ion-input [(ngModel)]="searchName" placeholder="输入订单编号"  text-wrap style="margin-left:20px;;"></ion-input>
-            </div>
-          </ion-col>
-          <ion-col>
-            <div><button (click)='searchClick1()' class="searchFont">搜索</button></div>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
+
+      <ion-auto-complete style="width: 100vw;" (itemSelected)="itemSelected($event)" [dataProvider]="orderAuto"></ion-auto-complete>
+
       <ion-refresher (ionRefresh)="doRefresh1($event)">
         <ion-refresher-content></ion-refresher-content>
       </ion-refresher>
       <ion-list>
         <ion-item *ngFor='let item of orderMRP' tappable (click)='orderDetail(item.id)'>
-          <p text-wrap class="rightStateFont">由MRP生成</p>
+          <p text-wrap class="rightStateFont">{{changeState(item.state)}}</p>
+          <progress value={{item.shipping_rate}} max="100" class="progress_x" ></progress>
           <h2 text-wrap>{{item.name}}</h2>
           <h4 text-wrap style="font-size:70%;word-break:break-all">{{item.order_line}}</h4>
           <p text-wrap>负责人：{{item.creater}}</p>
-          <p text-wrap class="totalStyleRight">汇总数量:  {{item.amount_total}}</p>
+          <p text-wrap class="totalStyleRight">汇总数量: {{item.amount_total}}</p>
           <p text-wrap>供应商 ：{{item.supplier}}</p>
 
-          <p text-wrap class="totalStyleRight">汇总金额:  {{item.product_count}}</p>
+          <p text-wrap class="totalStyleRight">汇总金额: {{toFix(item.product_count)}}</p>
         </ion-item>
       </ion-list>
 
@@ -61,30 +53,21 @@
     </ng-template>
 
     <ng-template [ngSwitchCase]='2'>
-          <ion-grid>
-        <ion-row>
-          <ion-col col-6>
-            <div>
-              <ion-input [(ngModel)]="searchName" placeholder="输入订单编号" style="margin-left:20px;;"></ion-input>
-            </div>
-          </ion-col>
-          <ion-col>
-            <div><button (click)='searchClick2()' class="searchFont">搜索</button></div>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
+      <ion-auto-complete style="width: 100vw;" (itemSelected)="itemSelected($event)" [dataProvider]="orderAuto"></ion-auto-complete>
+      
       <ion-refresher (ionRefresh)="doRefresh2($event)">
         <ion-refresher-content></ion-refresher-content>
       </ion-refresher>
       <ion-list>
         <ion-item *ngFor='let item of priceOrder' tappable (click)='orderDetail(item.id)'>
-          <p text-wrap class="rightStateFont">询价单</p>
-          <h2 text-wrap >{{item.name}}</h2>
-          <h4 text-wrap >{{item.order_line}}</h4>
-          <p text-wrap >负责人：{{item.creater}}</p>
+          <p text-wrap class="rightStateFont">{{changeState(item.state)}}</p>
+          <progress value={{item.shipping_rate}} max="100" class="progress_x" ></progress>
+          <h2 text-wrap>{{item.name}}</h2>
+          <h4 text-wrap>{{item.order_line}}</h4>
+          <p text-wrap>负责人：{{item.creater}}</p>
           <p text-wrap class="totalStyleRight">汇总数量：{{item.amount_total}}</p>
-          <p text-wrap >供应商 ：{{item.supplier}}</p>
-          <p text-wrap class="totalStyleRight">汇总金额 :{{item.product_count}}</p>
+          <p text-wrap>供应商 ：{{item.supplier}}</p>
+          <p text-wrap class="totalStyleRight">汇总金额 :{{toFix(item.product_count)}}</p>
         </ion-item>
       </ion-list>
 
@@ -94,30 +77,21 @@
     </ng-template>
 
     <ng-template [ngSwitchCase]='3'>
-          <ion-grid>
-        <ion-row>
-          <ion-col col-6>
-            <div>
-              <ion-input [(ngModel)]="searchName" placeholder="输入订单编号" style="margin-left:20px;;"></ion-input>
-            </div>
-          </ion-col>
-          <ion-col>
-            <div><button (click)='searchClick3()' class="searchFont">搜索</button></div>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
+      <ion-auto-complete style="width: 100vw;" (itemSelected)="itemSelected($event)" [dataProvider]="orderAuto"></ion-auto-complete>
+      
       <ion-refresher (ionRefresh)="doRefresh3($event)">
         <ion-refresher-content></ion-refresher-content>
       </ion-refresher>
       <ion-list>
         <ion-item *ngFor='let item of incomingOrder' tappable (click)='orderDetailShowNumber(item.id)'>
-          <p text-wrap class="rightStateFont">采购确认</p>
-          <h2 text-wrap >{{item.name}}</h2>
-          <h4 text-wrap >{{item.order_line}}</h4>
-          <p text-wrap >负责人：{{item.creater}}</p>
+          <p text-wrap class="rightStateFont">{{changeState(item.state)}}</p>
+          <progress value={{item.shipping_rate}} max="100" class="progress_x" ></progress>
+          <h2 text-wrap>{{item.name}}</h2>
+          <h4 text-wrap>{{item.order_line}}</h4>
+          <p text-wrap>负责人：{{item.creater}}</p>
           <p text-wrap class="totalStyleRight">汇总数量：{{item.amount_total}}</p>
-          <p text-wrap >供应商 ：{{item.supplier}}</p>
-          <p text-wrap class="totalStyleRight">汇总金额 :{{item.product_count}}</p>
+          <p text-wrap>供应商 ：{{item.supplier}}</p>
+          <p text-wrap class="totalStyleRight">汇总金额 :{{toFix(item.product_count)}}</p>
         </ion-item>
       </ion-list>
       <ion-infinite-scroll (ionInfinite)="doInfinite3($event)">
@@ -143,13 +117,13 @@
       </ion-refresher>
       <ion-list>
         <ion-item *ngFor='let item of returnOrder' tappable (click)='returnOrderDetail(item.id)'>
-          <p  text-wrap class="rightStateFont">退货单</p>
-          <h2 text-wrap >{{item.name}}</h2>
-          <h4 text-wrap >{{item.order_line}}</h4>
-          <p text-wrap >退货日期：{{item.date}}</p>
-          <p text-wrap  class="totalStyleRight">退货金额：{{item.amount_total}}</p>
-          <p text-wrap >供应商 ：{{item.supplier}}</p>
-          <p text-wrap >退货原因 :{{item.remark}}</p>
+          <p text-wrap class="rightStateFont">退货单</p>
+          <h2 text-wrap>{{item.name}}</h2>
+          <h4 text-wrap>{{item.order_line}}</h4>
+          <p text-wrap>退货日期：{{item.date}}</p>
+          <p text-wrap class="totalStyleRight">退货金额：{{item.amount_total}}</p>
+          <p text-wrap>供应商 ：{{item.supplier}}</p>
+          <p text-wrap>退货原因 :{{item.remark}}</p>
         </ion-item>
       </ion-list>
       <ion-infinite-scroll immediate-check="false" (ionInfinite)="doInfinite4($event)">

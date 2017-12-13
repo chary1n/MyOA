@@ -4,6 +4,9 @@ import { orderService } from './orderService';
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
 import { Segment } from "ionic-angular";
+import { OrderAutoService } from './order-auto';
+import { PACKAGE_ROOT_URL } from '@angular/core/src/application_tokens';
+import { retry } from 'rxjs/operator/retry';
 /**
  * Generated class for the OrderPage page.
  *
@@ -14,10 +17,10 @@ import { Segment } from "ionic-angular";
 @Component({
   selector: 'page-order',
   templateUrl: 'order.html',
-  providers: [orderService],
+  providers: [orderService, OrderAutoService],
 })
 export class OrderPage {
-  pet: string = "1";
+  pet: string = "3";
   incomingOrder: any;
   orderMRP: any;
   priceOrder: any;
@@ -34,14 +37,14 @@ export class OrderPage {
   // @ViewChild('mainSegment') mainSegment: Segment;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    public orderService: orderService,
+    public orderService: orderService, public orderAuto: OrderAutoService
   ) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad OrderPage');
     // this.mainSegment.setValue('1')
-    this.clickOne()
+    this.clickThree()
   }
 
   clickOne() {
@@ -260,20 +263,20 @@ export class OrderPage {
         if (res.result && res.result.res_code == 1) {
           this.navCtrl.push('OrderDetailPage', {
             item: res.result,
-            showNumber :false 
+            showNumber: false
           })
         }
       })
   }
 
   // 显示开单数量和已接收
-   orderDetailShowNumber(id) {
+  orderDetailShowNumber(id) {
     this.orderService.requestOrderDetail(id)
       .then(res => {
         if (res.result && res.result.res_code == 1) {
           this.navCtrl.push('OrderDetailPage', {
             item: res.result,
-            showNumber :true 
+            showNumber: true
           })
         }
       })
@@ -285,43 +288,76 @@ export class OrderPage {
         if (res.result && res.result.res_code == 1) {
           this.navCtrl.push('ReturnOrderDetailPage', {
             item: res.result,
-            id:id,
+            id: id,
           })
         }
       })
   }
 
-  searchClick1() {
-    this.isMoreData1=false ;
-    this.orderService.orderSearchByPO1(this.searchName)
-      .then(res => {
-        this.orderMRP = res.result.res_data
-      })
+  itemSelected(event) {
+    let type;
+    let search_text;
+    if (event.id == 1) {
+      type = "name";
+      search_text = event.name.replace("搜 订单:", "")
+    } else if (event.id == 2) {
+      type = "product_id";
+      search_text = event.name.replace("搜 产品:", "")
+    } else if (event.id == 3) {
+      type = "create_uid";
+      search_text = event.name.replace("搜 采购负责人:", "")
+    } else if (event.id == 4) {
+      type = "origin";
+      search_text = event.name.replace("搜 源单据:", "")
+    }
+    this.orderService.search(this.pet, type, search_text).then(res => {
+      if (res.result && res.result.res_code == 1) {
+        if (this.pet == "1") {
+          this.isMoreData1 = false
+          this.orderMRP = res.result.res_data
+        } else if (this.pet == "2") {
+          this.isMoreData2 = false
+          this.priceOrder = res.result.res_data
+        } else if (this.pet == "3") {
+          this.isMoreData3 = false
+          this.incomingOrder = res.result.res_data
+        } else if (this.pet == "4") {
+          this.isMoreData4 = false
+          this.returnOrder = res.result.res_data
+        }
+      }
+    })
   }
 
-  searchClick2() {
-     this.isMoreData2=false ;
-    this.orderService.orderSearchByPO2(this.searchName)
-      .then(res => {
-        this.priceOrder = res.result.res_data
-      })
-
-  }
-
-  searchClick3() {
-     this.isMoreData3=false ;
-    this.orderService.orderSearchByPO3(this.searchName)
-      .then(res => {
-        this.incomingOrder = res.result.res_data
-      })
-
-  }
-
-  returnOrderSearchClick() {
-     this.isMoreData4=false ;
+  returnOrderSearchClick(){
     this.orderService.returnOrderSearchByPO(this.returnOrderSearchName)
-      .then(res => {
+      .then(res=>{
+        this.isMoreData4=false
         this.returnOrder = res.result.res_data
       })
   }
+  
+  changeState(state){
+    console.log(state)
+    if(state=="draft"){
+      return "询价单"
+    }else  if(state=="make_by_mrp"){
+      return "由MRP生成"
+    }else  if(state=="sent"){
+      return "发送询价单"
+    }else  if(state=="to approve"){
+      return "待批准"
+    }else  if(state=="done"){
+      return "已锁定"
+    }else  if(state=="cancel"){
+      return "已取消"
+    }else  if(state=="purchase"){
+      return "采购订单"
+    }
+  }
+
+  toFix(amount){
+    return amount.toFixed(2)
+  }
+
 }

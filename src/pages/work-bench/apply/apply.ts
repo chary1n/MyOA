@@ -35,7 +35,7 @@ export class ApplyPage {
   limit = 20;
   offset = 0;
   isMoreData = true;
-  wait_approval_count ;
+  wait_approval_count =0;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public commonService: CommonUseServices, public storage: Storage,
     actionSheetCtrl: ActionSheetController,
@@ -75,7 +75,7 @@ export class ApplyPage {
     this.commonService.get_apply_count(HttpService.user_id).then((res) => {
       console.log(res);
       if (res.result && res.result.res_code == 1) {
-        this.wait_approval_count = res.result.res_data
+        this.wait_approval_count = res.result.res_data.acount
       }
     })
   }

@@ -30,7 +30,7 @@ export class ShengoupagePage {
   isMoreData1 = true;
   isMoreData2 = true;
   isMoreData3 = true;
-  wait_approval_count
+  wait_approval_count=0;
   constructor(public navCtrl: NavController, public navParams: NavParams, public shengouService: ShenGouService
     , public storage: Storage, public shenGouAutoService: ShenGouAutoService) {
     this.storage.get('user')
@@ -60,7 +60,7 @@ export class ShengoupagePage {
     this.shengouService.get_shengou_count(HttpService.user_id).then((res) => {
       console.log(res);
       if (res.result && res.result.res_code == 1) {
-        this.wait_approval_count = res.result.res_data
+        this.wait_approval_count = res.result.res_data.acount
       }
     })
   }
