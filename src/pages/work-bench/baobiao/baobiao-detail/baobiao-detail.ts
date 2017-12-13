@@ -30,4 +30,8 @@ export class BaobiaoDetailPage {
   goBack(){
     this.navCtrl.pop()
   }
+
+  transInt(item){
+    return parseFloat(item).toFixed(2)
+  }
 }

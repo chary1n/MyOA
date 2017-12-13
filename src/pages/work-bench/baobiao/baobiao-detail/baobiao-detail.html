@@ -27,8 +27,8 @@
       <button style="background:#fec564;width:10px;height:14px;float:right;margin-right:160px">
       </button> 
 
-      <p style="margin-top:-3px;color:white;margin-left:20px">收入 {{item.debit_all}}</p>
-      <p style="margin-top:-22px;color:white;float:right;margin-right:25px;width:130px">支出 {{item.credit_all}}</p>
+      <p style="margin-top:-3px;color:white;margin-left:20px">收入 {{transInt(item.debit_all)}}</p>
+      <p style="margin-top:-22px;color:white;float:right;margin-right:25px;width:130px">支出 {{transInt(item.credit_all)}}</p>
 
     </ion-item>
   </ion-list>
@@ -37,25 +37,25 @@
       <ion-col>
          <div align="center">
           <p class="first_class">月初</p>
-          <p text-wrap class="second_class">{{item.month_begin}}</p>
+          <p text-wrap class="second_class">{{transInt(item.month_begin)}}</p>
         </div>
       </ion-col>
       <ion-col>
         <div align="center">
          <p class="first_class">期初</p>
-          <p text-wrap class="second_class">{{item.last_day_balance_all}}</p>
+          <p text-wrap class="second_class">{{transInt(item.last_day_balance_all)}}</p>
         </div>
       </ion-col>
       <ion-col>
         <div align="center" >
          <p class="first_class">期末</p>
-          <p text-wrap class="second_class">{{item.balance_all}}</p> 
+          <p text-wrap class="second_class">{{transInt(item.balance_all)}}</p> 
         </div>
       </ion-col>
     </ion-row>
 </ion-grid>
 <ion-item-group style="background:white;" *ngFor="let items of item.account_list;">
-  <ion-item-divider class="divider" color="light" style="min-height:1px"></ion-item-divider>
+  <ion-list-header color="light" style="min-height:1px;height:10px;"></ion-list-header>
   <ion-grid style="border-bottom: 1px solid lightgray;">
       <ion-row style="height:30px;">
         <ion-col col-auto>
@@ -68,24 +68,24 @@
   <div class="left_div" style="border-right: 1px solid lightgray;border-bottom: 1px solid lightgray;">
     <button class="left_btn">
     </button>
-    <p class="left_p" >收入 {{items.debit}}</p> 
+    <p class="left_p" >收入 {{transInt(items.debit)}}</p> 
     <button class="right_btn">
     </button>
-    <p class="right_p" >支出 {{items.credit}}</p> 
+    <p class="right_p" >支出 {{transInt(items.credit)}}</p> 
   </div>
   <div class="right_div" style="border-bottom: 1px solid lightgray">
     <div style="width:33%;height:60px;float:left">
       <p style="margin-top:9px;text-align:center;color:gray">月初<p>
-      <p style="margin-top:-8px;text-align:center;font-size:10px;color:#1eabf1">{{items.month_begin}}</p>
+      <p style="margin-top:-8px;text-align:center;font-size:10px;color:#1eabf1">{{transInt(items.month_begin)}}</p>
     </div>
     <div style="width:67%;height:60px;float:right">
         <div style="width:50%;height:60px;float:left">
           <p style="margin-top:9px;text-align:center;color:gray">期初<p>
-          <p style="margin-top:-8px;text-align:center;font-size:10px;color:#1eabf1">{{items.last_day_balance}}</p>
+          <p style="margin-top:-8px;text-align:center;font-size:10px;color:#1eabf1">{{transInt(items.last_day_balance)}}</p>
         </div>
         <div style="width:50%;height:60px;float:right">
           <p style="margin-top:9px;text-align:center;color:gray">期末<p>
-          <p style="margin-top:-8px;text-align:center;font-size:10px;color:#1eabf1">{{items.balance}}</p>
+          <p style="margin-top:-8px;text-align:center;font-size:10px;color:#1eabf1">{{transInt(items.balance)}}</p>
         </div>
     </div>
   </div>
