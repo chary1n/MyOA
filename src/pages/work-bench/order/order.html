@@ -38,11 +38,12 @@
           <progress value={{item.shipping_rate}} max="100" class="progress_x" ></progress>
           <h2 text-wrap>{{item.name}}</h2>
           <h4 text-wrap style="font-size:70%;word-break:break-all">{{item.order_line}}</h4>
-          <p text-wrap>负责人：{{item.creater}}</p>
-          <p text-wrap class="totalStyleRight">汇总数量: {{item.amount_total}}</p>
-          <p text-wrap>供应商 ：{{item.supplier}}</p>
-
-          <p text-wrap class="totalStyleRight">汇总金额: {{toFix(item.product_count)}}</p>
+          <div class="totalStyleRight">
+              <p text-wrap >汇总数量：{{item.amount_total}}</p>
+              <p text-wrap >汇总金额(元):{{toFix(item.product_count)}}</p>
+            </div>
+            <p text-wrap>负责人：{{item.creater}}</p>
+            <p text-wrap style="width:170px">供应商 ：{{item.supplier}}</p>
         </ion-item>
       </ion-list>
 
@@ -64,10 +65,12 @@
           <progress value={{item.shipping_rate}} max="100" class="progress_x" ></progress>
           <h2 text-wrap>{{item.name}}</h2>
           <h4 text-wrap>{{item.order_line}}</h4>
-          <p text-wrap>负责人：{{item.creater}}</p>
-          <p text-wrap class="totalStyleRight">汇总数量：{{item.amount_total}}</p>
-          <p text-wrap>供应商 ：{{item.supplier}}</p>
-          <p text-wrap class="totalStyleRight">汇总金额 :{{toFix(item.product_count)}}</p>
+          <div class="totalStyleRight">
+              <p text-wrap >汇总数量：{{item.amount_total}}</p>
+              <p text-wrap >汇总金额(元):{{toFix(item.product_count)}}</p>
+            </div>
+            <p text-wrap>负责人：{{item.creater}}</p>
+            <p text-wrap style="width:170px">供应商 ：{{item.supplier}}</p>
         </ion-item>
       </ion-list>
 
@@ -88,10 +91,12 @@
           <progress value={{item.shipping_rate}} max="100" class="progress_x" ></progress>
           <h2 text-wrap>{{item.name}}</h2>
           <h4 text-wrap>{{item.order_line}}</h4>
+          <div class="totalStyleRight">
+            <p text-wrap >汇总数量：{{item.amount_total}}</p>
+            <p text-wrap >汇总金额(元):{{toFix(item.product_count)}}</p>
+          </div>
           <p text-wrap>负责人：{{item.creater}}</p>
-          <p text-wrap class="totalStyleRight">汇总数量：{{item.amount_total}}</p>
-          <p text-wrap>供应商 ：{{item.supplier}}</p>
-          <p text-wrap class="totalStyleRight">汇总金额 :{{toFix(item.product_count)}}</p>
+          <p text-wrap style="width:170px">供应商 ：{{item.supplier}}</p>
         </ion-item>
       </ion-list>
       <ion-infinite-scroll (ionInfinite)="doInfinite3($event)">
