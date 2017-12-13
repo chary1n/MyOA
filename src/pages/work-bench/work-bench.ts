@@ -20,6 +20,7 @@ export class WorkBenchPage {
   isShowPurchase = false;
   isShowSale = false;
   isHR = false ;
+  isShowZiJin = false;
   constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage) {
   }
 
@@ -38,6 +39,10 @@ export class WorkBenchPage {
           }
           if (product.name == 'group_sale_salesman' || product.name == 'group_sale_manager' || product.name == 'group_sale_salesman_all_leads') {
             this.isShowSale = true;
+          }
+          if (product.name == 'group_account_manager')
+          {
+            this.isShowZiJin = true;
           }
         }
       });
@@ -95,5 +100,8 @@ export class WorkBenchPage {
   }
   shareKnowledge(){
     this.navCtrl.push('ShareKnowledgePage')
+  }
+  baobiao(){
+    this.navCtrl.push('BaobiaoPage')
   }
 }

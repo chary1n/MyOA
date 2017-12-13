@@ -110,8 +110,8 @@ export class LoginPage {
     this.isSelected1 = true;
     this.isSelected2 = false;
     this.isSelected3 = false;
-    HttpService.appUrl = "http://js.robotime.com/"
-    // HttpService.appUrl = "http://192.168.88.135:8069/"
+    // HttpService.appUrl = "http://js.robotime.com/"
+    HttpService.appUrl = "http://192.168.88.135:8069/"
     this.getDB();
   }
 
@@ -135,7 +135,7 @@ export class LoginPage {
 
   getDB() {
     this.loginservice.getDBInfo().then(res => {
-      console.log(res)
+      console.log(res.res_data[0])
       this.employee = res.res_data[0];
     });
   }
@@ -160,6 +160,7 @@ export class LoginPage {
 
   // 登录
   toLogin() {
+    console.log(this.employee)
     console.log(this.remerberPassword)
     this.storage.set("login", {
       autoLogin: this.autoLogin,

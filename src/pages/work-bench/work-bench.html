@@ -26,6 +26,10 @@
         <img src="assets/img/work_bench/zhishifenxiang.png">
         <div>知识分享</div>
       </ion-col>
+      <ion-col *ngIf="isShowZiJin" col-3 tappable (click)="baobiao()">
+        <img src="assets/img/work_bench/zhishifenxiang.png">
+        <div>报表</div>
+      </ion-col>
     </ion-row>
   </ion-grid>
   <div class='dividingLine'></div>
