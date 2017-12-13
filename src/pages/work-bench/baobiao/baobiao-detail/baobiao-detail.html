@@ -63,7 +63,7 @@
 </ion-grid>
 <ion-item-group style="background:white;" *ngFor="let items of item.account_list;">
   <ion-list-header color="light" style="min-height:1px;height:10px;"></ion-list-header>
-  <ion-grid style="border-bottom: 1px solid lightgray;">
+  <ion-grid style="border-bottom: 1px solid #f6f6f6;">
       <ion-row style="height:30px;">
         <ion-col col-auto>
         </ion-col>
@@ -72,7 +72,7 @@
         </ion-col>
       </ion-row>
   </ion-grid>
-  <div class="left_div" style="border-right: 1px solid lightgray;border-bottom: 1px solid lightgray;">
+  <div class="left_div" style="border-right: 1px solid #f6f6f6;border-bottom: 1px solid #f6f6f6;">
     <div class="left_btn">
     </div>
     <p class="left_p" >收入 {{fmoney(transInt(items.debit),3)}}</p> 
@@ -80,7 +80,7 @@
     </div>
     <p class="right_p" >支出 {{fmoney(transInt(items.credit),3)}}</p> 
   </div>
-  <div class="right_div" style="border-bottom: 1px solid lightgray">
+  <div class="right_div" style="border-bottom: 1px solid #f6f6f6">
     <div style="width:33%;height:60px;float:left">
       <p style="margin-top:9px;text-align:center;color:gray">月初<p>
       <p style="margin-top:-8px;text-align:center;font-size:11px;color:#1eabf1">{{fmoney(transInt(items.month_begin),3)}}</p>
