@@ -34,16 +34,25 @@
       </ion-refresher>
       <ion-list>
         <ion-item *ngFor='let item of orderMRP' tappable (click)='orderDetail(item.id)'>
-          <p text-wrap class="rightStateFont">{{changeState(item.state)}}</p>
-          <progress value={{item.shipping_rate}} max="100" class="progress_x" ></progress>
-          <h2 text-wrap>{{item.name}}</h2>
-          <h4 text-wrap style="font-size:70%;word-break:break-all">{{item.order_line}}</h4>
-          <div class="totalStyleRight">
-              <p text-wrap >汇总数量：{{item.amount_total}}</p>
-              <p text-wrap >汇总金额(元):{{toFix(item.product_count)}}</p>
-            </div>
-            <p text-wrap>负责人：{{item.creater}}</p>
-            <p text-wrap style="width:170px">供应商 ：{{item.supplier}}</p>
+          <div style="overflow:hidden">
+            <p text-wrap class="rightStateFont">{{changeState(item.state)}}</p>
+            <meter value={{item.shipping_rate}} max="100" class="progress_x"></meter>
+            <!-- <progress value={{item.shipping_rate}} max="100" class="progress_x"></progress> -->
+            <h2 text-wrap>{{item.name}}</h2>
+          </div>
+
+          <div style="overflow:hidden">
+            <p style="float:right">{{changeDuizhang(item.invoice_status)}}</p>
+            <p>交货日期 : {{item.handle_date}}</p>
+          </div>
+
+
+          <div class="totalStyleRight" style="overflow:hidden">
+            <p text-wrap text-right>汇总数量：{{item.amount_total}}</p>
+            <p text-wrap text-right>汇总金额(元):{{toFix(item.product_count)}}</p>
+          </div>
+          <p text-wrap>负责人：{{item.creater}}</p>
+          <p text-wrap style="width:180px">供应商 ：{{item.supplier}}</p>
         </ion-item>
       </ion-list>
 
@@ -55,22 +64,31 @@
 
     <ng-template [ngSwitchCase]='2'>
       <ion-auto-complete style="width: 100vw;" (itemSelected)="itemSelected($event)" [dataProvider]="orderAuto"></ion-auto-complete>
-      
+
       <ion-refresher (ionRefresh)="doRefresh2($event)">
         <ion-refresher-content></ion-refresher-content>
       </ion-refresher>
       <ion-list>
         <ion-item *ngFor='let item of priceOrder' tappable (click)='orderDetail(item.id)'>
-          <p text-wrap class="rightStateFont">{{changeState(item.state)}}</p>
-          <progress value={{item.shipping_rate}} max="100" class="progress_x" ></progress>
-          <h2 text-wrap>{{item.name}}</h2>
-          <h4 text-wrap>{{item.order_line}}</h4>
-          <div class="totalStyleRight">
-              <p text-wrap >汇总数量：{{item.amount_total}}</p>
-              <p text-wrap >汇总金额(元):{{toFix(item.product_count)}}</p>
-            </div>
-            <p text-wrap>负责人：{{item.creater}}</p>
-            <p text-wrap style="width:170px">供应商 ：{{item.supplier}}</p>
+          <div style="overflow:hidden">
+            <p text-wrap class="rightStateFont">{{changeState(item.state)}}</p>
+            <meter value={{item.shipping_rate}} max="100" class="progress_x"></meter>
+            <!-- <progress value={{item.shipping_rate}} max="100" class="progress_x"></progress> -->
+            <h2 text-wrap>{{item.name}}</h2>
+          </div>
+
+          <div style="overflow:hidden">
+            <p style="float:right">{{changeDuizhang(item.invoice_status)}}</p>
+            <p>交货日期 : {{item.handle_date}}</p>
+          </div>
+
+
+          <div class="totalStyleRight" style="overflow:hidden">
+            <p text-wrap text-right>汇总数量：{{item.amount_total}}</p>
+            <p text-wrap text-right>汇总金额(元):{{toFix(item.product_count)}}</p>
+          </div>
+          <p text-wrap>负责人：{{item.creater}}</p>
+          <p text-wrap style="width:180px">供应商 ：{{item.supplier}}</p>
         </ion-item>
       </ion-list>
 
@@ -81,22 +99,31 @@
 
     <ng-template [ngSwitchCase]='3'>
       <ion-auto-complete style="width: 100vw;" (itemSelected)="itemSelected($event)" [dataProvider]="orderAuto"></ion-auto-complete>
-      
+
       <ion-refresher (ionRefresh)="doRefresh3($event)">
         <ion-refresher-content></ion-refresher-content>
       </ion-refresher>
       <ion-list>
         <ion-item *ngFor='let item of incomingOrder' tappable (click)='orderDetailShowNumber(item.id)'>
-          <p text-wrap class="rightStateFont">{{changeState(item.state)}}</p>
-          <progress value={{item.shipping_rate}} max="100" class="progress_x" ></progress>
-          <h2 text-wrap>{{item.name}}</h2>
-          <h4 text-wrap>{{item.order_line}}</h4>
-          <div class="totalStyleRight">
-            <p text-wrap >汇总数量：{{item.amount_total}}</p>
-            <p text-wrap >汇总金额(元):{{toFix(item.product_count)}}</p>
+          <div style="overflow:hidden">
+            <p text-wrap class="rightStateFont">{{changeState(item.state)}}</p>
+            <meter value={{item.shipping_rate}} max="100" class="progress_x"></meter>
+            <!-- <progress value={{item.shipping_rate}} max="100" class="progress_x"></progress> -->
+            <h2 text-wrap>{{item.name}}</h2>
+          </div>
+
+          <div style="overflow:hidden">
+            <p style="float:right">{{changeDuizhang(item.invoice_status)}}</p>
+            <p>交货日期 : {{item.handle_date}}</p>
+          </div>
+
+
+          <div class="totalStyleRight" style="overflow:hidden">
+            <p text-wrap text-right>汇总数量：{{item.amount_total}}</p>
+            <p text-wrap text-right>汇总金额(元):{{toFix(item.product_count)}}</p>
           </div>
           <p text-wrap>负责人：{{item.creater}}</p>
-          <p text-wrap style="width:170px">供应商 ：{{item.supplier}}</p>
+          <p text-wrap style="width:180px">供应商 ：{{item.supplier}}</p>
         </ion-item>
       </ion-list>
       <ion-infinite-scroll (ionInfinite)="doInfinite3($event)">
@@ -105,7 +132,7 @@
     </ng-template>
 
     <ng-template [ngSwitchCase]='4'>
-          <ion-grid>
+      <ion-grid>
         <ion-row>
           <ion-col col-6>
             <div>
@@ -113,7 +140,9 @@
             </div>
           </ion-col>
           <ion-col>
-            <div><button (click)='returnOrderSearchClick()' class="searchFont">搜索</button></div>
+            <div>
+              <button (click)='returnOrderSearchClick()' class="searchFont">搜索</button>
+            </div>
           </ion-col>
         </ion-row>
       </ion-grid>

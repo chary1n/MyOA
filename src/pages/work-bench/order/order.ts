@@ -355,6 +355,18 @@ export class OrderPage {
       return "采购订单"
     }
   }
+  changeDuizhang(state){
+    if(state=="no"){
+      return "待出货"
+    }else  if(state=="to invoice"){
+      return "待对账"
+    }else  if(state=="invoiced"){
+      return "已对账完成"
+    }else {
+      return state
+    }
+  }
+
 
   toFix(amount){
     return amount.toFixed(2)
