@@ -25,6 +25,7 @@ export class SupplierDetailPage {
   offset:any
   category:any
   area:any
+  show_type = "one"
   constructor(public navCtrl: NavController, public navParams: NavParams,public supplierService :SupplierlistService 
     ,public alertCtrl: AlertController,private callNumber: CallNumber) {
     this.items = navParams.get('items');  
@@ -75,17 +76,39 @@ export class SupplierDetailPage {
         {  
           text: '确定',  
           handler: () => {  
-            this.call(this.items.phone);  
+            this.call(this.items.phone);
           }  
         }  
       ]  
     });  
       confirm.present();  
      } 
+     else
+     {
+        let confirm = this.alertCtrl.create({  
+      title: "该供应商没有录入手机号",  
+      buttons: [  
+        {  
+          text: '确定',  
+          handler: () => {  
+          }  
+        }
+      ]  
+    });  
+      confirm.present(); 
+     }
   }  
   call(number){  
     this.callNumber.callNumber(number, true)  
       .then(() => console.log('Launched dialer!'))  
       .catch(() => console.log('Error launching dialer'));  
   } 
+  click_one() {
+    this.show_type = "one";
+  }
+
+  click_two() {
+    this.show_type = "two";
+    console.log(this.items.contracts)
+  }
 }
