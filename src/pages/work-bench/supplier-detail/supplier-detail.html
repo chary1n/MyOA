@@ -13,8 +13,30 @@
 </ion-header>
 
 
-<ion-content>
-  <ion-grid class="grid_header">
+<ion-content style="background:#f0f0f0">
+  <ion-grid style="margin-top:0px;width:100%;background:white" class="grid_header">
+<ion-row class="row_class" align-items-center>
+      <ion-col tappable (click) = "createInfo()">
+         <div align="center" style="margin-top:10px">
+          <!--<img style="width:44px;" src="assets/img/write_message.png"><br>
+          <p style="color:#5bc5f3">新增记录</p>-->
+        </div>
+      </ion-col>
+      <ion-col tappable (click) = "callPhone()">
+        <div align="center" style="margin-top:10px">
+         <img  style="width:44px;" src="assets/img/call_phone.png"><br>
+          <p style="color:#5bc5f3">打电话</p>
+        </div>
+      </ion-col>
+      <ion-col tappable (click) = "sendEmail()">
+        <div align="center" >
+         <!--<img style="width:44px;" src="assets/img/send_email.png"><br>
+          <p style="color:#5bc5f3">发邮件</p> -->
+        </div>
+      </ion-col>
+    </ion-row>
+</ion-grid>
+  <!--<ion-grid class="grid_header">
 <ion-row class="row_class" align-items-center>
       <ion-col >
          <div class="first_div" >
@@ -41,16 +63,74 @@
         </div>
       </ion-col>
     </ion-row>
+</ion-grid>-->
+<ion-item align="center" no-lines style="height:40px;border-width:0.5px;border-color:lightgray;border-style:solid;width:101%;margin-left:-2px;margin-right:-4px;margin-top:-10px">
+    <ion-grid *ngIf="show_type == 'one'">
+<ion-row class="row_class" align-items-center>
+      <ion-col>
+         <div align="center" >
+          <p class="test_one">基本信息</p>
+        </div>
+      </ion-col>
+      <ion-col tappable (click) = "click_two()">
+        <div align="center">
+          <p>联系人&地址</p>
+        </div>
+      </ion-col>
+    </ion-row>
 </ion-grid>
-<ion-item-group>
+
+  <ion-grid *ngIf="show_type == 'two'">
+<ion-row class="row_class" align-items-center>
+      <ion-col tappable (click) = "click_one()">
+         <div align="center" >
+          <p>基本信息</p>
+        </div>
+      </ion-col>
+      <ion-col>
+        <div align="center">
+          <p class="test_two">联系人&地址</p>
+        </div>
+      </ion-col>
+    </ion-row>
+</ion-grid>
+</ion-item>
+<ion-grid class="row_class" style="background:white;height:100px;">
+  <ion-row align-items-center>
+      <ion-col>
+         <div align="center">
+          <p class="first_class">8</p>
+          <p  class="second_class">采购订单</p>
+        </div>
+      </ion-col>
+      <ion-col>
+        <div align="center">
+         <p class="first_class">6</p>
+          <p text-wrap class="second_class">采购确认</p>
+        </div>
+      </ion-col>
+    </ion-row>
+</ion-grid>
+
+<ion-item-group  *ngIf = "show_type == 'two'" style="margin-top:10px;">
+    <ion-item *ngFor='let item of items.contracts'>
+       <span style="font-weight:bold;margin-top:10px">{{item.name}}</span>
+       <span ion-button  style="background-color:#c9c9c9;color:gray;margin-top:-4px;background-color:white;color:#5bc5f3;border-color:#5bc5f3;border-width:1px;border-style:solid;" small>{{item.type[1]}}</span>
+      <h4>地址：{{item.street}}</h4>
+      <p>Email：{{item.email}}</p>
+      <p>电话：{{item.phone}}</p>
+    </ion-item>
+  </ion-item-group>
+
+<!--<ion-item-group>
   <ion-item-divider item-height="20" color="light"></ion-item-divider>
   <ion-item tappable (click) = 'contact_detail()'>
       <ion-label class="left_label">联系人&地址</ion-label>
       <ion-label class="right_label" item-end>{{items.contracts_count}} ></ion-label>
     </ion-item>
-</ion-item-group>
-<ion-item-group >
-    <ion-item-divider class="divider" color="light"></ion-item-divider>
+</ion-item-group>-->
+<ion-item-group style="margin-top:10px" *ngIf = "show_type == 'one'">
+    <!--<ion-item-divider class="divider" color="light"></ion-item-divider>-->
     <ion-item>
       <ion-label class="left_label">类型</ion-label>
       <ion-label text-wrap class="right_label" item-end>{{category}}</ion-label>
@@ -84,4 +164,6 @@
       <ion-label text-wrap item-end class="right_label">{{items.express_sample_record}}</ion-label>
     </ion-item>
   </ion-item-group>
+
+  
 </ion-content>
