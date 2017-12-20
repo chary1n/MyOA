@@ -32,6 +32,18 @@ export class BaobiaoPage {
             item:res.result.res_data,
           })
         }      
+    })  
+  }
+
+  xianggang(){
+    this.baobiaoService.account_hk().then(res => {
+      console.log(res)
+      if (res.result&&res.result.res_code == 1) {
+        
+      this.navCtrl.push('HkBaobiaoPage',{
+        items:res.result.res_data[0],
+       })
+      }
     })
     
   }

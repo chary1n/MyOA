@@ -14,4 +14,11 @@ export class BaoBiaoService {
         });
         return this.httpservice.postBody('get_account_data', body,1);
     }
+
+    account_hk(){
+        let body = JSON.stringify({
+           body:"body",
+        });
+        return this.httpservice.postBody('account_hk', body,1);
+    }
 }
