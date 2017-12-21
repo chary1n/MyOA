@@ -129,7 +129,7 @@ export class LoginPage {
     this.isSelected2 = false;
     this.isSelected1 = false;
     HttpService.appUrl = "http://erp.robotime.com/"
-    // HttpService.appUrl = "http://192.168.2.26:8888/"
+    // HttpService.appUrl = "http://192.168.2.38:8111/"
     this.getDB();
   }
 

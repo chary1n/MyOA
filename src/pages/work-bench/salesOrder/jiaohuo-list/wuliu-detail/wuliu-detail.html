@@ -14,6 +14,9 @@
 
 
 <ion-content padding>
+  <div *ngIf="details.length==0" style="text-align:center"> 
+    没有物流信息
+  </div>
   <ion-list>
     <ion-item *ngFor="let detail of details">
       <div style="margin-top:20px">

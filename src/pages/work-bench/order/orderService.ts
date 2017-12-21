@@ -15,7 +15,8 @@ export class orderService {
         let body = JSON.stringify({
             state: 'purchase',
             offset: moffset,
-            limit: mlimit
+            limit: mlimit,
+            user_id:HttpService.user_id
         });
         return this.httpservice.postBody("get_po", body);
     }
@@ -25,7 +26,8 @@ export class orderService {
         let body = JSON.stringify({
             state: 'draft',
             offset: moffset,
-            limit: mlimit
+            limit: mlimit,
+            user_id:HttpService.user_id
         });
         return this.httpservice.postBody("get_po", body);
     }
@@ -37,14 +39,16 @@ export class orderService {
         let body = JSON.stringify({
             state: 'make_by_mrp',
             offset: moffset,
-            limit: mlimit
+            limit: mlimit,
+            user_id:HttpService.user_id
         });
         return this.httpservice.postBody("get_po", body);
     }
     // 获取订单详细
     requestOrderDetail(mid) {
         let body = JSON.stringify({
-            id: mid
+            id: mid,
+            user_id:HttpService.user_id
         });
         return this.httpservice.postBody("get_po", body);
     }
@@ -53,7 +57,8 @@ export class orderService {
     requestReturnOrder(moffset, mlimit) {
         let body = JSON.stringify({
             offset: moffset,
-            limit: mlimit
+            limit: mlimit,
+            user_id:HttpService.user_id
         });
         return this.httpservice.postBody("get_prma", body);
     }
@@ -61,7 +66,8 @@ export class orderService {
     //采购退货详情
     requestReturnOrderDetail(mid) {
         let body = JSON.stringify({
-            id: mid
+            id: mid,
+            user_id:HttpService.user_id
         });
         return this.httpservice.postBody("get_prma", body);
     }
