@@ -37,18 +37,7 @@
   <div [ngSwitch]="pet">
 
     <ng-template [ngSwitchCase]='1'>
-      <ion-grid>
-        <ion-row>
-          <ion-col col-6>
-            <div>
-              <ion-input [(ngModel)]="searchName1" placeholder="输入订单编号" text-wrap style="margin-left:20px;;"></ion-input>
-            </div>
-          </ion-col>
-          <ion-col>
-            <div><button (click)='searchClick1()' class="searchFont">搜索</button></div>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
+      <ion-auto-complete style="width: 100vw;" (itemSelected)="itemSelected($event)" [dataProvider]="salesAuto"></ion-auto-complete>
       <ion-refresher (ionRefresh)="doRefresh1($event)">
         <ion-refresher-content></ion-refresher-content>
       </ion-refresher>
@@ -72,18 +61,7 @@
     </ng-template>
 
     <ng-template [ngSwitchCase]='2'>
-      <ion-grid>
-        <ion-row>
-          <ion-col col-6>
-            <div>
-              <ion-input [(ngModel)]="searchName2" placeholder="输入订单编号" style="margin-left:20px;;"></ion-input>
-            </div>
-          </ion-col>
-          <ion-col>
-            <div><button (click)='searchClick2()' class="searchFont">搜索</button></div>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
+      <ion-auto-complete style="width: 100vw;" (itemSelected)="itemSelected($event)" [dataProvider]="salesAuto"></ion-auto-complete>
       <ion-refresher (ionRefresh)="doRefresh2($event)">
         <ion-refresher-content></ion-refresher-content>
       </ion-refresher>
@@ -95,8 +73,12 @@
           <h2 text-wrap style="font-size:70%;">交货日期 {{item.validity_date}}</h2>
           <p text-wrap style="font-size:125%;float:right;color:#000000;font-weight:bold"> {{item.amount_total}} </p>
           <p text-wrap>{{item.team}} 销售员 :{{item.salesman}}</p>
-          <p text-wrap>客户 : {{item.customer}}  </p>
-          <p text-wrap> PI号码 :{{item.pi_number}}  </p>
+          <p text-wrap>客户 : {{item.customer}}</p>
+          <!-- <p text-wrap> PI号码 :{{item.pi_number}}  </p> -->
+          <div style="overflow:hidden">
+            <button ion-button outline round style="float:right">订单详情</button>
+            <button ion-button outline round style="float:right" (click)='viewJiaohuoOrder(item);$event.stopPropagation();'>查看交货单</button>
+          </div>
         </ion-item>
       </ion-list>
 

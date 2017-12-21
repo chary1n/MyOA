@@ -1,0 +1,61 @@
+<!--
+  Generated template for the JiaohuoDetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{item.name}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <div style="margin-top:20px" (click)="toWuliuDetail()">
+    <div style="text-align:center;font-size:200%;color:#04aaf4"> {{wuliuLength}}</div>
+    <div style="text-align:center;margin-top:10px"> 物流</div>
+  </div>
+<div style="background-color: #f2f2f2;height:4px;margin-top:10px"></div>
+
+  <div style="margin-top:10px">
+    <div class="div_all">
+      <div text-wrap class="div_right"> {{item.partner_id}} </div>
+      <div class="left_label,div_left" text-right> 合作伙伴 </div>
+    </div>
+    <div class="div_all">
+      <div text-wrap class="div_right"> {{item.location_id}} </div>
+      <div class="left_label,div_left" text-right> 源位置区域 </div>
+    </div>
+    <div class="div_all">
+      <div text-wrap class="div_right"> {{item.tracking_number}} </div>
+      <div class="left_label,div_left" text-right> 快递单号 </div>
+    </div>
+    <div class="div_all">
+      <div text-wrap class="div_right"> {{item.min_date}} </div>
+      <div class="left_label,div_left" text-right> 安排的日期 </div>
+    </div>
+    <div class="div_all">
+      <div text-wrap class="div_right"> {{item.origin}} </div>
+      <div class="left_label,div_left" text-right> 源单据 </div>
+    </div>
+    <div class="div_all">
+      <div text-wrap class="div_right"> {{changeState(item.state)}} </div>
+      <div class="left_label,div_left" text-right> 状态 </div>
+    </div>
+
+  </div>
+
+  <ion-label class="div_label"> 产品明细</ion-label>
+  <ion-list>
+    <ion-item *ngFor='let detail of item.product_id;let i  = index' >
+      <h3 text-wrap>产品 {{i+1}} {{detail.name}}</h3>
+      <div style="display:flex ;justify-content:space-around">
+        <p style="flex :1 1 100%">待办:{{detail.ordered_qty}}</p>
+        <p style="flex :1 1 100%">完成:{{detail.qty_done}}</p>
+      </div>
+    </ion-item>
+  </ion-list>
+</ion-content>

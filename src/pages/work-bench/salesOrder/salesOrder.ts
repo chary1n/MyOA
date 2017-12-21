@@ -1,3 +1,4 @@
+import { SalesOrderAutoService } from './salesOrder-auto';
 // import { CreateQuotesPage } from './create-quotes/create-quotes';
 import { Storage } from '@ionic/storage';
 // import { SalesDetailPage } from './sales-detail/sales-detail';
@@ -15,10 +16,10 @@ import { IonicPage, NavController, NavParams, ActionSheetController } from 'ioni
 @Component({
   selector: 'page-salesOrder',
   templateUrl: 'salesOrder.html',
-  providers: [SalesSearvice]
+  providers: [SalesSearvice, SalesOrderAutoService]
 })
 export class SalesOrderPage {
-  pet: string = "1";
+  pet: string = "2";
   searchName1: string;
   searchName2: string;
   searchName3: string;
@@ -36,7 +37,8 @@ export class SalesOrderPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public actionSheetCtrl: ActionSheetController,
-    public salesSearvice: SalesSearvice, private storage: Storage) {
+    public salesSearvice: SalesSearvice, private storage: Storage,
+    public salesAuto: SalesOrderAutoService) {
     let self = this;
     this.storage.get('user')
       .then(res => {
@@ -50,8 +52,44 @@ export class SalesOrderPage {
   }
 
   ionViewDidEnter() {
-    this.clickOne()
+    this.clickTwo()
   }
+
+  itemSelected(event) {
+    let type;
+    let search_text;
+    if (event.id == 1) {
+      type = "name";
+      search_text = event.name.replace("搜 订单:", "")
+    } else if (event.id == 2) {
+      type = "partner_id";
+      search_text = event.name.replace("搜 客户:", "")
+    } else if (event.id == 3) {
+      type = "product_id";
+      search_text = event.name.replace("搜 产品:", "")
+    } else if (event.id == 4) {
+      type = "user_id";
+      search_text = event.name.replace("搜 销售员:", "")
+    } else if (event.id == 5) {
+      type = "team_id";
+      search_text = event.name.replace("搜 销售团队:", "")
+    } else if (event.id == 6) {
+      type = "pi_number";
+      search_text = event.name.replace("搜 PI号码:", "")
+    }
+    this.salesSearvice.searchSalesOrder(type, search_text, this.pet).then(res => {
+      console.log(res)
+      if (res.result && res.result.res_code == 1) {
+        if (this.pet == "1") {
+          this.quotesOrder = res.result.res_data
+        } else if (this.pet == "2") {
+          this.salesOrder = res.result.res_data
+        }
+      }
+    })
+  }
+
+
   clickOne() {
     this.salesSearvice.getQuotesList(0, 20, this.userId)
       .then(res => {
@@ -109,7 +147,7 @@ export class SalesOrderPage {
     this.salesSearvice.getSalesOrder(0, 20, this.userId)
       .then(res => {
         if (res.result && res.result.res_code == 1) {
-          this.salesOrder   = res.result.res_data
+          this.salesOrder = res.result.res_data
           console.log(this.salesOrder)
         }
       })
@@ -122,7 +160,7 @@ export class SalesOrderPage {
     this.salesSearvice.getSalesOrder(0, 20, this.userId).then((res) => {
       console.log(res)
       refresh.complete();
-      this.salesOrder   = res.result.res_data
+      this.salesOrder = res.result.res_data
     })
   }
 
@@ -175,10 +213,10 @@ export class SalesOrderPage {
     this.salesSearvice.getSalesReturn(0, 20, this.userId).then((res) => {
       console.log(res)
       refresh.complete();
-       if (res.result && res.result.res_code == 1) {
-          this.salesReturnOrder = res.result.res_data
-          console.log(this.salesReturnOrder)
-        }
+      if (res.result && res.result.res_code == 1) {
+        this.salesReturnOrder = res.result.res_data
+        console.log(this.salesReturnOrder)
+      }
     })
   }
 
@@ -215,7 +253,7 @@ export class SalesOrderPage {
 
   searchClick1() {
     this.isMoreData1 = false;
-    this.salesSearvice.searchQuotesList(this.searchName1,this.userId)
+    this.salesSearvice.searchQuotesList(this.searchName1, this.userId)
       .then(res => {
         this.quotesOrder = res.result.res_data
       })
@@ -223,10 +261,10 @@ export class SalesOrderPage {
 
   searchClick2() {
     this.isMoreData2 = false;
-    this.salesSearvice.searchSalesList(this.searchName2,this.userId)
+    this.salesSearvice.searchSalesList(this.searchName2, this.userId)
       .then(res => {
-        if(res.result&&res.result.res_code==1){
-          this.salesOrder   = res.result.res_data
+        if (res.result && res.result.res_code == 1) {
+          this.salesOrder = res.result.res_data
         }
       })
   }
@@ -234,7 +272,7 @@ export class SalesOrderPage {
 
   searchClick3() {
     this.isMoreData3 = false;
-    this.salesSearvice.searchSalesReturnList(this.searchName3,this.userId)
+    this.salesSearvice.searchSalesReturnList(this.searchName3, this.userId)
       .then(res => {
         this.salesReturnOrder = res.result.res_data
       })
@@ -251,6 +289,10 @@ export class SalesOrderPage {
       id: mid, type: "salesOrder",
     })
 
+  }
+
+  viewJiaohuoOrder(item){
+    this.navCtrl.push('JiaohuoListPage',{id:item.id})
   }
 
   orderDetail3(mid) {
@@ -295,6 +337,7 @@ export class SalesOrderPage {
     });
     actionSheet.present();
   }
+
 
 
   // 报价单

@@ -25,6 +25,7 @@ export class SalesDetailPage {
   item: any = "";
   type: string ;
   state ;
+  jiaohuoLength ;
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
@@ -41,6 +42,10 @@ export class SalesDetailPage {
       if (res.result && res.result.res_code == 1) {
         let detail =  res.result.res_data;
         this.item =detail
+        this.jiaohuoLength = this.item.picking_ids.length
+        if(!this.jiaohuoLength){
+          this.jiaohuoLength = 0
+        }
         this.state = detail.state 
         console.log(this.item)
       }
@@ -140,6 +145,16 @@ export class SalesDetailPage {
       ]
     });
     alert.present();
+  }
+
+  toProductDetail(detail){
+      this.navCtrl.push('BaojiaDetailPage',{'detail':detail})
+  }
+
+  toJiaohuoDetail(){
+    if(this.jiaohuoLength){
+      this.navCtrl.push('JiaohuoListPage',{id:this.id})
+    }
   }
 }
 
