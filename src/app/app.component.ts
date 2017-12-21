@@ -74,8 +74,8 @@ export class MyApp {
               if(res.version > value)
               {
                 this.alertCtrl.create({
-                  title: '升级',
-                  subTitle: '发现新版本,是否立即升级？',
+                  title: '发现新版本,是否立即升级？',
+                  subTitle: "更新内容："+res.changelog,
                   buttons: [{ text: '取消' },
                  {
                     text: '确定',
