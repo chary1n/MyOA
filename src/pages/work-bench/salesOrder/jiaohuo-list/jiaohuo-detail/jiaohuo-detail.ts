@@ -41,6 +41,8 @@ export class JiaohuoDetailPage {
       return '可用'
     } else if (state == "done") {
       return '完成'
+    } else if (state == "waiting") {
+      return '等待其它作业'
     } else {
       return state
     }

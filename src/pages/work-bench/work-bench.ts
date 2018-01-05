@@ -20,7 +20,7 @@ export class WorkBenchPage {
   model: WorkBenchModel
   isShowPurchase = false;
   isShowSale = false;
-  isHR = false ;
+  isHR = false;
   isShowZiJin = false;
   isZZList = false;
   isShenGouList = false;
@@ -48,8 +48,7 @@ export class WorkBenchPage {
           if (product.name == 'group_sale_salesman' || product.name == 'group_sale_manager' || product.name == 'group_sale_salesman_all_leads') {
             this.isShowSale = true;
           }
-          if (product.name == 'group_account_manager')
-          {
+          if (product.name == 'group_account_manager') {
             this.isShowZiJin = true;
           }
          
@@ -97,33 +96,33 @@ export class WorkBenchPage {
     this.navCtrl.push('NewProductionPage');
   }
 
-  reimbursement(){
+  reimbursement() {
     this.navCtrl.push('ReimbursementPage')
   }
   // 申请
-  apply(){
+  apply() {
     this.navCtrl.push('ApplyPage')
   }
 
-  shengou(){
+  shengou() {
     this.navCtrl.push('ShengoupagePage')
   }
 
 
-  material_request(){
+  material_request() {
     this.navCtrl.push('MaterialRequestPage');
   }
 
-  zanzhi(){
+  zanzhi() {
     this.navCtrl.push("ZanzhiPage")
   }
-  zhishifenxiang(){
-    
+  zhishifenxiang() {
+
   }
-  shareKnowledge(){
+  shareKnowledge() {
     this.navCtrl.push('ShareKnowledgePage')
   }
-  baobiao(){
+  baobiao() {
     this.navCtrl.push('BaobiaoPage')
   }
   gongdan(){

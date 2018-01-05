@@ -11,7 +11,7 @@ export class LoginService {
 
 
     getDBInfo() {
-        return this.httpService.getNoLoading('get_db_list', null,1);
+        return this.httpService.get('get_db_list', null,1);
     }
 
     toLogin(logins,passwords,dbs) {

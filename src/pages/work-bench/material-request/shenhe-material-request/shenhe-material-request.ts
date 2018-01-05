@@ -119,9 +119,7 @@ export class ShenheMaterialRequestPage {
             if (res.result.res_data.success == 1){
                Utils.toastButtom("送审成功", this.toastCtrl)
                   this.frontPage.data.need_fresh = true;
-              this.navCtrl.popTo(this.frontPage,{
-                need_fresh:true,
-              });
+              this.navCtrl.popTo(this.frontPage);
             }
           })
         }
@@ -137,9 +135,7 @@ export class ShenheMaterialRequestPage {
             if (res.result.res_data.success == 1){
                Utils.toastButtom("送审成功", this.toastCtrl)
                   this.frontPage.data.need_fresh = true;
-              this.navCtrl.popTo(this.frontPage,{
-                need_fresh:true,
-              });
+              this.navCtrl.popTo(this.frontPage);
             }
           })
         }
@@ -163,9 +159,7 @@ export class ShenheMaterialRequestPage {
             if (res.result.res_data.success == 1){
                Utils.toastButtom("送审成功", this.toastCtrl)
                   this.frontPage.data.need_fresh = true;
-              this.navCtrl.popTo(this.frontPage,{
-                need_fresh:true,
-              });
+              this.navCtrl.popTo(this.frontPage);
             }
           })
         }
@@ -180,9 +174,7 @@ export class ShenheMaterialRequestPage {
             if (res.result.res_data.success == 1){
                Utils.toastButtom("送审成功", this.toastCtrl)
                   this.frontPage.data.need_fresh = true;
-              this.navCtrl.popTo(this.frontPage,{
-                need_fresh:true,
-              });
+              this.navCtrl.popTo(this.frontPage);
             }
           })
         }

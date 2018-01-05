@@ -39,6 +39,7 @@ import { IonicStorageModule } from '@ionic/storage';
 import { MsgPage } from './../pages/msg/msg';
 import { DatePicker } from '@ionic-native/date-picker';
 import { SupplierListPage } from '../pages/work-bench/supplier-list/supplier-list'
+import {IonicImageViewerModule} from 'ionic-img-viewer'
 // import { AutocompleteServiceProvider } from '../providers/autocomplete-service/autocomplete-service';
 
 @NgModule({
@@ -53,6 +54,8 @@ import { SupplierListPage } from '../pages/work-bench/supplier-list/supplier-lis
     HttpModule,
     IonicStorageModule.forRoot(),
     TreeModule,
+    IonicImageViewerModule
+    
   ],
   bootstrap: [IonicApp],
   entryComponents: [

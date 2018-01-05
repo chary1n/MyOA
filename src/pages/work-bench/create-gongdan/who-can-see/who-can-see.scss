@@ -1,0 +1,13 @@
+page-who-can-see {
+    .col_x{
+        margin-top: 13px;
+        font-size: 120%;
+    }
+    .span_x {
+        display: block;
+        width: 120px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+}
