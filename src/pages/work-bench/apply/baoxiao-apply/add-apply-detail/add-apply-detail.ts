@@ -23,7 +23,7 @@ export class AddApplyDetailPage {
   production;
   productIndex;
   changeItem;
-  taxIndex = 0 ;
+  taxIndex = 0;
   taxList;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public platform: Platform,

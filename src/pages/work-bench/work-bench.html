@@ -12,20 +12,24 @@
     <ion-row>
       <ion-col col-3 tappable (click)="apply()">
         <img src="assets/img/work_bench/shenqing.png">
-        <div>报销</div>
+        <div  [ngClass]="{true:'red-point-one',false:''}[isBaoxiaoList]" >报销</div>
       </ion-col>
       <ion-col col-3 tappable (click)="shengou()">
         <img src="assets/img/work_bench/shenpi.png">
-        <div>申购</div>
+        <div id="red-point-two" [ngClass]="{true:'red-point-two',false:''}[isShenGouList]" data-attr ="1">申购</div>
       </ion-col>
       <ion-col col-3 tappable (click)="zanzhi()">
         <img src="assets/img/work_bench/zanzhi.png">
-        <div>暂支</div>
+        <div id="red-point-three" [ngClass]="{true:'red-point-three',false:''}[isZZList]" data-attr ="1">暂支</div>
       </ion-col>
       <ion-col col-3 tappable (click)="shareKnowledge()">
         <img src="assets/img/work_bench/zhishifenxiang.png">
         <div>知识分享</div>
       </ion-col>
+       <!--<ion-col col-3 tappable (click)="gongdan()">
+        <img src="assets/img/work_bench/zhishifenxiang.png">
+        <div>工单</div>
+      </ion-col>-->
     </ion-row>
     <ion-row>
         <ion-col col-3 tappable (click)="gongdan()">
@@ -107,6 +111,10 @@
           <img src="assets/img/work_bench/ruku.png">
           <div>采购确认</div>
         </ion-col>
+        <!--<ion-col col-3 tappable (click)="clickPayrequest()">
+          <img src="assets/img/work_bench/ruku.png">
+          <div>付款审核</div>
+        </ion-col>-->
       </ion-row>
       <ion-row>
         <!--<ion-col col-3>

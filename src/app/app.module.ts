@@ -48,7 +48,9 @@ import {IonicImageViewerModule} from 'ionic-img-viewer'
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp,{
+       backButtonText: '',
+    }),
     HttpModule,
     IonicStorageModule.forRoot(),
     TreeModule,

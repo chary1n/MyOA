@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { WorkBenchModel } from './../../model/WorkBenchModel';
 import { Storage } from '@ionic/storage';
-
+import { CommonUseServices} from './commonUseServices';
 /**
  * Generated class for the WorkBenchPage page.
  *
@@ -13,6 +13,7 @@ import { Storage } from '@ionic/storage';
 @Component({
   selector: 'page-work-bench',
   templateUrl: 'work-bench.html',
+  providers:[CommonUseServices],
 })
 export class WorkBenchPage {
   dataSource: any
@@ -21,7 +22,14 @@ export class WorkBenchPage {
   isShowSale = false;
   isHR = false;
   isShowZiJin = false;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage) {
+  isZZList = false;
+  isShenGouList = false;
+  isBaoxiaoList = false;
+  zz_count = 0;
+  sg_count = 0;
+  bx_count = 0;
+  constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage,
+    public services :CommonUseServices) {
   }
 
   ionViewDidLoad() {
@@ -43,7 +51,19 @@ export class WorkBenchPage {
           if (product.name == 'group_account_manager') {
             this.isShowZiJin = true;
           }
+         
         }
+         this.services.get_all_need_do(res.result.res_data.user_id).then(res => {
+            console.log(res.result.res_data.bx)
+            if (res.result && res.result.res_code == 1 && res.result.res_data) {
+              this.isZZList = res.result.res_data.zz > 0 ?true :false;
+              this.isBaoxiaoList = res.result.res_data.bx > 0 ? true:false;
+              this.isShenGouList = res.result.res_data.sg > 0 ?true :false;
+              this.zz_count = res.result.res_data.zz;
+              this.bx_count = res.result.res_data.bx;
+              this.sg_count = res.result.res_data.sg;
+            }
+          })
       });
   }
 
@@ -103,7 +123,10 @@ export class WorkBenchPage {
   baobiao() {
     this.navCtrl.push('BaobiaoPage')
   }
-  gongdan() {
-    this.navCtrl.push('CreateGongdanPage')
+  gongdan(){
+    this.navCtrl.push('GongdanPage')
+  }
+  clickPayrequest(){
+    this.navCtrl.push('PayRequestPage')
   }
 }
