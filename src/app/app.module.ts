@@ -47,7 +47,9 @@ import { SupplierListPage } from '../pages/work-bench/supplier-list/supplier-lis
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp,{
+       backButtonText: '',
+    }),
     HttpModule,
     IonicStorageModule.forRoot(),
     TreeModule,

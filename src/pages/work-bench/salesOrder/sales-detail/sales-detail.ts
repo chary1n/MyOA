@@ -126,6 +126,7 @@ export class SalesDetailPage {
           handler: () => {
             this.salesSearvice.confirmOrder(this.id)
               .then(res => {
+                console.log(res);
                 if (res.result && res.result.res_code == 1) {
                   let toast = this.toast.create({
                     message: '成功转为销售单',
@@ -136,6 +137,14 @@ export class SalesDetailPage {
                   toast.onDidDismiss(() => {
                     this.type = "salesOrder"
                     console.log(this.type + "this.type是")
+                  });
+                  toast.present();
+                }
+                else{
+                  let toast = this.toast.create({
+                    message: '未设置税金',
+                    duration: 1500,
+                    position: 'middle'
                   });
                   toast.present();
                 }
