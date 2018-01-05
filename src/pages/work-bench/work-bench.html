@@ -14,19 +14,23 @@
         <div style="position:relative">
           <img src="assets/img/work_bench/shenqing.png">
           <div>报销</div>
-          <span *ngIf="bx_count > 0" style="position:absolute;width:20px;height:20px;border-radius:10px;background-color:red;display:inline-block;color:white;line-height:20px;right:8px;top:-8px;text-align:center">{{bx_count}}</span>
+          <span *ngIf="bx_count > 0" style="position:absolute;width:20px;height:20px;border-radius:10px;background-color:red;display:inline-block;color:white;line-height:20px;right:8px;top:-8px;text-align:center;font-size:12px">{{bx_count}}</span>
         </div>
         
       </ion-col>
       <ion-col col-3 tappable (click)="shengou()">
+        <div style="position:relative">
         <img src="assets/img/work_bench/shenpi.png">
         <div>申购</div>
-        <span *ngIf="sg_count > 0" style="position:absolute;width:20px;height:20px;border-radius:10px;background-color:red;display:inline-block;color:white;line-height:20px;right:8px;top:-8px;text-align:center">{{sg_count}}</span>
+        <span *ngIf="sg_count > 0" style="position:absolute;width:20px;height:20px;border-radius:10px;background-color:red;display:inline-block;color:white;line-height:20px;right:8px;top:-8px;text-align:center;font-size:12px">{{sg_count}}</span>
+        </div>
       </ion-col>
       <ion-col col-3 tappable (click)="zanzhi()">
+        <div style="position:relative">
         <img src="assets/img/work_bench/zanzhi.png">
         <div>暂支</div>
-        <span *ngIf="zz_count > 0" style="position:absolute;width:20px;height:20px;border-radius:10px;background-color:red;display:inline-block;color:white;line-height:20px;right:8px;top:-8px;text-align:center">{{zz_count}}</span>
+        <span *ngIf="zz_count > 0" style="position:absolute;width:20px;height:20px;border-radius:10px;background-color:red;display:inline-block;color:white;line-height:20px;right:8px;top:-8px;text-align:center;font-size:12px">{{zz_count}}</span>
+        </div>
       </ion-col>
       <ion-col col-3 tappable (click)="shareKnowledge()">
         <img src="assets/img/work_bench/zhishifenxiang.png">
