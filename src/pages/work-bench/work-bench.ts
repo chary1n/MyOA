@@ -53,17 +53,17 @@ export class WorkBenchPage {
           }
          
         }
-         this.services.get_all_need_do(res.result.res_data.user_id).then(res => {
-            console.log(res.result.res_data.bx)
-            if (res.result && res.result.res_code == 1 && res.result.res_data) {
-              this.isZZList = res.result.res_data.zz > 0 ?true :false;
-              this.isBaoxiaoList = res.result.res_data.bx > 0 ? true:false;
-              this.isShenGouList = res.result.res_data.sg > 0 ?true :false;
-              this.zz_count = res.result.res_data.zz;
-              this.bx_count = res.result.res_data.bx;
-              this.sg_count = res.result.res_data.sg;
-            }
-          })
+        //  this.services.get_all_need_do(res.result.res_data.user_id).then(res => {
+        //     console.log(res.result.res_data.bx)
+        //     if (res.result && res.result.res_code == 1 && res.result.res_data) {
+        //       this.isZZList = res.result.res_data.zz > 0 ?true :false;
+        //       this.isBaoxiaoList = res.result.res_data.bx > 0 ? true:false;
+        //       this.isShenGouList = res.result.res_data.sg > 0 ?true :false;
+        //       this.zz_count = res.result.res_data.zz;
+        //       this.bx_count = res.result.res_data.bx;
+        //       this.sg_count = res.result.res_data.sg;
+        //     }
+        //   })
       });
   }
 
