@@ -11,16 +11,22 @@
   <ion-grid>
     <ion-row>
       <ion-col col-3 tappable (click)="apply()">
-        <img src="assets/img/work_bench/shenqing.png">
-        <div  [ngClass]="{true:'red-point-one',false:''}[isBaoxiaoList]" >报销</div>
+        <div style="position:relative">
+          <img src="assets/img/work_bench/shenqing.png">
+          <div>报销</div>
+          <span *ngIf="bx_count > 0" style="position:absolute;width:20px;height:20px;border-radius:10px;background-color:red;display:inline-block;color:white;line-height:20px;right:8px;top:-8px;text-align:center">{{bx_count}}</span>
+        </div>
+        
       </ion-col>
       <ion-col col-3 tappable (click)="shengou()">
         <img src="assets/img/work_bench/shenpi.png">
-        <div id="red-point-two" [ngClass]="{true:'red-point-two',false:''}[isShenGouList]" data-attr ="1">申购</div>
+        <div>申购</div>
+        <span *ngIf="sg_count > 0" style="position:absolute;width:20px;height:20px;border-radius:10px;background-color:red;display:inline-block;color:white;line-height:20px;right:8px;top:-8px;text-align:center">{{sg_count}}</span>
       </ion-col>
       <ion-col col-3 tappable (click)="zanzhi()">
         <img src="assets/img/work_bench/zanzhi.png">
-        <div id="red-point-three" [ngClass]="{true:'red-point-three',false:''}[isZZList]" data-attr ="1">暂支</div>
+        <div>暂支</div>
+        <span *ngIf="zz_count > 0" style="position:absolute;width:20px;height:20px;border-radius:10px;background-color:red;display:inline-block;color:white;line-height:20px;right:8px;top:-8px;text-align:center">{{zz_count}}</span>
       </ion-col>
       <ion-col col-3 tappable (click)="shareKnowledge()">
         <img src="assets/img/work_bench/zhishifenxiang.png">

@@ -63,6 +63,8 @@ export class WorkBenchPage {
               this.zz_count = res.result.res_data.zz;
               this.bx_count = res.result.res_data.bx;
               this.sg_count = res.result.res_data.sg;
+              // var dd = document.getElementById('red-point-one');
+
             }
           })
       });
