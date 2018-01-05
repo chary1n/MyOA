@@ -16,37 +16,33 @@
           <div>报销</div>
           <span *ngIf="bx_count > 0" style="position:absolute;width:20px;height:20px;border-radius:10px;background-color:red;display:inline-block;color:white;line-height:20px;right:8px;top:-8px;text-align:center;font-size:12px">{{bx_count}}</span>
         </div>
-        
+
       </ion-col>
       <ion-col col-3 tappable (click)="shengou()">
         <div style="position:relative">
-        <img src="assets/img/work_bench/shenpi.png">
-        <div>申购</div>
-        <span *ngIf="sg_count > 0" style="position:absolute;width:20px;height:20px;border-radius:10px;background-color:red;display:inline-block;color:white;line-height:20px;right:8px;top:-8px;text-align:center;font-size:12px">{{sg_count}}</span>
+          <img src="assets/img/work_bench/shenpi.png">
+          <div>申购</div>
+          <span *ngIf="sg_count > 0" style="position:absolute;width:20px;height:20px;border-radius:10px;background-color:red;display:inline-block;color:white;line-height:20px;right:8px;top:-8px;text-align:center;font-size:12px">{{sg_count}}</span>
         </div>
       </ion-col>
       <ion-col col-3 tappable (click)="zanzhi()">
         <div style="position:relative">
-        <img src="assets/img/work_bench/zanzhi.png">
-        <div>暂支</div>
-        <span *ngIf="zz_count > 0" style="position:absolute;width:20px;height:20px;border-radius:10px;background-color:red;display:inline-block;color:white;line-height:20px;right:8px;top:-8px;text-align:center;font-size:12px">{{zz_count}}</span>
+          <img src="assets/img/work_bench/zanzhi.png">
+          <div>暂支</div>
+          <span *ngIf="zz_count > 0" style="position:absolute;width:20px;height:20px;border-radius:10px;background-color:red;display:inline-block;color:white;line-height:20px;right:8px;top:-8px;text-align:center;font-size:12px">{{zz_count}}</span>
         </div>
       </ion-col>
       <ion-col col-3 tappable (click)="shareKnowledge()">
         <img src="assets/img/work_bench/zhishifenxiang.png">
         <div>知识分享</div>
       </ion-col>
-       <!--<ion-col col-3 tappable (click)="gongdan()">
-        <img src="assets/img/work_bench/zhishifenxiang.png">
-        <div>工单</div>
-      </ion-col>-->
     </ion-row>
-    <ion-row>
+    <!-- <ion-row>
         <ion-col col-3 tappable (click)="gongdan()">
           <img src="assets/img/work_bench/shenqing.png">
           <div>工单</div>
         </ion-col>
-    </ion-row>
+    </ion-row> -->
   </ion-grid>
   <div class='dividingLine'></div>
 
@@ -184,13 +180,13 @@
     <div class="externalDiv">
       <div class="titleFont">财务</div>
     </div>
-     <ion-grid>
-    <ion-row>
-      <ion-col col-3 tappable (click)="baobiao()">
-        <img src="assets/img/work_bench/caiwubaobiao.png">
-        <div>财务报表</div>
-      </ion-col>
-    </ion-row>
-     </ion-grid>
+    <ion-grid>
+      <ion-row>
+        <ion-col col-3 tappable (click)="baobiao()">
+          <img src="assets/img/work_bench/caiwubaobiao.png">
+          <div>财务报表</div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </div>
 </ion-content>
