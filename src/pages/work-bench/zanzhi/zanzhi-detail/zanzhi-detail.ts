@@ -3,8 +3,8 @@ import { CommonUseServices } from './../../commonUseServices';
 import { NavController, NavParams, IonicPage } from 'ionic-angular';
 import { Component } from '@angular/core';
 import { AlertController } from 'ionic-angular/components/alert/alert-controller';
-import { Storage } from '@ionic/storage/es2015/storage';
 import { ToastController } from 'ionic-angular/components/toast/toast-controller';
+import { Storage } from '@ionic/storage';
 
 /**
  * Generated class for the ZanzhiDetailPage page.
@@ -84,9 +84,7 @@ export class ZanzhiDetailPage {
                 text: '确定',
                 handler: () => {
                   this.frontPage.data.need_fresh = true;
-                  this.navCtrl.popTo(this.frontPage, {
-                    need_fresh: true,
-                  });
+                  this.navCtrl.popTo(this.frontPage);
                 }
               }
               ]
@@ -134,9 +132,7 @@ export class ZanzhiDetailPage {
                         text: '确定',
                         handler: () => {
                           this.frontPage.data.need_fresh = true;
-                          this.navCtrl.popTo(this.frontPage, {
-                            need_fresh: true,
-                          });
+                          this.navCtrl.popTo(this.frontPage);
                         }
                       }
                       ]

@@ -201,9 +201,7 @@ export class EditMaterialRequestPage {
                 {
                   Utils.toastButtom("已拒绝", this.toastCtrl)
                   this.frontPage.data.need_fresh = true;
-              this.navCtrl.popTo(this.frontPage,{
-                need_fresh:true,
-              });
+              this.navCtrl.popTo(this.frontPage);
                 }
                 else
                 {
@@ -271,9 +269,7 @@ export class EditMaterialRequestPage {
                 {
                   Utils.toastButtom("终审通过", this.toastCtrl)
                   this.frontPage.data.need_fresh = true;
-              this.navCtrl.popTo(this.frontPage,{
-                need_fresh:true,
-              });
+              this.navCtrl.popTo(this.frontPage);
                 }
                 else
                 {

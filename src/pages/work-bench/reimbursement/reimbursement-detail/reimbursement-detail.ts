@@ -148,9 +148,7 @@ export class ReimbursementDetailPage {
                 text: '确定',
                     handler: () => {
                     this.frontPage.data.need_fresh = true;
-              this.navCtrl.popTo(this.frontPage,{
-                need_fresh:true,
-              });
+              this.navCtrl.popTo(this.frontPage);
              }
              }
       ]
@@ -175,9 +173,7 @@ export class ReimbursementDetailPage {
                 text: '确定',
                     handler: () => {
                     this.frontPage.data.need_fresh = true;
-              this.navCtrl.popTo(this.frontPage,{
-                need_fresh:true,
-              });
+              this.navCtrl.popTo(this.frontPage);
              }
              }
       ]
@@ -228,9 +224,7 @@ export class ReimbursementDetailPage {
                 text: '确定',
                     handler: () => {
                     this.frontPage.data.need_fresh = true;
-              this.navCtrl.popTo(this.frontPage,{
-                need_fresh:true,
-              });
+              this.navCtrl.popTo(this.frontPage);
              }
              }
       ]
@@ -255,9 +249,7 @@ export class ReimbursementDetailPage {
                 text: '确定',
                     handler: () => {
                     this.frontPage.data.need_fresh = true;
-              this.navCtrl.popTo(this.frontPage,{
-                need_fresh:true,
-              });
+              this.navCtrl.popTo(this.frontPage);
              }
              }
       ]
@@ -311,9 +303,7 @@ export class ReimbursementDetailPage {
                 text: '确定',
                     handler: () => {
                     this.frontPage.data.need_fresh = true;
-              this.navCtrl.popTo(this.frontPage,{
-                need_fresh:true,
-              });
+              this.navCtrl.popTo(this.frontPage);
              }
              }
       ]
@@ -338,9 +328,7 @@ export class ReimbursementDetailPage {
                 text: '确定',
                     handler: () => {
                     this.frontPage.data.need_fresh = true;
-              this.navCtrl.popTo(this.frontPage,{
-                need_fresh:true,
-              });
+              this.navCtrl.popTo(this.frontPage);
              }
              }
       ]
@@ -396,9 +384,7 @@ export class ReimbursementDetailPage {
                 text: '确定',
                     handler: () => {
                     this.frontPage.data.need_fresh = true;
-              this.navCtrl.popTo(this.frontPage,{
-                need_fresh:true,
-              });
+              this.navCtrl.popTo(this.frontPage);
              }
              }
       ]

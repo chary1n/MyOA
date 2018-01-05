@@ -110,9 +110,7 @@ export class CreateInfoPage {
         if(res.result.res_data.success == 1)
         {
           this.frontPage.data.need_fresh = true;
-              this.navCtrl.popTo(this.frontPage,{
-                need_fresh:true,
-              });
+              this.navCtrl.popTo(this.frontPage);
         }
       }
     })

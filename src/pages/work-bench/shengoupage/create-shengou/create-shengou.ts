@@ -201,9 +201,7 @@ export class CreateShengouPage {
                 text: '暂不提交',
                     handler: () => {
                     this.frontPage.data.need_fresh = true;
-              this.navCtrl.popTo(this.frontPage,{
-                need_fresh:true,
-              });
+              this.navCtrl.popTo(this.frontPage);
              }
              },{
                     text: '立即提交',
@@ -219,9 +217,7 @@ export class CreateShengouPage {
                 text: '确定',
                     handler: () => {
                     this.frontPage.data.need_fresh = true;
-              this.navCtrl.popTo(this.frontPage,{
-                need_fresh:true,
-              });
+              this.navCtrl.popTo(this.frontPage);
              }
              }
       ]

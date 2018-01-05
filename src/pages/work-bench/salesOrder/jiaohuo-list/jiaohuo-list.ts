@@ -44,21 +44,23 @@ export class JiaohuoListPage {
       return '可用'
     } else if (state == "done") {
       return '完成'
-    }else if (state == "cancel") {
+    } else if (state == "cancel") {
       return '取消'
+    } else if (state == "waiting") {
+      return '等待其它作业'
     } else {
       return state
     }
   }
   jiaohuoDetail(item) {
-    this.navCtrl.push("JiaohuoDetailPage",{
-      item:item
+    this.navCtrl.push("JiaohuoDetailPage", {
+      item: item
     })
   }
 
   viewWuliu(item) {
-      this.navCtrl.push("WuliuDetailPage",{
-        'item': item
-      })
+    this.navCtrl.push("WuliuDetailPage", {
+      'item': item
+    })
   }
 }

@@ -44,6 +44,7 @@ export class SalesOrderPage {
       .then(res => {
         self.userId = res.result.res_data.user_id;
         console.log(res);
+        this.clickTwo()
       });
   }
 
@@ -52,7 +53,6 @@ export class SalesOrderPage {
   }
 
   ionViewDidEnter() {
-    this.clickTwo()
   }
 
   itemSelected(event) {
