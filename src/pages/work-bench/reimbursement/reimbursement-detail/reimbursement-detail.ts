@@ -1,3 +1,4 @@
+import { HttpService } from './../../../../providers/HttpService';
 import { NavController, NavParams, IonicPage,AlertController,ToastController } from 'ionic-angular';
 import { Component } from '@angular/core';
 import { ReimbursementService} from './../reimbursementService';
@@ -53,12 +54,13 @@ export class ReimbursementDetailPage {
         
       });
     console.log(this.item.state);
+    let to_approve_name = this.item.to_approve_id
     if (this.item.state == '发送' || this.item.state == '1级审核' || this.item.state == '2级审核')
     {
       this.isShowFooter = true;
       this.storage.get('user')
       .then(res => {
-        if (res.result.res_data.user_id != this.item.to_approve_id){
+        if (res.result.res_data.name != to_approve_name){
           this.isShowFooter = false;
         }
       })
@@ -67,7 +69,7 @@ export class ReimbursementDetailPage {
     {
       this.isShowFooter = false;
     }
-    
+    console.log( this.isShowFooter + "      this.isShowFooter"  +HttpService.user_id +    "   "+this.item.to_approve_id)
     console.log(this.item)
   }
 
