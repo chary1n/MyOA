@@ -1,0 +1,41 @@
+page-bill-detail {
+    .left_label{
+        font-size:80%;
+        width:30%;
+        text-align:right;
+    }
+    .test_one{
+        color:black;
+        width:60px;
+        height: 40px;
+        line-height: 40px;
+        border-bottom:#5bc5f3 3px solid;
+    }
+
+    .test_two{
+        color:black;
+        width:85px;
+        height: 40px;
+        line-height: 40px;
+        border-bottom:#5bc5f3 3px solid;
+    }
+
+    .grid_class{
+        border-top:#f0f0f0 1px solid;
+        border-bottom:#f0f0f0 1px solid;
+        height:40px;
+    }
+
+    .item_class{
+        height:35px;
+        min-height:35px;
+    }
+
+    .progress_x{
+    float: right;
+    width: 100px;
+    height: 5px;
+    margin-right: 40px;
+    margin-top: 4px;
+  }
+}
