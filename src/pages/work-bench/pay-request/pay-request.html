@@ -11,9 +11,9 @@
   </ion-navbar>
   <ion-toolbar no-border-top>
     <ion-segment [(ngModel)]="pet">
-      <ion-segment-button tappable (click)='clickMyApply()' value="1">
+      <!--<ion-segment-button tappable (click)='clickMyApply()' value="1">
         我的申请
-      </ion-segment-button>
+      </ion-segment-button>-->
       <ion-segment-button tappable (click)='clickWaitMeApply()' value="2">
         {{waitMeTitle}}
       </ion-segment-button>
@@ -34,11 +34,11 @@
       </ion-refresher>
   <ion-item-group style="background-color:#f2f2f2">
     <ion-item no-lines style="margin-top:10px;" *ngFor='let item of meList' tappable (click) = "clickMe(item)">
-      <p style="float:right;margin-top:7px;color:orange;font-size:12px">待{{item.approve_id.name}}审核</p>
+      <p style="float:right;margin-top:7px;color:orange;font-size:12px">{{changeState(item.state)}}</p>
       <!--<button ion-button style="background-color:clear;color:clear;border-color:clear;border-width:0px;margin-left:10px;" small></button>-->
       <p style="font-size:16px;color:black;">{{item.name}}</p>      
-      <p style="margin-top:3px;">创建人：{{item.create_uid.name}} {{item.create_date}}</p>
-      <p style="font-size:13px;color:orange;float:right;margin-top:3px;">¥{{item.amount}}</p>
+      <!--<p style="margin-top:3px;">创建人：{{item.create_uid.name}} {{item.create_date}}</p>-->
+      <p style="font-size:13px;float:right;margin-top:3px;">¥{{item.amount}}</p>
       <p style="margin-top:3px;">合作伙伴：{{item.parent_id.name}}</p>     
     </ion-item>
   </ion-item-group>
@@ -54,11 +54,11 @@
       </ion-refresher>
   <ion-item-group style="background-color:#f2f2f2">
     <ion-item no-lines style="margin-top:10px;" *ngFor='let item of waitMeList' tappable (click) = "clickMe(item)">
-      <p style="float:right;margin-top:7px;color:orange;font-size:12px">待{{item.approve_id.name}}审核</p>
+      <p style="float:right;margin-top:7px;color:orange;font-size:12px">{{changeState(item.state)}}</p>
       <!--<button ion-button style="background-color:clear;color:clear;border-color:clear;border-width:0px;margin-left:10px;" small></button>-->
       <p style="font-size:16px;color:black;">{{item.name}}</p>      
       <p style="margin-top:3px;">创建人：{{item.create_uid.name}} {{item.create_date}}</p>
-      <p style="font-size:13px;color:orange;float:right;margin-top:3px;">¥{{item.amount}}</p>
+      <p style="font-size:13px;float:right;margin-top:3px;">¥{{item.amount}}</p>
       <p style="margin-top:3px;">合作伙伴：{{item.parent_id.name}}</p>     
     </ion-item>
   </ion-item-group>
@@ -74,11 +74,11 @@
       </ion-refresher>
   <ion-item-group style="background-color:#f2f2f2">
     <ion-item no-lines style="margin-top:10px;" *ngFor='let item of alreadyList' tappable (click) = "clickMe(item)">
-      <p style="float:right;margin-top:7px;color:orange;font-size:12px">待{{item.approve_id.name}}审核</p>
+      <p style="float:right;margin-top:7px;color:orange;font-size:12px">{{changeState(item.state)}}</p>
       <!--<button ion-button style="background-color:clear;color:clear;border-color:clear;border-width:0px;margin-left:10px;" small></button>-->
       <p style="font-size:16px;color:black;">{{item.name}}</p>      
       <p style="margin-top:3px;">创建人：{{item.create_uid.name}} {{item.create_date}}</p>
-      <p style="font-size:13px;color:orange;float:right;margin-top:3px;">¥{{item.amount}}</p>
+      <p style="font-size:13px;float:right;margin-top:3px;">¥{{item.amount}}</p>
       <p style="margin-top:3px;">合作伙伴：{{item.parent_id.name}}</p>     
     </ion-item>
   </ion-item-group>

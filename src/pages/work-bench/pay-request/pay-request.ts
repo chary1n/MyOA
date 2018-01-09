@@ -267,9 +267,25 @@ export class PayRequestPage {
   }
 
   itemSelected(event){
-    let search_text = event.name.replace("搜 单号：", "")
+    let search_text;
     let payment_type;
     let search_type;
+    let search_domain;
+    if (event.id == 1)
+    {
+      search_text = event.name.replace("搜 单号：", "")
+      search_domain = "name"
+    }
+    else if (event.id == 2)
+    {
+      search_text = event.name.replace("搜 创建人：", "")
+      search_domain = "create_uid"
+    }
+    else if (event.id == 3)
+    {
+      search_text = event.name.replace("搜 合作伙伴：", "")
+      search_domain = "partner_id"
+    }
     if (this.pet == "1")
     {
       payment_type = "me"
@@ -285,7 +301,7 @@ export class PayRequestPage {
       payment_type = "already"
       search_type = ""
     }
-    this.paymentService.search_payment(search_text,payment_type,this.user_id,search_type).then(res => {
+    this.paymentService.search_payment(search_text,payment_type,this.user_id,search_type,search_domain).then(res => {
         if (res.result && res.result.res_code == 1 && res.result.res_data) {
           this.isMoreData = false;
           if (this.pet == "1")
@@ -307,5 +323,33 @@ export class PayRequestPage {
           this.meList = [];
         }
     })
+  }
+
+  changeState(item){
+    let state = ""
+    if (item == "draft"){
+      state = "草稿"
+    }
+    else if (item == "posted")
+    {
+      state = "提交"
+    }
+    else if (item == "confirm")
+    {
+      state = "确认"
+    }
+    else if (item == "manager")
+    {
+      state = "经理审核"
+    }
+    else if (item == "done")
+    {
+      state = "完成"
+    }
+    else if (item == "cancel")
+    {
+      state = "取消"
+    }
+    return state
   }
 }

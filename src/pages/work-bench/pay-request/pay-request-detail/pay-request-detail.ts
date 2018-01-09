@@ -193,4 +193,35 @@ export class PayRequestDetailPage {
     })
   }
 
+  changeState(item){
+    let state = ""
+    if (item == "draft"){
+      state = "草稿"
+    }
+    else if (item == "posted")
+    {
+      state = "提交"
+    }
+    else if (item == "confirm")
+    {
+      state = "确认"
+    }
+    else if (item == "manager")
+    {
+      state = "经理审核"
+    }
+    else if (item == "done")
+    {
+      state = "完成"
+    }
+    else if (item == "cancel")
+    {
+      state = "取消"
+    }
+    return state
+  }
+
+  fixTwo(item){
+    return parseFloat(item).toFixed(2)
+  }
 }

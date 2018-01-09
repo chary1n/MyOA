@@ -50,12 +50,13 @@ export class PaymentRequestService {
         return this.httpservice.postBody("get_bill_detail", body);
     }
 
-    search_payment(search_name,payment_type,user_id,search_type){
+    search_payment(search_name,payment_type,user_id,search_type,search_domain){
         let body = JSON.stringify({
             search_name: search_name,
             payment_type:payment_type,
             user_id:user_id,
             search_type:search_type,
+            search_domain:search_domain,
         });
         return this.httpservice.postBody("search_payment", body);
     }

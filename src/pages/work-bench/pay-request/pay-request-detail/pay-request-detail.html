@@ -25,7 +25,7 @@
           <span style="font-size:80%;">{{item.create_uid.name}}</span>
         </ion-col>
         <ion-col col-3 style="padding-top:18px">
-          <span style="font-size:80%;color:#E0540E">待xxx审批</span>
+          <span style="font-size:80%;color:#E0540E">{{changeState(item.state)}}</span>
         </ion-col>
       </ion-row>
     </ion-grid>
@@ -65,8 +65,8 @@
         <div class="left_label" style="font-size:80%;width:50%;color:gray;margin-top:-2px">截止日期：{{items.date_due}}</div>
       </ion-item>
       <ion-item style="height:35px;min-height:35px" no-lines>
-        <div text-wrap style="float:right;font-size:80%;width:50%;color:gray;text-align:center">待支付：¥{{items.amount_total_o}}</div>
-        <div class="left_label" style="font-size:80%;width:50%;text-align:center;color:gray"> 总计：¥{{items.amount_total}} </div>
+        <div text-wrap style="float:right;font-size:80%;width:50%;color:gray;text-align:center">待支付：¥{{fixTwo(items.amount_total_o)}}</div>
+        <div class="left_label" style="font-size:80%;width:50%;text-align:center;color:gray"> 总计：¥{{fixTwo(items.amount_total)}} </div>
       </ion-item>
     </div>
   </ion-list>  
