@@ -12,10 +12,27 @@ export class GongDanService {
     }
 
 
+    my_work_order_statistics(){
+        let body = JSON.stringify({
+            uid:HttpService.user_id
+          });
+        return this.httpservice.postBody("my_work_order_statistics", body,1);
+    }
+
+    work_order_statistics(){
+        let body = JSON.stringify({
+            uid:HttpService.user_id
+          });
+        return this.httpservice.postBody("work_order_statistics", body,1);
+    }
+
+
     getDepartment(){
         let body = JSON.stringify({
             partner_id:1
           });
         return this.httpservice.postBody("get_all_departments", body);
     }
+
+
 }

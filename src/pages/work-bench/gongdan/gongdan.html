@@ -187,35 +187,49 @@
 
 </ion-content>
 <ion-content *ngIf="show_type == 'me'">
-    <ion-list style="background-color:white">
-        <button ion-item>
-        <ion-icon name="lock" item-start color="blue"></ion-icon>
-        <ion-label>我提交的</ion-label>
-      </button>
-  
-        <button ion-item>
-        <ion-icon name="chatbubbles" item-start color="primary"></ion-icon>
-        <ion-label></ion-label>
-      </button>
-  
-        <button ion-item>
-        <ion-icon name="help-circle" item-start color="primary"></ion-icon>
-        <ion-label>使用帮助</ion-label>
-      </button>
-  
-        <button ion-item>
-        <ion-icon name="call" item-start color="secondary"></ion-icon>
-        <ion-label>关于我们</ion-label>
-      </button>
-  
-      <button ion-item>
-          <ion-icon name="brush" item-start color="secondary"></ion-icon>
-          <ion-label>版本号{{versionNumber}}</ion-label>
-        </button>
-  
-      </ion-list>
-  
-      <button  ion-button  outline block tappable (click)="outToLogin()" >
-      退出登录
+  <div style="position:relative;width:70px">
+    <img height="50px" width="50px" src="assets/img/work_bench/zanzhi.png">
+    <div>最新@我</div>
+    <span style="position:absolute;width:20px;height:20px;border-radius:10px;background-color:red;display:inline-block;color:white;line-height:20px;right:8px;top:-8px;text-align:center;font-size:12px">12</span>
+  </div>
+  <ion-list style="background-color:white">
+    <button ion-item (click)="myGongdanList()">
+      <ion-icon name="lock" item-start color="blue"></ion-icon>
+      <ion-label>我提交的</ion-label>
     </button>
+
+    <button ion-item (click)="myGongdanList()">
+      <ion-icon name="chatbubbles" item-start color="primary"></ion-icon>
+      <ion-label>我受理中的</ion-label>
+    </button>
+
+    <button ion-item>
+      <ion-icon name="help-circle" item-start color="primary"></ion-icon>
+      <ion-label>待他人验收的</ion-label>
+    </button>
+
+    <button ion-item>
+      <ion-icon name="call" item-start color="secondary"></ion-icon>
+      <ion-label>我已完成的</ion-label>
+    </button>
+
+    <button ion-item>
+      <ion-icon name="brush" item-start color="secondary"></ion-icon>
+      <ion-label>我回复过的</ion-label>
+    </button>
+
+    <button ion-item>
+      <ion-icon name="brush" item-start color="secondary"></ion-icon>
+      <ion-label>我指派过的</ion-label>
+    </button>
+
+  </ion-list>
+
+
 </ion-content>
+
+<ion-footer>
+  <button ion-button outline block tappable (click)="createGongdan()">
+    新建工单
+  </button>
+</ion-footer>

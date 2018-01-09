@@ -130,7 +130,7 @@ export class CommonUseServices {
             offset:offset,
             type :type 
         });
-        return this.httpservice.postBodyNoLoading("get_zanzhi_list", body);
+        return this.httpservice.postBody("get_zanzhi_list", body);
     }
 
     searchZanzhiList(id,type,data,text){

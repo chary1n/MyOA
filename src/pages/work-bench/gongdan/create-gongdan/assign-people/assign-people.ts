@@ -1,8 +1,8 @@
 import { NavController, NavParams } from 'ionic-angular';
 import { Component } from '@angular/core';
 import { IonicPage } from 'ionic-angular/navigation/ionic-page';
-import { ContactService } from '../../../contact-person/contact-persionService';
-import { Utils } from '../../../../providers/Utils';
+import { ContactService } from '../../../../contact-person/contact-persionService';
+import { Utils } from '../../../../../providers/Utils';
 declare let cordova: any;
 /**
  * Generated class for the AssignPeoplePage page.

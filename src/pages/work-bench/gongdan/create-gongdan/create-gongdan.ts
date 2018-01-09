@@ -1,13 +1,13 @@
-import { HttpService } from './../../../providers/HttpService';
-import { NativeService } from './../../../providers/NativeService';
+import { HttpService } from './../../../../providers/HttpService';
+import { NativeService } from './../../../../providers/NativeService';
 import { ToastController } from 'ionic-angular/components/toast/toast-controller';
 import { NavParams } from 'ionic-angular/navigation/nav-params';
 import { Component } from '@angular/core';
 import { IonicPage } from 'ionic-angular/navigation/ionic-page';
 import { NavController } from 'ionic-angular/navigation/nav-controller';
-import { GongDanService } from './gongdanService';
-import { Utils } from '../../../providers/Utils';
 import { ActionSheetController } from 'ionic-angular/components/action-sheet/action-sheet-controller';
+import { GongDanService } from '../gongdanService';
+import { Utils } from '../../../../providers/Utils';
 
 /**
  * Generated class for the CreateGongdanPage page.
