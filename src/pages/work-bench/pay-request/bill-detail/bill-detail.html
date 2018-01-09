@@ -31,6 +31,7 @@
     <div class="left_label"> 截止金额 </div>
   </ion-item>
 
+<ion-item align="center" no-lines style="height:40px;border-width:0.5px;border-color:lightgray;border-style:solid;width:101%;margin-left:-2px;margin-right:-4px;margin-top:-10px">
   <ion-grid class="grid_class" *ngIf="show_type == 'one'">
 <ion-row class="row_class" align-items-center>
       <ion-col tappable (click) = "click_one()">
@@ -59,6 +60,8 @@
       </ion-col>
     </ion-row>
 </ion-grid>
+</ion-item>
+
 <ion-list *ngIf="show_type == 'one'" style="margin-top:2px">
     <div *ngFor="let item of items.invoice_line_ids"  >
       <ion-item style="height:25px;min-height:35px;" no-lines>
@@ -73,8 +76,8 @@
         <div  style="font-size:80%;width:40%;color:gray;margin-top:-2px">数量：¥{{item.quantity}}</div>
       </ion-item>
       <ion-item style="height:25px;min-height:25px;">
-        <div style="float:right;color:orange;width:20%;font-size:80%">¥{{item.price_subtotal}}</div>
-        <div text-wrap style="float:right;font-size:80%;width:50%;color:gray;margin-top:-2px;text-align:left">税金：{{item.invoice_line_tax_ids}}</div>
+        <div style="float:right;color:orange;width:30%;font-size:80%;margin-right:10px;text-align:right">¥{{item.price_subtotal}}</div>
+        <div text-wrap style="float:right;font-size:80%;width:38%;color:gray;margin-top:-2px;text-align:left">税金：{{item.invoice_line_tax_ids}}</div>
         <div style="font-size:80%;width:40%;color:gray;margin-top:-2px">单价：¥{{item.price_unit}}</div>
         
       </ion-item>
@@ -95,7 +98,7 @@
         <div  style="font-size:80%;width:40%;color:gray;margin-top:-2px">已接收／订购：{{item.qty_received}}/{{item.product_qty}}</div>
       </ion-item>
       <ion-item style="height:25px;min-height:25px;">
-        <div style="float:right;color:orange;width:25%;font-size:80%">¥{{item.price_subtotal}}</div>
+        <div style="float:right;color:orange;width:30%;font-size:80%;margin-right:10px;text-align:right">¥{{item.price_subtotal}}</div>
         <div text-wrap style="float:right;font-size:80%;width:40%;color:gray;margin-top:-2px;text-align:left">单价：{{item.price_unit}}</div>
         <div style="font-size:80%;width:40%;color:gray;margin-top:-2px">开单数量：{{item.qty_invoiced}}</div>
         
