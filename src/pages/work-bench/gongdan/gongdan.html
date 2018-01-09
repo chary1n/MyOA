@@ -194,7 +194,9 @@
   </div>
   <ion-list style="background-color:white">
     <button ion-item (click)="myGongdanList()">
-      <ion-icon name="lock" item-start color="blue"></ion-icon>
+      <ion-avatar item-start >
+        <img src="assets/img/gongdan/myApply.png">
+      </ion-avatar>
       <ion-label>我提交的</ion-label>
     </button>
 
@@ -220,7 +222,10 @@
 
     <button ion-item>
       <ion-icon name="brush" item-start color="secondary"></ion-icon>
-      <ion-label>我指派过的</ion-label>
+
+      <ion-label>我指派过的
+        <span style="float:right"> 2</span>
+      </ion-label>
     </button>
 
   </ion-list>
@@ -229,7 +234,7 @@
 </ion-content>
 
 <ion-footer>
-  <button ion-button outline block tappable (click)="createGongdan()">
+  <button ion-button full tappable round (click)="createGongdan()">
     新建工单
   </button>
 </ion-footer>

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
+import { GongDanService } from './gongdanService';
 /**
  * Generated class for the GongdanPage page.
  *
@@ -11,6 +12,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 @Component({
   selector: 'page-gongdan',
   templateUrl: 'gongdan.html',
+  providers:[GongDanService]
 })
 export class GongdanPage {
   canvas: any;
@@ -20,7 +22,8 @@ export class GongdanPage {
   step: any;
   lines: any;
   show_type;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public statusbar: StatusBar) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public statusbar: StatusBar,
+    public gongdanService :GongDanService) {
     this.show_type = "me";
   }
 
@@ -38,6 +41,9 @@ export class GongdanPage {
 
   click_me() {
     this.show_type = "me"
+    this.gongdanService.work_order_statistics().then(res=>{
+      console.log(res)
+    })
   }
 
   click_gongdan() {
