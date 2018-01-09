@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, PopoverController, ViewController,
 import { PaymentRequestService} from './pay-requestService';
 import { Storage } from '@ionic/storage';
 import { PaymentAutoService} from './pay-request-auto';
+import { PaymentTwoAutoService} from './pay-two-request-auto'
 
 /**
  * Generated class for the PayRequestPage page.
@@ -14,7 +15,7 @@ import { PaymentAutoService} from './pay-request-auto';
 @Component({
   selector: 'page-pay-request',
   templateUrl: 'pay-request.html',
-  providers:[PaymentRequestService,PaymentAutoService],
+  providers:[PaymentRequestService,PaymentAutoService,PaymentTwoAutoService],
 })
 export class PayRequestPage {
   user_id;
@@ -22,12 +23,13 @@ export class PayRequestPage {
   offset;
   paymentList;
   pet;
-  isMoreData;
+  isMoreData = true;
+  meList;
   waitMeList;
   alreadyList;
   waitMeTitle;
   constructor(public navCtrl: NavController, public navParams: NavParams,public paymentService: PaymentRequestService,
-  public storage :Storage,public paymentAutoService:PaymentAutoService) {
+  public storage :Storage,public paymentAutoService:PaymentAutoService,public paymentTwoAutoService:PaymentTwoAutoService) {
       this.pet = "2"
       this.waitMeTitle = "待我审批"
       this.storage.get('user')
@@ -36,10 +38,16 @@ export class PayRequestPage {
         this.limit = 20;
         this.offset = 0;
         this.paymentService.get_payment_request_list("wait_me",this.limit,this.offset,this.user_id).then(res => {
-          console.log(res.result.res_data.count)
           if (res.result && res.result.res_code == 1 && res.result.res_data) {
             this.waitMeList = res.result.res_data;
-            this.waitMeTitle = "待我审批(" + res.result.res_data.count + ")"
+            if (res.result.res_data.length){
+              this.waitMeTitle = "待我审批(" + res.result.res_data.length + ")"
+            }
+            else
+            {
+               this.waitMeTitle = "待我审批(0)" 
+            }
+            
           }
           else
           {
@@ -54,8 +62,239 @@ export class PayRequestPage {
     console.log('ionViewDidLoad PayRequestPage');
   }
 
-  changeState(){
-    return "1";
+  ionViewDidEnter() {
+    console.log(this.navParams)
+    if (this.navParams.get('need_fresh') == true) {
+      this.navParams.data.need_fresh = false;
+      this.paymentService.get_payment_request_list("wait_me",this.limit,this.offset,this.user_id).then(res => {
+          if (res.result && res.result.res_code == 1 && res.result.res_data) {
+            this.waitMeList = res.result.res_data;
+            if (res.result.res_data.length){
+              this.waitMeTitle = "待我审批(" + res.result.res_data.length + ")"
+            }
+            else
+            {
+               this.waitMeTitle = "待我审批(0)" 
+            }
+            
+          }
+          else
+          {
+            this.waitMeList = [];
+            this.waitMeTitle = "待我审批(0)"
+          }
+        })
+    }
   }
 
+  clickMyApply(){
+    this.isMoreData = true;
+    this.limit = 20;
+    this.offset = 0;
+    this.paymentService.get_payment_request_list("me",this.limit,this.offset,this.user_id).then(res => {
+          console.log(res.result.res_data.length)
+          if (res.result && res.result.res_code == 1 && res.result.res_data) {
+            this.meList = res.result.res_data;
+          }
+          else
+          {
+            this.meList = [];
+          }
+        })
+  }
+
+  clickWaitMeApply(){
+    this.isMoreData = true;
+    this.limit = 20;
+    this.offset = 0;
+    this.paymentService.get_payment_request_list("wait_me",this.limit,this.offset,this.user_id).then(res => {
+          if (res.result && res.result.res_code == 1 && res.result.res_data) {
+            this.waitMeList = res.result.res_data;
+            if (res.result.res_data.length){
+              this.waitMeTitle = "待我审批(" + res.result.res_data.length + ")"
+            }
+            else
+            {
+               this.waitMeTitle = "待我审批(0)" 
+            }
+            
+          }
+          else
+          {
+            this.waitMeList = [];
+            this.waitMeTitle = "待我审批(0)"
+          }
+        })
+  }
+
+  clickAlreadyApply(){
+    this.isMoreData = true;
+    this.limit = 20;
+    this.offset = 0;
+      this.paymentService.get_payment_request_list("already",this.limit,this.offset,this.user_id).then(res => {
+          // console.log(res.result.res_data.length)
+          if (res.result && res.result.res_code == 1 && res.result.res_data) {
+            this.alreadyList = res.result.res_data;
+          }
+          else
+          {
+            this.alreadyList = [];
+          }
+        })
+  }
+
+  clickMe(item){
+    this.navCtrl.push('PayRequestDetailPage',{
+      item:item,
+    })
+  }
+
+  clickEdit(item){
+    this.navCtrl.push('PayRequestDetailPage',{
+      item:item,
+    })
+  }
+
+  clickALready(item){
+    this.navCtrl.push('PayRequestDetailPage',{
+      item:item,
+    })
+  }
+
+  doRefresh(refresh){
+    this.isMoreData = true;
+    this.limit = 20;
+    this.offset = 0;
+    if (this.pet == "1")
+    {
+      this.clickMyApply();
+      refresh.complete();
+    }
+    else if (this.pet == "2")
+    {
+      this.clickWaitMeApply();
+      refresh.complete();
+    }
+    else if (this.pet == "3")
+    {
+      this.clickAlreadyApply();
+      refresh.complete();
+    }
+  }
+
+  doInfinite(infinite){
+    if (this.isMoreData == true) {
+      this.limit = 20;
+      this.offset = this.offset + 20;
+      if (this.pet == "1")
+      {
+          this.paymentService.get_payment_request_list("me",this.limit,this.offset,this.user_id).then(res => {
+            let item_data = [];
+            console.log(res)
+            if (res.result.res_data) {
+              item_data = res.result.res_data;
+              if (item_data.length == 20) {
+               this.isMoreData = true;
+             }
+             else {
+                this.isMoreData = false;
+             }
+             for (let item of item_data) {
+                this.meList.push(item)
+             }
+            }
+            else {
+          this.isMoreData = false;
+        }
+        infinite.complete();
+            })
+      }
+      if (this.pet == "2")
+      {
+          this.paymentService.get_payment_request_list("wait_me",this.limit,this.offset,this.user_id).then(res => {
+            let item_data = [];
+            if (res.result.res_data) {
+              item_data = res.result.res_data;
+              if (item_data.length == 20) {
+               this.isMoreData = true;
+             }
+             else {
+                this.isMoreData = false;
+             }
+             for (let item of item_data) {
+                this.waitMeList.push(item)
+             }
+            }
+            else {
+          this.isMoreData = false;
+        }
+        infinite.complete();
+            })
+      }
+      else if (this.pet == "3")
+      {
+          this.paymentService.get_payment_request_list("already",this.limit,this.offset,this.user_id).then(res => {
+            let item_data = [];
+            if (res.result.res_data) {
+              item_data = res.result.res_data;
+              if (item_data.length == 20) {
+               this.isMoreData = true;
+             }
+             else {
+                this.isMoreData = false;
+             }
+             for (let item of item_data) {
+                this.alreadyList.push(item)
+             }
+            }
+            else {
+          this.isMoreData = false;
+        }
+        infinite.complete();
+            })
+      }
+    }
+    else {
+        infinite.complete();
+      }
+  }
+
+  itemSelected(event){
+    let search_text = event.name.replace("搜 单号：", "")
+    let payment_type;
+    if (this.pet == "1")
+    {
+      payment_type = "me"
+    }
+    else if (this.pet == "2")
+    {
+      payment_type = "wait_me"
+    }
+    else
+    {
+      payment_type = "already"
+    }
+    this.paymentService.search_payment(search_text,"me",this.user_id,"").then(res => {
+        if (res.result && res.result.res_code == 1 && res.result.res_data) {
+          this.isMoreData = false;
+          if (this.pet == "1")
+          {
+            this.meList = res.result.res_data;
+          }
+          else if (this.pet == "2")
+          {
+            this.waitMeList = res.result.res_data;
+          }
+          else
+          {
+            this.alreadyList = res.result.res_data;;
+          }
+          
+        }
+        else
+        {
+          this.meList = [];
+        }
+    })
+  }
 }

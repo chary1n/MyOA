@@ -1,0 +1,105 @@
+<!--
+  Generated template for the BillDetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{items.move_name}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+    <ion-item class="item_class" no-lines>
+      <div text-wrap style="float:right;font-size:80%;width:65%;color:gray;line-height:20px"> ¥{{items.amount_untaxed}} </div>
+      <div class="left_label"> 未税金额 </div>
+    </ion-item>
+  <ion-item class="item_class" no-lines>
+    <div text-wrap style="float:right;font-size:80%;width:65%;color:gray;line-height:20px"> ¥{{items.amount_tax}}</div>
+    <div class="left_label"> 税金 </div>
+  </ion-item>
+  <ion-item class="item_class" no-lines>
+    <div text-wrap style="float:right;font-size:80%;width:65%;color:orange;line-height:20px">¥{{items.amount_total}}</div>
+    <div class="left_label" > 总计 </div>
+  </ion-item>
+  <ion-item class="item_class" no-lines>
+    <div text-wrap style="float:right;font-size:80%;width:65%;color:gray;line-height:20px">¥{{items.residual}}</div>
+    <div class="left_label"> 截止金额 </div>
+  </ion-item>
+
+  <ion-grid class="grid_class" *ngIf="show_type == 'one'">
+<ion-row class="row_class" align-items-center>
+      <ion-col tappable (click) = "click_one()">
+         <div align="center" >
+          <p class="test_one">账单</p>
+        </div>
+      </ion-col>
+      <ion-col tappable (click) = "click_two()">
+        <div align="center">
+          <p>订单明细</p>
+        </div>
+      </ion-col>
+    </ion-row>
+</ion-grid>
+ <ion-grid class="grid_class" *ngIf="show_type == 'two'">
+<ion-row class="row_class" align-items-center>
+      <ion-col tappable (click) = "click_one()">
+         <div align="center" >
+          <p >账单</p>
+        </div>
+      </ion-col>
+      <ion-col tappable (click) = "click_two()">
+        <div align="center">
+          <p class="test_two">订单明细</p>
+        </div>
+      </ion-col>
+    </ion-row>
+</ion-grid>
+<ion-list *ngIf="show_type == 'one'" style="margin-top:2px">
+    <div *ngFor="let item of items.invoice_line_ids"  >
+      <ion-item style="height:25px;min-height:35px;" no-lines>
+        <div text-wrap style="float:right;font-size:80%;width:40%;color:#e0540e;text-align:right;margin-right:7px"></div>
+        <div  style="font-size:80%;width:40%;margin-top:10px;">{{item.name}} </div>
+      </ion-item> 
+      <ion-item style="height:25px;min-height:25px;" no-lines>
+        <div style="font-size:80%;width:40%;color:gray;margin-top:-2px">科目：{{item.account_id}}</div>
+      </ion-item>
+      <ion-item style="height:25px;min-height:25px;" no-lines>
+        <div text-wrap style="float:right;font-size:80%;width:70%;color:gray;margin-top:-2px;text-align:left">原始单价：¥{{item.price_unit}}</div>
+        <div  style="font-size:80%;width:40%;color:gray;margin-top:-2px">数量：¥{{item.quantity}}</div>
+      </ion-item>
+      <ion-item style="height:25px;min-height:25px;">
+        <div style="float:right;color:orange;width:20%;font-size:80%">¥{{item.price_subtotal}}</div>
+        <div text-wrap style="float:right;font-size:80%;width:50%;color:gray;margin-top:-2px;text-align:left">税金：{{item.invoice_line_tax_ids}}</div>
+        <div style="font-size:80%;width:40%;color:gray;margin-top:-2px">单价：¥{{item.price_unit}}</div>
+        
+      </ion-item>
+    </div>
+  </ion-list> 
+
+  <ion-list *ngIf="show_type == 'two'" style="margin-top:2px">
+    <div *ngFor="let item of items.order_line"  >
+      <ion-item style="height:25px;min-height:35px;" no-lines>
+        <div text-wrap style="float:right;font-size:80%;width:40%;color:#e0540e;text-align:right;margin-right:7px"></div>
+        <div  style="font-size:80%;width:40%;margin-top:10px;">{{item.name}} </div>
+      </ion-item> 
+      <ion-item style="height:25px;min-height:25px;" no-lines>
+        <div style="font-size:80%;width:40%;color:gray;margin-top:-2px">订单关联：{{item.po_name}}</div>
+      </ion-item>
+      <ion-item style="height:25px;min-height:25px;" no-lines>
+        <meter value={{cal(item)}} max="100" class="progress_x"></meter>
+        <div  style="font-size:80%;width:40%;color:gray;margin-top:-2px">已接收／订购：{{item.qty_received}}/{{item.product_qty}}</div>
+      </ion-item>
+      <ion-item style="height:25px;min-height:25px;">
+        <div style="float:right;color:orange;width:25%;font-size:80%">¥{{item.price_subtotal}}</div>
+        <div text-wrap style="float:right;font-size:80%;width:40%;color:gray;margin-top:-2px;text-align:left">单价：{{item.price_unit}}</div>
+        <div style="font-size:80%;width:40%;color:gray;margin-top:-2px">开单数量：{{item.qty_invoiced}}</div>
+        
+      </ion-item>
+    </div>
+  </ion-list> 
+</ion-content>
