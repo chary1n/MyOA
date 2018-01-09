@@ -20,6 +20,9 @@ export class PayRequestDetailPage {
   item;
   isShowFooter = false;
   frontPage;
+  user_id;
+  is_plus;
+  power;
   constructor(public navCtrl: NavController, public navParams: NavParams,public storage:Storage,
     public payService:PaymentRequestService,public alertCtrl:AlertController) {
 
@@ -27,15 +30,15 @@ export class PayRequestDetailPage {
     this.item = this.navParams.get('item');
     this.storage.get('user')
       .then(res => {
-        if(this.item.state == "posted"){
-          if(this.item.approve_id.id == res.result.res_data.user_id)
+        for (let product of res.result.res_data.groups) {
+          if (product.name == 'purchase_manager_plus')
           {
-            this.isShowFooter = true;
+            this.power = true;
           }
-          else
-          {
-            this.isShowFooter = false;
-          }
+        }
+        this.user_id = res.result.res_data.user_id
+        if(this.item.state == "posted" || this.item.state == "manager"){
+           this.isShowFooter = true;        
         }
         else
         {
@@ -68,7 +71,7 @@ export class PayRequestDetailPage {
           text: '确定',
           handler: data => {
             let ctrl_cancel = this.alertCtrl;
-            this.payService.reject_payment(this.item.id).then(res => {
+            this.payService.reject_payment(this.item.id,this.user_id).then(res => {
                 if (res) {
                    if (res.result.res_data.success == 1) {
                       ctrl_cancel.create({
@@ -107,12 +110,51 @@ export class PayRequestDetailPage {
           text: '确定',
           handler: data => {
             let ctrl_cancel = this.alertCtrl;
-            this.payService.confirm_payment(this.item.id).then(res => {
+            this.payService.confirm_payment(this.item.id,this.user_id).then(res => {
                 if (res) {
                    if (res.result.res_data.success == 1) {
                       ctrl_cancel.create({
               title: '提示',
               subTitle: "已通过",
+              buttons: [{
+                text: '确定',
+                handler: () => {
+                  this.frontPage.data.need_fresh = true;
+                  this.navCtrl.popTo(this.frontPage);
+                }
+              }
+              ]
+            }).present();
+                   }
+                }
+            })
+          }
+        }
+        ],
+      }).present();
+  }
+
+  send_manager(){
+    let ctrl = this.alertCtrl;
+      ctrl.create({
+        title: '提示',
+        message: "是否送审经理?",
+        buttons: [
+        {
+          text: '取消',
+          handler: () => {
+          }
+        },
+        {
+          text: '确定',
+          handler: data => {
+            let ctrl_cancel = this.alertCtrl;
+            this.payService.manager_confirm(this.item.id,this.user_id).then(res => {
+                if (res) {
+                   if (res.result.res_data.success == 1) {
+                      ctrl_cancel.create({
+              title: '提示',
+              subTitle: "已送审",
               buttons: [{
                 text: '确定',
                 handler: () => {

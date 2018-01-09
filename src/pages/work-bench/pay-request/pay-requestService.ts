@@ -8,28 +8,39 @@ export class PaymentRequestService {
     constructor(private httpservice: HttpService) {
         
     }
-    get_payment_request_list(type,limit,offset,user_id){
+    get_payment_request_list(type,limit,offset,user_id,is_plus){
         let body = JSON.stringify({
             user_id: user_id,
             offset: offset,
             limit: limit,
             type:type,
+            is_plus:is_plus
         });
         return this.httpservice.postBody("get_payment_request_list", body);
     }
 
-    reject_payment(id){
+    reject_payment(id,user_id){
         let body = JSON.stringify({
             payment_id: id,
+            user_id:user_id,
         });
         return this.httpservice.postBody("reject_payment", body);
     }
 
-    confirm_payment(id){
+    confirm_payment(id,user_id){
         let body = JSON.stringify({
             payment_id: id,
+            user_id:user_id,
         });
         return this.httpservice.postBody("confirm_payment", body);
+    }
+
+    manager_confirm(id,user_id){
+        let body = JSON.stringify({
+            payment_id: id,
+            user_id:user_id,
+        });
+        return this.httpservice.postBody("manager_confirm", body);
     }
 
     get_bill_detail(id){

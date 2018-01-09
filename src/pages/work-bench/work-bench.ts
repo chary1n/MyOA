@@ -28,6 +28,7 @@ export class WorkBenchPage {
   zz_count = 0;
   sg_count = 0;
   bx_count = 0;
+  isShowPayment = false;
   constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage,
     public services :CommonUseServices) {
   }
@@ -50,6 +51,10 @@ export class WorkBenchPage {
           }
           if (product.name == 'group_account_manager') {
             this.isShowZiJin = true;
+          }
+          if (product.name == 'group_purchase_manager' || product.name == 'purchase_manager_plus')
+          {
+            this.isShowPayment = true;
           }
          
         }

@@ -28,16 +28,23 @@ export class PayRequestPage {
   waitMeList;
   alreadyList;
   waitMeTitle;
+  is_plus = false;
   constructor(public navCtrl: NavController, public navParams: NavParams,public paymentService: PaymentRequestService,
   public storage :Storage,public paymentAutoService:PaymentAutoService,public paymentTwoAutoService:PaymentTwoAutoService) {
       this.pet = "2"
       this.waitMeTitle = "待我审批"
       this.storage.get('user')
       .then(res => {
+        for (let product of res.result.res_data.groups) {
+          if (product.name == 'purchase_manager_plus')
+          {
+            this.is_plus = true;
+          }
+        }
         this.user_id = res.result.res_data.user_id
         this.limit = 20;
         this.offset = 0;
-        this.paymentService.get_payment_request_list("wait_me",this.limit,this.offset,this.user_id).then(res => {
+        this.paymentService.get_payment_request_list("wait_me",this.limit,this.offset,this.user_id,this.is_plus).then(res => {
           if (res.result && res.result.res_code == 1 && res.result.res_data) {
             this.waitMeList = res.result.res_data;
             if (res.result.res_data.length){
@@ -66,7 +73,7 @@ export class PayRequestPage {
     console.log(this.navParams)
     if (this.navParams.get('need_fresh') == true) {
       this.navParams.data.need_fresh = false;
-      this.paymentService.get_payment_request_list("wait_me",this.limit,this.offset,this.user_id).then(res => {
+      this.paymentService.get_payment_request_list("wait_me",this.limit,this.offset,this.user_id,this.is_plus).then(res => {
           if (res.result && res.result.res_code == 1 && res.result.res_data) {
             this.waitMeList = res.result.res_data;
             if (res.result.res_data.length){
@@ -91,7 +98,7 @@ export class PayRequestPage {
     this.isMoreData = true;
     this.limit = 20;
     this.offset = 0;
-    this.paymentService.get_payment_request_list("me",this.limit,this.offset,this.user_id).then(res => {
+    this.paymentService.get_payment_request_list("me",this.limit,this.offset,this.user_id,this.is_plus).then(res => {
           console.log(res.result.res_data.length)
           if (res.result && res.result.res_code == 1 && res.result.res_data) {
             this.meList = res.result.res_data;
@@ -107,7 +114,7 @@ export class PayRequestPage {
     this.isMoreData = true;
     this.limit = 20;
     this.offset = 0;
-    this.paymentService.get_payment_request_list("wait_me",this.limit,this.offset,this.user_id).then(res => {
+    this.paymentService.get_payment_request_list("wait_me",this.limit,this.offset,this.user_id,this.is_plus).then(res => {
           if (res.result && res.result.res_code == 1 && res.result.res_data) {
             this.waitMeList = res.result.res_data;
             if (res.result.res_data.length){
@@ -131,7 +138,7 @@ export class PayRequestPage {
     this.isMoreData = true;
     this.limit = 20;
     this.offset = 0;
-      this.paymentService.get_payment_request_list("already",this.limit,this.offset,this.user_id).then(res => {
+      this.paymentService.get_payment_request_list("already",this.limit,this.offset,this.user_id,this.is_plus).then(res => {
           // console.log(res.result.res_data.length)
           if (res.result && res.result.res_code == 1 && res.result.res_data) {
             this.alreadyList = res.result.res_data;
@@ -188,7 +195,7 @@ export class PayRequestPage {
       this.offset = this.offset + 20;
       if (this.pet == "1")
       {
-          this.paymentService.get_payment_request_list("me",this.limit,this.offset,this.user_id).then(res => {
+          this.paymentService.get_payment_request_list("me",this.limit,this.offset,this.user_id,this.is_plus).then(res => {
             let item_data = [];
             console.log(res)
             if (res.result.res_data) {
@@ -211,7 +218,7 @@ export class PayRequestPage {
       }
       if (this.pet == "2")
       {
-          this.paymentService.get_payment_request_list("wait_me",this.limit,this.offset,this.user_id).then(res => {
+          this.paymentService.get_payment_request_list("wait_me",this.limit,this.offset,this.user_id,this.is_plus).then(res => {
             let item_data = [];
             if (res.result.res_data) {
               item_data = res.result.res_data;
@@ -233,7 +240,7 @@ export class PayRequestPage {
       }
       else if (this.pet == "3")
       {
-          this.paymentService.get_payment_request_list("already",this.limit,this.offset,this.user_id).then(res => {
+          this.paymentService.get_payment_request_list("already",this.limit,this.offset,this.user_id,this.is_plus).then(res => {
             let item_data = [];
             if (res.result.res_data) {
               item_data = res.result.res_data;
@@ -262,19 +269,23 @@ export class PayRequestPage {
   itemSelected(event){
     let search_text = event.name.replace("搜 单号：", "")
     let payment_type;
+    let search_type;
     if (this.pet == "1")
     {
       payment_type = "me"
+      search_type = ""
     }
     else if (this.pet == "2")
     {
       payment_type = "wait_me"
+      search_type = this.is_plus?"need":"no_need"
     }
     else
     {
       payment_type = "already"
+      search_type = ""
     }
-    this.paymentService.search_payment(search_text,"me",this.user_id,"").then(res => {
+    this.paymentService.search_payment(search_text,payment_type,this.user_id,search_type).then(res => {
         if (res.result && res.result.res_code == 1 && res.result.res_data) {
           this.isMoreData = false;
           if (this.pet == "1")
