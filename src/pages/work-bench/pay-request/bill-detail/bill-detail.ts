@@ -38,4 +38,8 @@ export class BillDetailPage {
   cal(item){
     return item.qty_received / item.product_qty * 100
   }
+
+  fixTwo(item){
+    return parseFloat(item).toFixed(2)
+  }
 }

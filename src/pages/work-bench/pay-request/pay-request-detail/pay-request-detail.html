@@ -25,7 +25,7 @@
           <span style="font-size:80%;">{{item.create_uid.name}}</span>
         </ion-col>
         <ion-col col-3 style="padding-top:18px">
-          <span style="font-size:80%;color:#E0540E">待{{item.approve_id.name}}审批</span>
+          <span style="font-size:80%;color:#E0540E">待xxx审批</span>
         </ion-col>
       </ion-row>
     </ion-grid>
@@ -87,13 +87,23 @@
 </ion-content>
 
 <ion-footer *ngIf = "isShowFooter">
-  <div style="display:flex ;justify-content:space-around;background:#f0f0f0">
+  <div *ngIf = "this.item.state == 'manager' && this.power" style="display:flex ;justify-content:space-around;background:#f0f0f0">
     <button round ion-start style='width:40%;margin-left:5%; background-color:red' ion-button (click)="cancel()">
       拒绝
     </button>
     <button ion-end round style='width:40%;float:right;margin-right:5%;background-color:#1eabfe' ion-button
       (click)="conform()">
       通过
+    </button>
+  </div>
+
+  <div *ngIf = "this.item.state == 'posted'" style="display:flex ;justify-content:space-around;background:#f0f0f0">
+    <button round ion-start style='width:40%;margin-left:5%; background-color:red' ion-button (click)="cancel()">
+      拒绝
+    </button>
+    <button ion-end round style='width:40%;float:right;margin-right:5%;background-color:#1eabfe' ion-button
+      (click)="send_manager()">
+      送审经理
     </button>
   </div>
 </ion-footer>
