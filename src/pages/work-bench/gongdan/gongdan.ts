@@ -110,7 +110,10 @@ export class GongdanPage {
 
 
   // 我的工单  xd
-  myGongdanList() {
+  mySubmitList() {
+    this.gongdanService.work_order_search().then(res=>{
+      console.log(res)
+    })
     this.navCtrl.push("MyGongdanListPage")
   }
 
