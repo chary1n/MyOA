@@ -15,17 +15,17 @@
 
 <ion-content style="background:#f0f0f0">
 
-  <ion-item style="height:70px;">
+  <ion-item style="height:50px;min-height:60px">
     <ion-grid style="background:white">
       <ion-row>
         <ion-col col-2>
           <img src={{item.create_person_ava}} class="imgHeard">
         </ion-col>
-        <ion-col col-7 style="padding-top:18px">
+        <ion-col col-7 style="padding-top:15px">
           <span style="font-size:80%;">{{item.create_uid.name}}</span>
         </ion-col>
-        <ion-col col-3 style="padding-top:18px">
-          <span style="font-size:80%;color:#E0540E">{{changeState(item.state)}}</span>
+        <ion-col col-3 style="padding-top:16px">
+          <span style="font-size:80%;color:#E0540E;float:right">{{changeState(item.state)}}</span>
         </ion-col>
       </ion-row>
     </ion-grid>
@@ -47,27 +47,32 @@
     <div class="left_label" style="font-size:80%;width:30%"> 备注 </div>
   </ion-item>
   <ion-item no-lines>
-    <div text-wrap style="float:right;font-size:80%;width:70%;color:#e0540e;text-align:right">申请金额：¥{{item.amount}}</div>
+    <div text-wrap style="float:right;font-size:80%;width:70%;color:gray;text-align:right">申请金额：¥{{item.amount}}</div>
   </ion-item>
   <div style="margin:10px;font-size:13px;color:gray;">供应商对账单</div>
   <ion-list>
     <div *ngFor="let items of item.invoice_ids" style="margin-top:10px" tappable (click)="clickBillDetail(items)">
       <ion-item style="height:25px;min-height:35px;margin-top:3px;" no-lines>
-        <div text-wrap style="float:right;font-size:80%;width:50%;color:#e0540e;text-align:right;margin-right:7px">{{getState(items)}}</div>
-        <div class="left_label" style="font-size:80%;width:50%;">{{items.number}} </div>
+        <div text-wrap style="float:right;font-size:80%;width:50%;color:#fba492;text-align:right;margin-right:7px;margin-top:7px">{{getState(items)}}</div>
+        <div class="left_label" style="font-size:100%;width:50%;margin-top:7px">{{items.number}} </div>
       </ion-item> 
       <ion-item style="height:25px;min-height:25px;" no-lines>
         <div text-wrap style="float:right;font-size:80%;width:50%;color:gray;margin-top:-2px">源单据：{{items.origin}}</div>
         <div class="left_label" style="font-size:80%;width:50%;color:gray;margin-top:-2px">开票日期：{{items.date_invoice}}</div>
       </ion-item>
-      <ion-item style="height:25px;min-height:25px;">
-        <div text-wrap style="float:right;font-size:80%;width:50%;color:gray;margin-top:-2px">税金：{{items.tax}}</div>
-        <div class="left_label" style="font-size:80%;width:50%;color:gray;margin-top:-2px">截止日期：{{items.date_due}}</div>
+      <ion-item no-lines style="height:25px;min-height:30px;margin-top:-5px;border-bottom:1px #f0f2f5 solid">
+        <div text-wrap style="float:right;font-size:80%;width:50%;color:gray;">税金：{{items.tax}}</div>
+        <div class="left_label" style="font-size:80%;width:50%;color:gray;">截止日期：{{items.date_due}}</div>
       </ion-item>
-      <ion-item style="height:35px;min-height:35px" no-lines>
-        <div text-wrap style="float:right;font-size:80%;width:50%;color:gray;text-align:center">待支付：¥{{fixTwo(items.amount_total_o)}}</div>
-        <div class="left_label" style="font-size:80%;width:50%;text-align:center;color:gray"> 总计：¥{{fixTwo(items.amount_total)}} </div>
+      <ion-item style="height:20px;min-height:20px" no-lines>
+        <div text-wrap style="float:right;font-size:80%;width:50%;color:#bbc2cc;text-align:right;margin-top:3px">¥{{fixTwo(items.amount_total)}}</div>
+        <div class="left_label" style="font-size:80%;width:50%;text-align:left;color:#bbc2cc;margin-top:2px"> 总计： </div>
       </ion-item>
+      <ion-item style="height:20px;min-height:25px" no-lines>
+        <div text-wrap style="float:right;font-size:85%;width:50%;color:#2e3133;text-align:right;">¥{{fixTwo(items.amount_total_o)}}</div>
+        <div class="left_label" style="font-size:85%;width:50%;text-align:left;color:#2e3133;margin-top:-2px">待支付：</div>
+      </ion-item>
+      
     </div>
   </ion-list>  
 

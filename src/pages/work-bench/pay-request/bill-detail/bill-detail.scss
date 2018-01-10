@@ -2,14 +2,15 @@ page-bill-detail {
     .left_label{
         font-size:80%;
         width:30%;
-        text-align:right;
+        text-align:left;
     }
     .test_one{
         color:black;
-        width:60px;
+        width:30px;
         height: 40px;
         line-height: 40px;
-        border-bottom:#5bc5f3 3px solid;
+        border-bottom:#2699ef 3px solid;
+        color:#2699ef;
     }
 
     .test_two{
@@ -17,7 +18,8 @@ page-bill-detail {
         width:85px;
         height: 40px;
         line-height: 40px;
-        border-bottom:#5bc5f3 3px solid;
+        border-bottom:#2699ef 3px solid;
+        color:#2699ef
     }
 
     .grid_class{
@@ -38,4 +40,28 @@ page-bill-detail {
     margin-right: 50px;
     margin-top: 4px;
   }
+
+  .list_class{
+      margin-top:10px
+  }
+
+  .progress-outer {
+        width: 25%;
+        margin: 10px 2%;
+        // padding: 3px;
+        text-align: center;
+        background-color: #f4f4f4;
+        border: 1px solid #dcdcdc;
+        color: #fff;
+        border-radius: 20px;
+    }
+ 
+    .progress-inner {
+        min-width: 15%;
+        white-space: nowrap;
+        overflow: hidden;
+        padding: 5px;
+        border-radius: 20px;
+        background-color: map-get($colors, primary);
+    }
 }

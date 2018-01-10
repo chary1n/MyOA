@@ -18,6 +18,7 @@ import { PaymentRequestService} from './../pay-requestService';
 export class BillDetailPage {
   items;
   show_type;
+  process = "40%"
   constructor(public navCtrl: NavController, public navParams: NavParams,public paymentRequestService:PaymentRequestService) {
     this.show_type = "one"
     this.items = this.navParams.get('items')

@@ -27,25 +27,6 @@
 
 <ion-content style="background:#f0f0f0">
   <div [ngSwitch]="pet">
-   <ng-template [ngSwitchCase]='1'>
-      <ion-auto-complete style="width: 100vw;" (itemSelected)="itemSelected($event)" [dataProvider]="paymentAutoService"></ion-auto-complete>
-      <ion-refresher (ionRefresh)="doRefresh($event)">
-        <ion-refresher-content></ion-refresher-content>
-      </ion-refresher>
-  <ion-item-group style="background-color:#f2f2f2">
-    <ion-item no-lines style="margin-top:10px;" *ngFor='let item of meList' tappable (click) = "clickMe(item)">
-      <p style="float:right;margin-top:7px;color:orange;font-size:12px">{{changeState(item.state)}}</p>
-      <!--<button ion-button style="background-color:clear;color:clear;border-color:clear;border-width:0px;margin-left:10px;" small></button>-->
-      <p style="font-size:16px;color:black;">{{item.name}}</p>      
-      <!--<p style="margin-top:3px;">创建人：{{item.create_uid.name}} {{item.create_date}}</p>-->
-      <p style="font-size:13px;float:right;margin-top:3px;">¥{{item.amount}}</p>
-      <p style="margin-top:3px;">合作伙伴：{{item.parent_id.name}}</p>     
-    </ion-item>
-  </ion-item-group>
-    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
-        <ion-infinite-scroll-content></ion-infinite-scroll-content>
-    </ion-infinite-scroll>
-  </ng-template>
 
 <ng-template [ngSwitchCase]='2'>
       <ion-auto-complete style="width: 100vw;" (itemSelected)="itemSelected($event)" [dataProvider]="paymentAutoService"></ion-auto-complete>
@@ -53,13 +34,16 @@
         <ion-refresher-content></ion-refresher-content>
       </ion-refresher>
   <ion-item-group style="background-color:#f2f2f2">
-    <ion-item no-lines style="margin-top:10px;" *ngFor='let item of waitMeList' tappable (click) = "clickMe(item)">
-      <p style="float:right;margin-top:7px;color:orange;font-size:12px">{{changeState(item.state)}}</p>
-      <!--<button ion-button style="background-color:clear;color:clear;border-color:clear;border-width:0px;margin-left:10px;" small></button>-->
+    <ion-item no-lines style="margin-top:10px;height:90px;min-height:90px" *ngFor='let item of waitMeList' tappable (click) = "clickMe(item)">
+      <p style="float:right;color:orange;font-size:12px;margin-top:3px">{{changeState(item.state)}}</p>
       <p style="font-size:16px;color:black;">{{item.name}}</p>      
-      <p style="margin-top:3px;">创建人：{{item.create_uid.name}} {{item.create_date}}</p>
-      <p style="font-size:13px;float:right;margin-top:3px;">¥{{item.amount}}</p>
-      <p style="margin-top:3px;">合作伙伴：{{item.parent_id.name}}</p>     
+      <!--<p style="font-size:13px;float:right;margin-top:3px;">¥{{item.amount}}</p>-->
+      <p style="margin-top:3px;font-size:13px;height:22px">合作伙伴：{{item.parent_id.name}}</p>     
+      <!--</ion-item>-->
+      <div style="height:30px;min-height:30px;border-top:1px #f0f2f5 solid">
+          <p  style="margin-top:7px;float:right;font-size:12px;">申请金额：¥{{item.amount}}</p>
+          <p ion-start style="margin-top:7px;font-size:12px;color:gray">{{item.create_uid.name}} {{item.create_date}}</p>   
+      </div>
     </ion-item>
   </ion-item-group>
     <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
@@ -73,13 +57,19 @@
         <ion-refresher-content></ion-refresher-content>
       </ion-refresher>
   <ion-item-group style="background-color:#f2f2f2">
-    <ion-item no-lines style="margin-top:10px;" *ngFor='let item of alreadyList' tappable (click) = "clickMe(item)">
-      <p style="float:right;margin-top:7px;color:orange;font-size:12px">{{changeState(item.state)}}</p>
+    <ion-item no-lines style="margin-top:10px;height:90px;min-height:90px" *ngFor='let item of alreadyList' tappable (click) = "clickMe(item)">
+      <!--<ion-item lines style="height:50px;min-height:50px;">-->
+      <p style="float:right;color:orange;font-size:12px;margin-top:3px">{{changeState(item.state)}}</p>
       <!--<button ion-button style="background-color:clear;color:clear;border-color:clear;border-width:0px;margin-left:10px;" small></button>-->
       <p style="font-size:16px;color:black;">{{item.name}}</p>      
-      <p style="margin-top:3px;">创建人：{{item.create_uid.name}} {{item.create_date}}</p>
-      <p style="font-size:13px;float:right;margin-top:3px;">¥{{item.amount}}</p>
-      <p style="margin-top:3px;">合作伙伴：{{item.parent_id.name}}</p>     
+      <!--<p style="margin-top:3px;">创建人：{{item.create_uid.name}} {{item.create_date}}</p>-->
+      <!--<p style="font-size:13px;float:right;margin-top:3px;">¥{{item.amount}}</p>-->
+      <p style="margin-top:3px;font-size:13px;height:22px">合作伙伴：{{item.parent_id.name}}</p>     
+      <!--</ion-item>-->
+      <div style="height:30px;min-height:30px;border-top:1px #f0f2f5 solid">
+          <p  style="margin-top:7px;float:right;font-size:12px;">申请金额：¥{{item.amount}}</p>
+          <p ion-start style="margin-top:7px;font-size:12px;color:gray">{{item.create_uid.name}} {{item.create_date}}</p>   
+      </div>
     </ion-item>
   </ion-item-group>
     <ion-infinite-scroll (ionInfinite)="doInfinite($event)">

@@ -23,9 +23,10 @@ export class PayRequestDetailPage {
   user_id;
   is_plus;
   power;
+  process;
   constructor(public navCtrl: NavController, public navParams: NavParams,public storage:Storage,
     public payService:PaymentRequestService,public alertCtrl:AlertController) {
-
+    this.process = "17%";
     this.frontPage = Utils.getViewController("PayRequestPage", navCtrl)
     this.item = this.navParams.get('item');
     this.storage.get('user')

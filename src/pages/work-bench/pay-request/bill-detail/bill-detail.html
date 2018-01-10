@@ -13,25 +13,25 @@
 </ion-header>
 
 
-<ion-content>
+<ion-content style="background:#f0f0f0">
     <ion-item class="item_class" no-lines>
-      <div text-wrap style="float:right;font-size:80%;width:65%;color:gray;line-height:20px"> ¥{{fixTwo(items.amount_untaxed)}} </div>
+      <div text-wrap style="float:right;font-size:80%;width:65%;color:gray;line-height:20px;text-align:right"> ¥{{fixTwo(items.amount_untaxed)}} </div>
       <div class="left_label"> 未税金额 </div>
     </ion-item>
   <ion-item class="item_class" no-lines>
-    <div text-wrap style="float:right;font-size:80%;width:65%;color:gray;line-height:20px"> ¥{{fixTwo(items.amount_tax)}}</div>
+    <div text-wrap style="float:right;font-size:80%;width:65%;color:gray;line-height:20px;text-align:right"> ¥{{fixTwo(items.amount_tax)}}</div>
     <div class="left_label"> 税金 </div>
   </ion-item>
   <ion-item class="item_class" no-lines>
-    <div text-wrap style="float:right;font-size:80%;width:65%;color:orange;line-height:20px">¥{{fixTwo(items.amount_total)}}</div>
+    <div text-wrap style="float:right;font-size:80%;width:65%;color:#ff2e51;line-height:20px;text-align:right">¥{{fixTwo(items.amount_total)}}</div>
     <div class="left_label" > 总计 </div>
   </ion-item>
   <ion-item class="item_class" no-lines>
-    <div text-wrap style="float:right;font-size:80%;width:65%;color:gray;line-height:20px">¥{{fixTwo(items.residual)}}</div>
+    <div text-wrap style="float:right;font-size:80%;width:65%;color:gray;line-height:20px;text-align:right">¥{{fixTwo(items.residual)}}</div>
     <div class="left_label"> 截止金额 </div>
   </ion-item>
 
-<ion-item align="center" no-lines style="margin-top:5px;height:40px;min-height:40px;border-width:0.5px;border-color:lightgray;border-style:solid;width:101%;margin-left:-2px;margin-right:-4px;">
+<ion-item align="center" no-lines style="margin-top:15px;height:40px;min-height:40px;border-width:0.5px;border-color:#f0f0f0;border-style:solid;width:101%;margin-left:-2px;margin-right:-4px;">
   <ion-grid class="grid_class" *ngIf="show_type == 'one'">
 <ion-row class="row_class" align-items-center>
       <ion-col tappable (click) = "click_one()">
@@ -41,7 +41,7 @@
       </ion-col>
       <ion-col tappable (click) = "click_two()">
         <div align="center">
-          <p>订单明细</p>
+          <p style="color:#b6d9f2">订单明细</p>
         </div>
       </ion-col>
     </ion-row>
@@ -50,7 +50,7 @@
 <ion-row class="row_class" align-items-center>
       <ion-col tappable (click) = "click_one()">
          <div align="center" >
-          <p >账单</p>
+          <p style="color:#b6d9f2">账单</p>
         </div>
       </ion-col>
       <ion-col tappable (click) = "click_two()">
@@ -62,9 +62,9 @@
 </ion-grid>
 </ion-item>
 
-<ion-list *ngIf="show_type == 'one'" style="margin-top:2px">
-    <div *ngFor="let item of items.invoice_line_ids"  >
-      <ion-item style="height:25px;min-height:35px;" no-lines>
+<ion-list no-lines *ngIf="show_type == 'one'" style="margin-top:1px">
+    <div *ngFor="let item of items.invoice_line_ids;let i = index" [ngClass]="{true:'list_class',false:''}[i != 0]" >
+      <ion-item no-lines style="height:25px;min-height:35px;" no-lines>
         <div text-wrap style="float:right;font-size:80%;width:40%;color:#e0540e;text-align:right;margin-right:7px"></div>
         <div  style="font-size:80%;width:40%;margin-top:10px;">{{item.name}} </div>
       </ion-item> 
@@ -76,7 +76,7 @@
         <div  style="font-size:80%;width:40%;color:gray;margin-top:-2px">数量：¥{{item.quantity}}</div>
       </ion-item>
       <ion-item style="height:25px;min-height:25px;">
-        <div style="float:right;color:orange;width:30%;font-size:80%;margin-right:10px;text-align:right">¥{{fixTwo(item.price_subtotal)}}</div>
+        <div style="float:right;color:#ff2e51;width:30%;font-size:80%;margin-right:10px;text-align:right">¥{{fixTwo(item.price_subtotal)}}</div>
         <div text-wrap style="float:right;font-size:80%;width:37.5%;color:gray;margin-top:-2px;text-align:left">税金：{{item.invoice_line_tax_ids}}</div>
         <div style="font-size:80%;width:40%;color:gray;margin-top:-2px">单价：¥{{fixTwo(item.price_unit)}}</div>
         
@@ -84,8 +84,8 @@
     </div>
   </ion-list> 
 
-  <ion-list *ngIf="show_type == 'two'" style="margin-top:2px">
-    <div *ngFor="let item of items.order_line"  >
+  <ion-list no-lines *ngIf="show_type == 'two'" style="margin-top:1px">
+    <div *ngFor="let item of items.order_line;let i = index" [ngClass]="{true:'list_class',false:''}[i != 0]" >
       <ion-item style="height:25px;min-height:35px;" no-lines>
         <div text-wrap style="float:right;font-size:80%;width:40%;color:#e0540e;text-align:right;margin-right:7px"></div>
         <div  style="font-size:80%;width:40%;margin-top:10px;">{{item.name}} </div>
@@ -94,11 +94,16 @@
         <div style="font-size:80%;width:40%;color:gray;margin-top:-2px">订单关联：{{item.po_name}}</div>
       </ion-item>
       <ion-item style="height:25px;min-height:25px;" no-lines>
-        <meter value={{cal(item)}} max="100" class="progress_x"></meter>
-        <div  style="font-size:80%;width:40%;color:gray;margin-top:-2px">已接收／订购：{{item.qty_received}}/{{item.product_qty}}</div>
+        <div>
+        <div class="progress-outer" style="float:right">
+          <div class="progress-inner" [style.width]="item.qty_received / item.product_qty * 100 + '%'">
+          </div>
+        </div>
+        <span  style="font-size:80%;width:40%;color:gray;margin-top:-2px;float:left;line-height:36px;">已接收／订购：{{item.qty_received}}/{{item.product_qty}}</span>
+        </div>
       </ion-item>
       <ion-item style="height:25px;min-height:25px;">
-        <div style="float:right;color:orange;width:30%;font-size:80%;margin-right:10px;text-align:right">¥{{fixTwo(item.price_subtotal)}}</div>
+        <div style="float:right;color:#e0540e;width:30%;font-size:80%;margin-right:10px;text-align:right">¥{{fixTwo(item.price_subtotal)}}</div>
         <div text-wrap style="float:right;font-size:80%;width:30%;color:gray;margin-top:-2px;text-align:left">单价：{{item.price_unit}}</div>
         <div style="font-size:80%;width:40%;color:gray;margin-top:-2px">开单数量：{{item.qty_invoiced}}</div>
         
