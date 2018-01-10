@@ -92,7 +92,7 @@
 </ion-content>
 
 <ion-footer *ngIf = "isShowFooter">
-  <div *ngIf = "this.item.state == 'manager' && this.power" style="display:flex ;justify-content:space-around;background:#f0f0f0">
+  <div *ngIf = "this.item.state == 'manager' && this.power" style="background:#f0f0f0">
     <button round ion-start style='width:40%;margin-left:5%; background-color:red' ion-button (click)="cancel()">
       拒绝
     </button>
@@ -102,7 +102,7 @@
     </button>
   </div>
 
-  <div *ngIf = "this.item.state == 'posted'" style="display:flex ;justify-content:space-around;background:#f0f0f0">
+  <div *ngIf = "this.item.state == 'posted'" style="background:#f0f0f0">
     <button round ion-start style='width:40%;margin-left:5%; background-color:red' ion-button (click)="cancel()">
       拒绝
     </button>

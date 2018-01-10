@@ -19,6 +19,15 @@ export class GongDanService {
         return this.httpservice.postBody("my_work_order_statistics", body,1);
     }
 
+
+    work_order_search(){
+        let body = JSON.stringify({
+            uid:HttpService.user_id,
+            create_uid :HttpService.user_id
+          });
+        return this.httpservice.postBody("work_order_search", body,1);
+    }
+
     work_order_statistics(){
         let body = JSON.stringify({
             uid:HttpService.user_id
