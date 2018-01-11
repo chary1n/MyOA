@@ -6,6 +6,7 @@ import { AlertController } from 'ionic-angular';
 import { Utils } from './../../../../providers/Utils';
 import { Storage } from '@ionic/storage';
 import { group } from '@angular/core/src/animation/dsl';
+import { StatusBar } from '@ionic-native/status-bar';
 
 /**
  * Generated class for the ChangeKucunDetailPage page.
@@ -28,7 +29,10 @@ export class ChangeKucunDetailPage {
   isShow = false;
   user_id;
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController
-      ,public changeKucunService:ChangeKucunService, public toastCtrl:ToastController,public storage: Storage) {
+      ,public changeKucunService:ChangeKucunService, public toastCtrl:ToastController,public storage: Storage,
+      public statusBar:StatusBar) {
+        this.statusBar.backgroundColorByHexString("#2597ec");
+    this.statusBar.styleLightContent();
     this.item = this.navParams.get('item');
     this.user_id = this.navParams.get('user_id')
     // this.clickKucun();
@@ -142,5 +146,9 @@ export class ChangeKucunDetailPage {
     }
     return new_remark;
 }
+goBack(){
+  
+    this.navCtrl.pop();
+  }
 
 }

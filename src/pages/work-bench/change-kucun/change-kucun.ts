@@ -3,7 +3,7 @@ import { ChangeKucunService } from './changeKucunService';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams} from 'ionic-angular';
 import { Storage } from '@ionic/storage';
-
+import { StatusBar } from '@ionic-native/status-bar';
 
 
 /**
@@ -22,8 +22,9 @@ export class ChangeKucunPage {
   waitApplyList: any;
   user_id;
   constructor(public navCtrl: NavController, public navParams: NavParams, public changeKucunService: ChangeKucunService
-  , public changesearchService: ChangeSearchService,public storage: Storage) {
-    //  this.getwaitList();
+  , public changesearchService: ChangeSearchService,public storage: Storage,public statusBar:StatusBar) {
+    this.statusBar.backgroundColorByHexString("#2597ec");
+    this.statusBar.styleLightContent();
     this.storage.get('user')
     .then(res => {
       this.user_id = res.result.res_data.user_id;
@@ -90,4 +91,11 @@ export class ChangeKucunPage {
     }
     return new_remark;
 }
+
+goBack(){
+  
+    this.statusBar.backgroundColorByHexString("#f8f8f8");
+    this.statusBar.styleDefault();
+    this.navCtrl.pop();
+  }
 }

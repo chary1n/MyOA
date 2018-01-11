@@ -118,20 +118,16 @@ export class LoginPage {
     this.isSelected2 = true;
     this.isSelected1 = false;
     this.isSelected3 = false;
-    // HttpService.appUrl = "http://dr.robotime.com/"
-    HttpService.appUrl = "http://192.168.88.131:8069/"
+    HttpService.appUrl = "http://dr.robotime.com/"
+    // HttpService.appUrl = "http://192.168.88.131:8069/"
   }
 
   chooseWanju() {
     this.isSelected3 = true;
     this.isSelected2 = false;
     this.isSelected1 = false;
-    // HttpService.appUrl = "http://erp.robotime.com/"
-<<<<<<< HEAD
-    HttpService.appUrl = "http://192.168.2.44:8089/"
-=======
-    HttpService.appUrl = "http://192.168.2.38:8111/"
->>>>>>> bbaab85063862cd2b4eb30ba7a1d23234803e212
+    HttpService.appUrl = "http://erp.robotime.com/"
+    // HttpService.appUrl = "http://192.168.2.44:8069/"
     // HttpService.appUrl = "http://192.168.2.157:8069/"
     
   }
