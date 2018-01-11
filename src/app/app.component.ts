@@ -40,8 +40,12 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       statusBar.overlaysWebView(false);
       statusBar.styleDefault();
+      // statusBar.backgroundColorByHexString("#2597ec");
+      // statusBar.styleLightContent();
       statusBar.backgroundColorByHexString('#f8f8f8');
       splashScreen.hide();
+
+      
 
       if (this.platform.is("android")) {
           this.getVersionNumber();

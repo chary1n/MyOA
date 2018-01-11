@@ -29,8 +29,7 @@ export class GongdanPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad GongdanPage');
-    this.statusbar.backgroundColorByHexString("#2597ec");
-    this.statusbar.styleLightContent();
+    
 
     // this.step = 1;
     // this.loop();
