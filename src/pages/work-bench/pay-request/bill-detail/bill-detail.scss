@@ -64,4 +64,10 @@ page-bill-detail {
         border-radius: 20px;
         background-color: map-get($colors, primary);
     }
+
+    .divider_header_class{
+        height:4px;
+        min-height:4px;
+        background-color:white
+    }
 }
