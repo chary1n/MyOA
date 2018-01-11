@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>myGongdanList</ion-title>
+    <ion-title></ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -16,39 +16,45 @@
 <ion-content padding>
 
   <ion-list>
-    <h5>安装mac 版Ai 软件</h5>
-    <ion-grid>
-      <ion-row>
-        <ion-col col-3>
-          <img>
-        </ion-col>
-        <ion-col col-3>
-          吴倩
-        </ion-col>
-        <ion-col col-4>
-          2017-9-9
-        </ion-col>
-      </ion-row>
+    <div *ngFor="let item of gongdanList" (click)="toDetail(item)">
 
-      <ion-row>
-        <ion-col col-3> 受理人:王小白 </ion-col>
-        <ion-col col-3> 优先级 :中 </ion-col>
-        <ion-col col-4> 已完成 </ion-col>
-      </ion-row>
 
-      <ion-row>
-        <ion-textarea  readonly="readonly" rows="3">
-          sdadsasdasdsda
+      <span style="font-size:140%;padding-left:5px;line-height:45px">{{item.title}}</span>
+      <ion-grid>
+        <ion-row>
+          <ion-col col-2 no-padding>
+            <img src={{item.assign_user.user_ava}} class="imgHeard">
+          </ion-col>
+          <ion-col col-2 class="col_font" no-padding>
+            {{item.assign_user.name}}
+          </ion-col>
+          <ion-col col-6 class="col_font" no-padding>
+            {{item.create_time}}
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col col-4 class="col_font" no-padding> 受理人: {{item.assign_user.name}}</ion-col>
+          <ion-col col-3 class="col_font" no-padding> 优先级 :{{changePriority(item.priority)}} </ion-col>
+          <ion-col col-5 class="col_font" no-padding text-right style="color:#ee5a15"> {{changeState(item.issue_state)}} </ion-col>
+        </ion-row>
+        <!-- 
+      <ion-row *ngIf="item.description">
+        <ion-textarea  rows="3">
+          {{item.description}}
         </ion-textarea>
-      </ion-row>
+      </ion-row> -->
+        <div text-wrap *ngIf="item.description" class="font_x">{{item.description}} </div>
 
-      <ion-row>
-        <ion-col col-4>
-          <img src="assets/img/add.png" imageViewer/>
-        </ion-col>
-      </ion-row>
+        <ion-row *ngIf="item.work_order_images.length>0">
+          <ion-col col-4 *ngFor="let item of item.work_order_images">
+            <img src={{item}} imageViewer/>
+          </ion-col>
+        </ion-row>
 
-    </ion-grid>
+      </ion-grid>
+      <ion-item-divider></ion-item-divider>
+    </div>
   </ion-list>
 
 </ion-content>

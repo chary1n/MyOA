@@ -47,7 +47,7 @@
   <ion-item>
     <ion-label style="color:black">优先级</ion-label>
     <ion-select [(ngModel)]="priorityId" class="normal-select">
-      <ion-option *ngFor="let item of priority;let i = index;" value={{i}}>{{item.name}}</ion-option>
+      <ion-option *ngFor="let item of priority;let i = index;" value={{item.id}}>{{item.name}}</ion-option>
     </ion-select>
   </ion-item>
 

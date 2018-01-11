@@ -70,4 +70,23 @@ page-gongdan {
     .header:after{
         background:none;
     }
+
+
+    .small_rang{
+        border-radius: 5px;
+        width:10px;
+        height: 10px;
+        text-align: center;
+        margin-left:20px;
+    }
+
+    .div_x{
+        width: 100px;
+        height: 20px;
+        overflow: hidden;
+    }
+
+    .div_span{
+        float: right ;
+    }
 }
