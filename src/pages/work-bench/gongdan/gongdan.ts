@@ -1,3 +1,4 @@
+import { HttpService } from './../../../providers/HttpService';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -12,7 +13,7 @@ import { GongDanService } from './gongdanService';
 @Component({
   selector: 'page-gongdan',
   templateUrl: 'gongdan.html',
-  providers:[GongDanService]
+  providers: [GongDanService]
 })
 export class GongdanPage {
   canvas: any;
@@ -22,16 +23,19 @@ export class GongdanPage {
   step: any;
   lines: any;
   show_type;
+  processNumber;
+  unassignNumber;
   constructor(public navCtrl: NavController, public navParams: NavParams, public statusbar: StatusBar,
-    public gongdanService :GongDanService) {
-    this.show_type = "me";
+    public gongdanService: GongDanService) {
+    this.show_type = "tongji";
+   
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad GongdanPage');
     this.statusbar.backgroundColorByHexString("#2597ec");
     this.statusbar.styleLightContent();
-
+    this.drawRings();
     // this.step = 1;
     // this.loop();
     // window.setInterval(() => {
@@ -41,7 +45,11 @@ export class GongdanPage {
 
   click_me() {
     this.show_type = "me"
-    this.gongdanService.work_order_statistics().then(res=>{
+    this.gongdanService.my_work_order_statistics().then(res => {
+      if (res.result && res.result.res_code == 1) {
+        this.processNumber = res.result.res_data.process
+        this.unassignNumber = res.result.res_data.unassignNumber
+      }
       console.log(res)
     })
   }
@@ -52,6 +60,9 @@ export class GongdanPage {
 
   click_tongji() {
     this.show_type = "tongji"
+    this.gongdanService.work_order_statistics().then(res => {
+      console.log(res)
+    })
   }
 
   wait_shouli() {
@@ -111,14 +122,59 @@ export class GongdanPage {
 
   // 我的工单  xd
   mySubmitList() {
-    this.gongdanService.work_order_search().then(res=>{
-      console.log(res)
-    })
     this.navCtrl.push("MyGongdanListPage")
   }
 
   createGongdan() {
     this.navCtrl.push("CreateGongdanPage")
   }
+
+  drawRings() {
+    var data = [0.2, 0.4, 0.1, 0.3];//五个扇形的占比
+
+    var dataColor = ["#0097ee", '#ffa634', '#ffe650', '#c1e372'];//五个扇形的颜色
+
+    var angleStart = 0, angleEnd, angle;
+
+    var Q3Canvas =  <HTMLCanvasElement>document.getElementById('rings');
+
+    Q3Canvas.width = 100;
+    Q3Canvas.height = 100
+
+    var ctx = Q3Canvas.getContext("2d");
+
+    for (var i = 0; i < data.length; i++) {
+
+      angle = 2 * Math.PI * data[i];
+
+      angleEnd = angleStart + angle;
+
+      ctx.beginPath();
+
+      ctx.fillStyle = dataColor[i];
+
+      ctx.arc(Q3Canvas.width / 2, Q3Canvas.height / 2, Q3Canvas.width / 2, angleStart, angleEnd);
+
+      ctx.lineTo(Q3Canvas.width / 2, Q3Canvas.height / 2);
+
+      ctx.closePath();
+
+      ctx.fill();
+
+      angleStart = angleEnd;//设置画下一个扇形的起点位置
+
+    };
+    ctx.beginPath();
+    ctx.fillStyle = "#ffffff";
+    ctx.arc(Q3Canvas.width / 2, Q3Canvas.height / 2, Q3Canvas.width / 4, 0, 360);
+    ctx.closePath();
+    ctx.fill();
+
+
+
+  }
+
+
+
 
 }

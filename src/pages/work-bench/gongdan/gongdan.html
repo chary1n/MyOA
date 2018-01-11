@@ -187,10 +187,12 @@
 
 </ion-content>
 <ion-content *ngIf="show_type == 'me'">
-  <div style="position:relative;width:70px">
-    <img height="50px" width="50px" src="assets/img/work_bench/zanzhi.png">
-    <div>最新@我</div>
-    <span style="position:absolute;width:20px;height:20px;border-radius:10px;background-color:red;display:inline-block;color:white;line-height:20px;right:8px;top:-8px;text-align:center;font-size:12px">12</span>
+  <div style="text-align:center">
+    <div style="position:relative;width:70px;margin:0 auto;margin-top:30px">
+      <img height="50px" width="50px" src="assets/img/work_bench/zanzhi.png">
+      <div style="margin-top:10px">最新@我</div>
+      <span style="position:absolute;width:20px;height:20px;border-radius:10px;background-color:red;display:inline-block;color:white;line-height:20px;right:8px;top:-8px;text-align:center;font-size:12px">12</span>
+    </div>
   </div>
   <ion-list style="background-color:white">
     <button ion-item (click)="mySubmitList()">
@@ -204,14 +206,18 @@
       <ion-avatar item-start>
         <img src="assets/img/gongdan/shouli.png">
       </ion-avatar>
-      <ion-label>我受理中的</ion-label>
+      <ion-label>我受理中的
+        <span style="float:right"> {{processNumber}}</span>
+      </ion-label>
     </button>
 
     <button ion-item>
       <ion-avatar item-start>
         <img src="assets/img/gongdan/daiyanshou.png">
       </ion-avatar>
-      <ion-label>待他人验收的</ion-label>
+      <ion-label>待他人验收的
+        <span style="float:right"> {{unassignNumber}}</span>
+      </ion-label>
     </button>
 
     <button ion-item>
@@ -234,7 +240,7 @@
       </ion-avatar>
 
       <ion-label>我指派过的
-        <span style="float:right"> 2</span>
+
       </ion-label>
     </button>
 
@@ -242,8 +248,41 @@
 
 
 </ion-content>
+<ion-content *ngIf="show_type == 'tongji'">
+  <div style="margin-top:20px">
+    <div style="float:right; margin-left:50px">
+      <canvas id="rings" style="width:100px;height:100px"></canvas>
+    </div>
+    <div>
+      <div class="div_x">
+        <span class="div_span">受理中</span>
+        <div class="small_rang" style="background:#0097ee "> </div>
+      </div>
+      <div class="div_x">
+        <span class="div_span">未受理</span>
+        <div class="small_rang" style="background:#ffa634 "> </div>
+      </div>
 
-<ion-footer>
+      <div class="div_x">
+        <span>
+          <span class="div_span">待验收</span>
+          <div class="small_rang" style="background:#ffe650 "> </div>
+        </span>
+      </div>
+      <div class="div_x">
+        <span class="div_span">已完成</span>
+        <div class="small_rang" style="background:#c1e372 "> </div>
+      </div>
+    </div>
+
+  </div>
+
+
+
+</ion-content>
+
+
+<ion-footer *ngIf="show_type == 'me'">
   <button ion-button full tappable round (click)="createGongdan()">
     新建工单
   </button>

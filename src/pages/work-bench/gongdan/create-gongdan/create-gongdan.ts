@@ -55,6 +55,7 @@ export class CreateGongdanPage {
     this.chooseList = this.navParams.get('chooseList')
     this.choosePeopleItem = this.navParams.get('choosePeopleItem')
     this.chooseDepartmentName = this.navParams.get('chooseDepartmentName')
+    console.log(this.choosePeopleItem)
     if(this.choosePeopleItem){
       this.choosePeopleName = this.choosePeopleItem.name
     }
@@ -94,7 +95,7 @@ export class CreateGongdanPage {
         title: this.title,
         description: this.description,
         priority: this.priorityId,
-        assign_uid: this.assignList,
+        assign_uid: this.choosePeopleItem.id,
         departments: departments,
         uid:HttpService.user_id,
         wo_images :this.pushImgList
