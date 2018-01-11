@@ -6,7 +6,12 @@
 -->
 <ion-header no-border>
 
-  <ion-navbar color="gongdan-color">
+  <ion-navbar color="gongdan-color" hideBackButton="true">
+    <ion-buttons left>
+      <button ion-button icon-only (click)="goBack()">
+        <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
     <ion-title>付款审核</ion-title>
   </ion-navbar>
   <!--<ion-toolbar no-border-top>

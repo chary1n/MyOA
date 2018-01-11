@@ -368,4 +368,9 @@ export class PayRequestPage {
     }
     return state
   }
+
+  goBack(){
+    this.statusBar.backgroundColorByHexString("#f8f8f8");
+    this.statusBar.styleDefault();
+  }
 }
