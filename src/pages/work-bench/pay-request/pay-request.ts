@@ -4,7 +4,7 @@ import { PaymentRequestService} from './pay-requestService';
 import { Storage } from '@ionic/storage';
 import { PaymentAutoService} from './pay-request-auto';
 import { PaymentTwoAutoService} from './pay-two-request-auto'
-
+import { StatusBar } from '@ionic-native/status-bar';
 /**
  * Generated class for the PayRequestPage page.
  *
@@ -29,8 +29,12 @@ export class PayRequestPage {
   alreadyList;
   waitMeTitle;
   is_plus = false;
+  count = 0;
   constructor(public navCtrl: NavController, public navParams: NavParams,public paymentService: PaymentRequestService,
-  public storage :Storage,public paymentAutoService:PaymentAutoService,public paymentTwoAutoService:PaymentTwoAutoService) {
+  public storage :Storage,public paymentAutoService:PaymentAutoService,public paymentTwoAutoService:PaymentTwoAutoService,
+  public statusBar:StatusBar) {
+      this.statusBar.backgroundColorByHexString("#2597ec");
+      this.statusBar.styleLightContent();
       this.pet = "2"
       this.waitMeTitle = "待我审批"
       this.storage.get('user')
@@ -47,12 +51,14 @@ export class PayRequestPage {
         this.paymentService.get_payment_request_list("wait_me",this.limit,this.offset,this.user_id,this.is_plus).then(res => {
           if (res.result && res.result.res_code == 1 && res.result.res_data) {
             this.waitMeList = res.result.res_data;
+            this.count = res.result.res_data.length;
             if (res.result.res_data.length){
               this.waitMeTitle = "待我审批(" + res.result.res_data.length + ")"
             }
             else
             {
                this.waitMeTitle = "待我审批(0)" 
+               this.count = 0;
             }
             
           }
@@ -60,6 +66,7 @@ export class PayRequestPage {
           {
             this.waitMeList = [];
             this.waitMeTitle = "待我审批(0)"
+            this.count = 0;
           }
         })
       })
@@ -76,12 +83,14 @@ export class PayRequestPage {
       this.paymentService.get_payment_request_list("wait_me",this.limit,this.offset,this.user_id,this.is_plus).then(res => {
           if (res.result && res.result.res_code == 1 && res.result.res_data) {
             this.waitMeList = res.result.res_data;
+            this.count = res.result.res_data.length;
             if (res.result.res_data.length){
               this.waitMeTitle = "待我审批(" + res.result.res_data.length + ")"
             }
             else
             {
                this.waitMeTitle = "待我审批(0)" 
+               this.count = 0;
             }
             
           }
@@ -89,6 +98,7 @@ export class PayRequestPage {
           {
             this.waitMeList = [];
             this.waitMeTitle = "待我审批(0)"
+            this.count = 0;
           }
         })
     }
@@ -111,18 +121,21 @@ export class PayRequestPage {
   }
 
   clickWaitMeApply(){
+    this.pet = "2"
     this.isMoreData = true;
     this.limit = 20;
     this.offset = 0;
     this.paymentService.get_payment_request_list("wait_me",this.limit,this.offset,this.user_id,this.is_plus).then(res => {
           if (res.result && res.result.res_code == 1 && res.result.res_data) {
             this.waitMeList = res.result.res_data;
+            this.count = res.result.res_data.length;
             if (res.result.res_data.length){
               this.waitMeTitle = "待我审批(" + res.result.res_data.length + ")"
             }
             else
             {
                this.waitMeTitle = "待我审批(0)" 
+               this.count = 0;
             }
             
           }
@@ -130,11 +143,13 @@ export class PayRequestPage {
           {
             this.waitMeList = [];
             this.waitMeTitle = "待我审批(0)"
+            this.count = 0;
           }
         })
   }
 
   clickAlreadyApply(){
+    this.pet = "3"
     this.isMoreData = true;
     this.limit = 20;
     this.offset = 0;

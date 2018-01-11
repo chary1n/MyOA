@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar >
     <ion-title>工作台</ion-title>
   </ion-navbar>
 </ion-header>
@@ -14,7 +14,7 @@
         <div style="position:relative">
           <img src="assets/img/work_bench/shenqing.png">
           <div>报销</div>
-          <span *ngIf="bx_count > 0" style="position:absolute;width:20px;height:20px;border-radius:10px;background-color:red;display:inline-block;color:white;line-height:20px;right:8px;top:-8px;text-align:center;font-size:12px">{{bx_count}}</span>
+          <span *ngIf="bx_count > 0" style="position:absolute;width:20px;height:20px;border-radius:10px;background-color:red;display:inline-block;color:white;line-height:20px;right:8px;top:-8px;text-align:center;font-size:14px">{{bx_count}}</span>
         </div>
 
       </ion-col>
@@ -22,14 +22,14 @@
         <div style="position:relative">
           <img src="assets/img/work_bench/shenpi.png">
           <div>申购</div>
-          <span *ngIf="sg_count > 0" style="position:absolute;width:20px;height:20px;border-radius:10px;background-color:red;display:inline-block;color:white;line-height:20px;right:8px;top:-8px;text-align:center;font-size:12px">{{sg_count}}</span>
+          <span *ngIf="sg_count > 0" style="position:absolute;width:20px;height:20px;border-radius:10px;background-color:red;display:inline-block;color:white;line-height:20px;right:8px;top:-8px;text-align:center;font-size:14px">{{sg_count}}</span>
         </div>
       </ion-col>
       <ion-col col-3 tappable (click)="zanzhi()">
         <div style="position:relative">
           <img src="assets/img/work_bench/zanzhi.png">
           <div>暂支</div>
-          <span *ngIf="zz_count > 0" style="position:absolute;width:20px;height:20px;border-radius:10px;background-color:red;display:inline-block;color:white;line-height:20px;right:8px;top:-8px;text-align:center;font-size:12px">{{zz_count}}</span>
+          <span *ngIf="zz_count > 0" style="position:absolute;width:20px;height:20px;border-radius:10px;background-color:red;display:inline-block;color:white;line-height:20px;right:8px;top:-8px;text-align:center;font-size:14px">{{zz_count}}</span>
         </div>
       </ion-col>
       <ion-col col-3 tappable (click)="shareKnowledge()">
@@ -118,9 +118,9 @@
           <div>采购确认</div>
         </ion-col>
         <ion-col *ngIf="isShowPayment" col-3 tappable (click)="clickPayrequest()">
-          <img src="assets/img/work_bench/ruku.png">
+          <img src="assets/img/work_bench/payment.png">
           <div>付款审核</div>
-          <span *ngIf="py_count > 0" style="position:absolute;width:20px;height:20px;border-radius:10px;background-color:red;display:inline-block;color:white;line-height:20px;right:8px;top:-8px;text-align:center;font-size:12px">{{py_count}}</span>
+          <span *ngIf="py_count > 0" style="position:absolute;width:20px;height:20px;border-radius:10px;background-color:red;display:inline-block;color:white;line-height:20px;right:12px;top:-4px;text-align:center;font-size:14px">{{py_count}}</span>
         </ion-col>
       </ion-row>
       <ion-row>

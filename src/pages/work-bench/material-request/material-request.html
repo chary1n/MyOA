@@ -26,14 +26,14 @@
 
 
 <ion-content style="background:#f0f0f0">
-  <div [ngSwitch]="pet" style="margin-top:10px;">
+  <div [ngSwitch]="pet" >
    <ng-template [ngSwitchCase]='1'>
-      <ion-auto-complete style="width: 100vw;" (itemSelected)="itemSelected($event)" [dataProvider]="materialAutoService"></ion-auto-complete>
+      <ion-auto-complete style="width: 94vw;margin-left:3vw" (itemSelected)="itemSelected($event)" [dataProvider]="materialAutoService"></ion-auto-complete>
       <ion-refresher (ionRefresh)="doRefresh($event)">
         <ion-refresher-content></ion-refresher-content>
       </ion-refresher>
-  <ion-item-group style="background-color:#f2f2f2">
-    <ion-item no-lines style="margin-top:10px;" *ngFor='let item of materialList' tappable (click) = "clickItem(item)">
+  <ion-item-group style="background-color:#f2f2f2;margin-top:-10px">
+    <ion-item no-lines *ngFor='let item of materialList' tappable (click) = "clickItem(item)">
       <p style="float:right;margin-top:7px;">{{item.delivery_date}}</p>
       <button ion-button style="background-color:white;color:#55c4f5;border-color:#55c4f5;border-width:1px;border-style:solid;margin-left:10px;border-radius:20px" small>{{changeType(item.picking_type)}}</button>
       <p style="font-size:16px;color:black;float:left;margin-top:7px;">{{item.name}}</p>
@@ -48,12 +48,12 @@
   </ng-template>
 
 <ng-template [ngSwitchCase]='2'>
-      <ion-auto-complete style="width: 100vw;" (itemSelected)="itemSelected_two($event)" [dataProvider]="twoAuto"></ion-auto-complete>
+      <ion-auto-complete style="width: 94vw;margin-left:3vw" (itemSelected)="itemSelected_two($event)" [dataProvider]="twoAuto"></ion-auto-complete>
       <ion-refresher (ionRefresh)="doRefresh($event)">
         <ion-refresher-content></ion-refresher-content>
       </ion-refresher>
-  <ion-item-group style="background-color:#f2f2f2">
-    <ion-item no-lines style="margin-top:10px;" *ngFor='let item of waitMeList' tappable (click) = "clickEdit(item)">
+  <ion-item-group style="background-color:#f2f2f2;margin-top:-10px">
+    <ion-item no-lines  *ngFor='let item of waitMeList' tappable (click) = "clickEdit(item)">
       <p style="float:right;margin-top:7px;">{{item.delivery_date}}</p>
       <button ion-button style="background-color:white;color:#55c4f5;border-color:#55c4f5;border-width:1px;border-style:solid;margin-left:10px;border-radius:20px" small>{{changeType(item.picking_type)}}</button>
       <p style="font-size:16px;color:black;float:left;margin-top:7px;">{{item.name}}</p>
@@ -69,12 +69,12 @@
   </ng-template>
 
   <ng-template [ngSwitchCase]='3'>
-      <ion-auto-complete style="width: 100vw;" (itemSelected)="itemSelected_two($event)" [dataProvider]="twoAuto"></ion-auto-complete>
+      <ion-auto-complete style="width: 94vw;margin-left:3vw" (itemSelected)="itemSelected_two($event)" [dataProvider]="twoAuto"></ion-auto-complete>
       <ion-refresher (ionRefresh)="doRefresh($event)">
         <ion-refresher-content></ion-refresher-content>
       </ion-refresher>
-  <ion-item-group style="background-color:#f2f2f2">
-    <ion-item no-lines style="margin-top:10px;" *ngFor='let item of alreadyList' tappable (click) = "clickItem(item)">
+  <ion-item-group style="background-color:#f2f2f2;margin-top:-10px">
+    <ion-item no-lines *ngFor='let item of alreadyList' tappable (click) = "clickItem(item)">
       <p style="float:right;margin-top:7px;">{{item.delivery_date}}</p>
       <button ion-button style="background-color:white;color:#55c4f5;border-color:#55c4f5;border-width:1px;border-style:solid;margin-left:10px;border-radius:20px" small>{{changeType(item.picking_type)}}</button>
       <p style="font-size:16px;color:black;float:left;margin-top:7px;">{{item.name}}</p>

@@ -27,13 +27,13 @@
 </ion-header>
 
 
-<ion-content>
-  <ion-auto-complete style="width: 100vw;" (itemSelected) = "itemSelected($event)"  [dataProvider]="shenGouAutoService"></ion-auto-complete>
+<ion-content style="background:#f0f0f0">
+  <ion-auto-complete style="width: 93vw;margin-left:4vw" (itemSelected) = "itemSelected($event)"  [dataProvider]="shenGouAutoService"></ion-auto-complete>
 
   <ion-refresher (ionRefresh)="doRefresh($event)">
       <ion-refresher-content></ion-refresher-content>
     </ion-refresher>
-  <div [ngSwitch]="pet" style="margin-top:10px;">
+  <div [ngSwitch]="pet" >
 
     <ng-template [ngSwitchCase]='1'>
        <ion-list>

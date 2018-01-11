@@ -27,13 +27,13 @@
 
 
 <ion-content style="background:#f0f0f0">
-  <div [ngSwitch]="pet" style="margin-top:10px;">
+  <div [ngSwitch]="pet">
     <ng-template [ngSwitchCase]='0'>
-      <ion-auto-complete style="width: 100vw;" (itemSelected)="itemSelected0($event)" [dataProvider]="applyAutoService"></ion-auto-complete>
+      <ion-auto-complete style="width: 93vw;margin-left:4vw;" (itemSelected)="itemSelected0($event)" [dataProvider]="applyAutoService"></ion-auto-complete>
       <ion-refresher (ionRefresh)="doRefresh0($event)">
         <ion-refresher-content></ion-refresher-content>
       </ion-refresher>
-      <ion-list style="margin-top:7px">
+      <ion-list >
         <ion-item *ngFor='let item of applyList' tappable (click)='clickApply(item.id)'>
           <p text-wrap style="float:right;color:#000000;font-size:80%;color:gray;">{{changeDate(item.create_time) | date:'yyyy-MM-dd HH:mm:ss'}}</p>
           <p text-wrap style="font-size:100%;color:#000000;">{{item.name}}</p>
@@ -52,11 +52,11 @@
 
 
     <ng-template [ngSwitchCase]='1'>
-      <ion-auto-complete style="width: 100vw;" (itemSelected)="itemSelected($event)" [dataProvider]="reimbursementAutoService"></ion-auto-complete>
+      <ion-auto-complete style="width: 93vw;margin-left:4vw;" (itemSelected)="itemSelected($event)" [dataProvider]="reimbursementAutoService"></ion-auto-complete>
       <ion-refresher (ionRefresh)="doRefresh($event)">
         <ion-refresher-content></ion-refresher-content>
       </ion-refresher>
-      <ion-list style="margin-top:7px">
+      <ion-list >
         <ion-item *ngFor='let item of wait_approval_list' tappable (click)='approval_detail(item)'>
           <p text-wrap style="font-size:80%;float:right;color:gray;">{{changeDate(item.create_date) | date:'yyyy-MM-dd HH:mm:ss'}}</p>
           <p style="font-size:100%;color:black;">{{item.expense_name}} {{item.employee_name}}</p>
@@ -71,11 +71,11 @@
     </ng-template>
 
     <ng-template [ngSwitchCase]='2'>
-      <ion-auto-complete style="width: 100vw;" (itemSelected)="itemSelected($event)" [dataProvider]="reimbursementAutoService"></ion-auto-complete>
+      <ion-auto-complete style="width: 93vw;margin-left:4vw;" (itemSelected)="itemSelected($event)" [dataProvider]="reimbursementAutoService"></ion-auto-complete>
       <ion-refresher (ionRefresh)="doRefresh($event)">
         <ion-refresher-content></ion-refresher-content>
       </ion-refresher>
-      <ion-list style="margin-top:7px">
+      <ion-list >
         <ion-item *ngFor='let item of already_approval_list' tappable (click)='approved_detail(item)'>
           <p text-wrap style="font-size:80%;float:right;color:gray;">{{changeDate(item.create_date) | date:'yyyy-MM-dd HH:mm:ss'}}</p>
           <p style="font-size:100%;color:black;">{{item.expense_name}} {{item.employee_name}}</p>
