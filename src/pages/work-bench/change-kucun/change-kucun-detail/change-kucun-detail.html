@@ -6,7 +6,12 @@
 -->
 <ion-header>
 
-  <ion-navbar>
+  <ion-navbar color="gongdan-color" hideBackButton="true">
+    <ion-buttons left>
+      <button ion-button icon-only (click)="goBack()">
+        <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
     <ion-title>{{item.name}}</ion-title>
   </ion-navbar>
 
@@ -15,7 +20,7 @@
 
 <ion-content style="background:#f0f2f5">
   <ion-item >
-      <div style="margin-top:5px;background:white">
+      <div style="background:white">
           <img src={{item.create_img}} class="image1" style="float:left;margin-left:10px;">   
           <p text-wrap style="font-size:80%;color:#2e3133;line-height:30px;margin-left:10px;float:left">{{item.create_name}}</p>
           <p text-warp style="font-size:80%;color:#fd9f89;line-height:30px;float:right;margin-right:25px">进行中</p>
@@ -64,16 +69,16 @@
         </ng-template>
     
         <ng-template [ngSwitchCase]='2'> -->
-            <ion-row align-items-center style="background:white;height:40px;margin-top:10px">
+            <!--<ion-row align-items-center style="background:white;height:40px;margin-top:10px">
                 <ion-col tappable>
                    <div align="center" >
                     <p style="color:#1997f2" class="test_one">盘点明细</p>
                   </div>
                 </ion-col>
-              </ion-row>
-              <!-- <div style="background:white;height:40px">
-                <p align="center" style="color:#1997f2;">盘点明细</p>
-              </div> -->
+              </ion-row>-->
+               <div style="background:white;height:40px">
+                <p align="center" style="color:#1997f2;line-height:40px">盘点明细</p>
+              </div> 
               <div style="background:#f0f2f5">
                   <ion-list>
                       <ion-item no-lines *ngFor='let item of line_ids' tappable style="margin-top:10px;">
@@ -89,6 +94,22 @@
 </ion-content>
 
 <ion-footer *ngIf="isShow">
-          <button ion-button ion-start (click)='refuse()' style='width:48%' color="refuse">拒绝</button>
-          <button ion-button  ion-end (click)='pass()' style='width:48%;'>通过</button>
+          <!--<button ion-button ion-start (click)='refuse()' style='width:48%' color="refuse">拒绝</button>
+          <button ion-button  ion-end (click)='pass()' style='width:48%;'>通过</button>-->
+
+          <div style="background:#f0f0f0">
+    <!--<button  style='width:48%;margin-left:5px; background-color:#fba958' ion-button (click)="cancel()">
+      拒绝
+    </button>
+    <button style='width:48%;float:right;margin-right:5px;background-color:#1eabfe' ion-button
+      (click)="send_manager()">
+      送审经理
+    </button>-->
+    <span align="center" style='width:50%;float:left; background-color:#fba958;height:44px;line-height:44px;font-size:15px;color:white' tappable (click)="refuse()">
+      拒绝
+    </span>
+    <span align="center" style='width:50%;float:right;background-color:#1eabfe;height:44px;line-height:44px;font-size:15px;color:white' tappable (click)="pass()">
+      通过
+    </span>
+  </div>
 </ion-footer>

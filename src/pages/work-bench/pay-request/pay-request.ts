@@ -370,8 +370,13 @@ export class PayRequestPage {
   }
 
   goBack(){
+  
     this.statusBar.backgroundColorByHexString("#f8f8f8");
     this.statusBar.styleDefault();
+<<<<<<< HEAD
     
+=======
+    this.navCtrl.pop();
+>>>>>>> f79a333139bf7a906a7eff39f8d221d777f012f2
   }
 }

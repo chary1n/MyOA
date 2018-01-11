@@ -1,5 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
+<<<<<<< HEAD
 <widget android-versionCode="30" id="com.linkloving.oa" version="0.4.4" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+=======
+<widget android-versionCode="29" id="com.linkloving.oa" version="0.4.5" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+>>>>>>> f79a333139bf7a906a7eff39f8d221d777f012f2
     <name>OA</name>
     <description>An awesome Ionic/Cordova app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
