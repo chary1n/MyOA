@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { IonicPage, NavController, NavParams, PopoverController, ViewController, Events,AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, PopoverController, ViewController, Events,AlertController,Platform } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { PaymentRequestService} from './../pay-requestService';
 import { Utils } from './../../../../providers/Utils';
@@ -24,9 +24,10 @@ export class PayRequestDetailPage {
   is_plus;
   power;
   process;
+  is_ios;
   constructor(public navCtrl: NavController, public navParams: NavParams,public storage:Storage,
-    public payService:PaymentRequestService,public alertCtrl:AlertController) {
-    this.process = "17%";
+    public payService:PaymentRequestService,public alertCtrl:AlertController,public platform:Platform) {
+    this.is_ios = this.platform.is('ios')
     this.frontPage = Utils.getViewController("PayRequestPage", navCtrl)
     this.item = this.navParams.get('item');
     this.storage.get('user')

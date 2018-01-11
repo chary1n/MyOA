@@ -49,7 +49,7 @@
       </ng-template>
       
   
-  
+        
       <ng-template [ngSwitchCase]='1'>
           <ion-auto-complete style="width: 94vw;margin-left:3vw" (itemSelected)="itemSelected($event)" [dataProvider]="zanzhiAutoServices"></ion-auto-complete>
           <ion-refresher (ionRefresh)="doRefresh($event)">
