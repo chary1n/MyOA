@@ -1,0 +1,94 @@
+<!--
+  Generated template for the ChangeKucunDetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{item.name}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content style="background:#f0f2f5">
+  <ion-item >
+      <div style="margin-top:5px;background:white">
+          <img src={{item.create_img}} class="image1" style="float:left;margin-left:10px;">   
+          <p text-wrap style="font-size:80%;color:#2e3133;line-height:30px;margin-left:10px;float:left">{{item.create_name}}</p>
+          <p text-warp style="font-size:80%;color:#fd9f89;line-height:30px;float:right;margin-right:25px">进行中</p>
+      </div>
+  </ion-item>
+  <div style="background:white">
+    <div class="div_all">
+        <p text-wrap style="font-size:85%;float:left">盘点日期</p>
+        <p text-wrap style="font-size:80%;float:left;margin-left:15px;color:#8a9299"> {{changeDate(item.date) | date:"yyyy.MM.dd HH:mm"}} </p>
+    </div>
+    <div class="div_all">
+        <p text-wrap style="font-size:85%;float:left">盘点位置</p>
+        <p text-wrap style="font-size:80%;float:left;margin-left:15px;color:#8a9299"> {{item.location_name}} </p>
+    </div>
+    <div class="div_all">      
+        <p text-wrap style="font-size:85%;float:left">盘点类型</p>
+        <p text-wrap style="font-size:80%;float:left;margin-left:15px;color:#8a9299">{{changeType(item.filter)}}</p>
+    </div>
+    <div class="div_all">
+        <p text-wrap style="font-size:85%;float:left">来源备注</p>
+        <p text-wrap style="font-size:80%;float:left;margin-left:15px;color:#8a9299"> {{changeRemark(item.remark)}} </p>
+    </div>
+  </div>
+  <!-- <ion-toolbar no-border-top style="margin-top:15px;">
+      <ion-segment [(ngModel)]="pet" style="background:white"> 
+        <ion-segment-button tappable (click)='clickKucun()' value="1">
+          库存调整
+        </ion-segment-button>
+        <ion-segment-button tappable (click)='clickPandian()' value="2">
+          盘点明细
+        </ion-segment-button>
+      </ion-segment>
+    </ion-toolbar>
+    <div [ngSwitch]="pet">
+        
+        <ng-template [ngSwitchCase]='1'>
+          <ion-list>
+            <ion-item  no-lines *ngFor='let item of move_ids' tappable style="margin-top:10px">
+              <h4 text-wrap style="font-size:90%;">{{item.name}}</h4>
+              <p text-wrap style="font-size:70%;color:gray"> 来源位置：{{item.location_id_from}} </p>
+              <p text-wrap style="font-size:70%;color:gray">目的位置：{{item.location_dest_id}} </p>
+              <p text-wrap style="font-size:70%;color:#1997f2;float:left">数量：{{item.product_qty}}</p>
+              <p text-warp style="font-size:70%;color:#fd9f89;float:right;margin-right:25px">进行中</p>
+            </ion-item> 
+          </ion-list>
+        </ng-template>
+    
+        <ng-template [ngSwitchCase]='2'> -->
+            <ion-row align-items-center style="background:white;height:40px;margin-top:10px">
+                <ion-col tappable>
+                   <div align="center" >
+                    <p style="color:#1997f2" class="test_one">盘点明细</p>
+                  </div>
+                </ion-col>
+              </ion-row>
+              <!-- <div style="background:white;height:40px">
+                <p align="center" style="color:#1997f2;">盘点明细</p>
+              </div> -->
+              <div style="background:#f0f2f5">
+                  <ion-list>
+                      <ion-item no-lines *ngFor='let item of line_ids' tappable style="margin-top:10px;">
+                        <h4 text-wrap style="font-size:90%;">{{item.product_name}}</h4>
+                        <p text-wrap style="font-size:70%;color:gray;margin-top:15px"> 地点：{{item.location_name}} </p>
+                        <p text-wrap style="font-size:70%;color:gray;float:left;margin-top:12px">理论数量：{{item.theoretical_qty}}</p>
+                        <p text-warp style="font-size:70%;color:#1997f2;float:right;margin-top:12px">实际数量：{{item.product_qty}}</p>
+                      </ion-item>
+                    </ion-list>
+              </div>
+          <!-- </ng-template>
+        </div> -->
+</ion-content>
+
+<ion-footer *ngIf="isShow">
+          <button ion-button ion-start (click)='refuse()' style='width:48%' color="refuse">拒绝</button>
+          <button ion-button  ion-end (click)='pass()' style='width:48%;'>通过</button>
+</ion-footer>
