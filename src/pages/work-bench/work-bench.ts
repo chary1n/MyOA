@@ -28,6 +28,8 @@ export class WorkBenchPage {
   zz_count = 0;
   sg_count = 0;
   bx_count = 0;
+  py_count = 0;
+  isShowPayment = false;
   constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage,
     public services :CommonUseServices) {
   }
@@ -41,6 +43,7 @@ export class WorkBenchPage {
     this.storage.get('user')
       .then(res => {
         console.log(res);
+        let is_plus = false
         for (let product of res.result.res_data.groups) {
           if (product.name == 'group_purchase_user' || product.name == 'group_purchase_manager') {
             this.isShowPurchase = true;
@@ -51,9 +54,17 @@ export class WorkBenchPage {
           if (product.name == 'group_account_manager') {
             this.isShowZiJin = true;
           }
+          if (product.name == 'group_purchase_manager' || product.name == 'purchase_manager_plus')
+          {
+            if (product.name == 'purchase_manager_plus')
+            {
+              is_plus = true
+            }
+            this.isShowPayment = true
+          }
          
         }
-         this.services.get_all_need_do(res.result.res_data.user_id).then(res => {
+         this.services.get_all_need_do(res.result.res_data.user_id,is_plus).then(res => {
             console.log(res.result.res_data.bx)
             if (res.result && res.result.res_code == 1 && res.result.res_data) {
               this.isZZList = res.result.res_data.zz > 0 ?true :false;
@@ -62,8 +73,7 @@ export class WorkBenchPage {
               this.zz_count = res.result.res_data.zz;
               this.bx_count = res.result.res_data.bx;
               this.sg_count = res.result.res_data.sg;
-              // var dd = document.getElementById('red-point-one');
-
+              this.py_count = res.result.res_data.py;
             }
           })
       });

@@ -130,7 +130,7 @@ export class CommonUseServices {
             offset:offset,
             type :type 
         });
-        return this.httpservice.postBodyNoLoading("get_zanzhi_list", body);
+        return this.httpservice.postBody("get_zanzhi_list", body);
     }
 
     searchZanzhiList(id,type,data,text){
@@ -231,9 +231,10 @@ export class CommonUseServices {
         return this.httpservice.postBodyNoLoading("get_shengou_count", body);
     }
 
-    get_all_need_do(user_id){
+    get_all_need_do(user_id,is_plus){
         let body = JSON.stringify({
             user_id:user_id,
+            is_plus:is_plus,
         });
         return this.httpservice.postBodyNoLoading("get_all_need_do", body);
     }

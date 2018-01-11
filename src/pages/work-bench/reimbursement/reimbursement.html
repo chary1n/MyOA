@@ -26,9 +26,9 @@
 
 
 <ion-content>
-  <div [ngSwitch]="pet" style="margin-top:10px;">
+  <div [ngSwitch]="pet">
     <ng-template [ngSwitchCase]='1'>
-      <ion-auto-complete style="width: 100vw;" (itemSelected)="itemSelected($event)" [dataProvider]="reimbursementAutoService"></ion-auto-complete>
+      <ion-auto-complete style="width: 95vw;margin-left:5vw;" (itemSelected)="itemSelected($event)" [dataProvider]="reimbursementAutoService"></ion-auto-complete>
       <ion-refresher (ionRefresh)="doRefresh($event)">
         <ion-refresher-content></ion-refresher-content>
       </ion-refresher>
@@ -48,7 +48,7 @@
     </ng-template>
 
     <ng-template [ngSwitchCase]='2'>
-      <ion-auto-complete style="width: 100vw;" (itemSelected)="itemSelected($event)" [dataProvider]="reimbursementAutoService"></ion-auto-complete>
+      <ion-auto-complete style="width: 95vw;margin-left:5vw;" (itemSelected)="itemSelected($event)" [dataProvider]="reimbursementAutoService"></ion-auto-complete>
       <ion-refresher (ionRefresh)="doRefresh($event)">
         <ion-refresher-content></ion-refresher-content>
       </ion-refresher>

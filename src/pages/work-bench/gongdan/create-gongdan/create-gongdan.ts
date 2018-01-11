@@ -1,13 +1,13 @@
-import { HttpService } from './../../../providers/HttpService';
-import { NativeService } from './../../../providers/NativeService';
+import { HttpService } from './../../../../providers/HttpService';
+import { NativeService } from './../../../../providers/NativeService';
 import { ToastController } from 'ionic-angular/components/toast/toast-controller';
 import { NavParams } from 'ionic-angular/navigation/nav-params';
 import { Component } from '@angular/core';
 import { IonicPage } from 'ionic-angular/navigation/ionic-page';
 import { NavController } from 'ionic-angular/navigation/nav-controller';
-import { GongDanService } from './gongdanService';
-import { Utils } from '../../../providers/Utils';
 import { ActionSheetController } from 'ionic-angular/components/action-sheet/action-sheet-controller';
+import { GongDanService } from '../gongdanService';
+import { Utils } from '../../../../providers/Utils';
 
 /**
  * Generated class for the CreateGongdanPage page.
@@ -55,6 +55,7 @@ export class CreateGongdanPage {
     this.chooseList = this.navParams.get('chooseList')
     this.choosePeopleItem = this.navParams.get('choosePeopleItem')
     this.chooseDepartmentName = this.navParams.get('chooseDepartmentName')
+    console.log(this.choosePeopleItem)
     if(this.choosePeopleItem){
       this.choosePeopleName = this.choosePeopleItem.name
     }
@@ -94,7 +95,7 @@ export class CreateGongdanPage {
         title: this.title,
         description: this.description,
         priority: this.priorityId,
-        assign_uid: this.assignList,
+        assign_uid: this.choosePeopleItem.id,
         departments: departments,
         uid:HttpService.user_id,
         wo_images :this.pushImgList

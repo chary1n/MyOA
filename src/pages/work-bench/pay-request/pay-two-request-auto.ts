@@ -4,7 +4,7 @@ import { Injectable } from "@angular/core";
 import 'rxjs/add/operator/map'
 
 @Injectable()
-export class PaymentAutoService implements AutoCompleteService {
+export class PaymentTwoAutoService implements AutoCompleteService {
     labelAttribute = "name";
 
     constructor(private http: Http) {
@@ -22,17 +22,11 @@ export class PaymentAutoService implements AutoCompleteService {
             name: "",
             id: 2,
         }
-        let obj3 = {
-            name: "",
-            id: 3,
-        }
         let arr = [];
         obj1.name = "搜 单号：" + keyword;
         arr.push(obj1);
-        obj2.name = "搜 创建人：" + keyword;
+        obj2.name = "搜 申请人：" + keyword;
         arr.push(obj2);
-        obj3.name = "搜 合作伙伴：" + keyword;
-        arr.push(obj3);
         return arr;
     }
 }

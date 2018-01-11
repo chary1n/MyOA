@@ -34,11 +34,12 @@ export class AuditedPurchasePage {
         this.user_id = res.result.res_data.user_id;
       });
     console.log(this.item.state);
+    let to_approve_name = this.item.to_approve_id
     if (this.item.state == 'submit'||this.item.state == 'manager1_approve'||this.item.state == 'manager2_approve') {
       
       this.storage.get('user')
       .then(res => {
-        if (res.result.res_data.user_id != this.item.to_approve_id){
+        if (res.result.res_data.name != to_approve_name){
           this.isShowFooter = false;
         }
         else

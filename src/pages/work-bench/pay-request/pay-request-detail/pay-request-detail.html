@@ -1,0 +1,139 @@
+<!--
+  Generated template for the PayRequestDetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="gongdan-color">
+    <ion-title>{{item.name}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content style="background:#f0f0f0">
+
+  <ion-item no-lines style="height:40px;min-height:40px">
+    <ion-grid style="background:white">
+      <ion-row>
+        <ion-col col-2>
+          <img src={{item.create_person_ava}} class="imgHeard">
+        </ion-col>
+        <ion-col col-7 >
+          <p style="font-size:80%;line-height:40px;margin-top:2px;color:black">{{item.create_uid.name}}</p>
+        </ion-col>
+        <ion-col col-3 >
+          <p style="font-size:80%;color:#fd9f89;float:right;line-height:40px;margin-top:2px">{{changeState(item.state)}}</p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item>
+  <ion-item no-lines class="divider_header_class">
+
+  </ion-item>
+  <ion-item no-lines class="item_clas">
+      <div text-wrap style="float:right;font-size:70%;width:70%;color:gray;margin-top:1.5px"> {{item.parent_id.name}} </div>
+      <div class="left_label" > 合作伙伴 </div>
+    </ion-item>
+  <ion-item no-lines class="item_clas">
+    <div text-wrap style="float:right;font-size:70%;width:70%;color:gray;margin-top:1.5px"> {{item.bank_id.name}}</div>
+    <div class="left_label" > 银行账户 </div>
+  </ion-item>
+  <ion-item no-lines class="item_clas">
+    <div text-wrap style="float:right;font-size:70%;width:70%;color:gray;margin-top:1.5px">{{item.receive_date}}</div>
+    <div class="left_label" > 付款日期 </div>
+  </ion-item>
+  <ion-item no-lines class="item_clas_remark">
+    <p style="float:right;font-size:70%;width:70%;color:gray;margin-top:1.5px">{{item.remark}}</p>
+    <div class="left_label"> 备注 </div>
+  </ion-item>
+  <ion-item no-lines class="divider_class">
+
+  </ion-item>
+  <ion-item no-lines style="height:45px;min-height:45px">
+    <div text-wrap style="float:right;font-size:95%;width:70%;color:#1997f2;text-align:right">申请金额：¥{{item.amount}}</div>
+  </ion-item>
+  <div style="margin:10px;font-size:13px;color:gray;">供应商对账单</div>
+  <ion-list>
+    <div *ngFor="let items of item.invoice_ids" style="margin-top:10px" tappable (click)="clickBillDetail(items)">
+      <ion-item style="height:25px;min-height:35px;margin-top:3px;" no-lines>
+        <div text-wrap style="float:right;font-size:70%;width:50%;color:#fd9f89;;text-align:right;margin-right:7px;margin-top:7px">{{getState(items)}}</div>
+        <div style="font-size:90%;width:50%;margin-top:7px">{{items.number}} </div>
+      </ion-item> 
+      <ion-item style="height:25px;min-height:25px;margin-top:-5px" no-lines>
+        <div text-wrap style="float:right;font-size:70%;width:50%;color:gray;margin-top:-2px">源单据：{{items.origin}}</div>
+        <div style="font-size:70%;width:50%;color:gray;margin-top:-2px">开票日期：{{items.date_invoice}}</div>
+      </ion-item>
+      <ion-item no-lines style="height:25px;min-height:25px;margin-top:-5px;">
+        <div text-wrap style="float:right;font-size:70%;width:50%;color:gray;">税金：{{items.tax}}</div>
+        <div style="font-size:70%;width:50%;color:gray;">截止日期：{{items.date_due}}</div>
+      </ion-item>
+      <ion-item no-lines style="height:5px;min-height:5px;color:white;border-bottom:1px #f0f2f5 solid">
+
+      </ion-item>
+      <ion-item no-lines style="height:5px;min-height:5px;color:white;">
+
+      </ion-item>
+      <ion-item style="height:20px;min-height:20px" no-lines>
+        <div text-wrap style="float:right;font-size:70%;width:50%;color:#bbc2cc;text-align:right;margin-top:3px">¥{{fixTwo(items.amount_total)}}</div>
+        <div style="font-size:70%;width:50%;text-align:left;color:#bbc2cc;margin-top:2px"> 总计 </div>
+      </ion-item>
+      <ion-item style="height:20px;min-height:25px" no-lines>
+        <div text-wrap style="float:right;font-size:80%;width:50%;color:#2e3133;text-align:right;">¥{{fixTwo(items.amount_total_o)}}</div>
+        <div style="font-size:80%;width:50%;text-align:left;color:#2e3133;margin-top:-2px">待支付</div>
+      </ion-item>
+      
+    </div>
+  </ion-list>  
+
+  <div style="font-size:13px;color:gray;margin-left:10px;margin-top:-20px;">审批记录</div>
+  <ion-list style="padding-bottom:30px;margin-top:10px">
+    <ion-item no-lines *ngFor='let items of item.message_ids' class="middle_item">
+      <img style="width:30px;vertical-align:top;float:left;margin-right:10px;border-radius:20px" src={{items.create_person_ava}}>
+
+      <div style="overflow:hidden">
+        <span style="margin-top:-2px;color:black;font-size:80%;float:left">{{items.create_person}}</span>
+
+        <span style="font-size:70%;margin-top:-2px;margin-left:-5px;float:right;color:#bbc2cc">{{changeDate(items.create_time) | date:'MM-dd HH:mm:ss'}}</span>
+      </div>
+      <p *ngIf="items.old_state || items.new_state" style="font-size:80%;margin-top:5px;">{{items.old_state}}=>{{items.new_state}}</p>
+      <p text-wrap style="font-size:80%;margin-top:5px;">{{items.description}}</p>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+<ion-footer *ngIf = "isShowFooter">
+  <div *ngIf = "this.item.state == 'manager' && this.power" style="background:#f0f0f0">
+    <!--<button  style='width:48%;margin-left:5px;background-color:#fba958' ion-button (click)="cancel()">
+      拒绝
+    </button>
+    <button style='width:48%;margin-right:5px;float:right;background-color:#1eabfe' ion-button
+      (click)="conform()">
+      通过
+    </button>-->
+    <span align="center" style='width:50%;float:right; background-color:#fba958;height:44px;line-height:44px;font-size:15px;color:white' tappable (click)="cancel()">
+      拒绝
+    </span>
+    <span align="center" style='width:50%;float:right;background-color:#1eabfe;height:44px;line-height:44px;font-size:15px;color:white' tappable (click)="conform()">
+      通过
+    </span>
+  </div>
+
+  <div *ngIf = "this.item.state == 'posted'" style="background:#f0f0f0">
+    <!--<button  style='width:48%;margin-left:5px; background-color:#fba958' ion-button (click)="cancel()">
+      拒绝
+    </button>
+    <button style='width:48%;float:right;margin-right:5px;background-color:#1eabfe' ion-button
+      (click)="send_manager()">
+      送审经理
+    </button>-->
+    <span align="center" style='width:50%;float:right; background-color:#fba958;height:44px;line-height:44px;font-size:15px;color:white' tappable (click)="cancel()">
+      拒绝
+    </span>
+    <span align="center" style='width:50%;float:right;background-color:#1eabfe;height:44px;line-height:44px;font-size:15px;color:white' tappable (click)="send_manager()">
+      送审经理
+    </span>
+  </div>
+</ion-footer>

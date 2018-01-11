@@ -2,7 +2,7 @@ import { NavController } from 'ionic-angular/navigation/nav-controller';
 import { NavParams } from 'ionic-angular/navigation/nav-params';
 import { Component } from '@angular/core';
 import { IonicPage } from 'ionic-angular/navigation/ionic-page';
-import { Utils } from '../../../../providers/Utils';
+import { Utils } from '../../../../../providers/Utils';
 
 /**
  * Generated class for the ChooseDepartmentPage page.

@@ -15,7 +15,7 @@
 
 
 <ion-content scroll="false">
-  <ion-auto-complete style="width: 100vw;" (itemSelected) = "itemSelected($event)"  [dataProvider]="newProductionAutoService"></ion-auto-complete>
+  <ion-auto-complete style="width: 94vw;margin-left:3vw" (itemSelected) = "itemSelected($event)"  [dataProvider]="newProductionAutoService"></ion-auto-complete>
 
   <div class="pageMenuSlides">
     <div class="swiper-container" align="center">
@@ -34,6 +34,7 @@
           <ion-list no-lines>
             <ion-item text-wrap tappable class="menuItem" *ngFor="let item of categories;let i=index" style="border-bottom: 1px solid lightgray" text-center (click)="itemClick(item,$event)">
               {{item.name}}
+              
               
               <!--<p class="menuItem_left" [ngClass]="{'active': i==0}" >{{item.name}}</p> 
               <p class="menuItem_left" [ngClass]="{'active': i==0}">></p>-->
