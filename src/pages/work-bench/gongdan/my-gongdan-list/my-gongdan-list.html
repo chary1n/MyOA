@@ -15,46 +15,46 @@
 
 <ion-content padding>
 
-  <ion-list >
-    <div *ngFor="let item of gongdanList"  (click)="toDetail(item)"
+  <ion-list>
+    <div *ngFor="let item of gongdanList" (click)="toDetail(item)">
 
- 
-    <span style="font-size:140%;padding-left:5px;line-height:45px">{{item.title}}</span>
-    <ion-grid>
-      <ion-row>
-        <ion-col col-2 no-padding>
-          <img src={{item.assign_user.user_ava}} class="imgHeard">
-        </ion-col>
-        <ion-col col-2 class="col_font" no-padding>
-          {{item.assign_user.name}}
-        </ion-col>
-        <ion-col col-6 class="col_font" no-padding >
-          {{item.create_time}}
-        </ion-col>
-      </ion-row>
 
-      <ion-row>
-        <ion-col col-4 class="col_font" no-padding> 受理人: {{item.assign_user.name}}</ion-col>
-        <ion-col col-3 class="col_font" no-padding> 优先级 :{{changePriority(item.priority)}} </ion-col>
-        <ion-col col-5 class="col_font" no-padding text-right style="color:#ee5a15"> {{changeState(item.issue_state)}} </ion-col>
-      </ion-row>
-<!-- 
+      <span style="font-size:140%;padding-left:5px;line-height:45px">{{item.title}}</span>
+      <ion-grid>
+        <ion-row>
+          <ion-col col-2 no-padding>
+            <img src={{item.assign_user.user_ava}} class="imgHeard">
+          </ion-col>
+          <ion-col col-2 class="col_font" no-padding>
+            {{item.assign_user.name}}
+          </ion-col>
+          <ion-col col-6 class="col_font" no-padding>
+            {{item.create_time}}
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col col-4 class="col_font" no-padding> 受理人: {{item.assign_user.name}}</ion-col>
+          <ion-col col-3 class="col_font" no-padding> 优先级 :{{changePriority(item.priority)}} </ion-col>
+          <ion-col col-5 class="col_font" no-padding text-right style="color:#ee5a15"> {{changeState(item.issue_state)}} </ion-col>
+        </ion-row>
+        <!-- 
       <ion-row *ngIf="item.description">
         <ion-textarea  rows="3">
           {{item.description}}
         </ion-textarea>
       </ion-row> -->
-      <div text-wrap *ngIf="item.description"  class="font_x">{{item.description}} </div>
+        <div text-wrap *ngIf="item.description" class="font_x">{{item.description}} </div>
 
-      <ion-row *ngIf="item.work_order_images.length>0">
-        <ion-col col-4 *ngFor="let item of item.work_order_images">
-          <img src={{item}} imageViewer/>
-        </ion-col>
-      </ion-row>
+        <ion-row *ngIf="item.work_order_images.length>0">
+          <ion-col col-4 *ngFor="let item of item.work_order_images">
+            <img src={{item}} imageViewer/>
+          </ion-col>
+        </ion-row>
 
-    </ion-grid>
-    <ion-item-divider></ion-item-divider>
-  </div>
+      </ion-grid>
+      <ion-item-divider></ion-item-divider>
+    </div>
   </ion-list>
 
 </ion-content>
