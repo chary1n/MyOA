@@ -131,4 +131,7 @@ export class WorkBenchPage {
   clickPayrequest(){
     this.navCtrl.push('PayRequestPage')
   }
+  change_kucun(){
+    this.navCtrl.push('ChangeKucunPage')
+  }
 }
