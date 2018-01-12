@@ -63,10 +63,10 @@ export class GongdanPage {
     this.gongdanService.work_order_statistics().then(res => {
       console.log(res)
       if (res.result && res.result.res_code == 1) {
-        let processTongji = res.result.res_data.process
-        let unacceptTongji = res.result.res_data.unaccept
-        let checkTongji = res.result.res_data.check
-        let doneTongji = res.result.res_data.done
+        let processTongji =  res.result.res_data.process ?parseInt(res.result.res_data.process) :0
+        let unacceptTongji =res.result.res_data.unaccept? parseInt(res.result.res_data.unaccept):0
+        let checkTongji = res.result.res_data.unaccept?parseInt(res.result.res_data.check):0
+        let doneTongji =res.result.res_data.unaccept? parseInt(res.result.res_data.done):0
         let total = processTongji + checkTongji + doneTongji + unacceptTongji
         if (total == 0) {
           this.drawRings(0, 0, 0, 1)
