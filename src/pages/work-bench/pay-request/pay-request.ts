@@ -70,6 +70,7 @@ export class PayRequestPage {
           }
         })
       })
+      
   }
 
   ionViewDidLoad() {
@@ -366,5 +367,12 @@ export class PayRequestPage {
       state = "取消"
     }
     return state
+  }
+
+  goBack(){
+  
+    this.statusBar.backgroundColorByHexString("#f8f8f8");
+    this.statusBar.styleDefault();
+    this.navCtrl.pop();
   }
 }

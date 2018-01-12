@@ -1,7 +1,6 @@
 import { HttpService } from './../../../providers/HttpService';
 import { Injectable } from '@angular/core';
 
-
 @Injectable()
 export class ChangeKucunService{
     constructor(private httpservice: HttpService) {

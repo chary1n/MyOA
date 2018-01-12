@@ -90,6 +90,9 @@ export class ShengoupagePage {
     else if (item == "manager2_approve") {
       return "二级审核";
     }
+    else if (item == "manager3_approve") {
+      return "三级审核";
+    }
     else if (item == "cancel") {
       return "取消";
     }
