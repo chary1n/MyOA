@@ -37,7 +37,9 @@ export class MyGongdanListPage {
   }
 
   toDetail(item){
-
+    this.gongdanService.getGongdanDetail(item.work_order_id).then(res=>{
+      console.log(res)
+    })
   }
 
   changePriority(priority){

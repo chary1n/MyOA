@@ -99,15 +99,26 @@ export class NativeService {
   }
 
   checkNeedToUpdate(version) {
-    
     return this.httpService.getWithUrlNoLoading(AndroidAppVersion).then(res => {
       console.log(res)
+      console.log(res.changelog)
+      let changelog = res.changelog
       if (res.version) {
         if (res.version > version) {
-          return true
+          this.alertCtrl.create({
+            title: '发现新版本,是否立即升级?',
+            subTitle: changelog,
+            buttons: [{ text: '取消' },
+            {
+              text: '确定',
+              handler: () => {
+                this.downloadApp();
+              }
+            }
+            ]
+          }).present();
         }
       }
-      return false;
     })
   }
   /**
@@ -115,23 +126,7 @@ export class NativeService {
    */
   detectionUpgrade(version): void {
     //这里连接后台判断是否需要升级,不需要升级就return
-    let needToUpdate = this.checkNeedToUpdate(version).then(boolean => {
-      if (!boolean) {
-        return
-      }
-      this.alertCtrl.create({
-        title: '升级',
-        subTitle: '发现新版本,是否立即升级？',
-        buttons: [{ text: '取消' },
-        {
-          text: '确定',
-          handler: () => {
-            this.downloadApp();
-          }
-        }
-        ]
-      }).present();
-    });
+    let needToUpdate = this.checkNeedToUpdate(version)
   }
 
   /**

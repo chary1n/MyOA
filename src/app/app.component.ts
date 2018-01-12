@@ -62,9 +62,7 @@ export class MyApp {
         resolve(value);
         this.version = value;
         console.log(this.version)
-        if (this.platform.is("android")) {
-          this.nativeService.detectionUpgrade(this.version);
-        }
+        this.nativeService.detectionUpgrade(this.version);
       }).catch(err => {
       });
     });
