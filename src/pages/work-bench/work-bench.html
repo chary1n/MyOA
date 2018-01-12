@@ -146,9 +146,10 @@
         <img src="assets/img/work_bench/gcll.png">
         <div>工程领料</div>
       </ion-col>
-      <ion-col col-3 tappable (click)="change_kucun()">
+      <ion-col col-3 tappable (click)="change_kucun()" *ngIf="isShowKucun">
         <img src="assets/img/work_bench/kucunchange.png">
         <div>库存调整</div>
+        <span *ngIf="kc_count > 0" style="position:absolute;width:20px;height:20px;border-radius:10px;background-color:red;display:inline-block;color:white;line-height:20px;right:12px;top:-4px;text-align:center;font-size:14px">{{kc_count}}</span>
       </ion-col>
     </ion-row>
   </ion-grid>

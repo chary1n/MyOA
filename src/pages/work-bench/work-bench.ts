@@ -20,6 +20,7 @@ export class WorkBenchPage {
   model: WorkBenchModel
   isShowPurchase = false;
   isShowSale = false;
+  isShowKucun = false;
   isHR = false;
   isShowZiJin = false;
   isZZList = false;
@@ -29,7 +30,9 @@ export class WorkBenchPage {
   sg_count = 0;
   bx_count = 0;
   py_count = 0;
+  kc_count = 0;
   isShowPayment = false;
+  user_id;
   constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage,
     public services :CommonUseServices) {
   }
@@ -45,6 +48,9 @@ export class WorkBenchPage {
         console.log(res);
         let is_plus = false
         for (let product of res.result.res_data.groups) {
+          if(product.name == 'group_erp_manager'){
+            this.isShowKucun = true;
+          }
           if (product.name == 'group_purchase_user' || product.name == 'group_purchase_manager') {
             this.isShowPurchase = true;
           }
@@ -74,6 +80,7 @@ export class WorkBenchPage {
               this.bx_count = res.result.res_data.bx;
               this.sg_count = res.result.res_data.sg;
               this.py_count = res.result.res_data.py;
+              this.kc_count = res.result.res_data.kc;
             }
           })
       });
