@@ -1,6 +1,5 @@
 import { HttpService } from './../../../providers/HttpService';
 import { Injectable } from '@angular/core';
-// import { stat } from 'fs';
 
 @Injectable()
 export class ChangeKucunService{
