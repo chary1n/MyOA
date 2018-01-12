@@ -28,14 +28,14 @@ export class GongdanPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public statusbar: StatusBar,
     public gongdanService: GongDanService) {
     this.show_type = "tongji";
-   
+
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad GongdanPage');
     this.statusbar.backgroundColorByHexString("#2597ec");
     this.statusbar.styleLightContent();
-    this.drawRings();
+    this.click_tongji();
     // this.step = 1;
     // this.loop();
     // window.setInterval(() => {
@@ -62,6 +62,18 @@ export class GongdanPage {
     this.show_type = "tongji"
     this.gongdanService.work_order_statistics().then(res => {
       console.log(res)
+      if (res.result && res.result.res_code == 1) {
+        let processTongji = res.result.res_data.process
+        let unacceptTongji = res.result.res_data.unaccept
+        let checkTongji = res.result.res_data.check
+        let doneTongji = res.result.res_data.done
+        let total = processTongji + checkTongji + doneTongji + unacceptTongji
+        if (total == 0) {
+          this.drawRings(0, 0, 0, 1)
+        } else {
+          this.drawRings(processTongji / total, unacceptTongji / total, checkTongji / total, doneTongji / total)
+        }
+      }
     })
   }
 
@@ -129,14 +141,14 @@ export class GongdanPage {
     this.navCtrl.push("CreateGongdanPage")
   }
 
-  drawRings() {
-    var data = [0.2, 0.4, 0.1, 0.3];//五个扇形的占比
+  drawRings(a, b, c, d) {
+    var data = [a, b, c, d];//五个扇形的占比
 
     var dataColor = ["#0097ee", '#ffa634', '#ffe650', '#c1e372'];//五个扇形的颜色
 
     var angleStart = 0, angleEnd, angle;
 
-    var Q3Canvas =  <HTMLCanvasElement>document.getElementById('rings');
+    var Q3Canvas = <HTMLCanvasElement>document.getElementById('rings');
 
     Q3Canvas.width = 100;
     Q3Canvas.height = 100

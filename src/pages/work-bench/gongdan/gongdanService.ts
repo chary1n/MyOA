@@ -39,5 +39,12 @@ export class GongDanService {
         return this.httpservice.postBody("get_all_departments", body);
     }
 
+    getGongdanDetail(id){
+        let body = JSON.stringify({
+            work_order_id:id,
+            uid:HttpService.user_id
+          });
+        return this.httpservice.postBody("work_order_search_by_id", body,1);
+    }
 
 }
