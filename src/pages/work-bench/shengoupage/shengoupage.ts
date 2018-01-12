@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, IonicPage } from 'ionic-angular';
+import { NavController, NavParams, IonicPage ,AlertController} from 'ionic-angular';
 import { ShenGouService } from './shengouService'
 import { Storage } from '@ionic/storage';
 import { ShenGouAutoService } from './shengouAutoService'
@@ -31,10 +31,15 @@ export class ShengoupagePage {
   isMoreData2 = true;
   isMoreData3 = true;
   wait_approval_count=0;
+  department = false;
   constructor(public navCtrl: NavController, public navParams: NavParams, public shengouService: ShenGouService
-    , public storage: Storage, public shenGouAutoService: ShenGouAutoService) {
+    , public storage: Storage, public shenGouAutoService: ShenGouAutoService,public alertCtrl:AlertController) {
     this.storage.get('user')
       .then(res => {
+        if (res.result.res_data.department)
+        {
+          this.department = true;
+        }
         this.user_id = res.result.res_data.user_id;
         this.limit = 20;
         this.offset = 0;
@@ -164,9 +169,29 @@ export class ShengoupagePage {
   }
 
   createApply() {
-    this.navCtrl.push('CreateShengouPage', {
+    if (this.department)
+    {
+      this.navCtrl.push('CreateShengouPage', {
       // item:this.item,
     });
+  }
+  else
+  {
+    let ctrl = this.alertCtrl;
+    ctrl.create({
+              title: '提示',
+              subTitle: "该用户没有设置员工,请联系管理员",
+              buttons: [{
+                text: '确定',
+                handler: () => {
+                 
+                }
+              }
+              ]
+            }).present();
+  }
+  
+    
   }
 
   doRefresh(refresh) {
