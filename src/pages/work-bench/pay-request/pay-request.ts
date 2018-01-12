@@ -373,6 +373,6 @@ export class PayRequestPage {
   
     this.statusBar.backgroundColorByHexString("#f8f8f8");
     this.statusBar.styleDefault();
-    this.navCtrl.pop();
+    this.navCtrl.pop()
   }
 }
