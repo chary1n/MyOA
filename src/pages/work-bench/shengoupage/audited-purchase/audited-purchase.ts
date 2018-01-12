@@ -35,7 +35,7 @@ export class AuditedPurchasePage {
       });
     console.log(this.item.state);
     let to_approve_name = this.item.to_approve_id
-    if (this.item.state == 'submit'||this.item.state == 'manager1_approve'||this.item.state == 'manager2_approve') {
+    if (this.item.state == 'submit'||this.item.state == 'manager1_approve'||this.item.state == 'manager2_approve' || this.item.state == "manager3_approve") {
       
       this.storage.get('user')
       .then(res => {
