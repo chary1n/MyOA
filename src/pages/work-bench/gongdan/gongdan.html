@@ -249,29 +249,33 @@
 
 </ion-content>
 <ion-content *ngIf="show_type == 'tongji'">
-  <div style="margin-top:20px;">
-    <div style="float:right; margin-right:50px">
-      <canvas id="rings" style="width:100px;height:100px"></canvas>
+  <div style="margin-top:60px;">
+    <div style="float:right; margin-right:100px">
+      <canvas id="rings" style="width:180px;height:180px"></canvas>
     </div>
     <div>
       <div class="div_x">
         <span class="div_span">受理中</span>
-        <div class="small_rang" style="background:#0097ee "> </div>
+        <span class="div_span_number"> {{processTongji}}</span>
+        <div class="small_rang" style="background:#1897f2 "> </div>
       </div>
       <div class="div_x">
         <span class="div_span">未受理</span>
-        <div class="small_rang" style="background:#ffa634 "> </div>
+        <span class="div_span_number"> {{unacceptTongji}}</span>
+        <div class="small_rang" style="background:#faa619 "> </div>
       </div>
 
       <div class="div_x">
         <span>
           <span class="div_span">待验收</span>
-          <div class="small_rang" style="background:#ffe650 "> </div>
+          <span class="div_span_number"> {{checkTongji}}</span>
+          <div class="small_rang" style="background:#fce63a "> </div>
         </span>
       </div>
       <div class="div_x">
         <span class="div_span">已完成</span>
-        <div class="small_rang" style="background:#c1e372 "> </div>
+        <span class="div_span_number"> {{doneTongji}}</span>
+        <div class="small_rang" style="background:#c3e369 "> </div>
       </div>
     </div>
 

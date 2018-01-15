@@ -25,6 +25,11 @@ export class GongdanPage {
   show_type;
   processNumber;
   unassignNumber;
+  doneTongji = 0;
+  checkTongji = 0;
+  unacceptTongji = 0;
+  processTongji = 0;
+
   constructor(public navCtrl: NavController, public navParams: NavParams, public statusbar: StatusBar,
     public gongdanService: GongDanService) {
     this.show_type = "tongji";
@@ -63,15 +68,15 @@ export class GongdanPage {
     this.gongdanService.work_order_statistics().then(res => {
       console.log(res)
       if (res.result && res.result.res_code == 1) {
-        let processTongji =  res.result.res_data.process ?parseInt(res.result.res_data.process) :0
-        let unacceptTongji =res.result.res_data.unaccept? parseInt(res.result.res_data.unaccept):0
-        let checkTongji = res.result.res_data.unaccept?parseInt(res.result.res_data.check):0
-        let doneTongji =res.result.res_data.unaccept? parseInt(res.result.res_data.done):0
-        let total = processTongji + checkTongji + doneTongji + unacceptTongji
+        this.processTongji = res.result.res_data.process ? parseInt(res.result.res_data.process) : 0
+        this.unacceptTongji = res.result.res_data.unaccept ? parseInt(res.result.res_data.unaccept) : 0
+        this.checkTongji = res.result.res_data.check ? parseInt(res.result.res_data.check) : 0
+        this.doneTongji = res.result.res_data.done ? parseInt(res.result.res_data.done) : 0
+        let total = this.processTongji + this.checkTongji + this.doneTongji + this.unacceptTongji
         if (total == 0) {
           this.drawRings(0, 0, 0, 1)
         } else {
-          this.drawRings(processTongji / total, unacceptTongji / total, checkTongji / total, doneTongji / total)
+          this.drawRings(this.processTongji / total, this.unacceptTongji / total, this.checkTongji / total, this.doneTongji / total)
         }
       }
     })
@@ -144,14 +149,14 @@ export class GongdanPage {
   drawRings(a, b, c, d) {
     var data = [a, b, c, d];//五个扇形的占比
 
-    var dataColor = ["#0097ee", '#ffa634', '#ffe650', '#c1e372'];//五个扇形的颜色
+    var dataColor = ["#1897f2", '#faa619', '#fce63a', '#c3e369'];//五个扇形的颜色
 
     var angleStart = 0, angleEnd, angle;
 
     var Q3Canvas = <HTMLCanvasElement>document.getElementById('rings');
 
-    Q3Canvas.width = 100;
-    Q3Canvas.height = 100
+    Q3Canvas.width = 180;
+    Q3Canvas.height = 180
 
     var ctx = Q3Canvas.getContext("2d");
 
