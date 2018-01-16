@@ -6,7 +6,7 @@
 -->
 <ion-header no-border>
 
-  <ion-navbar>
+  <ion-navbar color="gongdan-color">
     <ion-title>工单详情</ion-title>
   </ion-navbar>
 
@@ -14,83 +14,95 @@
 
 
 <ion-content style="background:#f4f4f4">
-  <ion-item-group style="background:white;">
-    <!--<ion-list-header color="light" style="min-height:1px;height:10px;"></ion-list-header>-->
-    <div tappable (click)="click_detail()">
+  <ion-item-group  no-lines style="background:#f0f2f5;margin-top:-10px">
+    <div style="margin-top:10px;background-color:white" tappable (click)="gongdanDetail(item)">
       <div>
-        <img src="assets/img/work_bench/up_one.png" style="width:14px;height:14px;margin-top:15px;margin-left:15px;">
-        
+        <img *ngIf="item.priority == 1" src="assets/img/work_bench/up_one.png" class="priority_icon">
+        <img *ngIf="item.priority == 2" src="assets/img/work_bench/up_two.png" class="priority_icon">
+        <img *ngIf="item.priority == 3" src="assets/img/work_bench/up_three.png" class="priority_icon">
         <span p style="font-size:17px;">
-          安装 Mac 版本 AI 软件
+          {{item.title}}
         </span>
-        <span p style="float:right;margin-top:15px;margin-right:10px;color:#fba796;font-size:13px;">
-          受理中
+        <span p class="data_list_state">
+          {{changeState(item.issue_state)}}
         </span>
       </div>
-      <P text-wrap style="margin-left:15px;margin-right:15px;color:gray;margin-top:3px">
-        123213131321312313212112321321312321313132131231321211232132131232131313213123132121123213213
+      <P text-wrap class="data_list_desprition">
+        {{item.description}}
       </P>
-      <div style="margin-top:-10px;margin-bottom:10px;">
-        <img src="assets/img/work_bench/up_one.png" style="width:10px;height:10px;margin-top:5px;margin-left:15px;">
-        <span p style="font-size:12px;color:gray">
-          吴倩  今天 8:30
+      <ion-grid *ngIf="item.work_order_images" style="margin-top:-20px;margin-left:5px">
+        <ion-row style="margin-right:5px;">
+          <ion-col *ngFor="let image of item.work_order_images" col-3 >
+            <img  src={{image}}>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <div class="creater_div">
+        <img src={{item.create_user.user_ava}} class="create_ava">
+        <span p class="creater_name">
+          {{item.create_user.name + " " +item.create_time}}
         </span>
-        <span style="float:right;margin-top:2px;margin-right:15px;font-size:12px;color:gray">
-          受理人：王小白
+        <span  class="assign_name">
+          {{"受理人： "+ item.assign_user.name}}
         </span>
-        <img src="assets/img/work_bench/lianjie.png" style="width:12px;height:12px;margin-top:5px;margin-right:8px;float:right">
+        <img  src="assets/img/work_bench/lianjie.png" class="assign_ava">
       </div>
       <div style="height:1px;background:white">
       </div>
     </div>
   </ion-item-group>
-  <p style="color:darkgray;margin-top:5px;font-size:12px;margin-left:10px">操作记录</p>
-  <ion-item-group style="background:white;margin-top:-8px;">
-    <!--<ion-list-header color="light" style="min-height:1px;height:10px;"></ion-list-header>-->
-    <div tappable (click)="click_detail()">
-      <div>
-        <img src="assets/img/work_bench/up_one.png" style="width:14px;height:14px;margin-top:15px;margin-left:15px;">
-        
-        <span p style="font-size:12px;">
-          安装 Mac 版本 AI 软件
-        </span>
-        <span p style="font-size:13px;">
-          2017.8.10 8:10:00
-        </span>
-      </div>
-      <P text-wrap style="margin-left:15px;margin-right:15px;color:gray;margin-top:3px">
-        123213131321312313212112321321312321313132131231321211232132131232131313213123132121123213213
-      </P>
-      <div style="margin-top:-10px;margin-bottom:10px;">
-        <img src="assets/img/work_bench/up_one.png" style="width:10px;height:10px;margin-top:5px;margin-left:15px;">
-        <span p style="font-size:12px;color:gray">
-          吴倩  今天 8:30
-        </span>
-        <span style="float:right;margin-top:2px;margin-right:15px;font-size:12px;color:gray">
-          受理人：王小白
-        </span>
-        <img src="assets/img/work_bench/lianjie.png" style="width:12px;height:12px;margin-top:5px;margin-right:8px;float:right">
-      </div>
-      <div style="height:1px;background:white">
-      </div>
+  <p class="divided_p">操作记录</p>
+  <ion-list class="message_list"> 
+    <div *ngFor="let items of message_item" class="div_message">
+      <ion-item no-lines style="height:40px;min-height:50px">
+    <ion-grid style="background:white">
+      <ion-row>
+        <ion-col col-2>
+          <img src={{items.reply_uid.user_ava}} class="img_message_ava">
+        </ion-col>
+        <ion-col col-7 >
+          <p class="name_message">
+            <span>{{items.reply_uid.name}}</span><span style="margin-left:10px">{{changeDate(items.create_date) | date:'MM-dd HH:mm'}}</span>
+          </p>
+        </ion-col>
+        <ion-col col-3 tappable (click)="reply_to(items)">
+          <img src="assets/img/work_bench/feedback.png" class="reply_small_icon">
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item>
+  <ion-item no-lines style="height:20px;min-height:40px;margin-top:-5px">
+   <p [ngClass]="{true:'content_message',false:'content_message_no_lines'}[items.reply_record_line_ids.length > 0]" class="">{{getContent(items)}}</p>
+  </ion-item>
+  <ion-item no-lines *ngFor="let line of items.reply_record_line_ids;" [ngClass]="{true:'item_calss_one',false:'item_class_first'}[i != 0]">
+   <p>
+    <span style="color:#1f6699;">{{line.create_uid.name + "：@" + line.reply_uid.name}} </span><span style="color:8a9299">{{line.content}}</span>
+  </p>
+  </ion-item>   
+
+  <!--<ion-item *ngIf="items.reply_record_line_ids.length > 0" no-lines class="item_divide">
+  </ion-item> -->
     </div>
-  </ion-item-group>
+  </ion-list>
+  
+</ion-content>
+<ion-footer>
   <div class="buttom_div">
     <ion-grid style="width:100%;">
     <ion-row class="row_class" align-items-center>
-      <ion-col tappable (click) = "wait_shouli()">
+      <ion-col tappable (click) = "chehui()">
          <div align="center">
           <img style="width:20px;margin-top:-5px" src="assets/img/work_bench/chehui.png"><br>
           <p style="color:gray;margin-top:-2px;font-size:10px;content:1">撤回</p>
         </div>
       </ion-col>
-      <ion-col tappable (click) = "shouli()">
+      <ion-col tappable (click) = "replyClick()">
         <div align="center">
          <img  style="width:20px;margin-top:-5px" src="assets/img/work_bench/re_back.png"><br>
           <p style="color:gray;margin-top:-2px;font-size:10px;">回复</p>
         </div>
       </ion-col>
-      <ion-col tappable (click) = "wait_yanshou()">
+      <ion-col tappable (click) = "zhipai()">
         <div align="center" >
          <img style="width:20px;margin-top:-5px" src="assets/img/work_bench/zhipai.png"><br>
          <p style="color:gray;margin-top:-2px;font-size:10px;">指派</p> 
@@ -99,4 +111,4 @@
     </ion-row>
   </ion-grid>
   </div>
-</ion-content>
+</ion-footer>

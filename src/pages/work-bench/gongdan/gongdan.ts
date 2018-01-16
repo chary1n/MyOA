@@ -25,6 +25,10 @@ export class GongdanPage {
   show_type;
   processNumber;
   unassignNumber;
+  unacceptTitle = "等待受理";
+  unassignTitle = "待验收";
+  processTitle = "受理中";
+  dataList = [];
   doneTongji = 0;
   checkTongji = 0;
   unacceptTongji = 0;
@@ -49,7 +53,10 @@ export class GongdanPage {
 
   click_me() {
     this.show_type = "me"
+<<<<<<< HEAD
     this.looper();
+=======
+>>>>>>> a1d90dd26f8bd035722814af50e600e4fe5f050e
     this.gongdanService.my_work_order_statistics().then(res => {
       if (res.result && res.result.res_code == 1) {
         this.processNumber = res.result.res_data.process
@@ -60,7 +67,23 @@ export class GongdanPage {
   }
 
   click_gongdan() {
+    this.dataList = []
     this.show_type = "gongdan"
+    this.gongdanService.work_order_statistics().then(res => {
+      if(res.result.res_data)
+      {
+        if(res.result.res_data.unaccept){
+          this.unacceptTitle ="等待受理" +" (" + res.result.res_data.unaccept + ")";
+        }
+        if(res.result.res_data.unassign){
+          this.unassignTitle = "待验收" + " (" + res.result.res_data.unassign + ")";
+        }
+        if(res.result.res_data.process){
+          this.processTitle = "受理中" + " (" + res.result.res_data.process + ")";
+        }
+      }
+    })
+    this.getDataList("unaccept")
   }
 
   click_tongji() {
@@ -98,6 +121,7 @@ export class GongdanPage {
   looper() {
     var canvas = <HTMLCanvasElement>document.getElementById('canvas');
     var ctx = canvas.getContext('2d');
+<<<<<<< HEAD
     canvas.width = 300;
     canvas.height = 100;
     //如果浏览器支持requestAnimFrame则使用requestAnimFrame否则使用setTimeout  
@@ -105,6 +129,10 @@ export class GongdanPage {
       window.setTimeout(callback, 1000 / 60);
     };
     // 波浪大小
+=======
+    canvas.width = 700;
+    canvas.height = 200;
+>>>>>>> a1d90dd26f8bd035722814af50e600e4fe5f050e
     var boHeight = canvas.height / 10;
     var posHeight = canvas.height / 1.2;
     //初始角度为0  
@@ -166,29 +194,9 @@ export class GongdanPage {
     this.requestWorkOrderSearch(body)
   }
 
-  // 待他人验收
-  waitOtherAssign(){
-    this.navCtrl.push("RangtestPage")
-  }
-
-  // 我已完成
-  myFinished(){
-
-  }
-
-  // 我回复过的
-  myReply(){
-
-  }
-
-  // 我指派过的
-  myAssigned(){
-
-  }
-
 
   waitOrderAssign(){
-
+    
   }
 
 
@@ -255,7 +263,55 @@ export class GongdanPage {
 
   }
 
+  changeState(item){
+    let state_str="";
+    if (item == "unaccept"){
+      state_str = "等待受理"
+    }
+    else if (item == "process"){
+      state_str = "受理中"
+    }
+    else if (item == "unassign"){
+      state_str = "待验收"
+    }
+    return state_str
+  }
 
+  unacceptClick(){
+    this.getDataList("unaccept")
+  }
 
+  processClick(){
+    this.getDataList("process")
+  }
 
+  unassignClick(){
+    this.getDataList("assign")   
+  }
+
+  getDataList(state){
+    this.dataList = [];
+    this.gongdanService.work_order_search(JSON.stringify({
+        uid:HttpService.user_id,
+        issue_state:state,
+      })).then(res => {
+        console.log(res)
+        if (res.result.res_data){
+          for (let item of res.result.res_data) {
+             this.dataList.push(item)
+          }
+        }
+    })
+  }
+
+  gongdanDetail(item){
+    this.gongdanService.getGongdanDetail(item.work_order_id).then(res => {
+      console.log(res)
+      if(res.result.res_data && res.result.res_code == 1){
+        this.navCtrl.push('GongdanDetailPage',{
+          items:res.result.res_data,
+        })
+      }
+    })
+  }
 }

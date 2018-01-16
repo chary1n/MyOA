@@ -47,4 +47,20 @@ export class GongDanService {
         return this.httpservice.postBody("work_order_search_by_id", body,1);
     }
 
+    work_order_add_record(content,reply_uid,record_type,work_order_id,parent_id){
+        let body = JSON.stringify({
+            content:content,
+            reply_uid:reply_uid,
+            record_type:record_type,
+            work_order_id:work_order_id,
+            parent_id:parent_id,
+          });
+        return this.httpservice.postBody("work_order_add_record", body,1);
+    }
+
+    get_all_employees(){
+        let body = JSON.stringify({
+        });
+       return this.httpservice.postBody("get_all_employees",body);
+    }
 }
