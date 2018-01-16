@@ -17,15 +17,16 @@ import { Utils } from '../../../../../providers/Utils';
   templateUrl: 'who-can-see.html',
   providers: [GongDanService]
 })
-export class WhoCanSeePage{
+export class WhoCanSeePage {
   companyIschoosed;
   frontPage;
   chooseList;
   chooseDepartmentName;
+  departmentList;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public gongdanService: GongDanService) {
     this.frontPage = Utils.getViewController("CreateGongdanPage", navCtrl)
-
+    this.companyIschoosed = this.navParams.get("companyIschoosed")
   }
 
   ionViewDidLoad() {
@@ -34,7 +35,8 @@ export class WhoCanSeePage{
 
   ionViewWillEnter() {
     this.chooseList = this.navParams.get('chooseList')
-    if(this.chooseList){
+    this.departmentList = this.navParams.get('departmentList')
+    if (this.chooseList) {
       this.companyIschoosed = false
       this.chooseDepartmentName = this.navParams.get('chooseDepartmentName')
       console.log(this.chooseDepartmentName)
@@ -45,31 +47,36 @@ export class WhoCanSeePage{
 
   conform() {
     this.frontPage.data.companyIschoosed = this.companyIschoosed
-    if(this.companyIschoosed){
+    if (this.companyIschoosed) {
       this.frontPage.data.chooseList = []
-    }else{
+    } else {
       this.frontPage.data.chooseList = this.chooseList
     }
     this.frontPage.data.chooseDepartmentName = this.chooseDepartmentName
+    this.frontPage.data.departmentList = this.departmentList
     this.navCtrl.popTo(this.frontPage)
   }
 
   chooseCompany() {
     this.companyIschoosed = !this.companyIschoosed
-    if(this.companyIschoosed){
-      this.chooseList=[]
+    if (this.companyIschoosed) {
+      this.chooseList = []
       this.chooseDepartmentName = ""
     }
     console.log(this.companyIschoosed)
   }
 
   chooseDepartment() {
-    this.gongdanService.getDepartment().then(res => {
-      console.log(res)
-      if (res.result.res_code == 1) {
-        this.navCtrl.push('ChooseDepartmentPage', { departmentList: res.result.res_data.all_departments.res_data })
-      }
-    })
+    if (this.departmentList) {
+      this.navCtrl.push('ChooseDepartmentPage', { departmentList: this.departmentList })
+    } else {
+      this.gongdanService.getDepartment().then(res => {
+        console.log(res)
+        if (res.result.res_code == 1) {
+          this.navCtrl.push('ChooseDepartmentPage', { departmentList: res.result.res_data.all_departments.res_data, })
+        }
+      })
+    }
   }
 
   goBack() {

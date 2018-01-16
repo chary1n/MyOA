@@ -25,6 +25,10 @@ export class GongdanPage {
   show_type;
   processNumber;
   unassignNumber;
+  unacceptTitle = "等待受理";
+  unassignTitle = "待验收";
+  processTitle = "受理中";
+  dataList = [];
   doneTongji = 0;
   checkTongji = 0;
   unacceptTongji = 0;
@@ -32,7 +36,7 @@ export class GongdanPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public statusbar: StatusBar,
     public gongdanService: GongDanService) {
-    this.show_type = "tongji";
+    this.show_type = "me";
 
   }
 
@@ -40,7 +44,6 @@ export class GongdanPage {
     console.log('ionViewDidLoad GongdanPage');
     this.statusbar.backgroundColorByHexString("#2597ec");
     this.statusbar.styleLightContent();
-    this.click_tongji();
     // this.step = 1;
     // this.loop();
     // window.setInterval(() => {
@@ -50,6 +53,7 @@ export class GongdanPage {
 
   click_me() {
     this.show_type = "me"
+    this.looper();
     this.gongdanService.my_work_order_statistics().then(res => {
       if (res.result && res.result.res_code == 1) {
         this.processNumber = res.result.res_data.process
@@ -60,7 +64,23 @@ export class GongdanPage {
   }
 
   click_gongdan() {
+    this.dataList = []
     this.show_type = "gongdan"
+    this.gongdanService.work_order_statistics().then(res => {
+      if(res.result.res_data)
+      {
+        if(res.result.res_data.unaccept){
+          this.unacceptTitle ="等待受理" +" (" + res.result.res_data.unaccept + ")";
+        }
+        if(res.result.res_data.unassign){
+          this.unassignTitle = "待验收" + " (" + res.result.res_data.unassign + ")";
+        }
+        if(res.result.res_data.process){
+          this.processTitle = "受理中" + " (" + res.result.res_data.process + ")";
+        }
+      }
+    })
+    this.getDataList("unaccept")
   }
 
   click_tongji() {
@@ -95,35 +115,46 @@ export class GongdanPage {
   }
 
 
-  loop() {
+  looper() {
     var canvas = <HTMLCanvasElement>document.getElementById('canvas');
     var ctx = canvas.getContext('2d');
-    canvas.width = 700;
-    canvas.height = 200;
+    canvas.width = 300;
+    canvas.height = 100;
+    //如果浏览器支持requestAnimFrame则使用requestAnimFrame否则使用setTimeout  
+    function requestAnimFrame(callback) {
+      window.setTimeout(callback, 1000 / 60);
+    };
+    // 波浪大小
     var boHeight = canvas.height / 10;
     var posHeight = canvas.height / 1.2;
-    var lines = ["rgba(0,222,255, 0.2)"];
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    if (this.step == 80) {
-      this.step = 0;
+    //初始角度为0  
+    var step = 0;
+    //定义三条不同波浪的颜色  
+    var lines = [
+      "rgba(0,255,255, 0.2)",
+      "rgba(200,236,253, 0.2)"];
+    function loop() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      step++;
+      //画3个不同颜色的矩形  
+      for (var j = lines.length - 1; j >= 0; j--) {
+        ctx.fillStyle = lines[j];
+        //每个矩形的角度都不同，每个之间相差45度  
+        var angle = (step + j * 50) * Math.PI / 180;
+        var deltaHeight = Math.sin(angle) * boHeight;
+        var deltaHeightRight = Math.cos(angle) * boHeight;
+        ctx.beginPath();
+        ctx.moveTo(0, posHeight + deltaHeight);
+        ctx.bezierCurveTo(canvas.width / 2, posHeight + deltaHeight - boHeight, canvas.width / 2, posHeight + deltaHeightRight - boHeight, canvas.width, posHeight + deltaHeightRight);
+        ctx.lineTo(canvas.width, canvas.height);
+        ctx.lineTo(0, canvas.height);
+        ctx.lineTo(0, posHeight + deltaHeight);
+        ctx.closePath();
+        ctx.fill();
+      }
+      requestAnimFrame(loop);
     }
-    this.step = this.step + 20;
-
-    for (var j = lines.length - 1; j >= 0; j--) {
-      ctx.fillStyle = lines[j];
-      var angle = (this.step + j * 50) * Math.PI / 180;
-      var deltaHeight = Math.sin(angle) * boHeight;
-      var deltaHeightRight = Math.cos(angle) * boHeight;
-      ctx.beginPath();
-      ctx.moveTo(0, posHeight + deltaHeight);
-      ctx.bezierCurveTo(canvas.width / 2, posHeight + deltaHeight - boHeight, canvas.width / 2, posHeight + deltaHeightRight - boHeight, canvas.width, posHeight + deltaHeightRight);
-      ctx.lineTo(canvas.width, canvas.height);
-      ctx.lineTo(0, canvas.height);
-      ctx.lineTo(0, posHeight + deltaHeight);
-      ctx.closePath();
-      ctx.fill();
-    }
+    loop();
   }
   goBack() {
     this.statusbar.backgroundColorByHexString("#ffffff");
@@ -137,10 +168,43 @@ export class GongdanPage {
 
 
 
-  // 我的工单  xd
+  // 我提交的工单  xd
   mySubmitList() {
-    this.navCtrl.push("MyGongdanListPage")
+    let body = JSON.stringify({
+      uid:HttpService.user_id,
+      create_uid :HttpService.user_id
+    });
+    this.requestWorkOrderSearch(body)
   }
+
+  // 我受理中的
+  myProcessList(){
+    let body = JSON.stringify({
+      uid:HttpService.user_id,
+      assign_uid :HttpService.user_id
+    });
+    this.requestWorkOrderSearch(body)
+  }
+
+
+  waitOrderAssign(){
+    
+  }
+
+
+
+
+
+  requestWorkOrderSearch(body){
+    this.gongdanService.work_order_search(body).then(res=>{
+      if(res.result&&res.result.res_code==1){
+        this.navCtrl.push("MyGongdanListPage",{gongdanList : res.result.res_data})
+      }
+    })
+  }
+
+
+
 
   createGongdan() {
     this.navCtrl.push("CreateGongdanPage")
@@ -155,8 +219,8 @@ export class GongdanPage {
 
     var Q3Canvas = <HTMLCanvasElement>document.getElementById('rings');
 
-    Q3Canvas.width = 180;
-    Q3Canvas.height = 180
+    Q3Canvas.width = 100;
+    Q3Canvas.height = 100 ;
 
     var ctx = Q3Canvas.getContext("2d");
 
@@ -191,7 +255,55 @@ export class GongdanPage {
 
   }
 
+  changeState(item){
+    let state_str="";
+    if (item == "unaccept"){
+      state_str = "等待受理"
+    }
+    else if (item == "process"){
+      state_str = "受理中"
+    }
+    else if (item == "unassign"){
+      state_str = "待验收"
+    }
+    return state_str
+  }
 
+  unacceptClick(){
+    this.getDataList("unaccept")
+  }
 
+  processClick(){
+    this.getDataList("process")
+  }
 
+  unassignClick(){
+    this.getDataList("assign")   
+  }
+
+  getDataList(state){
+    this.dataList = [];
+    this.gongdanService.work_order_search(JSON.stringify({
+        uid:HttpService.user_id,
+        issue_state:state,
+      })).then(res => {
+        console.log(res)
+        if (res.result.res_data){
+          for (let item of res.result.res_data) {
+             this.dataList.push(item)
+          }
+        }
+    })
+  }
+
+  gongdanDetail(item){
+    this.gongdanService.getGongdanDetail(item.work_order_id).then(res => {
+      console.log(res)
+      if(res.result.res_data && res.result.res_code == 1){
+        this.navCtrl.push('GongdanDetailPage',{
+          items:res.result.res_data,
+        })
+      }
+    })
+  }
 }

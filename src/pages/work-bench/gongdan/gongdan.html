@@ -75,124 +75,86 @@
 </ion-header>
 
 
-<ion-content style="background:#f4f4f4">
+<ion-content style="background:#f0f2f5">
   <ion-grid style="width:100%; background:#2597ec;height:70px;" *ngIf="show_type == 'gongdan'">
     <ion-row class="row_class" align-items-center>
       <ion-col tappable (click)="wait_shouli()">
-        <div align="center">
-          <img style="width:40px;margin-top:-10px" src="assets/img/work_bench/wait_shouli.png">
+        <div align="center" tappable (click)="unacceptClick()">
+          <img class="sub_header" src="assets/img/work_bench/wait_shouli.png">
           <br>
-          <p id="red-point-one" class="red-point-one" data-attr="12" style="color:white;margin-top:-2px;font-size:10px;content:1">等待受理</p>
+          <p class="sub_header_p">{{unacceptTitle}}</p>
         </div>
       </ion-col>
       <ion-col tappable (click)="shouli()">
-        <div align="center">
-          <img style="width:40px;margin-top:-10px" src="assets/img/work_bench/shouli_ing.png">
+        <div align="center" tappable (click)="processClick()">
+          <img class="sub_header" src="assets/img/work_bench/shouli_ing.png">
           <br>
-          <p class="red-point-three" style="color:white;margin-top:-2px;font-size:10px;">受理中</p>
+          <p class="sub_header_p">{{processTitle}}</p>
         </div>
       </ion-col>
       <ion-col tappable (click)="wait_yanshou()">
-        <div align="center">
-          <img style="width:40px;margin-top:-10px" src="assets/img/work_bench/wait_yanshou.png">
+        <div align="center" tappable (click)="unassignClick()">
+          <img class="sub_header" src="assets/img/work_bench/wait_yanshou.png">
           <br>
-          <p class="red-point-two" style="color:white;margin-top:-2px;font-size:10px;">待验收</p>
+          <p class="sub_header_p">{{unassignTitle}}</p>
         </div>
       </ion-col>
     </ion-row>
   </ion-grid>
-  <ion-item-group style="background:white;" *ngIf="show_type == 'gongdan'">
-    <!--<ion-list-header color="light" style="min-height:1px;height:10px;"></ion-list-header>-->
-    <div tappable (click)="click_detail()">
+  <ion-item-group  no-lines style="background:#f0f2f5;margin-top:-10px" *ngIf="show_type == 'gongdan'">
+    <div *ngFor="let item of dataList" style="margin-top:10px;background-color:white" tappable (click)="gongdanDetail(item)">
       <div>
-        <img src="assets/img/work_bench/up_one.png" style="width:14px;height:14px;margin-top:15px;margin-left:15px;">
-
+        <img *ngIf="item.priority == 1" src="assets/img/work_bench/up_one.png" class="priority_icon">
+        <img *ngIf="item.priority == 2" src="assets/img/work_bench/up_two.png" class="priority_icon">
+        <img *ngIf="item.priority == 3" src="assets/img/work_bench/up_three.png" class="priority_icon">
         <span p style="font-size:17px;">
-          安装 Mac 版本 AI 软件
+          {{item.title}}
         </span>
-        <span p style="float:right;margin-top:15px;margin-right:10px;color:#fba796;font-size:13px;">
-          受理中
+        <span p class="data_list_state">
+          {{changeState(item.issue_state)}}
         </span>
       </div>
-      <P text-wrap style="margin-left:15px;margin-right:15px;color:gray;margin-top:3px">
-        123213131321312313212112321321312321313132131231321211232132131232131313213123132121123213213
+      <P text-wrap class="data_list_desprition">
+        {{item.description}}
       </P>
-      <div style="margin-top:-10px;margin-bottom:10px;">
-        <img src="assets/img/work_bench/up_one.png" style="width:10px;height:10px;margin-top:5px;margin-left:15px;">
-        <span p style="font-size:12px;color:gray">
-          吴倩 今天 8:30
-        </span>
-        <span style="float:right;margin-top:2px;margin-right:15px;font-size:12px;color:gray">
-          受理人：王小白
-        </span>
-        <img src="assets/img/work_bench/lianjie.png" style="width:12px;height:12px;margin-top:5px;margin-right:8px;float:right">
-      </div>
-      <div style="height:1px;background:white">
-      </div>
-    </div>
-  </ion-item-group>
-  <ion-item-group no-lines style="background:white;" *ngIf="show_type == 'gongdan'">
-    <ion-list-header no-lines color="light" style="min-height:1px;height:10px;"></ion-list-header>
-    <div>
-      <div>
-        <img src="assets/img/work_bench/up_one.png" style="width:14px;height:14px;margin-top:15px;margin-left:15px;">
-
-        <span p style="font-size:17px;">
-          安装 Mac 版本 AI 软件
-        </span>
-        <span p style="float:right;margin-top:15px;margin-right:10px;color:#fba796;font-size:13px;">
-          受理中
-        </span>
-      </div>
-      <P text-wrap style="margin-left:15px;margin-right:15px;color:gray;margin-top:3px">
-        123213131321312313212112321321312321313132131231321211232132131232131313213123132121123213213
-      </P>
-      <ion-grid style="margin-top:-20px;margin-left:5px">
+      <ion-grid *ngIf="item.work_order_images" style="margin-top:-20px;margin-left:5px">
         <ion-row style="margin-right:5px;">
-
-          <ion-col col-3 tappable (click)="supplierList()">
-            <img style="width:70px" src="assets/img/work_bench/gongyingshang.png">
-          </ion-col>
-          <ion-col col-3 tappable (click)="supplierList()">
-            <img style="width:70px" src="assets/img/work_bench/gongyingshang.png">
-          </ion-col>
-          <ion-col col-3 tappable (click)="ProductionSearch()">
-            <img style="width:70px" src="assets/img/work_bench/chanping.png">
-          </ion-col>
-          <ion-col col-3 tappable (click)="purchaseOrder()">
-            <img style="width:70px" src="assets/img/work_bench/dingdan.png">
-          </ion-col>
-          <ion-col col-3 tappable (click)="clickInComingWareHouse()">
-            <img style="width:70px" src="assets/img/work_bench/ruku.png">
+          <ion-col *ngFor="let image of item.work_order_images" col-3 >
+            <img src={{image}}>
+            
           </ion-col>
         </ion-row>
       </ion-grid>
-      <div style="margin-top:-10px;margin-bottom:10px;">
-        <img src="assets/img/work_bench/up_one.png" style="width:10px;height:10px;margin-top:5px;margin-left:15px;">
-        <span p style="font-size:12px;color:gray">
-          吴倩 今天 8:30
+      <div class="creater_div">
+        <img src={{item.create_user.user_ava}} class="create_ava">
+        <span p class="creater_name">
+          {{item.create_user.name + " " +item.create_time}}
         </span>
-        <span style="float:right;margin-top:2px;margin-right:15px;font-size:12px;color:gray">
-          受理人：王小白
+        <span *ngIf="item.assign_user.name" class="assign_name">
+          {{"受理人： "+ item.assign_user.name}}
         </span>
-        <img src="assets/img/work_bench/lianjie.png" style="width:12px;height:12px;margin-top:5px;margin-right:8px;float:right">
+        <img *ngIf="item.assign_user.name" src="assets/img/work_bench/lianjie.png" class="assign_ava">
       </div>
       <div style="height:1px;background:white">
       </div>
     </div>
   </ion-item-group>
-  <!--<canvas id="canvas" style="position:absolute;top:0px;left:0px;z-index:1;"></canvas>-->
+  <canvas id="canvas" style="position:absolute;top:0px;left:0px;z-index:1;"></canvas>
 
 
 
 </ion-content>
 <ion-content *ngIf="show_type == 'me'">
-  <div style="text-align:center">
-    <div style="position:relative;width:70px;margin:0 auto;margin-top:30px">
-      <img height="50px" width="50px" src="assets/img/work_bench/zanzhi.png">
-      <div style="margin-top:10px">最新@我</div>
-      <span style="position:absolute;width:20px;height:20px;border-radius:10px;background-color:red;display:inline-block;color:white;line-height:20px;right:8px;top:-8px;text-align:center;font-size:12px">12</span>
-    </div>
+  <div style="width:100%;height:150px;padding:5px;text-align:center" >
+    <canvas style="background:#ffffff;height:80px;width:100%;position:absolute;top:0px;left:0px;z-index:1;" id="canvas">
+        <!-- <div style="text-align:center">
+            <div style="position:relative;width:70px;margin:0 auto;margin-top:30px">
+              <img height="50px" width="50px" src="assets/img/work_bench/zanzhi.png">
+              <div style="margin-top:10px">最新@我</div>
+              <span style="position:absolute;width:20px;height:20px;border-radius:10px;background-color:red;display:inline-block;color:white;line-height:20px;right:8px;top:-8px;text-align:center;font-size:12px">12</span>
+            </div>
+          </div> -->
+    </canvas>
   </div>
   <ion-list style="background-color:white">
     <button ion-item (click)="mySubmitList()">
@@ -202,7 +164,7 @@
       <ion-label>我提交的</ion-label>
     </button>
 
-    <button ion-item (click)="myGongdanList()">
+    <button ion-item (click)="myProcessList()">
       <ion-avatar item-start>
         <img src="assets/img/gongdan/shouli.png">
       </ion-avatar>
@@ -211,7 +173,7 @@
       </ion-label>
     </button>
 
-    <button ion-item>
+    <button ion-item (click)="waitOtherAssign()">
       <ion-avatar item-start>
         <img src="assets/img/gongdan/daiyanshou.png">
       </ion-avatar>
@@ -220,21 +182,21 @@
       </ion-label>
     </button>
 
-    <button ion-item>
+    <button ion-item (click)="myFinished()">
       <ion-avatar item-start>
         <img src="assets/img/gongdan/yiwancheng.png">
       </ion-avatar>
       <ion-label>我已完成的</ion-label>
     </button>
 
-    <button ion-item>
+    <button ion-item (click)="myReply()">
       <ion-avatar item-start>
         <img src="assets/img/gongdan/huifu.png">
       </ion-avatar>
       <ion-label>我回复过的</ion-label>
     </button>
 
-    <button ion-item>
+    <button ion-item (click)="myAssigned()">
       <ion-avatar item-start>
         <img src="assets/img/gongdan/zhipai.png">
       </ion-avatar>
@@ -248,40 +210,46 @@
 
 
 </ion-content>
-<ion-content *ngIf="show_type == 'tongji'">
-  <div style="margin-top:60px;">
-    <div style="float:right; margin-right:100px">
-      <canvas id="rings" style="width:180px;height:180px"></canvas>
+<ion-content *ngIf="show_type == 'tongji'" style="background:#f0f2f5">
+  <div style="margin-top:60px;background:#ffffff">
+    <div style="float:right; margin-right:60px">
+      <canvas id="rings" style="width:100px;height:100px;margin-top:5px"></canvas>
     </div>
     <div>
       <div class="div_x">
-        <span class="div_span">受理中</span>
         <span class="div_span_number"> {{processTongji}}</span>
+        <span class="div_span">受理中</span>
         <div class="small_rang" style="background:#1897f2 "> </div>
       </div>
       <div class="div_x">
-        <span class="div_span">未受理</span>
         <span class="div_span_number"> {{unacceptTongji}}</span>
+        <span class="div_span">未受理</span>
         <div class="small_rang" style="background:#faa619 "> </div>
       </div>
 
       <div class="div_x">
         <span>
-          <span class="div_span">待验收</span>
           <span class="div_span_number"> {{checkTongji}}</span>
+          <span class="div_span">待验收</span>
           <div class="small_rang" style="background:#fce63a "> </div>
         </span>
       </div>
       <div class="div_x">
-        <span class="div_span">已完成</span>
         <span class="div_span_number"> {{doneTongji}}</span>
+        <span class="div_span">已完成</span>
         <div class="small_rang" style="background:#c3e369 "> </div>
       </div>
     </div>
-
   </div>
 
-
+  <button ion-item (click)="mySubmitList()" style="margin-top:10px">
+      <ion-avatar item-start>
+        <img src="assets/img/gongdan/myApply.png">
+      </ion-avatar>
+      <ion-label>超过48小时未受理
+          <span style="float:right"> {{processNumber}}</span>
+      </ion-label>
+    </button>
 
 </ion-content>
 

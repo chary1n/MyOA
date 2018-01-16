@@ -20,16 +20,7 @@ export class MyGongdanListPage {
   gongdanList ;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public gongdanService :GongDanService) {
-      let body = JSON.stringify({
-        uid:HttpService.user_id,
-        create_uid :HttpService.user_id
-      });
-      this.gongdanService.work_order_search(body).then(res=>{
-        if(res.result&&res.result.res_code==1){
-          this.gongdanList = res.result.res_data
-          console.log(this.gongdanList)
-        }
-      })
+     this.gongdanList =  this.navParams.get("gongdanList")
   }
 
   ionViewDidLoad() {
@@ -61,6 +52,16 @@ export class MyGongdanListPage {
       return "处理中"
     }else if(state="check"){
       return "待审核"
+    }
+  }
+
+  getProprityImgSrc(item){
+    if(item.priority=="3"){
+      return  "assets/img/work_bench/up_one.png"
+    }else if(item.priority=="2"){
+      return  "assets/img/work_bench/up_two.png"
+    }else if(item.priority=="1"){
+      return  "assets/img/work_bench/up_three.png"
     }
   }
 
