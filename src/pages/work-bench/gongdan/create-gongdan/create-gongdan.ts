@@ -25,16 +25,18 @@ export class CreateGongdanPage {
   title;
   description;
   priorityId;
-  companyIschoosed;
+  companyIschoosed = true;
   chooseList;
   // 指派受理人
   assignList;
-  imgList=[];
-  pushImgList=[];
-  choosePeopleItem ;
-  choosePeopleName ;
-  whoCanSee;
+  imgList = [];
+  pushImgList = [];
+  choosePeopleItem;
+  choosePeopleName;
+  whoCanSee = "全公司";
   chooseDepartmentName;
+  CreateGongdanPage;
+  departmentList;
 
 
 
@@ -44,6 +46,7 @@ export class CreateGongdanPage {
     public gongdanService: GongDanService,
     public actionSheetCtrl: ActionSheetController,
     public nativeService: NativeService) {
+    this.navParams.data.companyIschoosed = true;
   }
 
   ionViewDidLoad() {
@@ -55,13 +58,14 @@ export class CreateGongdanPage {
     this.chooseList = this.navParams.get('chooseList')
     this.choosePeopleItem = this.navParams.get('choosePeopleItem')
     this.chooseDepartmentName = this.navParams.get('chooseDepartmentName')
+    this.departmentList = this.navParams.get("departmentList")
     console.log(this.choosePeopleItem)
-    if(this.choosePeopleItem){
+    if (this.choosePeopleItem) {
       this.choosePeopleName = this.choosePeopleItem.name
     }
-    if(this.companyIschoosed){
+    if (this.companyIschoosed) {
       this.whoCanSee = "全公司"
-    }else{
+    } else {
       this.whoCanSee = this.chooseDepartmentName
     }
 
@@ -91,14 +95,18 @@ export class CreateGongdanPage {
       if (!this.companyIschoosed) {
         departments = this.chooseList
       }
+      let assign_uid
+      if (this.choosePeopleItem) {
+        assign_uid = this.choosePeopleItem.id
+      }
       let body = {
         title: this.title,
         description: this.description,
         priority: this.priorityId,
-        assign_uid: this.choosePeopleItem.id,
+        assign_uid: assign_uid,
         departments: departments,
-        uid:HttpService.user_id,
-        wo_images :this.pushImgList
+        uid: HttpService.user_id,
+        wo_images: this.pushImgList
       }
       this.gongdanService.create_work_order(body).then(res => {
         console.log(res)
@@ -110,11 +118,11 @@ export class CreateGongdanPage {
   }
 
   chooseWhoCanSee() {
-    this.navCtrl.push('WhoCanSeePage')
+    this.navCtrl.push('WhoCanSeePage', { companyIschoosed: this.companyIschoosed ,departmentList:this.departmentList})
     // this.create_work_order()
   }
 
- 
+
 
   addImg() {
     let actionSheet = this.actionSheetCtrl.create({
@@ -181,7 +189,7 @@ export class CreateGongdanPage {
   }
 
 
-  assignPeople(){
+  assignPeople() {
     this.navCtrl.push("AssignPeoplePage")
   }
 

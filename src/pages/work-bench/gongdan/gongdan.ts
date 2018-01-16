@@ -32,7 +32,7 @@ export class GongdanPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public statusbar: StatusBar,
     public gongdanService: GongDanService) {
-    this.show_type = "tongji";
+    this.show_type = "me";
 
   }
 
@@ -40,7 +40,6 @@ export class GongdanPage {
     console.log('ionViewDidLoad GongdanPage');
     this.statusbar.backgroundColorByHexString("#2597ec");
     this.statusbar.styleLightContent();
-    this.click_tongji();
     // this.step = 1;
     // this.loop();
     // window.setInterval(() => {
@@ -137,10 +136,43 @@ export class GongdanPage {
 
 
 
-  // 我的工单  xd
+  // 我提交的工单  xd
   mySubmitList() {
-    this.navCtrl.push("MyGongdanListPage")
+    let body = JSON.stringify({
+      uid:HttpService.user_id,
+      create_uid :HttpService.user_id
+    });
+    this.requestWorkOrderSearch(body)
   }
+
+  // 我受理中的
+  myProcessList(){
+    let body = JSON.stringify({
+      uid:HttpService.user_id,
+      assign_uid :HttpService.user_id
+    });
+    this.requestWorkOrderSearch(body)
+  }
+
+
+  waitOrderAssign(){
+    
+  }
+
+
+
+
+
+  requestWorkOrderSearch(body){
+    this.gongdanService.work_order_search(body).then(res=>{
+      if(res.result&&res.result.res_code==1){
+        this.navCtrl.push("MyGongdanListPage",{gongdanList : res.result.res_data})
+      }
+    })
+  }
+
+
+
 
   createGongdan() {
     this.navCtrl.push("CreateGongdanPage")
@@ -155,8 +187,8 @@ export class GongdanPage {
 
     var Q3Canvas = <HTMLCanvasElement>document.getElementById('rings');
 
-    Q3Canvas.width = 180;
-    Q3Canvas.height = 180
+    Q3Canvas.width = 100;
+    Q3Canvas.height = 100 ;
 
     var ctx = Q3Canvas.getContext("2d");
 
