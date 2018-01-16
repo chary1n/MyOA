@@ -25,6 +25,10 @@ export class GongdanPage {
   show_type;
   processNumber;
   unassignNumber;
+  unacceptTitle = "等待受理";
+  unassignTitle = "待验收";
+  processTitle = "受理中";
+  dataList = [];
   constructor(public navCtrl: NavController, public navParams: NavParams, public statusbar: StatusBar,
     public gongdanService: GongDanService) {
     this.show_type = "tongji";
@@ -55,7 +59,23 @@ export class GongdanPage {
   }
 
   click_gongdan() {
+    this.dataList = []
     this.show_type = "gongdan"
+    this.gongdanService.work_order_statistics().then(res => {
+      if(res.result.res_data)
+      {
+        if(res.result.res_data.unaccept){
+          this.unacceptTitle ="等待受理" +" (" + res.result.res_data.unaccept + ")";
+        }
+        if(res.result.res_data.unassign){
+          this.unassignTitle = "待验收" + " (" + res.result.res_data.unassign + ")";
+        }
+        if(res.result.res_data.process){
+          this.processTitle = "受理中" + " (" + res.result.res_data.process + ")";
+        }
+      }
+    })
+    this.getDataList("unaccept")
   }
 
   click_tongji() {
@@ -186,7 +206,55 @@ export class GongdanPage {
 
   }
 
+  changeState(item){
+    let state_str="";
+    if (item == "unaccept"){
+      state_str = "等待受理"
+    }
+    else if (item == "process"){
+      state_str = "受理中"
+    }
+    else if (item == "unassign"){
+      state_str = "待验收"
+    }
+    return state_str
+  }
 
+  unacceptClick(){
+    this.getDataList("unaccept")
+  }
 
+  processClick(){
+    this.getDataList("process")
+  }
 
+  unassignClick(){
+    this.getDataList("assign")   
+  }
+
+  getDataList(state){
+    this.dataList = [];
+    this.gongdanService.work_order_search(JSON.stringify({
+        uid:HttpService.user_id,
+        issue_state:state,
+      })).then(res => {
+        console.log(res)
+        if (res.result.res_data){
+          for (let item of res.result.res_data) {
+             this.dataList.push(item)
+          }
+        }
+    })
+  }
+
+  gongdanDetail(item){
+    this.gongdanService.getGongdanDetail(item.work_order_id).then(res => {
+      console.log(res)
+      if(res.result.res_data && res.result.res_code == 1){
+        this.navCtrl.push('GongdanDetailPage',{
+          items:res.result.res_data,
+        })
+      }
+    })
+  }
 }
