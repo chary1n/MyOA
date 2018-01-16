@@ -25,18 +25,15 @@ export class GongdanPage {
   show_type;
   processNumber;
   unassignNumber;
-<<<<<<< HEAD
   unacceptTitle = "等待受理";
   unassignTitle = "待验收";
   processTitle = "受理中";
   dataList = [];
-=======
   doneTongji = 0;
   checkTongji = 0;
   unacceptTongji = 0;
   processTongji = 0;
 
->>>>>>> 4360077f455c5a07df9ddc272c9ef4a4ac60bc22
   constructor(public navCtrl: NavController, public navParams: NavParams, public statusbar: StatusBar,
     public gongdanService: GongDanService) {
     this.show_type = "me";
@@ -47,7 +44,6 @@ export class GongdanPage {
     console.log('ionViewDidLoad GongdanPage');
     this.statusbar.backgroundColorByHexString("#2597ec");
     this.statusbar.styleLightContent();
-    this.loop();
     // this.step = 1;
     // this.loop();
     // window.setInterval(() => {
@@ -57,7 +53,6 @@ export class GongdanPage {
 
   click_me() {
     this.show_type = "me"
-    this.loop();
     this.gongdanService.my_work_order_statistics().then(res => {
       if (res.result && res.result.res_code == 1) {
         this.processNumber = res.result.res_data.process
@@ -122,7 +117,8 @@ export class GongdanPage {
   loop() {
     var canvas = <HTMLCanvasElement>document.getElementById('canvas');
     var ctx = canvas.getContext('2d');
-    canvas.height = 80;
+    canvas.width = 700;
+    canvas.height = 200;
     var boHeight = canvas.height / 10;
     var posHeight = canvas.height / 1.2;
     var lines = ["rgba(0,222,255, 0.2)"];
@@ -178,29 +174,9 @@ export class GongdanPage {
     this.requestWorkOrderSearch(body)
   }
 
-  // 待他人验收
-  waitOtherAssign(){
-    this.navCtrl.push("RangtestPage")
-  }
-
-  // 我已完成
-  myFinished(){
-
-  }
-
-  // 我回复过的
-  myReply(){
-
-  }
-
-  // 我指派过的
-  myAssigned(){
-
-  }
-
 
   waitOrderAssign(){
-
+    
   }
 
 
