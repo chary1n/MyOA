@@ -1,7 +1,7 @@
 import { IMAGE_SIZE } from './../../../providers/Constants';
 import { Storage } from '@ionic/storage';
 import { CommonUseServices } from './../commonUseServices';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams ,AlertController} from 'ionic-angular';
 import { Component } from '@angular/core';
 import { getType } from '@angular/core/src/errors';
 import { ZanzhiAutoService } from './zanzhi-auto';
@@ -37,14 +37,19 @@ export class ZanzhiPage {
   need_fresh ;
   already_approval_count;
   apply_count;
-
+department = false;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public commonServices :CommonUseServices ,
     public zanzhiAutoServices :ZanzhiAutoService,
-    public storage :Storage) {
+    public storage :Storage,
+    public alertCtrl:AlertController) {
     this.storage.get('user')
     .then(res => {
       console.log(res);
+      if (res.result.res_data.department)
+        {
+          this.department = true;
+        }
       this.user_id = res.result.res_data.user_id;
       this.refreshCount()
     });
@@ -213,7 +218,26 @@ export class ZanzhiPage {
 
 
   showActionSheet(){
-    this.navCtrl.push("ZanzhiApplyPage")
+    if (this.department)
+    {
+     this.navCtrl.push("ZanzhiApplyPage")
+  }
+  else
+  {
+    let ctrl = this.alertCtrl;
+    ctrl.create({
+              title: '提示',
+              subTitle: "该用户没有设置员工,请联系管理员",
+              buttons: [{
+                text: '确定',
+                handler: () => {
+                 
+                }
+              }
+              ]
+            }).present();
+  }
+    
   }
     
 

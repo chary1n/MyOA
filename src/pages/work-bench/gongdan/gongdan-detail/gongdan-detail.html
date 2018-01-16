@@ -102,7 +102,7 @@
           <p style="color:gray;margin-top:-2px;font-size:10px;">回复</p>
         </div>
       </ion-col>
-      <ion-col tappable (click) = "zhipai()">
+      <ion-col *ngIf="isShowZhiPai" tappable (click) = "zhipai()">
         <div align="center" >
          <img style="width:20px;margin-top:-5px" src="assets/img/work_bench/zhipai.png"><br>
          <p style="color:gray;margin-top:-2px;font-size:10px;">指派</p> 

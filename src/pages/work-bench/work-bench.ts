@@ -47,6 +47,8 @@ export class WorkBenchPage {
       .then(res => {
         console.log(res);
         let is_plus = false
+        let is_manager = false
+        let need_all = false
         for (let product of res.result.res_data.groups) {
           if(product.name == 'group_erp_manager'){
             this.isShowKucun = true;
@@ -60,17 +62,23 @@ export class WorkBenchPage {
           if (product.name == 'group_account_manager') {
             this.isShowZiJin = true;
           }
-          if (product.name == 'group_purchase_manager' || product.name == 'purchase_manager_plus')
+          if (product.name == 'purchase_manager_1' || product.name == 'purchase_manager_plus')
           {
             if (product.name == 'purchase_manager_plus')
             {
               is_plus = true
             }
+            else if (product.name == 'purchase_manager_1'){
+              is_manager = true
+            }
             this.isShowPayment = true
           }
-         
         }
-         this.services.get_all_need_do(res.result.res_data.user_id,is_plus,this.isShowKucun).then(res => {
+        if (is_plus && is_manager){
+          need_all = true
+        }
+
+         this.services.get_all_need_do(res.result.res_data.user_id,is_plus,this.isShowKucun,need_all).then(res => {
             console.log(res.result.res_data.bx)
             if (res.result && res.result.res_code == 1 && res.result.res_data) {
               this.isZZList = res.result.res_data.zz > 0 ?true :false;

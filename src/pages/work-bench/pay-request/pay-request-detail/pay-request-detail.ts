@@ -117,7 +117,7 @@ export class PayRequestDetailPage {
                    if (res.result.res_data.success == 1) {
                       ctrl_cancel.create({
               title: '提示',
-              subTitle: "已通过",
+              subTitle: "操作成功",
               buttons: [{
                 text: '确定',
                 handler: () => {
@@ -140,7 +140,7 @@ export class PayRequestDetailPage {
     let ctrl = this.alertCtrl;
       ctrl.create({
         title: '提示',
-        message: "是否送审经理?",
+        message: "是否通过?",
         buttons: [
         {
           text: '取消',
@@ -156,7 +156,7 @@ export class PayRequestDetailPage {
                    if (res.result.res_data.success == 1) {
                       ctrl_cancel.create({
               title: '提示',
-              subTitle: "已送审",
+              subTitle: "操作成功",
               buttons: [{
                 text: '确定',
                 handler: () => {

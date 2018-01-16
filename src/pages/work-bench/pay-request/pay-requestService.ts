@@ -8,13 +8,14 @@ export class PaymentRequestService {
     constructor(private httpservice: HttpService) {
         
     }
-    get_payment_request_list(type,limit,offset,user_id,is_plus){
+    get_payment_request_list(type,limit,offset,user_id,is_plus,need_all){
         let body = JSON.stringify({
             user_id: user_id,
             offset: offset,
             limit: limit,
             type:type,
-            is_plus:is_plus
+            is_plus:is_plus,
+            need_all:need_all,
         });
         return this.httpservice.postBody("get_payment_request_list", body);
     }
@@ -50,13 +51,14 @@ export class PaymentRequestService {
         return this.httpservice.postBody("get_bill_detail", body);
     }
 
-    search_payment(search_name,payment_type,user_id,search_type,search_domain){
+    search_payment(search_name,payment_type,user_id,search_type,search_domain,need_all){
         let body = JSON.stringify({
             search_name: search_name,
             payment_type:payment_type,
             user_id:user_id,
             search_type:search_type,
             search_domain:search_domain,
+            need_all:need_all,
         });
         return this.httpservice.postBody("search_payment", body);
     }
