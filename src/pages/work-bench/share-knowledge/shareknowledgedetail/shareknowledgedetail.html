@@ -6,14 +6,19 @@
 -->
 <ion-header>
 
-  <ion-navbar>
+  <ion-navbar color="gongdan-color" hideBackButton="true">
+      <ion-buttons left>
+          <button ion-button icon-only (click)="goBack()">
+            <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+          </button>
+        </ion-buttons>
     <ion-title>知识分享</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding style="background:#f0f0f0">
+<ion-content padding style="background:white">
     <h4 text-wrap style="font-size:100%;font-weight:bold">{{item.name}}</h4>
     <p text-wrap style="font-size:80%;color:gray">{{item.subtitle}}</p>
     <p text-wrap style="font-size:80%;color:gray">来自分类：{{item.tag_ids.tag_name}}</p> 

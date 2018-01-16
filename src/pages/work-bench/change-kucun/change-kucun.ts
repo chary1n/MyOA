@@ -93,7 +93,6 @@ export class ChangeKucunPage {
 }
 
 goBack(){
-  
     this.statusBar.backgroundColorByHexString("#f8f8f8");
     this.statusBar.styleDefault();
     this.navCtrl.pop();
