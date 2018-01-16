@@ -53,10 +53,7 @@ export class GongdanPage {
 
   click_me() {
     this.show_type = "me"
-<<<<<<< HEAD
     this.looper();
-=======
->>>>>>> a1d90dd26f8bd035722814af50e600e4fe5f050e
     this.gongdanService.my_work_order_statistics().then(res => {
       if (res.result && res.result.res_code == 1) {
         this.processNumber = res.result.res_data.process
@@ -121,7 +118,6 @@ export class GongdanPage {
   looper() {
     var canvas = <HTMLCanvasElement>document.getElementById('canvas');
     var ctx = canvas.getContext('2d');
-<<<<<<< HEAD
     canvas.width = 300;
     canvas.height = 100;
     //如果浏览器支持requestAnimFrame则使用requestAnimFrame否则使用setTimeout  
@@ -129,10 +125,6 @@ export class GongdanPage {
       window.setTimeout(callback, 1000 / 60);
     };
     // 波浪大小
-=======
-    canvas.width = 700;
-    canvas.height = 200;
->>>>>>> a1d90dd26f8bd035722814af50e600e4fe5f050e
     var boHeight = canvas.height / 10;
     var posHeight = canvas.height / 1.2;
     //初始角度为0  
