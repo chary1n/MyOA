@@ -13,48 +13,47 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content style="background:#f0f2f5">
+  <ion-item-group no-lines style="background:white;">
 
-  <ion-list>
-    <div *ngFor="let item of gongdanList" (click)="toDetail(item)">
+    <div *ngFor="let item of gongdanList">
+      <div>
+        <img src={{getProprityImgSrc(item)}} style="width:14px;height:14px;margin-top:15px;margin-left:15px;">
 
-
-      <span style="font-size:140%;padding-left:5px;line-height:45px">{{item.title}}</span>
-      <ion-grid>
-        <ion-row>
-          <ion-col col-2 no-padding>
-            <img src={{item.assign_user.user_ava}} class="imgHeard">
-          </ion-col>
-          <ion-col col-2 class="col_font" no-padding>
-            {{item.assign_user.name}}
-          </ion-col>
-          <ion-col col-6 class="col_font" no-padding>
-            {{item.create_time}}
-          </ion-col>
-        </ion-row>
-
-        <ion-row>
-          <ion-col col-4 class="col_font" no-padding> 受理人: {{item.assign_user.name}}</ion-col>
-          <ion-col col-3 class="col_font" no-padding> 优先级 :{{changePriority(item.priority)}} </ion-col>
-          <ion-col col-5 class="col_font" no-padding text-right style="color:#ee5a15"> {{changeState(item.issue_state)}} </ion-col>
-        </ion-row>
-        <!-- 
-      <ion-row *ngIf="item.description">
-        <ion-textarea  rows="3">
-          {{item.description}}
-        </ion-textarea>
-      </ion-row> -->
-        <div text-wrap *ngIf="item.description" class="font_x">{{item.description}} </div>
-
-        <ion-row *ngIf="item.work_order_images.length>0">
-          <ion-col col-4 *ngFor="let item of item.work_order_images">
-            <img src={{item}} imageViewer/>
+        <span p style="font-size:17px;margin-left:5px">
+          {{item.title}}
+        </span>
+        <span p style="float:right;margin-top:15px;margin-right:10px;color:#fba796;font-size:13px;">
+          {{changeState(item.issue_state)}}
+        </span>
+      </div>
+      <P text-wrap style="margin-left:15px;margin-right:15px;color:gray;margin-top:3px">
+        {{item.description}}
+      </P>
+      <ion-grid style="margin-top:-20px;margin-left:5px" *ngIf="item.work_order_images.length>0">
+        <ion-row style="margin-right:5px;">
+          <ion-col col-3 *ngFor="let item of item.work_order_images">
+            <img src={{item}} style="width:70px" imageViewer/>
           </ion-col>
         </ion-row>
-
       </ion-grid>
-      <ion-item-divider></ion-item-divider>
-    </div>
-  </ion-list>
+      <div style="margin-top:-10px;margin-bottom:10px;">
+        <img src={{item.assign_user.user_ava}} style="width:10px;height:10px;margin-top:5px;margin-left:10px;">
+        <span p style="font-size:12px;color:#8a9299;margin-left:5px">
+          {{item.assign_user.name}} 
+          <span p style="font-size:12px;color:#8a9299;margin-left:5px">
+              {{item.create_time}}
+            </span>
+        </span>
+        <span style="float:right;margin-top:2px;margin-right:15px;font-size:12px;color:gray">
+          受理人: {{item.assign_user.name}}
+        </span>
+        <img src="assets/img/work_bench/lianjie.png" style="width:12px;height:12px;margin-top:5px;margin-right:8px;float:right">
+      </div>
+      <div style="height:1px;background:white">
+      </div>
 
+      <ion-list-header no-lines color="light" style="min-height:1px;height:10px;"></ion-list-header>
+    </div>
+  </ion-item-group>
 </ion-content>

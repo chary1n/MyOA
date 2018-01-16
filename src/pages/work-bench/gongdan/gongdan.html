@@ -160,7 +160,7 @@
       <ion-label>我提交的</ion-label>
     </button>
 
-    <button ion-item (click)="myGongdanList()">
+    <button ion-item (click)="myProcessList()">
       <ion-avatar item-start>
         <img src="assets/img/gongdan/shouli.png">
       </ion-avatar>
@@ -206,36 +206,46 @@
 
 
 </ion-content>
-<ion-content *ngIf="show_type == 'tongji'">
-  <div style="margin-top:20px;">
-    <div style="float:right; margin-right:50px">
-      <canvas id="rings" style="width:100px;height:100px"></canvas>
+<ion-content *ngIf="show_type == 'tongji'" style="background:#f0f2f5">
+  <div style="margin-top:60px;background:#ffffff">
+    <div style="float:right; margin-right:60px">
+      <canvas id="rings" style="width:100px;height:100px;margin-top:5px"></canvas>
     </div>
     <div>
       <div class="div_x">
+        <span class="div_span_number"> {{processTongji}}</span>
         <span class="div_span">受理中</span>
-        <div class="small_rang" style="background:#0097ee "> </div>
+        <div class="small_rang" style="background:#1897f2 "> </div>
       </div>
       <div class="div_x">
+        <span class="div_span_number"> {{unacceptTongji}}</span>
         <span class="div_span">未受理</span>
-        <div class="small_rang" style="background:#ffa634 "> </div>
+        <div class="small_rang" style="background:#faa619 "> </div>
       </div>
 
       <div class="div_x">
         <span>
+          <span class="div_span_number"> {{checkTongji}}</span>
           <span class="div_span">待验收</span>
-          <div class="small_rang" style="background:#ffe650 "> </div>
+          <div class="small_rang" style="background:#fce63a "> </div>
         </span>
       </div>
       <div class="div_x">
+        <span class="div_span_number"> {{doneTongji}}</span>
         <span class="div_span">已完成</span>
-        <div class="small_rang" style="background:#c1e372 "> </div>
+        <div class="small_rang" style="background:#c3e369 "> </div>
       </div>
     </div>
-
   </div>
 
-
+  <button ion-item (click)="mySubmitList()" style="margin-top:10px">
+      <ion-avatar item-start>
+        <img src="assets/img/gongdan/myApply.png">
+      </ion-avatar>
+      <ion-label>超过48小时未受理
+          <span style="float:right"> {{processNumber}}</span>
+      </ion-label>
+    </button>
 
 </ion-content>
 

@@ -25,13 +25,21 @@ export class GongdanPage {
   show_type;
   processNumber;
   unassignNumber;
+<<<<<<< HEAD
   unacceptTitle = "等待受理";
   unassignTitle = "待验收";
   processTitle = "受理中";
   dataList = [];
+=======
+  doneTongji = 0;
+  checkTongji = 0;
+  unacceptTongji = 0;
+  processTongji = 0;
+
+>>>>>>> 4360077f455c5a07df9ddc272c9ef4a4ac60bc22
   constructor(public navCtrl: NavController, public navParams: NavParams, public statusbar: StatusBar,
     public gongdanService: GongDanService) {
-    this.show_type = "tongji";
+    this.show_type = "me";
 
   }
 
@@ -39,7 +47,6 @@ export class GongdanPage {
     console.log('ionViewDidLoad GongdanPage');
     this.statusbar.backgroundColorByHexString("#2597ec");
     this.statusbar.styleLightContent();
-    this.click_tongji();
     // this.step = 1;
     // this.loop();
     // window.setInterval(() => {
@@ -83,15 +90,15 @@ export class GongdanPage {
     this.gongdanService.work_order_statistics().then(res => {
       console.log(res)
       if (res.result && res.result.res_code == 1) {
-        let processTongji =  res.result.res_data.process ?parseInt(res.result.res_data.process) :0
-        let unacceptTongji =res.result.res_data.unaccept? parseInt(res.result.res_data.unaccept):0
-        let checkTongji = res.result.res_data.unaccept?parseInt(res.result.res_data.check):0
-        let doneTongji =res.result.res_data.unaccept? parseInt(res.result.res_data.done):0
-        let total = processTongji + checkTongji + doneTongji + unacceptTongji
+        this.processTongji = res.result.res_data.process ? parseInt(res.result.res_data.process) : 0
+        this.unacceptTongji = res.result.res_data.unaccept ? parseInt(res.result.res_data.unaccept) : 0
+        this.checkTongji = res.result.res_data.check ? parseInt(res.result.res_data.check) : 0
+        this.doneTongji = res.result.res_data.done ? parseInt(res.result.res_data.done) : 0
+        let total = this.processTongji + this.checkTongji + this.doneTongji + this.unacceptTongji
         if (total == 0) {
           this.drawRings(0, 0, 0, 1)
         } else {
-          this.drawRings(processTongji / total, unacceptTongji / total, checkTongji / total, doneTongji / total)
+          this.drawRings(this.processTongji / total, this.unacceptTongji / total, this.checkTongji / total, this.doneTongji / total)
         }
       }
     })
@@ -152,10 +159,43 @@ export class GongdanPage {
 
 
 
-  // 我的工单  xd
+  // 我提交的工单  xd
   mySubmitList() {
-    this.navCtrl.push("MyGongdanListPage")
+    let body = JSON.stringify({
+      uid:HttpService.user_id,
+      create_uid :HttpService.user_id
+    });
+    this.requestWorkOrderSearch(body)
   }
+
+  // 我受理中的
+  myProcessList(){
+    let body = JSON.stringify({
+      uid:HttpService.user_id,
+      assign_uid :HttpService.user_id
+    });
+    this.requestWorkOrderSearch(body)
+  }
+
+
+  waitOrderAssign(){
+    
+  }
+
+
+
+
+
+  requestWorkOrderSearch(body){
+    this.gongdanService.work_order_search(body).then(res=>{
+      if(res.result&&res.result.res_code==1){
+        this.navCtrl.push("MyGongdanListPage",{gongdanList : res.result.res_data})
+      }
+    })
+  }
+
+
+
 
   createGongdan() {
     this.navCtrl.push("CreateGongdanPage")
@@ -164,14 +204,14 @@ export class GongdanPage {
   drawRings(a, b, c, d) {
     var data = [a, b, c, d];//五个扇形的占比
 
-    var dataColor = ["#0097ee", '#ffa634', '#ffe650', '#c1e372'];//五个扇形的颜色
+    var dataColor = ["#1897f2", '#faa619', '#fce63a', '#c3e369'];//五个扇形的颜色
 
     var angleStart = 0, angleEnd, angle;
 
     var Q3Canvas = <HTMLCanvasElement>document.getElementById('rings');
 
     Q3Canvas.width = 100;
-    Q3Canvas.height = 100
+    Q3Canvas.height = 100 ;
 
     var ctx = Q3Canvas.getContext("2d");
 

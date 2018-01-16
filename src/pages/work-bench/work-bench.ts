@@ -70,7 +70,7 @@ export class WorkBenchPage {
           }
          
         }
-         this.services.get_all_need_do(res.result.res_data.user_id,is_plus).then(res => {
+         this.services.get_all_need_do(res.result.res_data.user_id,is_plus,this.isShowKucun).then(res => {
             console.log(res.result.res_data.bx)
             if (res.result && res.result.res_code == 1 && res.result.res_data) {
               this.isZZList = res.result.res_data.zz > 0 ?true :false;

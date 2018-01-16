@@ -231,10 +231,11 @@ export class CommonUseServices {
         return this.httpservice.postBodyNoLoading("get_shengou_count", body);
     }
 
-    get_all_need_do(user_id,is_plus){
+    get_all_need_do(user_id,is_plus,isShowKucun){
         let body = JSON.stringify({
             user_id:user_id,
             is_plus:is_plus,
+            is_kucun:isShowKucun
         });
         return this.httpservice.postBodyNoLoading("get_all_need_do", body);
     }

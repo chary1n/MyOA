@@ -1,3 +1,4 @@
+import { IonicImageViewerModule } from 'ionic-img-viewer/dist/es2015/src/module';
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { MyGongdanListPage } from './my-gongdan-list';
@@ -7,7 +8,7 @@ import { MyGongdanListPage } from './my-gongdan-list';
     MyGongdanListPage,
   ],
   imports: [
-    IonicPageModule.forChild(MyGongdanListPage),
+    IonicPageModule.forChild(MyGongdanListPage),IonicImageViewerModule
   ],
 })
 export class MyGongdanListPageModule {}

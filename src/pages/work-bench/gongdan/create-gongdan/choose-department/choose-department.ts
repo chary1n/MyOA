@@ -23,12 +23,15 @@ export class ChooseDepartmentPage {
   chooseDepartmentName = '';
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.frontPage = Utils.getViewController("WhoCanSeePage", navCtrl)
-    this.departmentList = this.navParams.get('departmentList')
-    console.log(this.departmentList)
   }
-
+  
   ionViewDidLoad() {
     console.log('ionViewDidLoad ChooseDepartmentPage');
+  }
+  
+  ionViewWillEnter(){
+    this.departmentList = this.navParams.get('departmentList')
+    console.log(this.departmentList)
   }
 
 
@@ -51,6 +54,7 @@ export class ChooseDepartmentPage {
     console.log(this.chooseList)
     this.frontPage.data.chooseList = this.chooseList
     this.frontPage.data.chooseDepartmentName = this.chooseDepartmentName
+    this.frontPage.data.departmentList = this.departmentList
     this.navCtrl.popTo(this.frontPage)
   }
 
