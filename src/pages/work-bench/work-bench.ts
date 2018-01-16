@@ -48,7 +48,7 @@ export class WorkBenchPage {
         console.log(res);
         let is_plus = false
         for (let product of res.result.res_data.groups) {
-          if(product.name == 'group_erp_manager'){
+          if(product.name == 'group_inventory_user'){
             this.isShowKucun = true;
           }
           if (product.name == 'group_purchase_user' || product.name == 'group_purchase_manager') {
