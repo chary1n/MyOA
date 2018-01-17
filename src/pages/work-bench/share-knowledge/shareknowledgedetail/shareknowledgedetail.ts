@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { DomSanitizer } from '@angular/platform-browser';
+import { StatusBar } from '@ionic-native/status-bar';
 
 /**
  * Generated class for the ShareknowledgedetailPage page.
@@ -16,7 +17,9 @@ import { DomSanitizer } from '@angular/platform-browser';
 export class ShareknowledgedetailPage{
   item: any;
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    private sanitizer: DomSanitizer) {
+    private sanitizer: DomSanitizer,public statusBar:StatusBar) {
+      this.statusBar.backgroundColorByHexString("#2597ec");
+    this.statusBar.styleLightContent();
     this.item = this.navParams.get('item');
   }
 
@@ -26,5 +29,9 @@ export class ShareknowledgedetailPage{
   assembleHTML(){ 
     　　return this.sanitizer.bypassSecurityTrustHtml(this.item.content)
     }
-
+    goBack(){
+      this.statusBar.backgroundColorByHexString("#f8f8f8");
+      this.statusBar.styleDefault();
+      this.navCtrl.pop();
+    }
 } 

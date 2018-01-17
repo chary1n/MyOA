@@ -2,7 +2,8 @@ import { ShareknowledgeService } from './shareknowledgeService';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams ,ToastController} from 'ionic-angular';
 import { Utils } from './../../../providers/Utils';
-import { ShareAutoService } from './share-service'
+import { ShareAutoService } from './share-service';
+import { StatusBar } from '@ionic-native/status-bar';
 
 /**
  * Generated class for the ShareKnowledgePage page.
@@ -26,7 +27,9 @@ export class ShareKnowledgePage {
   columBlogList: any;
   constructor(public navCtrl: NavController, public navParams: NavParams, 
     public shareknowledgeService: ShareknowledgeService,public toastCtrl:ToastController
-  ,public shareAutoService: ShareAutoService) {
+  ,public shareAutoService: ShareAutoService,public statusBar:StatusBar) {
+    this.statusBar.backgroundColorByHexString("#2597ec");
+    this.statusBar.styleLightContent();
     this.shareknowledgeService.getblogList("hot",20,0).then((res) =>{
           this.hotBlogList = res.result.res_data
     })
@@ -145,5 +148,11 @@ export class ShareKnowledgePage {
         this.columBlogList = res.result.res_data
       })
     }
+  }
+  goBack(){
+  
+    this.statusBar.backgroundColorByHexString("#f8f8f8");
+    this.statusBar.styleDefault();
+    this.navCtrl.pop();
   }
 }
