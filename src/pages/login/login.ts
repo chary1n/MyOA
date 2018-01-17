@@ -118,23 +118,23 @@ export class LoginPage {
     this.isSelected2 = true;
     this.isSelected1 = false;
     this.isSelected3 = false;
-    // HttpService.appUrl = "http://dr.robotime.com/"
-    HttpService.appUrl = "http://192.168.2.230:8888/"
+    HttpService.appUrl = "http://dr.robotime.com/"
+    // HttpService.appUrl = "http://192.168.2.230:8888/"
   }
 
   chooseWanju() {
     this.isSelected3 = true;
     this.isSelected2 = false;
     this.isSelected1 = false;
-    // HttpService.appUrl = "http://erp.robotime.com/"
-    HttpService.appUrl = "http://192.168.2.44:8069/"
+    HttpService.appUrl = "http://erp.robotime.com/"
+    // HttpService.appUrl = "http://192.168.2.44:8069/"
     // HttpService.appUrl = "http://192.168.2.157:8069/"
   }
 
 
   getDB() {
     this.loginservice.getDBInfo().then(res => {
-      this.employee = res.res_data[4]; //修改
+      this.employee = res.res_data[0]; //修改
       this.toLogin();
     });
   }
