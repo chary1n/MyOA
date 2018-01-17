@@ -30,6 +30,11 @@ export class MyGongdanListPage {
   toDetail(item){
     this.gongdanService.getGongdanDetail(item.work_order_id).then(res=>{
       console.log(res)
+      if(res.result.res_data && res.result.res_code == 1){
+        this.navCtrl.push('GongdanDetailPage',{
+          items:res.result.res_data,
+        })
+      }
     })
   }
 

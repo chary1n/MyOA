@@ -16,7 +16,7 @@
 <ion-content style="background:#f0f2f5">
   <ion-item-group no-lines style="background:white;">
 
-    <div *ngFor="let item of gongdanList">
+    <div *ngFor="let item of gongdanList" (click)="toDetail(item)">
       <div>
         <img src={{getProprityImgSrc(item)}} style="width:14px;height:14px;margin-top:15px;margin-left:15px;">
 

@@ -44,6 +44,7 @@ export class GongdanPage {
     console.log('ionViewDidLoad GongdanPage');
     this.statusbar.backgroundColorByHexString("#2597ec");
     this.statusbar.styleLightContent();
+    this.canvas = <HTMLCanvasElement>document.getElementById('canvas');
     // this.step = 1;
     // this.loop();
     // window.setInterval(() => {
@@ -52,8 +53,8 @@ export class GongdanPage {
   }
 
   click_me() {
+    // this.looper(this.canvas);
     this.show_type = "me"
-    this.looper();
     this.gongdanService.my_work_order_statistics().then(res => {
       if (res.result && res.result.res_code == 1) {
         this.processNumber = res.result.res_data.process
@@ -67,15 +68,14 @@ export class GongdanPage {
     this.dataList = []
     this.show_type = "gongdan"
     this.gongdanService.work_order_statistics().then(res => {
-      if(res.result.res_data)
-      {
-        if(res.result.res_data.unaccept){
-          this.unacceptTitle ="等待受理" +" (" + res.result.res_data.unaccept + ")";
+      if (res.result.res_data) {
+        if (res.result.res_data.unaccept) {
+          this.unacceptTitle = "等待受理" + " (" + res.result.res_data.unaccept + ")";
         }
-        if(res.result.res_data.unassign){
+        if (res.result.res_data.unassign) {
           this.unassignTitle = "待验收" + " (" + res.result.res_data.unassign + ")";
         }
-        if(res.result.res_data.process){
+        if (res.result.res_data.process) {
           this.processTitle = "受理中" + " (" + res.result.res_data.process + ")";
         }
       }
@@ -115,9 +115,9 @@ export class GongdanPage {
   }
 
 
-  looper() {
-    var canvas = <HTMLCanvasElement>document.getElementById('canvas');
-    var ctx = canvas.getContext('2d');
+  looper(canvas) {
+ 
+    let ctx = canvas.getContext('2d');
     canvas.width = 300;
     canvas.height = 100;
     //如果浏览器支持requestAnimFrame则使用requestAnimFrame否则使用setTimeout  
@@ -171,34 +171,36 @@ export class GongdanPage {
   // 我提交的工单  xd
   mySubmitList() {
     let body = JSON.stringify({
-      uid:HttpService.user_id,
-      create_uid :HttpService.user_id
+      uid: HttpService.user_id,
+      create_uid: HttpService.user_id
     });
     this.requestWorkOrderSearch(body)
   }
 
   // 我受理中的
-  myProcessList(){
+  myProcessList() {
     let body = JSON.stringify({
-      uid:HttpService.user_id,
-      assign_uid :HttpService.user_id
+      uid: HttpService.user_id,
+      assign_uid: HttpService.user_id
     });
     this.requestWorkOrderSearch(body)
   }
 
 
-  waitOrderAssign(){
-    
+  waitOrderAssign() {
+
+
+
   }
 
 
 
 
 
-  requestWorkOrderSearch(body){
-    this.gongdanService.work_order_search(body).then(res=>{
-      if(res.result&&res.result.res_code==1){
-        this.navCtrl.push("MyGongdanListPage",{gongdanList : res.result.res_data})
+  requestWorkOrderSearch(body) {
+    this.gongdanService.work_order_search(body).then(res => {
+      if (res.result && res.result.res_code == 1) {
+        this.navCtrl.push("MyGongdanListPage", { gongdanList: res.result.res_data })
       }
     })
   }
@@ -220,7 +222,7 @@ export class GongdanPage {
     var Q3Canvas = <HTMLCanvasElement>document.getElementById('rings');
 
     Q3Canvas.width = 100;
-    Q3Canvas.height = 100 ;
+    Q3Canvas.height = 100;
 
     var ctx = Q3Canvas.getContext("2d");
 
@@ -255,53 +257,53 @@ export class GongdanPage {
 
   }
 
-  changeState(item){
-    let state_str="";
-    if (item == "unaccept"){
+  changeState(item) {
+    let state_str = "";
+    if (item == "unaccept") {
       state_str = "等待受理"
     }
-    else if (item == "process"){
+    else if (item == "process") {
       state_str = "受理中"
     }
-    else if (item == "unassign"){
+    else if (item == "unassign") {
       state_str = "待验收"
     }
     return state_str
   }
 
-  unacceptClick(){
+  unacceptClick() {
     this.getDataList("unaccept")
   }
 
-  processClick(){
+  processClick() {
     this.getDataList("process")
   }
 
-  unassignClick(){
-    this.getDataList("assign")   
+  unassignClick() {
+    this.getDataList("assign")
   }
 
-  getDataList(state){
+  getDataList(state) {
     this.dataList = [];
     this.gongdanService.work_order_search(JSON.stringify({
-        uid:HttpService.user_id,
-        issue_state:state,
-      })).then(res => {
-        console.log(res)
-        if (res.result.res_data){
-          for (let item of res.result.res_data) {
-             this.dataList.push(item)
-          }
+      uid: HttpService.user_id,
+      issue_state: state,
+    })).then(res => {
+      console.log(res)
+      if (res.result.res_data) {
+        for (let item of res.result.res_data) {
+          this.dataList.push(item)
         }
+      }
     })
   }
 
-  gongdanDetail(item){
+  gongdanDetail(item) {
     this.gongdanService.getGongdanDetail(item.work_order_id).then(res => {
       console.log(res)
-      if(res.result.res_data && res.result.res_code == 1){
-        this.navCtrl.push('GongdanDetailPage',{
-          items:res.result.res_data,
+      if (res.result.res_data && res.result.res_code == 1) {
+        this.navCtrl.push('GongdanDetailPage', {
+          items: res.result.res_data,
         })
       }
     })
