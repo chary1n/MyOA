@@ -118,13 +118,8 @@ export class LoginPage {
     this.isSelected2 = true;
     this.isSelected1 = false;
     this.isSelected3 = false;
-<<<<<<< HEAD
     HttpService.appUrl = "http://dr.robotime.com/"
     // HttpService.appUrl = "http://192.168.2.230:8888/"
-=======
-    // HttpService.appUrl = "http://dr.robotime.com/"
-    HttpService.appUrl = "http://192.168.88.131:8069/"
->>>>>>> 3929d7ae421afdc864da8228a96692b3435a716a
   }
 
   chooseWanju() {
