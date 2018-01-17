@@ -116,7 +116,7 @@ export class GongdanPage {
 
 
   looper(canvas) {
- 
+
     let ctx = canvas.getContext('2d');
     canvas.width = 300;
     canvas.height = 100;
@@ -186,12 +186,48 @@ export class GongdanPage {
     this.requestWorkOrderSearch(body)
   }
 
-
-  waitOrderAssign() {
-
-
-
+  // 待他人验收
+  waitOtherAssign() {
+    let body = JSON.stringify({
+      uid: HttpService.user_id,
+      create_uid: HttpService.user_id,
+      state :   "check" ,
+    });
+    this.requestWorkOrderSearch(body)
   }
+
+  // 我已完成的
+  myFinished() {
+    let body = JSON.stringify({
+      uid: HttpService.user_id,
+      assign_uid: HttpService.user_id,
+      state :   "done" ,
+    });
+    this.requestWorkOrderSearch(body)
+  }
+
+  // 我回复过的
+  myReply() {
+    let body = JSON.stringify({
+      isSearchOrder: true,
+      uid: HttpService.user_id,
+      reply: HttpService.user_id
+    });
+    this.requestWorkOrderSearch(body)
+  }
+
+
+
+  // 我指派过的
+  myAssigned() {
+    let body = JSON.stringify({
+      isSearchOrder: true,
+      uid: HttpService.user_id,
+      create_uid: HttpService.user_id
+    });
+    this.requestWorkOrderSearch(body)
+  }
+
 
 
 
