@@ -63,4 +63,22 @@ export class GongDanService {
         });
        return this.httpservice.postBody("get_all_employees",body);
     }
+
+    work_order_action(uid,work_order_id,action_type,assign_uid){
+        let body = JSON.stringify({
+            uid:uid,
+            work_order_id:work_order_id,
+            action_type:action_type,
+            assign_uid:assign_uid,
+          });
+        return this.httpservice.postBody("work_order_action", body,1);
+    }
+
+    work_order_retract(uid,work_order_id){
+         let body = JSON.stringify({
+            uid:uid,
+            work_order_id:work_order_id,
+          });
+        return this.httpservice.postBody("work_order_retract", body,1);
+    }
 }
