@@ -52,6 +52,28 @@ export class GongdanPage {
     // }, 500);
   }
 
+  ionViewDidEnter() {
+    if (this.navParams.get('need_fresh') == true) {
+      this.navParams.data.need_fresh = false;
+      this.gongdanService.work_order_statistics().then(res => {
+        console.log(res)
+      if(res.result.res_data)
+      {
+        if(res.result.res_data.unaccept){
+          this.unacceptTitle ="等待受理" +" (" + res.result.res_data.unaccept + ")";
+        }
+        if(res.result.res_data.check){
+          this.unassignTitle = "待验收" + " (" + res.result.res_data.check + ")";
+        }
+        if(res.result.res_data.process){
+          this.processTitle = "受理中" + " (" + res.result.res_data.process + ")";
+        }
+      }
+    })
+    this.getDataList("process")
+    }
+  }
+
   click_me() {
     // this.looper(this.canvas);
     this.show_type = "me"
@@ -68,12 +90,14 @@ export class GongdanPage {
     this.dataList = []
     this.show_type = "gongdan"
     this.gongdanService.work_order_statistics().then(res => {
-      if (res.result.res_data) {
-        if (res.result.res_data.unaccept) {
-          this.unacceptTitle = "等待受理" + " (" + res.result.res_data.unaccept + ")";
+      console.log(res)
+      if(res.result.res_data)
+      {
+        if(res.result.res_data.unaccept){
+          this.unacceptTitle ="等待受理" +" (" + res.result.res_data.unaccept + ")";
         }
-        if (res.result.res_data.unassign) {
-          this.unassignTitle = "待验收" + " (" + res.result.res_data.unassign + ")";
+        if(res.result.res_data.check){
+          this.unassignTitle = "待验收" + " (" + res.result.res_data.check + ")";
         }
         if (res.result.res_data.process) {
           this.processTitle = "受理中" + " (" + res.result.res_data.process + ")";
@@ -301,7 +325,7 @@ export class GongdanPage {
     else if (item == "process") {
       state_str = "受理中"
     }
-    else if (item == "unassign") {
+    else if (item == "check"){
       state_str = "待验收"
     }
     return state_str
@@ -315,8 +339,8 @@ export class GongdanPage {
     this.getDataList("process")
   }
 
-  unassignClick() {
-    this.getDataList("assign")
+  unassignClick(){
+    this.getDataList("check")   
   }
 
   getDataList(state) {

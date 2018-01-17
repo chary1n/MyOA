@@ -63,42 +63,73 @@
         </ion-col>
       </ion-row>
     </ion-grid>
-    <ion-item-group no-lines style="background:#f0f2f5;margin-top:-10px" >
-      <div *ngFor="let item of dataList" style="margin-top:10px;background-color:white" tappable (click)="gongdanDetail(item)">
-        <div>
-          <img *ngIf="item.priority == 1" src="assets/img/work_bench/up_one.png" class="priority_icon">
-          <img *ngIf="item.priority == 2" src="assets/img/work_bench/up_two.png" class="priority_icon">
-          <img *ngIf="item.priority == 3" src="assets/img/work_bench/up_three.png" class="priority_icon">
-          <span p style="font-size:17px;">
-            {{item.title}}
-          </span>
-          <span p class="data_list_state">
-            {{changeState(item.issue_state)}}
-          </span>
-        </div>
-        <P text-wrap class="data_list_desprition">
-          {{item.description}}
-        </P>
-        <ion-grid *ngIf="item.work_order_images" style="margin-top:-20px;margin-left:5px">
-          <ion-row style="margin-right:5px;">
-            <ion-col *ngFor="let image of item.work_order_images" col-3>
-              <img src={{image}}>
+  </ion-navbar>
 
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-        <div class="creater_div">
-          <img src={{item.create_user.user_ava}} class="create_ava">
-          <span p class="creater_name">
-            {{item.create_user.name + " " +item.create_time}}
-          </span>
-          <span *ngIf="item.assign_user.name" class="assign_name">
-            {{"受理人： "+ item.assign_user.name}}
-          </span>
-          <img *ngIf="item.assign_user.name" src="assets/img/work_bench/lianjie.png" class="assign_ava">
+</ion-header>
+
+
+<ion-content style="background:#f0f2f5">
+  <div *ngIf="show_type == 'gongdan'">
+  <ion-grid style="width:100%; background:#2597ec;height:70px;" >
+    <ion-row class="row_class" align-items-center>
+      <ion-col >
+        <div align="center" tappable (click)="unacceptClick()">
+          <img class="sub_header" src="assets/img/work_bench/wait_shouli.png">
+          <br>
+          <p class="sub_header_p">{{unacceptTitle}}</p>
         </div>
-        <div style="height:1px;background:white">
+      </ion-col>
+      <ion-col >
+        <div align="center" tappable (click)="processClick()">
+          <img class="sub_header" src="assets/img/work_bench/shouli_ing.png">
+          <br>
+          <p class="sub_header_p">{{processTitle}}</p>
         </div>
+      </ion-col>
+      <ion-col >
+        <div align="center" tappable (click)="unassignClick()">
+          <img class="sub_header" src="assets/img/work_bench/wait_yanshou.png">
+          <br>
+          <p class="sub_header_p">{{unassignTitle}}</p>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-item-group  no-lines style="background:#f0f2f5;margin-top:-10px" *ngIf="show_type == 'gongdan'">
+    <div *ngFor="let item of dataList" style="margin-top:10px;background-color:white" tappable (click)="gongdanDetail(item)">
+      <div>
+        <img *ngIf="item.priority == 1" src="assets/img/work_bench/up_one.png" class="priority_icon">
+        <img *ngIf="item.priority == 2" src="assets/img/work_bench/up_two.png" class="priority_icon">
+        <img *ngIf="item.priority == 3" src="assets/img/work_bench/up_three.png" class="priority_icon">
+        <span p style="font-size:17px;">
+          {{item.title}}
+        </span>
+        <span p class="data_list_state">
+          {{changeState(item.issue_state)}}
+        </span>
+      </div>
+      <P text-wrap class="data_list_desprition">
+        {{item.description}}
+      </P>
+      <ion-grid *ngIf="item.work_order_images" style="margin-top:-20px;margin-left:5px">
+        <ion-row style="margin-right:5px;">
+          <ion-col *ngFor="let image of item.work_order_images" col-3 >
+            <img src={{image}}>
+            
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <div class="creater_div">
+        <img src={{item.create_user.user_ava}} class="create_ava">
+        <span p class="creater_name">
+          {{item.create_user.name + " " +item.create_time}}
+        </span>
+        <span *ngIf="item.assign_user.name" class="assign_name">
+          {{"受理人： "+ item.assign_user.name}}
+        </span>
+        <img *ngIf="item.assign_user.name" src="assets/img/work_bench/lianjie.png" class="assign_ava">
+      </div>
+      <div style="height:1px;background:white">
       </div>
     </ion-item-group>
 
