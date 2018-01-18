@@ -70,4 +70,21 @@ export class GongdanZhipaiPage {
     })
   }
 
+  getItems(ev: any) {
+    let val = ev.target.value;
+    if (val && val.trim() != '') {
+      this.employeeList = this.origin_data.filter((item) => {
+        console.log(item)
+        if (item.name != '')
+        {
+          console.log(item.name.toLowerCase().indexOf(val.toLowerCase()) > -1)
+          return (item.name.toLowerCase().indexOf(val.toLowerCase()) > -1);
+        }
+      })
+    }
+    else{
+      this.employeeList = this.origin_data;
+    } 
+  }
+
 }

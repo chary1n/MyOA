@@ -37,7 +37,7 @@ export class CreateGongdanPage {
   chooseDepartmentName;
   CreateGongdanPage;
   departmentList;
-
+  reback_item;
 
 
   priority = [{ name: '低', id: '1' }, { name: '中', id: '2' }, { name: '高', id: '3' }]
@@ -54,20 +54,34 @@ export class CreateGongdanPage {
   }
 
   ionViewWillEnter() {
-    this.companyIschoosed = this.navParams.get('companyIschoosed')
-    this.chooseList = this.navParams.get('chooseList')
-    this.choosePeopleItem = this.navParams.get('choosePeopleItem')
-    this.chooseDepartmentName = this.navParams.get('chooseDepartmentName')
-    this.departmentList = this.navParams.get("departmentList")
-    console.log(this.choosePeopleItem)
-    if (this.choosePeopleItem) {
-      this.choosePeopleName = this.choosePeopleItem.name
+    let reback_item = this.navParams.get('reback_item')
+    let need_reback = this.navParams.get('need_reback')
+    if (need_reback){
+      this.navParams.data.need_reback = false
+      this.title = reback_item.title
+      this.description = reback_item.description
+      this.pushImgList = reback_item.work_order_images
+      this.priorityId = reback_item.priority
+
     }
-    if (this.companyIschoosed) {
-      this.whoCanSee = "全公司"
-    } else {
-      this.whoCanSee = this.chooseDepartmentName
+    else
+    {
+      this.companyIschoosed = this.navParams.get('companyIschoosed')
+      this.chooseList = this.navParams.get('chooseList')
+      this.choosePeopleItem = this.navParams.get('choosePeopleItem')
+      this.chooseDepartmentName = this.navParams.get('chooseDepartmentName')
+      this.departmentList = this.navParams.get("departmentList")
+      console.log(this.choosePeopleItem)
+      if (this.choosePeopleItem) {
+        this.choosePeopleName = this.choosePeopleItem.name
+      }
+      if (this.companyIschoosed) {
+        this.whoCanSee = "全公司"
+      } else {
+       this.whoCanSee = this.chooseDepartmentName
+     }
     }
+    
 
     console.log(this.companyIschoosed)
     console.log(this.chooseList)
