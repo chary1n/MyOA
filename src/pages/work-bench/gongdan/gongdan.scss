@@ -4,9 +4,26 @@ page-gongdan {
         background:url(img/gongdan/myApply.png) no-repeat center;
     }
     
-    .row_class{
+    .row_class_ios{
+        height:40px;
+    }
+    .row_class_android{
         height:100px;
     }
+.main_grid_head_ios{
+    width:100%; 
+    background:#2597ec;
+    height:70px;
+    // position: fixed;
+    // top:44px;
+    // z-index: 1
+}
+.main_grid_head_android{
+    width:100%; 
+    background:#2597ec;
+    height:97px;
+}
+
     .test_one{
         color:white;
         width:60px;
@@ -22,7 +39,13 @@ page-gongdan {
         font-size:16px;
     }
 
-    .head_grid{
+    .head_grid_ios{
+        height:40px;
+        width:80%;
+        margin-left:25px;
+        margin-top:-50px;
+    }
+    .head_grid_android{
         height:40px;
         width:80%;
         margin-left:25px;
@@ -154,5 +177,14 @@ page-gongdan {
     .creater_div{
         margin-bottom:10px;
         margin-top:-2px;
+    }
+
+    .item_group_class{
+        background:#f0f2f5;
+        margin-top:70px;
+        // position: absolute;
+        // top:0px;
+        // bottom: 0px;
+        // width: 100%;
     }
 }

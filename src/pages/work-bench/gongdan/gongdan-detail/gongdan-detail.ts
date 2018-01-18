@@ -24,11 +24,13 @@ export class GongdanDetailPage {
   isShowRefuse = false;
   isShowConfirm = false;
   isShowFinish = false;
-  frontPage
+  frontPage;
+  rebackPage;
   constructor(public navCtrl: NavController, public navParams: NavParams,public statusBar:StatusBar,
     public gongDanService:GongDanService,public alertCtrl:AlertController,
     public toast:ToastController) {
-      this.frontPage = Utils.getViewController("GongdanPage", navCtrl)
+    this.frontPage = Utils.getViewController("GongdanPage", navCtrl)
+    this.rebackPage = Utils.getViewController("CreateGongdanPage", navCtrl)
     this.item = this.navParams.get('items').work_order
     this.message_item = this.navParams.get('items').records
     this.statusBar.backgroundColorByHexString("#2597ec");
@@ -157,17 +159,31 @@ export class GongdanDetailPage {
         message: "是否确定撤回该工单？",
         buttons: [
         {
-          text: '取消',
+          text: '重新编辑',
           handler: () => {
+            this.gongDanService.work_order_retract(HttpService.user_id,this.item.work_order_id).then(res => {
+              if (res.result.res_code == 1)
+              {
+                
+                Utils.toastButtom("撤回成功", this.toast)
+                this.frontPage.data.need_fresh = true;
+                this.navCtrl.popTo(this.frontPage);
+              }
+              this.navCtrl.push('CreateGongdanPage',{
+              reback_item:this.item,
+              need_reback:true,
+            })
+            })
+            
           }
         },
         {
-          text: '确定',
+          text: '直接删除',
           handler: data => {
             this.gongDanService.work_order_retract(HttpService.user_id,this.item.work_order_id).then(res => {
               if (res.result.res_code == 1)
               {
-                Utils.toastButtom("撤回成功", this.toast)
+                Utils.toastButtom("删除成功", this.toast)
                 this.frontPage.data.need_fresh = true;
                 this.navCtrl.popTo(this.frontPage);
               }

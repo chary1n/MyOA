@@ -54,7 +54,9 @@ export class GongdanChatPage {
   }
 
   reply(){
-    this.gongDanService.work_order_add_record(this.beizhuText,this.select_list[0],"reply",this.item.work_order_id,this.parent_id).then(res => {
+    if (this.select_list[0])
+    {
+       this.gongDanService.work_order_add_record(this.beizhuText,this.select_list[0],"reply",this.item.work_order_id,this.parent_id).then(res => {
       console.log(this.select_list)
   
       if (res.result.res_code == 1)
@@ -65,19 +67,17 @@ export class GongdanChatPage {
       }
     })
   }
+  else
+  {
+    Utils.toastButtom("请选择回复对象", this.toast)
+  }
+   
+  }
 
   itemSelect(item){
     let is_has = false;
-    for (let i = 0, len = this.select_list.length, value; i < len; i++) {
-      if(this.select_list[i] == item.user_id.id){
-        this.select_list.splice(i,1)
-        is_has = true
-        break
-      }
-    }
-    if (!is_has){
-      this.select_list.push(item.user_id.id)
-    }
+    this.select_list.splice(0,1)
+    this.select_list.push(item.user_id.id)
   }
 
   is_select(item){
@@ -89,6 +89,10 @@ export class GongdanChatPage {
       }
     }
     return is_has
+  }
+
+  calHeight(){
+    return (window.innerHeight - 44) / window.innerHeight * 100
   }
 
 }

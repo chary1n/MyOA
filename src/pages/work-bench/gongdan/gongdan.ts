@@ -1,6 +1,6 @@
 import { HttpService } from './../../../providers/HttpService';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams,Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { GongDanService } from './gongdanService';
 /**
@@ -33,11 +33,12 @@ export class GongdanPage {
   checkTongji = 0;
   unacceptTongji = 0;
   processTongji = 0;
-
+  is_android;
+  page_issue_state;
   constructor(public navCtrl: NavController, public navParams: NavParams, public statusbar: StatusBar,
-    public gongdanService: GongDanService) {
+    public gongdanService: GongDanService,public platform:Platform) {
     this.show_type = "me";
-
+    this.is_android = this.platform.is('android')
   }
 
   ionViewDidLoad() {
@@ -70,7 +71,7 @@ export class GongdanPage {
         }
       }
     })
-    this.getDataList("process")
+    this.getDataList(this.page_issue_state)
     }
   }
 
@@ -187,9 +188,10 @@ export class GongdanPage {
     loop();
   }
   goBack() {
+    this.navCtrl.pop();
     this.statusbar.backgroundColorByHexString("#ffffff");
     this.statusbar.styleDefault();
-    this.navCtrl.pop();
+    
   }
 
   click_detail() {
@@ -371,6 +373,7 @@ export class GongdanPage {
 
   getDataList(state) {
     this.dataList = [];
+    this.page_issue_state = state;
     this.gongdanService.work_order_search(JSON.stringify({
       uid: HttpService.user_id,
       issue_state: state,
