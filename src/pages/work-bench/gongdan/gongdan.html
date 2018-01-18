@@ -36,37 +36,6 @@
 </ion-header>
 
 
-<ion-content style="background:#f0f2f5">
-  <div *ngIf="show_type == 'gongdan'">
-    <ion-grid style="width:100%; background:#2597ec;height:97px;">
-      <ion-row class="row_class" align-items-center>
-        <ion-col tappable (click)="wait_shouli()">
-          <div align="center" tappable (click)="unacceptClick()">
-            <img class="sub_header" src="assets/img/work_bench/wait_shouli.png">
-            <br>
-            <p class="sub_header_p">{{unacceptTitle}}</p>
-          </div>
-        </ion-col>
-        <ion-col tappable (click)="shouli()">
-          <div align="center" tappable (click)="processClick()">
-            <img class="sub_header" src="assets/img/work_bench/shouli_ing.png">
-            <br>
-            <p class="sub_header_p">{{processTitle}}</p>
-          </div>
-        </ion-col>
-        <ion-col tappable (click)="wait_yanshou()">
-          <div align="center" tappable (click)="unassignClick()">
-            <img class="sub_header" src="assets/img/work_bench/wait_yanshou.png">
-            <br>
-            <p class="sub_header_p">{{unassignTitle}}</p>
-          </div>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </ion-navbar>
-
-</ion-header>
-
 
 <ion-content style="background:#f0f2f5">
   <div *ngIf="show_type == 'gongdan'">
@@ -131,10 +100,8 @@
       </div>
       <div style="height:1px;background:white">
       </div>
+    </div>
     </ion-item-group>
-
-
-
 
   </div>
   <div *ngIf="show_type == 'me'">
@@ -142,7 +109,7 @@
       <!-- <canvas 
      style="background:#ffffff;height:80px;width:100%;position:absolute;top:0px;left:0px;z-index:1;" id="canvas"> -->
       <div style="text-align:center; border-radius: 5px;background:white;margin-top:-33px;height:100%">
-        <div style="position:relative;width:70px;margin:0 auto;margin-top:30px">
+        <div style="position:relative;width:70px;margin:0 auto;margin-top:30px" taggable (click)="searchAtMe()">
           <img style="margin-top:17px " src="assets/img/gongdan/huifu.png">
           <div style="margin-top:1px">最新@我</div>
           <span style="position:absolute;width:20px;height:20px;border-radius:10px;background-color:red;display:inline-block;color:white;line-height:20px;right:-17px;top:11px;text-align:center;font-size:12px">12</span>

@@ -32,6 +32,11 @@ export class GongDanService {
     }
 
 
+    searchAtMe(body){
+        return this.httpservice.postBody("searchAtMe", body,1);
+    }
+
+
     getDepartment(){
         let body = JSON.stringify({
             partner_id:1

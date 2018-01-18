@@ -84,7 +84,13 @@ export class GongdanPage {
       }
       console.log(res)
     })
+    
   }
+
+
+
+  
+
 
   click_gongdan() {
     this.dataList = []
@@ -254,6 +260,23 @@ export class GongdanPage {
 
 
 
+  searchAtMe(){
+    let body = JSON.stringify({
+      uid: HttpService.user_id,
+      assign: HttpService.user_id,
+      reply:HttpService.user_id,
+      isSearchOrder: true,
+      isRead :false
+    });
+    this.gongdanService.searchAtMe(body).then(res => {
+      if (res.result && res.result.res_code == 1) {
+        this.navCtrl.push("MyGongdanListPage", { gongdanList: res.result.res_data })
+      }
+    })
+  }
+
+
+
 
 
 
@@ -264,6 +287,9 @@ export class GongdanPage {
       }
     })
   }
+
+
+
 
 
 
