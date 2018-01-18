@@ -161,9 +161,20 @@ export class GongdanDetailPage {
         {
           text: '重新编辑',
           handler: () => {
-            this.rebackPage.data.reback_item = this.item
-            this.rebackPage.data.need_reback = true
-            this.navCtrl.push(this.rebackPage)
+            this.gongDanService.work_order_retract(HttpService.user_id,this.item.work_order_id).then(res => {
+              if (res.result.res_code == 1)
+              {
+                
+                Utils.toastButtom("撤回成功", this.toast)
+                this.frontPage.data.need_fresh = true;
+                this.navCtrl.popTo(this.frontPage);
+              }
+              this.navCtrl.push('CreateGongdanPage',{
+              reback_item:this.item,
+              need_reback:true,
+            })
+            })
+            
           }
         },
         {

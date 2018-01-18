@@ -14,7 +14,9 @@ page-gongdan {
     width:100%; 
     background:#2597ec;
     height:70px;
-
+    // position: fixed;
+    // top:44px;
+    // z-index: 1
 }
 .main_grid_head_android{
     width:100%; 
@@ -175,5 +177,14 @@ page-gongdan {
     .creater_div{
         margin-bottom:10px;
         margin-top:-2px;
+    }
+
+    .item_group_class{
+        background:#f0f2f5;
+        margin-top:70px;
+        // position: absolute;
+        // top:0px;
+        // bottom: 0px;
+        // width: 100%;
     }
 }

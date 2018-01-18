@@ -38,8 +38,8 @@ export class CreateGongdanPage {
   CreateGongdanPage;
   departmentList;
   reback_item;
-
-
+  is_back_gongdan;
+  frontPage
   priority = [{ name: '低', id: '1' }, { name: '中', id: '2' }, { name: '高', id: '3' }]
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public toastCtrl: ToastController,
@@ -47,6 +47,7 @@ export class CreateGongdanPage {
     public actionSheetCtrl: ActionSheetController,
     public nativeService: NativeService) {
     this.navParams.data.companyIschoosed = true;
+    this.frontPage = Utils.getViewController("GongdanPage", navCtrl)
   }
 
   ionViewDidLoad() {
@@ -57,15 +58,16 @@ export class CreateGongdanPage {
     let reback_item = this.navParams.get('reback_item')
     let need_reback = this.navParams.get('need_reback')
     if (need_reback){
+      this.is_back_gongdan = true;
       this.navParams.data.need_reback = false
       this.title = reback_item.title
       this.description = reback_item.description
       this.pushImgList = reback_item.work_order_images
       this.priorityId = reback_item.priority
-
     }
     else
     {
+      this.is_back_gongdan = false;
       this.companyIschoosed = this.navParams.get('companyIschoosed')
       this.chooseList = this.navParams.get('chooseList')
       this.choosePeopleItem = this.navParams.get('choosePeopleItem')
@@ -125,7 +127,15 @@ export class CreateGongdanPage {
       this.gongdanService.create_work_order(body).then(res => {
         console.log(res)
         if (res.result && res.result.res_code == 1) {
-          this.navCtrl.pop()
+          if (this.is_back_gongdan){
+             this.frontPage.data.need_fresh = true;
+             this.navCtrl.popTo(this.frontPage);
+          }
+          else
+          {
+             this.navCtrl.pop()
+          }
+         
         }
       })
     }

@@ -32,7 +32,13 @@
       </ion-row>
     </ion-grid>
   </ion-navbar>
-  <ion-grid *ngIf="show_type == 'gongdan'" [ngClass]="{true:'main_grid_head_android',false:'main_grid_head_ios'}[is_android]">
+  
+</ion-header>
+
+
+<ion-content style="background:#f0f2f5">
+  <div *ngIf="show_type == 'gongdan'">
+  <ion-grid  [ngClass]="{true:'main_grid_head_android',false:'main_grid_head_ios'}[is_android]">
       <ion-row [ngClass]="{true:'row_class_android',false:'row_class_ios'}[is_android]" align-items-center>
         <ion-col tappable (click)="wait_shouli()">
           <div align="center" tappable (click)="unacceptClick()">
@@ -57,13 +63,10 @@
         </ion-col>
       </ion-row>
     </ion-grid>
-</ion-header>
-
-
-<ion-content scroll="false" style="background:#f0f2f5">
+</div>
   <div  *ngIf="show_type == 'gongdan'">
     
-    <ion-item-group no-lines style="background:#f0f2f5;margin-top:70px" >
+    <ion-item-group no-lines class="item_group_class" >
       <div *ngFor="let item of dataList" style="margin-top:10px;background-color:white" tappable (click)="gongdanDetail(item)">
         <div>
           <img *ngIf="item.priority == 1" src="assets/img/work_bench/up_one.png" class="priority_icon">
