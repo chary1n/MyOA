@@ -71,6 +71,12 @@ export class MyGongdanListPage {
     else if (item == "check"){
       state_str = "待验收"
     }
+    else if (item == "done"){
+      state_str = "已完成"
+    }
+    else if (item == "draft"){
+      state_str = "草稿"
+    }
     return state_str
   }
 
