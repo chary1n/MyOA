@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams,AlertController,ToastController} from 'ionic-angular';
+import { IonicPage, NavController, NavParams,AlertController,ToastController,Platform} from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { GongDanService } from './../gongdanService';
 import { HttpService } from './../../../../providers/HttpService';
@@ -26,15 +26,17 @@ export class GongdanDetailPage {
   isShowFinish = false;
   frontPage;
   rebackPage;
+  is_ios;
   constructor(public navCtrl: NavController, public navParams: NavParams,public statusBar:StatusBar,
     public gongDanService:GongDanService,public alertCtrl:AlertController,
-    public toast:ToastController) {
+    public toast:ToastController,public platform:Platform) {
     this.frontPage = Utils.getViewController("GongdanPage", navCtrl)
     this.rebackPage = Utils.getViewController("CreateGongdanPage", navCtrl)
     this.item = this.navParams.get('items').work_order
     this.message_item = this.navParams.get('items').records
     this.statusBar.backgroundColorByHexString("#2597ec");
     this.statusBar.styleLightContent();
+    this.is_ios = this.platform.is('ios')
     if (this.item.issue_state == "unaccept" || this.item.issue_state == "process"){
       this.isShowZhiPai = true
       if (this.item.create_user.id == HttpService.user_id){
@@ -133,9 +135,11 @@ export class GongdanDetailPage {
   }
 
   reply_to(items){
+    console.log(items)
     this.navCtrl.push('GongdanChatPage',{
       item:this.item,
       parent_id:items.record_id,
+      record_item:items,
     })
   }
 

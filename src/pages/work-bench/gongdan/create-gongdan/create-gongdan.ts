@@ -8,6 +8,7 @@ import { NavController } from 'ionic-angular/navigation/nav-controller';
 import { ActionSheetController } from 'ionic-angular/components/action-sheet/action-sheet-controller';
 import { GongDanService } from '../gongdanService';
 import { Utils } from '../../../../providers/Utils';
+import { AlertController} from 'ionic-angular';
 
 /**
  * Generated class for the CreateGongdanPage page.
@@ -45,7 +46,8 @@ export class CreateGongdanPage {
     public toastCtrl: ToastController,
     public gongdanService: GongDanService,
     public actionSheetCtrl: ActionSheetController,
-    public nativeService: NativeService) {
+    public nativeService: NativeService,
+    public alertCtrl:AlertController) {
     this.navParams.data.companyIschoosed = true;
     this.frontPage = Utils.getViewController("GongdanPage", navCtrl)
   }
@@ -62,7 +64,8 @@ export class CreateGongdanPage {
       this.navParams.data.need_reback = false
       this.title = reback_item.title
       this.description = reback_item.description
-      this.pushImgList = reback_item.work_order_images
+      // this.imgList = reback_item.work_order_images
+      // this.pushImgList = reback_item.work_order_images
       this.priorityId = reback_item.priority
     }
     else
@@ -215,6 +218,23 @@ export class CreateGongdanPage {
 
   assignPeople() {
     this.navCtrl.push("AssignPeoplePage")
+  }
+
+  goBack(){
+    if (this.title || this.description ||this.priorityId) {
+        this.alertCtrl.create({
+        title: '提示',
+        subTitle: '已输入内容，是否确认返回？',
+        buttons: [{ text: '取消' },
+        {
+          text: '确定',
+          handler: () => {
+            this.navCtrl.pop();
+          }
+        }
+        ]
+      }).present();
+    }
   }
 
 }

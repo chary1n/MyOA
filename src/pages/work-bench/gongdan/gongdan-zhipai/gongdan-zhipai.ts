@@ -28,7 +28,7 @@ export class GongdanZhipaiPage {
     this.item = this.navParams.get('item')
     console.log(this.item)   
     this.frontPage = Utils.getViewController("GongdanPage", navCtrl)
-    this.gongDanService.get_all_employees().then((res) => {
+    this.gongDanService.get_department_employees(this.item.effective_department_ids).then((res) => {
         if (res.result && res.result.res_code == 1)
         {
           this.employeeList = res.result.res_data;
