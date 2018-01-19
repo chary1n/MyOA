@@ -26,9 +26,23 @@ export class GongDanService {
 
     work_order_statistics(){
         let body = JSON.stringify({
-            uid:HttpService.user_id
+            uid:HttpService.user_id,
           });
         return this.httpservice.postBody("work_order_statistics", body,1);
+    }
+
+    work_order_statisticsWithTime(start_date,end_date){
+        let body = JSON.stringify({
+            uid:HttpService.user_id,
+            start_date :start_date,
+            end_date :end_date
+          });
+        return this.httpservice.postBody("work_order_statistics", body,1);
+    }
+
+
+    searchAtMe(body){
+        return this.httpservice.postBody("searchAtMe", body,1);
     }
 
 

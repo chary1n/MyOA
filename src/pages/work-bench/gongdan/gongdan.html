@@ -105,19 +105,16 @@
       </div>
     </ion-item-group>
 
-
-
-
   </div>
   <div *ngIf="show_type == 'me'">
     <div style="width:100%;height:155px;padding:15px;text-align:center;background:#0097ee">
       <!-- <canvas 
      style="background:#ffffff;height:80px;width:100%;position:absolute;top:0px;left:0px;z-index:1;" id="canvas"> -->
       <div style="text-align:center; border-radius: 5px;background:white;margin-top:-33px;height:100%">
-        <div style="position:relative;width:70px;margin:0 auto;margin-top:30px">
+        <div style="position:relative;width:70px;margin:0 auto;margin-top:30px" taggable (click)="searchAtMe()">
           <img style="margin-top:17px " src="assets/img/gongdan/huifu.png">
           <div style="margin-top:1px">最新@我</div>
-          <span style="position:absolute;width:20px;height:20px;border-radius:10px;background-color:red;display:inline-block;color:white;line-height:20px;right:-17px;top:11px;text-align:center;font-size:12px">12</span>
+          <span *ngIf="searchAtMeNumber!=0"   style="position:absolute;width:20px;height:20px;border-radius:10px;background-color:red;display:inline-block;color:white;line-height:20px;right:-17px;top:11px;text-align:center;font-size:12px">{{searchAtMeNumber}}</span>
         </div>
       </div>
       <!-- </canvas> -->
@@ -176,30 +173,44 @@
 
   </div>
   <div *ngIf="show_type == 'tongji'" style="background:#f0f2f5">
+    <div style="height:40px;overflow: hidden;background:white;padding-top:8px">
+      <span style="float:right;margin-right:20px">
+        发布总数:{{total_number}}
+      </span>
+      <img src= "assets/img/gongdan/rili.png" height="18px" width="18px" style="margin-left:10px;">
+      <span style="margin-left:10px;width:60px" (click)="chooseStartDate()">
+          {{startDate}} 
+      </span>
+        -
+      <span (click)="chooseEndDate()" style="width:60px">
+        {{endDate}}
+      </span>
+
+    </div>
     <div style="background:#ffffff">
       <div style="float:right; margin-right:60px">
         <canvas id="rings" style="width:100px;height:100px;margin-top:5px"></canvas>
       </div>
       <div>
-        <div class="div_x">
+        <div class="div_x" (click)="processTongjiWithTime()" >
           <span class="div_span_number"> {{processTongji}}</span>
           <span class="div_span">受理中</span>
           <div class="small_rang" style="background:#1897f2 "> </div>
         </div>
-        <div class="div_x">
+        <div class="div_x"  (click)="unacceptTongjiWithTime()">
           <span class="div_span_number"> {{unacceptTongji}}</span>
           <span class="div_span">未受理</span>
           <div class="small_rang" style="background:#faa619 "> </div>
         </div>
 
-        <div class="div_x">
+        <div class="div_x"  (click)="checkTongjiWithTime()">
           <span>
             <span class="div_span_number"> {{checkTongji}}</span>
             <span class="div_span">待验收</span>
             <div class="small_rang" style="background:#fce63a "> </div>
           </span>
         </div>
-        <div class="div_x">
+        <div class="div_x"  (click)="doneTongjiWithTime()">
           <span class="div_span_number"> {{doneTongji}}</span>
           <span class="div_span">已完成</span>
           <div class="small_rang" style="background:#c3e369 "> </div>
@@ -207,9 +218,9 @@
       </div>
     </div>
 
-    <button ion-item (click)="mySubmitList()" style="margin-top:10px">
+    <button ion-item (click)="more48Hour()" style="margin-top:10px">
       <ion-avatar item-start>
-        <img src="assets/img/gongdan/myApply.png">
+        <img src="assets/img/gongdan/tixing.png" style="width:12px;height:12px">
       </ion-avatar>
       <ion-label>超过48小时未受理
         <span style="float:right"> {{processNumber}}</span>

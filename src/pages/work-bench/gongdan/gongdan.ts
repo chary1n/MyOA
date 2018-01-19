@@ -1,8 +1,12 @@
+import { ToastController } from 'ionic-angular/components/toast/toast-controller';
 import { HttpService } from './../../../providers/HttpService';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams,Platform } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { GongDanService } from './gongdanService';
+import { DatePipe } from '@angular/common';
+import { DatePicker } from '@ionic-native/date-picker';
+import { Utils } from '../../../providers/Utils';
 /**
  * Generated class for the GongdanPage page.
  *
@@ -13,7 +17,7 @@ import { GongDanService } from './gongdanService';
 @Component({
   selector: 'page-gongdan',
   templateUrl: 'gongdan.html',
-  providers: [GongDanService]
+  providers: [GongDanService, DatePipe]
 })
 export class GongdanPage {
   canvas: any;
@@ -35,9 +39,15 @@ export class GongdanPage {
   processTongji = 0;
   is_android;
   page_issue_state;
+  startDate;
+  endDate;
+  total_number = 0;
+  more_48_number = 0;
+  searchAtMeNumber = 0;
   constructor(public navCtrl: NavController, public navParams: NavParams, public statusbar: StatusBar,
-    public gongdanService: GongDanService,public platform:Platform) {
-    this.show_type = "me";
+    public gongdanService: GongDanService, public platform: Platform, private datePipe: DatePipe,
+    private datePicker: DatePicker, private toastCtrl: ToastController) {
+    this.show_type = "gongdan";
     this.is_android = this.platform.is('android')
   }
 
@@ -46,11 +56,6 @@ export class GongdanPage {
     this.statusbar.backgroundColorByHexString("#2597ec");
     this.statusbar.styleLightContent();
     this.canvas = <HTMLCanvasElement>document.getElementById('canvas');
-    // this.step = 1;
-    // this.loop();
-    // window.setInterval(() => {
-    //   this.loop();
-    // }, 500);
   }
 
   ionViewDidEnter() {
@@ -58,20 +63,19 @@ export class GongdanPage {
       this.navParams.data.need_fresh = false;
       this.gongdanService.work_order_statistics().then(res => {
         console.log(res)
-      if(res.result.res_data)
-      {
-        if(res.result.res_data.unaccept){
-          this.unacceptTitle ="等待受理" +" (" + res.result.res_data.unaccept + ")";
+        if (res.result.res_data) {
+          if (res.result.res_data.unaccept) {
+            this.unacceptTitle = "等待受理" + " (" + res.result.res_data.unaccept + ")";
+          }
+          if (res.result.res_data.check) {
+            this.unassignTitle = "待验收" + " (" + res.result.res_data.check + ")";
+          }
+          if (res.result.res_data.process) {
+            this.processTitle = "受理中" + " (" + res.result.res_data.process + ")";
+          }
         }
-        if(res.result.res_data.check){
-          this.unassignTitle = "待验收" + " (" + res.result.res_data.check + ")";
-        }
-        if(res.result.res_data.process){
-          this.processTitle = "受理中" + " (" + res.result.res_data.process + ")";
-        }
-      }
-    })
-    this.getDataList(this.page_issue_state)
+      })
+      this.getDataList(this.page_issue_state)
     }
   }
 
@@ -81,23 +85,28 @@ export class GongdanPage {
     this.gongdanService.my_work_order_statistics().then(res => {
       if (res.result && res.result.res_code == 1) {
         this.processNumber = res.result.res_data.process
-        this.unassignNumber = res.result.res_data.unassignNumber
+        this.unassignNumber = res.result.res_data.check
       }
       console.log(res)
     })
+
   }
+
+
+
+
+
 
   click_gongdan() {
     this.dataList = []
     this.show_type = "gongdan"
     this.gongdanService.work_order_statistics().then(res => {
       console.log(res)
-      if(res.result.res_data)
-      {
-        if(res.result.res_data.unaccept){
-          this.unacceptTitle ="等待受理" +" (" + res.result.res_data.unaccept + ")";
+      if (res.result.res_data) {
+        if (res.result.res_data.unaccept) {
+          this.unacceptTitle = "等待受理" + " (" + res.result.res_data.unaccept + ")";
         }
-        if(res.result.res_data.check){
+        if (res.result.res_data.check) {
           this.unassignTitle = "待验收" + " (" + res.result.res_data.check + ")";
         }
         if (res.result.res_data.process) {
@@ -110,22 +119,11 @@ export class GongdanPage {
 
   click_tongji() {
     this.show_type = "tongji"
-    this.gongdanService.work_order_statistics().then(res => {
-      console.log(res)
-      if (res.result && res.result.res_code == 1) {
-        this.processTongji = res.result.res_data.process ? parseInt(res.result.res_data.process) : 0
-        this.unacceptTongji = res.result.res_data.unaccept ? parseInt(res.result.res_data.unaccept) : 0
-        this.checkTongji = res.result.res_data.check ? parseInt(res.result.res_data.check) : 0
-        this.doneTongji = res.result.res_data.done ? parseInt(res.result.res_data.done) : 0
-        let total = this.processTongji + this.checkTongji + this.doneTongji + this.unacceptTongji
-        if (total == 0) {
-          this.drawRings(0, 0, 0, 1)
-        } else {
-          this.drawRings(this.processTongji / total, this.unacceptTongji / total, this.checkTongji / total, this.doneTongji / total)
-        }
-      }
-    })
+    this.endDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd'),
+      this.startDate = this.datePipe.transform(new Date(new Date().getTime() - 3600000 * 24 * 7), 'yyyy-MM-dd')
+    this.dateChanged();
   }
+
 
   wait_shouli() {
 
@@ -141,7 +139,7 @@ export class GongdanPage {
 
 
   looper(canvas) {
- 
+
     let ctx = canvas.getContext('2d');
     canvas.width = 300;
     canvas.height = 100;
@@ -185,7 +183,7 @@ export class GongdanPage {
     this.navCtrl.pop();
     this.statusbar.backgroundColorByHexString("#ffffff");
     this.statusbar.styleDefault();
-    
+
   }
 
   click_detail() {
@@ -212,14 +210,166 @@ export class GongdanPage {
     this.requestWorkOrderSearch(body)
   }
 
+  // 待他人验收
+  waitOtherAssign() {
+    let body = JSON.stringify({
+      uid: HttpService.user_id,
+      assign_uid: HttpService.user_id,
+      issue_state: "check",
+    });
+    this.requestWorkOrderSearch(body)
+  }
 
-  waitOrderAssign() {
+  // 我已完成的
+  myFinished() {
+    let body = JSON.stringify({
+      uid: HttpService.user_id,
+      assign_uid: HttpService.user_id,
+      issue_state: "done",
+    });
+    this.requestWorkOrderSearch(body)
+  }
 
-
-
+  // 我回复过的
+  myReply() {
+    let body = JSON.stringify({
+      isSearchOrder: true,
+      uid: HttpService.user_id,
+      reply: HttpService.user_id
+    });
+    this.requestWorkOrderSearch(body)
   }
 
 
+
+  // 我指派过的
+  myAssigned() {
+    let body = JSON.stringify({
+      isSearchOrder: true,
+      uid: HttpService.user_id,
+      create_uid: HttpService.user_id
+    });
+    this.requestWorkOrderSearch(body)
+  }
+
+
+
+  searchAtMe() {
+    let body = JSON.stringify({
+      uid: HttpService.user_id,
+      assign: HttpService.user_id,
+      reply: HttpService.user_id,
+      isSearchOrder: true,
+      isRead: false
+    });
+    this.gongdanService.searchAtMe(body).then(res => {
+      if (res.result && res.result.res_code == 1) {
+        this.navCtrl.push("MyGongdanListPage", { gongdanList: res.result.res_data })
+      }
+    })
+  }
+
+  searchAtMeNumberFunction() {
+    let body = JSON.stringify({
+      uid: HttpService.user_id,
+      assign: HttpService.user_id,
+      reply: HttpService.user_id,
+      isSearchOrder: true,
+      isRead: false
+    });
+    this.gongdanService.searchAtMe(body).then(res => {
+      if (res.result && res.result.res_code == 1) {
+        this.searchAtMeNumber = res.result.res_data.length
+      }
+    })
+  }
+
+
+
+  more48Hour() {
+    let body = JSON.stringify({
+      uid: HttpService.user_id,
+      start_date: this.startDate,
+      end_date: this.datePipe.transform(new Date(new Date().getTime() - 3600000 * 48), 'yyyy-MM-dd'),
+      issue_state: 'unaccept'
+    });
+    console.log(this.datePipe.transform(new Date(), 'yyyy-MM-dd'))
+    console.log(body)
+    this.requestWorkOrderSearch(body)
+  }
+
+
+  moreThan_48_Hour_number() {
+    let body = JSON.stringify({
+      uid: HttpService.user_id,
+      start_date: this.startDate,
+      end_date: this.datePipe.transform(new Date(new Date().getTime() - 3600000 * 48), 'yyyy-MM-dd'),
+      issue_state: 'unaccept'
+    });
+    this.gongdanService.work_order_search(body).then(res => {
+      if (res.result && res.result.res_code == 1 && res.result.res_data) {
+        this.more_48_number = res.result.res_data.length;
+      }
+    })
+  }
+
+
+  chooseStartDate() {
+    this.datePicker.show({
+      date: new Date(),
+      mode: 'date',
+      androidTheme: this.datePicker.ANDROID_THEMES.THEME_HOLO_DARK,
+    }).then(
+      date => {
+        if (this.endDate >= this.startDate) {
+          this.startDate = this.datePipe.transform(date, 'yyyy-MM-dd')
+          this.dateChanged();
+        } else {
+          Utils.toastButtom("请选择正确的日期", this.toastCtrl)
+        }
+      },
+      err => console.log('Error occurred while getting date: ', err)
+      );
+  }
+
+  chooseEndDate() {
+    this.datePicker.show({
+      date: new Date(),
+      mode: 'date',
+      androidTheme: this.datePicker.ANDROID_THEMES.THEME_HOLO_DARK,
+    }).then(
+      date => {
+        if (this.endDate >= this.startDate) {
+          this.endDate = this.datePipe.transform(date, 'yyyy-MM-dd')
+          this.dateChanged();
+        } else {
+          Utils.toastButtom("请选择正确的日期", this.toastCtrl)
+        }
+      },
+      err => console.log('Error occurred while getting date: ', err)
+      );
+  }
+
+  dateChanged() {
+    this.gongdanService.work_order_statisticsWithTime(this.startDate, this.endDate).then(res => {
+      console.log(res)
+      if (res.result && res.result.res_code == 1 && res.result.res_data) {
+        this.processTongji = res.result.res_data.process ? parseInt(res.result.res_data.process) : 0
+        this.unacceptTongji = res.result.res_data.unaccept ? parseInt(res.result.res_data.unaccept) : 0
+        this.checkTongji = res.result.res_data.check ? parseInt(res.result.res_data.check) : 0
+        this.doneTongji = res.result.res_data.done ? parseInt(res.result.res_data.done) : 0
+        let total = this.processTongji + this.checkTongji + this.doneTongji + this.unacceptTongji
+        this.total_number = total
+        if (total == 0) {
+          this.drawRings(0, 0, 0, 1)
+        } else {
+          this.drawRings(this.processTongji / total, this.unacceptTongji / total, this.checkTongji / total, this.doneTongji / total)
+        }
+      }
+    })
+    this.moreThan_48_Hour_number();
+
+  }
 
 
 
@@ -230,6 +380,48 @@ export class GongdanPage {
       }
     })
   }
+
+
+  processTongjiWithTime() {
+    let body = JSON.stringify({
+      uid: HttpService.user_id,
+      start_date: this.startDate,
+      end_date: this.endDate,
+      issue_state: 'process'
+    });
+    this.requestWorkOrderSearch(body);
+  }
+
+
+  doneTongjiWithTime() {
+    let body = JSON.stringify({
+      uid: HttpService.user_id,
+      start_date: this.startDate,
+      end_date: this.endDate,
+      issue_state: 'done'
+    });
+    this.requestWorkOrderSearch(body);
+  }
+  checkTongjiWithTime() {
+    let body = JSON.stringify({
+      uid: HttpService.user_id,
+      start_date: this.startDate,
+      end_date: this.endDate,
+      issue_state: 'check'
+    });
+    this.requestWorkOrderSearch(body);
+  }
+  unacceptTongjiWithTime() {
+    let body = JSON.stringify({
+      uid: HttpService.user_id,
+      start_date: this.startDate,
+      end_date: this.endDate,
+      issue_state: 'unaccept'
+    });
+    this.requestWorkOrderSearch(body);
+  }
+
+
 
 
 
@@ -291,7 +483,7 @@ export class GongdanPage {
     else if (item == "process") {
       state_str = "受理中"
     }
-    else if (item == "check"){
+    else if (item == "check") {
       state_str = "待验收"
     }
     return state_str
@@ -305,8 +497,8 @@ export class GongdanPage {
     this.getDataList("process")
   }
 
-  unassignClick(){
-    this.getDataList("check")   
+  unassignClick() {
+    this.getDataList("check")
   }
 
   getDataList(state) {
