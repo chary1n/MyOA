@@ -64,6 +64,14 @@ export class GongDanService {
        return this.httpservice.postBody("get_all_employees",body);
     }
 
+    get_department_employees(department_ids)
+    {
+        let body = JSON.stringify({
+            department_ids:department_ids
+        });
+       return this.httpservice.postBody("get_department_employees",body);
+    }
+
     work_order_action(uid,work_order_id,action_type,assign_uid){
         let body = JSON.stringify({
             uid:uid,
