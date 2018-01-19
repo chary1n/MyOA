@@ -9,20 +9,19 @@ import { ActionSheetController } from 'ionic-angular/components/action-sheet/act
 import { GongDanService } from '../gongdanService';
 import { Utils } from '../../../../providers/Utils';
 import { AlertController} from 'ionic-angular';
-
 /**
- * Generated class for the CreateGongdanPage page.
+ * Generated class for the RebackGongdanPage page.
  *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
  */
 @IonicPage()
 @Component({
-  selector: 'page-create-gongdan',
-  templateUrl: 'create-gongdan.html',
+  selector: 'page-reback-gongdan',
+  templateUrl: 'reback-gongdan.html',
   providers: [GongDanService, NativeService]
 })
-export class CreateGongdanPage {
+export class RebackGongdanPage {
   title;
   description;
   priorityId;
@@ -40,7 +39,8 @@ export class CreateGongdanPage {
   departmentList;
   reback_item;
   is_back_gongdan;
-  frontPage
+  frontPage;
+  work_order_id;
   priority = [{ name: '低', id: '1' }, { name: '中', id: '2' }, { name: '高', id: '3' }]
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public toastCtrl: ToastController,
@@ -49,11 +49,11 @@ export class CreateGongdanPage {
     public nativeService: NativeService,
     public alertCtrl:AlertController) {
     this.navParams.data.companyIschoosed = true;
-    this.frontPage = Utils.getViewController("GongdanPage", navCtrl)
+    this.frontPage = Utils.getViewController("GongdanDetailPage", navCtrl)
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad CreateGongdanPage');
+    console.log('ionViewDidLoad RebackGongdanPage');
   }
 
   ionViewWillEnter() {
@@ -64,7 +64,9 @@ export class CreateGongdanPage {
       this.navParams.data.need_reback = false
       this.title = reback_item.title
       this.description = reback_item.description
+      this.imgList = reback_item.work_order_images
       this.priorityId = reback_item.priority
+      this.work_order_id = reback_item.work_order_id
     }
     else
     {
@@ -89,7 +91,6 @@ export class CreateGongdanPage {
     console.log(this.companyIschoosed)
     console.log(this.chooseList)
   }
-
 
   release() {
     let mString = "";
@@ -123,19 +124,16 @@ export class CreateGongdanPage {
         assign_uid: assign_uid,
         departments: departments,
         uid: HttpService.user_id,
-        wo_images: this.pushImgList
+        wo_images: this.pushImgList,
+        work_order_id:this.work_order_id,
       }
-      this.gongdanService.create_work_order(body).then(res => {
+      this.gongdanService.commit_draft(body).then(res => {
         console.log(res)
         if (res.result && res.result.res_code == 1) {
-          if (this.is_back_gongdan){
+         
              this.frontPage.data.need_fresh = true;
              this.navCtrl.popTo(this.frontPage);
-          }
-          else
-          {
-             this.navCtrl.pop()
-          }
+        
          
         }
       })
@@ -215,7 +213,9 @@ export class CreateGongdanPage {
 
 
   assignPeople() {
-    this.navCtrl.push("AssignPeoplePage")
+    this.navCtrl.push("AssignPeoplePage",{
+      need_pop_reback:true,
+    })
   }
 
   goBack(){
@@ -234,5 +234,7 @@ export class CreateGongdanPage {
       }).present();
     }
   }
+    
+  
 
 }

@@ -39,6 +39,8 @@ export class GongdanDetailPage {
     this.is_ios = this.platform.is('ios')
     if (this.item.issue_state == "unaccept" || this.item.issue_state == "process"){
       this.isShowZhiPai = true
+      this.isShowRefuse = false
+      this.isShowConfirm = false
       if (this.item.create_user.id == HttpService.user_id){
         this.isShowCheHui = true
       }
@@ -46,15 +48,19 @@ export class GongdanDetailPage {
         if (this.item.assign_user.id == HttpService.user_id){
           this.isShowFinish = true
         }
-      }
-      
+      } 
     }
-    else{
+    else {
+      this.isShowRefuse = false
+      this.isShowConfirm = false
+       this.isShowZhiPai = false
+      if (this.item.issue_state == "check"){
       if (this.item.create_user.id == HttpService.user_id){
         this.isShowRefuse = true
         this.isShowConfirm = true
       }
     }
+    } 
   }
 
   ionViewDidLoad() {
@@ -74,6 +80,24 @@ export class GongdanDetailPage {
       if(res.result.res_data && res.result.res_code == 1){
         this.item = res.result.res_data.work_order;
         this.message_item = res.result.res_data.records;
+         if (this.item.issue_state == "unaccept" || this.item.issue_state == "process"){
+      this.isShowZhiPai = true
+      if (this.item.create_user.id == HttpService.user_id){
+        this.isShowCheHui = true
+      }
+      if (this.item.issue_state == "process"){
+        if (this.item.assign_user.id == HttpService.user_id){
+          this.isShowFinish = true
+        }
+      }
+      
+    }
+    else{
+      if (this.item.create_user.id == HttpService.user_id){
+        this.isShowRefuse = true
+        this.isShowConfirm = true
+      }
+    }
       }
     })
   }
@@ -88,6 +112,12 @@ export class GongdanDetailPage {
     }
     else if (item == "check"){
       state_str = "待验收"
+    }
+    else if (item == "done"){
+      state_str = "已完成"
+    }
+    else if (item == "draft"){
+      state_str = "草稿"
     }
     return state_str
   }
@@ -170,13 +200,11 @@ export class GongdanDetailPage {
               {
                 
                 Utils.toastButtom("撤回成功", this.toast)
-                this.frontPage.data.need_fresh = true;
-                this.navCtrl.popTo(this.frontPage);
+                // this.frontPage.data.need_fresh = true;
+                // this.navCtrl.popTo(this.frontPage);
+                this.reload()
               }
-              this.navCtrl.push('CreateGongdanPage',{
-              reback_item:this.item,
-              need_reback:true,
-            })
+            
             })
             
           }
@@ -287,6 +315,15 @@ export class GongdanDetailPage {
         ],
       }).present();
   }
+
+  release(){
+     this.navCtrl.push('RebackGongdanPage',{
+              reback_item:this.item,
+              need_reback:true,
+      })
+  }
+
+   
 
   // 回复类型 ：('reply', '回复'),
   //       ('create ', '创建'),

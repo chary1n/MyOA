@@ -89,4 +89,8 @@ export class GongDanService {
           });
         return this.httpservice.postBody("work_order_retract", body,1);
     }
+
+    commit_draft(body){
+        return this.httpservice.postBody("commit_draft", body,1);
+    }
 }
