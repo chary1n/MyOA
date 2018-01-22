@@ -27,7 +27,7 @@ export class CreateGongdanPage {
   description;
   priorityId;
   companyIschoosed = true;
-  chooseList;
+  chooseList :any;
   // 指派受理人
   assignList;
   imgList = [];
@@ -116,30 +116,70 @@ export class CreateGongdanPage {
       if (this.choosePeopleItem) {
         assign_uid = this.choosePeopleItem.id
       }
-      let body = {
-        title: this.title,
-        description: this.description,
-        priority: this.priorityId,
-        assign_uid: assign_uid,
-        departments: departments,
-        uid: HttpService.user_id,
-        wo_images: this.pushImgList
-      }
-      this.gongdanService.create_work_order(body).then(res => {
-        console.log(res)
-        if (res.result && res.result.res_code == 1) {
-          if (this.is_back_gongdan){
-             this.frontPage.data.need_fresh = true;
-             this.navCtrl.popTo(this.frontPage);
+// 没有选公司   指派了人
+      if(!this.companyIschoosed&&this.choosePeopleItem){
+        if(this.checkPeopleInList()){
+          let body = {
+            title: this.title,
+            description: this.description,
+            priority: this.priorityId,
+            assign_uid: assign_uid,
+            departments: departments,
+            uid: HttpService.user_id,
+            wo_images: this.pushImgList
           }
-          else
-          {
-             this.navCtrl.pop()
-          }
-         
+          this.gongdanService.create_work_order(body).then(res => {
+            console.log(res)
+            if (res.result && res.result.res_code == 1) {
+              if (this.is_back_gongdan){
+                 this.frontPage.data.need_fresh = true;
+                 this.navCtrl.popTo(this.frontPage);
+              }
+              else
+              {
+                 this.navCtrl.pop()
+              }
+            }
+          })
+        }else{
+          Utils.toastButtom("指派人不在可见范围中,请重新选择",this.toastCtrl)
         }
-      })
+      }else{
+        let body = {
+          title: this.title,
+          description: this.description,
+          priority: this.priorityId,
+          assign_uid: assign_uid,
+          departments: departments,
+          uid: HttpService.user_id,
+          wo_images: this.pushImgList
+        }
+        this.gongdanService.create_work_order(body).then(res => {
+          console.log(res)
+          if (res.result && res.result.res_code == 1) {
+            if (this.is_back_gongdan){
+               this.frontPage.data.need_fresh = true;
+               this.navCtrl.popTo(this.frontPage);
+            }
+            else
+            {
+               this.navCtrl.pop()
+            }
+          }
+        })
+      }
     }
+  }
+
+  checkPeopleInList(){
+    let department_id  =  this.choosePeopleItem.department_id
+    console.log(department_id)
+    for( let i = 0; i<this.chooseList.length; i++){
+      if(department_id.id == this.chooseList[i]){
+        return  true
+      } 
+    }
+    return false
   }
 
   chooseWhoCanSee() {
