@@ -24,11 +24,11 @@
       </ion-refresher>
         <ion-list style="margin-top:-10px">
           <ion-item  no-lines *ngFor='let item of waitApplyList' tappable (click)='getWaitApplyDeatil(item)' style="margin-top:10px">
-            <h4 text-wrap style="font-size:90%;color:#2e3133">{{item.name}}</h4>
-            <p text-wrap style="font-size:70%;color:#8a9299;margin-top:5px"> 创建人：{{item.create_name}} </p>
-            <p text-wrap style="font-size:70%;color:#8a9299">盘点日期：{{ changeDate(item.date) | date:"yyyy.MM.dd"}}</p>
-            <p text-wrap style="font-size:70%;color:#8a9299;float:left">来源备注：{{changeRemark(item.remark)}}</p>
-            <p text-wrap style="font-size:70%;float:right;color:#fd9f89">进行中</p> 
+            <h4 text-wrap style="font-size:14px;color:#2e3133">{{item.name}}</h4>
+            <p text-wrap style="font-size:12px;color:#8a9299;margin-top:15px"> 创建人：{{item.create_name}} </p>
+            <p text-wrap style="font-size:12px;color:#8a9299;margin-top:10px">盘点日期：{{ changeDate(item.date) | date:"yyyy.MM.dd"}}</p>
+            <p text-wrap style="font-size:12px;color:#8a9299;float:left;margin-top:10px">来源备注：{{changeRemark(item.remark)}}</p>
+            <p text-wrap style="font-size:12px;float:right;color:#fd9f89;margin-top:10px">进行中</p> 
           </ion-item> 
         </ion-list>
 </ion-content>

@@ -42,11 +42,11 @@
     <ng-template [ngSwitchCase]='1' style="margin-top:10px;">
       <ion-list>
         <ion-item  no-lines *ngFor='let item of hotBlogList' tappable (click)='getblogDetail(item)' class="middle_item">
-          <h4 text-wrap style="font-size:100%;font-weight:bold">{{item.name}}</h4>
-          <p text-wrap style="font-size:70%;color:gray"> {{item.subtitle}} </p>
-          <p text-wrap style="font-size:70%;color:gray">来自分类：{{item.blog_id.blog_name}}/{{item.tag_ids.tag_name}} </p>
+          <h4 text-wrap style="font-size:14px;font-weight:bold">{{item.name}}</h4>
+          <p text-wrap style="font-size:12px;color:gray"> {{item.subtitle}} </p>
+          <p text-wrap style="font-size:12px;color:gray">来自分类：{{item.blog_id.blog_name}}/{{item.tag_ids.tag_name}} </p>
           <img src={{item.create_uid.create_img}} class="image1" style="float:left;">
-          <p text-wrap style="font-size:70%;line-height:27px;margin-left: 35px;">{{item.create_uid.create_name}}</p>
+          <p text-wrap style="font-size:12px;line-height:27px;margin-left: 35px;">{{item.create_uid.create_name}}</p>
         </ion-item> 
       </ion-list>
     </ng-template>
