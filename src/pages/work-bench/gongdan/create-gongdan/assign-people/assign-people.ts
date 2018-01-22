@@ -21,9 +21,18 @@ export class AssignPeoplePage {
   origin_data;
   chooseList = [];
   frontPage;
+  need_pop_reback;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public contactService: ContactService) {
-    this.frontPage = Utils.getViewController("CreateGongdanPage", navCtrl)
+    this.need_pop_reback = this.navParams.get('need_pop_reback')
+    if (this.need_pop_reback){
+      this.frontPage = Utils.getViewController("RebackGongdanPage", navCtrl)
+    }
+    else
+    {
+      this.frontPage = Utils.getViewController("CreateGongdanPage", navCtrl)
+    }
+    
     this.contactService.get_all_employees().then((res) => {
       if (res.result && res.result.res_code == 1) {
         this.employeeList = res.result.res_data;

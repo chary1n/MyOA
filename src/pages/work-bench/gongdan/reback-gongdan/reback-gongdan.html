@@ -14,10 +14,10 @@
         <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
       </button>
     </ion-buttons>
-    <ion-title>新建工单</ion-title>
+    <ion-title>重新编辑工单</ion-title>
     <ion-buttons end>
       <button ion-button (click)='release()'>
-        发布
+        提交
       </button>
     </ion-buttons>
   </ion-navbar>
@@ -41,7 +41,7 @@
       <ion-col col-4 *ngFor="let item of imgList">
         <img src={{item}} imageViewer/>
       </ion-col>
-      <ion-col col-4  tappable (click)="addImg()">
+      <ion-col col-4 (click)="addImg()">
         <img src="assets/img/add.png" />
       </ion-col>
     </ion-row>

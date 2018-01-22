@@ -24,11 +24,27 @@ export class GongDanService {
         return this.httpservice.postBody("work_order_search", body,1);
     }
 
-    work_order_statistics(){
+    work_order_statistics(start_date,end_date){
         let body = JSON.stringify({
-            uid:HttpService.user_id
+            uid:HttpService.user_id,
+            start_date:start_date,
+            end_date:end_date,
           });
         return this.httpservice.postBody("work_order_statistics", body,1);
+    }
+
+    work_order_statisticsWithTime(start_date,end_date){
+        let body = JSON.stringify({
+            uid:HttpService.user_id,
+            start_date :start_date,
+            end_date :end_date
+          });
+        return this.httpservice.postBody("work_order_statistics", body,1);
+    }
+
+
+    searchAtMe(body){
+        return this.httpservice.postBody("searchAtMe", body,1);
     }
 
 
@@ -62,5 +78,44 @@ export class GongDanService {
         let body = JSON.stringify({
         });
        return this.httpservice.postBody("get_all_employees",body);
+    }
+
+    get_department_employees(department_ids)
+    {
+        let body = JSON.stringify({
+            department_ids:department_ids
+        });
+       return this.httpservice.postBody("get_department_employees",body);
+    }
+
+    work_order_action(uid,work_order_id,action_type,assign_uid){
+        let body = JSON.stringify({
+            uid:uid,
+            work_order_id:work_order_id,
+            action_type:action_type,
+            assign_uid:assign_uid,
+          });
+        return this.httpservice.postBody("work_order_action", body,1);
+    }
+
+    work_order_retract(uid,work_order_id){
+         let body = JSON.stringify({
+            uid:uid,
+            work_order_id:work_order_id,
+          });
+        return this.httpservice.postBody("work_order_retract", body,1);
+    }
+
+    commit_draft(body){
+        return this.httpservice.postBody("commit_draft", body,1);
+    }
+
+    search_gongdan(search_text,search_type){
+        let body = JSON.stringify({
+            uid:HttpService.user_id,
+            search_text:search_text,
+            search_type:search_type,
+          });
+        return this.httpservice.postBody("search_gongdan", body,1);
     }
 }

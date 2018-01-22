@@ -17,13 +17,19 @@ export class GongdanChatPage {
   beizhuText;
   item;
   parent_id;
-  frontPage
+  frontPage;
+  record_item;
+  select_name;
   constructor(public navCtrl: NavController, public navParams: NavParams,public gongDanService:GongDanService,
     public toast:ToastController,) {
-    this.item = this.navParams.get('item')   
+    this.item = this.navParams.get('item')  
+    this.record_item = this.navParams.get('record_item')
     this.parent_id = this.navParams.get('parent_id')
     this.frontPage = Utils.getViewController("GongdanDetailPage", navCtrl)
-    this.gongDanService.get_all_employees().then((res) => {
+    this.select_list.push(this.record_item.create_uid.id)
+    this.select_name = this.record_item.create_uid.name
+    this.beizhuText = "@" + this.record_item.create_uid.name + " "
+    this.gongDanService.get_department_employees(this.item.effective_department_ids).then((res) => {
         if (res.result && res.result.res_code == 1)
         {
           this.employeeList = res.result.res_data;
@@ -54,7 +60,11 @@ export class GongdanChatPage {
   }
 
   reply(){
-    this.gongDanService.work_order_add_record(this.beizhuText,this.select_list[0],"reply",this.item.work_order_id,this.parent_id).then(res => {
+    if (this.select_list[0])
+    {
+      let name_str = "@"+this.select_name + " "
+      this.beizhuText = this.beizhuText.replace(name_str,"")
+       this.gongDanService.work_order_add_record(this.beizhuText,this.select_list[0],"reply",this.item.work_order_id,this.parent_id).then(res => {
       console.log(this.select_list)
   
       if (res.result.res_code == 1)
@@ -65,19 +75,19 @@ export class GongdanChatPage {
       }
     })
   }
+  else
+  {
+    Utils.toastButtom("请选择回复对象", this.toast)
+  }
+   
+  }
 
   itemSelect(item){
     let is_has = false;
-    for (let i = 0, len = this.select_list.length, value; i < len; i++) {
-      if(this.select_list[i] == item.user_id.id){
-        this.select_list.splice(i,1)
-        is_has = true
-        break
-      }
-    }
-    if (!is_has){
-      this.select_list.push(item.user_id.id)
-    }
+    this.beizhuText = this.beizhuText.replace(this.select_name,item.user_id.name)
+    this.select_name = item.user_id.name
+    this.select_list.splice(0,1)
+    this.select_list.push(item.user_id.id)
   }
 
   is_select(item){
@@ -89,6 +99,10 @@ export class GongdanChatPage {
       }
     }
     return is_has
+  }
+
+  calHeight(){
+    return (window.innerHeight - 44) / window.innerHeight * 100
   }
 
 }

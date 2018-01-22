@@ -6,7 +6,7 @@
 -->
 <ion-header>
 
-  <ion-navbar>
+  <ion-navbar color="gongdan-color">
     <ion-title>回复</ion-title>
   </ion-navbar>
 
@@ -15,7 +15,7 @@
 
 <ion-content scroll="false" style="background:#f0f0f0">
   <ion-searchbar placeholder = "搜索" (ionInput)="getItems($event)"></ion-searchbar>
-  <div style="overflow:scroll;margin-top:2px;height:60%">
+  <div class="scroll_class" [style.height]="calHeight() + '%'">
     <ion-list>
       <ion-item tappable (click) = "itemSelect(item)" *ngFor = 'let item of employeeList'>
         <ion-avatar item-start>
@@ -28,10 +28,13 @@
   </ion-list>
   </div>
  
+  
+</ion-content>
+<ion-footer>
   <div class="buttom_div">
     <p style="margin-top:-5px;"></p>
     <span style="margin-left:20px;color:gray">@相关人员：</span> <span *ngIf="select_name" style="font-size:17px;">{{select}}</span><span *ngIf="!select_name" style="color:gray;">(上方搜索框输入名字关键字搜索)</span>
     <ion-textarea rows="15" placeholder="输入回复" [(ngModel)]="beizhuText" style="margin-top:10px;height:115px;margin-left:4.5%;width:91%;border: 1px solid #e2e2e4;overflow:hidden;border-radius:1px;"></ion-textarea>
     <button ion-button  style='background-color:#1eabfe;border-radius:20px;width:25%;float:right;margin-right:4.5%;height:35px' tappable (click)='reply()' full>回复</button>
   </div>
-</ion-content>
+</ion-footer>

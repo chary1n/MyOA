@@ -5,7 +5,7 @@ import { ApplyAutoService } from './apply-auto';
 import { CreateApplyPage } from './../create-apply/create-apply';
 import { Storage } from '@ionic/storage';
 import { CommonUseServices } from './../commonUseServices';
-import { IonicPage, NavController, NavParams, ActionSheetController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ActionSheetController,AlertController } from 'ionic-angular';
 import { Component } from '@angular/core';
 declare let cordova: any;
 
@@ -36,17 +36,22 @@ export class ApplyPage {
   offset = 0;
   isMoreData = true;
   wait_approval_count =0;
+  department = false;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public commonService: CommonUseServices, public storage: Storage,
     actionSheetCtrl: ActionSheetController,
     public baoxiaoService: ReimbursementService,
     public reimbursementAutoService: ReimbursementAutoService,
-    public applyAutoService: ApplyAutoService) {
+    public applyAutoService: ApplyAutoService,public alertCtrl:AlertController) {
     this.actionSheetCtrl = actionSheetCtrl
 
     this.storage.get('user')
       .then(res => {
         console.log(res);
+        if (res.result.res_data.department)
+        {
+          this.department = true;
+        }
         this.user_id = res.result.res_data.user_id;
         this.baoxiaoService.getApprovalList(this.limit, this.offset, this.user_id).then((res) => {
           console.log(res);
@@ -207,7 +212,26 @@ export class ApplyPage {
 
 
   showActionSheet() {
-    this.navCtrl.push('BaoxiaoApplyPage')
+    if (this.department)
+    {
+      this.navCtrl.push('BaoxiaoApplyPage')
+  }
+  else
+  {
+    let ctrl = this.alertCtrl;
+    ctrl.create({
+              title: '提示',
+              subTitle: "该用户没有设置员工,请联系管理员",
+              buttons: [{
+                text: '确定',
+                handler: () => {
+                 
+                }
+              }
+              ]
+            }).present();
+  }
+    
   }
 
   clickApply(id) {

@@ -30,6 +30,11 @@ export class MyGongdanListPage {
   toDetail(item){
     this.gongdanService.getGongdanDetail(item.work_order_id).then(res=>{
       console.log(res)
+      if(res.result.res_data && res.result.res_code == 1){
+        this.navCtrl.push('GongdanDetailPage',{
+          items:res.result.res_data,
+        })
+      }
     })
   }
 
@@ -43,17 +48,38 @@ export class MyGongdanListPage {
     }
   }
 
-  changeState(state){
-    if(state="unaccept"){
-      return "未设置受理人"
-    }else if(state="unassign"){
-      return "未指派"
-    }else if(state="process"){
-      return "处理中"
-    }else if(state="check"){
-      return "待审核"
+  // changeState(state){
+  //   if(state="unaccept"){
+  //     return "未设置受理人"
+  //   }else if(state="unassign"){
+  //     return "未指派"
+  //   }else if(state="process"){
+  //     return "处理中"
+  //   }else if(state="check"){
+  //     return "待审核"
+  //   }
+  // }
+
+  changeState(item) {
+    let state_str = "";
+    if (item == "unaccept") {
+      state_str = "等待受理"
     }
+    else if (item == "process") {
+      state_str = "受理中"
+    }
+    else if (item == "check"){
+      state_str = "待验收"
+    }
+    else if (item == "done"){
+      state_str = "已完成"
+    }
+    else if (item == "draft"){
+      state_str = "草稿"
+    }
+    return state_str
   }
+
 
   getProprityImgSrc(item){
     if(item.priority=="3"){
