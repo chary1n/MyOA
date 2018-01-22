@@ -8,8 +8,13 @@
 
   <ion-navbar color="gongdan-color">
     <ion-title>工单详情</ion-title>
+    <ion-buttons *ngIf="item.issue_state == 'draft'" end>
+      <button ion-button (click)='release()'>
+        编辑
+      </button>
+    </ion-buttons>
   </ion-navbar>
-
+  
 </ion-header>
 
 
@@ -85,6 +90,9 @@
   </ion-item>
   <ion-item no-lines *ngIf="items.record_type == 'finish'" style="height:20px;min-height:40px;margin-top:-5px">
    <p [ngClass]="{true:'content_message',false:'content_message_no_lines'}[items.reply_record_line_ids.length > 0]" class="">验收通过</p>
+  </ion-item>
+   <ion-item no-lines *ngIf="items.record_type == 'draft'" style="height:20px;min-height:40px;margin-top:-5px">
+   <p [ngClass]="{true:'content_message',false:'content_message_no_lines'}[items.reply_record_line_ids.length > 0]" class="">{{items.content}}</p>
   </ion-item>
   <ion-item no-lines *ngFor="let line of items.reply_record_line_ids;" [ngClass]="{true:'item_calss_one',false:'item_class_first'}[i != 0]">
    <p>
