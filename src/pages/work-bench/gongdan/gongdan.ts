@@ -51,6 +51,7 @@ export class GongdanPage {
     private datePicker: DatePicker, private toastCtrl: ToastController) {
     this.show_type = "gongdan";
     this.is_android = this.platform.is('android')
+    this.click_gongdan()
   }
 
   ionViewDidLoad() {
@@ -115,11 +116,23 @@ export class GongdanPage {
         if (res.result.res_data.unaccept) {
           this.unacceptTitle = "等待受理" + " (" + res.result.res_data.unaccept + ")";
         }
+        else
+        {
+          this.unacceptTitle = "等待受理"
+        }
         if (res.result.res_data.check) {
           this.unassignTitle = "待验收" + " (" + res.result.res_data.check + ")";
         }
+        else
+        {
+          this.unassignTitle = "待验收"
+        }
         if (res.result.res_data.process) {
           this.processTitle = "受理中" + " (" + res.result.res_data.process + ")";
+        }
+        else
+        {
+          this.processTitle = "受理中"
         }
       }
     })
@@ -363,11 +376,23 @@ export class GongdanPage {
         if (res.result.res_data.unaccept) {
           this.unacceptTitle = "等待受理" + " (" + res.result.res_data.unaccept + ")";
         }
+        else
+        {
+          this.unacceptTitle = "等待受理"
+        }
         if (res.result.res_data.check) {
           this.unassignTitle = "待验收" + " (" + res.result.res_data.check + ")";
         }
+        else
+        {
+          this.unassignTitle = "待验收"
+        }
         if (res.result.res_data.process) {
           this.processTitle = "受理中" + " (" + res.result.res_data.process + ")";
+        }
+        else
+        {
+          this.processTitle = "受理中"
         }
       }
     })
@@ -418,14 +443,26 @@ export class GongdanPage {
           this.endDate_gongdan = this.datePipe.transform(date, 'yyyy-MM-dd')
           this.gongdanService.work_order_statistics(this.startDate_gongdan,this.endDate_gongdan).then(res => {
       if (res.result.res_data) {
-        if (res.result.res_data.unaccept) {
+       if (res.result.res_data.unaccept) {
           this.unacceptTitle = "等待受理" + " (" + res.result.res_data.unaccept + ")";
+        }
+        else
+        {
+          this.unacceptTitle = "等待受理"
         }
         if (res.result.res_data.check) {
           this.unassignTitle = "待验收" + " (" + res.result.res_data.check + ")";
         }
+        else
+        {
+          this.unassignTitle = "待验收"
+        }
         if (res.result.res_data.process) {
           this.processTitle = "受理中" + " (" + res.result.res_data.process + ")";
+        }
+        else
+        {
+          this.processTitle = "受理中"
         }
       }
     })
