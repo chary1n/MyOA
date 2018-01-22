@@ -83,7 +83,7 @@ export class GongdanPage {
     // this.looper(this.canvas);
     this.show_type = "me"
     this.gongdanService.my_work_order_statistics().then(res => {
-      if (res.result && res.result.res_code == 1) {
+      if (res.result && res.result.res_code == 1&&res.result.res_data) {
         this.processNumber = res.result.res_data.process
         this.unassignNumber = res.result.res_data.check
       }
@@ -93,7 +93,11 @@ export class GongdanPage {
   }
 
 
-
+  ionViewWillEnter(){
+    if( this.show_type == "me"){
+      this.click_me()
+    }
+  }
 
 
 

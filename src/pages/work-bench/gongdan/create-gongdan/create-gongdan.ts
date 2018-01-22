@@ -234,6 +234,8 @@ export class CreateGongdanPage {
         }
         ]
       }).present();
+    }else{
+      this.navCtrl.pop();
     }
   }
 
