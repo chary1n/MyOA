@@ -639,5 +639,22 @@
             "browser",
             "ios"
         ]
+<<<<<<< HEAD
     }
 }
+=======
+      },
+      "platforms": [
+        "android",
+        "browser",
+        "ios"
+      ]
+    },
+    "platforms": [
+      "android",
+      "browser",
+      "ios"
+    ]
+  }
+}
+>>>>>>> 861571418922385f36f368edd6ef006eba38bc1b
