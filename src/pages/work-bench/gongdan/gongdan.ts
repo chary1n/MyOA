@@ -40,7 +40,9 @@ export class GongdanPage {
   is_android;
   page_issue_state;
   startDate;
+  startDate_gongdan;
   endDate;
+  endDate_gongdan
   total_number = 0;
   more_48_number = 0;
   searchAtMeNumber = 0;
@@ -61,7 +63,8 @@ export class GongdanPage {
   ionViewDidEnter() {
     if (this.navParams.get('need_fresh') == true) {
       this.navParams.data.need_fresh = false;
-      this.gongdanService.work_order_statistics().then(res => {
+
+      this.gongdanService.work_order_statistics(this.startDate_gongdan,this.endDate_gongdan).then(res => {
         console.log(res)
         if (res.result.res_data) {
           if (res.result.res_data.unaccept) {
@@ -98,9 +101,11 @@ export class GongdanPage {
 
 
   click_gongdan() {
+    this.endDate_gongdan = this.datePipe.transform(new Date(), 'yyyy-MM-dd'),
+    this.startDate_gongdan = this.datePipe.transform(new Date(new Date().getTime() - 3600000 * 24 * 7), 'yyyy-MM-dd')
     this.dataList = []
     this.show_type = "gongdan"
-    this.gongdanService.work_order_statistics().then(res => {
+    this.gongdanService.work_order_statistics(this.startDate_gongdan,this.endDate_gongdan).then(res => {
       console.log(res)
       if (res.result.res_data) {
         if (res.result.res_data.unaccept) {
@@ -319,6 +324,10 @@ export class GongdanPage {
       date: new Date(),
       mode: 'date',
       androidTheme: this.datePicker.ANDROID_THEMES.THEME_HOLO_DARK,
+      cancelButtonLabel: "取消",
+      cancelText:"取消",
+      doneButtonLabel:"确定",
+      locale:"zh-Hans",
     }).then(
       date => {
         if (this.endDate >= this.startDate) {
@@ -332,16 +341,91 @@ export class GongdanPage {
       );
   }
 
+  chooseStartDate_gongdan() {
+    this.datePicker.show({
+      date: this.startDate_gongdan,
+      mode: 'date',
+      androidTheme: this.datePicker.ANDROID_THEMES.THEME_HOLO_DARK,
+      cancelButtonLabel: "取消",
+      cancelText:"取消",
+      doneButtonLabel:"确定",
+      locale:"zh-Hans",
+    }).then(
+      date => {
+        if (this.endDate_gongdan >= this.datePipe.transform(date, 'yyyy-MM-dd')) {
+          this.startDate_gongdan = this.datePipe.transform(date, 'yyyy-MM-dd')
+          this.gongdanService.work_order_statistics(this.startDate_gongdan,this.endDate_gongdan).then(res => {
+      if (res.result.res_data) {
+        if (res.result.res_data.unaccept) {
+          this.unacceptTitle = "等待受理" + " (" + res.result.res_data.unaccept + ")";
+        }
+        if (res.result.res_data.check) {
+          this.unassignTitle = "待验收" + " (" + res.result.res_data.check + ")";
+        }
+        if (res.result.res_data.process) {
+          this.processTitle = "受理中" + " (" + res.result.res_data.process + ")";
+        }
+      }
+    })
+    this.getDataList(this.page_issue_state)
+  
+        } else {
+          Utils.toastButtom("请选择正确的日期", this.toastCtrl)
+        }
+      },
+      err => console.log('Error occurred while getting date: ', err)
+      );
+  }
+
   chooseEndDate() {
     this.datePicker.show({
       date: new Date(),
-      mode: 'date',
+     mode: 'date',
       androidTheme: this.datePicker.ANDROID_THEMES.THEME_HOLO_DARK,
+      cancelButtonLabel: "取消",
+      cancelText:"取消",
+      doneButtonLabel:"确定",
+      locale:"zh-Hans",
     }).then(
       date => {
         if (this.endDate >= this.startDate) {
           this.endDate = this.datePipe.transform(date, 'yyyy-MM-dd')
           this.dateChanged();
+        } else {
+          Utils.toastButtom("请选择正确的日期", this.toastCtrl)
+        }
+      },
+      err => console.log('Error occurred while getting date: ', err)
+      );
+  }
+
+  chooseEndDate_gongdan() {
+    this.datePicker.show({
+      date: this.endDate_gongdan,
+      mode: 'date',
+      androidTheme: this.datePicker.ANDROID_THEMES.THEME_HOLO_DARK,
+      cancelButtonLabel: "取消",
+      cancelText:"取消",
+      doneButtonLabel:"确定",
+      locale:"zh-Hans",
+    }).then(
+      date => {
+        if (this.datePipe.transform(date, 'yyyy-MM-dd') >= this.startDate_gongdan) {
+          this.endDate_gongdan = this.datePipe.transform(date, 'yyyy-MM-dd')
+          this.gongdanService.work_order_statistics(this.startDate_gongdan,this.endDate_gongdan).then(res => {
+      if (res.result.res_data) {
+        if (res.result.res_data.unaccept) {
+          this.unacceptTitle = "等待受理" + " (" + res.result.res_data.unaccept + ")";
+        }
+        if (res.result.res_data.check) {
+          this.unassignTitle = "待验收" + " (" + res.result.res_data.check + ")";
+        }
+        if (res.result.res_data.process) {
+          this.processTitle = "受理中" + " (" + res.result.res_data.process + ")";
+        }
+      }
+    })
+    this.getDataList(this.page_issue_state)
         } else {
           Utils.toastButtom("请选择正确的日期", this.toastCtrl)
         }
@@ -505,6 +589,8 @@ export class GongdanPage {
     this.dataList = [];
     this.page_issue_state = state;
     this.gongdanService.work_order_search(JSON.stringify({
+      start_date:this.startDate_gongdan,
+      end_date:this.endDate_gongdan,
       uid: HttpService.user_id,
       issue_state: state,
     })).then(res => {
@@ -526,5 +612,14 @@ export class GongdanPage {
         })
       }
     })
+  }
+
+  search_gongdan(){
+    this.navCtrl.push("GongdanSearchPage")
+  }
+
+  changeDate(date){
+    let new_date = new Date(date.replace(' ', 'T') + 'Z').getTime();
+    return new_date;
   }
 }

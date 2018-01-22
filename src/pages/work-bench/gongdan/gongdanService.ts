@@ -24,9 +24,11 @@ export class GongDanService {
         return this.httpservice.postBody("work_order_search", body,1);
     }
 
-    work_order_statistics(){
+    work_order_statistics(start_date,end_date){
         let body = JSON.stringify({
             uid:HttpService.user_id,
+            start_date:start_date,
+            end_date:end_date,
           });
         return this.httpservice.postBody("work_order_statistics", body,1);
     }
@@ -106,5 +108,14 @@ export class GongDanService {
 
     commit_draft(body){
         return this.httpservice.postBody("commit_draft", body,1);
+    }
+
+    search_gongdan(search_text,search_type){
+        let body = JSON.stringify({
+            uid:HttpService.user_id,
+            search_text:search_text,
+            search_type:search_type,
+          });
+        return this.httpservice.postBody("search_gongdan", body,1);
     }
 }
