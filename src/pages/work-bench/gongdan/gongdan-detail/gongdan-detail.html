@@ -45,7 +45,7 @@
       <div class="creater_div">
         <img src={{item.create_user.user_ava}} class="create_ava">
         <span p class="creater_name">
-          {{item.create_user.name + " " +item.create_time}}
+          {{item.create_user.name + " " + (changeDate(item.create_time) | date:'MM-dd HH:mm')}}
         </span>
         <span  class="assign_name">
           {{"受理人： "+ item.assign_user.name}}
@@ -116,7 +116,7 @@
           <p [ngClass]="{true:'bottom_p_ios',false:'bottom_p_md'}[is_ios]">撤回</p>
         </div>
       </ion-col>
-      <ion-col *ngIf="item.issue_state != 'done'" tappable (click) = "replyClick()">
+      <ion-col *ngIf="item.issue_state != 'done' && item.issue_state != 'draft'" tappable (click) = "replyClick()">
         <div align="center">
          <img [ngClass]="{true:'bottom_img_ios',false:'bottom_img_md'}[is_ios]" src="assets/img/work_bench/re_back.png"><br>
           <p [ngClass]="{true:'bottom_p_ios',false:'bottom_p_md'}[is_ios]">回复</p>

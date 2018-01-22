@@ -60,7 +60,12 @@ export class GongdanZhipaiPage {
   }
 
   confirm(){
-    this.gongDanService.work_order_action(HttpService.user_id,this.item.work_order_id,"assign",this.select_list[0]).then(res => {
+    if (this.select_list[0]){
+       Utils.toastButtom("请选择指派人", this.toast)
+    }
+    else
+    {
+      this.gongDanService.work_order_action(HttpService.user_id,this.item.work_order_id,"assign",this.select_list[0]).then(res => {
       if (res.result.res_code == 1)
       {
         Utils.toastButtom("指派成功", this.toast)
@@ -68,6 +73,8 @@ export class GongdanZhipaiPage {
         this.navCtrl.popTo(this.frontPage);
       }
     })
+    }
+    
   }
 
   getItems(ev: any) {

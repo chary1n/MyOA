@@ -31,6 +31,11 @@
         </ion-col>
       </ion-row>
     </ion-grid>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="search_gongdan()">
+        <img style="width:20px" src="assets/img/work_bench/search_icon.png" />
+      </button>
+    </ion-buttons>
   </ion-navbar>
   
 </ion-header>
@@ -64,6 +69,14 @@
       </ion-row>
     </ion-grid>
 </div>
+<div style="height:40px;overflow: hidden;background:white;border-bottom: 1px #f0f2f5 solid" *ngIf="show_type == 'gongdan'">
+      
+      <img src= "assets/img/gongdan/rili.png" height="18px" width="18px" style="margin-left:10px;margin-top:11px;float:left">
+      <p style="float:left;margin-left:10px;line-height:14px;color:#8a9399">
+        <span  tappable (click)="chooseStartDate_gongdan()">{{startDate_gongdan + " - "}}</span><span tappable (click)="chooseEndDate_gongdan()">{{endDate_gongdan}}</span>   
+      </p>
+
+    </div>
   <div  *ngIf="show_type == 'gongdan'">
     
     <ion-item-group no-lines class="item_group_class" >
@@ -93,7 +106,7 @@
         <div class="creater_div">
           <img src={{item.create_user.user_ava}} class="create_ava">
           <span p class="creater_name">
-            {{item.create_user.name + " " +item.create_time}}
+            {{item.create_user.name + " " + (changeDate(item.create_time) | date:'yyyy-MM-dd HH:mm:ss')}}
           </span>
           <span *ngIf="item.assign_user.name" class="assign_name">
             {{"受理人： "+ item.assign_user.name}}
@@ -180,7 +193,7 @@
           {{startDate}} 
       </span>
         -
-      <span (click)="chooseEndDate()" style="width:60px">
+      <span tappable (click)="chooseEndDate()" style="width:60px">
         {{endDate}}
       </span>
 
