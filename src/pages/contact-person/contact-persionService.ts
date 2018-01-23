@@ -8,6 +8,13 @@ export class ContactService {
 
     }
 
+
+    get_department_employees(departments){
+        let body = JSON.stringify({
+            department_ids :departments
+        });
+        return this.httpservice.postBody("get_department_employees",body);
+    }
     get_departments(){
         let body = JSON.stringify({
            

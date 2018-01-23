@@ -22,6 +22,7 @@ export class AssignPeoplePage {
   chooseList = [];
   frontPage;
   need_pop_reback;
+  departments ;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public contactService: ContactService) {
     this.need_pop_reback = this.navParams.get('need_pop_reback')
@@ -32,13 +33,23 @@ export class AssignPeoplePage {
     {
       this.frontPage = Utils.getViewController("CreateGongdanPage", navCtrl)
     }
-    
-    this.contactService.get_all_employees().then((res) => {
-      if (res.result && res.result.res_code == 1) {
-        this.employeeList = res.result.res_data;
-        this.origin_data = this.employeeList;
-      }
-    })
+    this.departments =  this.navParams.get("departments")
+    if(this.departments){
+      this.contactService.get_department_employees(this.departments).then((res) => {
+        if (res.result && res.result.res_code == 1) {
+          this.employeeList = res.result.res_data;
+          this.origin_data = this.employeeList;
+        }
+      })
+    }else {
+      this.contactService.get_all_employees().then((res) => {
+        if (res.result && res.result.res_code == 1) {
+          this.employeeList = res.result.res_data;
+          this.origin_data = this.employeeList;
+        }
+      })
+    }
+   
   }
 
   getItems(ev: any) {

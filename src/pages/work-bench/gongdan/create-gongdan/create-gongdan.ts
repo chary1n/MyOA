@@ -272,7 +272,7 @@ export class CreateGongdanPage {
 
 
   assignPeople() {
-    this.navCtrl.push("AssignPeoplePage")
+    this.navCtrl.push("AssignPeoplePage",{departments:this.chooseList})
   }
 
   goBack(){
