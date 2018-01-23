@@ -56,6 +56,7 @@ export class GongdanDetailPage {
       this.isShowRefuse = false
       this.isShowConfirm = false
        this.isShowZhiPai = false
+       this.isShowCheHui = false
       if (this.item.issue_state == "check"){
       if (this.item.create_user.id == HttpService.user_id){
         this.isShowRefuse = true
@@ -99,6 +100,7 @@ export class GongdanDetailPage {
       this.isShowRefuse = false
       this.isShowConfirm = false
        this.isShowZhiPai = false
+       this.isShowCheHui = false
       if (this.item.issue_state == "check"){
       if (this.item.create_user.id == HttpService.user_id){
         this.isShowRefuse = true

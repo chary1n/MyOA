@@ -45,6 +45,7 @@
           <span p class="creater_name">
             {{item.create_user.name + " " +item.create_time}}
           </span>
+          <span *ngIf="!item.assign_user.name" class="assign_name">未指派受理人</span>
           <span *ngIf="item.assign_user.name" class="assign_name">
             {{"受理人： "+ item.assign_user.name}}
           </span>
