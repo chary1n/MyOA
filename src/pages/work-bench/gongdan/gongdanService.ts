@@ -12,6 +12,10 @@ export class GongDanService {
     }
 
 
+
+
+
+
     my_work_order_statistics(){
         let body = JSON.stringify({
             uid:HttpService.user_id
@@ -22,6 +26,11 @@ export class GongDanService {
 
     work_order_search(body){
         return this.httpservice.postBody("work_order_search", body,1);
+    }
+
+
+    work_order_searchNoLoading(body){
+        return this.httpservice.postBodyNoLoading("work_order_search", body,1);
     }
 
     work_order_statistics(start_date,end_date,tag_ids){
@@ -45,7 +54,7 @@ export class GongDanService {
 
 
     searchAtMe(body){
-        return this.httpservice.postBody("searchAtMe", body,1);
+        return this.httpservice.postBodyNoLoading("searchAtMe", body,1);
     }
 
 
@@ -71,6 +80,7 @@ export class GongDanService {
             record_type:record_type,
             work_order_id:work_order_id,
             parent_id:parent_id,
+            uid :HttpService.user_id
           });
         return this.httpservice.postBody("work_order_add_record", body,1);
     }

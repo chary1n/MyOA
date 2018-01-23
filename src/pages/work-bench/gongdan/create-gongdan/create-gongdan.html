@@ -65,6 +65,21 @@
       指派受理人
       <span style="color:#999999">(不知可不填)</span>
   </button>
+  <div style="background:#e4e5e6;padding:4px;padding-left:10px">
+    问题标签(选填)
+  </div>
+  
 
+    <ion-grid>
+        <ion-row>
+           <ion-col col-3 tappable (click)="clickbiaoqian(item)" *ngFor="let item of biaoqianList">
+            <div  class="biaoqian_div_unchoose" [ngClass]="{true:'biaoqian_div_choose',false:'biaoqian_div_unchoose'}[isChoose(item)]" align="center">
+              {{item.name}}
+            </div>
+          </ion-col>
+
+          
+        </ion-row>
+      </ion-grid>
 
 </ion-content>

@@ -41,6 +41,7 @@ export class CreateGongdanPage {
   reback_item;
   is_back_gongdan;
   frontPage
+  biaoqianList;
   priority = [{ name: '低', id: '1' }, { name: '中', id: '2' }, { name: '高', id: '3' }]
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public toastCtrl: ToastController,
@@ -50,6 +51,12 @@ export class CreateGongdanPage {
     public alertCtrl:AlertController) {
     this.navParams.data.companyIschoosed = true;
     this.frontPage = Utils.getViewController("GongdanPage", navCtrl)
+    this.gongdanService.get_all_biaoqian().then(res=>{
+      console.log(res)
+      if(res.result&&res.result.res_code==1){
+        this.biaoqianList = res.result.res_data.res_data
+      }
+    })
   }
 
   ionViewDidLoad() {
@@ -116,6 +123,14 @@ export class CreateGongdanPage {
       if (this.choosePeopleItem) {
         assign_uid = this.choosePeopleItem.id
       }
+      let tags = [] ;
+      if(this.biaoqianList){
+        for (let i = 0 ;i<this.biaoqianList.length;i++){
+          if(this.biaoqianList[i].ischeck){
+            tags.push(this.biaoqianList[i].id)
+          }
+        }
+      }
 // 没有选公司   指派了人
       if(!this.companyIschoosed&&this.choosePeopleItem){
         if(this.checkPeopleInList()){
@@ -126,7 +141,8 @@ export class CreateGongdanPage {
             assign_uid: assign_uid,
             departments: departments,
             uid: HttpService.user_id,
-            wo_images: this.pushImgList
+            wo_images: this.pushImgList,
+            tags :tags 
           }
           this.gongdanService.create_work_order(body).then(res => {
             console.log(res)
@@ -152,7 +168,8 @@ export class CreateGongdanPage {
           assign_uid: assign_uid,
           departments: departments,
           uid: HttpService.user_id,
-          wo_images: this.pushImgList
+          wo_images: this.pushImgList,
+          tags :tags 
         }
         this.gongdanService.create_work_order(body).then(res => {
           console.log(res)
@@ -275,6 +292,15 @@ export class CreateGongdanPage {
     }else{
       this.navCtrl.pop();
     }
+  }
+
+
+  clickbiaoqian(item){
+    item.ischeck = !item.ischeck
+  }
+
+  isChoose(item){
+    return item.ischeck
   }
 
 }
