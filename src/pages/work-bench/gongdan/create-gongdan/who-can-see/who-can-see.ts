@@ -23,9 +23,18 @@ export class WhoCanSeePage {
   chooseList;
   chooseDepartmentName;
   departmentList;
+  need_pop_reback
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public gongdanService: GongDanService) {
-    this.frontPage = Utils.getViewController("CreateGongdanPage", navCtrl)
+      this.need_pop_reback = this.navParams.get('need_pop_reback')
+    if (this.need_pop_reback){
+      this.frontPage = Utils.getViewController("RebackGongdanPage", navCtrl)
+    }
+    else
+    {
+      this.frontPage = Utils.getViewController("CreateGongdanPage", navCtrl)
+    }
+
     this.companyIschoosed = this.navParams.get("companyIschoosed")
   }
 

@@ -7,6 +7,8 @@ import { GongDanService } from './gongdanService';
 import { DatePipe } from '@angular/common';
 import { DatePicker } from '@ionic-native/date-picker';
 import { Utils } from '../../../providers/Utils';
+import { MenuController } from 'ionic-angular';
+
 /**
  * Generated class for the GongdanPage page.
  *
@@ -46,12 +48,24 @@ export class GongdanPage {
   total_number = 0;
   more_48_number = 0;
   searchAtMeNumber = 0;
+  biaoqianList = []
+  biaoqian_select_ids = [];
+  tag_ids = []
   constructor(public navCtrl: NavController, public navParams: NavParams, public statusbar: StatusBar,
     public gongdanService: GongDanService, public platform: Platform, private datePipe: DatePipe,
-    private datePicker: DatePicker, private toastCtrl: ToastController) {
+    private datePicker: DatePicker, private toastCtrl: ToastController,
+    public menu:MenuController) {
+      this.menu.open()
     this.show_type = "gongdan";
     this.is_android = this.platform.is('android')
     this.click_gongdan()
+    this.gongdanService.get_all_biaoqian().then(res => {
+      console.log(res)
+      if (res.result.res_data && res.result.res_code == 1)
+      {
+        this.biaoqianList = res.result.res_data.res_data;
+      }
+    })
   }
 
   ionViewDidLoad() {
@@ -65,7 +79,7 @@ export class GongdanPage {
     if (this.navParams.get('need_fresh') == true) {
       this.navParams.data.need_fresh = false;
 
-      this.gongdanService.work_order_statistics(this.startDate_gongdan,this.endDate_gongdan).then(res => {
+      this.gongdanService.work_order_statistics(this.startDate_gongdan,this.datePipe.transform(new Date(new Date(this.endDate_gongdan).getTime() + 3600000*24), 'yyyy-MM-dd'),this.biaoqian_select_ids).then(res => {
         console.log(res)
         if (res.result.res_data) {
           if (res.result.res_data.unaccept) {
@@ -85,6 +99,11 @@ export class GongdanPage {
     if(this.show_type == "me"){
       this.click_me()
     }
+  }
+
+
+  ionViewWillLeave(){
+    this.menu.close()
   }
 
   click_me() {
@@ -109,7 +128,7 @@ export class GongdanPage {
     this.startDate_gongdan = this.datePipe.transform(new Date(new Date().getTime() - 3600000 * 24 * 7), 'yyyy-MM-dd')
     this.dataList = []
     this.show_type = "gongdan"
-    this.gongdanService.work_order_statistics(this.startDate_gongdan,this.endDate_gongdan).then(res => {
+    this.gongdanService.work_order_statistics(this.startDate_gongdan,this.datePipe.transform(new Date(new Date(this.endDate_gongdan).getTime() + 3600000*24), 'yyyy-MM-dd'),this.biaoqian_select_ids).then(res => {
       console.log(res)
       if (res.result.res_data) {
         if (res.result.res_data.unaccept) {
@@ -364,7 +383,7 @@ export class GongdanPage {
       date => {
         if (this.endDate_gongdan >= this.datePipe.transform(date, 'yyyy-MM-dd')) {
           this.startDate_gongdan = this.datePipe.transform(date, 'yyyy-MM-dd')
-          this.gongdanService.work_order_statistics(this.startDate_gongdan,this.endDate_gongdan).then(res => {
+          this.gongdanService.work_order_statistics(this.startDate_gongdan,this.datePipe.transform(new Date(new Date(this.endDate_gongdan).getTime() + 3600000*24), 'yyyy-MM-dd'),this.biaoqian_select_ids).then(res => {
       if (res.result.res_data) {
         if (res.result.res_data.unaccept) {
           this.unacceptTitle = "等待受理" + " (" + res.result.res_data.unaccept + ")";
@@ -434,7 +453,7 @@ export class GongdanPage {
       date => {
         if (this.datePipe.transform(date, 'yyyy-MM-dd') >= this.startDate_gongdan) {
           this.endDate_gongdan = this.datePipe.transform(date, 'yyyy-MM-dd')
-          this.gongdanService.work_order_statistics(this.startDate_gongdan,this.endDate_gongdan).then(res => {
+          this.gongdanService.work_order_statistics(this.startDate_gongdan,this.datePipe.transform(new Date(new Date(this.endDate_gongdan).getTime() + 3600000*24), 'yyyy-MM-dd'),this.biaoqian_select_ids).then(res => {
       if (res.result.res_data) {
        if (res.result.res_data.unaccept) {
           this.unacceptTitle = "等待受理" + " (" + res.result.res_data.unaccept + ")";
@@ -621,13 +640,15 @@ export class GongdanPage {
   }
 
   getDataList(state) {
+    console.log(new Date(new Date(this.endDate_gongdan).getTime() + 3600000*24), 'yyyy-MM-dd')
     this.dataList = [];
     this.page_issue_state = state;
     this.gongdanService.work_order_search(JSON.stringify({
       start_date:this.startDate_gongdan,
-      end_date:this.endDate_gongdan,
+      end_date:this.datePipe.transform(new Date(new Date(this.endDate_gongdan).getTime() + 3600000*24), 'yyyy-MM-dd'),//          
       uid: HttpService.user_id,
       issue_state: state,
+      tag_ids:this.biaoqian_select_ids,
     })).then(res => {
       console.log(res)
       if (res.result.res_data) {
@@ -644,6 +665,7 @@ export class GongdanPage {
       if (res.result.res_data && res.result.res_code == 1) {
         this.navCtrl.push('GongdanDetailPage', {
           items: res.result.res_data,
+          biaoqian_list:this.biaoqianList,
         })
       }
     })
@@ -651,10 +673,94 @@ export class GongdanPage {
 
   search_gongdan(){
     this.navCtrl.push("GongdanSearchPage")
+    
+    
   }
+
+  clickMenu(){
+    this.menu.open()
+    this.gongdanService.get_all_biaoqian().then(res => {
+      console.log(res)
+      if (res.result.res_data && res.result.res_code == 1)
+      {
+        this.biaoqianList = res.result.res_data.res_data;
+      }
+    })
+  }
+
 
   changeDate(date){
     let new_date = new Date(date.replace(' ', 'T') + 'Z').getTime();
     return new_date;
+  }
+
+  clickbiaoqian(item){
+    let is_has = false
+    let index = 0
+    for (let biaoqian of this.biaoqian_select_ids) {
+      index ++
+      if (biaoqian == item.id)
+      {
+        is_has = true
+        break
+      }
+    }
+    if (!is_has){
+      this.biaoqian_select_ids.push(item.id)
+    }
+    else
+    {
+      this.biaoqian_select_ids.splice(index - 1,1)
+    }
+  }
+
+  confirm_biaoqian(){
+    this.menu.close()
+    this.getDataList(this.page_issue_state);
+    this.gongdanService.work_order_statistics(this.startDate_gongdan,this.datePipe.transform(new Date(new Date(this.endDate_gongdan).getTime() + 3600000*24), 'yyyy-MM-dd'),this.biaoqian_select_ids).then(res => {
+      if (res.result.res_data) {
+       if (res.result.res_data.unaccept) {
+          this.unacceptTitle = "等待受理" + " (" + res.result.res_data.unaccept + ")";
+        }
+        else
+        {
+          this.unacceptTitle = "等待受理"
+        }
+        if (res.result.res_data.check) {
+          this.unassignTitle = "待验收" + " (" + res.result.res_data.check + ")";
+        }
+        else
+        {
+          this.unassignTitle = "待验收"
+        }
+        if (res.result.res_data.process) {
+          this.processTitle = "受理中" + " (" + res.result.res_data.process + ")";
+        }
+        else
+        {
+          this.processTitle = "受理中"
+        }
+      }
+    })
+  }
+
+  cancel_biaoqian(){
+    this.menu.close()
+    this.biaoqian_select_ids = []
+  }
+
+  isChoose(item){
+    let isChoose = false;
+    for (let biaoqian of this.biaoqian_select_ids) {
+      if (biaoqian == item.id)
+      {
+        isChoose = true
+      }
+    }
+    return isChoose
+  }
+
+  tapView(){
+    this.menu.close()
   }
 }

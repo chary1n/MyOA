@@ -60,7 +60,8 @@ export class GongdanZhipaiPage {
   }
 
   confirm(){
-    if (this.select_list[0]){
+    console.log(this.select_list)
+    if (!this.select_list[0]){
        Utils.toastButtom("请选择指派人", this.toast)
     }
     else

@@ -12,12 +12,6 @@ export class GongDanService {
     }
 
 
-    get_all_biaoqian() {
-        let body = JSON.stringify({
-            uid:HttpService.user_id
-          });
-        return this.httpservice.postBody("get_all_biaoqian", body,1);
-    }
 
 
 
@@ -39,11 +33,12 @@ export class GongDanService {
         return this.httpservice.postBodyNoLoading("work_order_search", body,1);
     }
 
-    work_order_statistics(start_date,end_date){
+    work_order_statistics(start_date,end_date,tag_ids){
         let body = JSON.stringify({
             uid:HttpService.user_id,
             start_date:start_date,
             end_date:end_date,
+            tag_ids:tag_ids,
           });
         return this.httpservice.postBody("work_order_statistics", body,1);
     }
@@ -133,5 +128,18 @@ export class GongDanService {
             search_type:search_type,
           });
         return this.httpservice.postBody("search_gongdan", body,1);
+    }
+
+    get_all_biaoqian(){
+        return this.httpservice.postBodyNoLoading("get_all_biaoqian", {},1);
+    }
+
+    update_biaoqian(work_order_id,tag_ids){
+        let body = JSON.stringify({
+            uid:HttpService.user_id,
+            work_order_id:work_order_id,
+            tag_ids:tag_ids,
+          });
+        return this.httpservice.postBody("update_biaoqian", body,1);
     }
 }
