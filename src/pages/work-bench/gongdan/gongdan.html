@@ -197,7 +197,7 @@
         {{endDate}}
       </span>
 
-      <span style="width:100px;text-align:right;margin-right:20px;">
+      <span style="width:100px;text-align:right;margin-right:20px;margin-left:70px">
         发布总数:{{total_number}}
       </span>
 
@@ -233,12 +233,12 @@
       </div>
     </div>
 
-    <button ion-item (click)="more48Hour()" style="margin-top:10px">
+    <button ion-item (click)="more48Hour()" style="margin-top:10px" no-lines>
       <ion-avatar item-start>
         <img src="assets/img/gongdan/tixing.png" style="padding:10px">
       </ion-avatar>
-      <ion-label>超过48小时未受理
-        <span style="float:right"> {{processNumber}}</span>
+      <ion-label no-lines>超过48小时未受理
+        <span style="float:right"> {{more_48_number}}</span>
       </ion-label>
     </button>
 
