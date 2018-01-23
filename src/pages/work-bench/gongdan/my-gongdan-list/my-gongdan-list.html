@@ -40,13 +40,16 @@
       <div style="margin-top:-10px;margin-bottom:10px;">
         <img src={{item.create_user.user_ava}} style="width:10px;height:10px;margin-top:5px;margin-left:10px;">
         <span p style="font-size:12px;color:#8a9299;margin-left:5px">
-          {{item.create_user.name}} 
+          {{item.create_user.name}}
           <span p style="font-size:12px;color:#8a9299;margin-left:5px">
-              {{item.create_time}}
-            </span>
+            {{item.create_time}}
+          </span>
         </span>
-        <span style="float:right;margin-top:2px;margin-right:15px;font-size:12px;color:gray">
+        <span *ngIf="item.assign_user.name" style="float:right;margin-top:2px;margin-right:15px;font-size:12px;color:gray">
           受理人: {{item.assign_user.name}}
+        </span>
+        <span *ngIf="!item.assign_user.name" style="float:right;margin-top:2px;margin-right:15px;font-size:12px;color:gray">
+          未指派受理人
         </span>
         <img src="assets/img/work_bench/lianjie.png" style="width:12px;height:12px;margin-top:5px;margin-right:8px;float:right">
       </div>
