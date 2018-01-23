@@ -19,8 +19,16 @@ import { GongDanAutoService} from './gongdan-search-auto'
 })
 export class GongdanSearchPage {
   dataList = []
+  biaoqianList
   constructor(public navCtrl: NavController, public navParams: NavParams,public gongDanAutoService:GongDanAutoService,
     public gongDanService:GongDanService) {
+      this.gongDanService.get_all_biaoqian().then(res => {
+      console.log(res)
+      if (res.result.res_data && res.result.res_code == 1)
+      {
+        this.biaoqianList = res.result.res_data.res_data;
+      }
+    })
   }
 
   ionViewDidLoad() {
@@ -48,6 +56,18 @@ export class GongdanSearchPage {
         for (let item of res.result.res_data) {
           this.dataList.push(item)
         }
+      }
+    })
+  }
+
+  gongdanDetail(item){
+    this.gongDanService.getGongdanDetail(item.work_order_id).then(res => {
+      console.log(res)
+      if (res.result.res_data && res.result.res_code == 1) {
+        this.navCtrl.push('GongdanDetailPage', {
+          items: res.result.res_data,
+          biaoqian_list:this.biaoqianList,
+        })
       }
     })
   }

@@ -30,7 +30,7 @@
   <ion-footer >
           <div style="background:white">
     <span align="center" style='width:50%;float:left; background-color:#fba958;height:44px;line-height:44px;font-size:15px;color:white' tappable (click)="cancel_biaoqian()">
-      取消
+      重置
     </span>
     <span align="center" style='width:50%;float:right;background-color:#1eabfe;height:44px;line-height:44px;font-size:15px;color:white' tappable (click)="confirm_biaoqian()">
       确定
@@ -111,7 +111,7 @@
       <p style="float:left;margin-left:10px;line-height:14px;color:#8a9399">
         <span  tappable (click)="chooseStartDate_gongdan()">{{startDate_gongdan + " - "}}</span><span tappable (click)="chooseEndDate_gongdan()">{{endDate_gongdan}}</span>   
       </p>
-      <img src= "assets/img/gongdan/rili.png" height="18px" width="18px" style="margin-right:10px;margin-top:11px;float:right" tappable (click)="clickMenu()">
+      <img src= "assets/img/work_bench/shaixuan.png" height="18px" width="18px" style="margin-right:10px;margin-top:11px;float:right" tappable (click)="clickMenu()">
     </div>
   <div  *ngIf="show_type == 'gongdan'">
     
@@ -134,8 +134,7 @@
         <ion-grid *ngIf="item.work_order_images" style="margin-top:-20px;margin-left:5px">
           <ion-row style="margin-right:5px;">
             <ion-col *ngFor="let image of item.work_order_images" col-3>
-              <img src={{image}}>
-
+              <img src={{image}} imageViewer/>
             </ion-col>
           </ion-row>
         </ion-grid>

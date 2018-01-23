@@ -248,4 +248,20 @@ page-gongdan-detail {
        margin-top:-5px;
        font-size: 10px
     }
+
+    .content_message_empty{
+         // margin-left: 10px;
+        font-size: 16px;
+        color:white;
+        border-bottom: 1px #f0f2f5 solid;
+        line-height:30px;
+    }
+
+    .content_message_empty_no_lines{
+         // margin-left: 10px;
+        font-size: 16px;
+        color:white;
+        // border-bottom: 1px #f0f2f5 solid;
+        line-height:30px;
+    }
 }
