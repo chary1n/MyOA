@@ -41,6 +41,7 @@ export class RebackGongdanPage {
   is_back_gongdan;
   frontPage;
   work_order_id;
+  biaoqianList;
   priority = [{ name: '低', id: '1' }, { name: '中', id: '2' }, { name: '高', id: '3' }]
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public toastCtrl: ToastController,
@@ -50,6 +51,13 @@ export class RebackGongdanPage {
     public alertCtrl:AlertController) {
     this.navParams.data.companyIschoosed = true;
     this.frontPage = Utils.getViewController("GongdanDetailPage", navCtrl)
+
+    this.gongdanService.get_all_biaoqian().then(res=>{
+      console.log(res)
+      if(res.result&&res.result.res_code==1){
+        this.biaoqianList = res.result.res_data.res_data
+      }
+    })
   }
 
   ionViewDidLoad() {
@@ -106,6 +114,14 @@ export class RebackGongdanPage {
     if (!(this.companyIschoosed || this.chooseList)) {
       mString = mString + "   请选择谁可以看"
     }
+    let tags = [] ;
+      if(this.biaoqianList){
+        for (let i = 0 ;i<this.biaoqianList.length;i++){
+          if(this.biaoqianList[i].ischeck){
+            tags.push(this.biaoqianList[i].id)
+          }
+        }
+      }
     if (mString != "") {
       Utils.toastButtom(mString, this.toastCtrl)
     } else {
@@ -126,6 +142,7 @@ export class RebackGongdanPage {
         uid: HttpService.user_id,
         wo_images: this.pushImgList,
         work_order_id:this.work_order_id,
+        tags:tags,
       }
       this.gongdanService.commit_draft(body).then(res => {
         console.log(res)
@@ -233,6 +250,14 @@ export class RebackGongdanPage {
         ]
       }).present();
     }
+  }
+
+  clickbiaoqian(item){
+    item.ischeck = !item.ischeck
+  }
+
+  isChoose(item){
+    return item.ischeck
   }
     
   

@@ -40,7 +40,7 @@ export class GongDanService {
             end_date:end_date,
             tag_ids:tag_ids,
           });
-        return this.httpservice.postBody("work_order_statistics", body,1);
+        return this.httpservice.postBodyNoLoading("work_order_statistics", body,1);
     }
 
     work_order_statisticsWithTime(start_date,end_date){

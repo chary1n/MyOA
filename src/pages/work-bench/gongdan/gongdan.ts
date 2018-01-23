@@ -657,6 +657,21 @@ export class GongdanPage {
         }
       }
     })
+
+    this.gongdanService.work_order_statistics(this.startDate_gongdan,this.datePipe.transform(new Date(new Date(this.endDate_gongdan).getTime() + 3600000*24), 'yyyy-MM-dd'),this.biaoqian_select_ids).then(res => {
+        console.log(res)
+        if (res.result.res_data) {
+          if (res.result.res_data.unaccept) {
+            this.unacceptTitle = "等待受理" + " (" + res.result.res_data.unaccept + ")";
+          }
+          if (res.result.res_data.check) {
+            this.unassignTitle = "待验收" + " (" + res.result.res_data.check + ")";
+          }
+          if (res.result.res_data.process) {
+            this.processTitle = "受理中" + " (" + res.result.res_data.process + ")";
+          }
+        }
+      })
   }
 
   gongdanDetail(item) {

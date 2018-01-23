@@ -3,12 +3,34 @@ page-tabs {
     content:url('../assets/img/tabs/contact_person.png') no-repeat center;
   }
 
-//   .ion-ios-bar-workbench {
-//     background:url("../assets/img/work_bench/shenpi.png") no-repeat center;
-//   }
+  .ion-ios-bar-workbench {
+    background:url("../assets/img/work_bench/shenpi.png") no-repeat center;
+  }
 
-//   .ion-ios-bar-workbench-outline {  
-//   background:url("../assets/img/tabs/contact_person.png") no-repeat center; 
-// } 
+  .ion-ios-bar-workbench-outline {  
+  background:url("../assets/img/tabs/contact_person.png") no-repeat center; 
+} 
+.ion-ios-bar-message{
+  background:url("../assets/img/tabs/message_select.png") no-repeat center; 
+}
+
+.ion-ios-bar-message-outline{
+  background:url("../assets/img/tabs/message.png") no-repeat center; 
+}
+
+.ion-ios-bar-contact{
+  background:url("../assets/img/tabs/contact_select.png") no-repeat center; 
+}
+
+.ion-ios-bar-contact-outline{
+  background:url("../assets/img/tabs/contact.png") no-repeat center; 
+}
+
+.ion-ios-bar-my{
+  background:url("../assets/img/tabs/my_select.png") no-repeat center; 
+}
+.ion-ios-bar-contact-outline{
+  background:url("../assets/img/tabs/my.png") no-repeat center; 
+}
 
 }

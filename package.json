@@ -627,17 +627,7 @@
           "browser",
           "ios"
         ]
-      },
-      "platforms": [
-        "android",
-        "browser",
-        "ios"
-      ]
-    },
-    "platforms": [
-      "android",
-      "browser",
-      "ios"
-    ]
+    }
+}
   }
 }
