@@ -32,6 +32,18 @@
           {{changeState(item.issue_state)}}
         </span>
       </div>
+      <div *ngIf="item.tag_ids.res_data" >
+        <ion-grid style="height:30px;">
+      <ion-row>
+         <ion-col col-2 tappable  *ngFor="let item_tag of item.tag_ids.res_data;let i = index">
+          <div class = "biaoqian_div_choose" align="center">
+            {{item_tag.name}}
+          </div>
+        </ion-col>
+        
+      </ion-row>
+    </ion-grid>
+      </div>
       <P text-wrap class="data_list_desprition">
         {{item.description}}
       </P>
@@ -47,10 +59,13 @@
         <span p class="creater_name">
           {{item.create_user.name + " " + (changeDate(item.create_time) | date:'MM-dd HH:mm')}}
         </span>
-        <span  class="assign_name">
+        <span *ngIf="item.assign_user.name" class="assign_name">
           {{"受理人： "+ item.assign_user.name}}
         </span>
-        <img  src="assets/img/work_bench/lianjie.png" class="assign_ava">
+        <span *ngIf="!item.assign_user.name" class="assign_name">
+            未指派受理人
+          </span>
+        <img *ngIf="item.assign_user.name" src="assets/img/work_bench/lianjie.png" class="assign_ava">
       </div>
       <div style="height:1px;background:white">
       </div>
@@ -79,6 +94,9 @@
   <ion-item no-lines *ngIf="items.record_type == 'reply'" style="margin-top:-5px">
    <p text-wrap [ngClass]="{true:'content_message',false:'content_message_no_lines'}[items.reply_record_line_ids.length > 0]" class="">{{getContent(items)}}</p>
   </ion-item>
+  <!--<div *ngIf="items.record_type == 'reply'" style="margin-top:-5px">
+      <p text-wrap [ngClass]="{true:'content_message',false:'content_message_no_lines'}[items.reply_record_line_ids.length > 0]" class="">{{getContent(items)}}</p>
+  </div>-->
   <ion-item no-lines *ngIf="items.record_type == 'assign'" style="height:20px;min-height:40px;margin-top:-5px">
    <p [ngClass]="{true:'content_message_zhipai',false:'content_message_zhipai_no_lines'}[items.reply_record_line_ids.length > 0]" class="">{{items.content}}</p><p *ngIf="items.reply_uid.name" [ngClass]="{true:'content_message',false:'content_message_no_lines'}[items.reply_record_line_ids.length > 0]" style="color:#1f6699">{{"@" + items.reply_uid.name}}</p>
   </ion-item>

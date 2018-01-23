@@ -27,9 +27,11 @@ export class GongdanDetailPage {
   frontPage;
   rebackPage;
   is_ios;
+  biaoqian_list;
   constructor(public navCtrl: NavController, public navParams: NavParams,public statusBar:StatusBar,
     public gongDanService:GongDanService,public alertCtrl:AlertController,
     public toast:ToastController,public platform:Platform) {
+      this.biaoqian_list = this.navParams.get('biaoqian_list')
     this.frontPage = Utils.getViewController("GongdanPage", navCtrl)
     this.rebackPage = Utils.getViewController("CreateGongdanPage", navCtrl)
     this.item = this.navParams.get('items').work_order
@@ -80,8 +82,10 @@ export class GongdanDetailPage {
       if(res.result.res_data && res.result.res_code == 1){
         this.item = res.result.res_data.work_order;
         this.message_item = res.result.res_data.records;
-         if (this.item.issue_state == "unaccept" || this.item.issue_state == "process"){
+        if (this.item.issue_state == "unaccept" || this.item.issue_state == "process"){
       this.isShowZhiPai = true
+      this.isShowRefuse = false
+      this.isShowConfirm = false
       if (this.item.create_user.id == HttpService.user_id){
         this.isShowCheHui = true
       }
@@ -89,14 +93,18 @@ export class GongdanDetailPage {
         if (this.item.assign_user.id == HttpService.user_id){
           this.isShowFinish = true
         }
-      }
-      
+      } 
     }
-    else{
+    else {
+      this.isShowRefuse = false
+      this.isShowConfirm = false
+       this.isShowZhiPai = false
+      if (this.item.issue_state == "check"){
       if (this.item.create_user.id == HttpService.user_id){
         this.isShowRefuse = true
         this.isShowConfirm = true
       }
+    }
     }
       }
     })
@@ -250,8 +258,55 @@ export class GongdanDetailPage {
               if (res.result.res_code == 1)
               {
                 Utils.toastButtom("验证通过", this.toast)
-                this.frontPage.data.need_fresh = true;
+                
+
+
+    let biaoqian_arr = []
+    let id_index = 0
+    console.log(this.biaoqian_list)
+    for (let biaoqian of this.biaoqian_list) {
+        biaoqian_arr.push({
+          type:'checkbox',
+          label:biaoqian.name,
+          check:false,
+          value:biaoqian.id,
+        })
+        id_index ++
+    }
+    console.log(biaoqian_arr)
+
+                let ctrl = this.alertCtrl;
+      ctrl.create({
+        title: '提示',
+        message: "是否需要修改该工单标签？",
+        inputs: biaoqian_arr,
+        buttons: [
+        {
+          text: '取消',
+          handler: () => {
+            this.frontPage.data.need_fresh = true;
                 this.navCtrl.popTo(this.frontPage);
+          }
+        },
+        {
+          text: '确定',
+          handler: data => {
+              if (data){
+                this.gongDanService.update_biaoqian(this.item.work_order_id,data).then(res => {
+                  if (res.result.res_code == 1)
+                  {
+                    Utils.toastButtom("添加标签成功", this.toast)
+                  this.frontPage.data.need_fresh = true;
+                this.navCtrl.popTo(this.frontPage);
+                  }
+                  
+                })
+              }
+          }
+        }
+        ],
+      }).present();
+
               }
             })
           }

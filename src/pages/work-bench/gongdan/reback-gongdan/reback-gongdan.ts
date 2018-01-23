@@ -141,7 +141,7 @@ export class RebackGongdanPage {
   }
 
   chooseWhoCanSee() {
-    this.navCtrl.push('WhoCanSeePage', { companyIschoosed: this.companyIschoosed ,departmentList:this.departmentList})
+    this.navCtrl.push('WhoCanSeePage', { companyIschoosed: this.companyIschoosed ,departmentList:this.departmentList,need_pop_reback:true,})
     // this.create_work_order()
   }
 
