@@ -81,21 +81,21 @@
   <div *ngIf="show_type == 'gongdan'">
   <ion-grid  [ngClass]="{true:'main_grid_head_android',false:'main_grid_head_ios'}[is_android]">
       <ion-row [ngClass]="{true:'row_class_android',false:'row_class_ios'}[is_android]" align-items-center>
-        <ion-col tappable (click)="wait_shouli()">
+        <ion-col tappable>
           <div align="center" tappable (click)="unacceptClick()">
             <img class="sub_header" src="assets/img/work_bench/wait_shouli.png">
             <br>
             <p class="sub_header_p">{{unacceptTitle}}</p>
           </div>
         </ion-col>
-        <ion-col tappable (click)="shouli()">
+        <ion-col tappable >
           <div align="center" tappable (click)="processClick()">
             <img class="sub_header" src="assets/img/work_bench/shouli_ing.png">
             <br>
             <p class="sub_header_p">{{processTitle}}</p>
           </div>
         </ion-col>
-        <ion-col tappable (click)="wait_yanshou()">
+        <ion-col tappable >
           <div align="center" tappable (click)="unassignClick()">
             <img class="sub_header" src="assets/img/work_bench/wait_yanshou.png">
             <br>
