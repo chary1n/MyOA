@@ -228,11 +228,11 @@
     <div style="height:40px;overflow: hidden;background:white;padding-top:8px">
      
       <img src= "assets/img/gongdan/rili.png"  width="18px" style="margin-left:10px;">
-      <span style="margin-left:10px;width:60px" (click)="chooseStartDate()">
+      <span style="margin-left:10px;width:60px" tappable (click)="chooseStartDate()">
           {{startDate}} 
       </span>
         -
-      <span tappable (click)="chooseEndDate()" style="width:60px">
+      <span tappable (click)="chooseEndDate()" tappable style="width:60px">
         {{endDate}}
       </span>
 
@@ -243,7 +243,7 @@
     </div>
     <div style="background:#ffffff">
       <div style="float:right; margin-right:60px">
-        <canvas id="rings" style="width:100px;height:100px;margin-top:5px"></canvas>
+        <canvas id="rings" style="width:100px;height:100px;margin-top:15px"></canvas>
       </div>
       <div>
         <div class="div_x" (click)="processTongjiWithTime()" >
