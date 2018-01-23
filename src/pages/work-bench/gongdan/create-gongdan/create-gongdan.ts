@@ -41,6 +41,7 @@ export class CreateGongdanPage {
   reback_item;
   is_back_gongdan;
   frontPage
+  tagList;
   priority = [{ name: '低', id: '1' }, { name: '中', id: '2' }, { name: '高', id: '3' }]
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public toastCtrl: ToastController,
@@ -50,6 +51,12 @@ export class CreateGongdanPage {
     public alertCtrl:AlertController) {
     this.navParams.data.companyIschoosed = true;
     this.frontPage = Utils.getViewController("GongdanPage", navCtrl)
+    this.gongdanService.get_all_biaoqian().then(res=>{
+      console.log(res)
+      if(res.result&&res.result.res_code==1){
+        this.tagList = res.result.res_data.res_data
+      }
+    })
   }
 
   ionViewDidLoad() {

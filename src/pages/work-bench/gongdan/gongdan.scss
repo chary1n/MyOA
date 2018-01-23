@@ -106,7 +106,7 @@ page-gongdan {
 
     .div_x{
         width: 100px;
-        height: 20px;
+        height: 25px;
         overflow: hidden;
         margin-top: 12px;
     }
@@ -115,12 +115,14 @@ page-gongdan {
         float: right ;
         color: #8a9399;
         font-size: 110% ;
+        
     }
     .div_span_number{
         float: right ;
         color: #2e3133;
         font-size: 120% ;
-        margin-left: 10px
+        margin-left: 10px;
+        margin-top:2px
     }
 
     .sub_header{
@@ -188,4 +190,9 @@ page-gongdan {
         // bottom: 0px;
         // width: 100%;
     }
+
+
+
+
+  
 }

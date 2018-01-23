@@ -81,6 +81,10 @@ export class GongdanPage {
       })
       this.getDataList(this.page_issue_state)
     }
+
+    if(this.show_type == "me"){
+      this.click_me()
+    }
   }
 
   click_me() {
@@ -93,15 +97,10 @@ export class GongdanPage {
       }
       console.log(res)
     })
-
+    this.searchAtMeNumberFunction()
   }
 
 
-  ionViewWillEnter(){
-    if( this.show_type == "gongdan"){
-      this.click_gongdan()
-    }
-  }
 
 
 
@@ -146,18 +145,6 @@ export class GongdanPage {
     this.dateChanged();
   }
 
-
-  wait_shouli() {
-
-  }
-
-  shouli() {
-
-  }
-
-  wait_yanshou() {
-
-  }
 
 
   looper(canvas) {
@@ -220,16 +207,17 @@ export class GongdanPage {
       uid: HttpService.user_id,
       create_uid: HttpService.user_id
     });
-    this.requestWorkOrderSearch(body)
+    this.requestWorkOrderSearch(body,"我提交的")
   }
 
   // 我受理中的
   myProcessList() {
     let body = JSON.stringify({
       uid: HttpService.user_id,
-      assign_uid: HttpService.user_id
+      assign_uid: HttpService.user_id,
+      issue_state: "process",
     });
-    this.requestWorkOrderSearch(body)
+    this.requestWorkOrderSearch(body,"我受理中的")
   }
 
   // 待他人验收
@@ -239,7 +227,7 @@ export class GongdanPage {
       assign_uid: HttpService.user_id,
       issue_state: "check",
     });
-    this.requestWorkOrderSearch(body)
+    this.requestWorkOrderSearch(body,'待他人验收的')
   }
 
   // 我已完成的
@@ -249,7 +237,7 @@ export class GongdanPage {
       assign_uid: HttpService.user_id,
       issue_state: "done",
     });
-    this.requestWorkOrderSearch(body)
+    this.requestWorkOrderSearch(body,"我已完成的")
   }
 
   // 我回复过的
@@ -257,9 +245,10 @@ export class GongdanPage {
     let body = JSON.stringify({
       isSearchOrder: true,
       uid: HttpService.user_id,
-      reply: HttpService.user_id
+      create_uid: HttpService.user_id,
+      record_type :'reply'
     });
-    this.requestWorkOrderSearch(body)
+    this.requestWorkOrderSearch(body,"我回复过的")
   }
 
 
@@ -269,9 +258,10 @@ export class GongdanPage {
     let body = JSON.stringify({
       isSearchOrder: true,
       uid: HttpService.user_id,
-      create_uid: HttpService.user_id
+      create_uid: HttpService.user_id,
+      record_type :'assign'
     });
-    this.requestWorkOrderSearch(body)
+    this.requestWorkOrderSearch(body,"我指派过的")
   }
 
 
@@ -300,8 +290,11 @@ export class GongdanPage {
       isRead: false
     });
     this.gongdanService.searchAtMe(body).then(res => {
-      if (res.result && res.result.res_code == 1) {
+      console.log(res)
+      if (res.result && res.result.res_code == 1&&res.result.res_data) {
         this.searchAtMeNumber = res.result.res_data.length
+      }else{
+        this.searchAtMeNumber = 0 
       }
     })
   }
@@ -328,7 +321,7 @@ export class GongdanPage {
       end_date: this.datePipe.transform(new Date(new Date().getTime() - 3600000 * 48), 'yyyy-MM-dd'),
       issue_state: 'unaccept'
     });
-    this.gongdanService.work_order_search(body).then(res => {
+    this.gongdanService.work_order_searchNoLoading(body).then(res => {
       if (res.result && res.result.res_code == 1 && res.result.res_data) {
         this.more_48_number = res.result.res_data.length;
       }
@@ -347,7 +340,7 @@ export class GongdanPage {
       locale:"zh-Hans",
     }).then(
       date => {
-        if (this.endDate >= this.startDate) {
+        if (this.endDate >= this.datePipe.transform(date, 'yyyy-MM-dd')) {
           this.startDate = this.datePipe.transform(date, 'yyyy-MM-dd')
           this.dateChanged();
         } else {
@@ -417,7 +410,7 @@ export class GongdanPage {
       locale:"zh-Hans",
     }).then(
       date => {
-        if (this.endDate >= this.startDate) {
+        if (this.datePipe.transform(date, 'yyyy-MM-dd') >= this.startDate) {
           this.endDate = this.datePipe.transform(date, 'yyyy-MM-dd')
           this.dateChanged();
         } else {
@@ -498,10 +491,10 @@ export class GongdanPage {
 
 
 
-  requestWorkOrderSearch(body) {
+  requestWorkOrderSearch(body,title="") {
     this.gongdanService.work_order_search(body).then(res => {
       if (res.result && res.result.res_code == 1) {
-        this.navCtrl.push("MyGongdanListPage", { gongdanList: res.result.res_data })
+        this.navCtrl.push("MyGongdanListPage", { gongdanList: res.result.res_data ,title :title})
       }
     })
   }

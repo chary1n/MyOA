@@ -18,9 +18,11 @@ import { HttpService } from '../../../../providers/HttpService';
 })
 export class MyGongdanListPage {
   gongdanList ;
+  title ;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public gongdanService :GongDanService) {
      this.gongdanList =  this.navParams.get("gongdanList")
+     this.title = this.navParams.get('title')
   }
 
   ionViewDidLoad() {
