@@ -117,8 +117,8 @@ export class GongdanPage {
 
 
   ionViewWillEnter(){
-    if( this.show_type == "me"){
-      this.click_me()
+    if( this.show_type == "gongdan"){
+      this.click_gongdan()
     }
   }
 
@@ -583,8 +583,8 @@ export class GongdanPage {
 
     var Q3Canvas = <HTMLCanvasElement>document.getElementById('rings');
 
-    Q3Canvas.width = 100;
-    Q3Canvas.height = 100;
+    Q3Canvas.width = 200;
+    Q3Canvas.height = 200;
 
     var ctx = Q3Canvas.getContext("2d");
 
@@ -597,6 +597,7 @@ export class GongdanPage {
       ctx.beginPath();
 
       ctx.fillStyle = dataColor[i];
+      
 
       ctx.arc(Q3Canvas.width / 2, Q3Canvas.height / 2, Q3Canvas.width / 2, angleStart, angleEnd);
 
