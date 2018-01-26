@@ -256,7 +256,7 @@ export class GongdanPage {
     });
     this.gongdanService.searchAtMe(body).then(res => {
       if (res.result && res.result.res_code == 1) {
-        this.navCtrl.push("MyGongdanListPage", { gongdanList: res.result.res_data ,title:"最新@我"})
+        this.navCtrl.push("AtMeListPage", { gongdanList: res.result.res_data ,title:"最新@我"})
       }
     })
   }
