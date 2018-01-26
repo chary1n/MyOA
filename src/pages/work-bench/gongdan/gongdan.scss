@@ -27,16 +27,16 @@ page-gongdan {
     .test_one{
         color:white;
         width:60px;
-        height: 45px;
-        line-height: 50px;
+        height: 40px;
+        line-height: 40px;
         font-size: 14px;
         opacity: 0.75;
     }
     .test_choose{
         color:white;
         width:60px;
-        height: 45px;
-        line-height: 50px;
+        height: 40px;
+        line-height: 40px;
         font-size:16px;
     }
 
@@ -44,7 +44,7 @@ page-gongdan {
         height:40px;
         width:80%;
         margin-left:25px;
-        margin-top:-50px;
+        // margin-top:-50px;
     }
     .head_grid_android{
         height:40px;
@@ -127,7 +127,7 @@ page-gongdan {
 
     .sub_header{
         width:40px;
-        margin-top:-10px
+        margin-top:20px
     }
     .sub_header_p{
         color:white;
@@ -203,5 +203,31 @@ page-gongdan {
        height: 44px;
        line-height: 44px;
        border-radius: 5px; 
+    }
+
+    .under_line_style{
+        color:#5bc5f3;
+        width:60px;
+        height: 40px;
+        line-height: 40px;
+        border-bottom:#5bc5f3 3px solid;
+    }
+
+    .normal_style{
+        width:60px;
+        height: 40px;
+        line-height: 40px;
+        color:#c2c8cc
+    }
+
+    .title_class_style{
+        font-size: 17px;
+        width:70%;
+        display: inline-block;
+        white-space: nowrap;
+        vertical-align: bottom;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        line-height: 1.2;
     }
 }

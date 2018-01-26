@@ -31,7 +31,7 @@ export class GongdanPage {
   show_type;
   processNumber;
   unassignNumber;
-  unacceptTitle = "等待受理";
+  unacceptTitle = "待受理";
   unassignTitle = "待验收";
   processTitle = "受理中";
   dataList = [];
@@ -51,20 +51,17 @@ export class GongdanPage {
   biaoqianList = []
   biaoqian_select_ids = [];
   tag_ids = []
+  inner_type
   constructor(public navCtrl: NavController, public navParams: NavParams, public statusbar: StatusBar,
     public gongdanService: GongDanService, public platform: Platform, private datePipe: DatePipe,
     private datePicker: DatePicker, private toastCtrl: ToastController,
     public menu: MenuController) {
     this.menu.open()
     this.show_type = "gongdan";
+    this.inner_type = "first"
     this.is_android = this.platform.is('android')
     this.click_gongdan()
-    this.gongdanService.get_all_biaoqian().then(res => {
-      console.log(res)
-      if (res.result.res_data && res.result.res_code == 1) {
-        this.biaoqianList = res.result.res_data.res_data;
-      }
-    })
+    
   }
 
   ionViewDidLoad() {
@@ -78,6 +75,14 @@ export class GongdanPage {
     if (this.navParams.get('need_fresh') == true) {
       this.navParams.data.need_fresh = false;
 
+      this.reload_statics()
+      this.getDataList(this.page_issue_state)
+    }
+    console.log(this.navParams.get('select_ids') )
+    if (this.navParams.get('select_ids').length || this.navParams.get('select_ids').length == 0) {
+      console.log('111')
+      this.biaoqian_select_ids = this.navParams.data.select_ids
+      this.navParams.data.select_ids = [];
       this.reload_statics()
       this.getDataList(this.page_issue_state)
     }
@@ -529,7 +534,7 @@ export class GongdanPage {
   changeState(item) {
     let state_str = "";
     if (item == "unaccept") {
-      state_str = "等待受理"
+      state_str = "待受理"
     }
     else if (item == "process") {
       state_str = "受理中"
@@ -593,13 +598,16 @@ export class GongdanPage {
   }
 
   clickMenu() {
-    this.menu.open()
-    this.gongdanService.get_all_biaoqian().then(res => {
-      console.log(res)
-      if (res.result.res_data && res.result.res_code == 1) {
-        this.biaoqianList = res.result.res_data.res_data;
-      }
+    this.navCtrl.push('GongdanBiaoqianPage',{
+      select_ids:this.biaoqian_select_ids,
     })
+    // this.menu.open()
+    // this.gongdanService.get_all_biaoqian().then(res => {
+    //   console.log(res)
+    //   if (res.result.res_data && res.result.res_code == 1) {
+    //     this.biaoqianList = res.result.res_data.res_data;
+    //   }
+    // })
   }
 
 
@@ -636,10 +644,10 @@ export class GongdanPage {
     this.gongdanService.work_order_statistics(this.startDate_gongdan,this.datePipe.transform(new Date(new Date(this.endDate_gongdan).getTime() + 3600000*24), 'yyyy-MM-dd'),this.biaoqian_select_ids).then(res => {
       if (res.result.res_data) {
         if (res.result.res_data.unaccept) {
-          this.unacceptTitle = "等待受理" + " (" + res.result.res_data.unaccept + ")";
+          this.unacceptTitle = "待受理" + " (" + res.result.res_data.unaccept + ")";
         }
         else {
-          this.unacceptTitle = "等待受理"
+          this.unacceptTitle = "待受理"
         }
         if (res.result.res_data.check) {
           this.unassignTitle = "待验收" + " (" + res.result.res_data.check + ")";
@@ -656,7 +664,7 @@ export class GongdanPage {
       }
       else
       {
-        this.unacceptTitle = "等待受理"
+        this.unacceptTitle = "待受理"
         this.unassignTitle = "待验收"
         this.processTitle = "受理中"
       }
@@ -681,5 +689,20 @@ export class GongdanPage {
 
   tapView() {
     this.menu.close()
+  }
+
+  click_one(){
+    this.inner_type = "first"
+    this.unacceptClick()
+  }
+
+  click_two(){
+    this.inner_type = "second"
+    this.processClick()
+  }
+
+  click_three(){
+    this.inner_type = "third"
+    this.unassignClick()
   }
 }

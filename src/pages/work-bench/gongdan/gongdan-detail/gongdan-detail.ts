@@ -205,7 +205,7 @@ export class GongdanDetailPage {
         {
           text: '重新编辑',
           handler: () => {
-            this.gongDanService.work_order_retract(HttpService.user_id,this.item.work_order_id).then(res => {
+            this.gongDanService.work_order_retract(HttpService.user_id,this.item.work_order_id,false).then(res => {
               if (res.result.res_code == 1)
               {
                 
@@ -222,7 +222,7 @@ export class GongdanDetailPage {
         {
           text: '直接删除',
           handler: data => {
-            this.gongDanService.work_order_retract(HttpService.user_id,this.item.work_order_id).then(res => {
+            this.gongDanService.work_order_retract(HttpService.user_id,this.item.work_order_id,true).then(res => {
               if (res.result.res_code == 1)
               {
                 Utils.toastButtom("删除成功", this.toast)
