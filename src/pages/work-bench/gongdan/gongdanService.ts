@@ -109,10 +109,11 @@ export class GongDanService {
         return this.httpservice.postBody("work_order_action", body,1);
     }
 
-    work_order_retract(uid,work_order_id){
+    work_order_retract(uid,work_order_id,need_unlink){
          let body = JSON.stringify({
             uid:uid,
             work_order_id:work_order_id,
+            need_unlink:need_unlink,
           });
         return this.httpservice.postBody("work_order_retract", body,1);
     }
@@ -131,7 +132,7 @@ export class GongDanService {
     }
 
     get_all_biaoqian(){
-        return this.httpservice.postBodyNoLoading("get_all_biaoqian", {},1);
+        return this.httpservice.postBody("get_all_biaoqian", {},1);
     }
 
     update_biaoqian(work_order_id,tag_ids){

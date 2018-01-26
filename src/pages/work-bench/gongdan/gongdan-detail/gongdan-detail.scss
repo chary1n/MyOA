@@ -45,7 +45,7 @@ page-gongdan-detail {
     }
     .data_list_state{
         float:right;
-        margin-top:15px;
+        margin-top:14px;
         margin-right:10px;
         color:#fba796;
         font-size:13px;
@@ -263,5 +263,12 @@ page-gongdan-detail {
         color:white;
         // border-bottom: 1px #f0f2f5 solid;
         line-height:30px;
+    }
+
+    .title_class_style{
+        font-size: 17px;
+        width:70%;
+        display: inline-flex;
+        line-height: 1.2;
     }
 }
