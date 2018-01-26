@@ -57,7 +57,6 @@ export class GongdanPage {
     private datePicker: DatePicker, private toastCtrl: ToastController,
     public menu: MenuController) {
     this.menu.open()
-    this.show_type = "gongdan";
     this.inner_type = "first"
     this.is_android = this.platform.is('android')
     this.click_gongdan()

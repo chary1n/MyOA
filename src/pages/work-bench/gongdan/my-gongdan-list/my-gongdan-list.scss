@@ -17,4 +17,15 @@ page-my-gongdan-list {
         margin-top: 5px;
     }
 
+
+    .title_class_style{
+        font-size: 17px;
+        width:70%;
+        display: inline-block;
+        white-space: nowrap;
+        vertical-align: bottom;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        line-height: 1.2;
+    }
 }
