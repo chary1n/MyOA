@@ -57,7 +57,6 @@ export class GongdanPage {
     private datePicker: DatePicker, private toastCtrl: ToastController,
     public menu: MenuController) {
     this.menu.open()
-    this.show_type = "gongdan";
     this.inner_type = "first"
     this.is_android = this.platform.is('android')
     this.click_gongdan()
@@ -260,7 +259,7 @@ export class GongdanPage {
     });
     this.gongdanService.searchAtMe(body).then(res => {
       if (res.result && res.result.res_code == 1) {
-        this.navCtrl.push("MyGongdanListPage", { gongdanList: res.result.res_data ,title:"最新@我"})
+        this.navCtrl.push("AtMeListPage", { gongdanList: res.result.res_data ,title:"最新@我"})
       }
     })
   }
