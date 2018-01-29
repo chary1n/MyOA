@@ -57,6 +57,10 @@ export class GongDanService {
         return this.httpservice.postBodyNoLoading("searchAtMe", body,1);
     }
 
+    searchAtMeWithLoading(body){
+        return this.httpservice.postBody("searchAtMe", body,1);
+    }
+
 
     getDepartment(){
         let body = JSON.stringify({

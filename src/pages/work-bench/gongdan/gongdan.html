@@ -162,28 +162,32 @@
 
   </div>
   <div  *ngIf="show_type == 'me'">
-    <div style="width:100%;height:150px;padding:15px;text-align:center;background:#0097ee">
+    <div style="width:100%;height:139px;padding:15px;text-align:center;background:#0097ee">
       <!-- <canvas 
      style="background:#ffffff;height:80px;width:100%;position:absolute;top:0px;left:0px;z-index:1;" id="canvas"> -->
-      <div style="text-align:center; border-radius: 5px;background:white;margin-top:-33px;height:100%">
+      <div style="text-align:center; border-radius: 5px;background:white;margin-top:-37px;height:100%">
         <div style="position:relative;width:70px;margin:0 auto;margin-top:30px" taggable (click)="searchAtMe()">
-          <img style="margin-top:17px " src="assets/img/gongdan/huifu.png">
+          <img style="margin-top:7px " src="assets/img/gongdan/huifu.png">
           <div style="margin-top:1px">最新@我</div>
-          <span *ngIf="searchAtMeNumber"   style="position:absolute;width:20px;height:20px;border-radius:10px;background-color:red;display:inline-block;color:white;line-height:20px;right:-17px;top:11px;text-align:center;font-size:12px">{{searchAtMeNumber}}</span>
+          <span *ngIf="searchAtMeNumber"   style="position:absolute;
+          width:20px;height:20px;border-radius:10px;background-color:red;
+          display:inline-block;color:white;line-height:20px;right:-17px;top:11px;text-align:center;font-size:12px">{{searchAtMeNumber}}</span>
         </div>
       </div>
     </div>
     <ion-list style="background-color:white">
       <button ion-item (click)="mySubmitList()">
         <ion-avatar item-start>
-          <img src="assets/img/gongdan/myApply.png">
+          <img src="assets/img/gongdan/myApply.png" class="imgStyle"  style=" border-radius: 0px;    width: 29px;
+          height: 29px; ">
         </ion-avatar>
         <ion-label>我提交的</ion-label>
       </button>
 
       <button ion-item (click)="myProcessList()">
         <ion-avatar item-start>
-          <img src="assets/img/gongdan/shouli.png">
+          <img src="assets/img/gongdan/shouli.png" class="imgStyle"   style=" border-radius: 0px;     width: 29px;
+          height: 29px;">
         </ion-avatar>
         <ion-label>我受理中的
           <span style="float:right"> {{processNumber}}</span>
@@ -192,7 +196,8 @@
 
       <button ion-item (click)="waitOtherAssign()">
         <ion-avatar item-start>
-          <img src="assets/img/gongdan/daiyanshou.png">
+          <img src="assets/img/gongdan/daiyanshou.png" class="imgStyle"   style=" border-radius: 0px;    width: 29px;
+          height: 29px; ">
         </ion-avatar>
         <ion-label>待他人验收的
           <span style="float:right"> {{unassignNumber}}</span>
@@ -201,21 +206,24 @@
 
       <button ion-item (click)="myFinished()">
         <ion-avatar item-start>
-          <img src="assets/img/gongdan/yiwancheng.png">
+          <img src="assets/img/gongdan/yiwancheng.png" class="imgStyle" style=" border-radius: 0px;    width: 29px;
+          height: 29px; ">
         </ion-avatar>
         <ion-label>我已完成的</ion-label>
       </button>
 
       <button ion-item (click)="myReply()">
         <ion-avatar item-start>
-          <img src="assets/img/gongdan/huifu.png">
+          <img src="assets/img/gongdan/huifu.png" class="imgStyle" style=" border-radius: 0px;     width: 29px;
+          height: 29px;">
         </ion-avatar>
         <ion-label>我回复过的</ion-label>
       </button>
 
       <button ion-item (click)="myAssigned()">
         <ion-avatar item-start>
-          <img src="assets/img/gongdan/zhipai.png">
+          <img src="assets/img/gongdan/zhipai.png" class="imgStyle" style=" border-radius: 0px;    width: 29px;
+          height: 29px; ">
         </ion-avatar>
 
         <ion-label>我指派过的
