@@ -15,7 +15,7 @@
       </button>
     </ion-buttons>
 
-    <div align="center" style="height:40px">
+    <div align="center" style="height:40px;margin-left:10px">
         <div style="width:33%;float:right;text-align:left" [ngClass]="{true:'test_choose',false:'test_one'}[show_type == 'tongji']" align="center" tappable (click)="click_tongji()">
         统计
         </div>
@@ -47,7 +47,7 @@
         </ion-col>
       </ion-row>
     </ion-grid>-->
-    <ion-buttons end>
+    <ion-buttons style="margin-right:11px" end>
       <button ion-button icon-only (click)="search_gongdan()">
         <img style="width:20px" src="assets/img/work_bench/search_icon.png" />
       </button>
@@ -167,17 +167,21 @@
      style="background:#ffffff;height:80px;width:100%;position:absolute;top:0px;left:0px;z-index:1;" id="canvas"> -->
       <div style="text-align:center; border-radius: 5px;background:white;margin-top:-37px;height:100%">
         <div style="position:relative;width:70px;margin:0 auto;margin-top:30px" taggable (click)="searchAtMe()">
-          <img style="margin-top:7px " src="assets/img/gongdan/huifu.png">
+          <img style="margin-top:16px ;width:50px " src="assets/img/gongdan/huifu.png">
           <div style="margin-top:1px">最新@我</div>
           <span *ngIf="searchAtMeNumber"   style="position:absolute;
           width:20px;height:20px;border-radius:10px;background-color:red;
-          display:inline-block;color:white;line-height:20px;right:-17px;top:11px;text-align:center;font-size:12px">{{searchAtMeNumber}}</span>
+          display:inline-block;color:white;line-height:20px;right:-6px;top:11px;text-align:center;font-size:12px">{{searchAtMeNumber}}</span>
         </div>
       </div>
     </div>
     <div >
     <!--<ion-list style="background-color:white;">-->
-      <button ion-item (click)="mySubmitList()">
+      <div style="height:10px;background:white">
+
+      </div>
+
+      <button ion-item (click)="mySubmitList()" >
         <ion-avatar item-start>
           <img src="assets/img/gongdan/myApply.png" class="imgStyle"  style=" border-radius: 0px;    width: 29px;
           height: 29px; ">
@@ -191,7 +195,7 @@
           height: 29px;">
         </ion-avatar>
         <ion-label>我受理中的
-          <span style="float:right"> {{processNumber}}</span>
+          <span style="float:right;color:#bbc3cc"> {{processNumber}}</span>
         </ion-label>
       </button>
 
@@ -201,7 +205,7 @@
           height: 29px; ">
         </ion-avatar>
         <ion-label>待他人验收的
-          <span style="float:right"> {{unassignNumber}}</span>
+          <span style="float:right;color:#bbc3cc"> {{unassignNumber}}</span>
         </ion-label>
       </button>
 
@@ -254,9 +258,11 @@
       </span>
 
     </div>
-    <div style="background:#ffffff">
+  
+    <div style="background:#ffffff;height:157px;margin-top:10px">
+        <div style="background:#ffffff;height:1px"  ></div>
       <div style="float:right; margin-right:60px">
-        <canvas id="rings" style="width:100px;height:100px;margin-top:15px"></canvas>
+        <canvas id="rings" style="width:100px;height:100px;margin-top:23px"></canvas>
       </div>
       <div>
         <div class="div_x" (click)="processTongjiWithTime()" >
@@ -298,7 +304,7 @@
 </ion-content>
 
 
-<ion-footer style="background:#f0f2f5" *ngIf="show_type == 'me'">
+<ion-footer *ngIf="show_type == 'me'"  no-border>
   <button ion-button tappable style='width:70%;margin-left:15%'   round (click)="createGongdan()">
     新建工单
   </button>
