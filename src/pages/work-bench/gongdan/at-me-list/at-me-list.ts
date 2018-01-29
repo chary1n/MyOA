@@ -20,10 +20,12 @@ export class AtMeListPage {
 
   gongdanList ;
   title ;
+  userName ;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public gongdanService :GongDanService) {
      this.gongdanList =  this.navParams.get("gongdanList")
      this.title = this.navParams.get('title')
+     this.userName = HttpService.user.name
   }
 
   ionViewDidLoad() {
@@ -38,7 +40,7 @@ export class AtMeListPage {
       isSearchOrder: true,
       isRead: false
     });
-    this.gongdanService.searchAtMe(body).then(res => {
+    this.gongdanService.searchAtMeWithLoading(body).then(res => {
       if (res.result && res.result.res_code == 1) {
         this.gongdanList = res.result.res_data
       }
@@ -65,7 +67,6 @@ export class AtMeListPage {
 
 
   isReadStyle(item){
-    console.log(item.isRead)
     return item.isRead
     // return false 
   }
