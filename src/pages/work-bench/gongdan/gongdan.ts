@@ -77,7 +77,7 @@ export class GongdanPage {
       this.getDataList(this.page_issue_state)
     }
     console.log(this.navParams.get('select_ids') )
-    if (this.navParams.get('select_ids').length || this.navParams.get('select_ids').length == 0) {
+    if (this.navParams.get('select_ids')&&(this.navParams.get('select_ids').length || this.navParams.get('select_ids').length == 0)) {
       this.biaoqian_select_ids = this.navParams.data.select_ids
       this.navParams.data.select_ids = [];
       this.reload_statics()
@@ -250,18 +250,7 @@ export class GongdanPage {
 
 
   searchAtMe() {
-    let body = JSON.stringify({
-      uid: HttpService.user_id,
-      assign: HttpService.user_id,
-      reply: HttpService.user_id,
-      isSearchOrder: true,
-      isRead: false
-    });
-    this.gongdanService.searchAtMe(body).then(res => {
-      if (res.result && res.result.res_code == 1) {
-        this.navCtrl.push("AtMeListPage", { gongdanList: res.result.res_data ,title:"最新@我"})
-      }
-    })
+    this.navCtrl.push("AtMeListPage")
   }
 
   searchAtMeNumberFunction() {
@@ -270,7 +259,8 @@ export class GongdanPage {
       assign: HttpService.user_id,
       reply: HttpService.user_id,
       isSearchOrder: true,
-      isRead: false
+      isRead: false,
+      isNumber :true 
     });
     this.gongdanService.searchAtMe(body).then(res => {
       console.log(res)
@@ -610,8 +600,10 @@ export class GongdanPage {
 
 
   changeDate(date) {
-    let new_date = new Date(date.replace(' ', 'T') + 'Z').getTime();
-    return new_date;
+    if(date){
+      let new_date = new Date(date.replace(' ', 'T') + 'Z').getTime();
+      return new_date;
+    }
   }
 
   clickbiaoqian(item) {
