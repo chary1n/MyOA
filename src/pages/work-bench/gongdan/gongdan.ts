@@ -74,13 +74,11 @@ export class GongdanPage {
   ionViewDidEnter() {
     if (this.navParams.get('need_fresh') == true) {
       this.navParams.data.need_fresh = false;
-
       this.reload_statics()
       this.getDataList(this.page_issue_state)
     }
     console.log(this.navParams.get('select_ids') )
     if (this.navParams.get('select_ids').length || this.navParams.get('select_ids').length == 0) {
-      console.log('111')
       this.biaoqian_select_ids = this.navParams.data.select_ids
       this.navParams.data.select_ids = [];
       this.reload_statics()
@@ -94,7 +92,7 @@ export class GongdanPage {
 
 
   ionViewWillLeave() {
-    this.menu.close()
+    // this.menu.close()
   }
 
   click_me() {
@@ -116,9 +114,10 @@ export class GongdanPage {
 
   click_gongdan() {
     this.endDate_gongdan = this.datePipe.transform(new Date(), 'yyyy-MM-dd'),
-      this.startDate_gongdan = this.datePipe.transform(new Date(new Date().getTime() - 3600000 * 24 * 7), 'yyyy-MM-dd')
+    this.startDate_gongdan = this.datePipe.transform(new Date(new Date().getTime() - 3600000 * 24 * 7), 'yyyy-MM-dd')
     this.dataList = []
     this.show_type = "gongdan"
+    this.inner_type = "first"
     this.reload_statics()
     this.getDataList("unaccept")
   }
