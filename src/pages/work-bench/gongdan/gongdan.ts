@@ -1,14 +1,14 @@
 import { ToastController } from 'ionic-angular/components/toast/toast-controller';
 import { HttpService } from './../../../providers/HttpService';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform,AlertController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { GongDanService } from './gongdanService';
 import { DatePipe } from '@angular/common';
 import { DatePicker } from '@ionic-native/date-picker';
 import { Utils } from '../../../providers/Utils';
 import { MenuController } from 'ionic-angular';
-
+import { Storage } from '@ionic/storage';
 /**
  * Generated class for the GongdanPage page.
  *
@@ -52,15 +52,22 @@ export class GongdanPage {
   biaoqian_select_ids = [];
   tag_ids = []
   inner_type
+  department = false;
   constructor(public navCtrl: NavController, public navParams: NavParams, public statusbar: StatusBar,
     public gongdanService: GongDanService, public platform: Platform, private datePipe: DatePipe,
     private datePicker: DatePicker, private toastCtrl: ToastController,
-    public menu: MenuController) {
+    public menu: MenuController,public storage: Storage,public alertCtrl:AlertController) {
     this.menu.open()
     this.inner_type = "first"
     this.is_android = this.platform.is('android')
     this.click_gongdan()
-    
+    this.storage.get('user')
+      .then(res => {
+        if (res.result.res_data.department)
+        {
+          this.department = true;
+        }
+      })
   }
 
   ionViewDidLoad() {
@@ -470,7 +477,26 @@ export class GongdanPage {
 
 
   createGongdan() {
-    this.navCtrl.push("CreateGongdanPage")
+    if (this.department)
+    {
+      this.navCtrl.push("CreateGongdanPage")
+    }
+    else
+  {
+    let ctrl = this.alertCtrl;
+    ctrl.create({
+              title: '提示',
+              subTitle: "该用户没有设置员工,请联系管理员",
+              buttons: [{
+                text: '确定',
+                handler: () => {
+                 
+                }
+              }
+              ]
+            }).present();
+  }
+    
   }
 
   drawRings(a, b, c, d) {

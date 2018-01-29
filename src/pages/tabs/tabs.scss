@@ -23,18 +23,23 @@ page-tabs {
 }
 
 .ion-ios-bar-contact{
-  background:url("../assets/img/tabs/contact_select.png") no-repeat center; 
+  background:url("../assets/img/tabs/erp.png") no-repeat center; 
 }
 
 .ion-ios-bar-contact-outline{
-  background:url("../assets/img/tabs/contact.png") no-repeat center; 
+  background:url("../assets/img/tabs/erp.png") no-repeat center; 
 }
 
 .ion-ios-bar-my{
   background:url("../assets/img/tabs/my_select.png") no-repeat center; 
 }
-.ion-ios-bar-contact-outline{
-  background:url("../assets/img/tabs/my.png") no-repeat center; 
+
+.ion-ios-bar-R{
+  background:url("../assets/img/tabs/erp@2x.png") no-repeat center; 
 }
+
+// .ion-ios-bar-R-outline{
+//   background:url("../assets/img/tabs/erp.png") no-repeat center; 
+// }
 
 }

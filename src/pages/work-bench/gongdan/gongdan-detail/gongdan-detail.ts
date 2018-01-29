@@ -28,16 +28,22 @@ export class GongdanDetailPage {
   rebackPage;
   is_ios;
   biaoqian_list;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public statusBar: StatusBar,
-    public gongDanService: GongDanService, public alertCtrl: AlertController,
-    public toast: ToastController, public platform: Platform) {
-    this.biaoqian_list = this.navParams.get('biaoqian_list')
+  isMine = false;
+  constructor(public navCtrl: NavController, public navParams: NavParams,public statusBar:StatusBar,
+    public gongDanService:GongDanService,public alertCtrl:AlertController,
+    public toast:ToastController,public platform:Platform) {
+      
+      this.biaoqian_list = this.navParams.get('biaoqian_list')
     this.frontPage = Utils.getViewController("GongdanPage", navCtrl)
     this.rebackPage = Utils.getViewController("CreateGongdanPage", navCtrl)
     this.item = this.navParams.get('items').work_order
     this.message_item = this.navParams.get('items').records
     this.statusBar.backgroundColorByHexString("#2597ec");
     this.statusBar.styleLightContent();
+    if (this.item.create_user.id == HttpService.user_id)
+  {
+    this.isMine = true;
+  }
     this.is_ios = this.platform.is('ios')
     if (this.item.issue_state == "unaccept" || this.item.issue_state == "process") {
       this.isShowZhiPai = true
@@ -65,6 +71,7 @@ export class GongdanDetailPage {
       }
     }
   }
+  
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad GongdanDetailPage');

@@ -36,6 +36,7 @@ export class ShenheMaterialRequestPage {
   ) {
     this.type = navParams.get('type')
     this.item = navParams.get('item')
+    console.log(this.item)
     // this.grid_height={height:667-340+'px'}
     this.frontPage = Utils.getViewController("MaterialRequestPage", navCtrl)
     if (this.type == "final"){
@@ -59,12 +60,14 @@ export class ShenheMaterialRequestPage {
                 {
                   this.employeeList.push(items.final_review_partner_id);
                   this.line_final = items.final_review_partner_id.id
+                  console.log(this.line_final)
                   this.touxianList.push("产线领用终审人");
                 }
                 else if (items.review_type == "picking_review_project")
                 {
                   this.employeeList.push(items.final_review_partner_id);
                   this.product_final = items.final_review_partner_id.id
+                  console.log(this.product_final)
                   this.touxianList.push("工程领用终审人");
                 }
               } 
@@ -153,8 +156,8 @@ export class ShenheMaterialRequestPage {
     else
     {
       if (this.select_name){
-        if (this.item.picking_type == "pick_type"){
-          if (this.select_name.id != this.product_final){
+        if (this.item.picking_type != "pick_type"){
+          if (this.select_name.id == this.product_final){
             this.mService.action_to_next(this.item.id,this.beizhuText,this.user_id,false,this.item.picking_type,this.select_name.name,parseInt(this.select_name.id)).then(res => {
             if (res.result.res_data.success == 1){
                Utils.toastButtom("送审成功", this.toastCtrl)
@@ -165,11 +168,13 @@ export class ShenheMaterialRequestPage {
         }
         else
         {
+            console.log(this.select_name.id)
+            console.log(this.product_final + 'xxxx')
             Utils.toastButtom("请选择正确的审核人", this.toastCtrl)
         }
       }
       else{
-          if (this.select_name.id != this.line_final){
+          if (this.select_name.id == this.line_final){
             this.mService.action_to_next(this.item.id,this.beizhuText,this.user_id,false,this.item.picking_type,this.select_name.name,parseInt(this.select_name.id)).then(res => {
             if (res.result.res_data.success == 1){
                Utils.toastButtom("送审成功", this.toastCtrl)
@@ -180,6 +185,8 @@ export class ShenheMaterialRequestPage {
         }
         else
         {
+          console.log(this.select_name.id)
+          console.log(this.line_final + 'mmmm')
             Utils.toastButtom("请选择正确的审核人", this.toastCtrl)
         }
       }
