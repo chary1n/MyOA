@@ -8,7 +8,7 @@
 
   <ion-navbar color="gongdan-color">
     <ion-title>工单详情</ion-title>
-    <ion-buttons *ngIf="item.issue_state == 'draft'" end>
+    <ion-buttons *ngIf="item.issue_state == 'draft' && isMine" end>
       <button ion-button (click)='release()'>
         编辑
       </button>

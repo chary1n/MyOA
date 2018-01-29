@@ -28,6 +28,7 @@ export class GongdanDetailPage {
   rebackPage;
   is_ios;
   biaoqian_list;
+  isMine = false;
   constructor(public navCtrl: NavController, public navParams: NavParams,public statusBar:StatusBar,
     public gongDanService:GongDanService,public alertCtrl:AlertController,
     public toast:ToastController,public platform:Platform) {
@@ -63,7 +64,11 @@ export class GongdanDetailPage {
         this.isShowConfirm = true
       }
     }
-    } 
+  }
+  if (this.item.create_user.id == HttpService.user_id)
+  {
+    this.isMine = true;
+  }
   }
 
   ionViewDidLoad() {
