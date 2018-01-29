@@ -41,8 +41,10 @@ export class MyGongdanListPage {
   }
 
   changeDate(date){
-    let new_date = new Date(date.replace(' ', 'T') + 'Z').getTime();
-    return new_date;
+    if(date){
+      let new_date = new Date(date.replace(' ', 'T') + 'Z').getTime();
+      return new_date;
+    }
   }
 
   changePriority(priority){

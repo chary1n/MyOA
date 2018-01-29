@@ -1,3 +1,4 @@
+import { HttpService } from './../../../../providers/HttpService';
 import { GongDanService } from './../gongdanService';
 import { IonicPage, NavParams } from 'ionic-angular';
 import { Component } from '@angular/core';
@@ -29,6 +30,21 @@ export class AtMeListPage {
     console.log('ionViewDidLoad MyGongdanListPage');
   }
 
+  ionViewWillEnter(){
+    let body = JSON.stringify({
+      uid: HttpService.user_id,
+      assign: HttpService.user_id,
+      reply: HttpService.user_id,
+      isSearchOrder: true,
+      isRead: false
+    });
+    this.gongdanService.searchAtMe(body).then(res => {
+      if (res.result && res.result.res_code == 1) {
+        this.gongdanList = res.result.res_data
+      }
+    })
+  }
+
   toDetail(item){
     this.gongdanService.getGongdanDetail(item.work_order_id).then(res=>{
       console.log(res)
@@ -41,8 +57,17 @@ export class AtMeListPage {
   }
 
   changeDate(date){
-    let new_date = new Date(date.replace(' ', 'T') + 'Z').getTime();
-    return new_date;
+    if(date){
+      let new_date = new Date(date.replace(' ', 'T') + 'Z').getTime();
+      return new_date;
+    }
+  }
+
+
+  isReadStyle(item){
+    console.log(item.isRead)
+    return item.isRead
+    // return false 
   }
 
   changePriority(priority){
