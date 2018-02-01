@@ -42,6 +42,7 @@ export class CreateGongdanPage {
   is_back_gongdan;
   frontPage
   biaoqianList;
+  showX = false ;
   priority = [{ name: '低', id: '1' }, { name: '中', id: '2' }, { name: '高', id: '3' }]
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public toastCtrl: ToastController,
@@ -88,7 +89,7 @@ export class CreateGongdanPage {
       if (this.companyIschoosed) {
         this.whoCanSee = "全公司"
       } else {
-       this.whoCanSee = this.chooseDepartmentName
+       this.whoCanSee = "指定部门"
      }
     }
     
@@ -268,6 +269,12 @@ export class CreateGongdanPage {
     //       })
     //     }
     //   })
+  }
+
+
+  onHold(){
+    this.showX = true
+    console.log("长按了")
   }
 
 

@@ -35,9 +35,14 @@
   </ion-item>
 
   <button ion-item (click)="chooseDepartment()">
-      <span style="float:right" class="span_x">{{chooseDepartmentName}}</span>
+      <span style="float:right" class="span_x">{{direction}}</span>
     指定部门
   </button>
-
+  <ion-list *ngIf="showDepartmentList" >
+    <ion-item *ngFor="let item of departmentList;let i = index">
+      <ion-label> {{item.name}}</ion-label>
+      <ion-checkbox (click)="chooseItem(item)" [checked]=item.ischeck></ion-checkbox>
+    </ion-item>
+  </ion-list>
 
 </ion-content>

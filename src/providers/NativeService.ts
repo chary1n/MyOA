@@ -108,9 +108,9 @@ export class NativeService {
           this.alertCtrl.create({
             title: '发现新版本,是否立即升级?',
             subTitle: changelog,
-            buttons: [{ text: '取消' },
+            buttons: [{ text: '稍后再说' },
             {
-              text: '确定',
+              text: '立即升级',
               handler: () => {
                 this.downloadApp();
               }
@@ -251,11 +251,11 @@ export class NativeService {
     let ops: CameraOptions = Object.assign({
       sourceType: this.camera.PictureSourceType.CAMERA,//图片来源,CAMERA:拍照,PHOTOLIBRARY:相册
       destinationType: this.camera.DestinationType.DATA_URL,//默认返回base64字符串,DATA_URL:base64   FILE_URI:图片路径
-      quality: QUALITY_SIZE,//图像质量，范围为0 - 100
+      quality: 100,//图像质量，范围为0 - 100
       allowEdit: true,//选择图片前是否允许编辑
       encodingType: this.camera.EncodingType.JPEG,
-      targetWidth: IMAGE_SIZE,//缩放图像的宽度（像素）
-      targetHeight: IMAGE_SIZE,//缩放图像的高度（像素）
+      targetWidth: 1024,//缩放图像的宽度（像素） 
+      targetHeight: 1024,//缩放图像的高度（像素）
       saveToPhotoAlbum: false,//是否保存到相册
       correctOrientation: true//设置摄像机拍摄的图像是否为正确的方向
     }, options);

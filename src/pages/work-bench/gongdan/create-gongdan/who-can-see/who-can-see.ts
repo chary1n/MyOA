@@ -23,7 +23,10 @@ export class WhoCanSeePage {
   chooseList;
   chooseDepartmentName;
   departmentList;
-  need_pop_reback
+  need_pop_reback;
+  showDepartmentList = false ;
+  direction = "↓" ;
+
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public gongdanService: GongDanService) {
       this.need_pop_reback = this.navParams.get('need_pop_reback')
@@ -36,6 +39,8 @@ export class WhoCanSeePage {
     }
 
     this.companyIschoosed = this.navParams.get("companyIschoosed")
+
+
   }
 
   ionViewDidLoad() {
@@ -45,6 +50,14 @@ export class WhoCanSeePage {
   ionViewWillEnter() {
     this.chooseList = this.navParams.get('chooseList')
     this.departmentList = this.navParams.get('departmentList')
+    if(!this.departmentList){
+      this.gongdanService.getDepartment().then(res => {
+        console.log(res)
+        if (res.result.res_code == 1) {
+         this.departmentList =  res.result.res_data.all_departments.res_data
+        }
+      })
+    }
     if (this.chooseList) {
       this.companyIschoosed = false
       this.chooseDepartmentName = this.navParams.get('chooseDepartmentName')
@@ -69,6 +82,9 @@ export class WhoCanSeePage {
   chooseCompany() {
     this.companyIschoosed = !this.companyIschoosed
     if (this.companyIschoosed) {
+      for (let i = 0; i < this.departmentList.length; i++) {
+        this.departmentList[i].ischeck = false
+      }
       this.chooseList = []
       this.chooseDepartmentName = ""
     }
@@ -76,20 +92,35 @@ export class WhoCanSeePage {
   }
 
   chooseDepartment() {
-    if (this.departmentList) {
-      this.navCtrl.push('ChooseDepartmentPage', { departmentList: this.departmentList })
-    } else {
-      this.gongdanService.getDepartment().then(res => {
-        console.log(res)
-        if (res.result.res_code == 1) {
-          this.navCtrl.push('ChooseDepartmentPage', { departmentList: res.result.res_data.all_departments.res_data, })
-        }
-      })
+    this.showDepartmentList = !this.showDepartmentList
+    if(this.departmentList){
+      this.direction = "↑"
+    }else{
+      this.direction = "↓"
     }
   }
 
   goBack() {
     this.navCtrl.pop();
+  }
+
+  chooseItem(item) {
+    item.ischeck = !item.ischeck
+    this.conformClick()
+  }
+
+  conformClick(){
+    this.chooseList = []
+    for (let i = 0; i < this.departmentList.length; i++) {
+      if(this.departmentList[i].ischeck){
+        this.chooseList.push(this.departmentList[i].id)
+        this.chooseDepartmentName = this.chooseDepartmentName +this.departmentList[i].name
+      }
+    }
+    if(this.chooseList.length>0){
+      this.companyIschoosed = false
+    }
+
   }
 
 }
