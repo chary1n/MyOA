@@ -20,9 +20,15 @@ import { GongDanAutoService} from './gongdan-search-auto'
 export class GongdanSearchPage {
   dataList = []
   biaoqianList
+  inner_type
+  unacceptTitle = "待受理";
+  unassignTitle = "待验收";
+  processTitle = "受理中";
+  search_type
+  search_text
   constructor(public navCtrl: NavController, public navParams: NavParams,public gongDanAutoService:GongDanAutoService,
-    public gongDanService:GongDanService) {
-      this.gongDanService.get_all_biaoqian().then(res => {
+    public gongdanService:GongDanService) {
+      this.gongdanService.get_all_biaoqian().then(res => {
       console.log(res)
       if (res.result.res_data && res.result.res_code == 1)
       {
@@ -51,17 +57,21 @@ export class GongdanSearchPage {
       search_text = event.name.replace("搜 标题：", "")
       search_type = "name"
     }
-    this.gongDanService.search_gongdan(search_text,search_type).then(res => {
-        if (res.result.res_data) {
-        for (let item of res.result.res_data) {
-          this.dataList.push(item)
-        }
-      }
-    })
+    this.search_text = search_text
+    this.search_type = search_type
+    // this.gongdanService.search_gongdan(search_text,search_type).then(res => {
+    //     if (res.result.res_data) {
+    //     for (let item of res.result.res_data) {
+    //       this.dataList.push(item)
+    //     }
+    //   }
+    // })
+    this.inner_type = "all"
+    this.getDataList(null)
   }
 
   gongdanDetail(item){
-    this.gongDanService.getGongdanDetail(item.work_order_id).then(res => {
+    this.gongdanService.getGongdanDetail(item.work_order_id).then(res => {
       console.log(res)
       if (res.result.res_data && res.result.res_code == 1) {
         this.navCtrl.push('GongdanDetailPage', {
@@ -90,5 +100,99 @@ export class GongdanSearchPage {
       state_str = "草稿"
     }
     return state_str
+  }
+
+  getDataList(state) {
+    this.dataList = [];
+    // this.page_issue_state = state;
+    
+    this.gongdanService.work_order_search(JSON.stringify({
+      uid: HttpService.user_id,
+      issue_state: state,
+      search_type:this.search_type,
+      search_text:this.search_text,
+      // tag_ids: this.biaoqian_select_ids,
+    })).then(res => {
+      console.log(res)
+      if (res.result.res_data) {
+        for (let item of res.result.res_data) {
+          this.dataList.push(item)
+        }
+      }
+    })
+
+    this.reload_statics()
+  }
+
+  reload_statics(){
+    this.gongdanService.work_order_statistics_search(null,null,[],this.search_type,this.search_text).then(res => {
+      console.log(res)
+      if (res.result.res_data) {
+        if (res.result.res_data.unaccept) {
+          this.unacceptTitle = "待受理" + " (" + res.result.res_data.unaccept + ")";
+        }
+        else {
+          this.unacceptTitle = "待受理"
+        }
+        if (res.result.res_data.check) {
+          this.unassignTitle = "待验收" + " (" + res.result.res_data.check + ")";
+        }
+        else {
+          this.unassignTitle = "待验收"
+        }
+        if (res.result.res_data.process) {
+          this.processTitle = "受理中" + " (" + res.result.res_data.process + ")";
+        }
+        else {
+          this.processTitle = "受理中"
+        }
+      }
+      else
+      {
+        this.unacceptTitle = "待受理"
+        this.unassignTitle = "待验收"
+        this.processTitle = "受理中"
+      }
+    })
+  }
+
+   click_all(){
+    this.inner_type = "all"
+    this.allClick()
+  }
+
+  click_one(){
+    this.inner_type = "first"
+    this.unacceptClick()
+  }
+
+  click_two(){
+    this.inner_type = "second"
+    this.processClick()
+  }
+
+  click_three(){
+    this.inner_type = "third"
+    this.unassignClick()
+  }
+
+  unacceptClick() {
+    this.getDataList("unaccept")
+  }
+
+  processClick() {
+    this.getDataList("process")
+  }
+
+  unassignClick() {
+    this.getDataList("check")
+  }
+
+  allClick(){
+    this.getDataList(null)
+  }
+
+  clickback(){
+    this.navCtrl.pop()
   }
 }

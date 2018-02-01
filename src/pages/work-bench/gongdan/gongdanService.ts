@@ -42,6 +42,18 @@ export class GongDanService {
           });
         return this.httpservice.postBodyNoLoading("work_order_statistics", body,1);
     }
+    
+    work_order_statistics_search(start_date,end_date,tag_ids,search_type,search_text){
+        let body = JSON.stringify({
+            uid:HttpService.user_id,
+            start_date:start_date,
+            end_date:end_date,
+            tag_ids:tag_ids,
+            search_type:search_type,
+            search_text:search_text,
+          });
+        return this.httpservice.postBodyNoLoading("work_order_statistics_search", body,1);
+    }
 
     work_order_statisticsWithTime(start_date,end_date){
         let body = JSON.stringify({
@@ -77,14 +89,15 @@ export class GongDanService {
         return this.httpservice.postBody("work_order_search_by_id", body,1);
     }
 
-    work_order_add_record(content,reply_uid,record_type,work_order_id,parent_id){
+    work_order_add_record(content,reply_uid,record_type,work_order_id,parent_id,record_imgs){
         let body = JSON.stringify({
             content:content,
             reply_uid:reply_uid,
             record_type:record_type,
             work_order_id:work_order_id,
             parent_id:parent_id,
-            uid :HttpService.user_id
+            uid :HttpService.user_id,
+            record_imgs:record_imgs,
           });
         return this.httpservice.postBody("work_order_add_record", body,1);
     }

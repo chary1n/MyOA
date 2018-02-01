@@ -78,9 +78,9 @@ export class MyApp {
                 this.alertCtrl.create({
                   title: '发现新版本,是否立即升级？',
                   subTitle: "更新内容："+res.changelog,
-                  buttons: [{ text: '取消' },
+                  buttons: [{ text: '稍后再说' },
                  {
-                    text: '确定',
+                    text: '立即升级',
                     handler: () => {
                       this.openUrlByBrowser('http://fir.im/MyOa');
                  }

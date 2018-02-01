@@ -90,4 +90,18 @@ page-gongdan-search {
         text-overflow: ellipsis;
         line-height: 1.2;
     }
+    .under_line_style{
+        color:#5bc5f3;
+        width:60px;
+        height: 40px;
+        line-height: 40px;
+        border-bottom:#5bc5f3 3px solid;
+    }
+
+    .normal_style{
+        width:60px;
+        height: 40px;
+        line-height: 40px;
+        color:#c2c8cc
+    }
 }
