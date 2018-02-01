@@ -58,7 +58,7 @@ export class GongdanPage {
     private datePicker: DatePicker, private toastCtrl: ToastController,
     public menu: MenuController,public storage: Storage,public alertCtrl:AlertController) {
     this.menu.open()
-    this.inner_type = "first"
+    this.inner_type = "all"
     this.is_android = this.platform.is('android')
     this.click_gongdan()
     this.storage.get('user')
@@ -123,9 +123,9 @@ export class GongdanPage {
     this.startDate_gongdan = this.datePipe.transform(new Date(new Date().getTime() - 3600000 * 24 * 7), 'yyyy-MM-dd')
     this.dataList = []
     this.show_type = "gongdan"
-    this.inner_type = "first"
+    this.inner_type = "all"
     this.reload_statics()
-    this.getDataList("unaccept")
+    this.getDataList(null)
   }
 
   click_tongji() {
@@ -556,6 +556,12 @@ export class GongdanPage {
     else if (item == "check") {
       state_str = "待验收"
     }
+    else if (item == "done") {
+      state_str = "已完成"
+    }
+    else if (item == "draft") {
+      state_str = "草稿"
+    }
     return state_str
   }
 
@@ -571,8 +577,11 @@ export class GongdanPage {
     this.getDataList("check")
   }
 
+  allClick(){
+    this.getDataList(null)
+  }
+
   getDataList(state) {
-    console.log(new Date(new Date(this.endDate_gongdan).getTime() + 3600000 * 24), 'yyyy-MM-dd')
     this.dataList = [];
     this.page_issue_state = state;
     this.gongdanService.work_order_search(JSON.stringify({
@@ -705,6 +714,11 @@ export class GongdanPage {
 
   tapView() {
     this.menu.close()
+  }
+
+  click_all(){
+    this.inner_type = "all"
+    this.allClick()
   }
 
   click_one(){

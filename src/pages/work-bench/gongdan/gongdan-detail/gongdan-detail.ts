@@ -91,7 +91,10 @@ export class GongdanDetailPage {
         this.item = res.result.res_data.work_order;
         this.message_item = res.result.res_data.records;
         if (this.item.issue_state == "unaccept" || this.item.issue_state == "process") {
-          this.isShowZhiPai = true
+          if (HttpService.user_id == this.item.create_user.id || HttpService.user_id == this.item.assign_user.id)
+          {
+            this.isShowZhiPai = true
+          }
           this.isShowRefuse = false
           this.isShowConfirm = false
           if (this.item.create_user.id == HttpService.user_id) {
@@ -140,48 +143,53 @@ export class GongdanDetailPage {
   }
 
   replyClick() {
-    let ctrl = this.alertCtrl;
-    ctrl.create({
-      title: '提示',
-      message: "填写回复",
-      inputs: [
-        {
-          name: 'title',
-          placeholder: '回复内容(不能为空)'
-        },
-      ],
-      buttons: [
-        {
-          text: '取消',
-          handler: () => {
-          }
-        },
-        {
-          text: '确定',
-          handler: data => {
-            if (data.title) {
-              this.gongDanService.work_order_add_record(data.title, this.item.create_user.id, "reply", this.item.work_order_id, null).then(res => {
+this.navCtrl.push('GongdanChatPage', {
+      item: this.item,
+      parent_id: this.message_item[0].record_id,
+      record_item: this.message_item[0],
+    })
 
-                if (res.result.res_code == 1) {
-                  Utils.toastButtom("回复成功", this.toast)
-                  this.reload()
-                }
-              })
-            }
-            else {
-              Utils.toastButtom("回复不能为空", this.toast)
-            }
-          }
-        }
-      ],
-    }).present();
+    // let ctrl = this.alertCtrl;
+    // ctrl.create({
+    //   title: '提示',
+    //   message: "填写回复",
+    //   inputs: [
+    //     {
+    //       name: 'title',
+    //       placeholder: '回复内容(不能为空)'
+    //     },
+    //   ],
+    //   buttons: [
+    //     {
+    //       text: '取消',
+    //       handler: () => {
+    //       }
+    //     },
+    //     {
+    //       text: '确定',
+    //       handler: data => {
+    //         if (data.title) {
+    //           this.gongDanService.work_order_add_record(data.title, this.item.create_user.id, "reply", this.item.work_order_id,null,[]).then(res => {
+    //             if (res.result.res_code == 1) {
+    //               Utils.toastButtom("回复成功", this.toast)
+    //               this.reload()
+    //             }
+    //           })
+    //         }
+    //         else {
+    //           Utils.toastButtom("回复不能为空", this.toast)
+    //         }
+    //       }
+    //     }
+    //   ],
+    // }).present();
 
 
   }
 
   reply_to(items) {
     console.log(items)
-    this.navCtrl.push('GongdanChatPage', {
+    this.navCtrl.push('GongdanNewChatPage', {
       item: this.item,
       parent_id: items.record_id,
       record_item: items,

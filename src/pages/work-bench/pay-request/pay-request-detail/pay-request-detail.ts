@@ -25,11 +25,19 @@ export class PayRequestDetailPage {
   power;
   process;
   is_ios;
+  to_approve_ids=""
   constructor(public navCtrl: NavController, public navParams: NavParams,public storage:Storage,
     public payService:PaymentRequestService,public alertCtrl:AlertController,public platform:Platform) {
     this.is_ios = this.platform.is('ios')
     this.frontPage = Utils.getViewController("PayRequestPage", navCtrl)
     this.item = this.navParams.get('item');
+    console.log(this.item.to_approve_ids.res_data)
+    // if (this.item.to_approve_ids.res_data){
+      for (let approve_id of this.item.to_approve_ids.res_data) {
+        this.to_approve_ids = this.to_approve_ids +" "+ approve_id.name
+        console.log(this.to_approve_ids + "," +  approve_id.name)
+      }
+    // }
     this.storage.get('user')
       .then(res => {
         for (let product of res.result.res_data.groups) {

@@ -97,6 +97,11 @@
 
 
       <ion-row class="row_class" align-items-center>
+        <ion-col tappable (click) = "click_all()">
+        <div align="center" >
+          <p [ngClass]="{true:'under_line_style',false:'normal_style'}[inner_type == 'all']">全部</p> 
+        </div>
+      </ion-col>
       <ion-col tappable (click) = "click_one()">
          <div align="center" >
           <p [ngClass]="{true:'under_line_style',false:'normal_style'}[inner_type == 'first']">{{unacceptTitle}}</p>
@@ -112,6 +117,7 @@
           <p [ngClass]="{true:'under_line_style',false:'normal_style'}[inner_type == 'third']">{{unassignTitle}}</p> 
         </div>
       </ion-col>
+      
       </ion-row>
     </ion-grid>
     </ion-item>
@@ -304,7 +310,7 @@
 </ion-content>
 
 
-<ion-footer *ngIf="show_type == 'me'"  no-border>
+<ion-footer style="background:#f0f2f5" *ngIf="show_type == 'me'"  no-border>
   <button ion-button tappable style='width:70%;margin-left:15%'   round (click)="createGongdan()">
     新建工单
   </button>

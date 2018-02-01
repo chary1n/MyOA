@@ -20,6 +20,8 @@ export class GongdanChatPage {
   frontPage;
   record_item;
   select_name;
+  isShowTool = false;
+  keybord_height;
   constructor(public navCtrl: NavController, public navParams: NavParams,public gongDanService:GongDanService,
     public toast:ToastController,) {
     this.item = this.navParams.get('item')  
@@ -37,6 +39,8 @@ export class GongdanChatPage {
         }
       })
   }
+
+  
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad GongdanChatPage');
@@ -64,7 +68,7 @@ export class GongdanChatPage {
     {
       let name_str = "@"+this.select_name + " "
       this.beizhuText = this.beizhuText.replace(name_str,"")
-       this.gongDanService.work_order_add_record(this.beizhuText,this.select_list[0],"reply",this.item.work_order_id,this.parent_id).then(res => {
+       this.gongDanService.work_order_add_record(this.beizhuText,this.select_list[0],"reply",this.item.work_order_id,this.parent_id,[]).then(res => {
       console.log(this.select_list)
   
       if (res.result.res_code == 1)
@@ -106,3 +110,5 @@ export class GongdanChatPage {
   }
 
 }
+
+
