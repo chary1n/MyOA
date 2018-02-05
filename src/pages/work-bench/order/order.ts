@@ -33,6 +33,8 @@ export class OrderPage {
   isMoreData4 = true;
   searchName: any;
   returnOrderSearchName: any;
+  to_approve_arr = []
+  to_approve_title;
 
   // @ViewChild('mainSegment') mainSegment: Segment;
 
@@ -44,7 +46,13 @@ export class OrderPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad OrderPage');
     // this.mainSegment.setValue('1')
-    this.clickThree()
+    // this.clickThree()
+  }
+
+  ionViewDidEnter() {
+    if (this.pet == "3"){
+      this.clickThree();
+    }
   }
 
   clickOne() {
@@ -157,9 +165,26 @@ export class OrderPage {
   clickThree() {
     this.orderService.requestIncomingOrder(0, 20)
       .then(res => {
+        console.log(res)
         if (res.result && res.result.res_code == 1) {
           this.incomingOrder = res.result.res_data
           console.log(this.incomingOrder)
+        }
+      })
+      this.orderService.get_to_approve_po().then(res => {
+        if (res.result && res.result.res_code == 1)
+        {
+          console.log(res)
+          this.to_approve_arr = res.result.res_data
+          if (this.to_approve_arr)
+          {
+            this.to_approve_title = this.to_approve_arr.length + " >"
+          }
+          else
+          {
+            this.to_approve_title = "0" + " >"
+          }
+          
         }
       })
   }
@@ -370,6 +395,12 @@ export class OrderPage {
 
   toFix(amount){
     return amount.toFixed(2)
+  }
+
+  to_approve_click(){
+    this.navCtrl.push('ApproveOrderPage',{
+      incomingOrder:this.to_approve_arr,
+    })
   }
 
 }

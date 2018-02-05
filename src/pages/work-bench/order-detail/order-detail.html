@@ -92,3 +92,9 @@
     </ion-item>
   </ion-list>
 </ion-content>
+
+<ion-footer style="background:#f0f2f5" *ngIf="is_manager"  no-border>
+  <button ion-button tappable style='width:70%;margin-left:15%'   round (click)="approve()">
+    批准订单
+  </button>
+</ion-footer>

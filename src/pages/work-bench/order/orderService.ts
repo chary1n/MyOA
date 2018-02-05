@@ -9,6 +9,21 @@ export class orderService {
 
     }
 
+    button_approve(po_id){
+         let body = JSON.stringify({
+            po_id: po_id,
+            user_id:HttpService.user_id
+        });
+        return this.httpservice.postBody("button_approve", body);
+    }
+
+    get_to_approve_po(){
+        let body = JSON.stringify({
+            state: 'purchase',
+            user_id:HttpService.user_id
+        });
+        return this.httpservice.postBody("get_to_approve_po", body);
+    }
 
     // 采购订单
     requestIncomingOrder(moffset, mlimit) {

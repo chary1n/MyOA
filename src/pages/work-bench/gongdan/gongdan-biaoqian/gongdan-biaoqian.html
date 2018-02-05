@@ -8,26 +8,53 @@
 
   <ion-navbar color="gongdan-color">
     <ion-title>工单筛选标签</ion-title>
+
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content>
   <ion-content >
     <div style="margin-top:10px;margin-left:15px;color:#616466">
-      问题标签
+      品牌
     </div>
     <ion-grid>
       <ion-row>
-         <ion-col col-4 tappable (click)="clickbiaoqian(item)" *ngFor="let item of biaoqianList">
-          <div [ngClass]="{true:'biaoqian_div_choose',false:'biaoqian_div_unchoose'}[isChoose(item)]" align="center">
+         <ion-col col-4 tappable (click)="clickbrand(item)" *ngFor="let item of brandList">
+          <div [ngClass]="{true:'biaoqian_div_choose',false:'biaoqian_div_unchoose'}[isChooseBrand(item)]" align="center">
             {{item.name}}
           </div>
         </ion-col>
         
       </ion-row>
     </ion-grid>
+    <div style="margin-top:10px;margin-left:15px;color:#616466">
+      区域
+    </div>
+    <ion-grid>
+      <ion-row>
+         <ion-col col-4 tappable (click)="clickarea(item)" *ngFor="let item of areaList">
+          <div [ngClass]="{true:'biaoqian_div_choose',false:'biaoqian_div_unchoose'}[isChooseArea(item)]" align="center">
+            {{item.name}}
+          </div>
+        </ion-col>
+        
+      </ion-row>
+    </ion-grid>
+    <div style="margin-top:10px;margin-left:15px;color:#616466">
+      产品
+    </div>
+    <ion-grid>
+      <ion-row>
+         <ion-col col-4 tappable (click)="clickcate(item)" *ngFor="let item of cateList">
+          <div [ngClass]="{true:'biaoqian_div_choose',false:'biaoqian_div_unchoose'}[isChooseCate(item)]" align="center">
+            {{item.name}}
+          </div>
+        </ion-col>
+        
+      </ion-row>
+    </ion-grid>
+    
   </ion-content>
   <ion-footer >
           <div style="background:white">
@@ -39,4 +66,3 @@
     </span>
   </div>
 </ion-footer>
-</ion-content>

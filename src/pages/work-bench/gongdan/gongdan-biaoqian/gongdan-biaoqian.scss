@@ -5,6 +5,9 @@ page-gongdan-biaoqian {
        height: 44px;
        line-height: 44px;
        border-radius: 5px; 
+       font-size: 1.8vw;
+       white-space: nowrap;
+    //    text-overflow: ellipsis
     }
     .biaoqian_div_choose{
         background-color:#fba958;
@@ -12,5 +15,8 @@ page-gongdan-biaoqian {
        height: 44px;
        line-height: 44px;
        border-radius: 5px; 
+       font-size: 1.8vw;
+       white-space: nowrap;
+    //    text-overflow: ellipsis
     }
 }

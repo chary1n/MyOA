@@ -99,7 +99,10 @@
 
     <ng-template [ngSwitchCase]='3'>
       <ion-auto-complete style="width: 100vw;" (itemSelected)="itemSelected($event)" [dataProvider]="orderAuto"></ion-auto-complete>
-
+      <ion-item tappable (click)="to_approve_click()" style="border-bottom: 1px lightgray solid;">
+        <p>待批准</p>
+        <p item-end>{{to_approve_title}}</p>
+      </ion-item>
       <ion-refresher (ionRefresh)="doRefresh3($event)">
         <ion-refresher-content></ion-refresher-content>
       </ion-refresher>
