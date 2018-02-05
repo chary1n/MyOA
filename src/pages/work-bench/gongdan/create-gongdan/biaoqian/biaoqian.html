@@ -1,0 +1,58 @@
+<!--
+  Generated template for the BiaoqianPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>标签</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <div style="justify-content:space-around">
+    <span round style='background-color:#f5a623;flex :1 1 100%' *ngFor="let item of chooseList"  ion-button>
+      {{item}}
+    </span>
+  </div>
+
+  <div style="background:#e4e5e6;padding:4px;padding-left:10px">
+    品牌
+  </div>
+
+  <ion-list>
+    <ion-item *ngFor="let item of brand_list;let i = index">
+      <ion-label> {{item.name}}</ion-label>
+      <ion-checkbox (click)="chooseBrandItem(item)" [checked]=item.ischeck></ion-checkbox>
+    </ion-item>
+  </ion-list>
+
+
+  <div style="background:#e4e5e6;padding:4px;padding-left:10px">
+    区域
+  </div>
+
+  <ion-list>
+    <ion-item *ngFor="let item of area_list;let i = index">
+      <ion-label> {{item.name}}</ion-label>
+      <ion-checkbox (click)="chooseAreaItem(item)" [checked]=item.ischeck></ion-checkbox>
+    </ion-item>
+  </ion-list>
+
+  <div style="background:#e4e5e6;padding:4px;padding-left:10px">
+    产品
+  </div>
+
+  <ion-list>
+    <ion-item *ngFor="let item of category_list;let i = index">
+      <ion-label> {{item.name}}</ion-label>
+      <ion-checkbox (click)="chooseCategoryItem(item)" [checked]=item.ischeck></ion-checkbox>
+    </ion-item>
+  </ion-list>
+
+
+</ion-content>

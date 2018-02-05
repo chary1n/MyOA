@@ -93,7 +93,7 @@ export class WhoCanSeePage {
 
   chooseDepartment() {
     this.showDepartmentList = !this.showDepartmentList
-    if(this.departmentList){
+    if(this.showDepartmentList){
       this.direction = "↑"
     }else{
       this.direction = "↓"
