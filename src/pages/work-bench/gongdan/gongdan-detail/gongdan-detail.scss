@@ -187,7 +187,11 @@ page-gongdan-detail {
     .item_calss_one{
         height:20px;
         min-height:30px;
-        margin-top:-5px;
+        margin-top:-1px;
+    }
+    .item_class_image{
+        // height:20px;
+      margin-top:-6px;
     }
     .item_calss_other{
         height:20px;
@@ -236,7 +240,8 @@ page-gongdan-detail {
        line-height: 22px;
        border-radius: 10px; 
        margin-top:-5px;
-       font-size: 10px
+       font-size: 10px;
+       white-space: nowrap
     }
 
     .biaoqian_div_choose.first{
@@ -246,7 +251,8 @@ page-gongdan-detail {
        line-height: 22px;
        border-radius: 10px; 
        margin-top:-5px;
-       font-size: 10px
+       font-size: 10px;
+       white-space: nowrap
     }
 
     .content_message_empty{
@@ -270,5 +276,13 @@ page-gongdan-detail {
         width:70%;
         display: inline-flex;
         line-height: 1.2;
+    }
+
+    .item_class_normal_p{
+
+    }
+
+    .item_class_image_p{
+        margin-top:-3px
     }
 }

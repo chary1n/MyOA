@@ -1,13 +1,17 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { IonicPage, NavController, NavParams, PopoverController, ViewController, Events } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, PopoverController, ViewController, Events,ToastController } from 'ionic-angular';
 import { orderService } from '../order/orderService';
 import { PoContactPage } from './../po-contact/po-contact';
 import { DeliveryNotesPage } from './../delivery-notes/delivery-notes';
+import { Storage } from '@ionic/storage';
+import { Utils } from './../../../providers/Utils';
+
+
 @IonicPage()
 @Component({
   selector: 'page-order-detail',
   templateUrl: 'order-detail.html',
-  // providers : [PopoverPage],
+  providers : [orderService],
 })
 export class OrderDetailPage {
 
@@ -16,10 +20,23 @@ export class OrderDetailPage {
   item: any
   popover: any
   showNumber: boolean
-  constructor(public navCtrl: NavController, public navParams: NavParams, public popoverCtrl: PopoverController, public events: Events) {
+  is_manager = false
+  frontPage
+  constructor(public navCtrl: NavController, public navParams: NavParams, public popoverCtrl: PopoverController, public events: Events,
+    public storage:Storage,public orderService: orderService,public toast:ToastController) {
     this.item = navParams.get('item').res_data
     this.showNumber = navParams.get('showNumber');
-    console.log(this.item)
+    this.frontPage = Utils.getViewController("GongdanPage", navCtrl)
+    this.storage.get('user')
+      .then(res => {
+        console.log(res);
+        for (let product of res.result.res_data.groups) {
+          if (product.name == 'group_purchase_manager')
+            {
+              this.is_manager = true
+            }
+        }
+      })
   }
 
 
@@ -62,6 +79,18 @@ export class OrderDetailPage {
     this.popover.present({
       ev: ev
     });
+  }
+
+  approve(){
+    this.orderService.button_approve(this.item.id).then(res => {
+      console.log(res)
+      if (res.result.res_code == 1)
+      {
+        Utils.toastButtom("批准成功", this.toast)
+        // this.frontPage.data.need_fresh = true;
+                this.navCtrl.pop();
+      }
+    })
   }
 }
 

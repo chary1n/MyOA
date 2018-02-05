@@ -23,7 +23,7 @@ export class GongdanChoosePeoplePage {
   item
   select_list = [];
   frontPage
-  beizhuText
+  beizhuText=""
   select_name
   constructor(public navCtrl: NavController, public navParams: NavParams,public gongDanService:GongDanService,public toast:ToastController) {
     this.item = this.navParams.get('item')

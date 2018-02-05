@@ -33,12 +33,14 @@ export class GongDanService {
         return this.httpservice.postBodyNoLoading("work_order_search", body,1);
     }
 
-    work_order_statistics(start_date,end_date,tag_ids){
+    work_order_statistics(start_date,end_date,brand_ids,area_ids,category_ids){
         let body = JSON.stringify({
             uid:HttpService.user_id,
             start_date:start_date,
             end_date:end_date,
-            tag_ids:tag_ids,
+            brand_ids:brand_ids,
+            area_ids:area_ids,
+            category_ids:category_ids,
           });
         return this.httpservice.postBodyNoLoading("work_order_statistics", body,1);
     }
@@ -159,5 +161,12 @@ export class GongDanService {
             tag_ids:tag_ids,
           });
         return this.httpservice.postBody("update_biaoqian", body,1);
+    }
+
+    get_employee_detail(user_id){
+        let body = JSON.stringify({
+           user_id:user_id,
+          });
+        return this.httpservice.postBody("get_employee_detail", body,1);
     }
 }

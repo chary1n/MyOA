@@ -34,7 +34,10 @@ export class GongdanNewChatPage {
     this.record_item = this.navParams.get('record_item')
     this.parent_id = this.navParams.get('parent_id')
     this.frontPage = Utils.getViewController("GongdanDetailPage", navCtrl)
-    // this.beizhuText = "@" + "guohuagen"
+    this.select_name = this.navParams.get('select_name')
+    if (this.select_name){
+      this.beizhuText = "@" + this.select_name.name + " "
+    }
     
     window.addEventListener("native.keyboardshow", this.keyboardShowHandler);
     window.addEventListener('native.keyboardhide', this.keyboardHideHandler);
@@ -47,8 +50,13 @@ export class GongdanNewChatPage {
   }
 
   ionViewWillEnter() {
-    this.beizhuText = this.navParams.get('beizhuText')
-    console.log(this.beizhuText)
+    if (this.navParams.get('beizhuText'))
+    {
+      this.beizhuText = this.navParams.get('beizhuText')
+      console.log(this.beizhuText)
+    }
+    
+    
     if (this.navParams.get('select_name')){
       this.select_name = this.navParams.get('select_name')
       

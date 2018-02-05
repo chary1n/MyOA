@@ -4,6 +4,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { GongDanService } from './../gongdanService';
 import { HttpService } from './../../../../providers/HttpService';
 import { Utils } from './../../../../providers/Utils';
+
 /**
  * Generated class for the GongdanDetailPage page.
  *
@@ -29,17 +30,34 @@ export class GongdanDetailPage {
   is_ios;
   biaoqian_list;
   isMine = false;
+  all_tag_ids = []
   constructor(public navCtrl: NavController, public navParams: NavParams,public statusBar:StatusBar,
     public gongDanService:GongDanService,public alertCtrl:AlertController,
     public toast:ToastController,public platform:Platform) {
       
-      this.biaoqian_list = this.navParams.get('biaoqian_list')
+    this.biaoqian_list = this.navParams.get('biaoqian_list')
     this.frontPage = Utils.getViewController("GongdanPage", navCtrl)
     this.rebackPage = Utils.getViewController("CreateGongdanPage", navCtrl)
     this.item = this.navParams.get('items').work_order
+    console.log(this.item)
     this.message_item = this.navParams.get('items').records
     this.statusBar.backgroundColorByHexString("#2597ec");
     this.statusBar.styleLightContent();
+    if (this.item.area_ids.res_data){
+      for (let items of this.item.area_ids.res_data) {
+        this.all_tag_ids.push(items)
+      }
+    }
+    if (this.item.brand_ids.res_data){
+      for (let items of this.item.brand_ids.res_data) {
+        this.all_tag_ids.push(items)
+      }
+    }
+    if (this.item.category_ids.res_data){
+      for (let items of this.item.category_ids.res_data) {
+        this.all_tag_ids.push(items)
+      }
+    }
     if (this.item.create_user.id == HttpService.user_id)
   {
     this.isMine = true;
@@ -143,10 +161,11 @@ export class GongdanDetailPage {
   }
 
   replyClick() {
-this.navCtrl.push('GongdanChatPage', {
+this.navCtrl.push('GongdanNewChatPage', {
       item: this.item,
-      parent_id: this.message_item[0].record_id,
-      record_item: this.message_item[0],
+      parent_id: null,
+      record_item: null,
+      select_name:this.item.create_user
     })
 
     // let ctrl = this.alertCtrl;
@@ -388,6 +407,20 @@ this.navCtrl.push('GongdanChatPage', {
       need_reback: true,
     })
   }
+
+  clickUser(item){
+    this.gongDanService.get_employee_detail(item.id).then((res) => {
+      console.log(res)
+      if (res.result && res.result.res_code == 1)
+        {
+          this.navCtrl.push('EmployeeDetailPage',{
+            item:res.result.res_data,
+          })
+        }
+    })
+  }
+
+  
 
 
 

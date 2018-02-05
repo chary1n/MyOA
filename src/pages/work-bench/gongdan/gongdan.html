@@ -57,7 +57,7 @@
 </ion-header>
 
 
-<ion-content on-tap="tapView()" [ngClass]="{true:'back_me',false:'back_other'}[show_type == 'me']">
+<ion-content [ngClass]="{true:'back_me',false:'back_other'}[show_type == 'me']">
   <div style="height:40px;overflow: hidden;background:white;" *ngIf="show_type == 'gongdan'">
       
       <img src= "assets/img/gongdan/rili.png" height="18px" width="18px" style="margin-left:10px;margin-top:11px;float:left">
