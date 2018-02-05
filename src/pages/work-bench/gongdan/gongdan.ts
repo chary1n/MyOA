@@ -95,17 +95,17 @@ export class GongdanPage {
     // }
     if (this.navParams.get('brand_list') && (this.navParams.get('brand_list').length || this.navParams.get('brand_list').length == 0)){
       this.brand_ids = this.navParams.get('brand_list')
-      this.navParams.data.brand_list = [];
+      this.navParams.data.brand_list = false;
       
     }
     if (this.navParams.get('area_list') && (this.navParams.get('area_list').length || this.navParams.get('area_list').length == 0)){
       this.area_ids = this.navParams.get('area_list')
-      this.navParams.data.area_list = [];
+      this.navParams.data.area_list = false;
       
     }
     if (this.navParams.get('category_list') && (this.navParams.get('category_list').length || this.navParams.get('category_list').length == 0)){
       this.category_ids = this.navParams.get('category_list')
-      this.navParams.data.category_list = [];
+      this.navParams.data.category_list = false;
      
     }
     // this.reload_statics()
@@ -645,7 +645,9 @@ export class GongdanPage {
 
   clickMenu() {
     this.navCtrl.push('GongdanBiaoqianPage',{
-      select_ids:this.biaoqian_select_ids,
+      brand_ids:this.brand_ids,
+      area_ids:this.area_ids,
+      category_ids:this.category_ids,
     })
     // this.menu.open()
     // this.gongdanService.get_all_biaoqian().then(res => {

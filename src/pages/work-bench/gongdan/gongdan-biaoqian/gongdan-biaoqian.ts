@@ -4,7 +4,7 @@ import { IonicPage, NavController, NavParams ,ToastController} from 'ionic-angul
 import { StatusBar } from '@ionic-native/status-bar';
 import { GongDanService } from './../gongdanService';
 import { Utils } from './../../../../providers/Utils';
-
+import { BiaoQianAutoService} from './gongdan-biaoqian-auto';
 /**
  * Generated class for the GongdanBiaoqianPage page.
  *
@@ -15,7 +15,7 @@ import { Utils } from './../../../../providers/Utils';
 @Component({
   selector: 'page-gongdan-biaoqian',
   templateUrl: 'gongdan-biaoqian.html',
-  providers:[GongDanService],
+  providers:[GongDanService,BiaoQianAutoService],
 })
 export class GongdanBiaoqianPage {
   brand_select_ids = [];
@@ -26,25 +26,49 @@ export class GongdanBiaoqianPage {
   cateList = [];
   allSelectList = [];
   frontPage
-  constructor(public navCtrl: NavController, public navParams: NavParams,public gongdanService:GongDanService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,public gongdanService:GongDanService,
+    public biaoQianAutoService:BiaoQianAutoService) {
     this.frontPage = Utils.getViewController("GongdanPage", navCtrl)
-    // this.brand_select_ids =  this.navParams.get('brand_select_ids')
-    // this.area_select_ids = this.navParams.get('area_select_ids')
-    // this.cate_select_ids = this.navParams.get('cate_select_ids')
+    this.brand_select_ids =  this.navParams.get('brand_ids')
+    this.area_select_ids = this.navParams.get('area_ids')
+    this.cate_select_ids = this.navParams.get('category_ids')
+    console.log(this.cate_select_ids)
+    
     this.gongdanService.get_all_biaoqian().then(res => {
       console.log(res)
       if (res.result.res_data && res.result.res_code == 1) {
         if (res.result.res_data.brand_list)
         {
           this.brandList = res.result.res_data.brand_list.res_data
+          for (let items of this.brand_select_ids) {
+              for (let items_in of this.brandList) {
+                if (items == items_in.id){
+                  this.allSelectList.push(items_in)
+                }
+              }
+          }
         }
         if (res.result.res_data.area_list)
         {
           this.areaList = res.result.res_data.area_list.res_data
+          for (let items of this.area_select_ids) {
+            for (let items_in of this.areaList) {
+                if (items == items_in.id){
+                  this.allSelectList.push(items_in)
+                }
+              }
+          }
         }
         if (res.result.res_data.category_list)
         {
           this.cateList = res.result.res_data.category_list.res_data
+          for (let items of this.cate_select_ids) {
+            for (let items_in of this.cateList) {
+                if (items == items_in.id){
+                  this.allSelectList.push(items_in)
+                }
+              }
+          }
         }
       }
     })
@@ -66,9 +90,18 @@ export class GongdanBiaoqianPage {
     }
     if (!is_has) {
       this.brand_select_ids.push(item.id)
+      this.allSelectList.push(item)
     }
     else {
       this.brand_select_ids.splice(index - 1, 1)
+      let index_biaoqian = 0
+      for (let biaoqian of this.allSelectList) {
+      index_biaoqian++
+      if (biaoqian.name == item.name) {
+        this.allSelectList.splice(index_biaoqian - 1,1)
+        break
+      }
+    }
     }
   }
 
@@ -84,14 +117,14 @@ export class GongdanBiaoqianPage {
     }
     if (!is_has) {
       this.area_select_ids.push(item.id)
-      this.allSelectList.push(item.id)
+      this.allSelectList.push(item)
     }
     else {
       this.area_select_ids.splice(index - 1, 1)
       let index_biaoqian = 0
       for (let biaoqian of this.allSelectList) {
       index_biaoqian++
-      if (biaoqian == item.id) {
+      if (biaoqian.name == item.name) {
         this.allSelectList.splice(index_biaoqian - 1,1)
         break
       }
@@ -111,14 +144,14 @@ export class GongdanBiaoqianPage {
     }
     if (!is_has) {
       this.cate_select_ids.push(item.id)
-      this.allSelectList.push(item.id)
+      this.allSelectList.push(item)
     }
     else {
       this.cate_select_ids.splice(index - 1, 1)
       let index_biaoqian = 0
       for (let biaoqian of this.allSelectList) {
       index_biaoqian++
-      if (biaoqian == item.id) {
+      if (biaoqian.name == item.name) {
         this.allSelectList.splice(index_biaoqian - 1,1)
         break
       }
@@ -171,6 +204,75 @@ export class GongdanBiaoqianPage {
 
   goBack(){
     this.navCtrl.pop();
+  }
+
+  itemSelected(event){
+    let search_type;
+    let search_text;
+    if (event.id == 1)
+    {
+      search_type = "brand"
+      search_text = event.name.replace("搜 品牌：", "")
+    }
+    else if (event.id == 2)
+    {
+      search_type = "area"
+      search_text = event.name.replace("搜 区域：", "")
+    }
+    else if (event.id == 3)
+    {
+      search_type = "category"
+      search_text = event.name.replace("搜 产品：", "")
+    }
+    this.gongdanService.search_biaoqian(search_type,search_text).then(res => {
+      if (res.result.res_data && res.result.res_code == 1) {
+        this.brandList = []
+        this.areaList = []
+        this.cateList = []
+        if (res.result.res_data.type == "category")
+        {
+          this.cateList = res.result.res_data.data.res_data
+        }
+        if (res.result.res_data.type == "brand")
+        {
+          this.brandList = res.result.res_data.data.res_data
+        }
+        if (res.result.res_data.type == "area")
+        {
+          this.areaList = res.result.res_data.data.res_data
+        }
+      }
+    })
+  }
+
+  clearValue(show_clean){
+    console.log(show_clean)
+  }
+
+  all_tag(){
+    this.brandList = []
+    this.areaList = []
+    this.cateList = []
+    this.gongdanService.get_all_biaoqian().then(res => {
+      console.log(res)
+      if (res.result.res_data && res.result.res_code == 1) {
+        if (res.result.res_data.brand_list)
+        {
+          this.brandList = res.result.res_data.brand_list.res_data
+          
+        }
+        if (res.result.res_data.area_list)
+        {
+          this.areaList = res.result.res_data.area_list.res_data
+          
+        }
+        if (res.result.res_data.category_list)
+        {
+          this.cateList = res.result.res_data.category_list.res_data
+          
+        }
+      }
+    })
   }
 
 }

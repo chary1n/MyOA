@@ -8,13 +8,32 @@
 
   <ion-navbar color="gongdan-color">
     <ion-title>工单筛选标签</ion-title>
-
+    <ion-buttons end>
+      <button ion-button (click)='all_tag()'>
+        所有标签
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
 
 
   <ion-content >
+    <div *ngIf="allSelectList.length > 0" style="margin-top:10px;margin-left:15px;color:#616466">
+      已选中
+    </div>
+    <ion-grid *ngIf="allSelectList.length > 0">
+      <ion-row>
+         <ion-col col-4 tappable (click)="clickbrand(item)" *ngFor="let item of allSelectList">
+          <div class="biaoqian_div_choose" align="center">
+            {{item.name}}
+          </div>
+        </ion-col>
+        
+      </ion-row>
+    </ion-grid>
+    <ion-auto-complete style="width: 94vw;margin-left:3vw" (itemSelected) = "itemSelected($event)"  [dataProvider]="biaoQianAutoService" (ionClear)="clearValue(show_clean)"></ion-auto-complete>
+
     <div style="margin-top:10px;margin-left:15px;color:#616466">
       品牌
     </div>
@@ -28,7 +47,7 @@
         
       </ion-row>
     </ion-grid>
-    <div style="margin-top:10px;margin-left:15px;color:#616466">
+    <div style="margin-left:15px;color:#616466">
       区域
     </div>
     <ion-grid>
@@ -41,7 +60,7 @@
         
       </ion-row>
     </ion-grid>
-    <div style="margin-top:10px;margin-left:15px;color:#616466">
+    <div style="margin-left:15px;color:#616466">
       产品
     </div>
     <ion-grid>

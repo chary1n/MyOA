@@ -169,4 +169,12 @@ export class GongDanService {
           });
         return this.httpservice.postBody("get_employee_detail", body,1);
     }
+
+    search_biaoqian(search_type,search_text){
+        let body = JSON.stringify({
+           search_type:search_type,
+           search_text:search_text
+          });
+        return this.httpservice.postBody("search_biaoqian", body,1);
+    }
 }
