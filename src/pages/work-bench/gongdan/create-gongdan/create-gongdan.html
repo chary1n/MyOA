@@ -8,7 +8,7 @@
 
 
 
-  <ion-navbar hideBackButton="true" color="gongdan-color">
+  <ion-navbar hideBackButton="true" color="black">
     <ion-buttons left>
       <button ion-button icon-only (click)="goBack()">
         <ion-icon name="close"></ion-icon>
@@ -38,11 +38,11 @@
 
   <ion-grid>
     <ion-row>
-      <ion-col col-4 *ngFor="let item of imgList" on-hold="onHold()">
-          <span *ngIf="showX"   style="position:absolute;
+      <ion-col col-4 *ngFor="let item of imgList" on-hold="onHold()" (click)="clickPicture(item)">
+          <!-- <span *ngIf="showX"   style="position:absolute;
           width:20px;height:20px;border-radius:10px;background-color:red;
-          display:inline-block;color:white;line-height:20px;right:-6px;top:11px;text-align:center;font-size:12px"></span>
-        <img src={{item}} imageViewer/>
+          display:inline-block;color:white;line-height:20px;right:-6px;top:11px;text-align:center;font-size:12px"></span> -->
+        <img src={{item}}  width="106px" height="106px"/>
       </ion-col>
       <ion-col col-4  tappable (click)="addImg()">
         <img src="assets/img/add.png" />
@@ -67,6 +67,10 @@
         <span style="float:right">{{choosePeopleName}}</span>
       指派受理人
       <span style="color:#999999">(不知可不填)</span>
+  </button>
+
+  <button ion-item (click)="chooseBiaoqian()">
+    选择标签
   </button>
   <div style="background:#e4e5e6;padding:4px;padding-left:10px">
     问题标签(选填)

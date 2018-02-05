@@ -25,7 +25,7 @@ import { AlertController} from 'ionic-angular';
 export class CreateGongdanPage {
   title;
   description;
-  priorityId;
+  priorityId = 2;
   companyIschoosed = true;
   chooseList :any;
   // 指派受理人
@@ -43,6 +43,8 @@ export class CreateGongdanPage {
   frontPage
   biaoqianList;
   showX = false ;
+  isDeletePicture = false;
+  deletePicture ;
   priority = [{ name: '低', id: '1' }, { name: '中', id: '2' }, { name: '高', id: '3' }]
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public toastCtrl: ToastController,
@@ -93,6 +95,12 @@ export class CreateGongdanPage {
      }
     }
     
+   this.isDeletePicture =this.navParams.get('isDeletePicture')
+   console.log(this.isDeletePicture)
+   if(this.isDeletePicture){
+     this.isDeletePicture = false ;
+     this.imgList.splice(this.imgList.indexOf(this.deletePicture),1)  
+   }
 
     console.log(this.companyIschoosed)
     console.log(this.chooseList)
@@ -240,8 +248,7 @@ export class CreateGongdanPage {
 
   getPicture(type) {//1拍照,0从图库选择
     let options = {
-      targetWidth: 256,
-      targetHeight: 256
+      allowEdit: false,
     };
     if (type == 1) {
       this.nativeService.getPictureByCamera(options).subscribe(img_url => {
@@ -252,6 +259,11 @@ export class CreateGongdanPage {
         this.getPictureSuccess(img_url);
       });
     }
+  }
+
+  clickPicture(item){
+    this.deletePicture = item ;
+    this.navCtrl.push("DeletePicturePage" ,{item:item})
   }
 
   private getPictureSuccess(img_url) {
@@ -308,6 +320,14 @@ export class CreateGongdanPage {
 
   isChoose(item){
     return item.ischeck
+  }
+
+  chooseBiaoqian(){
+    this.gongdanService.get_all_biaoqian().then(res=>{
+      if (res.result && res.result.res_code == 1) {
+        this.navCtrl.push('BiaoqianPage',{list:res.result.res_data})
+      }
+    })
   }
 
 }
