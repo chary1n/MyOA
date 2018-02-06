@@ -26,6 +26,7 @@ import { MyApp } from './app.component';
 import{WebIntent} from '@ionic-native/web-intent';
 
 
+
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login'
 
@@ -41,6 +42,7 @@ import { DatePicker } from '@ionic-native/date-picker';
 import { SupplierListPage } from '../pages/work-bench/supplier-list/supplier-list'
 import {IonicImageViewerModule} from 'ionic-img-viewer'
 // import { AutocompleteServiceProvider } from '../providers/autocomplete-service/autocomplete-service';
+import { BLE } from '@ionic-native/ble';
 
 @NgModule({
   declarations: [
@@ -81,6 +83,7 @@ import {IonicImageViewerModule} from 'ionic-img-viewer'
     Utils,
     BarcodeScanner,
     DatePicker,
+    BLE,
   ]
 })
 export class AppModule { }

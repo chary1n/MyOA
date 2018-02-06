@@ -159,4 +159,8 @@ export class WorkBenchPage {
   change_kucun(){
     this.navCtrl.push('ChangeKucunPage')
   }
+
+  kaoqin(){
+    this.navCtrl.push('KaoqinPage')
+  }
 }
