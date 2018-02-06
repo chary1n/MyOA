@@ -156,7 +156,7 @@ export class GongdanPage {
   click_tongji() {
     this.show_type = "tongji"
     this.endDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd'),
-      this.startDate =  new Date().getFullYear()+'-01-01'
+    this.startDate =  new Date().getFullYear()+'-01-01'
     this.dateChanged();
   }
 
