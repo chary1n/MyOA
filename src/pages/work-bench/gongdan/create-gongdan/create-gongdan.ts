@@ -284,7 +284,7 @@ export class CreateGongdanPage {
 
   clickPicture(item){
     this.deletePicture = item ;
-    this.navCtrl.push("DeletePicturePage" ,{item:item})
+    this.navCtrl.push("DeletePicturePage" ,{item:item,need_back_retry:true})
   }
 
   private getPictureSuccess(img_url) {

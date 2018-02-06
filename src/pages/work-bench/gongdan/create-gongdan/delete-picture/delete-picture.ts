@@ -18,10 +18,27 @@ import { Utils } from '../../../../../providers/Utils';
 export class DeletePicturePage {
   item;
   frontPage ;
+  need_back_chat
+  need_back_retry
   constructor(public navCtrl: NavController, public navParams: NavParams) {
-
+    this.need_back_chat = this.navParams.get('need_back_chat')
+    this.need_back_retry = this.navParams.get('need_back_retry')
+    if (this.need_back_chat){
+      this.frontPage = Utils.getViewController("GongdanNewChatPage", navCtrl)
+    }
+    else
+    {
+      if (this.need_back_retry){
+        this.frontPage = Utils.getViewController("RebackGongdanPage", navCtrl)
+      }
+      else
+      {
+        this.frontPage = Utils.getViewController("CreateGongdanPage", navCtrl)
+      }
+    }
+     
     this.item = this.navParams.get("item")
-    this.frontPage = Utils.getViewController("CreateGongdanPage", navCtrl)
+    
   }
 
   ionViewDidLoad() {

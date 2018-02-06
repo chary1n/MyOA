@@ -27,6 +27,8 @@ export class GongdanNewChatPage {
   parent_id
   frontPage
   select_name
+  isDeletePicture = false
+  deletePicture
   constructor(public navCtrl: NavController, public navParams: NavParams,public actionSheetCtrl: ActionSheetController,
     public nativeService: NativeService,public gongDanService:GongDanService,
     public toast:ToastController) {
@@ -59,8 +61,14 @@ export class GongdanNewChatPage {
     
     if (this.navParams.get('select_name')){
       this.select_name = this.navParams.get('select_name')
-      
     }
+
+    this.isDeletePicture =this.navParams.get('isDeletePicture')
+   console.log(this.isDeletePicture)
+   if(this.isDeletePicture){
+     this.isDeletePicture = false ;
+     this.imgList.splice(this.imgList.indexOf(this.deletePicture),1)  
+   }
   }
 
   keyboardShowHandler(e){
@@ -173,6 +181,11 @@ export class GongdanNewChatPage {
     Utils.toastButtom("请选择回复对象", this.toast)
   }
 }
+
+  clickPicture(item){
+    this.deletePicture = item ;
+    this.navCtrl.push("DeletePicturePage" ,{item:item,need_back_chat:true})
+  }
 
 
 }

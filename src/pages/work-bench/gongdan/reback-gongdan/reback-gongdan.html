@@ -38,7 +38,7 @@
 
   <ion-grid>
     <ion-row>
-      <ion-col col-4 *ngFor="let item of imgList">
+      <ion-col col-4 *ngFor="let item of imgList" (click)="clickPicture(item)">
         <img src={{item}} imageViewer/>
       </ion-col>
       <ion-col col-4 (click)="addImg()">

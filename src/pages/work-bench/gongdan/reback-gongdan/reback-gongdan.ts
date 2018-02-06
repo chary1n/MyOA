@@ -47,6 +47,8 @@ export class RebackGongdanPage {
   area_list = [];
   category_list = [];
   all_tag_list = []
+  isDeletePicture = false;
+  deletePicture ;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public toastCtrl: ToastController,
     public gongdanService: GongDanService,
@@ -98,6 +100,14 @@ export class RebackGongdanPage {
        this.whoCanSee = "指定部门"
      }
     }
+
+     
+   this.isDeletePicture =this.navParams.get('isDeletePicture')
+   console.log(this.isDeletePicture)
+   if(this.isDeletePicture){
+     this.isDeletePicture = false ;
+     this.imgList.splice(this.imgList.indexOf(this.deletePicture),1)  
+   }
     
     if (this.navParams.get('brand_list') && (this.navParams.get('brand_list').length || this.navParams.get('brand_list').length == 0)){
       this.brand_list = this.navParams.get('brand_list')
@@ -298,5 +308,8 @@ export class RebackGongdanPage {
     return all_tags
   }
   
-
+  clickPicture(item){
+    this.deletePicture = item ;
+    this.navCtrl.push("DeletePicturePage" ,{item:item,})
+  }
 }

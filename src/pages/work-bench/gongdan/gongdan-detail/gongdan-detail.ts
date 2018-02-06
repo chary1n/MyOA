@@ -239,7 +239,7 @@ this.navCtrl.push('GongdanNewChatPage', {
       item: this.item,
       parent_id: items.record_id,
       record_item: items,
-      select_name:this.item.create_user
+      select_name:items.create_uid
     })
   }
 

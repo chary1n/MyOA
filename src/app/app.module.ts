@@ -42,7 +42,7 @@ import { DatePicker } from '@ionic-native/date-picker';
 import { SupplierListPage } from '../pages/work-bench/supplier-list/supplier-list'
 import {IonicImageViewerModule} from 'ionic-img-viewer'
 // import { AutocompleteServiceProvider } from '../providers/autocomplete-service/autocomplete-service';
-import { BLE } from '@ionic-native/ble';
+// import { BLE } from '@ionic-native/ble';
 
 @NgModule({
   declarations: [
@@ -83,7 +83,7 @@ import { BLE } from '@ionic-native/ble';
     Utils,
     BarcodeScanner,
     DatePicker,
-    BLE,
+    // BLE,
   ]
 })
 export class AppModule { }
