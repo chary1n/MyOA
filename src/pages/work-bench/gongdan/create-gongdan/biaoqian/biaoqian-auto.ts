@@ -28,7 +28,7 @@ export class CreateBiaoQianAutoService implements AutoCompleteService {
       let arr = [];
       obj1.name = "搜 品牌："+keyword;
       arr.push(obj1);
-      obj2.name = "搜 区域："+keyword;
+      obj2.name = "搜 部门："+keyword;
       arr.push(obj2);
       obj3.name = "搜 产品："+keyword;
       arr.push(obj3);

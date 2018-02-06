@@ -120,7 +120,7 @@ export class ChangeBiaoqianPage {
     else if (event.id == 2)
     {
       search_type = "area"
-      search_text = event.name.replace("搜 区域：", "")
+      search_text = event.name.replace("搜 部门：", "")
     }
     else if (event.id == 3)
     {

@@ -9,11 +9,11 @@
 <ion-header no-border>
 
   <ion-navbar hideBackButton="true" color="gongdan-color">
-    <ion-buttons left>
-      <button ion-button icon-only (click)="goBack()">
+    <!--<ion-buttons left>-->
+      <!--<button ion-button icon-only (click)="goBack()">
         <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
-      </button>
-    </ion-buttons>
+      </button>-->
+    <!--</ion-buttons>-->
 
     <div align="center" style="height:40px;margin-left:10px">
         <div style="width:33%;float:right;text-align:left" [ngClass]="{true:'test_choose',false:'test_one'}[show_type == 'tongji']" align="center" tappable (click)="click_tongji()">
@@ -172,6 +172,9 @@
 
   </div>
   <div  *ngIf="show_type == 'me'">
+    <ion-fab style="margin-bottom:90px;position:fixed" bottom right edge>
+    <button (click)="createGongdan()" ion-fab mini><ion-icon name="add"></ion-icon></button>
+  </ion-fab>
     <div style="width:100%;height:139px;padding:15px;text-align:center;background:#0097ee">
       <!-- <canvas 
      style="background:#ffffff;height:80px;width:100%;position:absolute;top:0px;left:0px;z-index:1;" id="canvas"> -->
@@ -313,9 +316,9 @@
   </div>
 </ion-content>
 
-
+<!--
 <ion-footer style="background:#f0f2f5" *ngIf="show_type == 'me'"  no-border>
   <button ion-button tappable style='width:70%;margin-left:15%'   round (click)="createGongdan()">
     新建工单
   </button>
-</ion-footer>
+</ion-footer>-->
