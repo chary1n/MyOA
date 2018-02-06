@@ -81,9 +81,10 @@ export class GongdanPage {
   }
 
   ionViewDidEnter() {
+    console.log(this.navParams.get('need_fresh'))
     if (this.navParams.get('need_fresh') == true) {
       this.navParams.data.need_fresh = false;
-      this.reload_statics()
+      // this.reload_statics()
       this.getDataList(this.page_issue_state)
     }
     // console.log(this.navParams.get('select_ids') )
@@ -93,23 +94,27 @@ export class GongdanPage {
     //   this.reload_statics()
     //   this.getDataList(this.page_issue_state)
     // }
+    let need_load = false
     if (this.navParams.get('brand_list') && (this.navParams.get('brand_list').length || this.navParams.get('brand_list').length == 0)){
       this.brand_ids = this.navParams.get('brand_list')
       this.navParams.data.brand_list = false;
-      
+      need_load = true
     }
     if (this.navParams.get('area_list') && (this.navParams.get('area_list').length || this.navParams.get('area_list').length == 0)){
       this.area_ids = this.navParams.get('area_list')
       this.navParams.data.area_list = false;
-      
+      need_load = true
     }
     if (this.navParams.get('category_list') && (this.navParams.get('category_list').length || this.navParams.get('category_list').length == 0)){
       this.category_ids = this.navParams.get('category_list')
       this.navParams.data.category_list = false;
-     
+      need_load = true
     }
-    // this.reload_statics()
+    if(need_load)
+    {
       this.getDataList(this.page_issue_state)
+    }
+      
 
 
     if (this.show_type == "me") {
@@ -141,11 +146,10 @@ export class GongdanPage {
 
   click_gongdan() {
     this.endDate_gongdan = this.datePipe.transform(new Date(), 'yyyy-MM-dd'),
-    this.startDate_gongdan = this.datePipe.transform(new Date(new Date().getTime() - 3600000 * 24 * 7), 'yyyy-MM-dd')
+    this.startDate_gongdan = this.datePipe.transform(new Date(new Date().getTime() - 3600000 * 24 * 30), 'yyyy-MM-dd')
     this.dataList = []
     this.show_type = "gongdan"
     this.inner_type = "all"
-    this.reload_statics()
     this.getDataList(null)
   }
 

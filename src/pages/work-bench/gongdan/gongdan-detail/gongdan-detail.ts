@@ -64,7 +64,10 @@ export class GongdanDetailPage {
   }
     this.is_ios = this.platform.is('ios')
     if (this.item.issue_state == "unaccept" || this.item.issue_state == "process") {
-      this.isShowZhiPai = true
+      if (HttpService.user_id == this.item.create_user.id || HttpService.user_id == this.item.assign_user.id)
+      {
+        this.isShowZhiPai = true
+      }
       this.isShowRefuse = false
       this.isShowConfirm = false
       if (this.item.create_user.id == HttpService.user_id) {
@@ -294,25 +297,25 @@ this.navCtrl.push('GongdanNewChatPage', {
 
 
 
-                let biaoqian_arr = []
-                let id_index = 0
-                console.log(this.biaoqian_list)
-                for (let biaoqian of this.biaoqian_list) {
-                  biaoqian_arr.push({
-                    type: 'checkbox',
-                    label: biaoqian.name,
-                    check: false,
-                    value: biaoqian.id,
-                  })
-                  id_index++
-                }
-                console.log(biaoqian_arr)
+                // let biaoqian_arr = []
+                // let id_index = 0
+                // console.log(this.biaoqian_list)
+                // for (let biaoqian of this.biaoqian_list) {
+                //   biaoqian_arr.push({
+                //     type: 'checkbox',
+                //     label: biaoqian.name,
+                //     check: false,
+                //     value: biaoqian.id,
+                //   })
+                //   id_index++
+                // }
+                // console.log(biaoqian_arr)
 
                 let ctrl = this.alertCtrl;
                 ctrl.create({
                   title: '提示',
                   message: "是否需要修改该工单标签？",
-                  inputs: biaoqian_arr,
+                  // inputs: biaoqian_arr,
                   buttons: [
                     {
                       text: '取消',
@@ -324,16 +327,9 @@ this.navCtrl.push('GongdanNewChatPage', {
                     {
                       text: '确定',
                       handler: data => {
-                        if (data) {
-                          this.gongDanService.update_biaoqian(this.item.work_order_id, data).then(res => {
-                            if (res.result.res_code == 1) {
-                              Utils.toastButtom("添加标签成功", this.toast)
-                              this.frontPage.data.need_fresh = true;
-                              this.navCtrl.popTo(this.frontPage);
-                            }
-
-                          })
-                        }
+                        this.navCtrl.push('ChangeBiaoqianPage',{
+                          gongdan_item:this.item,
+                        })
                       }
                     }
                   ],

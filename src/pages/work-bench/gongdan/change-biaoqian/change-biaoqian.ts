@@ -4,20 +4,21 @@ import { IonicPage, NavController, NavParams ,ToastController} from 'ionic-angul
 import { StatusBar } from '@ionic-native/status-bar';
 import { GongDanService } from './../gongdanService';
 import { Utils } from './../../../../providers/Utils';
-import { BiaoQianAutoService} from './gongdan-biaoqian-auto';
+import { ChangeBiaoQianAutoService} from './change-biaoqian-auto';
+
 /**
- * Generated class for the GongdanBiaoqianPage page.
+ * Generated class for the ChangeBiaoqianPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
 @IonicPage()
 @Component({
-  selector: 'page-gongdan-biaoqian',
-  templateUrl: 'gongdan-biaoqian.html',
-  providers:[GongDanService,BiaoQianAutoService],
+  selector: 'page-change-biaoqian',
+  templateUrl: 'change-biaoqian.html',
+  providers:[GongDanService,ChangeBiaoQianAutoService]
 })
-export class GongdanBiaoqianPage {
+export class ChangeBiaoqianPage {
   brand_select_ids = [];
   area_select_ids = [];
   cate_select_ids = [];
@@ -26,142 +27,32 @@ export class GongdanBiaoqianPage {
   cateList = [];
   allSelectList = [];
   frontPage
+  gongdan_item
   constructor(public navCtrl: NavController, public navParams: NavParams,public gongdanService:GongDanService,
-    public biaoQianAutoService:BiaoQianAutoService) {
-    this.frontPage = Utils.getViewController("GongdanPage", navCtrl)
-    this.brand_select_ids =  this.navParams.get('brand_ids')
-    this.area_select_ids = this.navParams.get('area_ids')
-    this.cate_select_ids = this.navParams.get('category_ids')
-    console.log(this.cate_select_ids)
-    
-    this.gongdanService.get_all_biaoqian().then(res => {
+    public changeBiaoQianAutoService:ChangeBiaoQianAutoService,public gongDanService:GongDanService,
+    public toast:ToastController) {
+      this.frontPage = Utils.getViewController("GongdanPage", navCtrl)
+      this.gongdan_item = this.navParams.get('gongdan_item')
+      this.gongdanService.get_all_biaoqian().then(res => {
       if (res.result.res_data && res.result.res_code == 1) {
         if (res.result.res_data.brand_list)
         {
           this.brandList = res.result.res_data.brand_list.res_data
-          for (let items of this.brand_select_ids) {
-              for (let items_in of this.brandList) {
-                if (items == items_in.id){
-                  this.allSelectList.push(items_in)
-                  items_in.ischeck = true
-                  this.brandList[this.brandList.indexOf(items_in)] = items_in
-                }
-              }
-          }
         }
         if (res.result.res_data.area_list)
         {
           this.areaList = res.result.res_data.area_list.res_data
-          for (let items of this.area_select_ids) {
-            for (let items_in of this.areaList) {
-                if (items == items_in.id){
-                  this.allSelectList.push(items_in)
-                  items_in.ischeck = true       
-                  this.areaList[this.areaList.indexOf(items_in)] = items_in
-                }
-              }
-          }
         }
         if (res.result.res_data.category_list)
         {
           this.cateList = res.result.res_data.category_list.res_data
-          for (let items of this.cate_select_ids) {
-            for (let items_in of this.cateList) {
-                if (items == items_in.id){
-                  this.allSelectList.push(items_in)
-                  items_in.ischeck = true
-                  this.cateList[this.cateList.indexOf(items_in)] = items_in
-                }
-              }
-          }
         }
       }
     })
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad GongdanBiaoqianPage');
-  }
-
-  clickbrand(item) {
-    let is_has = false
-    let index = 0
-    for (let biaoqian of this.brand_select_ids) {
-      index++
-      if (biaoqian == item.id) {
-        is_has = true
-        break
-      }
-    }
-    if (!is_has) {
-      this.brand_select_ids.push(item.id)
-      this.allSelectList.push(item)
-    }
-    else {
-      this.brand_select_ids.splice(index - 1, 1)
-      let index_biaoqian = 0
-      for (let biaoqian of this.allSelectList) {
-      index_biaoqian++
-      if (biaoqian.name == item.name) {
-        this.allSelectList.splice(index_biaoqian - 1,1)
-        break
-      }
-    }
-    }
-  }
-
-  clickarea(item) {
-    let is_has = false
-    let index = 0
-    for (let biaoqian of this.area_select_ids) {
-      index++
-      if (biaoqian == item.id) {
-        is_has = true
-        break
-      }
-    }
-    if (!is_has) {
-      this.area_select_ids.push(item.id)
-      this.allSelectList.push(item)
-    }
-    else {
-      this.area_select_ids.splice(index - 1, 1)
-      let index_biaoqian = 0
-      for (let biaoqian of this.allSelectList) {
-      index_biaoqian++
-      if (biaoqian.name == item.name) {
-        this.allSelectList.splice(index_biaoqian - 1,1)
-        break
-      }
-    }
-    }
-  }
-
-  clickcate(item) {
-    let is_has = false
-    let index = 0
-    for (let biaoqian of this.cate_select_ids) {
-      index++
-      if (biaoqian == item.id) {
-        is_has = true
-        break
-      }
-    }
-    if (!is_has) {
-      this.cate_select_ids.push(item.id)
-      this.allSelectList.push(item)
-    }
-    else {
-      this.cate_select_ids.splice(index - 1, 1)
-      let index_biaoqian = 0
-      for (let biaoqian of this.allSelectList) {
-      index_biaoqian++
-      if (biaoqian.name == item.name) {
-        this.allSelectList.splice(index_biaoqian - 1,1)
-        break
-      }
-    }
-    }
+    console.log('ionViewDidLoad ChangeBiaoqianPage');
   }
 
   cancel_biaoqian() {
@@ -199,47 +90,23 @@ export class GongdanBiaoqianPage {
   }
 
   confirm_biaoqian() {
-    this.frontPage.data.brand_list = this.brand_select_ids;
-    this.frontPage.data.area_list = this.area_select_ids;
-    this.frontPage.data.category_list = this.cate_select_ids
-    this.navCtrl.popTo(this.frontPage);
-  }
+      this.gongDanService.update_biaoqian(this.gongdan_item.work_order_id, this.cate_select_ids,this.brand_select_ids,this.area_select_ids).then(res => {
+                            if (res.result.res_code == 1) {
+                              Utils.toastButtom("修改标签成功", this.toast)
+                              this.frontPage.data.need_fresh = true;
+                              this.navCtrl.popTo(this.frontPage);
+                            }
 
-  isChooseBrand(item) {
-    let isChoose = false;
-    for (let biaoqian of this.brand_select_ids) {
-      if (biaoqian == item.id) {
-        isChoose = true
-      }
-    }
-    return isChoose
-  }
-  isChooseArea(item) {
-    let isChoose = false;
-    for (let biaoqian of this.area_select_ids) {
-      if (biaoqian == item.id) {
-        isChoose = true
-      }
-    }
-    return isChoose
-  }
-
-  isChooseCate(item) {
-    let isChoose = false;
-    for (let biaoqian of this.cate_select_ids) {
-      if (biaoqian == item.id) {
-        isChoose = true
-      }
-    }
-    return isChoose
+                          })
   }
 
   goBack(){
-    this.cancel_biaoqian()
-    this.frontPage.data.brand_list = this.brand_select_ids;
-    this.frontPage.data.area_list = this.area_select_ids;
-    this.frontPage.data.category_list = this.cate_select_ids
-    this.navCtrl.pop();
+    // this.cancel_biaoqian()
+    // this.frontPage.data.brand_list = this.brand_select_ids;
+    // this.frontPage.data.area_list = this.area_select_ids;
+    // this.frontPage.data.category_list = this.cate_select_ids
+    this.frontPage.data.need_fresh = true;
+    this.navCtrl.popTo(this.frontPage);
   }
 
   itemSelected(event){
@@ -304,10 +171,6 @@ export class GongdanBiaoqianPage {
         }
       }
     })
-  }
-
-  clearValue(show_clean){
-    console.log(show_clean)
   }
 
   all_tag(){

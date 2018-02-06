@@ -154,11 +154,13 @@ export class GongDanService {
         return this.httpservice.postBody("get_all_biaoqian", {},1);
     }
 
-    update_biaoqian(work_order_id,tag_ids){
+    update_biaoqian(work_order_id,category_ids,brand_ids,area_ids){
         let body = JSON.stringify({
             uid:HttpService.user_id,
             work_order_id:work_order_id,
-            tag_ids:tag_ids,
+            category_ids:category_ids,
+            brand_ids:brand_ids,
+            area_ids:area_ids,
           });
         return this.httpservice.postBody("update_biaoqian", body,1);
     }

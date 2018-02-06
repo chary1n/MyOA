@@ -6,7 +6,12 @@
 -->
 <ion-header>
 
-  <ion-navbar color="gongdan-color">
+  <ion-navbar hideBackButton="true" color="gongdan-color">
+    <ion-buttons left>
+      <button ion-button icon-only (click)="goBack()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
     <ion-title>工单筛选标签</ion-title>
     <ion-buttons end>
       <button ion-button (click)='all_tag()'>
@@ -19,7 +24,48 @@
 
 
   <ion-content >
-    <div *ngIf="allSelectList.length > 0" style="margin-top:10px;margin-left:15px;color:#616466">
+
+    <div style="justify-content:space-around">
+    <span round style='background-color:#f5a623;flex :1 1 100%' *ngFor="let item of allSelectList"  ion-button>
+      {{item.name}}
+    </span>
+  </div>
+  <ion-auto-complete style="width: 94vw;margin-left:3vw" (itemSelected) = "itemSelected($event)"  [dataProvider]="biaoQianAutoService"></ion-auto-complete>
+  <div style="background:#e4e5e6;padding:4px;padding-left:10px">
+    品牌
+  </div>
+
+  <ion-list>
+    <ion-item *ngFor="let item of brandList;let i = index">
+      <ion-label> {{item.name}}</ion-label>
+      <ion-checkbox (click)="chooseBrandItem(item)" [checked]=item.ischeck></ion-checkbox>
+    </ion-item>
+  </ion-list>
+
+
+  <div style="background:#e4e5e6;padding:4px;padding-left:10px">
+    区域
+  </div>
+
+  <ion-list>
+    <ion-item *ngFor="let item of areaList;let i = index">
+      <ion-label> {{item.name}}</ion-label>
+      <ion-checkbox (click)="chooseAreaItem(item)" [checked]=item.ischeck></ion-checkbox>
+    </ion-item>
+  </ion-list>
+
+  <div style="background:#e4e5e6;padding:4px;padding-left:10px">
+    产品
+  </div>
+
+  <ion-list>
+    <ion-item *ngFor="let item of cateList;let i = index">
+      <ion-label> {{item.name}}</ion-label>
+      <ion-checkbox (click)="chooseCategoryItem(item)" [checked]=item.ischeck></ion-checkbox>
+    </ion-item>
+  </ion-list>
+
+    <!--<div *ngIf="allSelectList.length > 0" style="margin-top:10px;margin-left:15px;color:#616466">
       已选中
     </div>
     <ion-grid *ngIf="allSelectList.length > 0">
@@ -72,7 +118,7 @@
         </ion-col>
         
       </ion-row>
-    </ion-grid>
+    </ion-grid>-->
     
   </ion-content>
   <ion-footer >
