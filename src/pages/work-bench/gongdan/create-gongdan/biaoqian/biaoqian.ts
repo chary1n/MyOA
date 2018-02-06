@@ -2,7 +2,9 @@ import { Component } from '@angular/core';
 import { IonicPage } from 'ionic-angular/navigation/ionic-page';
 import { NavController } from 'ionic-angular/navigation/nav-controller';
 import { NavParams } from 'ionic-angular/navigation/nav-params';
-
+import { GongDanService } from '../../gongdanService';
+import { CreateBiaoQianAutoService} from './biaoqian-auto'
+import { Utils } from './../../../../../providers/Utils';
 /**
  * Generated class for the BiaoqianPage page.
  *
@@ -13,6 +15,7 @@ import { NavParams } from 'ionic-angular/navigation/nav-params';
 @Component({
   selector: 'page-biaoqian',
   templateUrl: 'biaoqian.html',
+  providers:[GongDanService,CreateBiaoQianAutoService]
 })
 export class BiaoqianPage {
   list ;
@@ -20,13 +23,48 @@ export class BiaoqianPage {
   category_list;
   area_list ;
   chooseList = [];
+  brand_select_ids = [];
+  area_select_ids = [];
+  cate_select_ids = [];
+  frontPage
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+    public gongdanService:GongDanService,public createBiaoQianAutoService:CreateBiaoQianAutoService) {
+    this.frontPage = Utils.getViewController("CreateGongdanPage", navCtrl)
+    this.list =  this.navParams.get('list')
+    this.brand_list =   this.list.brand_list.res_data
+    this.category_list =   this.list.category_list.res_data
+    this.area_list =   this.list.area_list.res_data
+    this.brand_select_ids =  this.navParams.get('brand_ids')
+    this.area_select_ids = this.navParams.get('area_ids')
+    this.cate_select_ids = this.navParams.get('category_ids')
+    for (let items of this.brand_select_ids) {
+              for (let items_in of this.brand_list) {
+                if (items == items_in.id){
+                  this.chooseList.push(items_in)
+                  items_in.ischeck = true
+                  this.brand_list[this.brand_list.indexOf(items_in)] = items_in
+                }
+              }
+          }
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-   this.list =  this.navParams.get('list')
-  this.brand_list =   this.list.brand_list.res_data
-  this.category_list =   this.list.category_list.res_data
-  this.area_list =   this.list.area_list.res_data
-   console.log(this.list)
+    for (let items of this.area_select_ids) {
+            for (let items_in of this.area_list) {
+                if (items == items_in.id){
+                  this.chooseList.push(items_in)
+                  items_in.ischeck = true       
+                  this.area_list[this.area_list.indexOf(items_in)] = items_in
+                }
+              }
+          }  
+    for (let items of this.cate_select_ids) {
+            for (let items_in of this.category_list) {
+                if (items == items_in.id){
+                  this.chooseList.push(items_in)
+                  items_in.ischeck = true
+                  this.category_list[this.category_list.indexOf(items_in)] = items_in
+                }
+              }
+          }          
   }
 
   ionViewDidLoad() {
@@ -35,32 +73,199 @@ export class BiaoqianPage {
 
 
   chooseBrandItem(item){
-    item.isCheck = !item.isCheck 
-    if(item.isCheck){
-      this.chooseList.push(item.name)
+    item.ischeck = !item.ischeck 
+    if(item.ischeck){
+      this.brand_select_ids.push(item.id)
+      this.chooseList.push(item)
     }else{
-      this.chooseList.splice(this.chooseList.indexOf(item.name),1)  
+      this.brand_select_ids.splice(this.brand_select_ids.indexOf(item.id),1)
+      this.chooseList.splice(this.chooseList.indexOf(item),1)  
     }
   }
 
   chooseAreaItem(item){
-    item.isCheck = !item.isCheck 
-    if(item.isCheck){
-      this.chooseList.push(item.name)
+    item.ischeck = !item.ischeck 
+    if(item.ischeck){
+      this.area_select_ids.push(item.id)
+      this.chooseList.push(item)
     }else{
-      this.chooseList.splice(this.chooseList.indexOf(item.name),1)  
+      this.area_select_ids.splice(this.area_select_ids.indexOf(item.id),1)
+      this.chooseList.splice(this.chooseList.indexOf(item),1)  
     }
   }
 
   chooseCategoryItem(item){
-    item.isCheck = !item.isCheck 
-    if(item.isCheck){
-      this.chooseList.push(item.name)
+    item.ischeck = !item.ischeck 
+    if(item.ischeck){
+      this.cate_select_ids.push(item.id)
+      this.chooseList.push(item)
     }else{
-      this.chooseList.splice(this.chooseList.indexOf(item.name),1)  
+      this.cate_select_ids.splice(this.cate_select_ids.indexOf(item.id),1)
+      this.chooseList.splice(this.chooseList.indexOf(item),1)  
     }
   }
 
+  itemSelected(event){
+    let search_type;
+    let search_text;
+    if (event.id == 1)
+    {
+      search_type = "brand"
+      search_text = event.name.replace("搜 品牌：", "")
+    }
+    else if (event.id == 2)
+    {
+      search_type = "area"
+      search_text = event.name.replace("搜 区域：", "")
+    }
+    else if (event.id == 3)
+    {
+      search_type = "category"
+      search_text = event.name.replace("搜 产品：", "")
+    }
+    this.gongdanService.search_biaoqian(search_type,search_text).then(res => {
+      if (res.result.res_data && res.result.res_code == 1) {
+        this.brand_list = []
+        this.area_list = []
+        this.category_list = []
+        if (res.result.res_data.type == "category")
+        {
+          this.category_list = res.result.res_data.data.res_data
+          for (let items of this.cate_select_ids) {
+            for (let items_in of this.category_list) {
+                if (items == items_in.id){
+                  items_in.ischeck = true
+                  this.category_list[this.category_list.indexOf(items_in)] = items_in
+                  
+                }
+              }
+          }
+        }
+        if (res.result.res_data.type == "brand")
+        {
+          this.brand_list = res.result.res_data.data.res_data
+          for (let items of this.brand_select_ids) {
+              for (let items_in of this.brand_list) {
+                if (items == items_in.id){
+                  items_in.ischeck = true
+                  this.brand_list[this.brand_list.indexOf(items_in)] = items_in
+                }
+              }
+          }
+        }
+        if (res.result.res_data.type == "area")
+        {
+          this.area_list = res.result.res_data.data.res_data
+          for (let items of this.area_select_ids) {
+            for (let items_in of this.area_list) {
+                if (items == items_in.id){
+                  items_in.ischeck = true       
+                  this.area_list[this.area_list.indexOf(items_in)] = items_in
+                }
+              }
+          }
+        }
+      }
+    })
+  }
 
+  cancel_biaoqian() {
+    for (let items of this.brand_select_ids) {
+              for (let items_in of this.brand_list) {
+                if (items == items_in.id){
+                  items_in.ischeck = false
+                  this.brand_list[this.brand_list.indexOf(items_in)] = items_in
+                }
+              }
+          }
+    for (let items of this.cate_select_ids) {
+            for (let items_in of this.category_list) {
+                if (items == items_in.id){
+                  items_in.ischeck = false
+                  this.category_list[this.category_list.indexOf(items_in)] = items_in
+                  
+                }
+              }
+          }  
+    for (let items of this.area_select_ids) {
+            for (let items_in of this.area_list) {
+                if (items == items_in.id){
+                  items_in.ischeck = false       
+                  this.area_list[this.area_list.indexOf(items_in)] = items_in
+
+                  
+                }
+              }
+          }          
+    this.cate_select_ids = []
+    this.brand_select_ids = []
+    this.area_select_ids = []
+    this.chooseList = []
+  }
+
+  confirm_biaoqian() {
+    this.frontPage.data.brand_list = this.brand_select_ids;
+    this.frontPage.data.area_list = this.area_select_ids;
+    this.frontPage.data.category_list = this.cate_select_ids
+    this.frontPage.data.all_tag_list = this.chooseList
+    this.navCtrl.popTo(this.frontPage);
+  }
+  
+  goBack(){
+    this.cancel_biaoqian()
+    this.frontPage.data.brand_list = this.brand_select_ids;
+    this.frontPage.data.area_list = this.area_select_ids;
+    this.frontPage.data.category_list = this.cate_select_ids
+    this.frontPage.data.all_tag_list = this.chooseList
+    this.navCtrl.pop();
+  }
+
+  all_tag(){
+    this.brand_list = []
+    this.area_list = []
+    this.category_list = []
+    this.gongdanService.get_all_biaoqian().then(res => {
+      console.log(res)
+      if (res.result.res_data && res.result.res_code == 1) {
+        if (res.result.res_data.brand_list)
+        {
+          this.brand_list = res.result.res_data.brand_list.res_data
+          for (let items of this.brand_select_ids) {
+              for (let items_in of this.brand_list) {
+                if (items == items_in.id){
+                  items_in.ischeck = true
+                  this.brand_list[this.brand_list.indexOf(items_in)] = items_in
+                }
+              }
+          }
+        }
+        if (res.result.res_data.area_list)
+        {
+          this.area_list = res.result.res_data.area_list.res_data
+          for (let items of this.area_select_ids) {
+            for (let items_in of this.area_list) {
+                if (items == items_in.id){
+                  items_in.ischeck = true       
+                  this.area_list[this.area_list.indexOf(items_in)] = items_in
+                }
+              }
+          }
+          
+        }
+        if (res.result.res_data.category_list)
+        {
+          this.category_list = res.result.res_data.category_list.res_data
+          for (let items of this.cate_select_ids) {
+            for (let items_in of this.category_list) {
+                if (items == items_in.id){
+                  items_in.ischeck = true
+                  this.category_list[this.category_list.indexOf(items_in)] = items_in
+                }
+              }
+          }
+        }
+      }
+    })
+  }
 
 }

@@ -8,7 +8,7 @@
 
 
 
-  <ion-navbar hideBackButton="true" color="black">
+  <ion-navbar hideBackButton="true" color="gongdan-color">
     <ion-buttons left>
       <button ion-button icon-only (click)="goBack()">
         <ion-icon name="close"></ion-icon>
@@ -70,6 +70,7 @@
   </button>
 
   <button ion-item (click)="chooseBiaoqian()">
+    <span style="float:right">{{all_tags()}}</span>
     选择标签
   </button>
   <div style="background:#e4e5e6;padding:4px;padding-left:10px">

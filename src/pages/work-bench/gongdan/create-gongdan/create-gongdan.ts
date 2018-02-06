@@ -46,6 +46,10 @@ export class CreateGongdanPage {
   isDeletePicture = false;
   deletePicture ;
   priority = [{ name: '低', id: '1' }, { name: '中', id: '2' }, { name: '高', id: '3' }]
+  brand_list = [];
+  area_list = [];
+  category_list = [];
+  all_tag_list = []
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public toastCtrl: ToastController,
     public gongdanService: GongDanService,
@@ -54,12 +58,7 @@ export class CreateGongdanPage {
     public alertCtrl:AlertController) {
     this.navParams.data.companyIschoosed = true;
     this.frontPage = Utils.getViewController("GongdanPage", navCtrl)
-    this.gongdanService.get_all_biaoqian().then(res=>{
-      console.log(res)
-      if(res.result&&res.result.res_code==1){
-        this.biaoqianList = res.result.res_data.res_data
-      }
-    })
+    
   }
 
   ionViewDidLoad() {
@@ -102,8 +101,25 @@ export class CreateGongdanPage {
      this.imgList.splice(this.imgList.indexOf(this.deletePicture),1)  
    }
 
-    console.log(this.companyIschoosed)
-    console.log(this.chooseList)
+    // console.log(this.companyIschoosed)
+    // console.log(this.chooseList)
+
+    if (this.navParams.get('brand_list') && (this.navParams.get('brand_list').length || this.navParams.get('brand_list').length == 0)){
+      this.brand_list = this.navParams.get('brand_list')
+      this.navParams.data.brand_list = false;
+    }
+    if (this.navParams.get('area_list') && (this.navParams.get('area_list').length || this.navParams.get('area_list').length == 0)){
+      this.area_list = this.navParams.get('area_list')
+      this.navParams.data.area_list = false;
+    }
+    if (this.navParams.get('category_list') && (this.navParams.get('category_list').length || this.navParams.get('category_list').length == 0)){
+      this.category_list = this.navParams.get('category_list')
+      this.navParams.data.category_list = false;
+    }
+    if (this.navParams.get('all_tag_list') && (this.navParams.get('all_tag_list').length || this.navParams.get('all_tag_list').length == 0)){
+      this.all_tag_list = this.navParams.get('all_tag_list')
+      this.navParams.data.all_tag_list = false;
+    }
   }
 
 
@@ -133,13 +149,13 @@ export class CreateGongdanPage {
         assign_uid = this.choosePeopleItem.id
       }
       let tags = [] ;
-      if(this.biaoqianList){
-        for (let i = 0 ;i<this.biaoqianList.length;i++){
-          if(this.biaoqianList[i].ischeck){
-            tags.push(this.biaoqianList[i].id)
-          }
-        }
-      }
+      // if(this.biaoqianList){
+      //   for (let i = 0 ;i<this.biaoqianList.length;i++){
+      //     if(this.biaoqianList[i].ischeck){
+      //       tags.push(this.biaoqianList[i].id)
+      //     }
+      //   }
+      // }
 // 没有选公司   指派了人
       if(!this.companyIschoosed&&this.choosePeopleItem){
         if(this.checkPeopleInList()){
@@ -151,7 +167,9 @@ export class CreateGongdanPage {
             departments: departments,
             uid: HttpService.user_id,
             wo_images: this.pushImgList,
-            tags :tags 
+            category_ids :this.category_list,
+            brand_ids:this.brand_list,
+            area_ids:this.area_list, 
           }
           this.gongdanService.create_work_order(body).then(res => {
             console.log(res)
@@ -178,7 +196,10 @@ export class CreateGongdanPage {
           departments: departments,
           uid: HttpService.user_id,
           wo_images: this.pushImgList,
-          tags :tags 
+          tags :tags,
+          category_ids :this.category_list,
+            brand_ids:this.brand_list,
+            area_ids:this.area_list,
         }
         this.gongdanService.create_work_order(body).then(res => {
           console.log(res)
@@ -325,9 +346,20 @@ export class CreateGongdanPage {
   chooseBiaoqian(){
     this.gongdanService.get_all_biaoqian().then(res=>{
       if (res.result && res.result.res_code == 1) {
-        this.navCtrl.push('BiaoqianPage',{list:res.result.res_data})
+        this.navCtrl.push('BiaoqianPage',{list:res.result.res_data,
+        area_ids:this.area_list,
+      brand_ids:this.brand_list,
+    category_ids:this.category_list})
       }
     })
+  }
+
+  all_tags(){
+    let all_tags=""
+    for (let items of this.all_tag_list) {
+      all_tags += items.name + " " 
+    }
+    return all_tags
   }
 
 }
