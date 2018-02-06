@@ -6,8 +6,18 @@
 -->
 <ion-header>
 
-  <ion-navbar>
+  <ion-navbar hideBackButton="true" color="gongdan-color">
+    <ion-buttons left>
+      <button ion-button icon-only (click)="goBack()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
     <ion-title>标签</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)='all_tag()'>
+        所有标签
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
@@ -16,9 +26,10 @@
 <ion-content>
   <div style="justify-content:space-around">
     <span round style='background-color:#f5a623;flex :1 1 100%' *ngFor="let item of chooseList"  ion-button>
-      {{item}}
+      {{item.name}}
     </span>
   </div>
+    <ion-auto-complete style="width: 94vw;margin-left:3vw" (itemSelected) = "itemSelected($event)"  [dataProvider]="createBiaoQianAutoService"></ion-auto-complete>
 
   <div style="background:#e4e5e6;padding:4px;padding-left:10px">
     品牌
@@ -56,3 +67,14 @@
 
 
 </ion-content>
+
+<ion-footer >
+          <div style="background:white">
+    <span align="center" style='width:50%;float:left; background-color:#fba958;height:44px;line-height:44px;font-size:15px;color:white' tappable (click)="cancel_biaoqian()">
+      重置
+    </span>
+    <span align="center" style='width:50%;float:right;background-color:#1eabfe;height:44px;line-height:44px;font-size:15px;color:white' tappable (click)="confirm_biaoqian()">
+      确定
+    </span>
+  </div>
+</ion-footer>

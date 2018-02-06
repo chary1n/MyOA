@@ -123,6 +123,7 @@ export class GongdanNewChatPage {
     let options = {
       // targetWidth: 256,
       // targetHeight: 256
+      allowEdit: false,
     };
     if (type == 1) {
       this.nativeService.getPictureByCamera(options).subscribe(img_url => {

@@ -156,7 +156,7 @@ export class GongdanPage {
   click_tongji() {
     this.show_type = "tongji"
     this.endDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd'),
-      this.startDate = this.datePipe.transform(new Date(new Date().getTime() - 3600000 * 24 * 7), 'yyyy-MM-dd')
+      this.startDate = this.datePipe.transform(new Date(new Date().getTime() - 3600000 * 24 * 30), 'yyyy-MM-dd')
     this.dateChanged();
   }
 

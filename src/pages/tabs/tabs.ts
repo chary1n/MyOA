@@ -16,7 +16,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 export class TabsPage {
   @ViewChild('mainTabs') tabs:Tabs;
   meRoot :any ='MePage';
-  msgRoot:any = 'MsgPage';
+  msgRoot:any = 'GongdanPage';
   workRoot :any = 'WorkBenchPage';
   contactRoot  = 'ContactPersonPage';
 
