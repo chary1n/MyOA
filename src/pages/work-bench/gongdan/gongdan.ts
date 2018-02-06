@@ -146,7 +146,7 @@ export class GongdanPage {
 
   click_gongdan() {
     this.endDate_gongdan = this.datePipe.transform(new Date(), 'yyyy-MM-dd'),
-    this.startDate_gongdan = this.datePipe.transform(new Date(new Date().getTime() - 3600000 * 24 * 30), 'yyyy-MM-dd')
+    this.startDate_gongdan = this.datePipe.transform('2018-01-01', 'yyyy-MM-dd')
     this.dataList = []
     this.show_type = "gongdan"
     this.inner_type = "all"

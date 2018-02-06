@@ -26,9 +26,18 @@ export class GongdanBiaoqianPage {
   cateList = [];
   allSelectList = [];
   frontPage
+  need_back_search
   constructor(public navCtrl: NavController, public navParams: NavParams,public gongdanService:GongDanService,
     public biaoQianAutoService:BiaoQianAutoService) {
-    this.frontPage = Utils.getViewController("GongdanPage", navCtrl)
+    this.need_back_search = this.navParams.get('need_back_search')
+    if (this.need_back_search)
+    {
+      this.frontPage = Utils.getViewController("GongdanSearchPage", navCtrl)
+    }
+    else
+    {
+      this.frontPage = Utils.getViewController("GongdanPage", navCtrl)
+    }
     this.brand_select_ids =  this.navParams.get('brand_ids')
     this.area_select_ids = this.navParams.get('area_ids')
     this.cate_select_ids = this.navParams.get('category_ids')
@@ -253,7 +262,7 @@ export class GongdanBiaoqianPage {
     else if (event.id == 2)
     {
       search_type = "area"
-      search_text = event.name.replace("搜 区域：", "")
+      search_text = event.name.replace("搜 部门：", "")
     }
     else if (event.id == 3)
     {

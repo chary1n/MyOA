@@ -64,10 +64,18 @@ export class GongdanDetailPage {
   }
     this.is_ios = this.platform.is('ios')
     if (this.item.issue_state == "unaccept" || this.item.issue_state == "process") {
-      if (HttpService.user_id == this.item.create_user.id || HttpService.user_id == this.item.assign_user.id)
+      if (this.item.issue_state == "process")
+      {
+        if (HttpService.user_id == this.item.create_user.id || HttpService.user_id == this.item.assign_user.id)
       {
         this.isShowZhiPai = true
       }
+    }
+    else
+    {
+      this.isShowZhiPai = true
+    }
+      
       this.isShowRefuse = false
       this.isShowConfirm = false
       if (this.item.create_user.id == HttpService.user_id) {
@@ -108,8 +116,24 @@ export class GongdanDetailPage {
   reload() {
     this.gongDanService.getGongdanDetail(this.item.work_order_id).then(res => {
       console.log(res)
+      this.all_tag_ids = []
       if (res.result.res_data && res.result.res_code == 1) {
         this.item = res.result.res_data.work_order;
+        if (this.item.area_ids.res_data){
+      for (let items of this.item.area_ids.res_data) {
+        this.all_tag_ids.push(items)
+      }
+    }
+    if (this.item.brand_ids.res_data){
+      for (let items of this.item.brand_ids.res_data) {
+        this.all_tag_ids.push(items)
+      }
+    }
+    if (this.item.category_ids.res_data){
+      for (let items of this.item.category_ids.res_data) {
+        this.all_tag_ids.push(items)
+      }
+    }
         this.message_item = res.result.res_data.records;
         if (this.item.issue_state == "unaccept" || this.item.issue_state == "process") {
           if (HttpService.user_id == this.item.create_user.id || HttpService.user_id == this.item.assign_user.id)
@@ -215,6 +239,7 @@ this.navCtrl.push('GongdanNewChatPage', {
       item: this.item,
       parent_id: items.record_id,
       record_item: items,
+      select_name:this.item.create_user
     })
   }
 

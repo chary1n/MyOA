@@ -5,6 +5,8 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { GongDanService } from './../gongdanService';
 import { Utils } from './../../../../providers/Utils';
 import { GongDanAutoService} from './gongdan-search-auto'
+import { DatePipe } from '@angular/common';
+import { DatePicker } from '@ionic-native/date-picker';
 /**
  * Generated class for the GongdanSearchPage page.
  *
@@ -15,7 +17,7 @@ import { GongDanAutoService} from './gongdan-search-auto'
 @Component({
   selector: 'page-gongdan-search',
   templateUrl: 'gongdan-search.html',
-  providers:[GongDanAutoService,GongDanService]
+  providers:[GongDanAutoService,GongDanService,DatePipe]
 })
 export class GongdanSearchPage {
   dataList = []
@@ -26,8 +28,18 @@ export class GongdanSearchPage {
   processTitle = "受理中";
   search_type
   search_text
+  has_data = false
+  endDate_gongdan
+  startDate_gongdan
+  brand_ids = []
+  area_ids = []
+  category_ids = []
+  page_issue_state
   constructor(public navCtrl: NavController, public navParams: NavParams,public gongDanAutoService:GongDanAutoService,
-    public gongdanService:GongDanService) {
+    public gongdanService:GongDanService,public datePipe:DatePipe,public toastCtrl:ToastController,
+    public datePicker:DatePicker) {
+      this.endDate_gongdan = this.datePipe.transform(new Date(), 'yyyy-MM-dd'),
+    this.startDate_gongdan = this.datePipe.transform('2018-01-01', 'yyyy-MM-dd')
       this.gongdanService.get_all_biaoqian().then(res => {
       console.log(res)
       if (res.result.res_data && res.result.res_code == 1)
@@ -39,6 +51,32 @@ export class GongdanSearchPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad GongdanSearchPage');
+  }
+
+  ionViewDidEnter() {
+    let need_load = false
+    if (this.navParams.get('brand_list') && (this.navParams.get('brand_list').length || this.navParams.get('brand_list').length == 0)){
+      this.brand_ids = this.navParams.get('brand_list')
+      this.navParams.data.brand_list = false;
+      need_load = true
+    }
+    if (this.navParams.get('area_list') && (this.navParams.get('area_list').length || this.navParams.get('area_list').length == 0)){
+      this.area_ids = this.navParams.get('area_list')
+      this.navParams.data.area_list = false;
+      need_load = true
+    }
+    if (this.navParams.get('category_list') && (this.navParams.get('category_list').length || this.navParams.get('category_list').length == 0)){
+      this.category_ids = this.navParams.get('category_list')
+      this.navParams.data.category_list = false;
+      need_load = true
+    }
+    if(need_load)
+    {
+      if (this.search_text){
+        this.getDataList(this.page_issue_state)
+      }
+      
+    }
   }
 
   itemSelected(event){
@@ -104,14 +142,21 @@ export class GongdanSearchPage {
 
   getDataList(state) {
     this.dataList = [];
-    // this.page_issue_state = state;
-    
+    this.page_issue_state = state;
+    if (!state){
+       this.has_data = false
+    }
+   
     this.gongdanService.work_order_search(JSON.stringify({
+      start_date: this.startDate_gongdan,
+      end_date: this.datePipe.transform(new Date(new Date(this.endDate_gongdan).getTime() + 3600000 * 24), 'yyyy-MM-dd'),
       uid: HttpService.user_id,
       issue_state: state,
       search_type:this.search_type,
       search_text:this.search_text,
-      // tag_ids: this.biaoqian_select_ids,
+      category_ids: this.category_ids,
+      brand_ids:this.brand_ids,
+      area_ids:this.area_ids,
     })).then(res => {
       console.log(res)
       if (res.result.res_data) {
@@ -119,6 +164,13 @@ export class GongdanSearchPage {
           this.dataList.push(item)
         }
       }
+      if (!state)
+      {
+        if (this.dataList.length > 0){
+        this.has_data = true
+      }
+      }
+      
     })
 
     this.reload_statics()
@@ -194,5 +246,60 @@ export class GongdanSearchPage {
 
   clickback(){
     this.navCtrl.pop()
+  }
+
+  clickMenu(){
+    this.navCtrl.push('GongdanBiaoqianPage',{
+      brand_ids:this.brand_ids,
+      area_ids:this.area_ids,
+      category_ids:this.category_ids,
+      need_back_search:true,
+    })
+  }
+
+  chooseStartDate_gongdan() {
+    this.datePicker.show({
+      date: new Date(this.startDate_gongdan),
+      mode: 'date',
+      androidTheme: this.datePicker.ANDROID_THEMES.THEME_HOLO_DARK,
+      cancelButtonLabel: "取消",
+      cancelText: "取消",
+      doneButtonLabel: "确定",
+      locale: "zh-Hans",
+    }).then(
+      date => {
+        if (this.endDate_gongdan >= this.datePipe.transform(date, 'yyyy-MM-dd')) {
+          this.startDate_gongdan = this.datePipe.transform(date, 'yyyy-MM-dd')
+    this.getDataList(this.page_issue_state)
+  
+        } else {
+          Utils.toastButtom("请选择正确的日期", this.toastCtrl)
+        }
+      },
+      err => console.log('Error occurred while getting date: ', err)
+      );
+  }
+
+  chooseEndDate_gongdan() {
+    this.datePicker.show({
+      date: new Date(this.endDate_gongdan),
+      mode: 'date',
+      androidTheme: this.datePicker.ANDROID_THEMES.THEME_HOLO_DARK,
+      cancelButtonLabel: "取消",
+      cancelText: "取消",
+      doneButtonLabel: "确定",
+      locale: "zh-Hans",
+    }).then(
+      date => {
+        if (this.datePipe.transform(date, 'yyyy-MM-dd') >= this.startDate_gongdan) {
+          this.endDate_gongdan = this.datePipe.transform(date, 'yyyy-MM-dd')
+          // this.reload_statics()
+    this.getDataList(this.page_issue_state)
+        } else {
+          Utils.toastButtom("请选择正确的日期", this.toastCtrl)
+        }
+      },
+      err => console.log('Error occurred while getting date: ', err)
+      );
   }
 }

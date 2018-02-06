@@ -43,6 +43,10 @@ export class RebackGongdanPage {
   work_order_id;
   biaoqianList;
   priority = [{ name: '低', id: '1' }, { name: '中', id: '2' }, { name: '高', id: '3' }]
+  brand_list = [];
+  area_list = [];
+  category_list = [];
+  all_tag_list = []
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public toastCtrl: ToastController,
     public gongdanService: GongDanService,
@@ -91,13 +95,26 @@ export class RebackGongdanPage {
       if (this.companyIschoosed) {
         this.whoCanSee = "全公司"
       } else {
-       this.whoCanSee = this.chooseDepartmentName
+       this.whoCanSee = "指定部门"
      }
     }
     
-
-    console.log(this.companyIschoosed)
-    console.log(this.chooseList)
+    if (this.navParams.get('brand_list') && (this.navParams.get('brand_list').length || this.navParams.get('brand_list').length == 0)){
+      this.brand_list = this.navParams.get('brand_list')
+      this.navParams.data.brand_list = false;
+    }
+    if (this.navParams.get('area_list') && (this.navParams.get('area_list').length || this.navParams.get('area_list').length == 0)){
+      this.area_list = this.navParams.get('area_list')
+      this.navParams.data.area_list = false;
+    }
+    if (this.navParams.get('category_list') && (this.navParams.get('category_list').length || this.navParams.get('category_list').length == 0)){
+      this.category_list = this.navParams.get('category_list')
+      this.navParams.data.category_list = false;
+    }
+    if (this.navParams.get('all_tag_list') && (this.navParams.get('all_tag_list').length || this.navParams.get('all_tag_list').length == 0)){
+      this.all_tag_list = this.navParams.get('all_tag_list')
+      this.navParams.data.all_tag_list = false;
+    }
   }
 
   release() {
@@ -142,7 +159,9 @@ export class RebackGongdanPage {
         uid: HttpService.user_id,
         wo_images: this.pushImgList,
         work_order_id:this.work_order_id,
-        tags:tags,
+        brand_ids:this.brand_list,
+        area_ids:this.area_list,
+        category_ids:this.category_list,
       }
       this.gongdanService.commit_draft(body).then(res => {
         console.log(res)
@@ -259,6 +278,25 @@ export class RebackGongdanPage {
     return item.ischeck
   }
     
+  chooseBiaoqian(){
+    this.gongdanService.get_all_biaoqian().then(res=>{
+      if (res.result && res.result.res_code == 1) {
+        this.navCtrl.push('BiaoqianPage',{list:res.result.res_data,
+        area_ids:this.area_list,
+      brand_ids:this.brand_list,
+    category_ids:this.category_list,
+  need_pop_reback:true})
+      }
+    })
+  }
+
+  all_tags(){
+    let all_tags=""
+    for (let items of this.all_tag_list) {
+      all_tags += items.name + " " 
+    }
+    return all_tags
+  }
   
 
 }
