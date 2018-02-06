@@ -98,7 +98,8 @@ export class CreateGongdanPage {
    console.log(this.isDeletePicture)
    if(this.isDeletePicture){
      this.isDeletePicture = false ;
-     this.imgList.splice(this.imgList.indexOf(this.deletePicture),1)  
+     this.imgList.splice(this.imgList.indexOf(this.deletePicture),1) 
+     this.pushImgList.splice(this.pushImgList.indexOf(this.deletePicture.split(",")[1]),1) 
    }
 
     // console.log(this.companyIschoosed)
@@ -316,7 +317,7 @@ export class CreateGongdanPage {
   }
 
   goBack(){
-    if (this.title || this.description ||this.priorityId) {
+    if (this.title || this.description) {
         this.alertCtrl.create({
         title: '提示',
         subTitle: '已输入内容，是否确认返回？',
