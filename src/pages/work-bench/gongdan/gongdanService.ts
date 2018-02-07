@@ -33,9 +33,9 @@ export class GongDanService {
         return this.httpservice.postBodyNoLoading("work_order_search", body,1);
     }
 
-    work_order_statistics(start_date,end_date,brand_ids,area_ids,category_ids){
+    work_order_statistics(start_date,end_date,brand_ids,area_ids,category_ids,user_id){
         let body = JSON.stringify({
-            uid:HttpService.user_id,
+            uid:user_id,
             start_date:start_date,
             end_date:end_date,
             brand_ids:brand_ids,

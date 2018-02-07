@@ -58,8 +58,8 @@
       </P>
       <ion-grid *ngIf="item.work_order_images" style="margin-top:-20px;margin-left:5px">
         <ion-row style="margin-right:5px;">
-          <ion-col *ngFor="let image of item.work_order_images" col-3 >
-            <img  src={{image}} imageViewer/>
+          <ion-col style="height:80px" *ngFor="let image of item.work_order_images" col-3 >
+            <img style="position:absolute;clip:rect(0px,70px,70px,0px);background-color:#f0f2f5" src={{image}} imageViewer/>
           </ion-col>
         </ion-row>
       </ion-grid>
@@ -103,10 +103,10 @@
   <ion-item no-lines *ngIf="items.record_type == 'reply'" style="margin-top:-5px">
    <p text-wrap [ngClass]="{true:'content_message',false:'content_message_no_lines'}[items.reply_record_line_ids.length > 0]" class="">
      <span>回复：</span><span style="color:#1f6699;" tappable (click)="clickUser(items.reply_uid)">{{"@" + items.reply_uid.name + " "}}</span><span>{{items.content}}</span>
-     <ion-grid *ngIf="items.record_images.length > 0" style="height:80px;margin-top:-5px;margin-bottom:5px">
+     <ion-grid *ngIf="items.record_images.length > 0" style="margin-top:-5px;margin-bottom:5px">
         <ion-row style="margin-right:5px;">
-          <ion-col *ngFor="let image of items.record_images" col-3 >
-            <img style="width:70px;height:70px" src={{image}} imageViewer/>
+          <ion-col style="height:80px" *ngFor="let image of items.record_images" col-3 >
+            <img style="position:absolute;clip:rect(0px,70px,70px,0px);background-color:#f0f2f5" src={{image}} imageViewer/>
           </ion-col>
         </ion-row>
       </ion-grid>
@@ -133,10 +133,10 @@
     <span style="color:#1f6699;" tappable (click)="clickUser(line.reply_uid)">{{line.create_uid.name + "：@" + line.reply_uid.name}} </span><span style="color:8a9299">{{line.content}}</span>
   </p>
 
-  <ion-grid *ngIf="line.record_images.length > 0" style="height:70px">
+  <ion-grid *ngIf="line.record_images.length > 0" >
         <ion-row style="margin-right:5px;">
-          <ion-col *ngFor="let image of line.record_images" col-3 >
-            <img style="width:70px;height:70px" src={{image}} imageViewer/>
+          <ion-col style="height:80px" *ngFor="let image of line.record_images" col-3 >
+            <img  style="position:absolute;clip:rect(0px,70px,70px,0px);background-color:#f0f2f5" src={{image}} imageViewer/>
           </ion-col>
         </ion-row>
       </ion-grid>
