@@ -104,7 +104,7 @@ export class CreateGongdanPage {
    this.isDeletePicture =this.navParams.get('isDeletePicture')
    console.log(this.isDeletePicture)
    if(this.isDeletePicture){
-     this.isDeletePicture = false ;
+      this.navParams.data.isDeletePicture= false ;
      this.imgList.splice(this.imgList.indexOf(this.deletePicture),1) 
      this.pushImgList.splice(this.pushImgList.indexOf(this.deletePicture.split(",")[1]),1) 
    }

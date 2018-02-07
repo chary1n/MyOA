@@ -43,7 +43,7 @@ export class AssignPeoplePage {
         if (res.result && res.result.res_code == 1) {
           this.employeeList = res.result.res_data;
           this.origin_data = this.employeeList;
-          if(!this.choosePeopleName){
+          if(this.choosePeopleName){
             for(let i = 0;i<this.employeeList.length;i++){
               if(this.employeeList[i].name==this.choosePeopleName){
                 this.employeeList[i].ischeck = true 
@@ -57,6 +57,13 @@ export class AssignPeoplePage {
         if (res.result && res.result.res_code == 1) {
           this.employeeList = res.result.res_data;
           this.origin_data = this.employeeList;
+          if(this.choosePeopleName){
+            for(let i = 0;i<this.employeeList.length;i++){
+              if(this.employeeList[i].name==this.choosePeopleName){
+                this.employeeList[i].ischeck = true 
+              }
+            }
+          }
         }
       })
     }
