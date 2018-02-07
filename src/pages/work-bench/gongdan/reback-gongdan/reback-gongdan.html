@@ -38,8 +38,8 @@
 
   <ion-grid>
     <ion-row>
-      <ion-col col-4 *ngFor="let item of imgList" (click)="clickPicture(item)">
-        <img src={{item}} width="106px" height="106px" />
+      <ion-col style="height:116px" col-4 *ngFor="let item of imgList" (click)="clickPicture(item)">
+        <img src={{item}} style="position:absolute;clip:rect(0px,106px,106px,0px);" />
       </ion-col>
       <ion-col col-4 (click)="addImg()">
         <img src="assets/img/add.png"  />

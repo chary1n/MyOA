@@ -143,8 +143,8 @@
         </P>
         <ion-grid *ngIf="item.work_order_images" style="margin-top:-20px;margin-left:5px">
           <ion-row style="margin-right:5px;">
-            <ion-col *ngFor="let image of item.work_order_images" col-3>
-              <img src={{image}} width="72px" height="72px" imageViewer/>
+            <ion-col style="height:80px" *ngFor="let image of item.work_order_images" col-3>
+              <img src={{image}} style="position:absolute;clip:rect(0px,70px,70px,0px);background-color:#f0f2f5" imageViewer/>
             </ion-col>
           </ion-row>
         </ion-grid>

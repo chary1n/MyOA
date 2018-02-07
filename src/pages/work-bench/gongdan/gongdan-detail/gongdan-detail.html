@@ -58,8 +58,8 @@
       </P>
       <ion-grid *ngIf="item.work_order_images" style="margin-top:-20px;margin-left:5px">
         <ion-row style="margin-right:5px;">
-          <ion-col *ngFor="let image of item.work_order_images" col-3 >
-            <img  src={{image}} imageViewer/>
+          <ion-col style="height:80px" *ngFor="let image of item.work_order_images" col-3 >
+            <img style="position:absolute;clip:rect(0px,70px,70px,0px);background-color:#f0f2f5" src={{image}} imageViewer/>
           </ion-col>
         </ion-row>
       </ion-grid>
@@ -105,8 +105,8 @@
      <span>回复：</span><span style="color:#1f6699;" tappable (click)="clickUser(items.reply_uid)">{{"@" + items.reply_uid.name + " "}}</span><span>{{items.content}}</span>
      <ion-grid *ngIf="items.record_images.length > 0" style="height:80px;margin-top:-5px;margin-bottom:5px">
         <ion-row style="margin-right:5px;">
-          <ion-col *ngFor="let image of items.record_images" col-3 >
-            <img style="width:70px;height:70px" src={{image}} imageViewer/>
+          <ion-col style="height:80px" *ngFor="let image of items.record_images" col-3 >
+            <img style="position:absolute;clip:rect(0px,70px,70px,0px);background-color:#f0f2f5" src={{image}} imageViewer/>
           </ion-col>
         </ion-row>
       </ion-grid>
@@ -135,8 +135,8 @@
 
   <ion-grid *ngIf="line.record_images.length > 0" style="height:70px">
         <ion-row style="margin-right:5px;">
-          <ion-col *ngFor="let image of line.record_images" col-3 >
-            <img style="width:70px;height:70px" src={{image}} imageViewer/>
+          <ion-col style="height:80px" *ngFor="let image of line.record_images" col-3 >
+            <img  style="position:absolute;clip:rect(0px,70px,70px,0px);background-color:#f0f2f5" src={{image}} imageViewer/>
           </ion-col>
         </ion-row>
       </ion-grid>

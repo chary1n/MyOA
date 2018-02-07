@@ -53,9 +53,11 @@ export class GongdanNewChatPage {
 
     setTimeout(()=>{
           this.textarea.setFocus()
+          // this.setCaretPosition(this.textarea,1)
           // cordova.plugins.Keyboard.show();
         }, 300)
   }
+
 
   ionViewWillEnter() {
 

@@ -60,8 +60,12 @@ export class GongdanPage {
     public gongdanService: GongDanService, public platform: Platform, private datePipe: DatePipe,
     private datePicker: DatePicker, private toastCtrl: ToastController,
     public menu: MenuController,public storage: Storage,public alertCtrl:AlertController) {
-    this.menu.open()
-    this.inner_type = "all"
+   
+  }
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad GongdanPage');
+     this.inner_type = "all"
     this.is_android = this.platform.is('android')
     this.click_gongdan()
     this.storage.get('user')
@@ -71,11 +75,6 @@ export class GongdanPage {
           this.department = true;
         }
       })
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad GongdanPage');
-    
     // this.canvas = <HTMLCanvasElement>document.getElementById('canvas');
   }
 
