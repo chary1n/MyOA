@@ -86,6 +86,8 @@ export class CreateGongdanPage {
       console.log(this.choosePeopleItem)
       if (this.choosePeopleItem) {
         this.choosePeopleName = this.choosePeopleItem.name
+      }else{
+        this.choosePeopleName = ''
       }
       if (this.companyIschoosed) {
         this.whoCanSee = "全公司"
@@ -313,7 +315,7 @@ export class CreateGongdanPage {
 
 
   assignPeople() {
-    this.navCtrl.push("AssignPeoplePage",{departments:this.chooseList})
+    this.navCtrl.push("AssignPeoplePage",{departments:this.chooseList,choosePeopleName:this.choosePeopleName})
   }
 
   goBack(){

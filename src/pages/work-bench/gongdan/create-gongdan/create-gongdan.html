@@ -42,7 +42,7 @@
         <!-- <span *ngIf="showX"   style="position:absolute;
           width:20px;height:20px;border-radius:10px;background-color:red;
           display:inline-block;color:white;line-height:20px;right:-6px;top:11px;text-align:center;font-size:12px"></span> -->
-        <img src={{item}} width="106px" height="106px" />
+        <img src={{item}} />
       </ion-col>
       <ion-col col-4 tappable (click)="addImg()">
         <img src="assets/img/add.png" />
@@ -86,21 +86,7 @@
       
   </button>
 
-  <div style="background:#e4e5e6;padding:4px;padding-left:10px">
-    问题标签(选填)
-  </div>
 
+</ion-content>
 
-  <ion-grid>
-    <ion-row>
-      <ion-col col-3 tappable (click)="clickbiaoqian(item)" *ngFor="let item of biaoqianList">
-        <div class="biaoqian_div_unchoose" [ngClass]="{true:'biaoqian_div_choose',false:'biaoqian_div_unchoose'}[isChoose(item)]"
-          align="center">
-          {{item.name}}
-        </div>
-      </ion-col>
-
-
-    </ion-row>
-  </ion-grid>
 
