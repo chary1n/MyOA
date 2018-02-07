@@ -12,31 +12,41 @@
 </style>
 
 
-<ion-content padding class="total_color" (pan)="panEvent($event)">
+<ion-content  class="total_color" (pan)="panEvent($event)">
+<div class="div_background" style="height:200px">
 
-    <ion-grid  style="margin-top:20px">
+
+    <ion-grid  >
       <ion-row style="height:100px;text-align:center;">
         <ion-col col-6 (click)="chooseJiangsu()" style="text-align:center;
-        border-right: 1px rgb(196, 196, 196) solid;
-        border-bottom: 1px rgb(196, 196, 196) solid;
+        border-right: 1px rgb(230, 230, 230) solid;
+        border-bottom: 1px rgb(230, 230, 230) solid;
         " border-right >
-          <img src="assets/img/jiangsu.png"  [ngClass]="{true:'img_select',false:'img_unselect'}[isSelected1]" tappable>
-          <span>DIY</span>
+          <img src="assets/img/jiangsuruotai.png"  [ngClass]="{true:'img_select',false:'img_unselect'}[isSelected1]" tappable>
+          <p >江苏若态</p>
         </ion-col>
-        <ion-col col-6  (click)="chooseDiy()">
+        <ion-col col-6  (click)="chooseDiy()"  style="text-align:center;
+        border-bottom: 1px rgb(230, 230, 230) solid;
+          " >
           <img src="assets/img/diy.png"  [ngClass]="{true:'img_select',false:'img_unselect'}[isSelected2]" tappable>
+          <p>DIY</p>
         </ion-col>
       </ion-row>
       <ion-row style="height:100px;text-align:center;">
-          <ion-col col-6 (click)="chooseJiangsu()" style="text-align:center" >
-            <img src="assets/img/jiangsu.png"  [ngClass]="{true:'img_select',false:'img_unselect'}[isSelected1]" tappable>
-            <span>DIY</span>
+          <ion-col col-6 (click)="chooseJiangsu()" style="text-align:center;
+          border-right: 1px rgb(230, 230, 230) solid;
+            " >
+            <img src="assets/img/ruobeier.png"  [ngClass]="{true:'img_select',false:'img_unselect'}[isSelected1]" tappable>
+            <p>若贝尔</p>
           </ion-col>
           <ion-col col-6  (click)="chooseDiy()">
-            <img src="assets/img/diy.png"  [ngClass]="{true:'img_select',false:'img_unselect'}[isSelected2]" tappable>
+            <img src="assets/img/banchang.png"  [ngClass]="{true:'img_select',false:'img_unselect'}[isSelected2]" tappable>
+            <p>板厂</p>
           </ion-col>
         </ion-row>
     </ion-grid>
+
+  </div>
 
   <ion-list style="margin-top:10px">
 
