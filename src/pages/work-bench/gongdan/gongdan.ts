@@ -42,9 +42,9 @@ export class GongdanPage {
   is_android;
   page_issue_state;
   startDate;
-  startDate_gongdan;
+  startDate_gongdan = this.datePipe.transform('2018-01-01', 'yyyy-MM-dd');
   endDate;
-  endDate_gongdan
+  endDate_gongdan = this.datePipe.transform(new Date(), 'yyyy-MM-dd')
   total_number = 0;
   more_48_number = 0;
   searchAtMeNumber = 0;
@@ -56,25 +56,31 @@ export class GongdanPage {
   brand_ids = []
   area_ids = []
   category_ids = []
+  user_id
   constructor(public navCtrl: NavController, public navParams: NavParams, public statusbar: StatusBar,
     public gongdanService: GongDanService, public platform: Platform, private datePipe: DatePipe,
     private datePicker: DatePicker, private toastCtrl: ToastController,
     public menu: MenuController,public storage: Storage,public alertCtrl:AlertController) {
-   
+    this.inner_type = "all"
+    this.is_android = this.platform.is('android')
+    
+    this.storage.get('user')
+      .then(res => {
+        console.log(res)
+        if (res.result.res_data.department)
+        {
+          this.user_id = res.result.res_data.user_id
+          this.department = true;
+          console.log(11111+res.result.res_data.user_id)
+          this.click_gongdan()
+        }
+      })
+    
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad GongdanPage');
-     this.inner_type = "all"
-    this.is_android = this.platform.is('android')
-    this.click_gongdan()
-    this.storage.get('user')
-      .then(res => {
-        if (res.result.res_data.department)
-        {
-          this.department = true;
-        }
-      })
+    
     // this.canvas = <HTMLCanvasElement>document.getElementById('canvas');
   }
 
@@ -617,7 +623,7 @@ export class GongdanPage {
     this.gongdanService.work_order_search(JSON.stringify({
       start_date: this.startDate_gongdan,
       end_date: this.datePipe.transform(new Date(new Date(this.endDate_gongdan).getTime() + 3600000 * 24), 'yyyy-MM-dd'),//          
-      uid: HttpService.user_id,
+      uid: this.user_id,
       issue_state: state,
       category_ids: this.category_ids,
       brand_ids:this.brand_ids,
@@ -677,7 +683,7 @@ export class GongdanPage {
 
 
   reload_statics(){
-    this.gongdanService.work_order_statistics(this.startDate_gongdan,this.datePipe.transform(new Date(new Date(this.endDate_gongdan).getTime() + 3600000*24), 'yyyy-MM-dd'),this.brand_ids,this.area_ids,this.category_ids).then(res => {
+    this.gongdanService.work_order_statistics(this.startDate_gongdan,this.datePipe.transform(new Date(new Date(this.endDate_gongdan).getTime() + 3600000*24), 'yyyy-MM-dd'),this.brand_ids,this.area_ids,this.category_ids,this.user_id).then(res => {
       if (res.result.res_data) {
         if (res.result.res_data.unaccept) {
           this.unacceptTitle = "待受理" + " (" + res.result.res_data.unaccept + ")";
