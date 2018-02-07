@@ -3,17 +3,20 @@ page-login {
     background-color:white;
   }
 
+  .div_background{
+    background-image: url('../assets/img/bg.png');
+  }
+
 
   .img_unselect{
-    width: 70px;
-    height: 70px ;
+    width: 60px;
+    height: 60px ;
 
   }
 
   .img_select{
-    width: 100px;
-    height: 100px ;
-    line-height:13px;
+    width:60px;
+    height: 60px ;
   
   }
 
