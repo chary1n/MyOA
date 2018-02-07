@@ -23,31 +23,34 @@ background-position: bottom;">
         <ion-col col-6 (click)="chooseJiangsu()" style="
         border-right: 1px rgb(230, 230, 230) solid;
         border-bottom: 1px rgb(230, 230, 230) solid;
+        display:flex; align-items:center
         "  >
         <img src="assets/img/jiangsuruotai.png"  [ngClass]="{true:'img_select',false:'img_unselect'}[isSelected1]" tappable>
           <p  class="p_text">江苏若态</p>
         </ion-col>
 
-        <ion-col col-6  (click)="chooseDiy()"  style="text-align:center;
+        <ion-col col-6 (click)="chooseDiy()"  style="text-align:center;
         border-bottom: 1px rgb(230, 230, 230) solid;
+        display:flex; align-items:center
           " >
-          <img src="assets/img/diy.png"  [ngClass]="{true:'img_select',false:'img_unselect'}[isSelected2]" tappable>
+          <img style="margin-left:25px" src="assets/img/diy.png"  [ngClass]="{true:'img_select',false:'img_unselect'}[isSelected2]" tappable>
           <p  class="p_text">DIY</p>
         </ion-col>
 
 
       </ion-row>
       <ion-row style="height:100px;text-align:center;">
-          <ion-col col-6 (click)="chooseJiangsu()" style="text-align:center;
+          <ion-col col-6  (click)="chooseJiangsu()" style="text-align:center;
           border-right: 1px rgb(230, 230, 230) solid;
+          display:flex; align-items:center
             " >
             <img src="assets/img/ruobeier.png"  [ngClass]="{true:'img_select',false:'img_unselect'}[isSelected1]" tappable>
             <p class="p_text">若贝尔</p>
           </ion-col>
 
 
-          <ion-col col-6  (click)="chooseDiy()">
-            <img src="assets/img/banchang.png"  [ngClass]="{true:'img_select',false:'img_unselect'}[isSelected2]" tappable>
+          <ion-col col-6  style="display:flex; align-items:center" (click)="chooseDiy()">
+            <img style="margin-left:25px" src="assets/img/banchang.png"  [ngClass]="{true:'img_select',false:'img_unselect'}[isSelected2]" tappable>
             <p class="p_text">板厂</p>
           </ion-col>
         </ion-row>
