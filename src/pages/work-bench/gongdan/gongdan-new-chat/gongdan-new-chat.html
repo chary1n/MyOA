@@ -14,7 +14,7 @@
       </button>
     </ion-buttons>
   </ion-navbar>
-    <ion-textarea autofocus id="area_id" rows="15" placeholder="输入回复" [(ngModel)]="beizhuText" style="margin-top:10px;height:115px;margin-left:4.5%;width:91%;border: 1px solid #e2e2e4;overflow:hidden;border-radius:1px;"></ion-textarea>
+    <ion-textarea #mytextarea autofocus id="area_id" rows="15" placeholder="输入回复" [(ngModel)]="beizhuText" style="margin-top:10px;height:115px;margin-left:4.5%;width:91%;border: 1px solid #e2e2e4;overflow:hidden;border-radius:1px;"></ion-textarea>
 
 </ion-header>
 
@@ -23,7 +23,7 @@
  <ion-grid style="margin-left:6px;">
     <ion-row>
       <ion-col tappable (click)="clickPicture(item)" col-3 *ngFor="let item of imgList">
-        <img src={{item}}/>
+        <img src={{item}} width="106px" height="106px"/>
       </ion-col>
     </ion-row>
   </ion-grid>

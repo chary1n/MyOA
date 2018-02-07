@@ -28,7 +28,7 @@ export class GongdanBiaoqianPage {
   frontPage
   need_back_search
   constructor(public navCtrl: NavController, public navParams: NavParams,public gongdanService:GongDanService,
-    public biaoQianAutoService:BiaoQianAutoService) {
+    public biaoQianAutoService:BiaoQianAutoService,public statusbar:StatusBar) {
     this.need_back_search = this.navParams.get('need_back_search')
     if (this.need_back_search)
     {
@@ -86,6 +86,11 @@ export class GongdanBiaoqianPage {
         }
       }
     })
+  }
+
+  ionViewWillEnter() {
+     this.statusbar.backgroundColorByHexString("#2597ec");
+    this.statusbar.styleLightContent();
   }
 
   ionViewDidLoad() {

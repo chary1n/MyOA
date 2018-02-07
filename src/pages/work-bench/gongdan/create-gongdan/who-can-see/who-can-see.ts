@@ -4,6 +4,7 @@ import { IonicPage } from 'ionic-angular/navigation/ionic-page';
 import { NavController } from 'ionic-angular/navigation/nav-controller';
 import { GongDanService } from '../../gongdanService';
 import { Utils } from '../../../../../providers/Utils';
+import { StatusBar } from '@ionic-native/status-bar';
 
 /**
  * Generated class for the WhoCanSeePage page.
@@ -28,7 +29,7 @@ export class WhoCanSeePage {
   direction = "↓" ;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    public gongdanService: GongDanService) {
+    public gongdanService: GongDanService,public statusbar:StatusBar) {
       this.need_pop_reback = this.navParams.get('need_pop_reback')
     if (this.need_pop_reback){
       this.frontPage = Utils.getViewController("RebackGongdanPage", navCtrl)
@@ -48,6 +49,10 @@ export class WhoCanSeePage {
   }
 
   ionViewWillEnter() {
+
+     this.statusbar.backgroundColorByHexString("#2597ec");
+    this.statusbar.styleLightContent();
+  
     this.chooseList = this.navParams.get('chooseList')
     this.departmentList = this.navParams.get('departmentList')
     if(!this.departmentList){

@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular/navigation/nav-controller';
 import { NavParams } from 'ionic-angular/navigation/nav-params';
 import { Utils } from '../../../../../providers/Utils';
+import { StatusBar } from '@ionic-native/status-bar';
 
 /**
  * Generated class for the DeletePicturePage page.
@@ -20,7 +21,7 @@ export class DeletePicturePage {
   frontPage ;
   need_back_chat
   need_back_retry
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,public statusbar:StatusBar) {
     this.need_back_chat = this.navParams.get('need_back_chat')
     this.need_back_retry = this.navParams.get('need_back_retry')
     if (this.need_back_chat){
@@ -39,6 +40,11 @@ export class DeletePicturePage {
      
     this.item = this.navParams.get("item")
     
+  }
+
+  ionViewWillEnter() {
+     this.statusbar.backgroundColorByHexString("#2597ec");
+    this.statusbar.styleLightContent();
   }
 
   ionViewDidLoad() {

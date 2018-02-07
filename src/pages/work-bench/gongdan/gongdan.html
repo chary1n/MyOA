@@ -144,7 +144,7 @@
         <ion-grid *ngIf="item.work_order_images" style="margin-top:-20px;margin-left:5px">
           <ion-row style="margin-right:5px;">
             <ion-col *ngFor="let image of item.work_order_images" col-3>
-              <img src={{image}} imageViewer/>
+              <img src={{image}} width="72px" height="72px" imageViewer/>
             </ion-col>
           </ion-row>
         </ion-grid>
@@ -214,7 +214,7 @@
 
       <button ion-item (click)="waitOtherAssign()">
         <ion-avatar item-start>
-          <img src="assets/img/gongdan/daiyanshou.png" class="imgStyle"   style=" border-radius: 0px;    width: 29px;
+          <img src="assets/img/gongdan/daiyanshou.png" class="imgStyle"  style=" border-radius: 0px;    width: 29px;
           height: 29px; ">
         </ion-avatar>
         <ion-label>待他人验收的

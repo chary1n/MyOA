@@ -39,10 +39,10 @@
   <ion-grid>
     <ion-row>
       <ion-col col-4 *ngFor="let item of imgList" (click)="clickPicture(item)">
-        <img src={{item}} imageViewer/>
+        <img src={{item}} width="106px" height="106px" />
       </ion-col>
       <ion-col col-4 (click)="addImg()">
-        <img src="assets/img/add.png" />
+        <img src="assets/img/add.png"  />
       </ion-col>
     </ion-row>
 

@@ -9,6 +9,7 @@ import { ActionSheetController } from 'ionic-angular/components/action-sheet/act
 import { GongDanService } from '../gongdanService';
 import { Utils } from '../../../../providers/Utils';
 import { AlertController} from 'ionic-angular';
+import { StatusBar } from '@ionic-native/status-bar';
 /**
  * Generated class for the RebackGongdanPage page.
  *
@@ -54,7 +55,8 @@ export class RebackGongdanPage {
     public gongdanService: GongDanService,
     public actionSheetCtrl: ActionSheetController,
     public nativeService: NativeService,
-    public alertCtrl:AlertController) {
+    public alertCtrl:AlertController,
+    public statusbar :StatusBar) {
     this.navParams.data.companyIschoosed = true;
     this.frontPage = Utils.getViewController("GongdanDetailPage", navCtrl)
 
@@ -71,6 +73,9 @@ export class RebackGongdanPage {
   }
 
   ionViewWillEnter() {
+     this.statusbar.backgroundColorByHexString("#2597ec");
+    this.statusbar.styleLightContent();
+ 
     let reback_item = this.navParams.get('reback_item')
     let need_reback = this.navParams.get('need_reback')
     if (need_reback){
@@ -106,7 +111,10 @@ export class RebackGongdanPage {
    console.log(this.isDeletePicture)
    if(this.isDeletePicture){
      this.isDeletePicture = false ;
-     this.imgList.splice(this.imgList.indexOf(this.deletePicture),1)  
+     this.imgList.splice(this.imgList.indexOf(this.deletePicture),1) 
+    
+    this.pushImgList.splice(this.pushImgList.indexOf(this.deletePicture.split(",")[1]),1) 
+ 
    }
     
     if (this.navParams.get('brand_list') && (this.navParams.get('brand_list').length || this.navParams.get('brand_list').length == 0)){
@@ -310,6 +318,6 @@ export class RebackGongdanPage {
   
   clickPicture(item){
     this.deletePicture = item ;
-    this.navCtrl.push("DeletePicturePage" ,{item:item,})
+    this.navCtrl.push("DeletePicturePage" ,{item:item,need_back_retry:true})
   }
 }

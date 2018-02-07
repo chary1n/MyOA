@@ -3,6 +3,8 @@ import { Component } from '@angular/core';
 import { IonicPage } from 'ionic-angular/navigation/ionic-page';
 import { ContactService } from '../../../../contact-person/contact-persionService';
 import { Utils } from '../../../../../providers/Utils';
+import { StatusBar } from '@ionic-native/status-bar';
+
 declare let cordova: any;
 /**
  * Generated class for the AssignPeoplePage page.
@@ -24,7 +26,7 @@ export class AssignPeoplePage {
   need_pop_reback;
   departments ;
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    public contactService: ContactService) {
+    public contactService: ContactService,public statusbar:StatusBar) {
     this.need_pop_reback = this.navParams.get('need_pop_reback')
     if (this.need_pop_reback){
       this.frontPage = Utils.getViewController("RebackGongdanPage", navCtrl)
@@ -50,6 +52,11 @@ export class AssignPeoplePage {
       })
     }
    
+  }
+
+  ionViewWillEnter() {
+     this.statusbar.backgroundColorByHexString("#2597ec");
+    this.statusbar.styleLightContent();
   }
 
   getItems(ev: any) {

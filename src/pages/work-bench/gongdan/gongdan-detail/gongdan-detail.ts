@@ -33,7 +33,7 @@ export class GongdanDetailPage {
   all_tag_ids = []
   constructor(public navCtrl: NavController, public navParams: NavParams,public statusBar:StatusBar,
     public gongDanService:GongDanService,public alertCtrl:AlertController,
-    public toast:ToastController,public platform:Platform) {
+    public toast:ToastController,public platform:Platform,public statusbar:StatusBar) {
       
     this.biaoqian_list = this.navParams.get('biaoqian_list')
     this.frontPage = Utils.getViewController("GongdanPage", navCtrl)
@@ -111,6 +111,11 @@ export class GongdanDetailPage {
       this.navParams.data.need_fresh = false;
       this.reload()
     }
+  }
+
+  ionViewWillEnter() {
+     this.statusbar.backgroundColorByHexString("#2597ec");
+    this.statusbar.styleLightContent();
   }
 
   reload() {
@@ -319,7 +324,8 @@ this.navCtrl.push('GongdanNewChatPage', {
             this.gongDanService.work_order_action(HttpService.user_id, this.item.work_order_id, "finish", this.item.create_user.id).then(res => {
               if (res.result.res_code == 1) {
                 Utils.toastButtom("验证通过", this.toast)
-
+                this.frontPage.data.need_fresh = true;
+                this.navCtrl.popTo(this.frontPage);
 
 
                 // let biaoqian_arr = []
@@ -336,29 +342,7 @@ this.navCtrl.push('GongdanNewChatPage', {
                 // }
                 // console.log(biaoqian_arr)
 
-                let ctrl = this.alertCtrl;
-                ctrl.create({
-                  title: '提示',
-                  message: "是否需要修改该工单标签？",
-                  // inputs: biaoqian_arr,
-                  buttons: [
-                    {
-                      text: '取消',
-                      handler: () => {
-                        this.frontPage.data.need_fresh = true;
-                        this.navCtrl.popTo(this.frontPage);
-                      }
-                    },
-                    {
-                      text: '确定',
-                      handler: data => {
-                        this.navCtrl.push('ChangeBiaoqianPage',{
-                          gongdan_item:this.item,
-                        })
-                      }
-                    }
-                  ],
-                }).present();
+                
 
               }
             })
@@ -412,8 +396,32 @@ this.navCtrl.push('GongdanNewChatPage', {
             this.gongDanService.work_order_action(HttpService.user_id, this.item.work_order_id, "check", this.item.create_user.id).then(res => {
               if (res.result.res_code == 1) {
                 Utils.toastButtom("处理成功,等待验收", this.toast)
-                this.frontPage.data.need_fresh = true;
-                this.navCtrl.popTo(this.frontPage);
+                let ctrl = this.alertCtrl;
+                ctrl.create({
+                  title: '提示',
+                  message: "是否需要修改该工单标签？",
+                  // inputs: biaoqian_arr,
+                  buttons: [
+                    {
+                      text: '取消',
+                      handler: () => {
+                        this.frontPage.data.need_fresh = true;
+                        this.navCtrl.popTo(this.frontPage);
+                      }
+                    },
+                    {
+                      text: '确定',
+                      handler: data => {
+                        this.navCtrl.push('ChangeBiaoqianPage',{
+                          gongdan_item:this.item,
+                        })
+                      }
+                    }
+                  ],
+                }).present();
+
+
+                
               }
             })
           }

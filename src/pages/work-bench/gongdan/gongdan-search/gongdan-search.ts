@@ -37,7 +37,7 @@ export class GongdanSearchPage {
   page_issue_state
   constructor(public navCtrl: NavController, public navParams: NavParams,public gongDanAutoService:GongDanAutoService,
     public gongdanService:GongDanService,public datePipe:DatePipe,public toastCtrl:ToastController,
-    public datePicker:DatePicker) {
+    public datePicker:DatePicker,public statusbar:StatusBar) {
       this.endDate_gongdan = this.datePipe.transform(new Date(), 'yyyy-MM-dd'),
     this.startDate_gongdan = this.datePipe.transform('2018-01-01', 'yyyy-MM-dd')
       this.gongdanService.get_all_biaoqian().then(res => {
@@ -51,6 +51,11 @@ export class GongdanSearchPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad GongdanSearchPage');
+  }
+
+  ionViewWillEnter() {
+     this.statusbar.backgroundColorByHexString("#2597ec");
+    this.statusbar.styleLightContent();
   }
 
   ionViewDidEnter() {

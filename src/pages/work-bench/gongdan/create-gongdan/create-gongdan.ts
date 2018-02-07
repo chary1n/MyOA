@@ -9,6 +9,7 @@ import { ActionSheetController } from 'ionic-angular/components/action-sheet/act
 import { GongDanService } from '../gongdanService';
 import { Utils } from '../../../../providers/Utils';
 import { AlertController} from 'ionic-angular';
+import { StatusBar } from '@ionic-native/status-bar';
 
 /**
  * Generated class for the CreateGongdanPage page.
@@ -55,7 +56,7 @@ export class CreateGongdanPage {
     public gongdanService: GongDanService,
     public actionSheetCtrl: ActionSheetController,
     public nativeService: NativeService,
-    public alertCtrl:AlertController) {
+    public alertCtrl:AlertController,public statusbar:StatusBar) {
     this.navParams.data.companyIschoosed = true;
     this.frontPage = Utils.getViewController("GongdanPage", navCtrl)
     
@@ -66,6 +67,10 @@ export class CreateGongdanPage {
   }
 
   ionViewWillEnter() {
+
+     this.statusbar.backgroundColorByHexString("#2597ec");
+    this.statusbar.styleLightContent();
+  
     let reback_item = this.navParams.get('reback_item')
     let need_reback = this.navParams.get('need_reback')
     if (need_reback){
@@ -285,7 +290,7 @@ export class CreateGongdanPage {
 
   clickPicture(item){
     this.deletePicture = item ;
-    this.navCtrl.push("DeletePicturePage" ,{item:item,need_back_retry:true})
+    this.navCtrl.push("DeletePicturePage" ,{item:item})
   }
 
   private getPictureSuccess(img_url) {

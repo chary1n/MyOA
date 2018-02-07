@@ -75,9 +75,13 @@ export class GongdanPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad GongdanPage');
+    
+    // this.canvas = <HTMLCanvasElement>document.getElementById('canvas');
+  }
+
+  ionViewWillEnter(){
     this.statusbar.backgroundColorByHexString("#2597ec");
     this.statusbar.styleLightContent();
-    this.canvas = <HTMLCanvasElement>document.getElementById('canvas');
   }
 
   ionViewDidEnter() {
@@ -124,7 +128,8 @@ export class GongdanPage {
 
 
   ionViewWillLeave() {
-    // this.menu.close()
+    this.statusbar.backgroundColorByHexString("#ffffff");
+    this.statusbar.styleDefault();
   }
 
   click_me() {

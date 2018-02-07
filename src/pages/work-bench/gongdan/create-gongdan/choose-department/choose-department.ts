@@ -3,6 +3,7 @@ import { NavParams } from 'ionic-angular/navigation/nav-params';
 import { Component } from '@angular/core';
 import { IonicPage } from 'ionic-angular/navigation/ionic-page';
 import { Utils } from '../../../../../providers/Utils';
+import { StatusBar } from '@ionic-native/status-bar';
 
 /**
  * Generated class for the ChooseDepartmentPage page.
@@ -21,7 +22,8 @@ export class ChooseDepartmentPage {
   frontPage;
   chooseList=[];
   chooseDepartmentName = '';
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+    public statusbar:StatusBar) {
     this.frontPage = Utils.getViewController("WhoCanSeePage", navCtrl)
   }
   
@@ -32,6 +34,10 @@ export class ChooseDepartmentPage {
   ionViewWillEnter(){
     this.departmentList = this.navParams.get('departmentList')
     console.log(this.departmentList)
+
+     this.statusbar.backgroundColorByHexString("#2597ec");
+    this.statusbar.styleLightContent();
+  
   }
 
 

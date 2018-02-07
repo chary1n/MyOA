@@ -1,5 +1,5 @@
 import { HttpService } from './../../../../providers/HttpService';
-import { Component } from '@angular/core';
+import { Component ,ViewChild} from '@angular/core';
 import { IonicPage, NavController, NavParams ,ToastController,ActionSheetController} from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { GongDanService } from './../gongdanService';
@@ -19,6 +19,7 @@ declare let cordova: any;
   providers:[GongDanService]
 })
 export class GongdanNewChatPage {
+  @ViewChild('mytextarea') textarea
   imgList = []
   pushImgList = []
   beizhuText = ""
@@ -31,7 +32,7 @@ export class GongdanNewChatPage {
   deletePicture
   constructor(public navCtrl: NavController, public navParams: NavParams,public actionSheetCtrl: ActionSheetController,
     public nativeService: NativeService,public gongDanService:GongDanService,
-    public toast:ToastController) {
+    public toast:ToastController,public statusbar:StatusBar) {
       this.item = this.navParams.get('item')  
     this.record_item = this.navParams.get('record_item')
     this.parent_id = this.navParams.get('parent_id')
@@ -49,9 +50,18 @@ export class GongdanNewChatPage {
     console.log('ionViewDidLoad GongdanNewChatPage');
     let elementContent = document.getElementById("main_class");
     elementContent.style.height = elementContent.clientHeight + "px"
+
+    setTimeout(()=>{
+          this.textarea.setFocus()
+          // cordova.plugins.Keyboard.show();
+        }, 300)
   }
 
   ionViewWillEnter() {
+
+     this.statusbar.backgroundColorByHexString("#2597ec");
+    this.statusbar.styleLightContent();
+  
     if (this.navParams.get('beizhuText'))
     {
       this.beizhuText = this.navParams.get('beizhuText')
@@ -67,7 +77,9 @@ export class GongdanNewChatPage {
    console.log(this.isDeletePicture)
    if(this.isDeletePicture){
      this.isDeletePicture = false ;
-     this.imgList.splice(this.imgList.indexOf(this.deletePicture),1)  
+     this.imgList.splice(this.imgList.indexOf(this.deletePicture),1) 
+     this.pushImgList.splice(this.pushImgList.indexOf(this.deletePicture.split(",")[1]),1) 
+ 
    }
   }
 

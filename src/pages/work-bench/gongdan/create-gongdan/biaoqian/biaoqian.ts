@@ -5,6 +5,8 @@ import { NavParams } from 'ionic-angular/navigation/nav-params';
 import { GongDanService } from '../../gongdanService';
 import { CreateBiaoQianAutoService} from './biaoqian-auto'
 import { Utils } from './../../../../../providers/Utils';
+import { StatusBar } from '@ionic-native/status-bar';
+
 /**
  * Generated class for the BiaoqianPage page.
  *
@@ -29,7 +31,8 @@ export class BiaoqianPage {
   frontPage
   need_pop_reback
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    public gongdanService:GongDanService,public createBiaoQianAutoService:CreateBiaoQianAutoService) {
+    public gongdanService:GongDanService,public createBiaoQianAutoService:CreateBiaoQianAutoService,
+    public statusbar:StatusBar) {
     this.need_pop_reback = this.navParams.get('need_pop_reback')
     if (this.need_pop_reback){
       this.frontPage = Utils.getViewController("RebackGongdanPage", navCtrl)
@@ -79,6 +82,10 @@ export class BiaoqianPage {
     console.log('ionViewDidLoad BiaoqianPage');
   }
 
+  ionViewWillEnter() {
+     this.statusbar.backgroundColorByHexString("#2597ec");
+    this.statusbar.styleLightContent();
+  }
 
   chooseBrandItem(item){
     item.ischeck = !item.ischeck 
