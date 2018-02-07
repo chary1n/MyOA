@@ -13,33 +13,32 @@
 
 
 <ion-content padding class="total_color" (pan)="panEvent($event)">
-  <div on-tap="tap()" class="center_x">
-    <img src="assets/img/login.png" padding="auto" width="100px" height="100px" style="margin-top:30px">
-  </div>
 
-
-  <ion-list style="margin-top:10px">
-    <ion-item on-tap="tap()" no-lines>
-      <ion-label>请选择公司</ion-label>
-
-    </ion-item>
-
-    <ion-grid on-tap="tap()" style="line-height:13">
+    <ion-grid  style="margin-top:20px">
       <ion-row style="height:100px;text-align:center;">
-        <ion-col col-4 (click)="chooseJiangsu()" >
+        <ion-col col-6 (click)="chooseJiangsu()" style="text-align:center;
+        border-right: 1px rgb(196, 196, 196) solid;
+        border-bottom: 1px rgb(196, 196, 196) solid;
+        " border-right >
           <img src="assets/img/jiangsu.png"  [ngClass]="{true:'img_select',false:'img_unselect'}[isSelected1]" tappable>
-
+          <span>DIY</span>
         </ion-col>
-        <ion-col col-4  (click)="chooseDiy()">
+        <ion-col col-6  (click)="chooseDiy()">
           <img src="assets/img/diy.png"  [ngClass]="{true:'img_select',false:'img_unselect'}[isSelected2]" tappable>
-
-        </ion-col>
-        <ion-col col-4 (click)="chooseWanju()"  >
-          <img src="assets/img/wanju.png" [ngClass]="{true:'img_select',false:'img_unselect'}[isSelected3]" tappable>
         </ion-col>
       </ion-row>
+      <ion-row style="height:100px;text-align:center;">
+          <ion-col col-6 (click)="chooseJiangsu()" style="text-align:center" >
+            <img src="assets/img/jiangsu.png"  [ngClass]="{true:'img_select',false:'img_unselect'}[isSelected1]" tappable>
+            <span>DIY</span>
+          </ion-col>
+          <ion-col col-6  (click)="chooseDiy()">
+            <img src="assets/img/diy.png"  [ngClass]="{true:'img_select',false:'img_unselect'}[isSelected2]" tappable>
+          </ion-col>
+        </ion-row>
     </ion-grid>
 
+  <ion-list style="margin-top:10px">
 
     <ion-item>
       <ion-label floating>请输入公司邮箱</ion-label>
