@@ -23,7 +23,7 @@ export class GongdanChatPage {
   isShowTool = false;
   keybord_height;
   constructor(public navCtrl: NavController, public navParams: NavParams,public gongDanService:GongDanService,
-    public toast:ToastController,) {
+    public toast:ToastController,public statusbar:StatusBar) {
     this.item = this.navParams.get('item')  
     this.record_item = this.navParams.get('record_item')
     this.parent_id = this.navParams.get('parent_id')
@@ -40,7 +40,10 @@ export class GongdanChatPage {
       })
   }
 
-  
+  ionViewWillEnter() {
+     this.statusbar.backgroundColorByHexString("#2597ec");
+    this.statusbar.styleLightContent();
+  }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad GongdanChatPage');

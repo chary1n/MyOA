@@ -30,7 +30,7 @@ export class ChangeBiaoqianPage {
   gongdan_item
   constructor(public navCtrl: NavController, public navParams: NavParams,public gongdanService:GongDanService,
     public changeBiaoQianAutoService:ChangeBiaoQianAutoService,public gongDanService:GongDanService,
-    public toast:ToastController) {
+    public toast:ToastController,public statusbar:StatusBar) {
       this.frontPage = Utils.getViewController("GongdanPage", navCtrl)
       this.gongdan_item = this.navParams.get('gongdan_item')
       this.gongdanService.get_all_biaoqian().then(res => {
@@ -53,6 +53,11 @@ export class ChangeBiaoqianPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ChangeBiaoqianPage');
+  }
+
+  ionViewWillEnter() {
+     this.statusbar.backgroundColorByHexString("#2597ec");
+    this.statusbar.styleLightContent();
   }
 
   cancel_biaoqian() {

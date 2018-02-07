@@ -24,7 +24,7 @@ export class GongdanZhipaiPage {
   frontPage;
   select_list = [];
   constructor(public navCtrl: NavController, public navParams: NavParams,public gongDanService:GongDanService,
-  public toast:ToastController) {
+  public toast:ToastController,public statusbar:StatusBar) {
     this.item = this.navParams.get('item')
     console.log(this.item)   
     this.frontPage = Utils.getViewController("GongdanPage", navCtrl)
@@ -35,6 +35,11 @@ export class GongdanZhipaiPage {
           this.origin_data = this.employeeList;
         }
       })
+  }
+
+  ionViewWillEnter() {
+     this.statusbar.backgroundColorByHexString("#2597ec");
+    this.statusbar.styleLightContent();
   }
 
   ionViewDidLoad() {

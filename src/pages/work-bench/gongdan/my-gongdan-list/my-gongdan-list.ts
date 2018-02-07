@@ -3,6 +3,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { Component } from '@angular/core';
 import { GongDanService } from '../gongdanService';
 import { HttpService } from '../../../../providers/HttpService';
+import { StatusBar } from '@ionic-native/status-bar';
 
 /**
  * Generated class for the MyGongdanListPage page.
@@ -20,13 +21,18 @@ export class MyGongdanListPage {
   gongdanList ;
   title ;
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    public gongdanService :GongDanService) {
+    public gongdanService :GongDanService,public statusbar:StatusBar) {
      this.gongdanList =  this.navParams.get("gongdanList")
      this.title = this.navParams.get('title')
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad MyGongdanListPage');
+  }
+
+  ionViewWillEnter(){
+     this.statusbar.backgroundColorByHexString("#2597ec");
+    this.statusbar.styleLightContent();
   }
 
   toDetail(item){

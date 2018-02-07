@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular/navigation/nav-controller';
 import { NavParams } from 'ionic-angular/navigation/nav-params';
 import { Utils } from '../../../../../providers/Utils';
+import { StatusBar } from '@ionic-native/status-bar';
 
 /**
  * Generated class for the DeletePicturePage page.
@@ -18,10 +19,32 @@ import { Utils } from '../../../../../providers/Utils';
 export class DeletePicturePage {
   item;
   frontPage ;
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-
+  need_back_chat
+  need_back_retry
+  constructor(public navCtrl: NavController, public navParams: NavParams,public statusbar:StatusBar) {
+    this.need_back_chat = this.navParams.get('need_back_chat')
+    this.need_back_retry = this.navParams.get('need_back_retry')
+    if (this.need_back_chat){
+      this.frontPage = Utils.getViewController("GongdanNewChatPage", navCtrl)
+    }
+    else
+    {
+      if (this.need_back_retry){
+        this.frontPage = Utils.getViewController("RebackGongdanPage", navCtrl)
+      }
+      else
+      {
+        this.frontPage = Utils.getViewController("CreateGongdanPage", navCtrl)
+      }
+    }
+     
     this.item = this.navParams.get("item")
-    this.frontPage = Utils.getViewController("CreateGongdanPage", navCtrl)
+    
+  }
+
+  ionViewWillEnter() {
+     this.statusbar.backgroundColorByHexString("#2597ec");
+    this.statusbar.styleLightContent();
   }
 
   ionViewDidLoad() {

@@ -25,7 +25,8 @@ export class GongdanChoosePeoplePage {
   frontPage
   beizhuText=""
   select_name
-  constructor(public navCtrl: NavController, public navParams: NavParams,public gongDanService:GongDanService,public toast:ToastController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,public gongDanService:GongDanService,public toast:ToastController,
+    public statusbar:StatusBar) {
     this.item = this.navParams.get('item')
     this.beizhuText = this.navParams.get('beizhuText')
     this.select_name = this.navParams.get('select_name')
@@ -43,6 +44,11 @@ export class GongdanChoosePeoplePage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad GongdanChoosePeoplePage');
+  }
+
+  ionViewWillEnter() {
+     this.statusbar.backgroundColorByHexString("#2597ec");
+    this.statusbar.styleLightContent();
   }
 
   itemSelect(item){

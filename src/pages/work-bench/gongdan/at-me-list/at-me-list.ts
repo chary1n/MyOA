@@ -3,6 +3,7 @@ import { GongDanService } from './../gongdanService';
 import { IonicPage, NavParams } from 'ionic-angular';
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular/navigation/nav-controller';
+import { StatusBar } from '@ionic-native/status-bar';
 
 /**
  * Generated class for the AtMeListPage page.
@@ -22,7 +23,7 @@ export class AtMeListPage {
   title ;
   userName ;
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    public gongdanService :GongDanService) {
+    public gongdanService :GongDanService,public statusbar:StatusBar) {
      this.gongdanList =  this.navParams.get("gongdanList")
      this.title = this.navParams.get('title')
      this.userName = HttpService.user.name
@@ -33,6 +34,10 @@ export class AtMeListPage {
   }
 
   ionViewWillEnter(){
+
+     this.statusbar.backgroundColorByHexString("#2597ec");
+    this.statusbar.styleLightContent();
+  
     let body = JSON.stringify({
       uid: HttpService.user_id,
       assign: HttpService.user_id,
