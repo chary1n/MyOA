@@ -25,9 +25,11 @@ export class AssignPeoplePage {
   frontPage;
   need_pop_reback;
   departments ;
+  choosePeopleName ;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public contactService: ContactService,public statusbar:StatusBar) {
     this.need_pop_reback = this.navParams.get('need_pop_reback')
+    this.choosePeopleName = this.navParams.get('choosePeopleName')
     if (this.need_pop_reback){
       this.frontPage = Utils.getViewController("RebackGongdanPage", navCtrl)
     }
@@ -41,6 +43,13 @@ export class AssignPeoplePage {
         if (res.result && res.result.res_code == 1) {
           this.employeeList = res.result.res_data;
           this.origin_data = this.employeeList;
+          if(this.choosePeopleName){
+            for(let i = 0;i<this.employeeList.length;i++){
+              if(this.employeeList[i].name==this.choosePeopleName){
+                this.employeeList[i].ischeck = true 
+              }
+            }
+          }
         }
       })
     }else {
@@ -48,6 +57,13 @@ export class AssignPeoplePage {
         if (res.result && res.result.res_code == 1) {
           this.employeeList = res.result.res_data;
           this.origin_data = this.employeeList;
+          if(this.choosePeopleName){
+            for(let i = 0;i<this.employeeList.length;i++){
+              if(this.employeeList[i].name==this.choosePeopleName){
+                this.employeeList[i].ischeck = true 
+              }
+            }
+          }
         }
       })
     }
@@ -80,7 +96,12 @@ export class AssignPeoplePage {
   }
 
   choosePeople(item) {
-    this.frontPage.data.choosePeopleItem = item
+    item.ischeck = !item.ischeck 
+    if (item.ischeck){
+      this.frontPage.data.choosePeopleItem = item
+    }else{
+      this.frontPage.data.choosePeopleItem = undefined
+    }
     this.navCtrl.popTo(this.frontPage)
   }
 

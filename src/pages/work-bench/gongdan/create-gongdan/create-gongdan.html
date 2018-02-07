@@ -38,13 +38,12 @@
 
   <ion-grid>
     <ion-row>
-      <ion-col col-4 *ngFor="let item of imgList" on-hold="onHold()" (click)="clickPicture(item)">
-        <!-- <span *ngIf="showX"   style="position:absolute;
-          width:20px;height:20px;border-radius:10px;background-color:red;
-          display:inline-block;color:white;line-height:20px;right:-6px;top:11px;text-align:center;font-size:12px"></span> -->
-        <img src={{item}} width="106px" height="106px" />
-      </ion-col>
-      <ion-col col-4 tappable (click)="addImg()">
+        <ion-col col-4  style="position:relative;height:106px;margin-top:5px" *ngFor="let item of imgList" on-hold="onHold()" (click)="clickPicture(item)">
+          
+          <img src={{item}} style="position:absolute;
+        clip:rect(0px,106px,106px,0px);" />
+        </ion-col>
+      <ion-col col-4 tappable (click)="addImg()" style="margin-top:5px">
         <img src="assets/img/add.png" />
       </ion-col>
     </ion-row>
@@ -70,37 +69,21 @@
   </button>
 
   <button ion-item (click)="chooseBiaoqian()">
-    <div     style="position: relative;">
-        <span style="    display: inline-block;
+    <div style="position: relative;">
+      <span style="    display: inline-block;
         position: absolute;
         top: calc(50% - 11px);display: inline-block"> 选择标签</span>
-   
+
       <div style="justify-content:space-around;white-space: pre-line;width: 200px;display: inline-block;
-      position: relative;
+      position: relative;top: calc(50% - 11px);
       left: 88px;">
         <span round style='background-color:#f5a623;flex :1 1 100%' *ngFor="let item of all_tag_list" ion-button>
           {{item.name}}
         </span>
       </div>
     </div>
-      
+
   </button>
 
-  <div style="background:#e4e5e6;padding:4px;padding-left:10px">
-    问题标签(选填)
-  </div>
 
-
-  <ion-grid>
-    <ion-row>
-      <ion-col col-3 tappable (click)="clickbiaoqian(item)" *ngFor="let item of biaoqianList">
-        <div class="biaoqian_div_unchoose" [ngClass]="{true:'biaoqian_div_choose',false:'biaoqian_div_unchoose'}[isChoose(item)]"
-          align="center">
-          {{item.name}}
-        </div>
-      </ion-col>
-
-
-    </ion-row>
-  </ion-grid>
-
+</ion-content>

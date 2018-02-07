@@ -91,6 +91,8 @@ export class CreateGongdanPage {
       console.log(this.choosePeopleItem)
       if (this.choosePeopleItem) {
         this.choosePeopleName = this.choosePeopleItem.name
+      }else{
+        this.choosePeopleName = ''
       }
       if (this.companyIschoosed) {
         this.whoCanSee = "全公司"
@@ -102,7 +104,7 @@ export class CreateGongdanPage {
    this.isDeletePicture =this.navParams.get('isDeletePicture')
    console.log(this.isDeletePicture)
    if(this.isDeletePicture){
-     this.isDeletePicture = false ;
+      this.navParams.data.isDeletePicture= false ;
      this.imgList.splice(this.imgList.indexOf(this.deletePicture),1) 
      this.pushImgList.splice(this.pushImgList.indexOf(this.deletePicture.split(",")[1]),1) 
    }
@@ -318,7 +320,7 @@ export class CreateGongdanPage {
 
 
   assignPeople() {
-    this.navCtrl.push("AssignPeoplePage",{departments:this.chooseList})
+    this.navCtrl.push("AssignPeoplePage",{departments:this.chooseList,choosePeopleName:this.choosePeopleName})
   }
 
   goBack(){
