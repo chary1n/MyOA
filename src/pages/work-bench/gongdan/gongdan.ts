@@ -338,8 +338,12 @@ export class GongdanPage {
       issue_state: 'unaccept'
     });
     this.gongdanService.work_order_searchNoLoading(body).then(res => {
-      if (res.result && res.result.res_code == 1 && res.result.res_data) {
-        this.more_48_number = res.result.res_data.length;
+      if (res.result && res.result.res_code == 1 ) {
+        if(res.result.res_data){
+          this.more_48_number = res.result.res_data.length;
+        }else{
+          this.more_48_number = 0;
+        }
       }
     })
   }
