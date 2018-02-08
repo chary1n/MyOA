@@ -75,18 +75,18 @@ export class GongdanPage {
           this.click_gongdan()
 
           if ((new RegExp("若态").test(res.result.res_data.company)) || res.result.res_data.company == "若态"){
-            this.company_type = "../assets/img/R-header.png"
-            
-          }
-          else if ((new RegExp("若态").test(res.result.res_data.company)) || res.result.res_data.company == "若态"){
             this.company_type = "../assets/img/S-header.png"
             
           }
-          else if ((new RegExp("若态").test(res.result.res_data.company)) || res.result.res_data.company == "若态"){
+          else if ((new RegExp("DIY").test(res.result.res_data.company)) || res.result.res_data.company == "DIY"){
             this.company_type = "../assets/img/D-header.png"
             
           }
-          else if ((new RegExp("若态").test(res.result.res_data.company)) || res.result.res_data.company == "若态"){
+          else if ((new RegExp("若贝尔").test(res.result.res_data.company)) || res.result.res_data.company == "若贝尔"){
+            this.company_type = "../assets/img/R-header.png"
+            
+          }
+          else if ((new RegExp("板厂").test(res.result.res_data.company)) || res.result.res_data.company == "板厂"){
             this.company_type = "../assets/img/B-header.png"
             
           }
