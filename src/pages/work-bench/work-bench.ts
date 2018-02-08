@@ -3,6 +3,8 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { WorkBenchModel } from './../../model/WorkBenchModel';
 import { Storage } from '@ionic/storage';
 import { CommonUseServices} from './commonUseServices';
+import { StatusBar } from '@ionic-native/status-bar';
+
 /**
  * Generated class for the WorkBenchPage page.
  *
@@ -35,11 +37,16 @@ export class WorkBenchPage {
   user_id;
   company_type
   constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage,
-    public services :CommonUseServices) {
+    public services :CommonUseServices,public statusbar:StatusBar) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad WorkBenchPage');
+  }
+  
+  ionViewWillEnter(){
+    this.statusbar.backgroundColorByHexString("#2597ec");
+    this.statusbar.styleLightContent();
   }
 
   ionViewDidEnter() {

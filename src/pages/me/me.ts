@@ -5,6 +5,7 @@ import { Storage } from '@ionic/storage';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, ModalController, Platform } from 'ionic-angular';
 import { JPush} from '../../providers/JPush'
+import { StatusBar } from '@ionic-native/status-bar';
 
 /**
  * Generated class for the MePage page.
@@ -29,7 +30,8 @@ export class MePage {
     public storage: Storage,
     private alertCtrl: AlertController,
     private modalctrl:ModalController, public platform :Platform,public appVersion:AppVersion,
-    public jpush: JPush) {
+    public jpush: JPush,
+    public statusbar:StatusBar) {
       if (this.platform.is("android")) {
         this.appVersion.getVersionCode().then((value: string) => {
           this.versionNumber = value
@@ -48,6 +50,8 @@ export class MePage {
   }
  ionViewWillEnter(){
   this.initData();
+  this.statusbar.backgroundColorByHexString("#2597ec");
+    this.statusbar.styleLightContent();
  }
 
   initData() {

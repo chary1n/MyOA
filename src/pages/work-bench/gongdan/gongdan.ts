@@ -150,12 +150,6 @@ export class GongdanPage {
     }
   }
 
-
-  ionViewWillLeave() {
-    this.statusbar.backgroundColorByHexString("#ffffff");
-    this.statusbar.styleDefault();
-  }
-
   click_me() {
     // this.looper(this.canvas);
     this.show_type = "me"
