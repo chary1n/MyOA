@@ -60,16 +60,17 @@ background-position: bottom;">
   </div>
 
 
-  <ion-item style="margin-top:20px">
+  <ion-item style="margin-top:20px;padding-left:10%;padding-right:10%">
     <ion-label floating>请输入公司邮箱</ion-label>
     <ion-input  [(ngModel)]="email"  (ngModelChange)="watch($event)" type="email" ></ion-input>
   </ion-item>
-  <ion-item>
+  <ion-item style="padding-left:10%;padding-right:10%">
     <ion-label floating>请输入密码</ion-label>
     <ion-input [(ngModel)]="password" (ngModelChange)="watchPassword($event)" type="password"></ion-input>
   </ion-item>
 
-  <ion-list *ngIf="history_arr" style="position:absolute;z-index:999;width:inherit;margin-top:-75px;width:95%">
+  <ion-list *ngIf="history_arr" style="position:absolute;z-index:999;width:inherit;margin-top:-75px;width:95%;
+    padding-left:6%">
     <ion-item *ngFor='let item of history_arr' tappable (click)="click(item)">
       <p>{{item.email}}</p>
     </ion-item>
@@ -86,37 +87,46 @@ background-position: bottom;">
     <button id="login_button" ion-button round style="
     margin-left:10%;
   color:white;margin-top:40px ;
+  height: 40px;
+  border-radius: 20px;
     width:80%" outline block tappable (click)="getDB()" [ngClass]="{'backgroundcolor1':isSelected1,'backgroundcolor2':isSelected2,
-    'backgroundcolor3':isSelected3,'backgroundcolor4':isSelected4}" disabled>
+    'backgroundcolor3':isSelected3,'backgroundcolor4':isSelected4}" disabled >
       登录
     </button>
   </ng-container>
 
   <ng-container *ngIf="!isDisabled">
-    <button id="login_button" ion-button round style="
+    <button id="login_button"  round style="
       margin-left:10%;
+      height: 40px;
+      border-radius: 20px;
     color:white;margin-top:40px ;
       width:80%" outline block tappable (click)="getDB()" [ngClass]="{'backgroundcolor1':isSelected1,'backgroundcolor2':isSelected2,
-      'backgroundcolor3':isSelected3,'backgroundcolor4':isSelected4}">
+      'backgroundcolor3':isSelected3,'backgroundcolor4':isSelected4}"  >
       登录
     </button>
   </ng-container>
 
 
-  <ion-checkbox style="margin-left:14%;margin-top:10px;padding-bottom: 2px;" color="danger" *ngIf="isSelected1" (click)="isAutoLogin()" [checked]="autoLogin"></ion-checkbox>
-  <ion-checkbox style="margin-left:14%;margin-top:10px;padding-bottom: 2px;" color="diy" *ngIf="isSelected2" (click)="isAutoLogin()" [checked]="autoLogin"></ion-checkbox>
-  <ion-checkbox style="margin-left:14%;margin-top:10px;padding-bottom: 2px;" *ngIf="isSelected3" (click)="isAutoLogin()" [checked]="autoLogin"></ion-checkbox>
-  <ion-checkbox style="margin-left:14%;margin-top:10px;padding-bottom: 2px;" color="banchang" *ngIf="isSelected4" (click)="isAutoLogin()" [checked]="autoLogin"></ion-checkbox>
+  <ion-checkbox style="margin-left:14%;border-color: #cccccc ;margin-top:10px;padding-bottom: 2px;" color="danger" *ngIf="isSelected1" (click)="isAutoLogin()" [checked]="autoLogin"></ion-checkbox>
+  <ion-checkbox style="margin-left:14%;border-color: #cccccc ;margin-top:10px;padding-bottom: 2px;" color="diy" *ngIf="isSelected2" (click)="isAutoLogin()" [checked]="autoLogin"></ion-checkbox>
+  <ion-checkbox style="margin-left:14%;border-color: #cccccc ;margin-top:10px;padding-bottom: 2px;" *ngIf="isSelected3" (click)="isAutoLogin()" [checked]="autoLogin"></ion-checkbox>
+  <ion-checkbox style="margin-left:14%;border-color: #cccccc ;margin-top:10px;padding-bottom: 2px;" color="banchang" *ngIf="isSelected4" (click)="isAutoLogin()" [checked]="autoLogin"></ion-checkbox>
 
-  <span style="vertical-align:super;padding-top:3px" [ngClass]="{'textcolor1':isSelected1,'textcolor2':isSelected2,
-    'textcolor3':isSelected3,'textcolor4':isSelected4}"> 自动登录</span>
+  <span style="vertical-align:super;padding-top:3px" [ngClass]="{
+    'textcolor_normal':!autoLogin,
+    'textcolor1':(isSelected1 && autoLogin),'textcolor2':(isSelected2 && autoLogin),
+    'textcolor3':(isSelected3 && autoLogin),'textcolor4':(isSelected4 && autoLogin)}"> 自动登录</span>
 
   <ion-checkbox style="margin-left:100px;padding-bottom: 3px;" color="danger" *ngIf="isSelected1" (click)="isRemerberPassword()" [checked]="remerberPassword"></ion-checkbox>
   <ion-checkbox style="margin-left:100px;padding-bottom: 3px;" color="diy" *ngIf="isSelected2" (click)="isRemerberPassword()" [checked]="remerberPassword"></ion-checkbox>
   <ion-checkbox style="margin-left:100px;padding-bottom: 3px;"  *ngIf="isSelected3" (click)="isRemerberPassword()" [checked]="remerberPassword"></ion-checkbox>
   <ion-checkbox style="margin-left:100px;padding-bottom: 3px;" color="banchang" *ngIf="isSelected4" (click)="isRemerberPassword()" [checked]="remerberPassword"></ion-checkbox>
-  <span style="vertical-align:super" [ngClass]="{'textcolor1':isSelected1,'textcolor2':isSelected2,
-    'textcolor3':isSelected3,'textcolor4':isSelected4}"> 记住密码</span>
+  <span style="vertical-align:super" [ngClass]="{
+    'textcolor_normal': !remerberPassword,
+    'textcolor1':isSelected1 && remerberPassword,
+    'textcolor2':isSelected2 && remerberPassword,
+    'textcolor3':isSelected3 && remerberPassword,'textcolor4':isSelected4 &&remerberPassword}"> 记住密码</span>
 
 
 
