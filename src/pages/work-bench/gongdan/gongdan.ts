@@ -686,19 +686,19 @@ export class GongdanPage {
     this.gongdanService.work_order_statistics(this.startDate_gongdan,this.datePipe.transform(new Date(new Date(this.endDate_gongdan).getTime() + 3600000*24), 'yyyy-MM-dd'),this.brand_ids,this.area_ids,this.category_ids,this.user_id).then(res => {
       if (res.result.res_data) {
         if (res.result.res_data.unaccept) {
-          this.unacceptTitle = "待受理" + " (" + res.result.res_data.unaccept + ")";
+          this.unacceptTitle = "待受理" + " " + res.result.res_data.unaccept;
         }
         else {
           this.unacceptTitle = "待受理"
         }
         if (res.result.res_data.check) {
-          this.unassignTitle = "待验收" + " (" + res.result.res_data.check + ")";
+          this.unassignTitle = "待验收" + " " + res.result.res_data.check ;
         }
         else {
           this.unassignTitle = "待验收"
         }
         if (res.result.res_data.process) {
-          this.processTitle = "受理中" + " (" + res.result.res_data.process + ")";
+          this.processTitle = "受理中" + " " + res.result.res_data.process ;
         }
         else {
           this.processTitle = "受理中"
