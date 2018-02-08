@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ContactService} from './contact-persionService'
 import { Storage } from '@ionic/storage';
+import { StatusBar } from '@ionic-native/status-bar';
 
 declare let cordova: any; 
 
@@ -24,7 +25,7 @@ export class ContactPersonPage {
   origin_data;
   company_type
   constructor(public navCtrl: NavController, public navParams: NavParams,public contactService:ContactService,
-    public storage:Storage) {
+    public storage:Storage,public statusbar:StatusBar) {
     this.showAll = "NO";
       this.contactService.get_departments().then((res) => {
         if (res.result && res.result.res_code == 1)
@@ -59,6 +60,11 @@ export class ContactPersonPage {
             
           }
       })
+  }
+
+  ionViewWillEnter(){
+    this.statusbar.backgroundColorByHexString("#2597ec");
+    this.statusbar.styleLightContent();
   }
 
   ionViewDidLoad() {
