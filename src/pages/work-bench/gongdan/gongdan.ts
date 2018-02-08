@@ -74,7 +74,10 @@ export class GongdanPage {
           this.department = true;
           this.click_gongdan()
 
-          if ((new RegExp("若态").test(res.result.res_data.company)) || res.result.res_data.company == "若态"){
+          
+          
+        }
+        if ((new RegExp("若态").test(res.result.res_data.company)) || res.result.res_data.company == "若态"){
             this.company_type = "assets/img/S-header.png"
             
           }
@@ -90,8 +93,6 @@ export class GongdanPage {
             this.company_type = "assets/img/B-header.png"
             
           }
-          
-        }
       })
     
   }
