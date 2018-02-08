@@ -158,8 +158,8 @@ export class LoginPage {
     this.isSelected3 = false;
     this.isSelected4 = false;
     this.chooseIndex = 2;
-    // HttpService.appUrl = "http://dr.robotime.com/"
-    HttpService.appUrl = "http://192.168.88.131:8069/"
+    HttpService.appUrl = "http://dr.robotime.com/"
+    // HttpService.appUrl = "http://192.168.88.131:8069/"
     this.reset();
     this.img2 = "assets/img/diy_clicked.png" 
   }
@@ -170,9 +170,9 @@ export class LoginPage {
     this.isSelected1 = false;
     this.isSelected4 = false;
     this.chooseIndex = 3;
-    // HttpService.appUrl = "http://erp.robotime.com/"
+    HttpService.appUrl = "http://erp.robotime.com/"
     // HttpService.appUrl = "http://192.168.2.44:8069/"
-    HttpService.appUrl = "http://192.168.2.38:8111/"
+    // HttpService.appUrl = "http://192.168.2.38:8111/"
     this.reset();
     this.img3 = "assets/img/ruobeier_clicked.png" 
   }

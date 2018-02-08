@@ -33,6 +33,7 @@ export class WorkBenchPage {
   kc_count = 0;
   isShowPayment = false;
   user_id;
+  company_type
   constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage,
     public services :CommonUseServices) {
   }
@@ -77,6 +78,23 @@ export class WorkBenchPage {
         if (is_plus && is_manager){
           need_all = true
         }
+
+        if ((new RegExp("若态").test(res.result.res_data.company)) || res.result.res_data.company == "若态"){
+            this.company_type = "../assets/img/S-header.png"
+            
+          }
+          else if ((new RegExp("DIY").test(res.result.res_data.company)) || res.result.res_data.company == "DIY"){
+            this.company_type = "../assets/img/D-header.png"
+            
+          }
+          else if ((new RegExp("若贝尔").test(res.result.res_data.company)) || res.result.res_data.company == "若贝尔"){
+            this.company_type = "../assets/img/R-header.png"
+            
+          }
+          else if ((new RegExp("板厂").test(res.result.res_data.company)) || res.result.res_data.company == "板厂"){
+            this.company_type = "../assets/img/B-header.png"
+            
+          }
 
          this.services.get_all_need_do(res.result.res_data.user_id,is_plus,this.isShowKucun,need_all).then(res => {
             console.log(res.result.res_data.bx)

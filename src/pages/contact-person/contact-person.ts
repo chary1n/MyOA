@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ContactService} from './contact-persionService'
+import { Storage } from '@ionic/storage';
+
 declare let cordova: any; 
 
 /**
@@ -20,7 +22,9 @@ export class ContactPersonPage {
   employeeList;
   showAll;
   origin_data;
-  constructor(public navCtrl: NavController, public navParams: NavParams,public contactService:ContactService) {
+  company_type
+  constructor(public navCtrl: NavController, public navParams: NavParams,public contactService:ContactService,
+    public storage:Storage) {
     this.showAll = "NO";
       this.contactService.get_departments().then((res) => {
         if (res.result && res.result.res_code == 1)
@@ -34,6 +38,26 @@ export class ContactPersonPage {
           this.employeeList = res.result.res_data;
           this.origin_data = this.employeeList;
         }
+      })
+
+      this.storage.get('user')
+      .then(res => {
+        if ((new RegExp("若态").test(res.result.res_data.company)) || res.result.res_data.company == "若态"){
+            this.company_type = "../assets/img/S-header.png"
+            
+          }
+          else if ((new RegExp("DIY").test(res.result.res_data.company)) || res.result.res_data.company == "DIY"){
+            this.company_type = "../assets/img/D-header.png"
+            
+          }
+          else if ((new RegExp("若贝尔").test(res.result.res_data.company)) || res.result.res_data.company == "若贝尔"){
+            this.company_type = "../assets/img/R-header.png"
+            
+          }
+          else if ((new RegExp("板厂").test(res.result.res_data.company)) || res.result.res_data.company == "板厂"){
+            this.company_type = "../assets/img/B-header.png"
+            
+          }
       })
   }
 
