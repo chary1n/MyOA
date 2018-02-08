@@ -57,6 +57,7 @@ export class GongdanPage {
   area_ids = []
   category_ids = []
   user_id
+  company_type
   constructor(public navCtrl: NavController, public navParams: NavParams, public statusbar: StatusBar,
     public gongdanService: GongDanService, public platform: Platform, private datePipe: DatePipe,
     private datePicker: DatePicker, private toastCtrl: ToastController,
@@ -71,8 +72,25 @@ export class GongdanPage {
         {
           this.user_id = res.result.res_data.user_id
           this.department = true;
-          console.log(11111+res.result.res_data.user_id)
           this.click_gongdan()
+
+          if ((new RegExp("若态").test(res.result.res_data.company)) || res.result.res_data.company == "若态"){
+            this.company_type = "../assets/img/R-header.png"
+            
+          }
+          else if ((new RegExp("若态").test(res.result.res_data.company)) || res.result.res_data.company == "若态"){
+            this.company_type = "../assets/img/S-header.png"
+            
+          }
+          else if ((new RegExp("若态").test(res.result.res_data.company)) || res.result.res_data.company == "若态"){
+            this.company_type = "../assets/img/D-header.png"
+            
+          }
+          else if ((new RegExp("若态").test(res.result.res_data.company)) || res.result.res_data.company == "若态"){
+            this.company_type = "../assets/img/B-header.png"
+            
+          }
+          
         }
       })
     

@@ -9,11 +9,11 @@
 <ion-header no-border>
 
   <ion-navbar hideBackButton="true" color="gongdan-color">
-    <!--<ion-buttons left>-->
-      <!--<button ion-button icon-only (click)="goBack()">
-        <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
-      </button>-->
-    <!--</ion-buttons>-->
+    <ion-buttons left>
+      <button ion-button icon-only>
+        <img style="width:30px" src={{company_type}} />
+      </button>
+    </ion-buttons>
 
     <div align="center" style="height:40px;margin-left:10px">
         <div style="width:33%;float:right;text-align:left" [ngClass]="{true:'test_choose',false:'test_one'}[show_type == 'tongji']" align="center" tappable (click)="click_tongji()">
