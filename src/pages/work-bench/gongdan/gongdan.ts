@@ -68,14 +68,12 @@ export class GongdanPage {
     this.storage.get('user')
       .then(res => {
         console.log(res)
+        this.user_id = res.result.res_data.user_id
+         this.click_gongdan()
         if (res.result.res_data.department)
         {
-          this.user_id = res.result.res_data.user_id
+          
           this.department = true;
-          this.click_gongdan()
-
-          
-          
         }
         if ((new RegExp("若态").test(res.result.res_data.company)) || res.result.res_data.company == "若态"){
             this.company_type = "assets/img/S-header.png"
