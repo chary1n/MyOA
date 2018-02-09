@@ -56,6 +56,8 @@ export class LoginPage {
   img2;img3;img4;
   isDisabled;
   chooseIndex  =1;
+  email_src;
+  password_src ;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private loginservice: LoginService, private myHttp: Http, private storage: Storage, public platform: Platform, public appVersion: AppVersion,
     public jpush: JPush, public urlServer: UrlServer,public ctrl:AlertController
@@ -151,7 +153,8 @@ export class LoginPage {
     HttpService.appUrl = "http://js.robotime.com/"
     this.reset();
     this.img1 = "assets/img/jiangsuruotai_clicked.png" 
-    // 
+    this.password_src="assets/img/S_password.png"
+    this.email_src = "assets/img/S_email.png"
   }
 
   chooseDiy() {
@@ -160,10 +163,12 @@ export class LoginPage {
     this.isSelected3 = false;
     this.isSelected4 = false;
     this.chooseIndex = 2;
-    HttpService.appUrl = "http://dr.robotime.com/"
-    // HttpService.appUrl = "http://192.168.88.131:8069/"
+    // HttpService.appUrl = "http://dr.robotime.com/"
+    HttpService.appUrl = "http://192.168.88.131:8069/"
     this.reset();
     this.img2 = "assets/img/diy_clicked.png" 
+    this.password_src="assets/img/D_password.png"
+    this.email_src = "assets/img/D_email.png"
   }
 
   chooseWanju() {
@@ -177,6 +182,9 @@ export class LoginPage {
     // HttpService.appUrl = "http://192.168.2.38:8111/"
     this.reset();
     this.img3 = "assets/img/ruobeier_clicked.png" 
+    this.password_src="assets/img/R_password.png"
+    this.email_src = "assets/img/R_email.png"
+    
   }
 
   chooseBanchang(){
@@ -189,6 +197,8 @@ export class LoginPage {
     // HttpService.appUrl = "http://192.168.88.131:8069/"
     this.reset();
     this.img4 = "assets/img/banchang_clicked.png" 
+    this.password_src="assets/img/B_password.png"
+    this.email_src = "assets/img/B_email.png"
   }
 
 
