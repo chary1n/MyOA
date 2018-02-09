@@ -23,17 +23,22 @@ export class ContactPersonPage {
   employeeList;
   showAll;
   origin_data;
-  company_type
+  company_type;
+  isMoreData = true;
+  limit;
+  offset;
   constructor(public navCtrl: NavController, public navParams: NavParams,public contactService:ContactService,
     public storage:Storage,public statusbar:StatusBar) {
     this.showAll = "NO";
+    this.limit = 20;
+    this.offset = 0
       this.contactService.get_departments().then((res) => {
         if (res.result && res.result.res_code == 1)
         {
           this.departmentList = res.result.res_data;
         }
       })
-      this.contactService.get_all_employees().then((res) => {
+      this.contactService.get_employees(this.limit,this.offset).then((res) => {
         if (res.result && res.result.res_code == 1)
         {
           this.employeeList = res.result.res_data;
@@ -43,21 +48,20 @@ export class ContactPersonPage {
 
       this.storage.get('user')
       .then(res => {
-        if ((new RegExp("若态").test(res.result.res_data.company)) || res.result.res_data.company == "若态"){
+        if ((new RegExp("js.robotime.com").test(res.result.res_data.user_ava))){
             this.company_type = "assets/img/S-header.png"
             
           }
-          else if ((new RegExp("DIY").test(res.result.res_data.company)) || res.result.res_data.company == "DIY"){
+          else if ((new RegExp("dr.robotime.com").test(res.result.res_data.user_ava))){
             this.company_type = "assets/img/D-header.png"
             
           }
-          else if ((new RegExp("若贝尔").test(res.result.res_data.company)) || res.result.res_data.company == "若贝尔"){
+          else if ((new RegExp("erp.robotime.com").test(res.result.res_data.user_ava))){
             this.company_type = "assets/img/R-header.png"
             
           }
-          else if ((new RegExp("板厂").test(res.result.res_data.company)) || res.result.res_data.company == "板厂"){
+          else if ((new RegExp("ber.robotime.com").test(res.result.res_data.user_ava))){
             this.company_type = "assets/img/B-header.png"
-            
           }
       })
   }
@@ -118,6 +122,67 @@ export class ContactPersonPage {
 
   panEvent($event){
      cordova.plugins.Keyboard.close();
+  }
+
+  doInfinite(infiniteScroll){
+     if (this.isMoreData == true) {
+        this.limit = 20;
+        this.offset += 20;
+        this.contactService.get_employees(this.limit,this.offset).then((res) => {
+        if (res.result && res.result.res_code == 1) {
+            if (res.result.res_data)
+            {
+               if (res.result.res_data.length == 20) {
+                  this.isMoreData = true;
+                  
+               }
+               else {
+                  this.isMoreData = false;
+               }
+               for (let item of res.result.res_data) {
+                  this.employeeList.push(item);
+               }
+            }
+            else
+            {
+              this.isMoreData = false;
+            }
+            
+          }
+          else {
+            this.isMoreData = false;
+          }
+          infiniteScroll.complete();
+      })
+     }
+     else {
+        infiniteScroll.complete();
+      }
+
+  }
+
+  searchByKeyword(event){
+    console.log(event.target.value)
+    this.isMoreData = false
+    this.contactService.search_employees(event.target.value).then(res => {
+      if (res.result && res.result.res_code == 1)
+        {
+          this.employeeList = res.result.res_data;
+        } 
+    })
+  }
+
+  clearText(){
+    this.limit = 20;
+    this.offset = 0;
+    this.isMoreData = true
+    this.contactService.get_employees(this.limit,this.offset).then((res) => {
+        if (res.result && res.result.res_code == 1)
+        {
+          this.employeeList = res.result.res_data;
+          this.origin_data = this.employeeList;
+        }
+      })
   }
 
 

@@ -33,7 +33,7 @@
         <ion-refresher-content></ion-refresher-content>
       </ion-refresher>
       <ion-list>
-        <ion-item *ngFor='let item of orderMRP' tappable (click)='orderDetail(item.id)'>
+        <ion-item *ngFor='let item of orderMRP' tappable (click)='orderDetail(item)'>
           <div style="overflow:hidden">
             <p text-wrap class="rightStateFont">{{changeState(item.state)}}</p>
             <meter value={{item.shipping_rate}} max="100" class="progress_x"></meter>
@@ -69,7 +69,7 @@
         <ion-refresher-content></ion-refresher-content>
       </ion-refresher>
       <ion-list>
-        <ion-item *ngFor='let item of priceOrder' tappable (click)='orderDetail(item.id)'>
+        <ion-item *ngFor='let item of priceOrder' tappable (click)='orderDetail(item)'>
           <div style="overflow:hidden">
             <p text-wrap class="rightStateFont">{{changeState(item.state)}}</p>
             <meter value={{item.shipping_rate}} max="100" class="progress_x"></meter>
@@ -153,7 +153,7 @@
         <ion-refresher-content></ion-refresher-content>
       </ion-refresher>
       <ion-list>
-        <ion-item *ngFor='let item of returnOrder' tappable (click)='returnOrderDetail(item.id)'>
+        <ion-item *ngFor='let item of returnOrder' tappable (click)='returnOrderDetail(item)'>
           <p text-wrap class="rightStateFont">退货单</p>
           <h2 text-wrap>{{item.name}}</h2>
           <h4 text-wrap>{{item.order_line}}</h4>

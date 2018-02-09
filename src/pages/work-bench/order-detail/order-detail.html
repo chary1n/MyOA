@@ -84,7 +84,10 @@
       <p *ngIf="showNumber" style="float:right">开单数量 : {{detail.qty_invoiced}} * ￥ {{detail.price_unit}}</p>
       <p>小计 {{detail.price_subtotal}}</p> -->
       <h3 text-wrap>产品 {{i+1}} {{detail.name}}</h3>
+      <div>
       <progress value={{detail.shipping_rate?detail.shipping_rate:1}}  max="100" ></progress>
+      <p style="float:right;margin-right:20px">单价:{{detail.price_unit}}</p>
+      </div>
       <div>
           <p style="float:right;margin-right:20px">开单数量:{{detail.qty_invoiced}}</p>
         <p>已接收/订购： {{detail.qty_received}} /{{detail.product_qty}}</p>
@@ -93,7 +96,7 @@
   </ion-list>
 </ion-content>
 
-<ion-footer style="background:#f0f2f5" *ngIf="is_manager"  no-border>
+<ion-footer style="background:#f0f2f5" *ngIf="is_manager" >
   <button ion-button tappable style='width:70%;margin-left:15%'   round (click)="approve()">
     批准订单
   </button>

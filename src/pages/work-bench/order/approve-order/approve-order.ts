@@ -64,13 +64,14 @@ export class ApproveOrderPage {
     }
   }
 
-  orderDetailShowNumber(id) {
-    this.orderService.requestOrderDetail(id)
+  orderDetailShowNumber(items) {
+    this.orderService.requestOrderDetail(items.id)
       .then(res => {
         if (res.result && res.result.res_code == 1) {
           this.navCtrl.push('OrderDetailPage', {
             item: res.result,
-            showNumber: true
+            showNumber: true,
+            state:items.state,
           })
         }
       })

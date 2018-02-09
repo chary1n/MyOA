@@ -75,21 +75,20 @@ export class GongdanPage {
           
           this.department = true;
         }
-        if ((new RegExp("若态").test(res.result.res_data.company)) || res.result.res_data.company == "若态"){
+        if ((new RegExp("js.robotime.com").test(res.result.res_data.user_ava))){
             this.company_type = "assets/img/S-header.png"
             
           }
-          else if ((new RegExp("DIY").test(res.result.res_data.company)) || res.result.res_data.company == "DIY"){
+          else if ((new RegExp("dr.robotime.com").test(res.result.res_data.user_ava))){
             this.company_type = "assets/img/D-header.png"
             
           }
-          else if ((new RegExp("若贝尔").test(res.result.res_data.company)) || res.result.res_data.company == "若贝尔"){
+          else if ((new RegExp("erp.robotime.com").test(res.result.res_data.user_ava))){
             this.company_type = "assets/img/R-header.png"
             
           }
-          else if ((new RegExp("板厂").test(res.result.res_data.company)) || res.result.res_data.company == "板厂"){
+          else if ((new RegExp("ber.robotime.com").test(res.result.res_data.user_ava))){
             this.company_type = "assets/img/B-header.png"
-            
           }
       })
     

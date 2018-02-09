@@ -15,7 +15,7 @@
 
 <ion-content>
    <ion-list>
-        <ion-item *ngFor='let item of incomingOrder' tappable (click)='orderDetailShowNumber(item.id)'>
+        <ion-item *ngFor='let item of incomingOrder' tappable (click)='orderDetailShowNumber(item)'>
           <div style="overflow:hidden">
             <p text-wrap class="rightStateFont">{{changeState(item.state)}}</p>
             <meter value={{item.shipping_rate}} max="100" class="progress_x"></meter>

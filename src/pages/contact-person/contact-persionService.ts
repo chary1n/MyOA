@@ -34,4 +34,19 @@ export class ContactService {
         });
        return this.httpservice.postBody("get_all_employees",body);
     }
+
+    get_employees(limit,offset){
+        let body = JSON.stringify({
+            limit:limit,
+            offset:offset,
+        });
+       return this.httpservice.postBody("get_employees",body);
+    }
+
+    search_employees(name){
+        let body = JSON.stringify({
+            name:name,
+        });
+       return this.httpservice.postBody("search_employees",body);
+    }
 }
