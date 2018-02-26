@@ -163,4 +163,8 @@ export class WorkBenchPage {
   kaoqin(){
     this.navCtrl.push('KaoqinPage')
   }
+
+  journalSheet(){
+    this.navCtrl.push('JournalSheetPage')
+  }
 }
