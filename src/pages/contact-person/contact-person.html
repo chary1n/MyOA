@@ -4,17 +4,22 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header>
+<ion-header no-border>
 
-  <ion-navbar>
-    <ion-title>若态科技</ion-title>
+  <ion-navbar color="gongdan-color">
+    <ion-buttons left>
+      <button ion-button icon-only>
+        <img style="width:30px" src={{company_type}} />
+      </button>
+    </ion-buttons>
+    <ion-title>通讯录</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content (pan)="panEvent($event)">
-  <ion-searchbar placeholder = "搜索" (ionInput)="getItems($event)"></ion-searchbar>
+  <ion-searchbar placeholder = "搜索" (search)="searchByKeyword($event)" (ionClear)="clearText()"></ion-searchbar>
   <ion-item *ngIf = "showAll == 'YES'">
     <ion-label>组织架构</ion-label>
     <ion-label tappable (click) = "clickAll()" text-right item-end style="font-size:150%">-</ion-label>
@@ -46,4 +51,7 @@
         <p>{{item.job_id.name}}</p>
       </ion-item>
   </ion-list>
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
 </ion-content>

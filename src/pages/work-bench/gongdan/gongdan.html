@@ -9,13 +9,13 @@
 <ion-header no-border>
 
   <ion-navbar hideBackButton="true" color="gongdan-color">
-    <!--<ion-buttons left>-->
-      <!--<button ion-button icon-only (click)="goBack()">
-        <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
-      </button>-->
-    <!--</ion-buttons>-->
+    <ion-buttons left>
+      <button ion-button icon-only>
+        <img style="width:30px" src={{company_type}} />
+      </button>
+    </ion-buttons>
 
-    <div align="center" style="height:40px;margin-left:10px">
+    <div align="center" style="height:30px;margin-left:10px">
         <div style="width:33%;float:right;text-align:left" [ngClass]="{true:'test_choose',false:'test_one'}[show_type == 'tongji']" align="center" tappable (click)="click_tongji()">
         统计
         </div>
@@ -143,27 +143,27 @@
         </P>
         <ion-grid *ngIf="item.work_order_images" style="margin-top:-20px;margin-left:5px">
           <ion-row style="margin-right:5px;">
-            <ion-col *ngFor="let image of item.work_order_images" col-3>
-              <img src={{image}} width="72px" height="72px" imageViewer/>
+            <ion-col style="height:80px" *ngFor="let image of item.work_order_images" col-3>
+              <img src={{image}} style="position:absolute;clip:rect(0px,70px,70px,0px);background-color:#f0f2f5" imageViewer/>
             </ion-col>
           </ion-row>
         </ion-grid>
         <div class="creater_div">
           <img src={{item.create_user.user_ava}} class="create_ava">
           <span p class="creater_name">
-            {{item.create_user.name + " " + (changeDate(item.create_time) | date:'yyyy-MM-dd HH:mm')}}
+            {{item.create_user.name + " " + (changeDate(item.create_time) | date:'MM-dd HH:mm')}}
           </span>
-          <div style="display:inline-block;margin-left:10px">
-            <img style="width:12px;height:9px;" src="assets/img/work_bench/feedback.png" />
-            <span style="font-size:13px;color:darkgray">{{item.comment_count}}</span>
+          <div style="margin-right:10px;float:right;margin-top:2px">
+            <img style="width:15px;" src="assets/img/work_bench/feedback.png" />
+            <p style="font-size:14px;color:#c2c8cc;float:right;margin-top:-1px;margin-left:5px">{{item.comment_count}}</p>
           </div>
-          <span *ngIf="item.assign_user.name" class="assign_name">
+          <!--<span *ngIf="item.assign_user.name" class="assign_name">
             {{"受理人： "+ item.assign_user.name}}
           </span>
           <span *ngIf="!item.assign_user.name" class="assign_name">
             未指派受理人
-          </span>
-          <img *ngIf="item.assign_user.name" src="assets/img/work_bench/lianjie.png" class="assign_ava">
+          </span>-->
+          <!--<img *ngIf="item.assign_user.name" src="assets/img/work_bench/lianjie.png" class="assign_ava">-->
         </div>
         <div style="height:1px;background:white">
         </div>
@@ -180,7 +180,7 @@
      style="background:#ffffff;height:80px;width:100%;position:absolute;top:0px;left:0px;z-index:1;" id="canvas"> -->
       <div style="text-align:center; border-radius: 5px;background:white;margin-top:-37px;height:100%">
         <div style="position:relative;width:70px;margin:0 auto;margin-top:30px" taggable (click)="searchAtMe()">
-          <img style="margin-top:16px ;width:50px " src="assets/img/gongdan/huifu.png">
+          <img style="margin-top:16px ;width:50px " src="assets/img/gongdan/xiaoxi.png">
           <div style="margin-top:1px">我的消息</div>
           <span *ngIf="searchAtMeNumber"   style="position:absolute;
           width:20px;height:20px;border-radius:10px;background-color:red;
@@ -238,7 +238,7 @@
         <ion-label>我回复过的</ion-label>
       </button>
 
-      <button ion-item (click)="myAssigned()">
+      <button ion-item (click)="myAssigned()" no-lines>
         <ion-avatar item-start>
           <img src="assets/img/gongdan/zhipai.png" class="imgStyle" style=" border-radius: 0px;    width: 29px;
           height: 29px; ">

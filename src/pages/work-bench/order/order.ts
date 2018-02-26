@@ -282,13 +282,14 @@ export class OrderPage {
     }
   }
 
-  orderDetail(id) {
-    this.orderService.requestOrderDetail(id)
+  orderDetail(items) {
+    this.orderService.requestOrderDetail(items.id)
       .then(res => {
         if (res.result && res.result.res_code == 1) {
           this.navCtrl.push('OrderDetailPage', {
             item: res.result,
-            showNumber: false
+            showNumber: false,
+            state:items.state,
           })
         }
       })

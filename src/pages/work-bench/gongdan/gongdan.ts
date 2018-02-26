@@ -42,9 +42,9 @@ export class GongdanPage {
   is_android;
   page_issue_state;
   startDate;
-  startDate_gongdan;
+  startDate_gongdan = this.datePipe.transform('2018-01-01', 'yyyy-MM-dd');
   endDate;
-  endDate_gongdan
+  endDate_gongdan = this.datePipe.transform(new Date(), 'yyyy-MM-dd')
   total_number = 0;
   more_48_number = 0;
   searchAtMeNumber = 0;
@@ -56,21 +56,42 @@ export class GongdanPage {
   brand_ids = []
   area_ids = []
   category_ids = []
+  user_id
+  company_type
   constructor(public navCtrl: NavController, public navParams: NavParams, public statusbar: StatusBar,
     public gongdanService: GongDanService, public platform: Platform, private datePipe: DatePipe,
     private datePicker: DatePicker, private toastCtrl: ToastController,
     public menu: MenuController,public storage: Storage,public alertCtrl:AlertController) {
-    this.menu.open()
     this.inner_type = "all"
     this.is_android = this.platform.is('android')
-    this.click_gongdan()
+    
     this.storage.get('user')
       .then(res => {
+        console.log(res)
+        this.user_id = res.result.res_data.user_id
+         this.click_gongdan()
         if (res.result.res_data.department)
         {
+          
           this.department = true;
         }
+        if ((new RegExp("js.robotime.com").test(res.result.res_data.user_ava))){
+            this.company_type = "assets/img/S-header.png"
+            
+          }
+          else if ((new RegExp("dr.robotime.com").test(res.result.res_data.user_ava))){
+            this.company_type = "assets/img/D-header.png"
+            
+          }
+          else if ((new RegExp("erp.robotime.com").test(res.result.res_data.user_ava))){
+            this.company_type = "assets/img/R-header.png"
+            
+          }
+          else if ((new RegExp("ber.robotime.com").test(res.result.res_data.user_ava))){
+            this.company_type = "assets/img/B-header.png"
+          }
       })
+    
   }
 
   ionViewDidLoad() {
@@ -124,12 +145,6 @@ export class GongdanPage {
     if (this.show_type == "me") {
       this.click_me()
     }
-  }
-
-
-  ionViewWillLeave() {
-    this.statusbar.backgroundColorByHexString("#ffffff");
-    this.statusbar.styleDefault();
   }
 
   click_me() {
@@ -333,8 +348,12 @@ export class GongdanPage {
       issue_state: 'unaccept'
     });
     this.gongdanService.work_order_searchNoLoading(body).then(res => {
-      if (res.result && res.result.res_code == 1 && res.result.res_data) {
-        this.more_48_number = res.result.res_data.length;
+      if (res.result && res.result.res_code == 1 ) {
+        if(res.result.res_data){
+          this.more_48_number = res.result.res_data.length;
+        }else{
+          this.more_48_number = 0;
+        }
       }
     })
   }
@@ -618,7 +637,7 @@ export class GongdanPage {
     this.gongdanService.work_order_search(JSON.stringify({
       start_date: this.startDate_gongdan,
       end_date: this.datePipe.transform(new Date(new Date(this.endDate_gongdan).getTime() + 3600000 * 24), 'yyyy-MM-dd'),//          
-      uid: HttpService.user_id,
+      uid: this.user_id,
       issue_state: state,
       category_ids: this.category_ids,
       brand_ids:this.brand_ids,
@@ -678,22 +697,22 @@ export class GongdanPage {
 
 
   reload_statics(){
-    this.gongdanService.work_order_statistics(this.startDate_gongdan,this.datePipe.transform(new Date(new Date(this.endDate_gongdan).getTime() + 3600000*24), 'yyyy-MM-dd'),this.brand_ids,this.area_ids,this.category_ids).then(res => {
+    this.gongdanService.work_order_statistics(this.startDate_gongdan,this.datePipe.transform(new Date(new Date(this.endDate_gongdan).getTime() + 3600000*24), 'yyyy-MM-dd'),this.brand_ids,this.area_ids,this.category_ids,this.user_id).then(res => {
       if (res.result.res_data) {
         if (res.result.res_data.unaccept) {
-          this.unacceptTitle = "待受理" + " (" + res.result.res_data.unaccept + ")";
+          this.unacceptTitle = "待受理" + " " + res.result.res_data.unaccept;
         }
         else {
           this.unacceptTitle = "待受理"
         }
         if (res.result.res_data.check) {
-          this.unassignTitle = "待验收" + " (" + res.result.res_data.check + ")";
+          this.unassignTitle = "待验收" + " " + res.result.res_data.check ;
         }
         else {
           this.unassignTitle = "待验收"
         }
         if (res.result.res_data.process) {
-          this.processTitle = "受理中" + " (" + res.result.res_data.process + ")";
+          this.processTitle = "受理中" + " " + res.result.res_data.process ;
         }
         else {
           this.processTitle = "受理中"

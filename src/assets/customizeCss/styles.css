@@ -72,4 +72,43 @@ ion-list ion-col{
     background:url(img/add.png) no-repeat center;
   }
 
+  .tabs-md .tab-button-icon {
+  margin-top: 1px;
+  min-width: 2.4rem;
+  font-size: 2.4rem;
+  color: #999999;
+  -webkit-transition: -webkit-transform 0.3s ease-in-out;
+  transition: -webkit-transform 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out, -webkit-transform 0.3s ease-in-out;
+  -webkit-transform-origin: 50% 150%;
+  transform-origin: 50% 150%;
+}
+
+.tabs-md .tab-button {
+  min-height: 5.6rem;
+  font-weight: normal;
+  color: #999999;
+  padding: 0;
+}
+
+.tabs-ios .tab-button {
+  max-width: 240px;
+  min-height: 49px;
+  font-size: 10px;
+  font-weight: 500;
+  color: #999999;
+  padding: 0 2px;
+}
+
+.tabs-ios .tab-button-icon {
+  margin-top: 4px;
+  margin-bottom: 1px;
+  min-width: 35px;
+  height: 30px;
+  font-size: 30px;
+  color: #999999;
+}
+
+
   

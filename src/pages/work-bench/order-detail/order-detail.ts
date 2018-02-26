@@ -22,20 +22,27 @@ export class OrderDetailPage {
   showNumber: boolean
   is_manager = false
   frontPage
+  state
   constructor(public navCtrl: NavController, public navParams: NavParams, public popoverCtrl: PopoverController, public events: Events,
     public storage:Storage,public orderService: orderService,public toast:ToastController) {
     this.item = navParams.get('item').res_data
+    this.state = navParams.get('state')
     this.showNumber = navParams.get('showNumber');
     this.frontPage = Utils.getViewController("GongdanPage", navCtrl)
+    console.log(this.state)
     this.storage.get('user')
       .then(res => {
         console.log(res);
-        for (let product of res.result.res_data.groups) {
+        if (this.state == "to approve")
+        {
+          for (let product of res.result.res_data.groups) {
           if (product.name == 'group_purchase_manager')
             {
               this.is_manager = true
             }
         }
+        }
+        
       })
   }
 

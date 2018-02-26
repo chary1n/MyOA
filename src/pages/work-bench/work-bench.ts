@@ -3,6 +3,8 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { WorkBenchModel } from './../../model/WorkBenchModel';
 import { Storage } from '@ionic/storage';
 import { CommonUseServices} from './commonUseServices';
+import { StatusBar } from '@ionic-native/status-bar';
+
 /**
  * Generated class for the WorkBenchPage page.
  *
@@ -33,12 +35,18 @@ export class WorkBenchPage {
   kc_count = 0;
   isShowPayment = false;
   user_id;
+  company_type
   constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage,
-    public services :CommonUseServices) {
+    public services :CommonUseServices,public statusbar:StatusBar) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad WorkBenchPage');
+  }
+  
+  ionViewWillEnter(){
+    this.statusbar.backgroundColorByHexString("#2597ec");
+    this.statusbar.styleLightContent();
   }
 
   ionViewDidEnter() {
@@ -77,6 +85,22 @@ export class WorkBenchPage {
         if (is_plus && is_manager){
           need_all = true
         }
+
+        if ((new RegExp("js.robotime.com").test(res.result.res_data.user_ava))){
+            this.company_type = "assets/img/S-header.png"
+            
+          }
+          else if ((new RegExp("dr.robotime.com").test(res.result.res_data.user_ava))){
+            this.company_type = "assets/img/D-header.png"
+            
+          }
+          else if ((new RegExp("erp.robotime.com").test(res.result.res_data.user_ava))){
+            this.company_type = "assets/img/R-header.png"
+            
+          }
+          else if ((new RegExp("ber.robotime.com").test(res.result.res_data.user_ava))){
+            this.company_type = "assets/img/B-header.png"
+          }
 
          this.services.get_all_need_do(res.result.res_data.user_id,is_plus,this.isShowKucun,need_all).then(res => {
             console.log(res.result.res_data.bx)

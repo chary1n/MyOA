@@ -1,6 +1,6 @@
 import { HttpService } from './../../../../providers/HttpService';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams ,ToastController} from 'ionic-angular';
+import { IonicPage, NavController, NavParams ,ToastController,Platform} from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { GongDanService } from './../gongdanService';
 import { Utils } from './../../../../providers/Utils';
@@ -35,9 +35,11 @@ export class GongdanSearchPage {
   area_ids = []
   category_ids = []
   page_issue_state
+  is_ios;
   constructor(public navCtrl: NavController, public navParams: NavParams,public gongDanAutoService:GongDanAutoService,
     public gongdanService:GongDanService,public datePipe:DatePipe,public toastCtrl:ToastController,
-    public datePicker:DatePicker,public statusbar:StatusBar) {
+    public datePicker:DatePicker,public statusbar:StatusBar,public platform:Platform) {
+      this.is_ios = this.platform.is('ios')
       this.endDate_gongdan = this.datePipe.transform(new Date(), 'yyyy-MM-dd'),
     this.startDate_gongdan = this.datePipe.transform('2018-01-01', 'yyyy-MM-dd')
       this.gongdanService.get_all_biaoqian().then(res => {

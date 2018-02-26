@@ -46,11 +46,18 @@ export class LoginPage {
   isSelected1 = false;
   isSelected2 = false;
   isSelected3 = false;
+  isSelected4  = false;
   db;
   history_arr = [];
   email_length = 0;
   autoLogin = false;
   remerberPassword = false;
+  img1;
+  img2;img3;img4;
+  isDisabled;
+  chooseIndex  =1;
+  email_src;
+  password_src ;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private loginservice: LoginService, private myHttp: Http, private storage: Storage, public platform: Platform, public appVersion: AppVersion,
     public jpush: JPush, public urlServer: UrlServer,public ctrl:AlertController
@@ -61,8 +68,30 @@ export class LoginPage {
         this.remerberPassword = res.remerberPassword
       }
     })
+    this.storage.get("loginIndex").then(res=>{
+      this.defultChoose(res)
+    })
+    this.isDisabled = true
+
+    this.reset();
 
   }
+
+
+
+  defultChoose(index){
+    if(index==2){
+      this.chooseDiy()
+    }else if(index==3){
+      this.chooseWanju()
+    }else if(index==4){
+      this.chooseBanchang()
+    }else{
+      this.chooseJiangsu()
+    }
+  
+  }
+
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
@@ -75,6 +104,7 @@ export class LoginPage {
             this.storage.get('user_psd').then(res => {
               this.email = res.user_email
               this.password = res.user_psd
+              this.isDisabled= false
             })
           }
         }
@@ -97,6 +127,7 @@ export class LoginPage {
                 if (res.result && res.result.res_code == 1) {
                   HttpService.user_id = res.result.res_data.user_id;
                   HttpService.user = res.result.res_data ;
+                  this.storage.set('loginIndex',this.chooseIndex)
                   this.storage.set("user", res).then(() => {
                   });
                 }
@@ -106,29 +137,68 @@ export class LoginPage {
       });
   }
 
+  reset(){
+    this.img1 = "assets/img/jiangsuruotai.png" 
+    this.img2 = "assets/img/diy.png" 
+    this.img3 = "assets/img/ruobeier.png" 
+    this.img4 = "assets/img/banchang.png" 
+  }
+
   chooseJiangsu() {
     this.isSelected1 = true;
     this.isSelected2 = false;
     this.isSelected3 = false;
+    this.isSelected4 = false;
+    this.chooseIndex = 1;
     HttpService.appUrl = "http://js.robotime.com/"
-    // 
+    this.reset();
+    this.img1 = "assets/img/jiangsuruotai_clicked.png" 
+    this.password_src="assets/img/S_password.png"
+    this.email_src = "assets/img/S_email.png"
   }
 
   chooseDiy() {
     this.isSelected2 = true;
     this.isSelected1 = false;
     this.isSelected3 = false;
+    this.isSelected4 = false;
+    this.chooseIndex = 2;
     // HttpService.appUrl = "http://dr.robotime.com/"
     HttpService.appUrl = "http://192.168.88.131:8069/"
+    this.reset();
+    this.img2 = "assets/img/diy_clicked.png" 
+    this.password_src="assets/img/D_password.png"
+    this.email_src = "assets/img/D_email.png"
   }
 
   chooseWanju() {
     this.isSelected3 = true;
     this.isSelected2 = false;
     this.isSelected1 = false;
-    // HttpService.appUrl = "http://erp.robotime.com/"
+    this.isSelected4 = false;
+    this.chooseIndex = 3;
+    HttpService.appUrl = "http://erp.robotime.com/"
     // HttpService.appUrl = "http://192.168.2.44:8069/"
-    HttpService.appUrl = "http://192.168.2.38:8111/"
+    // HttpService.appUrl = "http://192.168.2.38:8111/"
+    this.reset();
+    this.img3 = "assets/img/ruobeier_clicked.png" 
+    this.password_src="assets/img/R_password.png"
+    this.email_src = "assets/img/R_email.png"
+    
+  }
+
+  chooseBanchang(){
+    this.isSelected4 = true;
+    this.isSelected2 = false;
+    this.isSelected1 = false;
+    this.isSelected3 = false;
+    this.chooseIndex = 4;
+    HttpService.appUrl = "http://ber.robotime.com/"
+    // HttpService.appUrl = "http://192.168.88.131:8069/"
+    this.reset();
+    this.img4 = "assets/img/banchang_clicked.png" 
+    this.password_src="assets/img/B_password.png"
+    this.email_src = "assets/img/B_email.png"
   }
 
 
@@ -191,6 +261,7 @@ export class LoginPage {
             db_name: this.employee,
             url: HttpService.appUrl
           })
+          this.storage.set('loginIndex',this.chooseIndex)
           if (this.remerberPassword)
           {
             this.storage.get("history_users").then(res => {
@@ -229,9 +300,6 @@ export class LoginPage {
             }
           })
           }
-          
-
-
           this.storage.set("user", res).then(() => {
             this.jpush.setAlias(res.result.res_data.user_id);
             this.navCtrl.setRoot('TabsPage');
@@ -259,13 +327,26 @@ export class LoginPage {
         }
        }
       }  
+
     })
     }
   }
+
+
+  watchPassword(event){
+    console.log(this.password)
+    if(this.password){
+      this.isDisabled = false
+    }else{
+      this.isDisabled = true
+    }
+  }
+
   click(item){
     console.log("2")
     this.email = item.email;
     this.password = item.password;
+    this.isDisabled = false
     this.history_arr = [];
     if (this.platform.is('ios'))
     {

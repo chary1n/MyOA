@@ -22,8 +22,8 @@
 <ion-content id="main_class" style="position:relative;">
  <ion-grid style="margin-left:6px;">
     <ion-row>
-      <ion-col tappable (click)="clickPicture(item)" col-3 *ngFor="let item of imgList">
-        <img src={{item}} width="106px" height="106px"/>
+      <ion-col style="height:116px" tappable (click)="clickPicture(item)" col-3 *ngFor="let item of imgList">
+        <img src={{item}} style="position:absolute;clip:rect(0px,106px,106px,0px);"/>
       </ion-col>
     </ion-row>
   </ion-grid>
