@@ -69,4 +69,8 @@
       <div style="height:1px;background:#ececec"></div>
     </div>
   </ion-item-group>
+  <div align="center" *ngIf="!gongdanList || gongdanList.length == 0">
+      <img style="width:100px;position:absolute;left:calc(50% - 50px);top:calc(50% - 60px)" src="assets/img/nodataimg.png">
+      <p style="width:100px;position:absolute;left:calc(50% - 50px);top:calc(50% + 30px);color:#c2c8cc;font-size:15px">空空如也～</p>
+    </div>
 </ion-content>

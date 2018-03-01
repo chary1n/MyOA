@@ -19,7 +19,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 })
 export class AtMeListPage {
 
-  gongdanList ;
+  gongdanList = [];
   title ;
   userName ;
   constructor(public navCtrl: NavController, public navParams: NavParams,
