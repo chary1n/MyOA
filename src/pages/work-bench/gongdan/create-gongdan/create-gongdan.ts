@@ -352,14 +352,7 @@ export class CreateGongdanPage {
   }
 
   chooseBiaoqian(){
-    this.gongdanService.get_all_biaoqian().then(res=>{
-      if (res.result && res.result.res_code == 1) {
-        this.navCtrl.push('BiaoqianPage',{list:res.result.res_data,
-        area_ids:this.area_list,
-      brand_ids:this.brand_list,
-    category_ids:this.category_list})
-      }
-    })
+        this.navCtrl.push('BiaoqianPage')
   }
 
   all_tags(){

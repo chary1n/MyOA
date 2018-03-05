@@ -111,4 +111,23 @@ ion-list ion-col{
 }
 
 
+.fab ion-icon {
+    font-size: 2.8rem;
+}
+
+.fab-md{
+    background-color: #1897f2;
+}
+
+.tabs-md .tab-button[aria-selected=true] .tab-button-icon{
+    color: #1897f2;
+}
+
+.tabs-md .tab-button[aria-selected=true]{
+    color: #1897f2;
+}
+
+
+
+
   

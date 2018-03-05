@@ -147,4 +147,8 @@
     <engine name="android" spec="^6.4.0" />
     <engine name="browser" spec="^4.1.0" />
     <engine name="ios" spec="^4.5.4" />
+    <allow-navigation href="http://192.168.2.35:8101" />
+    <allow-navigation href="http://192.168.2.35:8100" />
+    <allow-navigation href="http://192.168.2.74:8100" />
+    <allow-navigation href="http://192.168.2.33:8100" />
 </widget>

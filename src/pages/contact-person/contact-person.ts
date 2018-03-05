@@ -185,6 +185,9 @@ export class ContactPersonPage {
       })
   }
 
+  add(){
+    this.navCtrl.push('AddEmployeePage')
+  }
 
 
 }

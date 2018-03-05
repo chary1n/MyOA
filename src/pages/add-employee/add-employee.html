@@ -1,0 +1,87 @@
+<!--
+  Generated template for the AddEmployeePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar hideBackButton="true">
+    <ion-buttons left>
+      <button ion-button (click)="goBack()">
+        取消
+      </button>
+    </ion-buttons>
+    <ion-title>新增员工</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)='next()'>
+        下一步
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+
+  <ion-item>
+    <ion-label style="color:black">中文名
+      <span style="color:red;"> *</span>
+    </ion-label>
+    <ion-input [(ngModel)]="cName" text-right></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label style="color:black"> 英文名 </ion-label>
+    <ion-input [(ngModel)]="eName" text-right></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label style="color:black"> 性别
+      <span style="color:red;"> *</span>
+    </ion-label>
+    <ion-select [(ngModel)]="sexIndex" class="normal-select">
+      <ion-option *ngFor="let item of sexList;let i = index;" value={{i}}>{{item.name}}</ion-option>
+    </ion-select>
+  </ion-item>
+
+
+  <ion-item>
+    <ion-label style="color:black">身份证号
+    </ion-label>
+    <ion-input #mNumberCon item-end text-wrap  type="number" placeholder="请输入" text-right [(ngModel)]="IDNumber"></ion-input>
+  </ion-item>
+
+
+  <ion-item>
+    <ion-label style="color:black">办公手机
+      <span style="color:red;"> *</span>
+    </ion-label>
+    <ion-input #mNumberCon item-end text-wrap type="number" placeholder="请输入" text-right [(ngModel)]="phoneNumber"></ion-input>
+  </ion-item>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <button (click)="takePositive()"> 拍摄正面</button>
+
+  <button (click)="takeNegative()"> 拍摄反面</button>
+
+
+
+
+
+
+
+</ion-content>
