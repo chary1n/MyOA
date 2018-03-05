@@ -468,7 +468,6 @@ export class GongdanPage {
       }
     })
     this.moreThan_48_Hour_number();
-
   }
 
 
