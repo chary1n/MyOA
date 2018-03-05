@@ -60,8 +60,6 @@ export class WriteJournalPage {
     public platform: Platform,
     public nativeService: NativeService) 
     {
-    this.statusBar.backgroundColorByHexString("#2597ec");
-    this.statusBar.styleLightContent();
     this.frontPage = Utils.getViewController("JournalSheetPage", navCtrl)
     this.storage.get('user')
     .then(res => {
@@ -81,6 +79,8 @@ export class WriteJournalPage {
   }
 
   ionViewWillEnter() {
+    this.statusBar.backgroundColorByHexString("#2597ec");
+    this.statusBar.styleLightContent();
     this.isDeletePicture =this.navParams.get('isDeletePicture')
    console.log(this.isDeletePicture)
    if(this.isDeletePicture){

@@ -29,8 +29,6 @@ export class JournalSheetPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public statusBar:StatusBar,
               public writejournalService: WriteJournalService,
               public storage: Storage) {
-    this.statusBar.backgroundColorByHexString("#2597ec");
-    this.statusBar.styleLightContent();
   }
 
   ionViewDidLoad() {
@@ -39,7 +37,11 @@ export class JournalSheetPage {
     this.lookImg = "assets/img/journal_sheet/look_log.png"
   }
 
+
+
   ionViewWillEnter() {
+    this.statusBar.backgroundColorByHexString("#2597ec");
+    this.statusBar.styleLightContent();
     this.storage.get('user')
     .then(res => {
       this.user_id = res.result.res_data.user_id;

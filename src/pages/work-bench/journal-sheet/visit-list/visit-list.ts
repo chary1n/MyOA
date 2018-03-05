@@ -37,8 +37,6 @@ export class VisitListPage {
     public storage: Storage,
     public writejournalService: WriteJournalService,
     private toastCtrl: ToastController) {
-    this.statusBar.backgroundColorByHexString("#2597ec");
-    this.statusBar.styleLightContent();
 
     this.startDate_visit = Utils.dateFormat(new Date(), 'yyyy-MM-dd')
     this.endDate_visit = Utils.dateFormat(new Date(), 'yyyy-MM-dd')
@@ -55,6 +53,10 @@ export class VisitListPage {
     });
   }
 
+  ionViewWillEnter() {
+    this.statusBar.backgroundColorByHexString("#2597ec");
+    this.statusBar.styleLightContent();
+  }
   getList(){
       let body = {
         today: true,

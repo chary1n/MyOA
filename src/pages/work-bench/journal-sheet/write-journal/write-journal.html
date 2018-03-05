@@ -104,7 +104,7 @@
                 <ion-label style="color:#2e3133;font-size:14px">客户状态</ion-label>
                 <ion-input item-end type="text" text-right [(ngModel)]="visitState" style="color:#5C6166;font-size:12px;margin-right:-2px" placeholder="请输入"></ion-input>
             </ion-item>
-            <ion-item (click)="selectArm()">
+            <ion-item tappable (click)="selectArm()">
                 <ion-label style="color:#2e3133;font-size:14px">拜访目的</ion-label>
                 <ion-note item-end style="color:#1897f2;font-size:12px;">{{visitArm}}</ion-note>
                 <img item-end src="assets/img/journal_sheet/right_icon.png" style="height:10px;margin-right:-2px">
@@ -154,5 +154,5 @@
 
 
 <ion-footer>
-    <button ion-button full (click)="commite()">{{stateOperate}}</button>
+    <button ion-button tappable full (click)="commite()">{{stateOperate}}</button>
 </ion-footer>
