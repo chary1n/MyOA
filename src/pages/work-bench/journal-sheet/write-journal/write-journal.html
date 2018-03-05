@@ -1,0 +1,158 @@
+<!--
+  Generated template for the WriteJournalPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="gongdan-color" hideBackButton="true">
+      <ion-buttons left>
+          <button ion-button icon-only (click)="goBack()">
+            <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+          </button>
+        </ion-buttons>
+    <ion-title>{{title}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+    <div style="height:40px" >
+        <ion-grid class="gridDiy">
+            <ion-row style="text-align:center;">
+              <ion-col width-33 style="display:flex; align-items:center">
+                  <p text-wrap style="font-size:12px;line-height:12px;margin-left:20px"
+                  [ngClass]="{true:'textcolor1',false:'textcolor_normal'}[isFirst]">1.填客户资料</p>
+              </ion-col>
+              <ion-col width-34 style="display:flex; align-items:center">
+                      <img src="assets/img/journal_sheet/right_arrow.png" style="width:20px;height:20px;margin-left:30px">
+                  </ion-col>
+              <ion-col width-33 style="display:flex; align-items:center">
+                  <p text-wrap style="font-size:12px;line-height:12px;;margin-left:20px"
+                  [ngClass]="{true:'textcolor1',false:'textcolor_normal'}[isSecond]">2.总结</p>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+    </div>
+  <div *ngIf="isFirst">
+    <div style="background:#fffced;padding:1px">
+      <p style="font-size:10px;color:#fa7d3e;margin-left:15px;">* 以下信息均为必填项</p>
+    </div>
+    <ion-item-group>
+        <ion-item>
+            <ion-label style="color:#2e3133;font-size:14px">表格记录人</ion-label>
+            <ion-note item-end style="color:#5C6166;font-size:12px">{{name}}</ion-note>
+        </ion-item>
+        <ion-item>
+                <ion-label style="color:#2e3133;font-size:14px">销售团队</ion-label>
+                <ion-note item-end style="color:#5C6166;font-size:12px" >{{saleTeam}}</ion-note>
+        </ion-item>
+        <!-- <button ion-item (click)="selectTeam()">
+            <ion-label style="color:#2e3133;font-size:14px">销售团队</ion-label>
+            <ion-note item-end style="color:#c2c6cc;font-size:12px" >{{saleTeam}}</ion-note>
+        </button> -->
+        <ion-item>
+            <ion-label style="color:#2e3133;font-size:14px">客户名称</ion-label>
+            <ion-input item-end type="text" text-right [(ngModel)]="companyName" style="color:#5C6166;font-size:12px;margin-right:-2px" placeholder="请输入公司名称"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label style="color:#2e3133;font-size:14px">客户地址</ion-label>
+            <ion-input item-end type="text" text-right [(ngModel)]="companyAddress" style="color:#5C6166;font-size:12px;margin-right:-2px" placeholder="请输入"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label style="color:#2e3133;font-size:14px">客户渠道</ion-label>
+            <ion-input item-end type="text"  text-right [(ngModel)]="companyFrom" style="color:#5C6166;font-size:12px;margin-right:-2px" placeholder="请输入"></ion-input>
+        </ion-item>
+    </ion-item-group>
+        <div style="background:#f0f2f5;height:10px"></div>
+        <ion-item-group>
+            <ion-item>
+                <ion-label style="color:#2e3133;font-size:14px">拜访日期</ion-label>
+                <ion-datetime cancelText="取消" doneText="确定" min="2017" max="2088" placeholder="2018-01-01" style="color:#5C6166;font-size:12px;margin-right:-6px" displayFormat="YYYY-MM-DD" [(ngModel)]="month"></ion-datetime>
+                <img item-end src="assets/img/journal_sheet/right_icon.png" style="height:10px;margin-right:-4px">
+            </ion-item>
+            <ion-item>
+                <ion-label style="color:#2e3133;font-size:14px">开始时间</ion-label>
+                <ion-datetime cancelText="取消" doneText="确定" placeholder="请选择" [(ngModel)]="timeStarts"
+                 style="color:#5C6166;font-size:12px;margin-right:-6px" displayFormat="HH:mm" pickerFormat="HH mm"></ion-datetime>
+                 <img item-end src="assets/img/journal_sheet/right_icon.png" style="height:10px;margin-right:-4px">
+            </ion-item>
+            <ion-item>
+                  <ion-label style="color:#2e3133;font-size:14px">结束时间</ion-label>
+                  <ion-datetime cancelText="取消" doneText="确定" placeholder="请选择"
+                   style="color:#5C6166;font-size:12px;margin-right:-6px" displayFormat="HH:mm" pickerFormat="HH mm" [(ngModel)]="timeEnds"></ion-datetime>
+                   <img item-end src="assets/img/journal_sheet/right_icon.png" style="height:10px;margin-right:-4px">
+            </ion-item>
+        </ion-item-group>
+        <div style="background:#f0f2f5;height:10px"></div>
+        <ion-item-group>
+            <ion-item>
+                <ion-label style="color:#2e3133;font-size:14px">拜访对象</ion-label>
+                <ion-input item-end type="text" text-right [(ngModel)]="visitObject" style="color:#5C6166;font-size:12px;margin-right:-2px" placeholder="请输入姓名"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label style="color:#2e3133;font-size:14px">客户电话</ion-label>
+                <ion-input item-end type="tel" text-right [(ngModel)]="visitPhone" style="color:#5C6166;font-size:12px;margin-right:-2px" placeholder="请输入"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label style="color:#2e3133;font-size:14px">QQ/Email</ion-label>
+                <ion-input item-end type="text" text-right [(ngModel)]="visitLink" style="color:#5C6166;font-size:12px;margin-right:-2px" placeholder="请输入"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label style="color:#2e3133;font-size:14px">客户状态</ion-label>
+                <ion-input item-end type="text" text-right [(ngModel)]="visitState" style="color:#5C6166;font-size:12px;margin-right:-2px" placeholder="请输入"></ion-input>
+            </ion-item>
+            <ion-item tappable (click)="selectArm()">
+                <ion-label style="color:#2e3133;font-size:14px">拜访目的</ion-label>
+                <ion-note item-end style="color:#1897f2;font-size:12px;">{{visitArm}}</ion-note>
+                <img item-end src="assets/img/journal_sheet/right_icon.png" style="height:10px;margin-right:-2px">
+            </ion-item>
+        </ion-item-group>
+        <div style="background:#f0f2f5;height:10px"></div>
+        <ion-item-group>
+          <ion-item>
+              <ion-label style="color:#2e3133;font-size:14px">客户名片照片</ion-label>
+          </ion-item>
+        </ion-item-group>
+        <ion-grid>
+            <ion-row>
+                <ion-col col-4  style="position:relative;height:106px;margin-top:5px" *ngFor="let item of imgList" on-hold="onHold()" (click)="clickPicture(item)">     
+                  <img src={{item}} style="position:absolute;
+                clip:rect(0px,106px,106px,0px);" />
+                </ion-col>
+              <ion-col col-4 tappable (click)="addImg()" style="margin-top:5px">
+                <img src="assets/img/add.png" />
+              </ion-col>
+            </ion-row>
+        </ion-grid>
+    </div>
+    <div *ngIf="isSecond">
+        <div style="background:#f0f2f5;height:1px"></div>
+        <ion-item-group>
+            <ion-item>
+                <ion-label style="color:#2e3133;font-size:14px;margin-left:10px">客户沟通内容</ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-textarea rows="8" style="color:#999999;font-size:12px;" text-wrap  placeholder='输入客户沟通内容' [(ngModel)]="contentChat" class='area_class'>
+                </ion-textarea>
+              </ion-item>
+          </ion-item-group>
+          <div style="background:#f0f2f5;height:10px"></div>
+          <ion-item-group>
+              <ion-item>
+                  <ion-label style="color:#2e3133;font-size:14px;margin-left:10px">总结</ion-label>
+              </ion-item>
+              <ion-item>
+                  <ion-textarea rows="8" text-wrap  style="color:#999999;font-size:12px;" placeholder='销售对该客户的总结和需要解决的问题' [(ngModel)]="sumChat" class='area_class'>
+                  </ion-textarea>
+                </ion-item>
+            </ion-item-group>
+    </div>
+</ion-content>
+
+
+<ion-footer>
+    <button ion-button tappable full (click)="commite()">{{stateOperate}}</button>
+</ion-footer>

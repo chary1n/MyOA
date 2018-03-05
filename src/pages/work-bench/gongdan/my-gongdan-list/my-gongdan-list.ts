@@ -18,7 +18,7 @@ import { StatusBar } from '@ionic-native/status-bar';
   providers:[GongDanService]
 })
 export class MyGongdanListPage {
-  gongdanList ;
+  gongdanList = [];
   title ;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public gongdanService :GongDanService,public statusbar:StatusBar) {

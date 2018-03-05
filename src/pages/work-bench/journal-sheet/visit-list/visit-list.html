@@ -1,0 +1,44 @@
+<!--
+  Generated template for the VisitListPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="gongdan-color" hideBackButton="true">
+      <ion-buttons left>
+          <button ion-button icon-only (click)="goBack()">
+            <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+          </button>
+        </ion-buttons>
+    <ion-title>拜访记录</ion-title>
+    <ion-buttons right>
+        <button ion-button (click)="getMine()" style="color:white;font-size:14px">
+            {{person}}
+          </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content style="background:#f0f2f5">
+    <div style="height:40px;overflow: hidden;background:white;">
+      
+        <img src= "assets/img/gongdan/rili.png" height="18px" width="18px" style="margin-left:10px;margin-top:11px;float:left">
+        <p style="float:left;margin-left:10px;line-height:14px;color:#8A9199">
+          <span tappable (click)="chooseStartDate_visit()">{{startDate_visit + " - "}}</span><span tappable (click)="chooseEndDate_visit()">{{endDate_visit}}</span>   
+        </p>
+        <!-- <img src= "assets/img/journal_sheet/below_arrow.png" height="13px" width="13px" style="margin-right:10px;margin-top:14px;float:right" tappable (click)="clickMenu()"> -->
+        <p tappable (click)="clickMenu()" style="font-size:12px;float:right;margin-top:10px;color:#c2c8cc;margin-right:5px;width:80px;text-align:right">{{saleTeam}}</p>
+    </div>
+    <ion-item-group no-lines style="background:#f0f2f5;"> 
+        <div *ngFor="let item of dataList" style="margin-top:10px;background-color:white;padding-left:20px;padding-bottom:1px" tappable (click)="visitDetail(item)">
+          <img src="{{item.user_image}}" style="float:left;line-height:35px;height:35px;width:35px;margin-top:10px" class="image1">
+          <p style="font-size:14px;color:#2e3133;margin-left:45px;padding-top:20px">{{item.name}}</p>
+          <p style="font-size:12px;color:#b8c4cc;margin-left:43px;height:10px">拜访日期: {{getTime(item.visit_date_begin,item.visit_date_end)}}</p>
+          <p text-wrap style="font-size:12px;color:#b8c4cc;margin-left:43px;line-height:11px">拜访客户: {{item.partner_name}}</p>
+        </div>
+    </ion-item-group>
+</ion-content>

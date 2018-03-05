@@ -25,7 +25,7 @@ export class DeletePicturePage {
     this.need_back_chat = this.navParams.get('need_back_chat')
     this.need_back_retry = this.navParams.get('need_back_retry')
     if (this.need_back_chat){
-      this.frontPage = Utils.getViewController("GongdanNewChatPage", navCtrl)
+        this.frontPage = Utils.getViewController("GongdanNewChatPage", navCtrl)
     }
     else
     {
@@ -37,9 +37,8 @@ export class DeletePicturePage {
         this.frontPage = Utils.getViewController("CreateGongdanPage", navCtrl)
       }
     }
-     
+
     this.item = this.navParams.get("item")
-    
   }
 
   ionViewWillEnter() {
