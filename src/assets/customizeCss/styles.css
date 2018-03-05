@@ -110,5 +110,10 @@ ion-list ion-col{
   color: #999999;
 }
 
+.fab ion-icon {
+    flex: 1;
+    font-size: 3.0rem;
+}
+
 
   
