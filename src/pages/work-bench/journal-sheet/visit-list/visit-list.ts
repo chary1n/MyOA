@@ -74,7 +74,7 @@ export class VisitListPage {
   
   getTime(startT, endT){
     // return Utils.dateFormat(new Date(startT), 'yyyy-MM-dd HH:mm')+" ~ "+Utils.dateFormat(new Date(endT), 'HH:mm')
-    return startT + "~" + endT
+    return startT + "~" + endT.split(" ")[1]
 }
 
   ionViewDidLoad() {

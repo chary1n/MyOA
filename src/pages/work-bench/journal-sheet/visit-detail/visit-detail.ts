@@ -45,6 +45,6 @@ export class VisitDetailPage {
 
   //更改时间
   getTime(startT, endT){
-    return startT + " ~ " + endT
+    return startT + " ~ " + endT.split(" ")[1]
   }
 }
