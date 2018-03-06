@@ -244,9 +244,10 @@ export class WriteJournalPage {
         myString = "   请选择拜访目的"
       }
       if(this.timeStarts && this.timeEnds){
-        this.timeOne = Utils.dateFormat(new Date(this.month+" "+this.timeStarts), 'yyyy-MM-dd HH:mm:ss')
-        this.timeTwo = Utils.dateFormat(new Date(this.month+" "+this.timeEnds), 'yyyy-MM-dd HH:mm:ss')  
-        if(new Date(this.timeOne).getTime()>=new Date(this.timeTwo).getTime()){
+        
+        this.timeOne = this.month + " " + this.timeStarts
+        this.timeTwo = this.month + " " + this.timeEnds
+        if(new Date(this.timeOne.replace(/-/g, "/")).getTime() >= new Date(this.timeTwo.replace(/-/g, "/")).getTime()){
           Utils.toastButtom('开始时间不能比结束时间晚！', this.toastCtrl)
           return
         }
