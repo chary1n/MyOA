@@ -28,12 +28,21 @@
     是否为该员工开通ERP后台账号?
   </p>
 
-  <ion-checkbox style="margin-left:14%;border-color: #cccccc ;margin-top:10px;padding-bottom: 2px;"  (click)="clickOpen()" ></ion-checkbox>
+  <ion-checkbox style="margin-left:14%;border-color: #cccccc ;margin-top:10px;padding-bottom: 2px;"  (click)="checkShow()" ></ion-checkbox>
 
   <span style="vertical-align:super;padding-top:3px"> 开通</span>
 
-  <ion-checkbox style="margin-left:100px;padding-bottom: 3px;"  (click)="clickClose()" ></ion-checkbox>
+  <ion-checkbox style="margin-left:100px;padding-bottom: 3px;"  (click)="checkShow()" ></ion-checkbox>
   <span style="vertical-align:super"> 不开通</span>
+  <div *ngIf="chooseOpen" >  
+    <p>请为该员工设置系统登录邮箱</p>
+    <ion-item>
+        <ion-label style="color:black">工作Email
+          <span style="color:red;"> *</span>
+        </ion-label>
+        <ion-input [(ngModel)]="email" text-right></ion-input>
+      </ion-item>
+  </div>
 
   
 
