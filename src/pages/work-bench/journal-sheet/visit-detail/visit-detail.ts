@@ -26,6 +26,7 @@ export class VisitDetailPage {
     this.item = this.navParams.get('item');
     this.imgList = this.item.visit_image;
     this.user_img = this.item.user_image
+    console.log(this.item)
   }
 
   ionViewDidLoad() {
@@ -44,6 +45,6 @@ export class VisitDetailPage {
 
   //更改时间
   getTime(startT, endT){
-    return Utils.dateFormat(new Date(startT), 'yyyy-MM-dd HH:mm')+" ~ "+Utils.dateFormat(new Date(endT), 'HH:mm')
+    return startT + " ~ " + endT
   }
 }

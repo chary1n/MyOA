@@ -98,7 +98,7 @@ export class WriteJournalPage {
         this.title = '填客户资料'
     }else{
       if (this.companyName || this.companyAddress || this.companyFrom ||
-       this.visitPhone || this.visitLink || this.visitState || this.visitObject) {
+       this.visitPhone || this.visitLink || this.visitObject) {
         this.alertCtrl.create({
         title: '提示',
         subTitle: '已输入内容，是否确认返回？',
@@ -231,15 +231,15 @@ export class WriteJournalPage {
       if(!this.visitObject){
         myString = "   请输入拜访对象"
       }
-      if(!this.visitPhone){
-        myString = "   请输入客户电话"
-      }
-      if(!this.visitLink){
-        myString = "   请输入QQ/Email"
-      }
-      if(!this.visitState){
-        myString = "   请输入客户状态"
-      }
+      // if(!this.visitPhone){
+      //   myString = "   请输入客户电话"
+      // }
+      // if(!this.visitLink){
+      //   myString = "   请输入QQ/Email"
+      // }
+      // if(!this.visitState){
+      //   myString = "   请输入客户状态"
+      // }
       if(!this.visitArm || this.visitArm=='请选择'){
         myString = "   请选择拜访目的"
       }
@@ -284,7 +284,7 @@ export class WriteJournalPage {
           visit_name: this.visitObject,
           partner_phone: this.visitPhone,
           partner_contact_way: this.visitLink,
-          partner_state: this.visitState,
+          // partner_state: this.visitState,
           visit_target: this.visitArm,
           content_description: this.contentChat,
           summary: this.sumChat,

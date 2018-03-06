@@ -19,27 +19,27 @@
 
 
 <ion-content>
-    <div style="height:40px" >
+    <div style="height:40px;border-bottom:#dedede 1px solid;" >
         <ion-grid class="gridDiy">
             <ion-row style="text-align:center;">
               <ion-col width-33 style="display:flex; align-items:center">
-                  <p text-wrap style="font-size:12px;line-height:12px;margin-left:20px"
+                  <p text-wrap style="font-size:12px;line-height:12px;margin-left:20px;text-align:center;width:100%"
                   [ngClass]="{true:'textcolor1',false:'textcolor_normal'}[isFirst]">1.填客户资料</p>
               </ion-col>
-              <ion-col width-34 style="display:flex; align-items:center">
-                      <img src="assets/img/journal_sheet/right_arrow.png" style="width:20px;height:20px;margin-left:30px">
+              <ion-col width-34 row-center style="display:flex; align-items:center">
+                      <img src="assets/img/journal_sheet/right_arrow.png" style="width:20px;height:20px;margin-left:calc(50% - 10px)">
                   </ion-col>
               <ion-col width-33 style="display:flex; align-items:center">
-                  <p text-wrap style="font-size:12px;line-height:12px;;margin-left:20px"
+                  <p text-wrap style="font-size:12px;line-height:12px;;margin-left:20px;text-align:center;width:100%"
                   [ngClass]="{true:'textcolor1',false:'textcolor_normal'}[isSecond]">2.总结</p>
               </ion-col>
             </ion-row>
           </ion-grid>
     </div>
   <div *ngIf="isFirst">
-    <div style="background:#fffced;padding:1px">
+    <!--<div style="background:#fffced;padding:1px">
       <p style="font-size:10px;color:#fa7d3e;margin-left:15px;">* 以下信息均为必填项</p>
-    </div>
+    </div>-->
     <ion-item-group>
         <ion-item>
             <ion-label style="color:#2e3133;font-size:14px">表格记录人</ion-label>
@@ -93,17 +93,17 @@
                 <ion-input item-end type="text" text-right [(ngModel)]="visitObject" style="color:#5C6166;font-size:12px;margin-right:-2px" placeholder="请输入姓名"></ion-input>
             </ion-item>
             <ion-item>
-                <ion-label style="color:#2e3133;font-size:14px">客户电话</ion-label>
+                <ion-label style="color:#2e3133;font-size:14px">客户电话</ion-label><ion-label style="font-size:14px;color:#919599">(选填)</ion-label>
                 <ion-input item-end type="tel" text-right [(ngModel)]="visitPhone" style="color:#5C6166;font-size:12px;margin-right:-2px" placeholder="请输入"></ion-input>
             </ion-item>
             <ion-item>
-                <ion-label style="color:#2e3133;font-size:14px">QQ/Email</ion-label>
+                <ion-label style="color:#2e3133;font-size:14px">QQ/Email</ion-label><ion-label style="font-size:14px;color:#919599">(选填)</ion-label>
                 <ion-input item-end type="text" text-right [(ngModel)]="visitLink" style="color:#5C6166;font-size:12px;margin-right:-2px" placeholder="请输入"></ion-input>
             </ion-item>
-            <ion-item>
+            <!--<ion-item>
                 <ion-label style="color:#2e3133;font-size:14px">客户状态</ion-label>
                 <ion-input item-end type="text" text-right [(ngModel)]="visitState" style="color:#5C6166;font-size:12px;margin-right:-2px" placeholder="请输入"></ion-input>
-            </ion-item>
+            </ion-item>-->
             <ion-item tappable (click)="selectArm()">
                 <ion-label style="color:#2e3133;font-size:14px">拜访目的</ion-label>
                 <ion-note item-end style="color:#1897f2;font-size:12px;">{{visitArm}}</ion-note>
