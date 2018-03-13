@@ -15,12 +15,32 @@ import { Component } from '@angular/core';
   templateUrl: 'prompt.html',
 })
 export class PromptPage {
+  item ;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.item = this.navParams.get("data")
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad PromptPage');
   }
+
+  finish(){
+    this.navCtrl.push("EmployeeDetailPage",{item:this.item})
+  }
+
+
+  addEmployee(){
+    this.navCtrl.push("AddEmployeePage")
+  }
+
+
+  perfectEmployee(){
+    
+  }
+
+
+  
+
 
 }

@@ -1,3 +1,4 @@
+import { EmployeeService } from './../add-employee/EmployeeService';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ContactService} from './contact-persionService'
@@ -16,7 +17,7 @@ declare let cordova: any;
 @Component({
   selector: 'page-contact-person',
   templateUrl: 'contact-person.html',
-  providers:[ContactService]
+  providers:[ContactService,EmployeeService]
 })
 export class ContactPersonPage {
   departmentList;
@@ -28,6 +29,7 @@ export class ContactPersonPage {
   limit;
   offset;
   constructor(public navCtrl: NavController, public navParams: NavParams,public contactService:ContactService,
+    public employeeService:EmployeeService,
     public storage:Storage,public statusbar:StatusBar) {
     this.showAll = "NO";
     this.limit = 20;
@@ -69,6 +71,7 @@ export class ContactPersonPage {
   ionViewWillEnter(){
     this.statusbar.backgroundColorByHexString("#2597ec");
     this.statusbar.styleLightContent();
+  
   }
 
   ionViewDidLoad() {
@@ -76,6 +79,7 @@ export class ContactPersonPage {
   }
 
   clickItem(item){
+
     this.contactService.get_department_detail(item.id).then((res) => {
       if (res.result && res.result.res_code == 1)
         {
@@ -88,8 +92,18 @@ export class ContactPersonPage {
   }
 
   itemSelect(item){
-    this.navCtrl.push('EmployeeDetailPage',{
-      item:item,
+    // this.navCtrl.push('EmployeeDetailPage',{
+    //   item:item,
+    // })
+    this.employeeService.get_employee_info([item.employee_id],false).then(res=>{
+      console.log(res)
+      if (res.result && res.result.res_code == 1)
+      {
+        this.navCtrl.push('EmployeeDetailPage',{
+            item:res.result.res_data[0],
+          })
+
+      }
     })
   }
 
