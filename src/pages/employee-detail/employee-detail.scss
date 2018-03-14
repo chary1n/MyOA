@@ -1,0 +1,45 @@
+page-employee-detail {
+  .test_one {
+    color: black;
+    width: 60px;
+    height: 45px;
+    line-height: 45px;
+    border-bottom: #1897f2 3px solid;
+  }
+  .test_two {
+    color: black;
+    width: 85px;
+    height: 45px;
+    line-height: 45px;
+    border-bottom: #1897f2 3px solid;
+  }
+  .test_three {
+    color: black;
+    width: 60px;
+    height: 45px;
+    line-height: 45px;
+    border-bottom: #1897f2 3px solid;
+  }
+  .right_label {
+    font-size: 70%;
+    text-align: right;
+  }
+  .div_all {
+    padding-left: 16px;
+    padding-top: 6px;
+    overflow: hidden
+  }
+  .div_right {
+    float: right;
+    font-size: 14px;
+    width: 70%;
+    color: #2e3033;
+    margin-top: 2px;
+    margin-left: 20px;
+  }
+  .div_left {
+    color: #bbc2cc;
+    font-size: 14px;
+    width: 30%;
+  }
+}

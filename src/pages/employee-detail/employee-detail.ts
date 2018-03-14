@@ -1,61 +1,77 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams ,AlertController,ToastController,Platform} from 'ionic-angular';
-import { ContactService} from './../contact-persionService'
-import { CallNumber } from '@ionic-native/call-number';
-import { Utils } from './../../../providers/Utils';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { Utils } from './../../providers/Utils';
+import { AlertController } from 'ionic-angular/components/alert/alert-controller';
+import { WebIntent } from '@ionic-native/web-intent';
 import { AppAvailability } from '@ionic-native/app-availability';
-import { WebIntent } from "@ionic-native/web-intent";
+import { CallNumber } from '@ionic-native/call-number';
+import { ContactService } from './../contact-person/contact-persionService';
+import { Component } from '@angular/core';
+import { IonicPage, NavController, NavParams, ToastController, Platform } from 'ionic-angular';
 declare let startApp: any;
 
 /**
  * Generated class for the EmployeeDetailPage page.
  *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
  */
-// @IonicPage()
+@IonicPage()
 @Component({
   selector: 'page-employee-detail',
   templateUrl: 'employee-detail.html',
-  providers:[ContactService,CallNumber,AppAvailability,WebIntent],
+  providers: [ContactService, CallNumber, AppAvailability, WebIntent],
 })
 export class EmployeeDetailPage {
-  item:any;
-  constructor(public navCtrl: NavController, public navParams: NavParams,public callNumber:CallNumber,
-  public alertCtrl:AlertController,public toast:ToastController,private appAvailability: AppAvailability,
-    public platform: Platform,private webintent: WebIntent) {
-      this.item = navParams.get('item');
+  show_type = "one"
+  item: any;
+  constructor(public navCtrl: NavController, public navParams: NavParams
+    ,
+    public callNumber: CallNumber,
+    public alertCtrl: AlertController, public toast: ToastController, private appAvailability: AppAvailability,
+    public platform: Platform, private webintent: WebIntent) {
+    this.item = '';
+    this.item = this.navParams.get("item")
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad EmployeeDetailPage');
   }
 
+
+  click_one() {
+    this.show_type = "one";
+  }
+
+  click_two() {
+    this.show_type = "two";
+  }
+  click_three() {
+    this.show_type = "three";
+  }
+
+
   callPhone() {
     //  alert(this.items.phone);
-     if(this.item.mobile_phone != 'false' && this.item.mobile_phone != '')
-     {
-        let confirm = this.alertCtrl.create({  
-      title: this.item.mobile_phone,  
-      buttons: [  
-        {  
-          text: '取消',  
-          handler: () => {  
-          }  
-        },  
-        {  
-          text: '确定',  
-          handler: () => {  
-            this.call(this.item.mobile_phone);
-          }
-        }]
+    if (this.item.mobile_phone != 'false' && this.item.mobile_phone != '') {
+      let confirm = this.alertCtrl.create({
+        title: this.item.mobile_phone,
+        buttons: [
+          {
+            text: '取消',
+            handler: () => {
+            }
+          },
+          {
+            text: '确定',
+            handler: () => {
+              this.call(this.item.mobile_phone);
+            }
+          }]
       }).present();
-     }
-     else
-     {
-        Utils.toastButtom("该员工未填写手机号", this.toast)
-     }
+    }
+    else {
+      Utils.toastButtom("该员工未填写手机号", this.toast)
+    }
   }
 
 
@@ -84,7 +100,7 @@ export class EmployeeDetailPage {
       }, function (error) { /* fail */
         alert("请先下载阿里邮箱");
       });
-      return ;
+      return;
     }
     let ctrl = this.alertCtrl;
 
