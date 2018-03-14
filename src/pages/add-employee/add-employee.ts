@@ -8,6 +8,7 @@ import { Component } from '@angular/core';
 import { EmployeeService } from './EmployeeService';
 import { GongDanService } from '../work-bench/gongdan/gongdanService';
 import { ToastController } from 'ionic-angular';
+import { dateDataSortValue } from 'ionic-angular/util/datetime-util';
 
 /**
  * Generated class for the AddEmployeePage page.
@@ -26,11 +27,11 @@ export class AddEmployeePage {
 
   name;
   english_name;
-  sexList = [{ name: '男', id: 'male' }, { name: '女', id: 'female' },{name :'其他',id:'other'}]
+  sexList = [{ name: '男', id: 'male' }, { name: '女', id: 'female' }]
   gender;
   marriageList = [{ name: '未婚', id: 'single' }, { name: '已婚', id: 'married' }, { name: '离异', id: 'divorced' }, { name: '丧偶', id: 'widower' },]
   marital;
-  work_phone;
+  mobile_phone;
   identification_id;
   birthday;
   minzuList;
@@ -44,6 +45,8 @@ export class AddEmployeePage {
   imgPhotoPositive; imgPhotoNeagtive;
   department_id;
   entry_date;
+  isDeletePicture = false;
+  deletePicture;
 
   constructor(public navCtrl: NavController,
     public nativeService: NativeService,
@@ -62,6 +65,24 @@ export class AddEmployeePage {
         this.departmentList = res.result.res_data.all_departments.res_data
       }
     })
+    this.entry_date = Utils.dateFormat(new Date(), 'yyyy-MM-dd')
+
+  }
+
+  ionViewWillEnter() {
+    this.isDeletePicture = this.navParams.get('isDeletePicture')
+    if (this.isDeletePicture) {
+      this.navParams.data.isDeletePicture = false;
+      if (this.photoType == "photoPositive") {
+        this.imgPhotoPositive = ""
+      } else if (this.photoType == "photoNeagtive") {
+        this.imgPhotoNeagtive = ""
+      } else if (this.photoType == "photoBank") {
+        this.imgPhotoBank = ""
+      } else if (this.photoType == "photoZhengshu") {
+        this.zhengshuImgList.splice(this.zhengshuImgList.indexOf(this.deletePicture), 1)
+      }
+    }
   }
 
   ionViewDidLoad() {
@@ -91,6 +112,28 @@ export class AddEmployeePage {
     this.addImg();
     this.photoType = "photoZhengshu";
   }
+
+
+  clickPositivePicture(item) {
+    this.photoType = "photoPositive";
+    this.clickPicture(item)
+  }
+
+  clickNeagtivePicture(item) {
+    this.photoType = "photoNeagtive";
+    this.clickPicture(item)
+  }
+
+  clickBankPicture(item) {
+    this.photoType = "photoBank";
+    this.clickPicture(item)
+  }
+
+  clickZhengshuPicture(item) {
+    this.photoType = "photoZhengshu";
+    this.clickPicture(item)
+  }
+
 
 
 
@@ -147,7 +190,7 @@ export class AddEmployeePage {
     if (this.photoType == "photoZhengshu") {
       console.log(img_url)
       this.zhengshuImgList.push(img_url)
-      this.pushzhengshuImgList.push(img_url.split(",")[1])
+      // this.pushzhengshuImgList.push(img_url.split(",")[1])
     } else if (this.photoType == "photoPositive") {
       this.imgPhotoPositive = img_url
     } else if (this.photoType == "photoNeagtive") {
@@ -170,7 +213,7 @@ export class AddEmployeePage {
     if (!this.gender) {
       mString = mString + "   请选择性别"
     }
-    if (!this.work_phone) {
+    if (!this.mobile_phone) {
       mString = mString + "   请输入办公手机"
     }
     if (!this.department_id) {
@@ -180,24 +223,29 @@ export class AddEmployeePage {
       Utils.toastButtom(mString, this.toastCtrl)
     } else {
       let departments;
-       let data = {
-        name : this.name,
-        english_name:this.english_name,
-        nation:this.nation,
-        gender:this.gender,
-        birthday:this.birthday,
+      let data = {
+        name: this.name,
+        english_name: this.english_name,
+        nation: this.nation,
+        gender: this.gender,
+        birthday: this.birthday,
         identification_id: this.identification_id,
-        marital:this.marital,
-        work_phone:this.work_phone,
-        department_id:this.department_id,
-        entry_date:this.entry_date,
-        identification_A:this.imgPhotoPositive,
-        identification_B:this.imgPhotoNeagtive,
-        bank_card:this.imgPhotoBank,
-        certificate_image_ids:this.pushzhengshuImgList,
+        marital: this.marital,
+        mobile_phone: this.mobile_phone,
+        department_id: this.department_id,
+        entry_date: this.entry_date,
+        identification_A: this.imgPhotoPositive,
+        identification_B: this.imgPhotoNeagtive,
+        bank_card: this.imgPhotoBank,
+        certificate_image_ids: this.zhengshuImgList,
       }
-      this.navCtrl.push('CreateAccountPage', { data: data})
+      this.navCtrl.push('CreateAccountPage', { data: data })
     }
+  }
+
+  clickPicture(item) {
+    this.deletePicture = item
+    this.navCtrl.push("DeletePicturePage", { item: item, AddEmployeePage: "AddEmployeePage" })
   }
 
 

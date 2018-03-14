@@ -58,7 +58,7 @@ export class CreateAccountPage {
 
 
   next(){
-    if(this.checkOpen){
+    if(this.chooseOpen){
       if(!this.email){
         Utils.toastButtom("请输入邮箱", this.toastCtrl)
         return ;

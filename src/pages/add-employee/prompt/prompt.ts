@@ -36,7 +36,9 @@ export class PromptPage {
 
 
   perfectEmployee(){
-    
+    this.navCtrl.push("EmployeeDetailPage",{item:this.item,isModify:true
+})
+
   }
 
 

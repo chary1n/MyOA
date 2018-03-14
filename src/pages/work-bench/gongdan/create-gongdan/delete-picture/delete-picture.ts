@@ -18,31 +18,35 @@ import { StatusBar } from '@ionic-native/status-bar';
 })
 export class DeletePicturePage {
   item;
-  frontPage ;
+  frontPage;
   need_back_chat
   need_back_retry
-  constructor(public navCtrl: NavController, public navParams: NavParams,public statusbar:StatusBar) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public statusbar: StatusBar) {
     this.need_back_chat = this.navParams.get('need_back_chat')
     this.need_back_retry = this.navParams.get('need_back_retry')
-    if (this.need_back_chat){
-        this.frontPage = Utils.getViewController("GongdanNewChatPage", navCtrl)
+    if (this.need_back_chat) {
+      this.frontPage = Utils.getViewController("GongdanNewChatPage", navCtrl)
     }
-    else
-    {
-      if (this.need_back_retry){
+    else {
+      if (this.need_back_retry) {
         this.frontPage = Utils.getViewController("RebackGongdanPage", navCtrl)
       }
-      else
-      {
+      else {
         this.frontPage = Utils.getViewController("CreateGongdanPage", navCtrl)
       }
+    }
+
+    if (this.navParams.get('AddEmployeePage')) {
+      this.frontPage = Utils.getViewController("AddEmployeePage", navCtrl)
+    } else if (this.navParams.get('EmployeeDetailPage')) {
+      this.frontPage = Utils.getViewController("EmployeeDetailPage", navCtrl)
     }
 
     this.item = this.navParams.get("item")
   }
 
   ionViewWillEnter() {
-     this.statusbar.backgroundColorByHexString("#2597ec");
+    this.statusbar.backgroundColorByHexString("#2597ec");
     this.statusbar.styleLightContent();
   }
 
@@ -50,7 +54,7 @@ export class DeletePicturePage {
     console.log('ionViewDidLoad DeletePicturePage');
   }
 
-  delete(){
+  delete() {
     this.frontPage.data.isDeletePicture = true
     this.navCtrl.popTo(this.frontPage)
   }

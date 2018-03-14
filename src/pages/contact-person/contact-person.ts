@@ -101,6 +101,9 @@ export class ContactPersonPage {
       {
         this.navCtrl.push('EmployeeDetailPage',{
             item:res.result.res_data[0],
+            origin_data:res.result.res_data[0],
+            id:item.employee_id ,
+            user_id:item.id,
           })
 
       }

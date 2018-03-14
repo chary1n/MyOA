@@ -27,7 +27,7 @@ export class EmployeeService {
 
     create_employee(data){
         let body = JSON.stringify(data);
-        return this.httpservice.postBodyNoLoading("create_employee", body);
+        return this.httpservice.postBody("create_employee", body);
     }
 
     get_employee_info(id_list,is_all){
@@ -38,6 +38,9 @@ export class EmployeeService {
         return this.httpservice.postBody("get_employee_info", body);
     }
 
-
+    update_employee(data){
+        let body = JSON.stringify(data);
+        return this.httpservice.postBody("update_employee", body);
+    }
 
 }
