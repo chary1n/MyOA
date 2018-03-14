@@ -1,3 +1,166 @@
 page-kaoqin {
+    .textcolor1 {
+        color: #1897f2;
+        font-size:10px;
+        line-height:1px;
+        margin-top:6px;
+    }
 
+    .textcolor_normal {
+        color: #8c8c8c;
+        font-size:10px;
+        line-height:1px;
+        margin-top:6px;
+    }
+
+    .test_one{
+        color:white;
+        width:60px;
+        height: 30px;
+        line-height: 30px;
+        font-size: 14px;
+        opacity: 0.75;
+    }
+    .test_choose{
+        color:white;
+        width:60px;
+        height: 30px;
+        line-height: 30px;
+        font-size:16px;
+    }
+
+    .img_message_ava{
+        width: 30px;
+        height:30px;
+        border-radius: 15px;
+        margin-top:15px;
+        margin-left: -10px;
+    }
+
+    .name_message{
+        margin-top:12px;
+        line-height: 40px;
+        margin-left: -20px;
+        color:#8a9299;
+        font-size: 15px;
+    }
+
+    .li_class{
+        color:#f0f2f5;
+        font-size:19px;
+        height:60px
+    }
+
+    .time_li_class{
+        color:black;
+        font-size:21px;
+        height:20px;
+        display:inline-block;
+        float:left;
+        margin-top:2px;
+    }
+
+    .time_type_li_class{
+        color:black;
+        font-size:13px;
+        background:#c2c7cc;
+        color:white;
+        margin-left:5px;
+        width:35px;
+        display:inline-block;
+        text-align:center;
+        border-radius:3px;
+        line-height:18px;
+    }
+
+    .time_company_class{
+        text-align:left;
+        color:#c2c7cc;
+        font-size:15px;
+        margin-top:5px;
+        display:block;
+    }
+
+    .divClass{
+    width: 0px;
+    position: absolute;
+    left: 24px;
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
+    overflow: hidden;
+    border-left: 1px solid #f0f0f8;
+    height: auto;
+    margin-top:0px;
+
+}
+
+    .buttom_divider{
+    position:absolute;
+        bottom:180px;
+        overflow:hidden;
+        width:100%; 
+        height:10px;
+        background: #f0f2f5;  
+}
+.buttom_div{
+         position:absolute; 
+         bottom:0px; 
+        /* overflow:hidden; */
+        width:100%;
+         height:170px; 
+        background: white;
+         /* display:flex;
+         flex-wrap:wrap;  */
+}
+    .left_circle{
+  background:#2599ef;
+  color:white;
+  float:left;
+  width:120px;
+  height:120px;
+  margin-left:calc(25% - 60px);
+  border-radius:50%;
+  align-items:center;
+  display:flex;
+  justify-content:center;
+  box-shadow: 1px 3px 10px #b2dfff;
+  font-size: 16px;
+}
+
+.right_circle{
+  background:#27b8d7;
+  color:white;
+  float:right;
+  width:120px;
+  height:120px;
+  margin-right:calc(25% - 60px);
+  border-radius:50%;
+  align-items:center;
+  display:flex;
+  justify-content:center;
+  box-shadow: 1px 3px 10px #bae4f0;
+  font-size: 16px;
+}
+    .text_class{
+  /* text-align:center; */
+  width:100%;
+  font-size:12px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  color:gray;
+  /* margin-top:7px; */
+}
+
+.header_class{
+   position:absolute;
+        bottom:180px;
+        top:41px;
+  background:white;
+  width:100%;
+  overflow:scroll;
+  
+}
+    
 }
