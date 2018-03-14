@@ -94,8 +94,7 @@ export class EditInformationPage {
 
   getPicture(type) {//1拍照,0从图库选择
     let options = {
-      targetWidth: 256,
-      targetHeight: 256
+      allowEdit: false,
     };
     if (type == 1) {
       this.nativeService.getPictureByCamera(options).subscribe(img_url => {
@@ -112,15 +111,13 @@ export class EditInformationPage {
     this.isChange = true;
     this.user_heard = img_url;
     this.editInformationService.pushHeardImage(img_url.split(",")[1])
-      .then(
-      res => {
-        this.storage.get('user').then(userBean => {
-         userBean.result.res_data.user_ava = res.result.res_data.user_ava
-         return userBean
-        })
-          .then(userBean => {
+      .then(res => {
+        if (res.result && res.result.res_code == 1) {
+          this.storage.get('user').then(userBean => {
+            userBean.result.res_data.user_ava = res.result.res_data.user_ava
             this.storage.set('user', userBean)
           })
+        }
       })
   }
 

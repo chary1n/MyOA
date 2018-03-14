@@ -6,7 +6,7 @@
 -->
 <ion-header>
 
-  <ion-navbar>
+  <ion-navbar color="gongdan-color">
     <ion-title>入库确认</ion-title>
   </ion-navbar>
 
@@ -14,23 +14,11 @@
 
 
 <ion-content draggable="true" (on-drag)="swipeEvent($event)">
+    <ion-auto-complete style="width: 100vw;" (itemSelected)="itemSelected($event)" [dataProvider]="incomingAuto"></ion-auto-complete>
     <ion-refresher (ionRefresh)="doRefresh($event)">
       <ion-refresher-content></ion-refresher-content>
     </ion-refresher>
-
     <ion-list draggable="true" on-drag="swipeEvent($event)">
-      <ion-grid>
-        <ion-row>
-          <ion-col col-6>
-            <div>
-              <ion-input [(ngModel)]="searchName" placeholder="输入单号"  text-wrap style="margin-left:20px;;"></ion-input>
-            </div>
-          </ion-col>
-          <ion-col>
-            <div><button (click)='searchClick()' class="searchFont">搜索</button></div>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
     <ion-item  *ngFor='let item of items' tappable (click) = 'incoming_detail(item)'>
       <p style="font-size:100%;float:right;color:#fc6621;">采购确认</p>
       <h2 style="font-size:75%;font-weight:bold;font-size:75%;">{{item.name}}</h2>
@@ -42,8 +30,6 @@
       <p style="font-size:70%">欠单于：{{item.back_order_id}}</p>
     </ion-item>
   </ion-list>
-
-
     
     <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
       <ion-infinite-scroll-content></ion-infinite-scroll-content>

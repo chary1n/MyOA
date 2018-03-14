@@ -1,0 +1,38 @@
+page-baojia-detail {
+    .first_label {
+        font-size: 85%;
+        font-weight: bold;
+      }
+      .right_label {
+        font-size: 70%;
+        text-align: right;
+      }
+      .div_all {
+        padding-left: 16px;
+        padding-top: 16px;
+        overflow: hidden
+      }
+      .div_right {
+        float:right;
+        width: 70%;
+        color: #8b8b8b;
+        margin-top: 2px;
+        margin-left: 20px;
+      }
+      .div_left {
+        width: 30%;
+      }
+      .span_x {
+        color: #8b8b8b;
+        font-size: 80%;
+        width: 30%
+      }
+      .div_label {
+        background: #f2f2f2;
+        padding-left: 16px;
+        padding-top: 8px;
+        padding-bottom: 8px;
+        margin-bottom: 0px;
+        margin-right: 0px
+      }
+}

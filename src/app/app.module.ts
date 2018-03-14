@@ -26,6 +26,7 @@ import { MyApp } from './app.component';
 import{WebIntent} from '@ionic-native/web-intent';
 
 
+
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login'
 
@@ -39,7 +40,9 @@ import { IonicStorageModule } from '@ionic/storage';
 import { MsgPage } from './../pages/msg/msg';
 import { DatePicker } from '@ionic-native/date-picker';
 import { SupplierListPage } from '../pages/work-bench/supplier-list/supplier-list'
+import {IonicImageViewerModule} from 'ionic-img-viewer'
 // import { AutocompleteServiceProvider } from '../providers/autocomplete-service/autocomplete-service';
+// import { BLE } from '@ionic-native/ble';
 
 @NgModule({
   declarations: [
@@ -47,10 +50,14 @@ import { SupplierListPage } from '../pages/work-bench/supplier-list/supplier-lis
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp,{
+       backButtonText: '',
+    }),
     HttpModule,
     IonicStorageModule.forRoot(),
     TreeModule,
+    IonicImageViewerModule
+    
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -76,6 +83,7 @@ import { SupplierListPage } from '../pages/work-bench/supplier-list/supplier-lis
     Utils,
     BarcodeScanner,
     DatePicker,
+    // BLE,
   ]
 })
 export class AppModule { }

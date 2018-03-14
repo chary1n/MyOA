@@ -6,7 +6,7 @@
 -->
 <ion-header>
 
-  <ion-navbar>
+  <ion-navbar color="gongdan-color">
     <ion-title>{{items.name}}</ion-title>
   </ion-navbar>
 
@@ -172,13 +172,16 @@
 
   <ion-item-group *ngIf = "show_type == 'three'" style="background-color:#f2f2f2">
     <ion-item *ngFor='let item of items.message_ids' no-lines style="margin-top:10px;">
-      <img style="width:15px;margin-top:-15px;" item-start src="assets/img/edit_message.png">
+      <img style="width:5;" item-start src="">
       <p style="float:right;margin-top:3px;">{{item.date | date:'yyyy-MM-dd HH:mm:ss'}}</p>
       <p style="font-size:15px;color:black;">{{item.create_uid[0].name}}</p>
-     <div style="width:200px;">
+     <!--<ion-item class="div_test" style="width:200px;">-->
        <!--<ion-label text-wrap>{{item.body}}</ion-label>-->
-        <p style="margin-top:3px;">{{item.body}}</p>
-     </div>
+      <p text-wrap style="margin-top:3px;width:100%;">{{item.body}}</p>
+        <!--{{item.body}}-->
+      
+        <!--<javascript >{{item.body}}</javascript>-->
+     <!--</ion-item>-->
       <!--<javascript >{{item.body}}</javascript>-->
     </ion-item>
   </ion-item-group>

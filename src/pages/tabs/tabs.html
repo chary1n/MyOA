@@ -1,6 +1,6 @@
-<ion-tabs #mainTabs>
-  <ion-tab [root]='msgRoot' tabTitle='消息' tabIcon ='chatbubbles' tabsHideOnSubPages></ion-tab>
-  <ion-tab [root]='workRoot' tabTitle='工作台' tabIcon ='laptop' tabsHideOnSubPages></ion-tab>
-  <ion-tab [root]='contactRoot' tabTitle='联系人' tabIcon ='keypad' tabsHideOnSubPages></ion-tab>
-  <ion-tab [root]='meRoot' tabTitle='我'  tabIcon ='person' tabsHideOnSubPages></ion-tab>
+<ion-tabs #mainTabs >
+  <ion-tab  [root]='msgRoot' show={{need_show_gongdan}} tabTitle='工单' tabIcon ='ionic' tabsHideOnSubPages></ion-tab>
+  <ion-tab  [root]='workRoot' tabTitle='工作台' tabIcon ='apps' tabsHideOnSubPages></ion-tab>
+  <ion-tab  [root]='contactRoot' tabTitle='联系人' tabIcon ='contacts' tabsHideOnSubPages></ion-tab>
+  <ion-tab  [root]='meRoot' tabTitle='我'  tabIcon ='person' tabsHideOnSubPages></ion-tab>
 </ion-tabs>

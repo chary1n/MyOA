@@ -1,3 +1,4 @@
+import { AutoCompleteModule } from 'ionic2-auto-complete';
 import { CreateInvoicePage } from './sales-detail/create-invoice/create-invoice';
 import { CustomerListPage } from './create-quotes/customer-list/customer-list';
 import { SalesInfoPage } from './create-quotes/improve-quotation/sales-info/sales-info';
@@ -21,7 +22,7 @@ import { IonicPageModule } from 'ionic-angular';
     // ,CustomerListPage,CreateInvoicePage
   ],
   imports: [
-    IonicPageModule.forChild(SalesOrderPage),
+    IonicPageModule.forChild(SalesOrderPage),AutoCompleteModule
   ],
   entryComponents:[
   //   SalesDetailPage,PopoverPage,DeliveryPage,CreateQuotesPage,ImproveQuotationPage

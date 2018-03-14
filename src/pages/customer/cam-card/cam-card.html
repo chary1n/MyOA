@@ -5,75 +5,80 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-  
-  <ion-navbar>
+
+  <ion-navbar color="gongdan-color">
     <ion-title>通讯录</ion-title>
     <ion-buttons end>
       <button style="color:black;" ion-button icon-only tappable (click)="skipToScan()">
-          <ion-icon name="camera"></ion-icon>
+        <ion-icon name="camera"></ion-icon>
       </button>
       <button style="color:black;" ion-button icon-only tappable (click)="refreshContact()">
-         <p>刷新</p>
+        <p>刷新</p>
       </button>
-    </ion-buttons> 
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
 
-
+<div id="indexs-bar" #IndexedMenu>
+  <div class="index-bar" tappable   (click)="clickA(i)" *ngFor="let item of formatContacts;let i = index">
+    {{item.key.toUpperCase()}}
+  </div>
+</div>
 <ion-content>
-  <ion-item-group *ngFor="let group of formatContacts;let g = index">  
-     <ion-item-divider color="light" id="'contact-'+{{group.key}}" class="contacts-group">{{group.key.toUpperCase()}}</ion-item-divider>  
-            <ion-item style="height:60px" *ngFor="let item of group.value;let i = index ">  
-                   <ion-grid>
-                    <ion-row>
-                       <ion-col col-2 style="width:40px;height:40px;">
-                         <ion-item>
-                           <ion-checkbox tappable style="margin-left:-10px;margin-top:20px;" (click) = "insertUserToArray(item)"  [checked]="isCheck(item) ? true : false"></ion-checkbox>
-                         </ion-item>
-                        </ion-col>
-                      <ion-col col-10 tappable (click)="calling(item,g,i)">
-                        <ion-item>
-                          <ion-avatar item-start>
-                            <img src="assets/img/avatar.jpg">
-                          </ion-avatar>
-                          <p style="float:right;margin-top:20px;">去编辑 ></p>
-                           <h2>{{item.displayName}}</h2>  
-                           <p>{{item.phoneNumber}}</p>
-                           
-                           <!--<ion-label>去编辑 ></ion-label>-->
-                        </ion-item>
-              
-                      </ion-col>
-                    </ion-row>
-                  </ion-grid>
-            </ion-item>          
-  </ion-item-group>     
+
+  <ion-item-group *ngFor="let group of formatContacts;let g = index">
+    <ion-item-divider color="light" id="'contact-'+{{group.key}}" class="contacts-group">{{group.key.toUpperCase()}}</ion-item-divider>
+    <ion-item style="height:60px" *ngFor="let item of group.value;let i = index ">
+      <ion-grid>
+        <ion-row>
+          <ion-col col-2 style="width:40px;height:40px;">
+            <ion-item>
+              <ion-checkbox tappable style="margin-left:-10px;margin-top:20px;" (click)="insertUserToArray(item)" [checked]="isCheck(item) ? true : false"></ion-checkbox>
+            </ion-item>
+          </ion-col>
+          <ion-col col-10 tappable (click)="calling(item,g,i)">
+            <ion-item>
+              <ion-avatar item-start>
+                <img src="assets/img/avatar.jpg">
+              </ion-avatar>
+              <p style="float:right;margin-top:20px;">去编辑 ></p>
+              <h2>{{item.displayName}}</h2>
+              <p>{{item.phoneNumber}}</p>
+
+              <!--<ion-label>去编辑 ></ion-label>-->
+            </ion-item>
+
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  </ion-item-group>
 </ion-content>
 
 <ion-footer style="height:46px;">
-    <ion-grid style="background-color:#f4f4f4">
-                    <ion-row>
-                       <ion-col>
-                         <ion-item  style="background-color:#f4f4f4" no-lines>
-                           <ion-label style="margin-top:-5px;">全选
-                           </ion-label>
-                           <ion-checkbox style="margin-top:-8px;" checked="false" (ionChange)="changeAll()" [checked]="isCheckAll() ? true : false"></ion-checkbox>
-                         </ion-item>
-                        </ion-col>
-                      <ion-col>
-                        <ion-item style="background-color:#f4f4f4" no-lines>
-                           <ion-label style="margin-top:-5px;">
-                             已选：{{chooseCount}}
-                           </ion-label>
-                        </ion-item>
-                      </ion-col>
-                      <ion-col>
-                         <button *ngIf="isChangeColor=='ONE'" style="float:right;margin-top:-2px;"  ion-button ion-start (click) = "uploadCard()" small >导入</button>
-                         <button *ngIf="isChangeColor=='MORE'" style="float:right;margin-top:-2px;"  ion-button ion-start (click) = "uploadCard()" small >批量导入</button>
-                         <button *ngIf="isChangeColor=='NO'" style="float:right;margin-top:-2px;color:white;background-color:gray"  ion-button ion-start (click) = "uploadCard()" small >请选择</button>
-                      </ion-col>
-                    </ion-row>
-                  </ion-grid>
+  <ion-grid style="background-color:#f4f4f4">
+    <ion-row>
+      <ion-col>
+        <ion-item style="background-color:#f4f4f4" no-lines>
+          <ion-label style="margin-top:-5px;">全选
+          </ion-label>
+          <ion-checkbox style="margin-top:-8px;" checked="false" (ionChange)="changeAll()" [checked]="isCheckAll() ? true : false"></ion-checkbox>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-item style="background-color:#f4f4f4" no-lines>
+          <ion-label style="margin-top:-5px;">
+            已选：{{chooseCount}}
+          </ion-label>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <button *ngIf="isChangeColor=='ONE'" style="float:right;margin-top:-2px;" ion-button ion-start (click)="uploadCard()" small>导入</button>
+        <button *ngIf="isChangeColor=='MORE'" style="float:right;margin-top:-2px;" ion-button ion-start (click)="uploadCard()" small>批量导入</button>
+        <button *ngIf="isChangeColor=='NO'" style="float:right;margin-top:-2px;color:white;background-color:gray" ion-button ion-start
+          (click)="uploadCard()" small>请选择</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-footer>
-

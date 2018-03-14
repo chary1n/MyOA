@@ -6,7 +6,7 @@
 -->
 <ion-header>
 
-  <ion-navbar>
+  <ion-navbar color="gongdan-color">
     <ion-title>{{item.name}}</ion-title>
   </ion-navbar>
 
@@ -14,68 +14,55 @@
 
 
 <ion-content>
-  <ion-item-group >
-    <ion-item-divider color="light"></ion-item-divider>
-    <ion-item>
-      <ion-label style="font-size:85%;font-weight:bold">合作伙伴</ion-label>
-      <ion-label text-wrap item-end style="font-size:65%;text-align:right;">{{item.parnter_id}}</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label  style="font-size:85%;font-weight:bold">源位置区域</ion-label>
-      <ion-label item-end style="font-size:65%;text-align:right;">{{item.location_id}}</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label style="font-size:85%;font-weight:bold">快递单号</ion-label>
-      <ion-label item-end style="font-size:65%;text-align:right;">{{item.tracking_number}}</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label style="font-size:85%;font-weight:bold">加急</ion-label>
-      <ion-label item-end style="font-size:65%;text-align:right;">{{item.emergency}}</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label style="font-size:85%;font-weight:bold">安排的日期</ion-label>
-      <ion-label item-end style="font-size:65%;text-align:right;">{{item.min_date}}</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label style="font-size:85%;font-weight:bold">源单据</ion-label>
-      <ion-label item-end style="font-size:65%;text-align:right;">{{item.origin}}</ion-label>
-    </ion-item>
-      <ion-item>
+  <ion-item-group>
+    <div class="div_all">
+      <div text-wrap class="div_right"> {{item.parnter_id}} </div>
+      <div class="left_label,div_left"> 合作伙伴 </div>
+    </div>
+
+    <div class="div_all">
+      <div text-wrap class="div_right"> {{item.location_id}} </div>
+      <div class="left_label,div_left"> 源位置区域 </div>
+    </div>
+
+    <div class="div_all">
+      <div text-wrap class="div_right"> {{item.tracking_number}} </div>
+      <div class="left_label,div_left"> 快递单号 </div>
+    </div>
+
+    <div class="div_all">
+      <div text-wrap class="div_right"> {{item.emergency}} </div>
+      <div class="left_label,div_left"> 加急 </div>
+    </div>
+
+    <div class="div_all">
+      <div text-wrap class="div_right"> {{item.min_date}} </div>
+      <div class="left_label,div_left"> 安排的日期 </div>
+    </div>
+
+    <div class="div_all">
+      <div text-wrap class="div_right"> {{item.origin}} </div>
+      <div class="left_label,div_left"> 源单据 </div>
+    </div>
+
+    <!-- <ion-item>
       <ion-label style="font-size:85%;font-weight:bold">状态</ion-label>
       <ion-label item-end style="font-size:65%;text-align:right;">{{item.state}}</ion-label>
-    </ion-item>
+    </ion-item> -->
   </ion-item-group>
-  
-  <ion-item-group *ngFor='let item_detail of item.pack_operation_product_ids;'>
-      <ion-item-divider color="light" *ngIf="item_detail.pack_id != -1"></ion-item-divider>
 
+  <ion-label   style="background:#f2f2f2;padding-left:16px;padding-top:8px;padding-bottom:8px"> 产品明细</ion-label>
 
-<ion-grid style="border-bottom: 1px solid lightgray;" *ngIf="item_detail.pack_id != -1">
-  
-    <ion-row style="height:44px;">
-      
-      <ion-col col-auto>
-         <!-- <ion-label style="color:darkgray">产品{{i}}</ion-label>  -->
-      </ion-col>
-      <ion-col>
-        <ion-label text-wrap>{{item_detail.product_id.name}}</ion-label>
-      </ion-col>
-    </ion-row>
-    
-</ion-grid>
-      <ion-item style="margin-top:10px" no-lines *ngIf="item_detail.pack_id != -1">
-        <ion-label item-start style="font-size:75%">位置：{{item_detail.to_location}}</ion-label>
-        <ion-label item-end style="font-size:75%">完成：{{item_detail.qty_done}}</ion-label>
-      </ion-item>
-      <ion-item no-lines *ngIf="item_detail.pack_id != -1" > 
-        <ion-label item-start style="font-size:75%">待入库：{{item_detail.product_qty}}</ion-label>
-        <ion-label item-end style="font-size:75%;color :red">不良品：{{item_detail.rejects_qty}}</ion-label>
-      </ion-item>
-  </ion-item-group>
+  <ion-item-group *ngFor='let item_detail of item.pack_operation_product_ids;let i = index'>
+     <div *ngIf="item_detail.pack_id != -1" padding>
+      <div style="font-size:80%"> {{i+1}}.{{item_detail.product_id.name}}</div>
+        <span class="span_x" col-3>待入库：{{item_detail.product_qty}}</span>
+        <span class="span_x" col-3>完成：{{item_detail.qty_done}}</span>
+        <span class="span_x" col-3>不良品：<span style="color:red"> {{item_detail.rejects_qty}} </span></span>
+    </div>
+</ion-item-group>  
 </ion-content>
 
-<ion-footer  *ngIf='!isPop' >
-  <ion-toolbar>
-    <button ion-button full tappable (click)='toInspectionPage()'>查看品检结果</button>
-  </ion-toolbar>
+<ion-footer *ngIf='!isPop' style="background:white">
+    <button ion-button full tappable round (click)='toInspectionPage()'>查看品检结果</button>
 </ion-footer>

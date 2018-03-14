@@ -1,0 +1,59 @@
+<!--
+  Generated template for the ProductDetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="gongdan-color">
+    <ion-title>详情</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content >
+  <div >
+    <ion-item class="div_all"  (click)="pushToDetail()">
+      <div text-wrap class="div_right" style="color:#04aaf4"> {{item.name}} </div>
+      <div class="left_label,div_left" style="color:#04aaf4;margin-top:0px" text-right> 产品 </div>
+    </ion-item>
+
+    <div class="div_all">
+      <div text-wrap class="div_right"> {{item.specs}} </div>
+      <div class="left_label,div_left" text-right> 规格 </div>
+    </div>
+
+    <div class="div_all">
+      <div text-wrap class="div_right"> {{item.product_qty}} </div>
+      <div class="left_label,div_left" text-right> 订购数量 </div>
+    </div>
+
+    <div class="div_all">
+      <div text-wrap class="div_right"> {{item.qty_received}} </div>
+      <div class="left_label,div_left" text-right> 已接收数量 </div>
+    </div>
+
+    <div class="div_all">
+      <div text-wrap class="div_right"> {{item.qty_invoiced}} </div>
+      <div class="left_label,div_left" text-right> 开单数量 </div>
+    </div>
+
+    <div class="div_all">
+      <div text-wrap class="div_right"> {{item.product_uom}} </div>
+      <div class="left_label,div_left" text-right> 计量单位 </div>
+    </div>
+
+    <div class="div_all">
+      <div text-wrap class="div_right"> {{item.price_unit}} </div>
+      <div class="left_label,div_left" text-right> 单价 </div>
+    </div>
+
+    <div class="div_all">
+      <div text-wrap class="div_right"> {{item.price_subtotal}} </div>
+      <div class="left_label,div_left" text-right>小计 </div>
+    </div>
+
+  </div>
+</ion-content>

@@ -1,0 +1,31 @@
+<!--
+  Generated template for the NewStockMovePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="gongdan-color">
+    <ion-title>库存移动</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <ion-list *ngIf="item">
+    <ion-item *ngFor="let items of item">
+      <button *ngIf="items.move_order_type" ion-button style="background-color:white;color:#55c4f5;border-color:#55c4f5;border-width:1px;border-style:solid;margin-left:10px;" small>{{getType(items)}}</button>
+      <p style="float:right;color:red;margin-top:6px;">{{getState(items)}}</p>
+      <p *ngIf="items.move_order_type" style="font-size:15px;color:black;float:left;margin-top:7px;">{{items.write_uid}}</p>
+      <p *ngIf="!items.move_order_type" style="font-size:15px;color:black;margin-top:7px;">{{items.write_uid}}</p>
+      <p></p>
+      <p style="float:right;margin-right:70px;margin-top:1px">{{getChuku(items)}}</p>
+      <p style="margin-top:3px;">{{getFirst(items)}}</p>
+      <p style="float:right;margin-right:70px;margin-top:1px">{{getKucun(items)}}</p>
+      <p >{{getSecond(items)}}</p>
+      <p text-wrap style="width:100%">{{getThird(items)}}</p>
+    </ion-item>
+  </ion-list>
+</ion-content>

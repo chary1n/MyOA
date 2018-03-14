@@ -1,7 +1,7 @@
 import {Tabs} from "ionic-angular";
 import { Component,ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
+import { Storage } from '@ionic/storage';
 /**
  * Generated class for the TabsPage page.
  *
@@ -16,15 +16,35 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 export class TabsPage {
   @ViewChild('mainTabs') tabs:Tabs;
   meRoot :any ='MePage';
-  msgRoot:any = 'MsgPage';
+  msgRoot:any = 'GongdanPage';
   workRoot :any = 'WorkBenchPage';
   contactRoot  = 'ContactPersonPage';
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  need_show_gongdan = "false"
+  need_show_all = false
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+  public storage:Storage) {
+    this.storage.get('user')
+      .then(res => {
+        if ((new RegExp("若态").test(res.result.res_data.company)) || res.result.res_data.company == "若态"){
+            this.need_show_gongdan = "true"
+           if (this.need_show_gongdan == "true"){
+              this.tabs.select(0); 
+            }
+            else
+            {
+              this.tabs.select(1); 
+            }
+          }
+          else
+          {
+          }
+      })
   }
 
   ionViewDidLoad() {
-   this.tabs.select(0);     
+    
+   
+  //  this.navCtrl.parent.select(1);   
   }
 
 }

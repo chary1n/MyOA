@@ -9,5 +9,6 @@ export class ArRequestOptions extends BaseRequestOptions {
     this.X_Auth_Token = localStorage.getItem("xAuthToken");
     console.log("执行到这了")
     this.headers.append('x-auth-token',this.X_Auth_Token);
+    
   }
 }

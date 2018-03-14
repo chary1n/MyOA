@@ -1,6 +1,86 @@
 page-login {
   .total_color {
-    background-color: rgb(69 , 161, 219);
+    background-color:white;
   }
+
+  .div_background{
+    background-image: url('../assets/img/bg.png');
+  }
+
+
+  .img_select1{
+    src: url('assets/img/jiangsuruotai.png');
+  }
+
+  .img_unselect1{
+    src: url('assets/img/jiangsuruotai_clicked.png');
+  }
+
+  .img_unselect{
+    width: 60px;
+    height: 60px ;
+
+  }
+
+  .img_select{
+    width:60px;
+    height: 60px ;
   
+  }
+
+  .p_text{
+    float: right;
+    color:#cccccc;
+    margin-left: 20px
+  }
+
+
+
+  .textcolor_normal{
+    color:#cccccc;
+  }
+
+  .textcolor1{
+    color: #ff3100
+  }
+  .textcolor2{
+    color: #fdc400
+  }
+  .textcolor3{
+    color: #1897f2
+  }
+  .textcolor4{
+    color: #b27224
+  }
+
+  .backgroundcolor1{
+    background: #ff3100;
+    border-color:#ff3100;
+  }
+  .backgroundcolor2{
+    background: #fdc400;
+    border-color:#fdc400;
+  }
+  .backgroundcolor3{
+    background: #1897f2;
+    border-color:#1897f2;
+  }
+  .backgroundcolor4{
+    background: #b27224;
+    border-color:#b27224;
+  }
+
+
+  .background-color1{
+    color:danger
+  }
+  .background-color2{
+    background-color: #fdc400!important
+  }
+  .background-color3{
+    background-color: #1897f2!important
+  }
+  .background-color4{
+    background-color: #b27224!important
+  }
 }

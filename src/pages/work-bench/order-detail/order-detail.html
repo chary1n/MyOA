@@ -6,7 +6,7 @@
 -->
 <ion-header>
 
-  <ion-navbar>
+  <ion-navbar color="gongdan-color">
     <ion-title>{{item.name}}</ion-title>
     <ion-buttons end>
       <button ion-button icon-only tappable (click)="presentPopover($event)">
@@ -19,62 +19,85 @@
 
 
 <ion-content>
-  <ion-item-group>
-    <!-- <ion-item-divider class="divider" color="light"></ion-item-divider> -->
-    <ion-item>
-      <ion-label class="left_label">供应商</ion-label>
-      <ion-label class="right_label" style="text-align:right" item-end>{{item.supplier}}</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label class="left_label">单据日期</ion-label>
-      <ion-label class="right_label" style="text-align:right" item-end>{{item.data_order}}</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label class="left_label">交期</ion-label>
-      <ion-label class="right_label" style="text-align:right" item-end>{{item.date_planned}}</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label class="left_label">税率</ion-label>
-      <ion-label item-end class="right_label" style="color:#55c4f5;text-align:right">{{item.tax.tax_id}}</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label class="left_label">币种</ion-label>
-      <ion-label item-end class="right_label" style="color:#55c4f5;text-align:right">{{item.currency.currency_name}}</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label class="left_label">未含税金额</ion-label>
-      <ion-label item-end class="right_label" style="text-align:right">{{item.amount_untaxed}}</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label class="left_label">税金</ion-label>
-      <ion-label item-end class="right_label" style="text-align:right">{{item.amount_tax}}</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label class="left_label">总计</ion-label>
-      <ion-label item-end class="right_label" style="text-align:right">{{item.amount_total}}</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label class="left_label">总数量</ion-label>
-      <ion-label item-end class="right_label" style="text-align:right">{{item.product_count}}</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label class="left_label">备注信息</ion-label>
-      <ion-label text-wrap item-end class="right_label" style="text-align:right">{{item.notes}}</ion-label>
-    </ion-item>
 
-  </ion-item-group>
+  <div style="margin-top:10px">
+    <div class="div_all">
+      <div text-wrap class="div_right"> {{item.supplier}} </div>
+      <div class="left_label,div_left" text-right> 供应商 </div>
+    </div>
 
-  <ion-item-divider class="divider" color="light"></ion-item-divider>
+    <div class="div_all">
+      <div text-wrap class="div_right"> {{item.data_order}} </div>
+      <div class="left_label,div_left" text-right> 单据日期 </div>
+    </div>
+
+    <div class="div_all">
+      <div text-wrap class="div_right"> {{item.date_planned}} </div>
+      <div class="left_label,div_left" text-right> 交期 </div>
+    </div>
+
+    <div class="div_all">
+      <div text-wrap class="div_right"> {{item.tax.tax_id}} </div>
+      <div class="left_label,div_left" text-right> 税率 </div>
+    </div>
+
+    <div class="div_all">
+      <div text-wrap class="div_right"> {{item.currency.currency_name}} </div>
+      <div class="left_label,div_left" text-right> 币种 </div>
+    </div>
+
+    <div class="div_all">
+      <div text-wrap class="div_right"> {{item.amount_untaxed}} </div>
+      <div class="left_label,div_left" text-right> 未含税金额 </div>
+    </div>
+
+    <div class="div_all">
+      <div text-wrap class="div_right"> {{item.amount_tax}} </div>
+      <div class="left_label,div_left" text-right> 税金 </div>
+    </div>
+
+    <div class="div_all">
+      <div text-wrap class="div_right"> <span style="color:#e0540e">{{item.amount_total}}</span> </div>
+      <div class="left_label,div_left" text-right> 总计 </div>
+    </div>
+
+
+    <div class="div_all">
+      <div text-wrap class="div_right"> {{item.product_count}} </div>
+      <div class="left_label,div_left" text-right> 总数量 </div>
+    </div>
+
+    <div class="div_all">
+      <div text-wrap class="div_right"> {{item.notes}} </div>
+      <div class="left_label,div_left" text-right> 备注信息 </div>
+    </div>
+  </div>
+    <ion-label class="div_label"> 产品明细</ion-label>
   <ion-list>
-    <ion-item *ngFor='let detail of item.order_lines;let i  = index'>
-      <p text-wrap>产品 {{i+1}} {{detail.name}}</p>
+    <ion-item *ngFor='let detail of item.order_lines;let i  = index' (click)="toProductDetail(detail)">
+      <!-- <p text-wrap>产品 {{i+1}} {{detail.name}}</p>
       <h2 text-wrap> 规格 {{detail.specs}}</h2>
       <h4 text-wrap>交期 {{item.date_planned}}</h4>
       <p>订购： {{detail.product_qty}} * ￥ {{detail.price_unit}}</p>
       <p>计量单位 {{detail.product_uom}}</p>
       <p *ngIf="showNumber" style="float:right;color:#1e1e1e;font-weight:bold;font-size:70%;">已接收 {{detail.qty_received}} * ￥ {{detail.price_unit}}</p>
       <p *ngIf="showNumber" style="float:right">开单数量 : {{detail.qty_invoiced}} * ￥ {{detail.price_unit}}</p>
-      <p>小计 {{detail.price_subtotal}}</p>
+      <p>小计 {{detail.price_subtotal}}</p> -->
+      <h3 text-wrap>产品 {{i+1}} {{detail.name}}</h3>
+      <div>
+      <progress value={{detail.shipping_rate?detail.shipping_rate:1}}  max="100" ></progress>
+      <p style="float:right;margin-right:20px">单价:{{detail.price_unit}}</p>
+      </div>
+      <div>
+          <p style="float:right;margin-right:20px">开单数量:{{detail.qty_invoiced}}</p>
+        <p>已接收/订购： {{detail.qty_received}} /{{detail.product_qty}}</p>
+      </div>
     </ion-item>
   </ion-list>
 </ion-content>
+
+<ion-footer style="background:#f0f2f5" *ngIf="is_manager" >
+  <button ion-button tappable style='width:70%;margin-left:15%'   round (click)="approve()">
+    批准订单
+  </button>
+</ion-footer>

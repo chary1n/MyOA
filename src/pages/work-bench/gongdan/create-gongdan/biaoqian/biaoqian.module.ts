@@ -1,0 +1,14 @@
+import { NgModule } from '@angular/core';
+import { IonicPageModule } from 'ionic-angular';
+import { BiaoqianPage } from './biaoqian';
+import { AutoCompleteModule } from 'ionic2-auto-complete';
+
+@NgModule({
+  declarations: [
+    BiaoqianPage,
+  ],
+  imports: [
+    IonicPageModule.forChild(BiaoqianPage),AutoCompleteModule
+  ],
+})
+export class BiaoqianPageModule {}

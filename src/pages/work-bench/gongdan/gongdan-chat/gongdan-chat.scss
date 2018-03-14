@@ -1,0 +1,22 @@
+page-gongdan-chat {
+    .buttom_div{
+        // position:absolute;
+        // bottom:0px;
+        // overflow:hidden;
+        width:100%;
+        height:200px;
+        background: white;
+        border-top: 1px #f0f2f5 solid;
+    }
+    .middle_item{
+        width: 85%;
+        margin-left: 10%;
+        margin-top: 6px;
+        // height:auto;
+        border-radius:5px;
+    }
+    .scroll_class{
+        overflow:scroll;
+        // margin-top:2px;
+    }
+}

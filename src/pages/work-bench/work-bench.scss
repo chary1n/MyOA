@@ -34,4 +34,37 @@ page-work-bench {
     height: 10px;
     width: 100%;
   }
+  .red-point-one:after {
+    position: absolute;
+    content: attr(data-attr);
+    height: 20px;
+    width: 20px;
+    border-radius: 10px;
+    background-color: red;
+    margin-top: -60px;
+    line-height: 20px;
+    color: white;
+  }
+  .red-point-two:after {
+    position: absolute;
+    content: attr(data-attr);
+    height: 20px;
+    width: 20px;
+    border-radius: 10px;
+    background-color: red;
+    margin-top: -60px;
+    line-height: 20px;
+    color: white;
+  }
+  .red-point-three:after {
+    position: absolute;
+    content: attr(data-attr);
+    height: 20px;
+    width: 20px;
+    border-radius: 10px;
+    background-color: red;
+    margin-top: -60px;
+    line-height: 20px;
+    color: white;
+  }
 }

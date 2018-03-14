@@ -1,0 +1,40 @@
+page-at-me-list {
+    .imgHeard{
+        border-radius: 15px;
+        width: 30px;
+        height: 30px;
+    }
+
+    .col_font{
+        text-align: left;
+        font-size: 110%;
+        color: #999999
+    }
+
+    .font_x{
+        font-size: 110%;
+        color: #999999;
+        margin-top: 5px;
+    }
+
+
+    .title_class_style{
+        font-size: 17px;
+        width:70%;
+        display: inline-block;
+        white-space: nowrap;
+        vertical-align: bottom;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        line-height: 1.2;
+    }
+
+
+    .noRead{
+        color: black;
+    }
+
+    .isRead{
+        color:#8a9299;
+    }
+}

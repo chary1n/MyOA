@@ -21,8 +21,8 @@ export class ProductionSearchPage {
 
   searchName: any
   isMoreData = true
-  limit: any
-  offset: any
+  limit=  20 ;
+  offset =  0 ;
   items: any
   mAddProductionPage: any
 
@@ -59,12 +59,13 @@ export class ProductionSearchPage {
 
 
   doInfinite(infiniteScroll) {
+    let self = this ;
     if (this.isMoreData == true) {
-      this.limit = 20;
-      this.offset = this.offset + 20;
-      this.salesSearvice.getProducts(this.offset, this.limit).then((res) => {
-        console.log(this.offset)
-        console.log(this.limit)
+      self.limit = 20;
+      self.offset = self.offset + 20;
+      this.salesSearvice.getProducts(self.offset, self.limit).then((res) => {
+        console.log(self.offset)
+        console.log(self.limit)
         let item_data = [];
         if (res.result.res_data) {
           item_data = res.result.res_data;

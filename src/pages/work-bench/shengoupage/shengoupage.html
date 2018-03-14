@@ -1,0 +1,90 @@
+<!--
+  Generated template for the ShengoupagePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="gongdan-color">
+    <ion-title>申购</ion-title>
+  </ion-navbar>
+
+  <ion-toolbar no-border-top>
+    <ion-segment [(ngModel)]="pet"> 
+      <ion-segment-button tappable (click)='clickMyApply()' value="1">
+        我的申购
+      </ion-segment-button>
+      <ion-segment-button tappable (click)='clickWaitMeApply()' value="2">
+        待我审批({{wait_approval_count}})
+      </ion-segment-button>
+      <ion-segment-button tappable (click)='clickAlreadyApply()' value="3">
+        我已审批
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content style="background:#f0f0f0">
+  <ion-auto-complete style="width: 93vw;margin-left:4vw" (itemSelected) = "itemSelected($event)"  [dataProvider]="shenGouAutoService"></ion-auto-complete>
+
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+  <div [ngSwitch]="pet" >
+
+    <ng-template [ngSwitchCase]='1'>
+       <ion-list>
+        <ion-item *ngFor='let item of myApplyList' tappable (click)='shengou_detail(item)'>
+          <!--<h3 text-wrap>{{item.employee_name}}</h3>-->
+          <p text-wrap style="font-size:70%;float:right;color:gray;">{{changeDate(item.create_date) | date:'yyyy-MM-dd HH:mm:ss'}}</p>
+          <h4 text-wrap style="font-size:90%;">{{item.name}}</h4>
+          <p text-wrap style="font-size:70%;float:right;color:red;font-weight:bold"> {{changeState(item.state)}} </p>
+          <p text-wrap style="font-size:80%;color:gray">金额总计(元)：{{item.total_amount}} </p>
+          <p text-wrap style="font-size:80%;color:gray">部门：{{item.department.name}} </p>
+        </ion-item>
+      </ion-list>
+          
+    </ng-template>
+
+    <ng-template [ngSwitchCase]='2'>
+      <ion-list>
+        <ion-item *ngFor='let item of wait_me_audit_list' tappable (click)='wait_audit_detail(item)'>
+          <h3 text-wrap>{{item.employee}}</h3>
+          <p text-wrap style="font-size:70%;float:right;color:gray;">{{item.apply_date}}</p>
+          <h4 text-wrap style="font-size:80%;">{{item.name}}</h4>
+          <p text-wrap style="font-size:70%;float:right;color:red;font-weight:bold"> {{changeState(item.state)}} </p>
+          <p text-wrap style="font-size:80%;color:gray">金额总计(元)：{{item.total_amount}} </p>
+          <p text-wrap style="font-size:80%;color:gray">部门：{{item.department}} </p>
+        </ion-item>
+      </ion-list>          
+    </ng-template>
+
+
+    <ng-template [ngSwitchCase]='3'>
+      <ion-list>
+      <ion-item *ngFor='let item of audited_list' tappable (click)='audited_detail(item)'>
+        <h3 text-wrap>{{item.employee}}</h3>
+        <p text-wrap style="font-size:70%;float:right;color:gray;">{{item.apply_date}}</p>
+        <h4 text-wrap style="font-size:80%;">{{item.name}}</h4>
+        <p text-wrap style="font-size:70%;float:right;color:red;font-weight:bold"> {{changeState(item.state)}} </p>
+        <p text-wrap style="font-size:80%;color:gray">金额总计(元)：{{item.total_amount}} </p>
+        <p text-wrap style="font-size:80%;color:gray">部门：{{item.department}} </p>
+      </ion-item>
+    </ion-list>        
+  </ng-template>
+
+
+  </div>
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+</ion-content>
+
+<ion-footer *ngIf = "pet == '1'">
+  <button  ion-button full (click)="createApply()">
+  我要申请
+  </button>
+</ion-footer>    

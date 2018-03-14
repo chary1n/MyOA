@@ -6,14 +6,14 @@
 -->
 <ion-header>
 
-  <ion-navbar>
+  <ion-navbar color="gongdan-color">
     <ion-title>{{res_data.name}}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content   style="background:#f0f0f0">
+<ion-content style="background:#f0f0f0">
   <ion-item>
     <ion-label class="left_label">申请人</ion-label>
     <ion-label item-end class="right_label">{{res_data.employee}}</ion-label>
@@ -23,6 +23,10 @@
     <ion-label item-end class="right_label">{{res_data.department}}</ion-label>
   </ion-item>
   <ion-item>
+    <ion-label class="left_label">待审核人</ion-label>
+    <ion-label item-end class="right_label">{{res_data.to_approve_name}}</ion-label>
+  </ion-item>
+  <ion-item>
     <ion-label class="left_label">暂支余额</ion-label>
     <ion-label item-end class="right_label">{{res_data.pre_payment_reminding}}</ion-label>
   </ion-item>
@@ -30,46 +34,50 @@
     <ion-label class="total_amount">金额总计（元）：{{res_data.payment}}</ion-label>
   </ion-item>
 
-  <ion-list style="margin-top:10px">
-    <ion-item *ngFor='let item of res_data.expense_line_ids;let i = index'>
-      <div >报销明细{{i+1}}</div>
-      <p text-wrap class="team_p">产品：{{item.name}}</p>
-      <p text-wrap class="team_p">金额：{{item.amount}}</p>
-      <p text-wrap class="team_p">费用说明：{{item.description}}</p>
+  <ion-list style="margin-top:10px" nolines *ngFor='let item of res_data.expense_line_ids;let i = index'>
+    <ion-item>
+      <div class="detail_div">
+        <span style="font-size:80%;color:#00a7f1;float:left;font-weight:bold;margin-top:-2px">● {{item.name}}</span>
+        <span style="float:right;font-size:80%;margin-top:-2px">金额：￥{{item.amount}}</span>
+        <span *ngIf="item.tax" style="font-size:80%;color:gray;float:right;margin-right:20px;margin-top:-2px">税金：{{item.tax}}</span>
+      </div>
+      <p text-wrap style="font-size:80%;color:gray;margin-top:5px;">消费用途：{{item.description}}</p>
+      <p text-wrap style="font-size:80%;color:gray;margin-top:2px;">备注：{{item.remarks}} </p>
     </ion-item>
   </ion-list>
   <div style="margin:10px;">审批记录</div>
   <ion-list>
     <ion-item no-lines *ngFor='let item of res_data.message_ids' class="middle_item">
-        <!--<ion-grid>
-            <ion-row class="rowStyle">
-              <ion-col col-2 class="textCenter">
-                  <img src={{item.create_person_ava}}>
-              </ion-col>
-              <ion-col>
-                <p style="font-size:90%;margin-top:17px;margin-left:-5px;float:right">{{item.create_time}}</p>
-                <p style="margin-top:15px;color:black;font-size:95%">{{item.create_person}}</p>
-                <p *ngIf="item.old_state || item.new_state" style="font-size:95%">{{item.old_state}}=>{{item.new_state}}</p>
-                <p text-wrap style="font-size:95%">{{item.description}}</p>
-              </ion-col>
-            </ion-row>
-          </ion-grid>-->
+      <img style="width:40px;vertical-align:top;float:left;margin-right:10px;border-radius:20px" src={{item.create_person_ava}}>
 
-          <img item-start style="width:40px;" src={{item.create_person_ava}}>
-          <div style="overflow:hidden">
-          <span style="margin-top:3px;color:black;font-size:80%;float:left">{{item.create_person}}</span>
+      <div style="overflow:hidden">
+        <span style="margin-top:3px;color:black;font-size:80%;float:left">{{item.create_person}}</span>
 
-          <span style="font-size:70%;margin-top:5px;margin-left:-5px;float:right">{{item.create_time}}</span>
-          </div>
-          <p *ngIf="item.old_state || item.new_state" style="font-size:80%;">{{item.old_state}}=>{{item.new_state}}</p>
-          <p text-wrap style="font-size:80%;">{{item.description}}</p>
+        <span style="font-size:70%;margin-top:5px;margin-left:-5px;float:right">{{item.create_time}}</span>
+      </div>
+      <p *ngIf="item.old_state || item.new_state" style="font-size:80%;">{{item.old_state}}=>{{item.new_state}}</p>
+      <p text-wrap style="font-size:80%;">{{item.description}}</p>
     </ion-item>
   </ion-list>
-
+    
 </ion-content>
 
 <ion-footer>
-  <button  *ngIf="res_data.state!='cancel'"  ion-button full (click)="callbackApply()">
+  <button *ngIf="res_data.state=='draft' " ion-end style='width:48%' ion-button (click)="submitApply()">
+    提交申请
+  </button>
+  <button *ngIf="res_data.state=='draft'" ion-start style='width:48%' ion-button (click)="callbackApply()">
     撤回申请
   </button>
+
+  <button *ngIf="res_data.state=='cancel'" ion-start full ion-button (click)="edit_apply()">
+    编辑
+  </button>
+
+
+  <button *ngIf="res_data.state!='cancel' && res_data.state!='draft' && res_data.state!='post'&& res_data.state!='done' " ion-start
+    full ion-button (click)="callbackApply()">
+    撤回申请
+  </button>
+
 </ion-footer>

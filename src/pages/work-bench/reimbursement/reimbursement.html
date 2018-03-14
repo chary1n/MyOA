@@ -6,12 +6,12 @@
 -->
 <ion-header>
 
-  <ion-navbar>
+  <ion-navbar color="gongdan-color">
     <ion-title>报销</ion-title>
   </ion-navbar>
 
   <ion-toolbar no-border-top>
-    <ion-segment [(ngModel)]="pet"> 
+    <ion-segment [(ngModel)]="pet">
       <ion-segment-button tappable (click)='clickWaitMeApply()' value="1">
         待我审批
       </ion-segment-button>
@@ -20,21 +20,19 @@
       </ion-segment-button>
     </ion-segment>
   </ion-toolbar>
-  
+
 
 </ion-header>
 
 
 <ion-content>
-  <ion-auto-complete style="width: 100vw;" (itemSelected) = "itemSelected($event)"  [dataProvider]="reimbursementAutoService"></ion-auto-complete>
-
-   <ion-refresher (ionRefresh)="doRefresh($event)">
-      <ion-refresher-content></ion-refresher-content>
-    </ion-refresher>
-  <div [ngSwitch]="pet" style="margin-top:10px;">
-
+  <div [ngSwitch]="pet">
     <ng-template [ngSwitchCase]='1'>
-       <ion-list>
+      <ion-auto-complete style="width: 95vw;margin-left:5vw;" (itemSelected)="itemSelected($event)" [dataProvider]="reimbursementAutoService"></ion-auto-complete>
+      <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+      </ion-refresher>
+      <ion-list>
         <ion-item *ngFor='let item of wait_approval_list' tappable (click)='approval_detail(item)'>
           <h3 text-wrap>{{item.employee_name}}</h3>
           <p text-wrap style="font-size:70%;float:right;color:gray;">{{item.create_date}}</p>
@@ -43,11 +41,18 @@
           <p text-wrap style="font-size:80%;color:gray">金额总计(元)：{{item.amount}} </p>
           <p text-wrap style="font-size:80%;color:gray">部门：{{item.department}} </p>
         </ion-item>
-      </ion-list>        
+      </ion-list>
+      <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+      </ion-infinite-scroll>
     </ng-template>
 
     <ng-template [ngSwitchCase]='2'>
-        <ion-list>
+      <ion-auto-complete style="width: 95vw;margin-left:5vw;" (itemSelected)="itemSelected($event)" [dataProvider]="reimbursementAutoService"></ion-auto-complete>
+      <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+      </ion-refresher>
+      <ion-list>
         <ion-item *ngFor='let item of already_approval_list' tappable (click)='approved_detail(item)'>
           <h3 text-wrap>{{item.employee_name}}</h3>
           <p text-wrap style="font-size:70%;float:right;color:gray;">{{item.create_date}}</p>
@@ -56,10 +61,10 @@
           <p text-wrap style="font-size:80%;color:gray">金额总计(元)：{{item.amount}} </p>
           <p text-wrap style="font-size:80%;color:gray">部门：{{item.department}} </p>
         </ion-item>
-      </ion-list>        
+      </ion-list>
+      <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+      </ion-infinite-scroll>
     </ng-template>
   </div>
-  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
-      <ion-infinite-scroll-content></ion-infinite-scroll-content>
-    </ion-infinite-scroll>
 </ion-content>

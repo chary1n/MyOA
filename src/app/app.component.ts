@@ -14,7 +14,7 @@ import { JPush} from '../providers/JPush'
 import { HttpModule } from "@angular/http";
 import { FirService} from './FirService';
 import {InAppBrowser} from '@ionic-native/in-app-browser';
-
+declare let cordova: any; 
 @Component({
   templateUrl: 'app.html',
   providers: [FirService,JPush]
@@ -30,16 +30,22 @@ export class MyApp {
      
     platform.ready().then(() => {
       this.jpush.initJpush();
+      
       storage.get('user')
       .then(res => {
-       this.user_env = res.result.res_data
+       this.user_env = res.result.res_data;
+       this.jpush.setAlias(res.result.res_data.user_id);
       });
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       statusBar.overlaysWebView(false);
       statusBar.styleDefault();
+      // statusBar.backgroundColorByHexString("#2597ec");
+      // statusBar.styleLightContent();
       statusBar.backgroundColorByHexString('#f8f8f8');
       splashScreen.hide();
+
+      
 
       if (this.platform.is("android")) {
           this.getVersionNumber();
@@ -56,9 +62,7 @@ export class MyApp {
         resolve(value);
         this.version = value;
         console.log(this.version)
-        if (this.platform.is("android")) {
-          this.nativeService.detectionUpgrade(this.version);
-        }
+        this.nativeService.detectionUpgrade(this.version);
       }).catch(err => {
       });
     });
@@ -68,14 +72,15 @@ export class MyApp {
     return new Promise((resolve) => {
       this.appVersion.getVersionNumber().then((value: string) => {
           this.firService.get('fir_ios',1).then(res => {
+            console.log(res)
               if(res.version > value)
               {
                 this.alertCtrl.create({
-                  title: '升级',
-                  subTitle: '发现新版本,是否立即升级？',
-                  buttons: [{ text: '取消' },
+                  title: '发现新版本,是否立即升级？',
+                  subTitle: "更新内容："+res.changelog,
+                  buttons: [{ text: '稍后再说' },
                  {
-                    text: '确定',
+                    text: '立即升级',
                     handler: () => {
                       this.openUrlByBrowser('http://fir.im/MyOa');
                  }

@@ -1,0 +1,92 @@
+<!--
+  Generated template for the KaoqinPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="gongdan-color">
+    <ion-title *ngIf="isWrite">考勤</ion-title>
+    <div align="center" style="height:30px;margin-left:10px" *ngIf="isLook">
+        <div style="width:33%;float:right;text-align:left" [ngClass]="{true:'test_choose',false:'test_one'}[show_type == 'month']" align="center" tappable (click)="click_month()">
+        统计
+        </div>
+        <div style="width:33%;float:right" [ngClass]="{true:'test_choose',false:'test_one'}[show_type == 'day']" align="center" tappable (click)="click_day()">
+        工单池
+        </div>
+        <div style="width:33%;float:left;text-align:right" [ngClass]="{true:'test_choose',false:'test_one'}[show_type == 'me']" align="center" tappable (click)="click_me()">
+        我的
+        </div> 
+    </div>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+  <div *ngIf="isWrite">
+    <ion-item no-lines style="height:40px;min-height:50px;margin-top:-9px;border-bottom: #f0f2f5 1px solid;">
+    <ion-grid style="background:white">
+      <ion-row>
+        <ion-col col-2>
+          <img src={{user_ava}} class="img_message_ava">
+        </ion-col>
+        <ion-col col-7 >
+          <p class="name_message">
+            <span style="color:black">{{user_name}}</span><span style="margin-left:10px"><span>今天已打卡</span><span style="color:#1897f2">1</span><span>次</span></span>
+          </p>
+        </ion-col>
+        <!--<ion-col col-3 tappable (click)="reply_to(items)">
+          <img src="assets/img/work_bench/feedback.png" class="reply_small_icon">
+        </ion-col>-->
+      </ion-row>
+    </ion-grid>
+  </ion-item>
+  <div class="header_class">
+    <div id="divClass" class="divClass">
+    </div>
+    <ul *ngFor="let item of items">
+      <li *ngIf="item.check_out" class="li_class">
+        <span class="time_li_class">{{calcEnd(item)}}</span>
+        <span class="time_type_li_class">下班</span>
+        <span class="time_company_class">江苏若态</span>
+      </li>
+      <li *ngIf="item.check_in" class="li_class">
+        <span class="time_li_class">{{calcStart(item)}}</span>
+        <span class="time_type_li_class">上班</span>
+        <span class="time_company_class">江苏若态</span>
+      </li>
+    </ul>
+  </div>
+  <div class="buttom_divider">
+  </div>
+  <div class='buttom_div'>
+     <div class='text_class'></div> 
+    <div>
+      <div class='left_circle' >上班</div>
+      <div class='right_circle' >下班</div>
+    </div>
+  </div> 
+  </div>
+</ion-content>
+
+<ion-footer>
+    <div style="background:#f8f8f8;height:53px;border-top: 0.55px solid rgba(0, 0, 0, 0.3)">
+<ion-grid>
+    <ion-row style="text-align:center;height:50px">
+      <ion-col col-6 style="display:flex; align-items:center" tappable (click)="chooseWrite()">
+      <div style="margin-left: auto;margin-right: auto;">
+          <img src={{writeImg}} style="width:30px;height:29px;margin-bottom:3px">
+          <p text-wrap [ngClass]="{true:'textcolor1',false:'textcolor_normal'}[isWrite]">打卡</p>
+      </div>
+      </ion-col>
+      <ion-col col-6 style="display:flex; align-items:center" tappable (click)="chooseLook()">
+      <div style="margin-left: auto;margin-right: auto;">
+        <img src={{lookImg}} style="width:30px;height:29px;margin-bottom:3px">
+          <p text-wrap [ngClass]="{true:'textcolor1',false:'textcolor_normal'}[isLook]">统计</p>
+      </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</div>
+</ion-footer>

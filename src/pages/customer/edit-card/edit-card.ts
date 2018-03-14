@@ -333,9 +333,7 @@ export class EditCardPage {
             {
               contact.remove();
               this.camPage.data.need_fresh = true;
-              this.navCtrl.popTo(this.camPage,{
-                need_fresh:true,
-              });
+              this.navCtrl.popTo(this.camPage);
             }
         }
       });  

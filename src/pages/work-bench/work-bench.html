@@ -1,5 +1,10 @@
-<ion-header>
-  <ion-navbar>
+<ion-header no-border>
+  <ion-navbar color="gongdan-color">
+    <ion-buttons left>
+      <button ion-button icon-only>
+        <img style="width:30px" src={{company_type}} />
+      </button>
+    </ion-buttons>
     <ion-title>工作台</ion-title>
   </ion-navbar>
 </ion-header>
@@ -10,66 +15,90 @@
   </div>
   <ion-grid>
     <ion-row>
-      <ion-col col-3>
-        <img src="assets/img/work_bench/qiandao.png">
-        <div>签到</div>
-      </ion-col>
       <ion-col col-3 tappable (click)="apply()">
-        <img src="assets/img/work_bench/shenqing.png">
-        <div>申请</div>
+        <div style="position:relative">
+          <img src="assets/img/work_bench/shenqing.png">
+          <div>报销</div>
+          <span *ngIf="bx_count > 0" style="position:absolute;width:20px;height:20px;border-radius:10px;background-color:red;display:inline-block;color:white;line-height:20px;right:8px;top:-8px;text-align:center;font-size:14px">{{bx_count}}</span>
+        </div>
+
       </ion-col>
-      <ion-col col-3 tappable (click)="reimbursement()">
-        <img src="assets/img/work_bench/shenpi.png">
-        <div>审批</div>
+      <ion-col col-3 tappable (click)="shengou()">
+        <div style="position:relative">
+          <img src="assets/img/work_bench/shenpi.png">
+          <div>申购</div>
+          <span *ngIf="sg_count > 0" style="position:absolute;width:20px;height:20px;border-radius:10px;background-color:red;display:inline-block;color:white;line-height:20px;right:8px;top:-8px;text-align:center;font-size:14px">{{sg_count}}</span>
+        </div>
       </ion-col>
-      <ion-col col-3>
-        <img src="assets/img/work_bench/gonggao.png">
-        <div>公告</div>
+      <ion-col col-3 tappable (click)="zanzhi()">
+        <div style="position:relative">
+          <img src="assets/img/work_bench/zanzhi.png">
+          <div>暂支</div>
+          <span *ngIf="zz_count > 0" style="position:absolute;width:20px;height:20px;border-radius:10px;background-color:red;display:inline-block;color:white;line-height:20px;right:8px;top:-8px;text-align:center;font-size:14px">{{zz_count}}</span>
+        </div>
+      </ion-col>
+      <ion-col col-3 tappable (click)="shareKnowledge()">
+        <img src="assets/img/work_bench/zhishifenxiang.png">
+        <div>知识分享</div>
       </ion-col>
     </ion-row>
+     <ion-row>
+      <ion-col col-3 tappable (click)="kaoqin()">
+        <img src="assets/img/work_bench/gongdan.png">
+        <div>考勤</div>
+      </ion-col>
+  </ion-row> 
   </ion-grid>
   <div class='dividingLine'></div>
 
-<div *ngIf="isShowSale" >
-  <div class="externalDiv">
-    <div class="titleFont">销售</div>
-  </div>
-  <ion-grid>
-    <ion-row>
-      <ion-col col-3>
+  <div *ngIf="isShowSale">
+    <div class="externalDiv">
+      <div class="titleFont">销售</div>
+    </div>
+    <ion-grid>
+      <ion-row>
+        <!--<ion-col col-3>
         <img src="assets/img/work_bench/yibiaopan.png">
         <div>仪表盘</div>
-      </ion-col>
-      <ion-col col-3 tappable (click)="camCard()">
-        <img src="assets/img/work_bench/daorumingpian.png">
-        <div>导入名片</div>
-      </ion-col>
-      <ion-col col-3 tappable (click)="customerSearch()">
-        <img src="assets/img/work_bench/kehu.png">
-        <div>客户</div>
-      </ion-col>
-      <ion-col col-3 tappable (click)="ProductionSearch()">
-        <img src="assets/img/work_bench/chanping.png">
-        <div>产品</div>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col col-3 tappable (click)="salesOrder()">
+      </ion-col>-->
+        <ion-col col-3 tappable (click)="camCard()">
+          <img src="assets/img/work_bench/daorumingpian.png">
+          <div>导入名片</div>
+        </ion-col>
+        <ion-col col-3 tappable (click)="customerSearch()">
+          <img src="assets/img/work_bench/kehu.png">
+          <div>客户</div>
+        </ion-col>
+        <ion-col col-3 tappable (click)="ProductionSearch()">
+          <img src="assets/img/work_bench/chanping.png">
+          <div>产品</div>
+        </ion-col>
+        <ion-col col-3 tappable (click)="salesOrder()">
+          <img src="assets/img/work_bench/dingdan.png">
+          <div>订单</div>
+        </ion-col>
+        <ion-col col-3 tappable (click)="journalSheet()" *ngIf="isShowJournalSheet">
+          <img src="assets/img/work_bench/caiwubaobiao.png">
+          <div>日志报表</div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <!--<ion-col col-3 tappable (click)="salesOrder()">
         <img src="assets/img/work_bench/dingdan.png">
         <div>订单</div>
-      </ion-col>
-      <ion-col col-3>
+      </ion-col>-->
+        <!--<ion-col col-3>
         <img src="assets/img/work_bench/duizhang.png">
         <div>对账</div>
-      </ion-col>
-      <ion-col col-3>
+      </ion-col>-->
+        <!--<ion-col col-3>
         <img src="assets/img/work_bench/tuihuoruku.png">
         <div>退货入库</div>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-  <div class='dividingLine'></div>
-</div>
+      </ion-col>-->
+      </ion-row>
+    </ion-grid>
+    <div class='dividingLine'></div>
+  </div>
 
   <div *ngIf="isShowPurchase">
     <div class="externalDiv">
@@ -77,10 +106,11 @@
     </div>
     <ion-grid>
       <ion-row>
-        <ion-col col-3>
+        
+        <!--<ion-col col-3>
           <img src="assets/img/work_bench/yibiaopan.png">
           <div>仪表盘</div>
-        </ion-col>
+        </ion-col>-->
         <ion-col col-3 tappable (click)="supplierList()">
           <img src="assets/img/work_bench/gongyingshang.png">
           <div>供应商</div>
@@ -93,46 +123,86 @@
           <img src="assets/img/work_bench/dingdan.png">
           <div>订单</div>
         </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col col-3>
-          <img src="assets/img/work_bench/duizhang.png">
-          <div>对账</div>
-        </ion-col>
         <ion-col col-3 tappable (click)="clickInComingWareHouse()">
           <img src="assets/img/work_bench/ruku.png">
-          <div>入库</div>
+          <div>采购确认</div>
         </ion-col>
+        <ion-col *ngIf="isShowPayment" col-3 tappable (click)="clickPayrequest()">
+          <img src="assets/img/work_bench/payment.png">
+          <div>付款审核</div>
+          <span *ngIf="py_count > 0" style="position:absolute;width:20px;height:20px;border-radius:10px;background-color:red;display:inline-block;color:white;line-height:20px;right:12px;top:-4px;text-align:center;font-size:14px">{{py_count}}</span>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <!--<ion-col col-3>
+          <img src="assets/img/work_bench/duizhang.png">
+          <div>对账</div>
+        </ion-col>-->
+        <!--<ion-col col-3 tappable (click)="clickInComingWareHouse()">
+          <img src="assets/img/work_bench/ruku.png">
+          <div>入库</div>
+        </ion-col>-->
       </ion-row>
     </ion-grid>
     <div class='dividingLine'></div>
   </div>
 
-<div *ngIf="isHR" >
-
-
   <div class="externalDiv">
-    <div class="titleFont">人事</div>
+    <div class="titleFont">工程</div>
   </div>
   <ion-grid>
     <ion-row>
-      <ion-col col-3>
-        <img src="assets/img/work_bench/ruzhi.png">
-        <div>入职</div>
+      <ion-col col-3 tappable (click)="material_request()">
+        <img src="assets/img/work_bench/gcll.png">
+        <div>工程领料</div>
       </ion-col>
-      <ion-col col-3>
-        <img src="assets/img/work_bench/yuangong.png">
-        <div>员工</div>
-      </ion-col>
-      <ion-col col-3>
-        <img src="assets/img/work_bench/heyue.png">
-        <div>合约</div>
-      </ion-col>
-      <ion-col col-3>
-        <img src="assets/img/work_bench/lizhidan.png">
-        <div>离职单</div>
+      <ion-col col-3 tappable (click)="change_kucun()" *ngIf="isShowKucun">
+        <img src="assets/img/work_bench/kucunchange.png">
+        <div>库存调整</div>
+        <span *ngIf="kc_count > 0" style="position:absolute;width:20px;height:20px;border-radius:10px;background-color:red;display:inline-block;color:white;line-height:20px;right:12px;top:-4px;text-align:center;font-size:14px">{{kc_count}}</span>
       </ion-col>
     </ion-row>
   </ion-grid>
-</div>
+  <div class='dividingLine'></div>
+
+  <div *ngIf="isHR">
+
+
+    <div class="externalDiv">
+      <div class="titleFont">人事</div>
+    </div>
+    <ion-grid>
+      <ion-row>
+        <ion-col col-3>
+          <img src="assets/img/work_bench/ruzhi.png">
+          <div>入职</div>
+        </ion-col>
+        <ion-col col-3>
+          <img src="assets/img/work_bench/yuangong.png">
+          <div>员工</div>
+        </ion-col>
+        <ion-col col-3>
+          <img src="assets/img/work_bench/heyue.png">
+          <div>合约</div>
+        </ion-col>
+        <ion-col col-3>
+          <img src="assets/img/work_bench/lizhidan.png">
+          <div>离职单</div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <div *ngIf="isShowZiJin">
+    <div class="externalDiv">
+      <div class="titleFont">财务</div>
+    </div>
+    <ion-grid>
+      <ion-row>
+        <ion-col col-3 tappable (click)="baobiao()">
+          <img src="assets/img/work_bench/caiwubaobiao.png">
+          <div>财务报表</div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
 </ion-content>

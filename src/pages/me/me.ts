@@ -4,6 +4,8 @@ import { LoginPage } from './../login/login';
 import { Storage } from '@ionic/storage';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, ModalController, Platform } from 'ionic-angular';
+import { JPush} from '../../providers/JPush'
+import { StatusBar } from '@ionic-native/status-bar';
 
 /**
  * Generated class for the MePage page.
@@ -15,6 +17,7 @@ import { IonicPage, NavController, NavParams, AlertController, ModalController, 
 @Component({
   selector: 'page-me',
   templateUrl: 'me.html',
+  providers:[JPush],
 })
 export class MePage {
   name: string;
@@ -22,11 +25,13 @@ export class MePage {
   company:any;
   job:any;
   versionNumber :any ;
-
+  user_id;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public storage: Storage,
     private alertCtrl: AlertController,
-    private modalctrl:ModalController, public platform :Platform,public appVersion:AppVersion) {
+    private modalctrl:ModalController, public platform :Platform,public appVersion:AppVersion,
+    public jpush: JPush,
+    public statusbar:StatusBar) {
       if (this.platform.is("android")) {
         this.appVersion.getVersionCode().then((value: string) => {
           this.versionNumber = value
@@ -45,6 +50,8 @@ export class MePage {
   }
  ionViewWillEnter(){
   this.initData();
+  this.statusbar.backgroundColorByHexString("#2597ec");
+    this.statusbar.styleLightContent();
  }
 
   initData() {
@@ -81,7 +88,15 @@ export class MePage {
           handler: () => {
             this.storage.set('user', null)
               .then(() => {
-                // this.navCtrl.setRoot(LoginPage);
+                this.storage.get("login").then(res=>{
+                  if(!(res&&res.remerberPassword)){
+                    this.storage.set('user_psd',null)
+                    console.log("密码设置为空")
+                  }
+                })
+                this.statusbar.backgroundColorByHexString("#f0f2f5");
+                this.statusbar.styleLightContent();
+                this.jpush.setAlias(null);
                let modal = this.modalctrl.create(LoginPage);
                 modal.present();
               });

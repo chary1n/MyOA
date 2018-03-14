@@ -25,18 +25,26 @@ export class InspectionDetailPage {
   picture: Array<string>;
   qc_color: any;
   pack: any;
-  mIncomingDetailPage: any;
-  isClick = false ;
+  isClick = false;
+  showFenjian = false ;
+  frontPage ;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private alertCtrl: AlertController,
     private inspectionService: InspectionService, ) {
     this.item = this.navParams.get('item')
     this.initData(this.item)
-    this.mIncomingDetailPage = Utils.getViewController("IncomingDetailPage", navCtrl)
+    this.frontPage = Utils.getViewController("IncomingPage", navCtrl)
   }
   initData(mitem) {
     this.item = mitem
+    let rejectQTY = 0;
+    for (let item of this.item.pack_operation_product_ids) {
+      rejectQTY += item.rejects_qty
+    }
+    if(rejectQTY>0){
+      this.showFenjian = true ;
+    }
     if (this.item.qc_result == 'success') {
       this.qc_result = '品检通过'
     } else if (this.item.qc_result == 'no_result') {
@@ -88,10 +96,11 @@ export class InspectionDetailPage {
     this.inspectionService.requestBack(this.pack, this.item.picking_id)
       .then(res => {
         if (res.result && res.result.res_code == 1) {
-          self.mIncomingDetailPage.data.item = res.result.res_data;
-          this.initData(res.result.res_data );
-          self.mIncomingDetailPage.data.isPop = true;
-          self.navCtrl.popTo(self.mIncomingDetailPage);
+          // self.mIncomingDetailPage.data.item = res.result.res_data;
+          // this.initData(res.result.res_data);
+          // self.mIncomingDetailPage.data.isPop = true;
+          // self.navCtrl.popTo(self.mIncomingDetailPage);
+          this.navCtrl.popTo(this.frontPage)
         }
         console.log(res)
       })
@@ -121,9 +130,9 @@ export class InspectionDetailPage {
     }
     if (rejectQTY > 0) {
       // 有不良品
-      if(!this.isClick){
+      if (!this.isClick) {
         this.contansBadProduct(QTYDone - rejectQTY, rejectQTY, productQTY, QTYDone)
-      }else{
+      } else {
         this.contansBadProduct(QTYDone, rejectQTY, productQTY, QTYDone)
       }
     } else {
@@ -165,8 +174,8 @@ export class InspectionDetailPage {
             this.inspectionService.allIncoming(this.pack, this.item.picking_id)
               .then(res => {
                 if (res.result && res.result.res_code == 1) {
-                  this.initData(res.result.res_data );
-                  this.isClick = true ;
+                  this.initData(res.result.res_data);
+                  this.isClick = true;
                   this.checkIfHaveDebt(productQTY, QTYDone, rejectQTY, true)
                 }
               })
@@ -178,8 +187,8 @@ export class InspectionDetailPage {
             this.inspectionService.onlyGoodProductsIncoming(this.pack, this.item.picking_id)
               .then(res => {
                 if (res.result && res.result.res_code == 1) {
-                  this.initData(res.result.res_data );
-                  this.isClick = true ;
+                  this.initData(res.result.res_data);
+                  this.isClick = true;
                   this.checkIfHaveDebt(productQTY, QTYDone, rejectQTY, false)
                 }
               })
@@ -199,6 +208,8 @@ export class InspectionDetailPage {
     let alert = this.alertCtrl.create({
       title: '请选择入库方式',
       message: "有未完成的数量，是否创建欠单",
+      enableBackdropDismiss :false,
+      
       buttons: [
         {
           text: '创建欠单',
@@ -206,10 +217,11 @@ export class InspectionDetailPage {
             this.inspectionService.createDebtOrder(this.pack, this.item.picking_id)
               .then(res => {
                 if (res.result && res.result.res_code == 1) {
-                  self.mIncomingDetailPage.data.item = res.result.res_data;
-                  this.initData(res.result.res_data );
-                  self.mIncomingDetailPage.data.isPop = true;
-                  self.navCtrl.popTo(self.mIncomingDetailPage);
+                  // self.mIncomingDetailPage.data.item = res.result.res_data;
+                  // this.initData(res.result.res_data);
+                  // self.mIncomingDetailPage.data.isPop = true;
+                  // self.navCtrl.popTo(self.mIncomingDetailPage);
+                  this.navCtrl.popTo(this.frontPage)
                 }
                 console.log(res)
               })
@@ -221,48 +233,110 @@ export class InspectionDetailPage {
             this.inspectionService.noDebtOrder(this.pack, this.item.picking_id)
               .then(res => {
                 if (res.result && res.result.res_code == 1) {
-                  self.mIncomingDetailPage.data.item = res.result.res_data;
-                  this.initData(res.result.res_data );
-                  self.mIncomingDetailPage.data.isPop = true;
-                  self.navCtrl.popTo(self.mIncomingDetailPage);
+                  // self.mIncomingDetailPage.data.item = res.result.res_data;
+                  // this.initData(res.result.res_data);
+                  // self.mIncomingDetailPage.data.isPop = true;
+                  // self.navCtrl.popTo(self.mIncomingDetailPage);
+                  this.navCtrl.popTo(this.frontPage)
                 }
                 console.log(res)
               })
           }
-        },
-        {
-          text: '取消',
-          role: 'cancel',
         }
       ]
     })
     alert.present()
   }
 
+
+  goFenJian() {
+    let self = this
+    let alert = this.alertCtrl.create({
+      title: "提示",
+      subTitle: '确定全部送去分拣?',
+      message: "说明:分拣后将按照分拣结果良品入库,不良品退回",
+      buttons: [
+        {
+          text: '取消',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: '确定',
+          handler: () => {
+            this.inspectionService.goFenjian(this.pack, this.item.picking_id)
+            .then(res => {
+                if (res.result && res.result.res_code == 1) {
+                  this.initData(res.result.res_data);
+                  this.isClick = true;
+                  this.alertCreateDebt()
+              }
+              console.log(res)
+            })
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+
+
+
   alertWaitingIncoming() {
     let self = this
     this.inspectionService.noDebtOrder(this.pack, this.item.picking_id)
-    .then(res => {
-      if (res.result && res.result.res_code == 1) {
-        self.mIncomingDetailPage.data.item = res.result.res_data;
-        this.initData(res.result.res_data );
-        self.mIncomingDetailPage.data.isPop = true;
-        let alert = this.alertCtrl.create({
-          title: '提示',
-          message: "入库调拨成功，等待入库",
-          buttons: [
-            {
-              text: '确定',
-              handler: () => {
-                self.navCtrl.popTo(self.mIncomingDetailPage);
-              }
-            },
-          ]
-        })
-        alert.present()
-      }
-      console.log(res)
-    })
+      .then(res => {
+        if (res.result && res.result.res_code == 1) {
+          // self.mIncomingDetailPage.data.item = res.result.res_data;
+          this.initData(res.result.res_data);
+          // self.mIncomingDetailPage.data.isPop = true;
+          let alert = this.alertCtrl.create({
+            title: '提示',
+            message: "入库调拨成功，等待入库",
+            buttons: [
+              {
+                text: '确定',
+                handler: () => {
+                  // self.navCtrl.popTo(self.mIncomingDetailPage);
+                  this.navCtrl.popTo(this.frontPage)
+                }
+              },
+            ]
+          })
+          alert.present()
+        }
+        console.log(res)
+      })
+  }
+
+
+  alertWaitingFenjian() {
+    let self = this
+    this.inspectionService.noDebtOrder(this.pack, this.item.picking_id)
+      .then(res => {
+        if (res.result && res.result.res_code == 1) {
+          // self.mIncomingDetailPage.data.item = res.result.res_data;
+          this.initData(res.result.res_data);
+          // self.mIncomingDetailPage.data.isPop = true;
+          let alert = this.alertCtrl.create({
+            title: '提示',
+            message: "入库调拨成功，等待分拣",
+            buttons: [
+              {
+                text: '确定',
+                handler: () => {
+                  // self.navCtrl.popTo(self.mIncomingDetailPage);
+                  this.navCtrl.popTo(this.frontPage)
+                }
+              },
+            ]
+          })
+          alert.present()
+        }
+        console.log(res)
+      })
   }
 
 }

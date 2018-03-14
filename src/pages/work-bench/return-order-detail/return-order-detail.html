@@ -6,7 +6,7 @@
 -->
 <ion-header>
 
-  <ion-navbar>
+  <ion-navbar color="gongdan-color">
     <ion-title>{{item.name}}</ion-title>
     <ion-buttons end>
       <button ion-button icon-only tappable (click)="presentPopover($event)">
@@ -18,65 +18,83 @@
 </ion-header>
 
 
-<ion-content padding>
-  <ion-item-group>
-    <!-- <ion-item-divider class="divider" color="light"></ion-item-divider> -->
-    <ion-item>
-      <ion-label class="left_label">供应商</ion-label>
-      <ion-label class="right_label" style="text-align:right;" item-end>{{item.supplier}}</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label class="left_label">开票地址</ion-label>
-      <ion-label class="right_label" style="text-align:right;" item-end>{{item.partner_invoice_add}}</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label class="left_label">退货地址</ion-label>
-      <ion-label class="right_label" style="text-align:right;" item-end>{{item.partner_shipping_add}}</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label class="left_label">参考订单号</ion-label>
-      <ion-label item-end class="right_label" style="color:#55c4f5;text-align:right;">{{item.refer_po}}</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label class="left_label">物流信息</ion-label>
-      <ion-label item-end class="right_label" style="color:#55c4f5;text-align:right;">{{item.tracking_number}}</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label class="left_label">退货原因</ion-label>
-      <ion-label item-end class="right_label" style="text-align:right;">{{item.remark}}</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label class="left_label">退货日期</ion-label>
-      <ion-label item-end class="right_label" style="text-align:right;">{{item.date}}</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label class="left_label">税率</ion-label>
-      <ion-label item-end class="right_label" style="text-align:right;">{{item.tax}}</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label class="left_label">未含税金额</ion-label>
-      <ion-label item-end class="right_label" style="text-align:right;">{{item.amount_untaxed}}</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label class="left_label">税金</ion-label>
-      <ion-label item-end class="right_label" style="text-align:right;">{{item.amount_tax}}</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label class="left_label">总计</ion-label>
-      <ion-label item-end class="right_label" style="text-align:right;">{{item.amount_total}}</ion-label>
-    </ion-item>
-  </ion-item-group>
+<ion-content >
+  <div style="margin-top:10px">
+    <div class="div_all">
+      <div text-wrap class="div_right"> {{item.supplier}} </div>
+      <div class="left_label,div_left" text-right> 供应商 </div>
+    </div>
 
-  <ion-item-divider class="divider" color="light"></ion-item-divider>
+    <div class="div_all">
+      <div text-wrap class="div_right"> {{item.partner_invoice_add}} </div>
+      <div class="left_label,div_left" text-right> 开票地址 </div>
+    </div>
+
+    <div class="div_all">
+      <div text-wrap class="div_right"> {{item.partner_shipping_add}} </div>
+      <div class="left_label,div_left" text-right> 退货地址 </div>
+    </div>
+
+    <div class="div_all">
+      <div text-wrap class="div_right"> {{item.refer_po}} </div>
+      <div class="left_label,div_left" text-right> 参考订单号 </div>
+    </div>
+
+
+    <div class="div_all">
+      <div text-wrap class="div_right"> {{item.tracking_number}} </div>
+      <div class="left_label,div_left" text-right> 物流信息 </div>
+    </div>
+
+    <div class="div_all">
+      <div text-wrap class="div_right"> {{item.remark}} </div>
+      <div class="left_label,div_left" text-right> 退货原因 </div>
+    </div>
+
+    <div class="div_all">
+      <div text-wrap class="div_right"> {{item.date}} </div>
+      <div class="left_label,div_left" text-right> 退货日期 </div>
+    </div>
+
+    <div class="div_all">
+      <div text-wrap class="div_right"> {{item.tax}} </div>
+      <div class="left_label,div_left" text-right> 税率 </div>
+    </div>
+
+    <div class="div_all">
+      <div text-wrap class="div_right"> {{item.amount_untaxed}} </div>
+      <div class="left_label,div_left" text-right> 未含税金额 </div>
+    </div>
+
+    <div class="div_all">
+      <div text-wrap class="div_right"> {{item.amount_tax}} </div>
+      <div class="left_label,div_left" text-right> 税金 </div>
+    </div>
+
+    <div class="div_all">
+      <div text-wrap class="div_right"> {{item.amount_total}} </div>
+      <div class="left_label,div_left" text-right> 总计 </div>
+    </div>
+
+  </div>
+  <ion-label class="div_label"> 产品明细</ion-label>
+
   <ion-list>
-    <ion-item *ngFor='let detail of item.prma_line_products;let i  = index'>
-      <p>退货产品  {{i+1}} {{detail.name}}</p>
-      <p>计量单位  {{detail.uom}}</p>
-      <p>退货   {{detail.product_uom_qty}} * {{detail.price_unit}}</p>
-      <h2> 对账状态  {{detail.invoice_status[1]}}</h2>
-      <p style="float:right;color:#1e1e1e;font-weight:bold;font-size:70%;">收到 : {{detail.qty_delivered}}  * {{detail.price_unit}}</p>
+    <ion-item *ngFor='let detail of item.prma_line_products;let i  = index' (click)="returnProductDetail(detail)">
+      <!-- <p>退货产品 {{i+1}} {{detail.name}}</p>
+      <p>计量单位 {{detail.uom}}</p>
+      <p>退货 {{detail.product_uom_qty}} * {{detail.price_unit}}</p>
+      <h2> 对账状态 {{detail.invoice_status[1]}}</h2>
+      <p style="float:right;color:#1e1e1e;font-weight:bold;font-size:70%;">收到 : {{detail.qty_delivered}} * {{detail.price_unit}}</p>
       <p style="float:right">待对账 : {{detail.qty_to_invoice}} * {{detail.price_unit}}</p>
-      <p>小计 : {{detail.price_subtotal}}</p>
+      <p>小计 : {{detail.price_subtotal}}</p> -->
+
+      <h3 text-wrap>产品 {{i+1}} {{detail.name}}</h3>
+      <!-- <progress value={{detail.shipping_rate?detail.shipping_rate:1}}  max="100" ></progress> -->
+      <div>
+          <p style="float:right;margin-right:20px">待对账数量:{{detail.qty_to_invoice}}</p>
+        <p>退货/收到: {{detail.product_uom_qty}} /{{detail.qty_delivered}}</p>
+      </div>
     </ion-item>
 
   </ion-list>

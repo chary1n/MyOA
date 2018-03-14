@@ -1,0 +1,43 @@
+page-hk-baobiao {
+.left_div{
+        background:white;
+        width:25%;
+        height:50px;
+        float:left;
+
+    }
+    .right_div{
+        background:white;
+        width:75%;
+        height:50px;
+        float:right;
+    }
+    .left_btn{
+        margin-top:21px;
+        margin-left:20px;
+        background:#3fd5c5;
+        width:10px;
+        height:10px;
+        float:left;
+    }
+    .left_p{
+        margin-left:37px;
+        margin-top:18px;
+        font-size:13px;
+        color:gray;
+    }
+    .right_btn{
+        margin-left:13px;
+        margin-top:-3px;
+        background-color:#fec564;
+        width:10px;
+        height:10px;
+        float:left;
+    }
+    .right_p{
+        margin-left:30px;
+        margin-top:-7px;
+        font-size:13px;
+        color:gray;
+    }
+}

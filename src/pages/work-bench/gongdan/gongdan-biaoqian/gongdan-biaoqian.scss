@@ -1,0 +1,22 @@
+page-gongdan-biaoqian {
+    .biaoqian_div_unchoose{
+       background-color:#f0f2f5;
+       color:black;
+       height: 44px;
+       line-height: 44px;
+       border-radius: 5px; 
+       font-size: 1.8vw;
+       white-space: nowrap;
+    //    text-overflow: ellipsis
+    }
+    .biaoqian_div_choose{
+        background-color:#fba958;
+       color:white;
+       height: 44px;
+       line-height: 44px;
+       border-radius: 5px; 
+       font-size: 1.8vw;
+       white-space: nowrap;
+    //    text-overflow: ellipsis
+    }
+}

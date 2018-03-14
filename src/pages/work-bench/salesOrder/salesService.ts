@@ -254,6 +254,17 @@ export class SalesSearvice {
     }
 
 
+    searchSalesOrder(type,search_text,pet){
+        let body = JSON.stringify({
+            type: type,
+            search_text:search_text,
+            pet:pet,
+            user_id:HttpService.user_id
+        });
+        return this.httpservice.postBody("search_sales_order", body);
+    }
+
+
 
 }
 

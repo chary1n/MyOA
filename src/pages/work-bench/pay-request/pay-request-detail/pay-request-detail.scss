@@ -1,0 +1,86 @@
+page-pay-request-detail {
+    .middle_item{
+        width: 100%;
+        margin-left: 0;
+        margin-top: 1px;
+        // height:auto;
+        // border-radius:5px;
+    }
+    .imgHeard{
+        border-radius: 20px;
+        width: 24px;
+        height: 24px;
+        margin-top:10px;
+    }
+
+    .dividingLine {
+        background: rgb(209, 209, 209);
+        height: 1px;
+        width: 100%;
+      }
+
+      .progress-outer {
+        width: 96%;
+        margin: 10px 2%;
+        padding: 3px;
+        text-align: center;
+        background-color: #f4f4f4;
+        border: 1px solid #dcdcdc;
+        color: #fff;
+        border-radius: 20px;
+    }
+ 
+    .progress-inner {
+        min-width: 15%;
+        white-space: nowrap;
+        overflow: hidden;
+        padding: 5px;
+        border-radius: 20px;
+        background-color: map-get($colors, primary);
+    }
+    .left_label{
+        text-align: right;
+        font-size:80%;
+        width:20%
+    }
+    .item_clas{
+        height:25px;
+        min-height:30px;
+        background-color:#f7fafc
+    }
+    .divider_class{
+        height:5px;
+        min-height:5px;
+        background-color:#f7fafc
+    }
+    .divider_header_class{
+        height:5px;
+        min-height:5px;
+        background-color:#f7fafc
+    }
+    .item_clas_remark{
+        height:30px;
+        // min-height:10px;
+        background-color:#f7fafc
+    }
+    .label_class_remark{
+        text-align: right;
+        font-size:80%;
+        width:20%;
+        // position: absolute;
+        // top:0px;
+        // left:0px;
+    }
+    .ios_style{
+        font-size:13px;
+        color:gray;
+        margin-left:10px;
+        margin-top:-20px;
+    }
+    .other_style{
+         font-size:13px;
+        color:gray;
+        margin-left:10px;
+        margin-top:-10px;
+    }
+}

@@ -1,0 +1,133 @@
+<!--
+  Generated template for the GongdanBiaoqianPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar hideBackButton="true" color="gongdan-color">
+    <ion-buttons left>
+      <button ion-button icon-only (click)="goBack()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>工单筛选标签</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)='all_tag()'>
+        所有标签
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+  <ion-content >
+
+    <div style="justify-content:space-around">
+    <span round style='background-color:#f5a623;flex :1 1 100%;height:30px' *ngFor="let item of allSelectList"  ion-button>
+      {{item.name}}
+    </span>
+  </div>
+  <ion-auto-complete style="width: 94vw;margin-left:3vw" (itemSelected) = "itemSelected($event)"  [dataProvider]="biaoQianAutoService"></ion-auto-complete>
+  <div style="background:#e4e5e6;padding:4px;padding-left:10px">
+    品牌
+  </div>
+
+  <ion-list>
+    <ion-item *ngFor="let item of brandList;let i = index">
+      <ion-label> {{item.name}}</ion-label>
+      <ion-checkbox (click)="chooseBrandItem(item)" [checked]=item.ischeck></ion-checkbox>
+    </ion-item>
+  </ion-list>
+
+
+  <div style="background:#e4e5e6;padding:4px;padding-left:10px;">
+    部门
+  </div>
+
+  <ion-list>
+    <ion-item *ngFor="let item of areaList;let i = index">
+      <ion-label> {{item.name}}</ion-label>
+      <ion-checkbox (click)="chooseAreaItem(item)" [checked]=item.ischeck></ion-checkbox>
+    </ion-item>
+  </ion-list>
+
+  <div style="background:#e4e5e6;padding:4px;padding-left:10px;">
+    产品
+  </div>
+
+  <ion-list>
+    <ion-item *ngFor="let item of cateList;let i = index">
+      <ion-label> {{item.name}}</ion-label>
+      <ion-checkbox (click)="chooseCategoryItem(item)" [checked]=item.ischeck></ion-checkbox>
+    </ion-item>
+  </ion-list>
+
+    <!--<div *ngIf="allSelectList.length > 0" style="margin-top:10px;margin-left:15px;color:#616466">
+      已选中
+    </div>
+    <ion-grid *ngIf="allSelectList.length > 0">
+      <ion-row>
+         <ion-col col-4 tappable (click)="clickbrand(item)" *ngFor="let item of allSelectList">
+          <div class="biaoqian_div_choose" align="center">
+            {{item.name}}
+          </div>
+        </ion-col>
+        
+      </ion-row>
+    </ion-grid>
+    <ion-auto-complete style="width: 94vw;margin-left:3vw" (itemSelected) = "itemSelected($event)"  [dataProvider]="biaoQianAutoService" (ionClear)="clearValue(show_clean)"></ion-auto-complete>
+
+    <div style="margin-top:10px;margin-left:15px;color:#616466">
+      品牌
+    </div>
+    <ion-grid>
+      <ion-row>
+         <ion-col col-4 tappable (click)="clickbrand(item)" *ngFor="let item of brandList">
+          <div [ngClass]="{true:'biaoqian_div_choose',false:'biaoqian_div_unchoose'}[isChooseBrand(item)]" align="center">
+            {{item.name}}
+          </div>
+        </ion-col>
+        
+      </ion-row>
+    </ion-grid>
+    <div style="margin-left:15px;color:#616466">
+      区域
+    </div>
+    <ion-grid>
+      <ion-row>
+         <ion-col col-4 tappable (click)="clickarea(item)" *ngFor="let item of areaList">
+          <div [ngClass]="{true:'biaoqian_div_choose',false:'biaoqian_div_unchoose'}[isChooseArea(item)]" align="center">
+            {{item.name}}
+          </div>
+        </ion-col>
+        
+      </ion-row>
+    </ion-grid>
+    <div style="margin-left:15px;color:#616466">
+      产品
+    </div>
+    <ion-grid>
+      <ion-row>
+         <ion-col col-4 tappable (click)="clickcate(item)" *ngFor="let item of cateList">
+          <div [ngClass]="{true:'biaoqian_div_choose',false:'biaoqian_div_unchoose'}[isChooseCate(item)]" align="center">
+            {{item.name}}
+          </div>
+        </ion-col>
+        
+      </ion-row>
+    </ion-grid>-->
+    
+  </ion-content>
+  <ion-footer >
+          <div style="background:white">
+    <span align="center" style='width:50%;float:left; background-color:#fba958;height:44px;line-height:44px;font-size:15px;color:white' tappable (click)="cancel_biaoqian()">
+      重置
+    </span>
+    <span align="center" style='width:50%;float:right;background-color:#1eabfe;height:44px;line-height:44px;font-size:15px;color:white' tappable (click)="confirm_biaoqian()">
+      确定
+    </span>
+  </div>
+</ion-footer>

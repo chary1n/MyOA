@@ -1,0 +1,30 @@
+<!--
+  Generated template for the WuliuDetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="gongdan-color">
+    <ion-title>{{item.name}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <div *ngIf="details.length==0" style="text-align:center"> 
+    没有物流信息
+  </div>
+  <ion-list>
+    <ion-item *ngFor="let detail of details">
+      <div style="margin-top:20px">
+          <div style="text-align:center">
+              {{detail.create_date}}
+            </div>
+            <img  style="margin-top:20px"  src={{detail.local_url}}>
+      </div>
+    </ion-item>
+  </ion-list>
+</ion-content>

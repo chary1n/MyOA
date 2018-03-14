@@ -1,22 +1,28 @@
-import { LoadingController } from 'ionic-angular';
+import { UrlServer } from './UrlServer';
+import { LoadingController ,AlertController} from 'ionic-angular';
 import * as constansts from './Constants';
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
+import { Storage } from '@ionic/storage';
+
 
 
 @Injectable()
 export class HttpService {
-
+  static appUrl ;
+  static user_id ;
+  static user ;
   constructor(private http: Http,private loading :LoadingController,
+    public storage :Storage,public ctrl:AlertController
   ) {
   }
 
   getAppPath(url: string, type: number = 0) {
     if (type == 1) {
-      return constansts.APP_SERVER_URL + constansts.APPSUBPATH + url;
+      return HttpService.appUrl + constansts.APPSUBPATH + url;
     } else {
-      return constansts.APP_SERVER_URL + constansts.OAUBPATH + url;
+      return HttpService.appUrl + constansts.OAUBPATH + url;
     }
   }
 
@@ -60,7 +66,7 @@ export class HttpService {
 
 
   //type 不填是OA,填1是linkloving_app_apu
-  public getNoLoading(url: string, paramObj: any, type: number = 0) {
+  public  getNoLoading(url: string, paramObj: any, type: number = 0) {
     return this.http.get(this.getAppPath(url,type) + this.toQueryString(paramObj))
       .toPromise()
       .then(res => this.handleSuccess(
@@ -127,7 +133,28 @@ export class HttpService {
   }
 
   private handleSuccess(result) {
-    return result;
+    console.log(result)
+    if (result.error)
+    {
+      this.ctrl.create({
+                  title: result.error.data.name,
+                  subTitle: result.error.data.message,
+                  buttons: [{
+                text: '确定',
+                    handler: () => {
+                   
+             }
+             }
+      ]
+    }).present();
+
+      return result;
+    }
+    else
+    {
+      return result;
+    }
+    
   }
 
   private handleError(error: Response | any) {

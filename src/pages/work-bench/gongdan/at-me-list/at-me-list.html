@@ -1,0 +1,76 @@
+<!--
+  Generated template for the AtMeListPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="gongdan-color">
+    <ion-title>我的消息</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content style="background:white">
+  <ion-item-group no-lines style="background:white;">
+    <div *ngFor="let item of gongdanList" (click)="toDetail(item)">
+      <div style="margin-top:10px;margin-bottom:10px;">
+        <img src={{item.create_user.user_ava}} style="width:10px;height:10px;margin-top:5px;margin-left:10px;">
+        <span p style="float:right;margin-right:10px;color:#fba796;font-size:13px;">
+          {{changeState(item.issue_state)}}
+        </span>
+        <span p style="font-size:12px;color:#8a9299;margin-left:5px">
+          {{item.at_me_create_user.name}}
+          <span p style="font-size:12px;color:#8a9299;margin-left:5px">
+            {{(changeDate(item.at_me_time) | date:'yyyy-MM-dd HH:mm')}}
+          </span>
+        </span>
+      </div>
+      <P  *ngIf="item.at_me_type=='reply'" 
+      [ngClass]="{true:'isRead',false:'noRead'}[isReadStyle(item)]"
+      text-wrap style="margin-left:15px;margin-right:15px;font-size:18px;margin-top:3px">
+        {{item.at_me_description}}
+      </P>
+      <P  *ngIf="item.at_me_type!='reply'" 
+      [ngClass]="{true:'isRead',false:'noRead'}[isReadStyle(item)]"
+      text-wrap style="margin-left:15px;margin-right:15px;font-size:18px;margin-top:3px">
+        {{item.at_me_description}} @{{userName}}
+      </P>
+
+      <div style="padding:10px;">
+        <div style="background:#f8f8f8;">
+          <div>
+            <span class="title_class_style" 
+            [ngClass]="{true:'isRead',false:'noRead'}[isReadStyle(item)]"
+             style="margin-left:10px;margin-top:10px; display: inline-block;
+             white-space: nowrap;
+             vertical-align: bottom;
+             overflow: hidden;
+             width:70%;
+             text-overflow: ellipsis;">
+              {{item.title}}
+            </span>
+          </div>
+          <div style="margin-top:5px;margin-bottom:10px;">
+            <img src={{item.create_user.user_ava}} style="width:10px;height:10px;margin-top:5px;margin-left:10px;">
+            <span p style="font-size:12px;color:#8a9299;margin-left:5px">
+              {{item.create_user.name}}
+              <span p style="font-size:12px;color:#8a9299;margin-left:5px">
+                {{(changeDate(item.create_time) | date:'yyyy-MM-dd HH:mm')}}
+              </span>
+            </span>
+          </div>
+          <div style="height:1px;background:white">
+          </div>
+        </div>
+
+      </div>
+      <div style="height:1px;background:#ececec"></div>
+    </div>
+  </ion-item-group>
+  <div align="center" *ngIf="!gongdanList || gongdanList.length == 0">
+      <img style="width:100px;position:absolute;left:calc(50% - 50px);top:calc(50% - 60px)" src="assets/img/nodataimg.png">
+      <p style="width:100px;position:absolute;left:calc(50% - 50px);top:calc(50% + 30px);color:#c2c8cc;font-size:15px">空空如也～</p>
+    </div>
+</ion-content>

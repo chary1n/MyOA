@@ -1,0 +1,32 @@
+<!--
+  Generated template for the JiaohuoListPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="gongdan-color">
+    <ion-title>交货</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content >
+    <ion-list>
+        <ion-item *ngFor='let item of items' tappable (click)='jiaohuoDetail(item)'>
+          <p text-wrap style="float:right;color:#e0540e">{{changeState(item.state)}}</p>
+          <h2 text-wrap>{{item.name}}</h2>
+          <p text-wrap>安排的日期 {{item.min_date}}</p>
+          <p text-wrap>目的位置区域: {{item.location_dest_id}}</p>
+          <p text-wrap>合作伙伴 : {{item.partner_id}}</p>
+          <p text-wrap>源单据:{{item.origin}}</p>
+          <p text-wrap>欠单于:{{item.backorder}}</p>
+          <div style="overflow:hidden">
+            <button ion-button outline round style="float:right">交货详情</button>
+            <button ion-button outline round style="float:right" (click)='viewWuliu(item);$event.stopPropagation();'>查看物流</button>
+          </div>
+        </ion-item>
+      </ion-list>
+</ion-content>

@@ -6,7 +6,7 @@
 -->
 <ion-header>
 
-  <ion-navbar>
+  <ion-navbar color="gongdan-color">
     <ion-title>{{title}}</ion-title>
   </ion-navbar>
 
@@ -20,6 +20,10 @@
       <ion-label text-wrap item-end style="font-size:75%;text-align:right;">{{item.employee_name}}</ion-label>
     </ion-item>
     <ion-item>
+      <ion-label style="font-size:85%;font-weight:bold">待审核人</ion-label>
+      <ion-label text-wrap item-end style="font-size:75%;text-align:right;">{{item.to_approve_id}}</ion-label>
+    </ion-item>
+    <ion-item>
       <ion-label style="font-size:85%;font-weight:bold">部门（费用归属）</ion-label>
       <ion-label item-end style="font-size:75%;text-align:right;">{{item.department}}</ion-label>
     </ion-item>
@@ -28,51 +32,49 @@
       <ion-label item-end style="font-size:75%;text-align:right;">{{item.pre_payment_reminding}}</ion-label>
     </ion-item>
     <ion-item>
-    <ion-label class="total_amount">金额总计（元）：{{item.amount}}</ion-label>
-  </ion-item>
+      <ion-label class="total_amount">金额总计（元）：{{item.amount}}</ion-label>
+    </ion-item>
   </ion-list>
 
-  <ion-item-group >
-    <ion-item *ngFor='let items of item.line_ids'>
-          <h3 text-wrap>报销明细</h3>
-          <p text-wrap style="font-size:80%;color:gray;">产品：{{items.product_id}}</p>
-          <p text-wrap style="font-size:80%;">金额：{{items.unit_amount}}</p>
-          <p text-wrap style="font-size:80%;color:gray">费用说明：{{items.name}} </p>
+  <ion-item-group>
+    <ion-item tappable (click)="changeProductItem(i)" *ngFor='let items of item.line_ids;let i = index' style="margin-top:8px;">
+      <div class="detail_div">
+        <span style="font-size:80%;color:#00a7f1;float:left;font-weight:bold;margin-top:-2px">● {{items.product_id}}</span>
+
+
+        <span style="float:right;font-size:80%;margin-top:-2px">金额：￥{{items.unit_amount}}</span>
+        <span *ngIf="items.tax_ids.length > 0" style="font-size:80%;color:gray;float:right;margin-right:20px;margin-top:-2px">税金：{{getTax(items)}}</span>
+      </div>
+
+      <p text-wrap style="font-size:80%;color:gray;margin-top:5px;">消费用途：{{items.name}}</p>
+      <p text-wrap style="font-size:80%;color:gray;margin-top:2px;">备注：{{items.description}} </p>
     </ion-item>
+    <!--<ion-item-options *ngIf="item.state" side="right">
+          <button ion-button color="primary" (click)="changeProductItem(i)">
+              <ion-icon name="create"></ion-icon>
+              修改
+            </button>
+        </ion-item-options>-->
   </ion-item-group>
 
   <div style="margin:10px;">审批记录</div>
   <ion-list>
     <ion-item no-lines *ngFor='let items of item.message_ids' style="overflow:hidden" class="middle_item">
-        <!--<ion-grid>
-            <ion-row class="rowStyle">
-              <ion-col col-2 class="textCenter">
-                  <img src={{items.create_person_ava}}>
-              </ion-col>
-              <ion-col>
-                <p style="font-size:90%;margin-top:17px;margin-left:-5px;float:right">{{items.create_time}}</p>
-                <p style="margin-top:15px;color:black;font-size:95%">{{items.create_person}}</p>
-                <p *ngIf="items.old_state || items.new_state" style="font-size:95%">{{items.old_state}}=>{{items.new_state}}</p>
-                <p text-wrap style="font-size:95%">{{items.description}}</p>
-              </ion-col>
-            </ion-row>
-          </ion-grid>-->
-          <img item-start style="width:40px;" src={{items.create_person_ava}}>
-          <div style="overflow:hidden">
-          <span style="margin-top:3px;color:black;font-size:80%;float:left">{{items.create_person}}</span>
+      <img style="width:40px;vertical-align:top;float:left;margin-right:10px;border-radius:20px" src={{items.create_person_ava}}>
+      <div style="overflow:hidden">
+        <span style="margin-top:3px;color:black;font-size:80%;float:left">{{items.create_person}}</span>
 
-          <span style="font-size:70%;margin-top:5px;margin-left:-5px;float:right">{{items.create_time}}</span>
-          </div>
-          <p *ngIf="items.old_state || items.new_state" style="font-size:80%;">{{items.old_state}}=>{{items.new_state}}</p>
-          <p text-wrap style="font-size:80%;">{{items.description}}</p>
+        <span style="font-size:70%;margin-top:5px;margin-left:-5px;float:right">{{changeDate(items.create_time) | date:'yyyy-MM-dd HH:mm:ss'}}</span>
+      </div>
+      <p *ngIf="items.old_state || items.new_state" style="font-size:80%;">{{items.old_state}}=>{{items.new_state}}</p>
+      <p text-wrap style="font-size:80%;">{{items.description}}</p>
     </ion-item>
   </ion-list>
-  
+
 </ion-content>
 
 <ion-footer *ngIf="isShowFooter">
-  <ion-toolbar>
-    <button ion-button ion-end  style='width:50%;float:right;background-color:#1eabfe' tappable (click)='conform()' full>通过</button>
-    <button ion-button ion-start  style='width:50%;background-color:red' tappable (click)='cancel()' full>拒绝</button>
-  </ion-toolbar>
+    <button ion-button ion-end round style='width:40%;float:right;margin-right:5%;background-color:#1eabfe' tappable (click)='conform()'
+      full>通过</button>
+    <button ion-button ion-start round style='width:40%;margin-left:5%; background-color:red' tappable (click)='cancel()' full>拒绝</button>
 </ion-footer>

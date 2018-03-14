@@ -6,7 +6,6 @@ import { orderService } from './../../../order/orderService';
   template: `
     <ion-list>
       <button ion-item (click)="close()">联系电话</button>
-      <button ion-item *ngIf="type=='salesOrder'" (click)="clickDelivery()">交货</button>
     </ion-list>
   `,
   providers: [orderService]

@@ -1,0 +1,69 @@
+<!--
+  Generated template for the MaterialRequestDetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="gongdan-color">
+    <ion-title>{{item.name}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content style="background:#f0f0f0">
+  <ion-list>
+    <!--<ion-item>
+        <img item-start style="width:40px;float:left" src="{{item.user_ava}}">
+      <span style="margin-top:50px">{{item.my_create_uid.name}}</span>
+      <span style="float:right;color:#de5622;font-size:13px;">{{changeStateWithName(item)}}</span>
+    </ion-item>-->
+    <ion-item>
+      <ion-label style="font-size:85%;font-weight:bold">交货日期</ion-label>
+      <ion-label text-wrap item-end style="font-size:75%;text-align:right;">{{item.delivery_date}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label style="font-size:85%;font-weight:bold">领料类型</ion-label>
+      <ion-label item-end style="font-size:75%;text-align:right;">{{changeType(item.picking_type)}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label style="font-size:85%;font-weight:bold">领料原因</ion-label>
+      <ion-label item-end text-wrap style="font-size:75%;text-align:right;">{{item.picking_cause}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label style="font-size:85%;font-weight:bold">备注</ion-label>
+      <ion-label text-wrap item-end style="font-size:75%;text-align:right;">{{item.remark}}</ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-item-group >
+
+    <ion-item >
+      <ion-label style="font-size:80%;color:#00a7f1;float:left;font-weight:bold;margin-top:12px;">● 领料明细</ion-label>
+    </ion-item>
+    <ion-item  *ngFor='let items of item.line_ids;let i = index'>    
+      <p text-wrap>{{changeName(i+1,items.product_id.name)}}</p>
+      <div style="margin-top:5px">
+        <span style="float:left;color:gray;font-size:80%;margin-top:-2px">需求：{{items.product_qty}}</span>
+        <span style="font-size:80%;color:gray;float:left;margin-left:20px;margin-top:-2px">库存：{{items.qty_available}}</span>
+        <span *ngIf="item.picking_state == 'approved_finish' || item.picking_state == 'finish_pick'" style="font-size:80%;color:gray;float:left;margin-left:20px;margin-top:-2px">领料：{{items.quantity_done}}</span>
+      </div>  
+    </ion-item>
+  </ion-item-group>
+
+  <div *ngIf="item.review_process_line_ids.length > 0" style="margin:10px;color:gray">审批记录</div>
+  <ion-list>
+    <ion-item no-lines *ngFor='let items of item.review_process_line_ids' style="overflow:hidden" class="middle_item">
+          <img style="width:40px;vertical-align:top;float:left;margin-right:10px;border-radius:20px" src={{items.user_ava}}>
+
+          <div style="overflow:hidden">
+          <span style="margin-top:3px;color:black;font-size:80%;float:left">{{items.write_uid.name}}</span>
+          <span style="font-size:70%;margin-top:5px;margin-left:-5px;float:right">{{changeDate(items.write_date) | date:'yyyy-MM-dd HH:mm:ss'}}</span>
+          </div>
+          <p  style="font-size:80%;margin-top:2px;">{{changeShenpiState(items)}}</p>
+          <p *ngIf="items.remark" text-wrap style="font-size:80%;margin-left:50px">备注：{{items.remark}}</p> 
+    </ion-item>
+  </ion-list>
+</ion-content>

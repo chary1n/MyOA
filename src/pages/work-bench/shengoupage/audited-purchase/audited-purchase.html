@@ -1,0 +1,66 @@
+<!--
+  Generated template for the AuditedPurchasePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="gongdan-color">
+    <ion-title>{{title}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content style="background:#f0f0f0">
+  <ion-list>
+    <ion-item>
+      <ion-label style="font-size:85%;font-weight:bold">申请人</ion-label>
+      <ion-label text-wrap item-end style="font-size:75%;text-align:right;">{{item.employee_name}}</ion-label>
+    </ion-item>
+    <ion-item>
+        <ion-label style="font-size:85%;font-weight:bold">待审核人</ion-label>
+        <ion-label text-wrap item-end style="font-size:75%;text-align:right;">{{item.to_approve_id}}</ion-label>
+      </ion-item>
+    <ion-item>
+      <ion-label style="font-size:85%;font-weight:bold">部门（费用归属）</ion-label>
+      <ion-label item-end style="font-size:75%;text-align:right;">{{item.department.name}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label class="total_amount">金额总计（元）：{{item.total_amount}}</ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-item-group>
+    <ion-item *ngFor='let items of item.line_ids'>
+      <h3 text-wrap>申购明细</h3>
+      <p text-wrap style="font-size:80%;color:gray;">产品：{{items.product_id.name}}</p>
+      <p text-wrap style="font-size:80%;">单价：{{items.price_unit}}       数量:{{items.quantity}} 小计：{{items.price_unit * items.quantity}}</p>
+      <p text-wrap style="font-size:80%;color:gray">费用说明：{{items.description}} </p>
+    </ion-item>
+  </ion-item-group>
+
+  <div style="margin:10px;">审批记录</div>
+  <ion-list>
+    <ion-item no-lines *ngFor='let items of item.message_ids' style="overflow:hidden" class="middle_item">
+      <img style="width:40px;vertical-align:top;float:left;margin-right:10px;border-radius:20px" src={{items.create_person_ava}}>
+
+      <div style="overflow:hidden">
+        <span style="margin-top:3px;color:black;font-size:80%;float:left">{{items.create_person}}</span>
+
+        <span style="font-size:70%;margin-top:5px;margin-left:-5px;float:right">{{changeDate(items.create_time) | date:'yyyy-MM-dd HH:mm:ss'}}</span>
+      </div>
+      <p *ngIf="items.old_state || items.new_state" style="font-size:80%;">{{items.old_state}}=>{{items.new_state}}</p>
+      <p text-wrap style="font-size:80%;">{{items.description}}</p>
+    </ion-item>
+  </ion-list>
+
+</ion-content>
+
+<ion-footer *ngIf="isShowFooter">
+  <ion-toolbar>
+    <button ion-button ion-end style='width:50%;float:right;background-color:#1eabfe' tappable (click)='conform()' full>通过</button>
+    <button ion-button ion-start style='width:50%;background-color:red' tappable (click)='cancel()' full>拒绝</button>
+  </ion-toolbar>
+</ion-footer>

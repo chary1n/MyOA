@@ -6,13 +6,14 @@
 -->
 <ion-header>
 
-  <ion-navbar hideBackButton="true">
+  <ion-navbar color="gongdan-color" hideBackButton="true">
     <ion-buttons left>
       <button ion-button icon-only (click)="goBack()">
         <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
       </button>
     </ion-buttons>
-    <ion-title>新建报销</ion-title>
+    <ion-title *ngIf="editItem">{{editItem.name}}</ion-title>
+    <ion-title *ngIf="!editItem">新建报销</ion-title>
   </ion-navbar>
 
 
@@ -20,6 +21,7 @@
 
 
 <ion-content style="background:#f0f0f0">
+
   <ion-item>
     <ion-label>申请人
       <!-- <span style="color:red;"> *</span> -->
@@ -28,10 +30,9 @@
   </ion-item>
 
   <ion-item>
-    <ion-label>部门(费用归属)</ion-label> 
+    <ion-label style="color:black">部门(费用归属)</ion-label>
     <ion-select [(ngModel)]="department" class="normal-select">
-      <ion-option *ngFor="let item of departmentList;" value={{item.id}} 
-       >{{item.name}}</ion-option>
+      <ion-option *ngFor="let item of departmentList;" value={{item.id}}>{{item.name}}</ion-option>
     </ion-select>
   </ion-item>
 
@@ -42,26 +43,36 @@
     <ion-label item-end text-right>{{pre_payment_reminding}}</ion-label>
   </ion-item>
 
+  <!-- <button ion-item (click)="addShengouItem()">
+    <ion-label>申购余额(可报销)
+    </ion-label>
+    <ion-label item-end text-right>{{balance}}</ion-label>
+  </button> -->
+
+
   <ion-list style="margin-top:10px" lines>
-      <ion-item-sliding  *ngFor='let item of items;let i = index'>
-      <ion-item >
-        <div >报销明细{{i+1}}</div>
-        <p text-wrap class="team_p">产品：{{item.productName}}</p>
-        <p text-wrap class="team_p">金额：{{item.amount}}</p>
-        <p text-wrap class="team_p">费用说明：{{item.remark}}</p>
+    <ion-item-sliding *ngFor='let item of items;let i = index'>
+      <ion-item>
+        <div class="detail_div">
+          <span style="font-size:80%;color:#00a7f1;float:left;font-weight:bold;margin-top:-2px">● {{item.productName}}</span>
+          <span style="float:right;font-size:80%;margin-top:-2px">金额：￥{{item.amount}}</span>
+          <span  *ngIf="item.tax"  style="font-size:80%;color:gray;float:right;margin-right:20px;margin-top:-2px">税金：{{item.tax}}</span>
+        </div>
+        <p text-wrap style="font-size:80%;color:gray;margin-top:5px;">消费用途：{{item.remark}}</p>
+        <p text-wrap style="font-size:80%;color:gray;margin-top:2px;">备注：{{item.remarks}} </p>
       </ion-item>
       <ion-item-options side="right">
-          <button ion-button color="primary" (click)="changeProductItem(i)">
-              <ion-icon name="create"></ion-icon>
-              修改
-            </button>
-          <button ion-button color="primary" (click)="deleteProductItem(i)">
-                <ion-icon name="trash"></ion-icon>
-                删除
-              </button>
-        </ion-item-options>
-      </ion-item-sliding>
-    </ion-list>
+        <button ion-button color="primary" (click)="changeProductItem(i)">
+          <ion-icon name="create"></ion-icon>
+          修改
+        </button>
+        <button ion-button color="primary" (click)="deleteProductItem(i)">
+          <ion-icon name="trash"></ion-icon>
+          删除
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
 
 
 

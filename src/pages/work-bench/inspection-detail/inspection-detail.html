@@ -6,18 +6,18 @@
 -->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>InspectionDetail</ion-title>
+  <ion-navbar color="gongdan-color">
+    <ion-title>品检详细</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content >
+<ion-content>
 
   <ion-item>
     <ion-label>品检结果</ion-label>
-    <div style="border-radius:8%;text-align:center;width:30%"   item-end  [style.background]="isSpecial()?'#4bb53a':'#ff6622'">{{qc_result}}</div>
+    <div style="border-radius:8%;text-align:center;width:30%" item-end [style.background]="isSpecial()?'#4bb53a':'#ff6622'">{{qc_result}}</div>
   </ion-item>
   <ion-item>
     <ion-label>品检批注</ion-label>
@@ -34,8 +34,11 @@
 
 
 <ion-footer>
-  <ion-toolbar  >
-    <button ion-button ion-start style='width:48%' tappable (click)='clickBack()'> 退回 </button>
-     <button ion-button  ion-end style='width:48%' tappable (click)='agreeIncoming()'> 同意入库</button> 
+  <ion-toolbar>
+    <div style="display:flex ;justify-content:space-around">
+    <button ion-button round ion-start tappable (click)='clickBack()' style="flex :1 1 100%"> 退回 </button>
+    <button ion-button round ion-end  tappable (click)='agreeIncoming()' style="flex :1 1 100%"> 采购确认</button>
+    <button  *ngIf="showFenjian" style="flex :1 1 100%"  ion-button round ion-end tappable (click)='goFenJian()'> 去分拣</button>
+  </div>
   </ion-toolbar>
 </ion-footer>
