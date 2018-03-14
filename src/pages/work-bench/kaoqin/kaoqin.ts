@@ -1,4 +1,4 @@
-// import { BLE } from '@ionic-native/ble';
+import { BLE } from '@ionic-native/ble';
 import { IonicPage } from 'ionic-angular/navigation/ionic-page';
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular/navigation/nav-controller';
@@ -17,7 +17,7 @@ import { DatePipe } from '@angular/common';
 @Component({
   selector: 'page-kaoqin',
   templateUrl: 'kaoqin.html',
-  providers:[KaoQinService,DatePipe],
+  providers:[KaoQinService,DatePipe,BLE],
 })
 export class KaoqinPage {
   isWrite = true;
@@ -31,8 +31,16 @@ export class KaoqinPage {
   items;
   divHeight;
   constructor(public navCtrl: NavController, public navParams: NavParams,public storage:Storage,
-    public kaoqinService:KaoQinService,private datePipe: DatePipe,) {
-      
+    public kaoqinService:KaoQinService,private datePipe: DatePipe,private ble:BLE) {
+      console.log(this.ble)
+        this.ble.enable().then(res=>{
+      console.log(res)
+    });
+
+
+         this.ble.scan([], 5).subscribe(device => {
+      console.log(JSON.stringify(device));
+      });
 
   }
 
