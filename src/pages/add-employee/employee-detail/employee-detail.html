@@ -186,6 +186,8 @@
   height: 35px;
   padding: 8px;">
         工作经验
+        <label style="float: right;
+        padding-right: 24px;" *ngIf="item.work_experience_ids.length==0">无 </label>
       </div>
       <div class="div_padding_left" *ngFor="let item of item.work_experience_ids">
         <P class="p_time"> {{item.entry_time}} <span *ngIf="item.entry_time" >~</span>{{item.Leaving_time}}</P>
@@ -197,6 +199,8 @@
   height: 35px;
   padding: 8px;">
         教育经历
+        <label style="float: right;
+        padding-right: 24px;" *ngIf="item.education_experience_ids.length==0">无 </label>
       </div>
 
       <div class="div_padding_left" *ngFor="let item of item.education_experience_ids">
@@ -219,18 +223,22 @@
       <ion-grid style="    padding-left: 9px;
     padding-top: 0px;">
         <ion-row>
-          <ion-col col-4 style="position:relative;height:106px;margin-top:5px" imageViewer>
+          <ion-col *ngIf="identification_A" col-4 style="position:relative;height:106px;margin-top:5px" imageViewer>
             <img src={{item.identification_A}} style="position:absolute;
             clip:rect(0px,106px,106px,0px);" />
           </ion-col>
 
-          <ion-col col-4 style="position:relative;height:106px;margin-top:5px" imageViewer>
+          <ion-col  *ngIf="identification_B"   col-4 style="position:relative;height:106px;margin-top:5px" imageViewer>
             <img src={{item.identification_B}} style="position:absolute;
             clip:rect(0px,106px,106px,0px);" />
           </ion-col>
 
         </ion-row>
       </ion-grid>
+
+      <p *ngIf="!item.identification_B && !item.identification_A"  style="text-align: center;
+      line-height: 0px;
+      color: #b7c2cb;"> 无</p>
 
       <p style="padding-left: 14px;">
         银行卡
@@ -245,9 +253,12 @@
         </ion-col>
 
       </ion-grid>
+      <p *ngIf="!item.bank_card"  style="text-align: center;
+      line-height: 0px;
+      color: #b7c2cb;"> 无</p>
 
 
-      <p style="padding-left: 14px;">
+      <p style="padding-left: 14px; line-height: 10px;">
         证书
       </p>
 
@@ -263,6 +274,10 @@
         </ion-row>
 
       </ion-grid>
+
+      <p *ngIf="item.certificate_image_ids.length==0"  style="text-align: center;
+      line-height: 0px;
+      color: #b7c2cb;"> 无</p>
     </ion-item-group>
 
     <ion-item-group style="margin-top:10px" *ngIf="show_type == 'three'">
@@ -499,11 +514,13 @@
 
 
 
+      
       <div style="background:#f0f2f5;
     height: 35px;
     padding: 8px;">
         工作经验 
-        <span *ngIf="!item.work_experience_ids">无 </span>
+        <label style="float: right;
+        padding-right: 24px;" *ngIf="item.work_experience_ids.length==0">无 </label>
       </div>
       <div class="div_padding_left" *ngFor="let item of item.work_experience_ids">
         <P class="p_time"> {{item.entry_time}}~{{item.Leaving_time}}</P>
@@ -515,6 +532,8 @@
     height: 35px;
     padding: 8px;">
         教育经历
+        <label style="float: right;
+        padding-right: 24px;" *ngIf="item.education_experience_ids.length==0">无 </label>
       </div>
 
       <div class="div_padding_left" *ngFor="let item of item.education_experience_ids">
@@ -599,6 +618,7 @@
 
       </ion-grid>
 
+    
     </ion-item-group>
 
     <ion-item-group style="margin-top:10px" *ngIf="show_type == 'three'">
