@@ -414,7 +414,9 @@ export class EmployeeDetailPage {
   }
 
   goBack() {
-    this.navCtrl.pop()
+
+   let workBenchPage =  Utils.getViewController("WorkBenchPage", this.navCtrl)
+    this.navCtrl.popTo("workBenchPage")
   }
 
 
