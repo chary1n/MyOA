@@ -1,3 +1,5 @@
+import { HttpService } from './../../../providers/HttpService';
+import { DatePipe } from '@angular/common';
 import { EditInformationService } from './../../me/edit-information/editInformationService';
 import { Utils } from './../../../providers/Utils';
 import { NativeService } from './../../../providers/NativeService';
@@ -11,6 +13,7 @@ import { CallNumber } from '@ionic-native/call-number';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController, Platform } from 'ionic-angular';
 declare let startApp: any;
+import { Storage} from '@ionic/storage';
 
 /**
  * Generated class for the EmployeeDetailPage page.
@@ -22,13 +25,13 @@ declare let startApp: any;
 @Component({
   selector: 'page-employee-detail',
   templateUrl: 'employee-detail.html',
-  providers: [EmployeeService, CallNumber, AppAvailability,EditInformationService],
+  providers: [EmployeeService, CallNumber, AppAvailability, EditInformationService, DatePipe]
 })
 export class EmployeeDetailPage {
   show_type = "one"
   item: any;
   sexList = [{ name: '男', id: 'male' }, { name: '女', id: 'female' }]
-  marriageList = [{ name: '未婚', id: 'single' }, { name: '已婚', id: 'married' }, { name: '离异', id: 'divorced' }, { name: '丧偶', id: 'widower' }]
+  marriageList = [{ name: '单身', id: 'single' }, { name: '已婚', id: 'married' }, { name: '离异', id: 'divorced' }, { name: '丧偶', id: 'widower' }]
   minzuList;
   departmentList;
   isModify = false;
@@ -36,6 +39,9 @@ export class EmployeeDetailPage {
   deletePicture;
   photoType;
   origin_data;
+  origin_email = "";
+  isShowEdit = false;
+  isCanSeeAll = false ;
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public callNumber: CallNumber,
@@ -48,6 +54,8 @@ export class EmployeeDetailPage {
     private nativeService: NativeService,
     public employeeService: EmployeeService,
     public toastCtrl: ToastController,
+    public datePipe: DatePipe,
+    public storage:Storage,
   ) {
     this.employeeService.get_employee_list().then(res => {
       if (res.result.res_data && res.result.res_code == 1) {
@@ -60,15 +68,41 @@ export class EmployeeDetailPage {
       }
     })
 
+    this.storage.get('user')
+      .then(res => {
+        for (let product of res.result.res_data.groups) {
+          if ( product.name == 'group_hr_manager') {
+            this.isShowEdit = true;
+          }
+        }
+        this.checkIsCanSeeAll();
+      })
+
     this.isModify = this.navParams.get("isModify")
     this.item = '';
     this.item = this.navParams.get("item")
     this.origin_data = this.navParams.get("origin_data")
     console.log(this.item)
+    this.origin_email = this.item.work_email
+    console.log(this.origin_email)
+
   }
 
+  checkIsCanSeeAll(){
+    for(let i = 0; i <HttpService.user.employee_all_child.length;i++){ 
+      if(this.item.id==  HttpService.user.employee_all_child[i]){
+        this.isCanSeeAll = true
+      }
+    }
+    if (this.isShowEdit){
+      this.isCanSeeAll = true 
+    }
+    if(this.item.uid ==HttpService.user_id){
+      this.isCanSeeAll = true 
+    }
 
 
+  }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad EmployeeDetailPage');
@@ -198,6 +232,13 @@ export class EmployeeDetailPage {
 
 
   release() {
+    this.item.entry_date
+
+    if (this.item.entry_date > this.datePipe.transform(new Date(), 'yyyy-MM-dd')) {
+      Utils.toastButtom("入职日期不可超过今天", this.toastCtrl)
+      return;
+    }
+
     let mString = "";
     if (!this.item.name) {
       mString = mString + "   请输入中文名"
@@ -215,25 +256,43 @@ export class EmployeeDetailPage {
       Utils.toastButtom(mString, this.toastCtrl)
     } else {
 
-      if(this.item.certificate_image_ids){
-        for(let i = 0; i < this.item.certificate_image_ids.length;i++){
+      if (this.item.certificate_image_ids) {
+        for (let i = 0; i < this.item.certificate_image_ids.length; i++) {
           let img = this.item.certificate_image_ids[i]
           var fdStart = img.indexOf("http");
-          if(fdStart==0){
-           let shuzu =   img.split("/")
-            this.item.certificate_image_ids[i] =shuzu[shuzu.length-1]
+          if (fdStart == 0) {
+            let shuzu = img.split("/")
+            this.item.certificate_image_ids[i] = shuzu[shuzu.length - 1]
           }
         }
       }
-      let upDate_item= {
+      let pushEmail;
+      if (this.origin_email == this.item.work_email) {
+        pushEmail = ""
+      } else {
+        pushEmail = this.item.work_email
+      }
+
+      // if (this.item.image) {
+      //   var imStart = this.item.image.indexOf("http");
+      //   if (imStart == -1) {
+      //     this.editInformationService.pushHeardImageWithUid(this.item.image.split(",")[1], this.item.uid).then(res => {
+      //       console.log(res)
+      //     })
+      //   }
+      // }
+
+      let upDate_item = {
         id: this.item.id,
-        english_name :this.item.english_name,
-        work_email:this.item.work_email,
+        name: this.item.name,
+        english_name: this.item.english_name,
+        work_email: pushEmail,
+        image: this.item.image,
         department_id: this.item.department_id_id,
         nation: this.item.nation_id,
         gender: this.item.gender_id,
         birthday: this.item.birthday,
-        mobile_phone:this.item.mobile_phone,
+        mobile_phone: this.item.mobile_phone,
         identification_id: this.item.identification_id,
         marital: this.item.marital_id,
         entry_date: this.item.entry_date,
@@ -241,13 +300,7 @@ export class EmployeeDetailPage {
         identification_B: this.item.identification_B,
         bank_card: this.item.bank_card,
         certificate_image_ids: this.item.certificate_image_ids,
-      }
-
-      if(this.item.image){
-        var imStart = this.item.image.indexOf("http");
-        if(fdStart==-1){
-          this.editInformationService.pushHeardImageWithUid(this.item.image.split(",")[1],this.item.uid)
-        }
+        edit_id: HttpService.user_id,
       }
 
 
@@ -261,6 +314,7 @@ export class EmployeeDetailPage {
                 text: '确定',
                 handler: () => {
                   this.isModify = false;
+                  this.item = res.result.res_data 
                 }
               }
             ]
@@ -275,10 +329,10 @@ export class EmployeeDetailPage {
 
   changeHeardImg() {
     this.photoType = "heard";
-    this.addImg()
+    this.addImg(true)
   }
 
-  addImg() {
+  addImg(allowEdit: boolean = false) {
     let actionSheet = this.actionSheetCtrl.create({
       title: '',
       buttons: [
@@ -287,14 +341,14 @@ export class EmployeeDetailPage {
           //  role: 'destructive',
           handler: () => {
             console.log('Destructive clicked');
-            this.getPicture(1);
+            this.getPicture(1, allowEdit);
           }
         },
         {
           text: '从手机相册选择',
           handler: () => {
             console.log('Archive clicked');
-            this.getPicture(0);
+            this.getPicture(0, allowEdit);
           }
         },
         {
@@ -309,9 +363,9 @@ export class EmployeeDetailPage {
     actionSheet.present();
   }
 
-  getPicture(type) {//1拍照,0从图库选择
+  getPicture(type, allowEdit: boolean = false) {//1拍照,0从图库选择
     let options = {
-      allowEdit: false,
+      allowEdit: allowEdit,
     };
     if (type == 1) {
       this.nativeService.getPictureByCamera(options).subscribe(img_url => {
@@ -390,7 +444,7 @@ export class EmployeeDetailPage {
 
 
   cancel() {
-    let self = this 
+    let self = this
     this.alertCtrl.create({
       title: '提示',
       subTitle: '数据未保存,确定退出编辑',
@@ -414,9 +468,9 @@ export class EmployeeDetailPage {
   }
 
   goBack() {
-
-   let workBenchPage =  Utils.getViewController("WorkBenchPage", this.navCtrl)
-    this.navCtrl.popTo("workBenchPage")
+    let ContactPersonPage = Utils.getViewController("ContactPersonPage", this.navCtrl)
+    ContactPersonPage.data.need_refresh = true
+    this.navCtrl.popTo(ContactPersonPage)
   }
 
 

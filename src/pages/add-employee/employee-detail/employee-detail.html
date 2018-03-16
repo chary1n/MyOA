@@ -18,16 +18,17 @@
 
 
     <ion-buttons end *ngIf="!isModify">
-      <button ion-button icon-only (click)="edit()">
+      <button  *ngIf="isShowEdit"   ion-button icon-only (click)="edit()">
         <ion-icon name="create"></ion-icon>
       </button>
     </ion-buttons>
+    <ion-title>{{item.name}}</ion-title>
 
     <ion-buttons left *ngIf="isModify">
-      <button ion-button (click)="cancel()">
-        取消
-      </button>
-    </ion-buttons>
+    <button ion-button icon-only (click)="cancel()">
+      <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+    </button>
+  </ion-buttons>
     <ion-buttons end *ngIf="isModify">
       <button ion-button (click)='release()'>
         完成
@@ -71,7 +72,7 @@
       </p>
     </div>
 
-    <ion-item align="center" no-lines style="height:40px;border-width:0.5px;border-color:lightgray;width:101%;margin-left:-2px;margin-right:-4px;margin-top:-10px">
+    <ion-item  *ngIf="isCanSeeAll"   align="center" no-lines style="height:40px;border-width:0.5px;border-color:lightgray;width:101%;margin-left:-2px;margin-right:-4px;margin-top:-10px">
       <ion-grid>
         <ion-row class="row_class" align-items-center>
           <ion-col tappable (click)="click_one()">
@@ -223,14 +224,14 @@
       <ion-grid style="    padding-left: 9px;
     padding-top: 0px;">
         <ion-row>
-          <ion-col *ngIf="identification_A" col-4 style="position:relative;height:106px;margin-top:5px" imageViewer>
+          <ion-col *ngIf="item.identification_A" col-4 style="position:relative;height:106px;margin-top:5px" >
             <img src={{item.identification_A}} style="position:absolute;
-            clip:rect(0px,106px,106px,0px);" />
+            clip:rect(0px,106px,106px,0px);"  imageViewer/>
           </ion-col>
 
-          <ion-col  *ngIf="identification_B"   col-4 style="position:relative;height:106px;margin-top:5px" imageViewer>
+          <ion-col  *ngIf="item.identification_B"   col-4 style="position:relative;height:106px;margin-top:5px" >
             <img src={{item.identification_B}} style="position:absolute;
-            clip:rect(0px,106px,106px,0px);" />
+            clip:rect(0px,106px,106px,0px);"  imageViewer/>
           </ion-col>
 
         </ion-row>
@@ -246,10 +247,10 @@
 
       <ion-grid style="    padding-left: 9px;
     padding-top: 0px;">
-        <ion-col col-4 *ngIf="item.bank_card" style="position:relative;height:106px;margin-top:5px" imageViewer>
+        <ion-col col-4 *ngIf="item.bank_card" style="position:relative;height:106px;margin-top:5px" >
 
           <img src={{item.bank_card}} style="position:absolute;
-              clip:rect(0px,106px,106px,0px);" />
+              clip:rect(0px,106px,106px,0px);"  imageViewer/>
         </ion-col>
 
       </ion-grid>
@@ -266,10 +267,10 @@
     padding-top: 0px;">
         <ion-row>
           <ion-col col-4 style="position:relative;height:106px;margin-top:5px" *ngFor="let item of item.certificate_image_ids" on-hold="onHold()"
-            imageViewer>
+            >
 
             <img src={{item}} style="position:absolute;
-                    clip:rect(0px,106px,106px,0px);" />
+                    clip:rect(0px,106px,106px,0px);"  imageViewer/>
           </ion-col>
         </ion-row>
 
@@ -278,6 +279,7 @@
       <p *ngIf="item.certificate_image_ids.length==0"  style="text-align: center;
       line-height: 0px;
       color: #b7c2cb;"> 无</p>
+      <div  style="height:140px"></div>
     </ion-item-group>
 
     <ion-item-group style="margin-top:10px" *ngIf="show_type == 'three'">
@@ -355,33 +357,10 @@
         <div class="div_left">工牌 </div>
       </div>
 
+      <div  style="height:140px"></div>
+
 
     </ion-item-group>
-
-    <ion-grid *ngIf="!isModify" style="margin-top:0px;width:100%;background:white" class="grid_header">
-      <ion-row class="row_class" align-items-center>
-
-
-        <ion-col tappable (click)="sendEmail()">
-          <div align="center" style="margin-top:10px">
-            <img style="width:44px;" src="assets/img/send_email.png">
-            <br>
-            <p style="color:#5bc5f3">发邮件</p>
-          </div>
-        </ion-col>
-
-
-        <ion-col tappable (click)="callPhone()">
-          <div align="center" style="margin-top:10px">
-            <img style="width:44px;" src="assets/img/call_phone.png">
-            <br>
-            <p style="color:#5bc5f3">打电话</p>
-          </div>
-        </ion-col>
-
-      </ion-row>
-    </ion-grid>
-
 
   </div>
 
@@ -404,7 +383,7 @@
       <ion-label>中文名
         <span style="color:red;"> *</span>
       </ion-label>
-      <ion-label item-end text-right>{{item.name}}</ion-label>
+      <ion-input item-end text-wrap text-right [(ngModel)]="item.name"></ion-input>
     </ion-item>
 
 
@@ -641,4 +620,34 @@
 
   </div>
 
+
+  <div  style="position: fixed;
+  bottom: 0;
+  width: 100%;" *ngIf="!isModify">
+    <ion-grid  style="margin-top:0px;width:100%;background:white" class="grid_header">
+      <ion-row class="row_class" align-items-center>
+  
+  
+        <ion-col tappable (click)="sendEmail()">
+          <div align="center" style="margin-top:10px">
+            <img style="width:44px;" src="assets/img/send_email.png">
+            <br>
+            <p style="color:#5bc5f3">发邮件</p>
+          </div>
+        </ion-col>
+  
+  
+        <ion-col tappable (click)="callPhone()">
+          <div align="center" style="margin-top:10px">
+            <img style="width:44px;" src="assets/img/call_phone.png">
+            <br>
+            <p style="color:#5bc5f3">打电话</p>
+          </div>
+        </ion-col>
+  
+      </ion-row>
+    </ion-grid>
+  </div>
 </ion-content>
+
+

@@ -19,7 +19,7 @@ export class ContactService {
         let body = JSON.stringify({
            
         });
-       return this.httpservice.postBody("get_departments",body);
+       return this.httpservice.postBodyNoLoading("get_departments",body);
     }
     
     get_department_detail(department_id){

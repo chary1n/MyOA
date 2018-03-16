@@ -13,7 +13,7 @@
       </button>
     </ion-buttons>
     <ion-title>通讯录</ion-title>
-    <ion-buttons end>
+    <ion-buttons end *ngIf="isShowEdit" >
         <button ion-button (click)='add()'>
           增加
         </button>
