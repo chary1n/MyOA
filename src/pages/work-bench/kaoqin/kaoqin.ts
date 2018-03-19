@@ -595,4 +595,20 @@ export class KaoqinPage {
       }
     })
   }
+
+  click_un_attendance(){
+    this.navCtrl.push('KaoqinPeoplePage',{
+      manager_id:this.user.user_id,
+      type:"未打卡",
+      current_date:this.currentDate_date,
+    })
+  }
+
+  click_attendance(){
+    this.navCtrl.push('KaoqinPeoplePage',{
+      manager_id:this.user.user_id,
+      type:"已打卡",
+      current_date:this.currentDate_date,
+    })
+  }
 }

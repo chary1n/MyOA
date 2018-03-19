@@ -167,7 +167,7 @@
     </ion-grid>
   </ion-item>
     <div style='width:100%;height:120px;background:white'>
-      <div style='width:50%;height:100%;float:left'>
+      <div style='width:50%;height:100%;float:left' tappable (click)="click_un_attendance()">
         <div style='width:100%;text-align:center;font-size:30px;color:#1897f2;margin-top:25px'>
           {{total_employees - is_attendance}}
         </div>
@@ -177,7 +177,7 @@
         <div class='day_divClass'>
         </div>
       </div>
-      <div style='width:50%;height:100%;float:right'>
+      <div style='width:50%;height:100%;float:right' tappable (click)="click_attendance()">
          <div style='width:100%;text-align:center;font-size:30px;color:#5c6166;margin-top:25px'>
           {{is_attendance}}
         </div>
