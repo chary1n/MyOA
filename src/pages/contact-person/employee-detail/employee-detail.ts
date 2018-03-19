@@ -14,7 +14,7 @@ declare let startApp: any;
  * See http://ionicframework.com/docs/components/#navigation for more info
  * on Ionic pages and navigation.
  */
-@IonicPage()
+// @IonicPage()
 @Component({
   selector: 'page-employee-detail',
   templateUrl: 'employee-detail.html',
@@ -26,7 +26,6 @@ export class EmployeeDetailPage {
   public alertCtrl:AlertController,public toast:ToastController,private appAvailability: AppAvailability,
     public platform: Platform,private webintent: WebIntent) {
       this.item = navParams.get('item');
-      
   }
 
   ionViewDidLoad() {

@@ -6,10 +6,10 @@
 -->
 <ion-header>
 
-  <ion-navbar hideBackButton="true">
+  <ion-navbar color="gongdan-color" hideBackButton="true">
     <ion-buttons left>
-      <button ion-button (click)="goBack()">
-        取消
+      <button ion-button icon-only (click)="goBack()">
+        <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
       </button>
     </ion-buttons>
     <ion-title>新增员工</ion-title>
@@ -28,28 +28,51 @@
     <ion-label style="color:black">中文名
       <span style="color:red;"> *</span>
     </ion-label>
-    <ion-input [(ngModel)]="cName" text-right></ion-input>
+    <ion-input [(ngModel)]="name" text-right></ion-input>
   </ion-item>
 
   <ion-item>
     <ion-label style="color:black"> 英文名 </ion-label>
-    <ion-input [(ngModel)]="eName" text-right></ion-input>
+    <ion-input [(ngModel)]="english_name" text-right></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label style="color:black"> 民族
+    </ion-label>
+    <ion-select [(ngModel)]="nation" class="normal-select">
+      <ion-option *ngFor="let item of minzuList;let i = index;" value={{item.id}}>{{item.name}}</ion-option>
+    </ion-select>
   </ion-item>
 
   <ion-item>
     <ion-label style="color:black"> 性别
       <span style="color:red;"> *</span>
     </ion-label>
-    <ion-select [(ngModel)]="sexIndex" class="normal-select">
-      <ion-option *ngFor="let item of sexList;let i = index;" value={{i}}>{{item.name}}</ion-option>
+    <ion-select [(ngModel)]="gender" class="normal-select">
+      <ion-option *ngFor="let item of sexList;let i = index;" value={{item.id}}>{{item.name}}</ion-option>
     </ion-select>
   </ion-item>
 
 
   <ion-item>
+    <ion-label style="color:#2e3133;font-size:14px">出生日期</ion-label>
+    <ion-datetime cancelText="取消" doneText="确定" min="1907" max="2088"  style="color:#5C6166;font-size:12px;margin-right:-6px"
+      displayFormat="YYYY-MM-DD" [(ngModel)]="birthday"></ion-datetime>
+    <img item-end src="assets/img/journal_sheet/right_icon.png" style="height:10px;margin-right:-4px">
+  </ion-item>
+
+  <ion-item>
     <ion-label style="color:black">身份证号
     </ion-label>
-    <ion-input #mNumberCon item-end text-wrap  type="number" placeholder="请输入" text-right [(ngModel)]="IDNumber"></ion-input>
+    <ion-input #mNumberCon item-end text-wrap type="number" placeholder="请输入" text-right [(ngModel)]="identification_id"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label style="color:black"> 婚姻状况
+    </ion-label>
+    <ion-select [(ngModel)]="marital" class="normal-select">
+      <ion-option *ngFor="let item of marriageList;let i = index;" value={{item.id}}>{{item.name}}</ion-option>
+    </ion-select>
   </ion-item>
 
 
@@ -57,30 +80,102 @@
     <ion-label style="color:black">办公手机
       <span style="color:red;"> *</span>
     </ion-label>
-    <ion-input #mNumberCon item-end text-wrap type="number" placeholder="请输入" text-right [(ngModel)]="phoneNumber"></ion-input>
+    <ion-input #mNumberCon item-end text-wrap type="number" placeholder="请输入" text-right [(ngModel)]="mobile_phone"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label style="color:black"> 部门
+      <span style="color:red;"> *</span>
+    </ion-label>
+    <ion-select [(ngModel)]="department_id" class="normal-select">
+      <ion-option *ngFor="let item of departmentList;let i = index;" value={{item.id}}>{{item.name}}</ion-option>
+    </ion-select>
   </ion-item>
 
 
+  <ion-item>
+    <ion-label style="color:#2e3133;font-size:14px">入职日期</ion-label>
+    <ion-datetime cancelText="取消" doneText="确定" min="2000" max="2088"  style="color:#5C6166;font-size:12px;margin-right:-6px"
+      displayFormat="YYYY-MM-DD" [(ngModel)]="entry_date"></ion-datetime>
+    <img item-end src="assets/img/journal_sheet/right_icon.png" style="height:10px;margin-right:-4px">
+  </ion-item>
+
+
+  <div style="background:#f0f2f5;
+  height: 35px;
+  padding: 8px;">
+    附件
+  </div>
+  <p style="padding-left: 14px;">
+    身份证
+    <span style="color: #c2c7cc;
+    font-size: 12px;">(请拍摄有效期内身份证正反面)</span>
+  </p>
+
+  <ion-grid style="    padding-left: 9px;
+  padding-top: 0px;">
+    <ion-row>
+      <ion-col col-4 *ngIf="imgPhotoPositive" style="position:relative;height:106px;margin-top:5px" (click)="clickPositivePicture(imgPhotoPositive)">
+
+        <img src={{imgPhotoPositive}} style="position:absolute;
+          clip:rect(0px,106px,106px,0px);" />
+      </ion-col>
+      <ion-col col-4 *ngIf="!imgPhotoPositive" tappable (click)="takePositive()" style="margin-top:5px">
+        <img src="assets/img/photopositive.png" />
+      </ion-col>
+      <ion-col col-4 *ngIf="imgPhotoNeagtive" style="position:relative;height:106px;margin-top:5px" (click)="clickNeagtivePicture(imgPhotoNeagtive)">
+
+        <img src={{imgPhotoNeagtive}} style="position:absolute;
+          clip:rect(0px,106px,106px,0px);" />
+      </ion-col>
+      <ion-col col-4 *ngIf="!imgPhotoNeagtive" tappable (click)="takeNegative()" style="margin-top:5px">
+        <img src="assets/img/photoneagtive.png" />
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <p style="padding-left: 14px;">
+    银行卡
+    <span style="color: #c2c7cc;
+    font-size: 12px;">(请拍摄公司工资卡正面)</span>
+  </p>
+
+  <ion-grid style="    padding-left: 9px;
+  padding-top: 0px;">
+    <ion-col col-4 *ngIf="imgPhotoBank" style="position:relative;height:106px;margin-top:5px" (click)="clickBankPicture(imgPhotoBank)">
+
+      <img src={{imgPhotoBank}} style="position:absolute;
+            clip:rect(0px,106px,106px,0px);" />
+    </ion-col>
+    <ion-col col-4 *ngIf="!imgPhotoBank" tappable (click)="takeBankPhoto()" style="margin-top:5px">
+      <img src="assets/img/add.png" />
+    </ion-col>
+
+  </ion-grid>
 
 
 
+  <p style="padding-left: 14px;">
+    证书
+    <span style="color: #c2c7cc;
+    font-size: 12px;">(如学历证书、技能证书等)</span>
+  </p>
 
+  <ion-grid style="    padding-left: 9px;
+  padding-top: 0px;">
+    <ion-row>
+      <ion-col col-4 style="position:relative;height:106px;margin-top:5px" *ngFor="let item of zhengshuImgList" on-hold="onHold()"
+        (click)="clickZhengshuPicture(item)">
 
+        <img src={{item}} style="position:absolute;
+                  clip:rect(0px,106px,106px,0px);" />
+      </ion-col>
+      <ion-col col-4 tappable (click)="takeZhengshuPhoto()" style="margin-top:5px">
+        <img src="assets/img/add.png" />
+      </ion-col>
+    </ion-row>
 
-
-
-
-
-
-
-
-  <button (click)="takePositive()"> 拍摄正面</button>
-
-  <button (click)="takeNegative()"> 拍摄反面</button>
-
-
-
-
+  </ion-grid>
 
 
 
