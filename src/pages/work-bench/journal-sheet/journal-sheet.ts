@@ -25,7 +25,8 @@ export class JournalSheetPage {
   num;
   user_id;
   title = '写日志';
-  team_id
+  team_id;
+  team: any;
   constructor(public navCtrl: NavController, public navParams: NavParams, public statusBar:StatusBar,
               public writejournalService: WriteJournalService,
               public storage: Storage) {
@@ -46,6 +47,15 @@ export class JournalSheetPage {
     .then(res => {
       this.user_id = res.result.res_data.user_id;
       this.team_id = res.result.res_data.team.team_id;
+      // let bodyOne = {
+      //   uid: this.user_id
+      // }
+      // this.writejournalService.get_sale_team(bodyOne).then(res =>{
+      //   if(res.result.res_code==1 && res.result){
+      //     console.log(res)
+      //     this.team = res.result.res_data
+      //   }
+      // })
       let body = {
         today: true,
         num: true,
@@ -70,6 +80,7 @@ export class JournalSheetPage {
 
   visit(){
     this.navCtrl.push('WriteJournalPage')
+    // this.navCtrl.push('WriteJournalPage',{team: this.team})
   }
 
   chooseWrite(){

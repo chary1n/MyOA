@@ -1,5 +1,17 @@
 @import "./../../../node_modules/ionic2-auto-complete/auto-complete";
 page-work-bench {
+  .diyP {
+    align-content:left
+  }
+  .selected {
+    color: #2e3133;
+    border-bottom: 2px solid #409eff;
+    font-size: 15px
+  }
+  .normal {
+    color: #c2c7cc;
+    font-size: 14px
+  }
   .externalDiv {
     margin-top: 20px;
     height: 20px;

@@ -1,0 +1,26 @@
+<!--
+  Generated template for the KaoqinPeoplePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header no-border>
+
+  <ion-navbar color="gongdan-color">
+    <ion-title>{{type}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <ion-list>
+  <ion-item *ngFor="let item of items">
+    <ion-avatar item-start>
+      <img src={{item.user_ava}}>
+    </ion-avatar>
+    <ion-label style="color:#3e3133">{{item.name}}</ion-label>
+    <p [ngClass]="{true:'label_attendance',false:'label_un_attendance'}[type == '已打卡']" item-end style="float:right">{{type}}</p>
+  </ion-item>
+</ion-list>
+</ion-content>

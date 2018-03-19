@@ -45,6 +45,15 @@ page-kaoqin {
         font-size: 15px;
     }
 
+    .month_message{
+        margin-top:12px;
+        line-height: 40px;
+        margin-left: -20px;
+        color:#8a9299;
+        font-size: 15px;
+        float:right;
+    }
+
     .li_class{
         color:#f0f2f5;
         font-size:19px;
@@ -162,5 +171,86 @@ page-kaoqin {
   overflow:scroll;
   
 }
+
+.bottom_class{
+    position:absolute;
+        width: 100%;
+        height: 200px;
+  background:white;
+  margin-top: 50px;
+  overflow:scroll;
+}
     
+    .box-flex {  
+  display: -webkit-box;  
+  display: -webkit-flex;  
+  display: flex;  
+  flex-wrap: wrap;  
+  justify-content: flex-end;
+  background:white;
+  /* height: 40px; */
+  /* border:#dedede 1px solid; */
+}
+
+    .flex-item {  
+  flex-flow: nowrap;  
+  flex-grow: 1;  
+  flex-shrink: 1;  
+  width: 14.2%;  
+  height: 50px;
+  /* height: 14.2% */
+} 
+.item-content-header {  
+  margin: 5px;  
+  /* padding: 0 10px;   */
+  text-align: center;  
+  /* background-color: #000;   */
+  /* height: 2rem;   */
+
+   line-height: 2rem;   
+   color: gray;   
+}  
+
+.item-content{  
+  margin: 5px;  
+  padding: 0 10px;  
+  text-align: center;  
+  /* background-color: #000;   */
+  /* height: 2rem;   */
+
+   line-height: 50px; 
+   color: gray;   
+}  
+
+.bk-color-day {  
+   background-color: #159aeb; 
+//    font-size: 20px;
+//    color: #159aeb;
+  border-radius: 50%;  
+  color:white;
+  /* border: red 1px solid; */
+}  
+
+.buttom_divider{
+  /* display: -webkit-box;  
+  display: -webkit-flex;  
+  display: flex;  
+  flex-wrap: wrap;  
+  justify-content: flex-end; */
+  height:20px;
+  background: #f0f2f5;  
+  width: 100%;
+  margin-top:0px;
+  /* margin-left: -30px; */
+}
+
+.day_divClass{
+    width: 0px;
+    overflow:hidden;
+    border-left:1px solid #f0f0f8;
+    height:25px;
+    margin-top:-46px;
+    margin-left:100%;
+
+}
 }
