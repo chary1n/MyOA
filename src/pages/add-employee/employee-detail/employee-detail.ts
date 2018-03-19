@@ -14,6 +14,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController, Platform } from 'ionic-angular';
 declare let startApp: any;
 import { Storage } from '@ionic/storage';
+import * as moment from 'moment';
 
 /**
  * Generated class for the EmployeeDetailPage page.
@@ -33,7 +34,7 @@ export class EmployeeDetailPage {
   sexList = [{ name: '男', id: 'male' }, { name: '女', id: 'female' }]
   marriageList = [{ name: '单身', id: 'single' }, { name: '已婚', id: 'married' }, { name: '离异', id: 'divorced' }, { name: '丧偶', id: 'widower' }]
   shiyongList = [{ name: '半个月', id: 'half_month' }, { name: '一个月', id: 'one_month' }, { name: '两个月', id: 'two_month' },
-  { name: '三个月', id: 'three_month' },]
+  { name: '三个月', id: 'three_month' }, { name: '无', id: '' }]
   minzuList;
   departmentList;
   isModify = false;
@@ -247,9 +248,13 @@ export class EmployeeDetailPage {
     let mString = "";
     if (!this.item.name) {
       mString = mString + "   请输入中文名"
+      Utils.toastButtom(mString, this.toastCtrl)
+      return;
     }
-    if (!this.item.gender) {
-      mString = mString + "   请选择性别"
+    if (!this.item.identification_id) {
+      mString = mString + "   请输入身份证号"
+      Utils.toastButtom(mString, this.toastCtrl)
+      return;
     }
     if (!this.item.emergency_contact_name) {
       mString = mString + "   请输入紧急联系人姓名"
@@ -482,16 +487,18 @@ export class EmployeeDetailPage {
 
   watch(item){
     if(this.item.entry_date&&this.item.probation_period_id){
-      let  d =  new Date(this.item.entry_date)
-      let  endDate  ;
+      let d = moment(this.item.entry_date,"YYYY-MM-DD");
+      let endDate;
+      
+
       if(this.item.probation_period_id=="half_month"){
-       endDate =  this.datePipe.transform( d.setDate(d.getDate()+15), 'yyyy-MM-dd')
+       endDate = d.add(15, "days").add(-1,'days').format("YYYY-MM-DD")
       }else if(this.item.probation_period_id=="one_month"){
-        endDate =  this.datePipe.transform( d.setMonth(d.getMonth()+ 1), 'yyyy-MM-dd')
+        endDate = d.add(1, "months").add(-1,'days').format("YYYY-MM-DD")
       }else if(this.item.probation_period_id=="two_month"){
-        endDate =  this.datePipe.transform( d.setMonth(d.getMonth()+2), 'yyyy-MM-dd')
+        endDate = d.add(2, "months").add(-1,'days').format("YYYY-MM-DD")
       }else if(this.item.probation_period_id=="three_month"){
-        endDate =  this.datePipe.transform( d.setMonth(d.getMonth()+3), 'yyyy-MM-dd')
+        endDate = d.add(3, "months").add(-1,'days').format("YYYY-MM-DD")
       }
       this.item.probation_date = (this.item.entry_date ) + "   ~   " +endDate
     }

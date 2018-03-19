@@ -12,6 +12,7 @@ import { EmployeeService } from './EmployeeService';
 import { GongDanService } from '../work-bench/gongdan/gongdanService';
 import { ToastController } from 'ionic-angular';
 import { dateDataSortValue } from 'ionic-angular/util/datetime-util';
+import * as moment from 'moment';
 
 /**
  * Generated class for the AddEmployeePage page.
@@ -32,7 +33,7 @@ export class AddEmployeePage {
   english_name;
   sexList = [{ name: '男', id: 'male' }, { name: '女', id: 'female' }]
   shiyongList = [{ name: '半个月', id: 'half_month' }, { name: '一个月', id: 'one_month' }, { name: '二个月', id: 'two_month' }
-    , { name: '三个月', id: 'three_month' }]
+    , { name: '三个月', id: 'three_month' }, { name: '无', id: '' }]
   gender;
   marriageList = [{ name: '单身', id: 'single' }, { name: '已婚', id: 'married' }, { name: '离异', id: 'divorced' }, { name: '丧偶', id: 'widower' },]
   marital;
@@ -52,9 +53,9 @@ export class AddEmployeePage {
   entry_date;
   isDeletePicture = false;
   deletePicture;
-  image ="";
-  probation_date ;
-  shiyongDate ;
+  image = "";
+  probation_date;
+  shiyongDate;
   emergency_contact_name;
   emergency_contact_way;
   emergency_contact_relation;
@@ -156,20 +157,20 @@ export class AddEmployeePage {
   }
 
 
-  watch(item){
-    if(this.entry_date&&this.probation_period){
-      let  d =  new Date(this.entry_date)
-      let  endDate  ;
-      if(this.probation_period=="half_month"){
-       endDate =  this.datePipe.transform( d.setDate(d.getDate()+15), 'yyyy-MM-dd')
-      }else if(this.probation_period=="one_month"){
-        endDate =  this.datePipe.transform( d.setMonth(d.getMonth()+ 1), 'yyyy-MM-dd')
-      }else if(this.probation_period=="two_month"){
-        endDate =  this.datePipe.transform( d.setMonth(d.getMonth()+2), 'yyyy-MM-dd')
-      }else if(this.probation_period=="three_month"){
-        endDate =  this.datePipe.transform( d.setMonth(d.getMonth()+3), 'yyyy-MM-dd')
+  watch(item) {
+    if (this.entry_date && this.probation_period) {
+      let d = moment(this.entry_date,"YYYY-MM-DD");
+      let endDate;
+      if (this.probation_period == "half_month") {
+        endDate = d.add(15, "days").add(-1,'days').format("YYYY-MM-DD")
+      } else if (this.probation_period == "one_month") {
+        endDate = d.add(1, "months").add(-1,'days').format("YYYY-MM-DD")
+      } else if (this.probation_period == "two_month") {
+        endDate = d.add(2, "months").add(-1,'days').format("YYYY-MM-DD")
+      } else if (this.probation_period == "three_month") {
+        endDate = d.add(3, "months").add(-1,'days').format("YYYY-MM-DD")
       }
-      this.probation_date = (this.entry_date ) + "   ~   " +endDate
+      this.probation_date = (this.entry_date) + "   ~   " + endDate
     }
   }
 
@@ -285,8 +286,8 @@ export class AddEmployeePage {
       Utils.toastButtom(mString, this.toastCtrl)
       return;
     }
-    if (!this.gender) {
-      mString = mString + "   请选择性别"
+    if (!this.identification_id) {
+      mString = mString + "   请输入身份证号"
       Utils.toastButtom(mString, this.toastCtrl)
       return;
     }
@@ -339,13 +340,13 @@ export class AddEmployeePage {
       bank_card: this.imgPhotoBank,
       certificate_image_ids: this.zhengshuImgList,
       edit_id: HttpService.user_id,
-      image:this.image ,
-      bank_card_num:this.bank_card_num,
-      bank_card_opening_bank :this.bank_card_opening_bank,
-      emergency_contact_name : this.emergency_contact_name,
-      emergency_contact_way:this.emergency_contact_way,
-      emergency_contact_relation:this.emergency_contact_relation,
-      probation_period :this.probation_period,
+      image: this.image,
+      bank_card_num: this.bank_card_num,
+      bank_card_opening_bank: this.bank_card_opening_bank,
+      emergency_contact_name: this.emergency_contact_name,
+      emergency_contact_way: this.emergency_contact_way,
+      emergency_contact_relation: this.emergency_contact_relation,
+      probation_period: this.probation_period,
 
     }
     this.navCtrl.push('CreateAccountPage', { data: data })

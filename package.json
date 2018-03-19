@@ -85,6 +85,7 @@
         "ionic2-auto-complete": "^1.5.2-release",
         "ionicons": "3.0.0",
         "jpush-phonegap-plugin": "git+https://github.com/jpush/jpush-phonegap-plugin.git",
+        "moment": "^2.21.0",
         "mute-stream": "0.0.7",
         "mx.ferreyra.callnumber": "0.0.2",
         "ng2-tree": "^2.0.0-rc.4",
