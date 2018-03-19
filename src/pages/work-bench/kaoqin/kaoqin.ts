@@ -41,23 +41,28 @@ export class KaoqinPage {
   is_show_tongji = false;
   is_attendance
   total_employees
-  attendance_count = 0
+  attendance_count = 0;
+  is_ble_on = false;
   constructor(public navCtrl: NavController, public navParams: NavParams,public storage:Storage,
     public kaoqinService:KaoQinService,private datePipe: DatePipe,private ble:BLE,
     private toastCtrl: ToastController,private loading:LoadingController,private elementRef: ElementRef) {
       this.kaoqinService.get_ble_device().then(res => {
-        console.log(res)
+        // console.log(res)
         if (res.result.res_data && res.result.res_code == 1) {
           this.device_list = res.result.res_data
         }
       })
       
+
+
+      
+      
       this.storage.get('user')
       .then(res => {
-        console.log(res)
+        // console.log(res)
         this.kaoqinService.get_is_department(res.result.res_data.user_id).then(res => {
           if (res.result.res_data && res.result.res_code == 1) {
-            console.log(res)
+            // console.log(res)
             this.is_show_tongji = res.result.res_data.is_manager
           }
       })
@@ -71,13 +76,13 @@ export class KaoqinPage {
     this.change_divClass_height(400)
     this.storage.get('user')
       .then(res => {
-        console.log(res)
+        // console.log(res)
         this.user = res.result.res_data
         this.user_ava = res.result.res_data.user_ava
         this.user_name = res.result.res_data.name
         
         this.kaoqinService.get_today_attendance(this.formatTime_day_start(new Date()),this.formatTime_day_end(new Date()),this.user.user_id).then(res => {
-            console.log(res)
+            // console.log(res)
             if (res.result.res_data && res.result.res_code == 1) {
               this.items = res.result.res_data
               let count = 0
@@ -141,7 +146,7 @@ export class KaoqinPage {
     //   element.style.background = "red"
     // },1)
     this.kaoqinService.get_today_attendance(this.formatTime_day_start(new Date()),this.formatTime_day_end(new Date()),this.user.user_id).then(res => {
-            console.log(res)
+            // console.log(res)
             if (res.result.res_data && res.result.res_code == 1) {
               this.items_day = res.result.res_data
               if (this.items_day.length * 140 + 30 > 400){
@@ -164,7 +169,7 @@ export class KaoqinPage {
     this.currentYear = this.currentDate_date.getFullYear()
     this.setSchedule(this.currentDate_date)
     this.kaoqinService.get_today_attendance(this.formatTime_day_start(new Date()),this.formatTime_day_end(new Date()),this.user.user_id).then(res => {
-            console.log(res)
+            // console.log(res)
             if (res.result.res_data && res.result.res_code == 1) {
               this.items_day = res.result.res_data
               if (this.items_day.length * 140 + 30 > 400){
@@ -250,19 +255,20 @@ export class KaoqinPage {
   }
 
   start_work(){
-    let loading = this.loading.create({  
+    let that = this
+    this.ble.isEnabled().then(function() {//成功
+          let loading = that.loading.create({  
       content: '签到中...'  ,
       enableBackdropDismiss: true
     });  
     loading.present(); 
     let list = []
-    let devices = this.device_list
-    this.ble.scan([], 5).subscribe(device => {
+    let devices = that.device_list
+    that.ble.scan([], 5).subscribe(device => {
       if(device.name){
         list.push(device.name)
       }
     });
-    let that = this
     let timer = self.setTimeout(function(){
       loading.dismiss()   
       console.log(list)
@@ -320,21 +326,28 @@ export class KaoqinPage {
           Utils.toastButtom("不在考勤机范围内,请重试。", that.toastCtrl)
         }
     },5000)
+      },
+      function(){//失败
+        Utils.toastButtom("请打开蓝牙", that.toastCtrl)
+      })
+    
   }
 
   end_work(){
-      let loading = this.loading.create({  
+    let that = this
+    this.ble.isEnabled().then(function(){
+        let loading = that.loading.create({  
       content: '签退中...'  ,
       enableBackdropDismiss: true
     }); 
     loading.present(); 
     let list = []
-    this.ble.scan([], 5).subscribe(device => {
+    that.ble.scan([], 5).subscribe(device => {
       if(device.name){
         list.push(device.name)
       }
     });
-    let that = this
+    
     let timer = self.setTimeout(function(){
       loading.dismiss()   
         let isHas = false
@@ -390,6 +403,10 @@ export class KaoqinPage {
           Utils.toastButtom("不在考勤机范围内,请重试。", that.toastCtrl)
         }
     },5000)
+    },function(){
+        Utils.toastButtom("请打开蓝牙", that.toastCtrl)
+    }) 
+      
   }
 
   setSchedule(currentObj){
