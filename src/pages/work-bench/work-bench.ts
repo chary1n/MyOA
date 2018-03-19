@@ -18,6 +18,10 @@ import { StatusBar } from '@ionic-native/status-bar';
   providers:[CommonUseServices],
 })
 export class WorkBenchPage {
+  isMoney = false;
+  isEngineer = false;
+  isBuy = false;
+  isSale = true;
   dataSource: any
   model: WorkBenchModel
   isShowPurchase = false;
@@ -121,7 +125,34 @@ export class WorkBenchPage {
           })
       });
   }
-
+//点击销售
+  sale(){
+    this.isSale = true
+    this.isBuy = false
+    this.isEngineer = false
+    this.isMoney = false
+  }
+  //点击采购
+  buy(){
+    this.isSale = false
+    this.isBuy = true
+    this.isEngineer = false
+    this.isMoney = false
+  }
+  //点击工程
+  engineer(){
+    this.isSale = false
+    this.isBuy = false
+    this.isEngineer = true
+    this.isMoney = false
+  }
+  //财务
+  money(){
+    this.isSale = false
+    this.isBuy = false
+    this.isEngineer = false
+    this.isMoney = true
+  }
   clickInComingWareHouse() {
     this.navCtrl.push('IncomingPage');
   }

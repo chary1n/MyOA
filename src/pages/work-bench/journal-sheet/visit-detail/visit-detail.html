@@ -56,10 +56,10 @@
           <ion-label item-start style="color:#2e3133;font-size:14px">QQ/Email</ion-label>
           <ion-note item-end style="color:#8a9299;font-size:12px" >{{item.partner_contact_way}}</ion-note>
       </ion-item>
-      <ion-item class="itemClass">
+      <!-- <ion-item class="itemClass">
           <ion-label item-start style="color:#2e3133;font-size:14px">客户状态</ion-label>
           <ion-note item-end style="color:#8a9299;font-size:12px" >{{item.partner_state}}</ion-note>
-      </ion-item>
+      </ion-item> -->
       <ion-item class="itemClass">
           <ion-label item-start style="color:#2e3133;font-size:14px">拜访目的</ion-label>
           <ion-note item-end style="color:#8a9299;font-size:12px" >{{item.visit_target}}</ion-note>
@@ -69,7 +69,7 @@
       <ion-row>
           <ion-col col-4  style="position:relative;height:106px;" *ngFor="let item of imgList" on-hold="onHold()" (click)="clickPicture(item)">
             <img src={{item}} style="position:absolute;
-          clip:rect(0px,106px,106px,0px);" />
+          clip:rect(0px,106px,106px,0px);"/>
           </ion-col>
       </ion-row>
   </ion-grid>

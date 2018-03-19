@@ -16,8 +16,14 @@ export class WriteJournalService{
         return this.httpservice.postBody("get_visit_list", body);
     }
 
-    //获取销售团队列表
+
+    //获取销售团队
     get_sale_team(body){
-        return this.httpservice.postBody("get_sale_team", body, 1);
+        return this.httpservice.postBody("get_sale_team", body);
+    }
+
+    //获取团队的销售员
+    get_saleteam_person(body){
+        return this.httpservice.postBody("get_saleteam_person", body);
     }
 }

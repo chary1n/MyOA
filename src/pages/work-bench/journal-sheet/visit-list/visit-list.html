@@ -13,11 +13,12 @@
           </button>
         </ion-buttons>
     <ion-title>拜访记录</ion-title>
-    <ion-buttons right>
+    
+    <!-- <ion-buttons right>
         <button ion-button (click)="getMine()" style="color:white;font-size:14px">
             {{person}}
           </button>
-    </ion-buttons>
+    </ion-buttons> -->
   </ion-navbar>
 
 </ion-header>
@@ -30,8 +31,12 @@
         <p style="float:left;margin-left:10px;line-height:14px;color:#8A9199">
           <span tappable (click)="chooseStartDate_visit()">{{startDate_visit + " - "}}</span><span tappable (click)="chooseEndDate_visit()">{{endDate_visit}}</span>   
         </p>
-        <!-- <img src= "assets/img/journal_sheet/below_arrow.png" height="13px" width="13px" style="margin-right:10px;margin-top:14px;float:right" tappable (click)="clickMenu()"> -->
-        <p tappable (click)="clickMenu()" style="font-size:12px;float:right;margin-top:10px;color:#c2c8cc;margin-right:5px;width:80px;text-align:right">{{saleTeam}}</p>
+        <img src= "assets/img/work_bench/shaixuan.png" height="18px" width="18px" style="margin-right:10px;margin-top:11px;float:right" tappable (click)="clickMenu()">
+        <p tappable (click)="clickMenu()" style="float:right;margin-top:10px;color:gray;margin-right:5px;border-left:#f0f2f5 1px solid;width:40px;text-align:right">筛选</p>
+    </div>
+    <div align="center" *ngIf="!dataList || !dataList.length || dataList.length == 0">
+      <img style="width:100px;position:absolute;left:calc(50% - 50px);top:calc(50% - 60px)" src="assets/img/journal_sheet/null_state.png">
+      <p style="width:100px;position:absolute;left:calc(50% - 50px);top:calc(50% + 30px);color:#c2c8cc;font-size:15px">空空如也～</p>
     </div>
     <ion-item-group no-lines style="background:#f0f2f5;"> 
         <div *ngFor="let item of dataList" style="margin-top:10px;background-color:white;padding-left:20px;padding-bottom:1px" tappable (click)="visitDetail(item)">
