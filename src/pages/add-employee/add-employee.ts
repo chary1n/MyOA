@@ -12,6 +12,7 @@ import { EmployeeService } from './EmployeeService';
 import { GongDanService } from '../work-bench/gongdan/gongdanService';
 import { ToastController } from 'ionic-angular';
 import { dateDataSortValue } from 'ionic-angular/util/datetime-util';
+import * as moment from 'moment';
 
 /**
  * Generated class for the AddEmployeePage page.
@@ -31,6 +32,8 @@ export class AddEmployeePage {
   name;
   english_name;
   sexList = [{ name: '男', id: 'male' }, { name: '女', id: 'female' }]
+  shiyongList = [{ name: '半个月', id: 'half_month' }, { name: '一个月', id: 'one_month' }, { name: '二个月', id: 'two_month' }
+    , { name: '三个月', id: 'three_month' }, { name: '无', id: '' }]
   gender;
   marriageList = [{ name: '单身', id: 'single' }, { name: '已婚', id: 'married' }, { name: '离异', id: 'divorced' }, { name: '丧偶', id: 'widower' },]
   marital;
@@ -50,7 +53,15 @@ export class AddEmployeePage {
   entry_date;
   isDeletePicture = false;
   deletePicture;
-
+  image = "";
+  probation_date;
+  shiyongDate;
+  emergency_contact_name;
+  emergency_contact_way;
+  emergency_contact_relation;
+  bank_card_num;
+  bank_card_opening_bank;
+  probation_period;
   constructor(public navCtrl: NavController,
     public nativeService: NativeService,
     public actionSheetCtrl: ActionSheetController,
@@ -64,7 +75,7 @@ export class AddEmployeePage {
       if (res.result.res_data && res.result.res_code == 1) {
         this.minzuList = res.result.res_data
         for (let i = 0; i < this.minzuList.length; i++) {
-          if (this.minzuList[i].name =="汉族") {
+          if (this.minzuList[i].name == "汉族") {
             this.nation = this.minzuList[i].id
           }
         }
@@ -146,10 +157,27 @@ export class AddEmployeePage {
   }
 
 
+  watch(item) {
+    if (this.entry_date && this.probation_period) {
+      let d = moment(this.entry_date,"YYYY-MM-DD");
+      let endDate;
+      if (this.probation_period == "half_month") {
+        endDate = d.add(15, "days").add(-1,'days').format("YYYY-MM-DD")
+      } else if (this.probation_period == "one_month") {
+        endDate = d.add(1, "months").add(-1,'days').format("YYYY-MM-DD")
+      } else if (this.probation_period == "two_month") {
+        endDate = d.add(2, "months").add(-1,'days').format("YYYY-MM-DD")
+      } else if (this.probation_period == "three_month") {
+        endDate = d.add(3, "months").add(-1,'days').format("YYYY-MM-DD")
+      }
+      this.probation_date = (this.entry_date) + "   ~   " + endDate
+    }
+  }
 
 
 
-  addImg() {
+
+  addImg(allowEdit: boolean = false) {
     let actionSheet = this.actionSheetCtrl.create({
       title: '',
       buttons: [
@@ -158,14 +186,14 @@ export class AddEmployeePage {
           //  role: 'destructive',
           handler: () => {
             console.log('Destructive clicked');
-            this.getPicture(1);
+            this.getPicture(1, allowEdit);
           }
         },
         {
           text: '从手机相册选择',
           handler: () => {
             console.log('Archive clicked');
-            this.getPicture(0);
+            this.getPicture(0, allowEdit);
           }
         },
         {
@@ -180,8 +208,7 @@ export class AddEmployeePage {
     actionSheet.present();
   }
 
-
-  getPicture(type) {//1拍照,0从图库选择
+  getPicture(type, allowEdit: boolean = false) {//1拍照,0从图库选择
     let options = {
       allowEdit: false,
     };
@@ -197,6 +224,12 @@ export class AddEmployeePage {
   }
 
 
+  changeHeardImg() {
+    this.photoType = "heard";
+    this.addImg(true)
+  }
+
+
   getPictureSuccess(img_url) {
     if (this.photoType == "photoZhengshu") {
       console.log(img_url)
@@ -208,7 +241,12 @@ export class AddEmployeePage {
       this.imgPhotoNeagtive = img_url
     } else if (this.photoType == "photoBank") {
       this.imgPhotoBank = img_url
+    } else if (this.photoType == "heard") {
+      this.image = img_url
     }
+
+
+
   }
 
 
@@ -248,8 +286,23 @@ export class AddEmployeePage {
       Utils.toastButtom(mString, this.toastCtrl)
       return;
     }
-    if (!this.gender) {
-      mString = mString + "   请选择性别"
+    if (!this.identification_id) {
+      mString = mString + "   请输入身份证号"
+      Utils.toastButtom(mString, this.toastCtrl)
+      return;
+    }
+    if (!this.emergency_contact_name) {
+      mString = mString + "   请输入紧急联系人姓名"
+      Utils.toastButtom(mString, this.toastCtrl)
+      return;
+    }
+    if (!this.emergency_contact_relation) {
+      mString = mString + "   请输入与紧急联系人的关系"
+      Utils.toastButtom(mString, this.toastCtrl)
+      return;
+    }
+    if (!this.emergency_contact_way) {
+      mString = mString + "   请输入紧急联系人联系方式"
       Utils.toastButtom(mString, this.toastCtrl)
       return;
     }
@@ -263,6 +316,12 @@ export class AddEmployeePage {
       Utils.toastButtom(mString, this.toastCtrl)
       return;
     }
+    if (!this.entry_date) {
+      mString = mString + "   请选择入职日期"
+      Utils.toastButtom(mString, this.toastCtrl)
+      return;
+    }
+
 
     let departments;
     let data = {
@@ -280,7 +339,15 @@ export class AddEmployeePage {
       identification_B: this.imgPhotoNeagtive,
       bank_card: this.imgPhotoBank,
       certificate_image_ids: this.zhengshuImgList,
-      edit_id: HttpService.user_id
+      edit_id: HttpService.user_id,
+      image: this.image,
+      bank_card_num: this.bank_card_num,
+      bank_card_opening_bank: this.bank_card_opening_bank,
+      emergency_contact_name: this.emergency_contact_name,
+      emergency_contact_way: this.emergency_contact_way,
+      emergency_contact_relation: this.emergency_contact_relation,
+      probation_period: this.probation_period,
+
     }
     this.navCtrl.push('CreateAccountPage', { data: data })
 

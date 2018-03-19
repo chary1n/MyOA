@@ -23,6 +23,26 @@
 
 
 <ion-content>
+  <div style="background:#f0f2f5;
+  height: 35px;
+  padding: 8px;">
+    基本信息
+  </div>
+  <ion-item tappable (click)='changeHeardImg()'>
+    <ion-label>头像</ion-label>
+
+    <ion-avatar item-end>
+      <img *ngIf="image" src={{image}} class="imgStyle" style=" border-radius: 20px;     width: 40px;
+      height: 40px;">
+      <img *ngIf="!image" src="assets/img/heard_img.png" class="imgStyle" style=" border-radius: 20px;     width: 40px;
+      height: 40px;">
+
+
+
+    </ion-avatar>
+    <img item-end src="assets/img/journal_sheet/right_icon.png" style="height:10px;margin-right:-4px">
+  </ion-item>
+
 
   <ion-item>
     <ion-label style="color:black">中文名
@@ -36,6 +56,15 @@
     <ion-input [(ngModel)]="english_name" text-right></ion-input>
   </ion-item>
 
+
+  <ion-item>
+    <ion-label style="color:black"> 性别
+    </ion-label>
+    <ion-select [(ngModel)]="gender" class="normal-select">
+      <ion-option *ngFor="let item of sexList;let i = index;" value={{item.id}}>{{item.name}}</ion-option>
+    </ion-select>
+  </ion-item>
+
   <ion-item>
     <ion-label style="color:black"> 民族
     </ion-label>
@@ -45,27 +74,12 @@
   </ion-item>
 
   <ion-item>
-    <ion-label style="color:black"> 性别
-      <span style="color:red;"> *</span>
-    </ion-label>
-    <ion-select [(ngModel)]="gender" class="normal-select">
-      <ion-option *ngFor="let item of sexList;let i = index;" value={{item.id}}>{{item.name}}</ion-option>
-    </ion-select>
-  </ion-item>
-
-
-  <ion-item>
-    <ion-label style="color:#2e3133;font-size:14px">出生日期</ion-label>
-    <ion-datetime cancelText="取消" doneText="确定" min="1907" max="2088"  style="color:#5C6166;font-size:12px;margin-right:-6px"
+    <ion-label style="color:black">出生日期</ion-label>
+    <ion-datetime cancelText="取消" doneText="确定" min="1907" max="2088" style="color:#5C6166;font-size:12px;margin-right:-6px"
       displayFormat="YYYY-MM-DD" [(ngModel)]="birthday"></ion-datetime>
     <img item-end src="assets/img/journal_sheet/right_icon.png" style="height:10px;margin-right:-4px">
   </ion-item>
 
-  <ion-item>
-    <ion-label style="color:black">身份证号
-    </ion-label>
-    <ion-input #mNumberCon item-end text-wrap type="number" placeholder="请输入" text-right [(ngModel)]="identification_id"></ion-input>
-  </ion-item>
 
   <ion-item>
     <ion-label style="color:black"> 婚姻状况
@@ -75,41 +89,17 @@
     </ion-select>
   </ion-item>
 
-
   <ion-item>
-    <ion-label style="color:black">办公手机
-      <span style="color:red;"> *</span>
+    <ion-label style="color:black">身份证号
+        <span style="color:red;"> *</span>
     </ion-label>
-    <ion-input #mNumberCon item-end text-wrap type="number" placeholder="请输入" text-right [(ngModel)]="mobile_phone"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label style="color:black"> 部门
-      <span style="color:red;"> *</span>
-    </ion-label>
-    <ion-select [(ngModel)]="department_id" class="normal-select">
-      <ion-option *ngFor="let item of departmentList;let i = index;" value={{item.id}}>{{item.name}}</ion-option>
-    </ion-select>
+    <ion-input item-end text-wrap placeholder="请输入" text-right [(ngModel)]="identification_id"></ion-input>
   </ion-item>
 
 
-  <ion-item>
-    <ion-label style="color:#2e3133;font-size:14px">入职日期</ion-label>
-    <ion-datetime cancelText="取消" doneText="确定" min="2000" max="2088"  style="color:#5C6166;font-size:12px;margin-right:-6px"
-      displayFormat="YYYY-MM-DD" [(ngModel)]="entry_date"></ion-datetime>
-    <img item-end src="assets/img/journal_sheet/right_icon.png" style="height:10px;margin-right:-4px">
-  </ion-item>
 
-
-  <div style="background:#f0f2f5;
-  height: 35px;
-  padding: 8px;">
-    附件
-  </div>
-  <p style="padding-left: 14px;">
-    身份证
-    <span style="color: #c2c7cc;
-    font-size: 12px;">(请拍摄有效期内身份证正反面)</span>
+  <p style="padding-left: 14px;color: #c2c7cc;">
+    (请拍摄有效期内身份证正反面)
   </p>
 
   <ion-grid style="    padding-left: 9px;
@@ -134,10 +124,29 @@
     </ion-row>
   </ion-grid>
 
-  <p style="padding-left: 14px;">
-    银行卡
-    <span style="color: #c2c7cc;
-    font-size: 12px;">(请拍摄公司工资卡正面)</span>
+
+  <div style="background:#f0f2f5;
+  height: 35px;
+  margin-top: 10px;
+  padding: 8px;">
+  银行账号
+  </div>
+
+  <ion-item>
+    <ion-label style="color:black">银行卡号
+    </ion-label>
+    <ion-input #mNumberCon item-end text-wrap type="number" placeholder="请输入" text-right [(ngModel)]="bank_card_num"></ion-input>
+  </ion-item>
+
+
+  <ion-item>
+    <ion-label style="color:black">开户行
+    </ion-label>
+    <ion-input placeholder="请输入" text-right [(ngModel)]="bank_card_opening_bank"></ion-input>
+  </ion-item>
+
+  <p style="padding-left: 14px;color: #c2c7cc;">
+    (请拍摄公司工资卡正面)
   </p>
 
   <ion-grid style="    padding-left: 9px;
@@ -155,7 +164,83 @@
 
 
 
-  <p style="padding-left: 14px;">
+  <div style="background:#f0f2f5;
+  height: 35px;
+  margin-top: 10px;
+  padding: 8px;">
+    紧急联系人
+  </div>
+
+  <ion-item>
+    <ion-label style="color:black">姓名
+      <span style="color:red;"> *</span>
+    </ion-label>
+    <ion-input [(ngModel)]="emergency_contact_name" placeholder="请输入" text-right></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label style="color:black">关系
+      <span style="color:red;"> *</span>
+    </ion-label>
+    <ion-input [(ngModel)]="emergency_contact_relation" placeholder="请输入" text-right></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label style="color:black">联系方式
+      <span style="color:red;"> *</span>
+    </ion-label>
+    <ion-input #mNumberCon item-end text-wrap type="number" placeholder="请输入" text-right [(ngModel)]="emergency_contact_way"></ion-input>
+  </ion-item>
+
+
+  <div style="background:#f0f2f5;
+  height: 35px;
+  padding: 8px;">
+    办公信息
+  </div>
+
+  <ion-item>
+    <ion-label style="color:black">办公手机
+      <span style="color:red;"> *</span>
+    </ion-label>
+    <ion-input #mNumberCon item-end text-wrap type="number" placeholder="请输入" text-right [(ngModel)]="mobile_phone"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label style="color:black"> 部门
+      <span style="color:red;"> *</span>
+    </ion-label>
+    <ion-select [(ngModel)]="department_id" class="normal-select">
+      <ion-option *ngFor="let item of departmentList;let i = index;" value={{item.id}}>{{item.name}}</ion-option>
+    </ion-select>
+  </ion-item>
+
+
+
+  <div style="background:#f0f2f5;
+  height: 35px;
+  padding: 8px;">
+    合同信息
+  </div>
+
+  <ion-item>
+    <ion-label style="color:#2e3133;font-size:14px">入职日期</ion-label>
+    <ion-datetime cancelText="取消" doneText="确定" min="2000" max="2088" style="color:#5C6166;font-size:12px;margin-right:-6px"
+      (ionChange)="watch()" displayFormat="YYYY-MM-DD" [(ngModel)]="entry_date"></ion-datetime>
+    <img item-end src="assets/img/journal_sheet/right_icon.png" style="height:10px;margin-right:-4px">
+  </ion-item>
+
+  <ion-item>
+    <ion-label style="color:black"> 试用期
+      <p style="float: right;
+      line-height: 25px;"> {{probation_date}} </p>
+    </ion-label>
+    <ion-select [(ngModel)]="probation_period" (ngModelChange)="watch(0)" class="normal-select">
+      <ion-option *ngFor="let item of shiyongList;let i = index;" value={{item.id}}>{{item.name}}</ion-option>
+    </ion-select>
+  </ion-item>
+
+
+
+  <p style="padding-left: 14px;color: #c2c7cc;">
     证书
     <span style="color: #c2c7cc;
     font-size: 12px;">(如学历证书、技能证书等)</span>
