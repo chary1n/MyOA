@@ -1,3 +1,4 @@
+import { pinyin } from './../../customer/cam-card/pinyin';
 import { AlertController } from 'ionic-angular/components/alert/alert-controller';
 import { ToastController } from 'ionic-angular/components/toast/toast-controller';
 import { Utils } from './../../../providers/Utils';
@@ -27,9 +28,10 @@ export class CreateAccountPage {
   data;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public toastCtrl: ToastController,
-    public ctrl:AlertController,
+    public ctrl: AlertController,
     public employeeService: EmployeeService) {
     this.data = this.navParams.get("data")
+    this.email = this.getYinName()
   }
 
   ionViewDidLoad() {
@@ -58,6 +60,19 @@ export class CreateAccountPage {
     this.navCtrl.pop();
   }
 
+  getYinName() {
+    let finalName = ""
+    let name = this.data.name
+    let firstName = pinyin.getLowerChars(name.substr(0, 1))
+    let lastName = pinyin.getLowerChars(name.substr(1, ))
+    if (this.data.english_name) {
+      finalName = this.data.english_name + '.' + firstName + "@robotime.com"
+    } else {
+      finalName = lastName + '.' + firstName + "@robotime.com"
+    }
+    return finalName
+  }
+
 
   next() {
     if (!this.chooseOpen && !this.chooseClose) {
@@ -70,6 +85,8 @@ export class CreateAccountPage {
         Utils.toastButtom("请输入邮箱", this.toastCtrl)
         return;
       }
+    } else {
+      this.email = ""
     }
     this.data.work_email = this.email
     this.employeeService.create_employee(this.data).then(res => {
