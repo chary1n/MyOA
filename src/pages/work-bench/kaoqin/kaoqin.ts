@@ -311,7 +311,7 @@ export class KaoqinPage {
                         count += 1
                       }
                     }
-                    this.attendance_count = count
+                    that.attendance_count = count
                 }
             })
         }
@@ -381,7 +381,7 @@ export class KaoqinPage {
                         count += 1
                       }
                     }
-                    this.attendance_count = count
+                    that.attendance_count = count
                 }
             })
         }
