@@ -49,7 +49,8 @@ export class WriteJournalPage {
   title = '填客户资料';
   timeOne;//开始时间的时间戳
   timeTwo;//结束时间的时间戳
-  team_id;
+  team_id;//销售团队id
+  team;
   constructor(public navCtrl: NavController, public navParams: NavParams, 
     public statusBar:StatusBar,
     public actionSheetCtrl: ActionSheetController,
@@ -60,6 +61,7 @@ export class WriteJournalPage {
     public platform: Platform,
     public nativeService: NativeService) 
     {
+    // this.team = this.navParams.get("team")
     this.frontPage = Utils.getViewController("JournalSheetPage", navCtrl)
     this.storage.get('user')
     .then(res => {
@@ -279,6 +281,8 @@ export class WriteJournalPage {
       if(myString != ""){
         Utils.toastButtom(myString, this.toastCtrl)
       }else{
+        // this.timeOne = Utils.dateFormat(new Date(this.timeOne), 'yyyy-MM-dd HH:MM:SS')
+        // this.timeTwo = Utils.dateFormat(new Date(this.timeTwo), 'yyyy-MM-dd HH:MM:SS')
         let body = {
           uid: this.user_id,
           name: this.name,
@@ -359,7 +363,12 @@ export class WriteJournalPage {
         }
       ]
     });
-
+    // actionSheet.addButton({
+    //   text: 'zouwansheng',
+    //       handler: () => {
+    //         this.saleTeam = "zouwansheng"
+    //       }
+    // })
     actionSheet.present();
   }
 }

@@ -9,8 +9,233 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content>
-  <div class="externalDiv">
+<ion-content>    
+  <ion-grid>
+      <ion-row>
+        <ion-col tappable (click)="kaoqin()">
+            <img src="assets/img/work_bench/dailyTime.png">
+            <div style="color:#5c6166;font-size:12px">考勤</div>
+        </ion-col>
+        <ion-col tappable (click)="shengou()">
+            <img src="assets/img/work_bench/applyPurchase.png">
+            <div style="color:#5c6166;font-size:12px">申购</div>
+            <span *ngIf="sg_count > 0" style="position:absolute;width:20px;height:20px;border-radius:10px;background-color:red;display:inline-block;color:white;line-height:20px;right:8px;top:-8px;text-align:center;font-size:14px">{{sg_count}}</span>
+        </ion-col>
+        <ion-col tappable (click)="apply()">
+            <img src="assets/img/work_bench/submitExpense.png">
+            <div style="color:#5c6166;font-size:12px">报销</div>
+            <span *ngIf="bx_count > 0" style="position:absolute;width:20px;height:20px;border-radius:10px;background-color:red;display:inline-block;color:white;line-height:20px;right:8px;top:-8px;text-align:center;font-size:14px">{{bx_count}}</span>
+        </ion-col>
+        <ion-col tappable (click)="zanzhi()">
+            <img src="assets/img/work_bench/temporarySupport.png">
+            <div style="color:#5c6166;font-size:12px">暂支</div>
+            <span *ngIf="zz_count > 0" style="position:absolute;width:20px;height:20px;border-radius:10px;background-color:red;display:inline-block;color:white;line-height:20px;right:8px;top:-8px;text-align:center;font-size:14px">{{zz_count}}</span>
+        </ion-col>
+        <ion-col tappable (click)="shareKnowledge()">
+            <img src="assets/img/work_bench/shareKnowledge.png">
+            <div style="color:#5c6166;font-size:12px">知识分享</div>
+        </ion-col>
+      </ion-row>
+  </ion-grid>
+  <div style="background:#f0f2f5;height:10px">
+    </div>
+  <ion-grid>
+    <ion-row style="max-height:50px">
+      <ion-col tappable (click)="sale()">
+        <p style="padding-bottom:3px;width:30px;margin-left:auto;margin-right:auto"
+        [ngClass]="{true:'selected',false:'normal'}[isSale]">销售</p>
+      </ion-col>
+      <ion-col tappable (click)="buy()">
+          <p style="padding-bottom:3px;width:30px;margin-left:auto;margin-right:auto"
+          [ngClass]="{true:'selected',false:'normal'}[isBuy]">采购</p>
+        </ion-col>
+        <ion-col tappable (click)="engineer()">
+            <p style="padding-bottom:3px;width:30px;margin-left:auto;margin-right:auto"
+            [ngClass]="{true:'selected',false:'normal'}[isEngineer]">工程</p>
+          </ion-col>
+          <ion-col tappable (click)="money()">
+              <p style="padding-bottom:3px;width:30px;margin-left:auto;margin-right:auto"
+              [ngClass]="{true:'selected',false:'normal'}[isMoney]">财务</p>
+            </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+  <div *ngIf="isSale" style="background:#ffffff">
+      <ion-grid>
+        <ion-row style="height:100px;text-align:center;">
+          <ion-col col-6 style="
+          border-top:1px #f5f7fa solid;
+          border-right: 1px #f5f7fa solid;
+          border-bottom: 1px #f5f7fa solid;
+          " tappable (click)="camCard()">
+          <div style="padding:1px;margin-left: 15dp;overflow:hidden;text-align:left">
+              <p text-wrap class="diyP" style="font-size:14px;color:#2e3033;width:70px;margin-left:10px">名片导入</p>
+              <img  src="assets/img/work_bench/card_import.png" style="height:25px;width:25px;float:right;margin-top:-25px;margin-right:20px">
+              <p style="font-size:12px;color:#c2c7cc;line-height:12px;width:100px;margin-left:10px">扫描名片导入客户</p>
+          </div>
+          </ion-col>
+          <ion-col col-6 style="
+          border-top:1px #f5f7fa solid;
+          border-bottom: 1px #f5f7fa solid;
+          " tappable (click)="customerSearch()">
+          <div style="padding:1px;margin-left: 15dp;overflow:hidden;text-align:left">
+              <p text-wrap style="font-size:14px;color:#2e3033;width:35px;margin-left:10px">客户</p>
+              <img  src="assets/img/work_bench/customer.png" style="height:25px;width:25px;float:right;margin-top:-25px;margin-right:20px">
+              <p style="font-size:12px;color:#c2c7cc;line-height:12px;width:100px;margin-left:10px">潜在客户/客户/公海客户查询</p>
+          </div>
+          </ion-col>
+        </ion-row>
+        <ion-row style="height:100px;text-align:center;margin-top:-5px">
+            <ion-col col-6 style="
+            border-right: 1px #f5f7fa solid;
+          border-bottom: 1px #f5f7fa solid;
+            " tappable (click)="salesOrder()">
+            <div style="padding:1px;margin-left: 15dp;overflow:hidden;text-align:left">
+                <p text-wrap style="font-size:14px;color:#2e3033;width:35px;margin-left:10px">订单</p>
+                <img  src="assets/img/work_bench/orderForm.png" style="height:25px;width:25px;float:right;margin-top:-25px;margin-right:20px">
+                <p style="font-size:12px;color:#c2c7cc;line-height:12px;width:100px;margin-left:10px">销售订单/交货/物流查询</p>
+            </div>
+            </ion-col>
+            <ion-col col-6 style="border-bottom: 1px #f5f7fa solid;" tappable (click)="ProductionSearch()">
+                <div style="padding:1px;margin-left: 15dp;overflow:hidden;text-align:left">
+                    <p text-wrap style="font-size:14px;color:#2e3033;width:35px;margin-left:10px">产品</p>
+                    <img  src="assets/img/work_bench/product.png" style="height:25px;width:25px;float:right;margin-top:-25px;margin-right:20px">
+                    <p style="font-size:12px;color:#c2c7cc;line-height:12px;width:100px;margin-left:10px">产品品牌系列及库存信息查询</p>
+                </div>
+            </ion-col>
+          </ion-row>
+          <ion-row style="height:100px;text-align:center;margin-top:-5px">
+              <ion-col col-6 style="
+              border-right: 1px #f5f7fa solid;
+              " tappable (click)="journalSheet()" *ngIf="isShowJournalSheet">
+              <div style="padding:1px;margin-left: 15dp;overflow:hidden;text-align:left">
+                  <p text-wrap style="font-size:14px;color:#2e3033;width:70px;margin-left:10px">日志报表</p>
+                  <img  src="assets/img/work_bench/reportForms.png" style="height:25px;width:25px;float:right;margin-top:-25px;margin-right:20px">
+                  <p style="font-size:12px;color:#c2c7cc;line-height:12px;width:100px;margin-left:10px">拜访记录录入及查询</p>
+              </div>
+              </ion-col>
+            </ion-row>
+      </ion-grid>
+    </div>
+
+
+
+    <div *ngIf="isBuy" style="background:#ffffff">
+        <ion-grid>
+            <ion-row style="height:100px;text-align:center;">
+                <ion-col col-6 style="
+                border-top:1px #f5f7fa solid;
+                border-right: 1px #f5f7fa solid;
+              border-bottom: 1px #f5f7fa solid;
+                " tappable (click)="supplierList()">
+                <div style="padding:1px;margin-left: 15dp;overflow:hidden;text-align:left">
+                    <p text-wrap style="font-size:14px;color:#2e3033;width:70px;margin-left:10px">供应商</p>
+                    <img  src="assets/img/work_bench/supplier.png" style="height:25px;width:25px;float:right;margin-top:-25px;margin-right:20px">
+                    <p style="font-size:12px;color:#c2c7cc;line-height:12px;width:100px;margin-left:10px">供应商查询</p>
+                </div>
+                </ion-col>
+                <ion-col col-6 style="
+                border-top:1px #f5f7fa solid;
+                border-bottom: 1px #f5f7fa solid;"
+                 tappable (click)="ProductionSearch()">
+                    <div style="padding:1px;margin-left: 15dp;overflow:hidden;text-align:left">
+                        <p text-wrap style="font-size:14px;color:#2e3033;width:35px;margin-left:10px">产品</p>
+                        <img  src="assets/img/work_bench/buy_product.png" style="height:25px;width:25px;float:right;margin-top:-25px;margin-right:20px">
+                        <p style="font-size:12px;color:#c2c7cc;line-height:12px;width:100px;margin-left:10px">产品品牌系列及库存信息查询</p>
+                    </div>
+                </ion-col>
+              </ion-row>
+              <ion-row style="height:100px;text-align:center;margin-top:-5px">
+                  <ion-col col-6 style="
+                  border-right: 1px #f5f7fa solid;
+                border-bottom: 1px #f5f7fa solid;
+                  " tappable (click)="purchaseOrder()">
+                  <div style="padding:1px;margin-left: 15dp;overflow:hidden;text-align:left">
+                      <p text-wrap style="font-size:14px;color:#2e3033;width:35px;margin-left:10px">订单</p>
+                      <img  src="assets/img/work_bench/orderForm.png" style="height:25px;width:25px;float:right;margin-top:-25px;margin-right:20px">
+                      <p style="font-size:12px;color:#c2c7cc;line-height:12px;width:100px;margin-left:10px">采购订单/收货查询</p>
+                  </div>
+                  </ion-col>
+                  <ion-col col-6 style="border-bottom: 1px #f5f7fa solid;" tappable (click)="clickInComingWareHouse()">
+                      <div style="padding:1px;margin-left: 15dp;overflow:hidden;text-align:left">
+                          <p text-wrap style="font-size:14px;color:#2e3033;width:70px;margin-left:10px">采购确认</p>
+                          <img  src="assets/img/work_bench/buy_confirm.png" style="height:25px;width:25px;float:right;margin-top:-25px;margin-right:20px">
+                          <p style="font-size:12px;color:#c2c7cc;line-height:12px;width:100px;margin-left:10px">采购收货信息确认</p>
+                      </div>
+                  </ion-col>
+                </ion-row>
+                <ion-row style="height:100px;text-align:center;margin-top:-5px">
+                    <ion-col col-6 style="
+                    border-right: 1px #f5f7fa solid;
+                    " tappable (click)="clickPayrequest()" *ngIf="isShowPayment">
+                    <div style="padding:1px;margin-left: 15dp;overflow:hidden;text-align:left">
+                        <p text-wrap style="font-size:14px;color:#2e3033;width:70px;margin-left:10px">付款确认
+                            <span *ngIf="py_count > 0" style="position:absolute;width:16px;height:16px;border-radius:8px;background-color:red;display:inline-block;color:white;line-height:16px;text-align:center;font-size:14px;margin-left:10px">{{py_count}}</span>
+                        </p>
+                        <img  src="assets/img/work_bench/pay_confirm.png" style="height:25px;width:25px;float:right;margin-top:-25px;margin-right:20px">
+                        <p style="font-size:12px;color:#c2c7cc;line-height:12px;width:100px;margin-left:10px">采购付款申请审核</p>
+                    </div>
+                    </ion-col>
+                  </ion-row>
+        </ion-grid>
+    </div>
+
+
+    <div *ngIf="isEngineer" style="background:#ffffff">
+        <ion-grid>
+            <ion-row style="height:100px;text-align:center;">
+                <ion-col col-6 style="
+                border-top:1px #f5f7fa solid;
+                border-right: 1px #f5f7fa solid;
+              border-bottom: 1px #f5f7fa solid;
+                " tappable (click)="change_kucun()" *ngIf="isShowKucun">
+                <div style="padding:1px;margin-left: 15dp;overflow:hidden;text-align:left">
+                    <p text-wrap style="font-size:14px;color:#2e3033;width:70px;margin-left:10px">库存调整
+                        <span *ngIf="kc_count > 0" style="position:absolute;width:16px;height:16px;border-radius:8px;background-color:red;display:inline-block;color:white;line-height:16px;text-align:center;font-size:14px;margin-left:10px">{{kc_count}}</span>
+                    </p>
+                    <img  src="assets/img/work_bench/change_kucun.png" style="height:25px;width:25px;float:right;margin-top:-25px;margin-right:20px">
+                    <p style="font-size:12px;color:#c2c7cc;line-height:12px;width:100px;margin-left:10px">库存调整单据审核</p>
+                </div>
+                </ion-col>
+                <ion-col col-6 style="
+                border-top:1px #f5f7fa solid;
+                border-right: 1px #f5f7fa solid;
+                border-bottom: 1px #f5f7fa solid;"
+                 tappable (click)="material_request()">
+                    <div style="padding:1px;margin-left: 15dp;overflow:hidden;text-align:left">
+                        <p text-wrap style="font-size:14px;color:#2e3033;width:70px;margin-left:10px">工程领料</p>
+                        <img  src="assets/img/work_bench/engineer_material.png" style="height:25px;width:25px;float:right;margin-top:-25px;margin-right:20px">
+                        <p style="font-size:12px;color:#c2c7cc;line-height:12px;width:100px;margin-left:10px">领料单审核</p>
+                    </div>
+                </ion-col>
+              </ion-row>
+        </ion-grid>
+    </div>
+
+
+    <div *ngIf="isMoney" style="background:#ffffff">
+        <ion-grid>
+            <ion-row style="height:100px;text-align:center;">
+                <ion-col col-6 style="
+                border-top:1px #f5f7fa solid;
+                border-right: 1px #f5f7fa solid;
+              border-bottom: 1px #f5f7fa solid;
+                " tappable (click)="baobiao()">
+                <div style="padding:1px;margin-left: 15dp;overflow:hidden;text-align:left">
+                    <p text-wrap style="font-size:14px;color:#2e3033;width:70px;margin-left:10px">财务报表</p>
+                    <img  src="assets/img/work_bench/reportForms.png" style="height:25px;width:25px;float:right;margin-top:-25px;margin-right:20px">
+                    <p style="font-size:12px;color:#c2c7cc;line-height:12px;width:100px;margin-left:10px">资金日报/香港账户查询</p>
+                </div>
+                </ion-col>
+                <ion-col col-6 style="
+                border-top:1px #f5f7fa solid;
+                border-bottom: 1px #f5f7fa solid;">   
+                </ion-col>
+              </ion-row>
+        </ion-grid>
+    </div>
+  <!-- <div class="externalDiv">
     <div class="titleFont">常用</div>
   </div>
   <ion-grid>
@@ -41,14 +266,14 @@
         <img src="assets/img/work_bench/zhishifenxiang.png">
         <div>知识分享</div>
       </ion-col>
-    </ion-row>
-     <ion-row>
+    </ion-row> -->
+    <!-- <ion-row>
       <ion-col col-3 tappable (click)="kaoqin()">
         <img src="assets/img/work_bench/gongdan.png">
         <div>考勤</div>
       </ion-col>
-  </ion-row> 
-  </ion-grid>
+  </ion-row> -->
+  <!-- </ion-grid>
   <div class='dividingLine'></div>
 
   <div *ngIf="isShowSale">
@@ -56,12 +281,12 @@
       <div class="titleFont">销售</div>
     </div>
     <ion-grid>
-      <ion-row>
+      <ion-row> -->
         <!--<ion-col col-3>
         <img src="assets/img/work_bench/yibiaopan.png">
         <div>仪表盘</div>
       </ion-col>-->
-        <ion-col col-3 tappable (click)="camCard()">
+        <!-- <ion-col col-3 tappable (click)="camCard()">
           <img src="assets/img/work_bench/daorumingpian.png">
           <div>导入名片</div>
         </ion-col>
@@ -82,7 +307,7 @@
           <div>日志报表</div>
         </ion-col>
       </ion-row>
-      <ion-row>
+      <ion-row> -->
         <!--<ion-col col-3 tappable (click)="salesOrder()">
         <img src="assets/img/work_bench/dingdan.png">
         <div>订单</div>
@@ -95,22 +320,17 @@
         <img src="assets/img/work_bench/tuihuoruku.png">
         <div>退货入库</div>
       </ion-col>-->
-      </ion-row>
+      <!-- </ion-row>
     </ion-grid>
     <div class='dividingLine'></div>
-  </div>
+  </div> -->
 
-  <div *ngIf="isShowPurchase">
+  <!-- <div *ngIf="isShowPurchase">
     <div class="externalDiv">
       <div class="titleFont">采购</div>
     </div>
     <ion-grid>
       <ion-row>
-        
-        <!--<ion-col col-3>
-          <img src="assets/img/work_bench/yibiaopan.png">
-          <div>仪表盘</div>
-        </ion-col>-->
         <ion-col col-3 tappable (click)="supplierList()">
           <img src="assets/img/work_bench/gongyingshang.png">
           <div>供应商</div>
@@ -134,20 +354,12 @@
         </ion-col>
       </ion-row>
       <ion-row>
-        <!--<ion-col col-3>
-          <img src="assets/img/work_bench/duizhang.png">
-          <div>对账</div>
-        </ion-col>-->
-        <!--<ion-col col-3 tappable (click)="clickInComingWareHouse()">
-          <img src="assets/img/work_bench/ruku.png">
-          <div>入库</div>
-        </ion-col>-->
       </ion-row>
     </ion-grid>
     <div class='dividingLine'></div>
-  </div>
+  </div> -->
 
-  <div class="externalDiv">
+  <!-- <div class="externalDiv">
     <div class="titleFont">工程</div>
   </div>
   <ion-grid>
@@ -204,5 +416,5 @@
         </ion-col>
       </ion-row>
     </ion-grid>
-  </div>
+  </div> -->
 </ion-content>
