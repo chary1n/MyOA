@@ -22,7 +22,7 @@ declare let cordova: any;
   providers: [CommonUseServices, ApplyAutoService, ReimbursementService, ReimbursementAutoService],
 })
 export class ApplyPage {
-  pet: string = "0"; 
+  pet: string = "1"; 
   wait_approval_list: any;
   already_approval_list: any;
   isMoreData1 = true;
