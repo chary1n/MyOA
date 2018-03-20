@@ -97,7 +97,8 @@
     </div>
 
     <ion-item *ngIf="isCanSeeAll" align="center" no-lines style="height:40px;
-    margin-top: -20px;border-width:0.5px;border-color:lightgray;width:101%;margin-left:-2px;margin-right:-4px;">
+    margin-top:15px;
+    border-width:0.5px;border-color:lightgray;width:101%;margin-left:-2px;margin-right:-4px;">
       <ion-grid>
         <ion-row class="row_class" align-items-center>
           <ion-col tappable (click)="click_one()">
@@ -118,7 +119,7 @@
         </ion-row>
       </ion-grid>
     </ion-item>
-    <div style="background: #b8c2cc;
+    <div style="background: #f5f7fa;
     width: 94%;
     height: 1px;
     margin-left: 3%;"></div>
@@ -163,9 +164,7 @@
 
 
     <ion-item-group *ngIf="show_type == 'two'">
-      <div style="background:#f0f2f5;
-  height: 35px;
-  padding: 8px;">
+      <div class="biaoti">
         身份及其他信息
       </div>
 
@@ -222,9 +221,7 @@
       color: #b7c2cb;"> 无</p>
 
 
-      <div style="background:#f0f2f5;
-      height: 35px;
-      padding: 8px;">
+      <div class="biaoti">
         银行账号
 
       </div>
@@ -258,10 +255,7 @@
 
 
 
-      <div style="background:#f0f2f5;
-  height: 35px;
-  margin-top: 10px;
-  padding: 8px;">
+      <div class="biaoti">
         紧急联系人
       </div>
       <div class="div_all">
@@ -277,9 +271,7 @@
         <div class="div_left"> 联系方式 </div>
       </div>
 
-      <div style="background:#f0f2f5;
-  height: 35px;
-  padding: 8px;">
+      <div class="biaoti">
         工作经验
         <label style="float: right;
         padding-right: 24px;" *ngIf="item.work_experience_ids.length==0">无 </label>
@@ -291,9 +283,7 @@
         <p class="p_three"> {{item.department}} | {{item.position}}</p>
       </div>
 
-      <div style="background:#f0f2f5;
-  height: 35px;
-  padding: 8px;">
+      <div class="biaoti">
         教育经历
         <label style="float: right;
         padding-right: 24px;" *ngIf="item.education_experience_ids.length==0">无 </label>
@@ -306,13 +296,11 @@
       </div>
 
 
-      <div style="background:#f0f2f5;
-  height: 35px;
-  padding: 8px;">
+      <div class="biaoti">
         附件
       </div>
 
-      <p style="padding-left: 14px; line-height: 10px;">
+      <p style="padding-left: 14px;color: #c2c7cc">
         证书
       </p>
 
@@ -337,9 +325,7 @@
 
     <ion-item-group *ngIf="show_type == 'three'">
 
-      <div style="background:#f0f2f5;
-      height: 35px;
-      padding: 8px;">
+      <div class="biaoti">
         合同信息
       </div>
 
@@ -377,9 +363,7 @@
       </div>
 
 
-      <div style="background:#f0f2f5;
-    height: 35px;
-    padding: 8px;">
+      <div class="biaoti">
         费用信息
 
       </div>
@@ -392,9 +376,7 @@
         <div class="div_left"> 申购余额</div>
       </div>
 
-      <div style="background:#f0f2f5;
-    height: 35px;
-    padding: 8px;">
+      <div class="biaoti">
         用户信息
 
       </div>
@@ -403,9 +385,7 @@
         <div text-wrap class="div_right"> {{item.is_create_account}} </div>
         <div class="div_left"> 相关用户</div>
       </div>
-      <div style="background:#f0f2f5;
-    height: 35px;
-    padding: 8px;">
+      <div class="biaoti">
         设备信息
 
       </div>
@@ -439,12 +419,12 @@
       <ion-label>中文名
         <span style="color:red;"> *</span>
       </ion-label>
-      <ion-input item-end text-wrap text-right [(ngModel)]="item.name"></ion-input>
+      <ion-input  text-wrap text-right [(ngModel)]="item.name"></ion-input>
     </ion-item>
 
 
     <ion-item align="center" no-lines style="height:40px;
-    margin-top: -20px;border-width:0.5px;border-color:lightgray;width:101%;margin-left:-2px;margin-right:-4px;">
+    border-width:0.5px;border-color:lightgray;width:101%;margin-left:-2px;margin-right:-4px;">
       <ion-grid>
         <ion-row class="row_class" align-items-center>
           <ion-col tappable (click)="click_one()">
@@ -465,7 +445,7 @@
         </ion-row>
       </ion-grid>
     </ion-item>
-    <div style="background: #b8c2cc;
+    <div style="background: #f5f7fa;
     width: 94%;
     height: 1px;
     margin-left: 3%;"></div>
@@ -476,7 +456,7 @@
       <ion-item>
         <ion-label style="color:black">英文名
         </ion-label>
-        <ion-input item-end text-wrap text-right [(ngModel)]="item.english_name"></ion-input>
+        <ion-input  text-wrap text-right [(ngModel)]="item.english_name"></ion-input>
       </ion-item>
 
 
@@ -484,13 +464,13 @@
         <ion-label style="color:black">办公手机
           <span style="color:red;"> *</span>
         </ion-label>
-        <ion-input item-end #mNumberCon text-right type="number" placeholder="请输入" [(ngModel)]="item.mobile_phone"></ion-input>
+        <ion-input  #mNumberCon text-right type="number" placeholder="请输入" [(ngModel)]="item.mobile_phone"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label style="color:black">工作Email
           <span style="color:red;"> *</span>
         </ion-label>
-        <ion-input item-end text-wrap text-right [(ngModel)]="item.work_email"></ion-input>
+        <ion-input  text-wrap text-right [(ngModel)]="item.work_email"></ion-input>
       </ion-item>
 
       <ion-item>
@@ -506,9 +486,7 @@
 
 
     <ion-item-group *ngIf="show_type == 'two'">
-      <div style="background:#f0f2f5;
-    height: 35px;
-    padding: 8px;">
+      <div class="biaoti">
         身份及其他信息
       </div>
 
@@ -540,7 +518,7 @@
         <ion-label style="color:black">身份证号
           <span style="color:red;"> *</span>
         </ion-label>
-        <ion-input item-end text-wrap placeholder="请输入" text-right [(ngModel)]="item.identification_id"></ion-input>
+        <ion-input text-wrap placeholder="请输入" text-right [(ngModel)]="item.identification_id"></ion-input>
       </ion-item>
       <p style="padding-left: 14px;color: #c2c7cc;">
 
@@ -581,21 +559,19 @@
 
 
 
-      <div style="background:#f0f2f5;
-      height: 35px;
-      padding: 8px;">
+      <div class="biaoti">
         银行账号
       </div>
 
       <ion-item>
         <ion-label style="color:black">银行卡号
         </ion-label>
-        <ion-input item-end text-wrap text-right #mNumberCon type="number" placeholder="请输入" [(ngModel)]="item.bank_card_num"></ion-input>
+        <ion-input text-wrap text-right #mNumberCon type="number" placeholder="请输入" [(ngModel)]="item.bank_card_num"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label style="color:black">开户行
         </ion-label>
-        <ion-input item-end text-wrap text-right placeholder="请输入" [(ngModel)]="item.bank_card_opening_bank"></ion-input>
+        <ion-input text-wrap text-right placeholder="请输入" [(ngModel)]="item.bank_card_opening_bank"></ion-input>
       </ion-item>
 
 
@@ -603,7 +579,7 @@
         (请拍摄公司工资卡正面)
       </p>
 
-      <ion-grid style="   height:126px;">
+      <ion-grid style="   height:135px;">
         <ion-col col-4 *ngIf="item.bank_card" style="position:relative;height:106px;margin-top:5px" (click)="clickBankPicture(item.bank_card)">
 
           <img src={{item.bank_card}} style="position:absolute;
@@ -615,10 +591,7 @@
 
       </ion-grid>
 
-      <div style="background:#f0f2f5;
-        height: 35px;
-        margin-top: 10px;
-        padding: 8px;">
+      <div class="biaoti">
         紧急联系人
       </div>
 
@@ -642,9 +615,7 @@
       </ion-item>
 
 
-      <div style="background:#f0f2f5;
-    height: 35px;
-    padding: 8px;">
+      <div class="biaoti">
         工作经验
         <label style="float: right;
         padding-right: 24px;" *ngIf="item.work_experience_ids.length==0">无 </label>
@@ -655,9 +626,7 @@
         <p class="p_three"> {{item.department}} | {{item.position}}</p>
       </div>
 
-      <div style="background:#f0f2f5;
-    height: 35px;
-    padding: 8px;">
+      <div class="biaoti">
         教育经历
         <label style="float: right;
         padding-right: 24px;" *ngIf="item.education_experience_ids.length==0">无 </label>
@@ -669,17 +638,13 @@
         <p class="p_three"> {{item.attainment}} | {{item.major}}</p>
       </div>
 
-      <div style="background:#f0f2f5;
-  height: 35px;
-  padding: 8px;">
+      <div class="biaoti">
         附件
       </div>
 
 
       <p style="padding-left: 14px;color: #c2c7cc;">
-        证书
-        <span style="color: #c2c7cc;
-    font-size: 12px;">(如学历证书、技能证书等)</span>
+        证书(如学历证书、技能证书等)
       </p>
 
       <ion-grid style="    padding-left: 9px;
@@ -703,9 +668,7 @@
 
     <ion-item-group *ngIf="show_type == 'three'">
 
-      <div style="background:#f0f2f5;
-        height: 35px;
-        padding: 8px;">
+      <div class="biaoti">
         合同信息
       </div>
 
@@ -719,9 +682,9 @@
         </ion-item>
 
       <ion-item>
-        <ion-label style="color:#2e3133;font-size:14px">入职日期
+        <ion-label style="color:black;">入职日期
           <span style="color:red;"> *</span></ion-label>
-        <ion-datetime cancelText="取消" doneText="确定" min="2000" max="2088" style="color:#5C6166;font-size:12px;margin-right:-6px"
+        <ion-datetime cancelText="取消" doneText="确定" min="2000" max="2088" style="color:#5C6166;font-size:14px;margin-right:-6px"
           (ionChange)="watch()" displayFormat="YYYY-MM-DD" [(ngModel)]="item.entry_date"></ion-datetime>
         <img item-end src="assets/img/journal_sheet/right_icon.png" style="height:10px;margin-right:-4px">
       </ion-item>

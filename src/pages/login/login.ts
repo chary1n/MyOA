@@ -195,8 +195,8 @@ export class LoginPage {
     this.isSelected3 = false;
     this.chooseIndex = 4;
     // HttpService.appUrl = "http://ber.robotime.com/"
-    HttpService.appUrl = "http://192.168.88.131:8069/"
-    // HttpService.appUrl = "http://192.168.2.64:8069/"
+    // HttpService.appUrl = "http://192.168.88.131:8069/"
+    HttpService.appUrl = "http://192.168.2.64:8069/"
     this.reset();
     this.img4 = "assets/img/banchang_clicked.png" 
     this.password_src="assets/img/B_password.png"
