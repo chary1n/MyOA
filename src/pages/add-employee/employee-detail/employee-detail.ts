@@ -15,6 +15,7 @@ import { IonicPage, NavController, NavParams, ToastController, Platform } from '
 declare let startApp: any;
 import { Storage } from '@ionic/storage';
 import * as moment from 'moment';
+declare let cordova: any; 
 
 /**
  * Generated class for the EmployeeDetailPage page.
@@ -95,6 +96,10 @@ export class EmployeeDetailPage {
     this.origin_identification_id = this.item.identification_id
     console.log(this.origin_email)
 
+  }
+
+  panEvent($event) {
+    cordova.plugins.Keyboard.close();
   }
 
   checkIsCanSeeAll() {

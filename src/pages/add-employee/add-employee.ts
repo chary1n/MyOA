@@ -13,6 +13,7 @@ import { GongDanService } from '../work-bench/gongdan/gongdanService';
 import { ToastController } from 'ionic-angular';
 import { dateDataSortValue } from 'ionic-angular/util/datetime-util';
 import * as moment from 'moment';
+declare let cordova: any; 
 
 /**
  * Generated class for the AddEmployeePage page.
@@ -114,6 +115,11 @@ export class AddEmployeePage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AddEmployeePage');
+  }
+
+
+  panEvent($event) {
+    cordova.plugins.Keyboard.close();
   }
 
   // 拍摄正面
