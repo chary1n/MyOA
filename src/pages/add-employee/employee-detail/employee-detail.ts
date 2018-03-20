@@ -367,6 +367,8 @@ export class EmployeeDetailPage {
                 handler: () => {
                   this.isModify = false;
                   this.item = res.result.res_data
+                  this.origin_email = this.item.work_email
+                  this.origin_identification_id = this.item.identification_id
                 }
               }
             ]
