@@ -140,11 +140,7 @@ export class KaoqinPage {
     this.currentMonth = this.currentDate_date.getMonth() + 1
     this.currentYear = this.currentDate_date.getFullYear()
     this.setSchedule(this.currentDate_date)
-    // setTimeout(()=>{
-    //   let element = document.getElementById("item_class")
-    //   element.style.lineHeight = "100px"
-    //   element.style.background = "red"
-    // },1)
+    
     this.kaoqinService.get_today_attendance(this.formatTime_day_start(new Date()),this.formatTime_day_end(new Date()),this.user.user_id).then(res => {
             // console.log(res)
             if (res.result.res_data && res.result.res_code == 1) {
@@ -556,13 +552,15 @@ export class KaoqinPage {
       }
 
     this.currentDate_date =  new Date(str)
-    console.log(this.currentDate_date)
-    console.log()
+    // console.log(this.currentDate_date)
+    // console.log()
     this.currentDate = (this.currentDate_date.getMonth() + 1) + '月'  
     this.setSchedule(new Date(str))
   }
 
   delete_month(){
+    let elem = document.getElementById("item-content")
+    elem.style.background = "red"
     var Y = this.currentDate_date.getFullYear();
     var m = this.currentDate_date.getMonth() + 1;
     var d = this.currentDate_date.getDate();
@@ -576,7 +574,7 @@ export class KaoqinPage {
         str = Y + '/' + m + '/' + d
       }
     this.currentDate_date =  new Date(str)
-    console.log(this.currentDate_date)
+    // console.log(this.currentDate_date)
     this.currentDate = (this.currentDate_date.getMonth() + 1) + '月'
     this.setSchedule(new Date(str))
   }

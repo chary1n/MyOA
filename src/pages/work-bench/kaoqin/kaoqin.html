@@ -121,7 +121,7 @@
       <div id= "flex-item" class="flex-item" *ngFor="let vo of currentDayList">  
         <!--<div class="item-content bk-color-day"  style='line-height:30px'>{{vo.d}}
           </div>  -->
-        <div id="item_class" tappable (click)="choose_day(vo)" [ngClass]="{true:'item-content bk-color-day',false:'item-content'}[currentDay == vo.d && currentMonth == vo.m && currentYear == vo.y]" >{{vo.d}}
+        <div id="item-content" tappable (click)="choose_day(vo)" [ngClass]="{true:'item-content bk-color-day',false:'item-content'}[currentDay == vo.d && currentMonth == vo.m && currentYear == vo.y]" >{{vo.d}}
         </div>      
       </div> 
     </div>
