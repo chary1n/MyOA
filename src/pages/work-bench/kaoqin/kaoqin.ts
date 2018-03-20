@@ -559,8 +559,6 @@ export class KaoqinPage {
   }
 
   delete_month(){
-    let elem = document.getElementById("item-content")
-    elem.style.background = "red"
     var Y = this.currentDate_date.getFullYear();
     var m = this.currentDate_date.getMonth() + 1;
     var d = this.currentDate_date.getDate();
