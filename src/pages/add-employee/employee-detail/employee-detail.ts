@@ -13,7 +13,9 @@ import { CallNumber } from '@ionic-native/call-number';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController, Platform } from 'ionic-angular';
 declare let startApp: any;
-import { Storage} from '@ionic/storage';
+import { Storage } from '@ionic/storage';
+import * as moment from 'moment';
+declare let cordova: any; 
 
 /**
  * Generated class for the EmployeeDetailPage page.
@@ -32,6 +34,11 @@ export class EmployeeDetailPage {
   item: any;
   sexList = [{ name: '男', id: 'male' }, { name: '女', id: 'female' }]
   marriageList = [{ name: '单身', id: 'single' }, { name: '已婚', id: 'married' }, { name: '离异', id: 'divorced' }, { name: '丧偶', id: 'widower' }]
+  shiyongList = [{ name: '半个月', id: 'half_month' }, { name: '一个月', id: 'one_month' }, { name: '两个月', id: 'two_month' },
+  { name: '三个月', id: 'three_month' }, { name: '无', id: '' }]
+
+  mining_productivity_list = [{ name: '实习', id: 'practice_work' },{ name: '派遣', id: 'dispatch_work' },
+  { name: '试用', id: 'try_out_work' },{ name: '正式', id: 'fixed_work' },{ name: '离职', id: 'leaving_work' },]
   minzuList;
   departmentList;
   isModify = false;
@@ -40,8 +47,10 @@ export class EmployeeDetailPage {
   photoType;
   origin_data;
   origin_email = "";
+  origin_identification_id = "";
   isShowEdit = false;
-  isCanSeeAll = false ;
+  isCanSeeAll = false;
+  shiyongDate;
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public callNumber: CallNumber,
@@ -55,7 +64,7 @@ export class EmployeeDetailPage {
     public employeeService: EmployeeService,
     public toastCtrl: ToastController,
     public datePipe: DatePipe,
-    public storage:Storage,
+    public storage: Storage,
   ) {
     this.employeeService.get_employee_list().then(res => {
       if (res.result.res_data && res.result.res_code == 1) {
@@ -71,7 +80,7 @@ export class EmployeeDetailPage {
     this.storage.get('user')
       .then(res => {
         for (let product of res.result.res_data.groups) {
-          if ( product.name == 'group_hr_manager') {
+          if (product.name == 'group_hr_manager') {
             this.isShowEdit = true;
           }
         }
@@ -84,21 +93,26 @@ export class EmployeeDetailPage {
     this.origin_data = this.navParams.get("origin_data")
     console.log(this.item)
     this.origin_email = this.item.work_email
+    this.origin_identification_id = this.item.identification_id
     console.log(this.origin_email)
 
   }
 
-  checkIsCanSeeAll(){
-    for(let i = 0; i <HttpService.user.employee_all_child.length;i++){ 
-      if(this.item.id==  HttpService.user.employee_all_child[i]){
+  panEvent($event) {
+    cordova.plugins.Keyboard.close();
+  }
+
+  checkIsCanSeeAll() {
+    for (let i = 0; i < HttpService.user.employee_all_child.length; i++) {
+      if (this.item.id == HttpService.user.employee_all_child[i]) {
         this.isCanSeeAll = true
       }
     }
-    if (this.isShowEdit){
-      this.isCanSeeAll = true 
+    if (this.isShowEdit) {
+      this.isCanSeeAll = true
     }
-    if(this.item.uid ==HttpService.user_id){
-      this.isCanSeeAll = true 
+    if (this.item.uid == HttpService.user_id) {
+      this.isCanSeeAll = true
     }
 
 
@@ -242,15 +256,44 @@ export class EmployeeDetailPage {
     let mString = "";
     if (!this.item.name) {
       mString = mString + "   请输入中文名"
+      Utils.toastButtom(mString, this.toastCtrl)
+      return;
     }
-    if (!this.item.gender) {
-      mString = mString + "   请选择性别"
+    if (!this.item.identification_id) {
+      mString = mString + "   请输入身份证号"
+      Utils.toastButtom(mString, this.toastCtrl)
+      return;
+    }
+    if (!this.item.emergency_contact_name) {
+      mString = mString + "   请输入紧急联系人姓名"
+      Utils.toastButtom(mString, this.toastCtrl)
+      return;
+    }
+    if (!this.item.emergency_contact_relation) {
+      mString = mString + "   请输入与紧急联系人的关系"
+      Utils.toastButtom(mString, this.toastCtrl)
+      return;
+    }
+    if (!this.item.emergency_contact_way) {
+      mString = mString + "   请输入紧急联系人联系方式"
+      Utils.toastButtom(mString, this.toastCtrl)
+      return;
     }
     if (!this.item.mobile_phone) {
       mString = mString + "   请输入办公手机"
     }
     if (!this.item.department_id_id) {
       mString = mString + "   请选择部门"
+    }
+    if (!this.item.mining_productivity_id) {
+      mString = mString + "   请选择用工形式"
+      Utils.toastButtom(mString, this.toastCtrl)
+      return;
+    }
+    if (!this.item.entry_date) {
+      mString = mString + "   请选择入职日期"
+      Utils.toastButtom(mString, this.toastCtrl)
+      return;
     }
     if (mString != "") {
       Utils.toastButtom(mString, this.toastCtrl)
@@ -273,6 +316,13 @@ export class EmployeeDetailPage {
         pushEmail = this.item.work_email
       }
 
+      let  push_identification_id;
+      if (this.origin_identification_id == this.item.identification_id) {
+        push_identification_id = ""
+      } else {
+        push_identification_id = this.item.identification_id
+      }
+
       // if (this.item.image) {
       //   var imStart = this.item.image.indexOf("http");
       //   if (imStart == -1) {
@@ -293,7 +343,7 @@ export class EmployeeDetailPage {
         gender: this.item.gender_id,
         birthday: this.item.birthday,
         mobile_phone: this.item.mobile_phone,
-        identification_id: this.item.identification_id,
+        identification_id: push_identification_id,
         marital: this.item.marital_id,
         entry_date: this.item.entry_date,
         identification_A: this.item.identification_A,
@@ -301,6 +351,13 @@ export class EmployeeDetailPage {
         bank_card: this.item.bank_card,
         certificate_image_ids: this.item.certificate_image_ids,
         edit_id: HttpService.user_id,
+        bank_card_num: this.item.bank_card_num,
+        bank_card_opening_bank: this.item.bank_card_opening_bank,
+        emergency_contact_name: this.item.emergency_contact_name,
+        emergency_contact_way: this.item.emergency_contact_way,
+        emergency_contact_relation: this.item.emergency_contact_relation,
+        probation_period: this.item.probation_period_id,
+        mining_productivity: this.item.mining_productivity_id ,
       }
 
 
@@ -314,7 +371,9 @@ export class EmployeeDetailPage {
                 text: '确定',
                 handler: () => {
                   this.isModify = false;
-                  this.item = res.result.res_data 
+                  this.item = res.result.res_data
+                  this.origin_email = this.item.work_email
+                  this.origin_identification_id = this.item.identification_id
                 }
               }
             ]
@@ -440,6 +499,25 @@ export class EmployeeDetailPage {
   clickPicture(item) {
     this.deletePicture = item
     this.navCtrl.push("DeletePicturePage", { item: item, EmployeeDetailPage: "EmployeeDetailPage" })
+  }
+
+  watch(item){
+    if(this.item.entry_date&&this.item.probation_period_id){
+      let d = moment(this.item.entry_date,"YYYY-MM-DD");
+      let endDate;
+      
+
+      if(this.item.probation_period_id=="half_month"){
+       endDate = d.add(15, "days").add(-1,'days').format("YYYY-MM-DD")
+      }else if(this.item.probation_period_id=="one_month"){
+        endDate = d.add(1, "months").add(-1,'days').format("YYYY-MM-DD")
+      }else if(this.item.probation_period_id=="two_month"){
+        endDate = d.add(2, "months").add(-1,'days').format("YYYY-MM-DD")
+      }else if(this.item.probation_period_id=="three_month"){
+        endDate = d.add(3, "months").add(-1,'days').format("YYYY-MM-DD")
+      }
+      this.item.probation_date = (this.item.entry_date ) + "   ~   " +endDate
+    }
   }
 
 

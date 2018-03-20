@@ -43,4 +43,13 @@ export class KaoQinService {
         });
        return this.httpservice.postBodyNoLoading("get_is_department",body);
     }
+
+    get_department_employee_attendance(manager_id,day_start,day_end){
+        let body = JSON.stringify({
+            manager_id:manager_id,
+            day_start:day_start,
+            day_end:day_end,
+        });
+       return this.httpservice.postBody("get_department_employee_attendance",body);
+    }
 }

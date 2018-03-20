@@ -41,6 +41,27 @@ export var pinyin = (function (){
             }  
             return result;  
         },  
+
+        getLowerChars: function(str){      
+            var result = '', name;  
+            var reg = new RegExp('[a-zA-Z0-9\- ]');  
+            for (var i=0, len = str.length; i < len; i++){  
+                var ch = str.substr(i,1), unicode = ch.charCodeAt(0);  
+                if(unicode > 40869 || unicode < 19968){  
+                    result += ch;  
+                }else{  
+                    name = this._getLowerChar(ch);  
+                    if(name !== false){  
+                        result += name;  
+                    }  
+                }  
+            }  
+            return result;  
+        }, 
+
+
+
+
           
         // 提取首字母，返回大写形式       
         getCamelChars: function(str){  
@@ -69,6 +90,19 @@ export var pinyin = (function (){
             }  
             return false;  
         },  
+
+
+        _getLowerChar: function(str){  
+            for (var key in this.full_dict){  
+                if(-1 !== this.full_dict[key].indexOf(str)){  
+                    return this._capitalize(key).toLowerCase();   
+                    // break;  
+                }  
+            }  
+            return false;  
+        },  
+
+
           
         // 首字母大写  
         _capitalize: function(str){  
@@ -103,7 +137,7 @@ export var pinyin = (function (){
                 }else{  
                     var swap1 = result.slice(0);  
                     result = [];  
-                    for(var j=0; j < strlen; j++){  
+                    for(let j=0; j < strlen; j++){  
                         //复制一个相同的arrRslt  
                         var swap2 = swap1.slice(0);  
                         //把当前字符str[k]添加到每个元素末尾  

@@ -18,34 +18,35 @@
 
 
     <ion-buttons end *ngIf="!isModify">
-      <button  *ngIf="isShowEdit"   ion-button icon-only (click)="edit()">
-        <ion-icon name="create"></ion-icon>
+      <button *ngIf="isShowEdit" ion-button (click)="edit()">
+        <img style="width: 21px;
+       margin-right: 2px;" src="assets/img/edit.png">
       </button>
     </ion-buttons>
     <ion-title>{{item.name}}</ion-title>
 
     <ion-buttons left *ngIf="isModify">
-    <button ion-button icon-only (click)="cancel()">
-      <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
-    </button>
-  </ion-buttons>
+      <button ion-button icon-only (click)="cancel()">
+        <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+
     <ion-buttons end *ngIf="isModify">
       <button ion-button (click)='release()'>
         完成
       </button>
     </ion-buttons>
+
   </ion-navbar>
 </ion-header>
 
 
-<ion-content style="background:white">
+<ion-content style="background:white" (pan)="panEvent($event)">
 
   <div *ngIf="!isModify">
-
-
     <div style="width:90%;margin-left:5%;    box-shadow: 2px 4px 22px #edeeee;
   margin-top: 10px;
-  height: 120px;
+  height: 255px;
   margin-bottom: 25px;border-radius:10px;">
       <img src={{item.image}} style="float: right;
     width: 46px;height:46px;
@@ -70,9 +71,33 @@
     margin-left: 20px;">
         邮箱 {{item.work_email}}
       </p>
+
+      <div *ngIf="!isModify">
+        <ion-grid style="margin-top:0px;width:100%;background:white" class="grid_header">
+          <ion-row class="row_class" align-items-center>
+            <ion-col tappable (click)="sendEmail()">
+              <div align="center" style="margin-top:10px">
+                <img style="width:44px;" src="assets/img/send_email.png">
+                <br>
+                <p style="color:#5bc5f3">发邮件</p>
+              </div>
+            </ion-col>
+
+            <ion-col tappable (click)="callPhone()">
+              <div align="center" style="margin-top:10px">
+                <img style="width:44px;" src="assets/img/call_phone.png">
+                <br>
+                <p style="color:#5bc5f3">打电话</p>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+
     </div>
 
-    <ion-item  *ngIf="isCanSeeAll"   align="center" no-lines style="height:40px;border-width:0.5px;border-color:lightgray;width:101%;margin-left:-2px;margin-right:-4px;margin-top:-10px">
+    <ion-item *ngIf="isCanSeeAll" align="center" no-lines style="height:40px;
+    margin-top: -20px;border-width:0.5px;border-color:lightgray;width:101%;margin-left:-2px;margin-right:-4px;">
       <ion-grid>
         <ion-row class="row_class" align-items-center>
           <ion-col tappable (click)="click_one()">
@@ -93,10 +118,14 @@
         </ion-row>
       </ion-grid>
     </ion-item>
+    <div style="background: #b8c2cc;
+    width: 94%;
+    height: 1px;
+    margin-left: 3%;"></div>
 
 
 
-    <ion-item-group style="margin-top:10px" *ngIf="show_type == 'one'">
+    <ion-item-group *ngIf="show_type == 'one'">
       <div class="div_all">
         <div text-wrap class="div_right"> {{item.company_id}} </div>
         <div class="div_left"> 公司名称 </div>
@@ -110,7 +139,11 @@
         <div class="div_left"> 部门 </div>
       </div>
       <div class="div_all">
-        <div text-wrap class="div_right"> {{item.job_id}} </div>
+        <div text-wrap class="div_right" >  
+          <span *ngFor="let job of item.hr_job_ids;">
+            {{job}} 
+            </span>
+            </div>
         <div class="div_left"> 工作头衔</div>
       </div>
       <div class="div_all">
@@ -129,7 +162,7 @@
     </ion-item-group>
 
 
-    <ion-item-group style="margin-top:10px" *ngIf="show_type == 'two'">
+    <ion-item-group *ngIf="show_type == 'two'">
       <div style="background:#f0f2f5;
   height: 35px;
   padding: 8px;">
@@ -149,10 +182,6 @@
         <div class="div_left"> 出生日期 </div>
       </div>
       <div class="div_all">
-        <div text-wrap class="div_right"> {{item.identification_id}} </div>
-        <div class="div_left"> 身份证号 </div>
-      </div>
-      <div class="div_all">
         <div text-wrap class="div_right"> {{item.address_home_two}} </div>
         <div class="div_left"> 家庭住址 </div>
       </div>
@@ -164,9 +193,74 @@
         <div text-wrap class="div_right"> {{item.marital}} </div>
         <div class="div_left"> 婚姻状况 </div>
       </div>
+      <div class="div_all">
+        <div text-wrap class="div_right"> {{item.identification_id}} </div>
+        <div class="div_left"> 身份证号 </div>
+      </div>
+      <p style="padding-left: 14px;color: #c2c7cc">
+        (身份证照片)
+      </p>
+
+      <ion-grid style="    padding-left: 9px;
+    padding-top: 0px;">
+        <ion-row>
+          <ion-col *ngIf="item.identification_A" col-4 style="position:relative;height:106px;margin-top:5px">
+            <img src={{item.identification_A}} style="position:absolute;
+            clip:rect(0px,106px,106px,0px);" imageViewer/>
+          </ion-col>
+
+          <ion-col *ngIf="item.identification_B" col-4 style="position:relative;height:106px;margin-top:5px">
+            <img src={{item.identification_B}} style="position:absolute;
+            clip:rect(0px,106px,106px,0px);" imageViewer/>
+          </ion-col>
+
+        </ion-row>
+      </ion-grid>
+
+      <p *ngIf="!item.identification_B && !item.identification_A" style="text-align: center;
+      line-height: 0px;
+      color: #b7c2cb;"> 无</p>
+
+
+      <div style="background:#f0f2f5;
+      height: 35px;
+      padding: 8px;">
+        银行账号
+
+      </div>
+
+      <div class="div_all">
+        <div text-wrap class="div_right"> {{item.bank_card_num}} </div>
+        <div class="div_left"> 银行卡号 </div>
+      </div>
+
+      <div class="div_all">
+        <div text-wrap class="div_right"> {{item.bank_card_opening_bank}} </div>
+        <div class="div_left"> 开户行 </div>
+      </div>
+
+      <p style="padding-left: 14px;color: #c2c7cc">
+        (银行卡照片)
+      </p>
+
+      <ion-grid style="    padding-left: 9px;
+    padding-top: 0px;">
+        <ion-col col-4 *ngIf="item.bank_card" style="position:relative;height:106px;margin-top:5px">
+
+          <img src={{item.bank_card}} style="position:absolute;
+              clip:rect(0px,106px,106px,0px);" imageViewer/>
+        </ion-col>
+
+      </ion-grid>
+      <p *ngIf="!item.bank_card" style="text-align: center;
+      line-height: 0px;
+      color: #b7c2cb;"> 无</p>
+
+
 
       <div style="background:#f0f2f5;
   height: 35px;
+  margin-top: 10px;
   padding: 8px;">
         紧急联系人
       </div>
@@ -191,7 +285,8 @@
         padding-right: 24px;" *ngIf="item.work_experience_ids.length==0">无 </label>
       </div>
       <div class="div_padding_left" *ngFor="let item of item.work_experience_ids">
-        <P class="p_time"> {{item.entry_time}} <span *ngIf="item.entry_time" >~</span>{{item.Leaving_time}}</P>
+        <P class="p_time"> {{item.entry_time}}
+          <span *ngIf="item.entry_time">~</span>{{item.Leaving_time}}</P>
         <p class="p_name"> {{item.name}}</p>
         <p class="p_three"> {{item.department}} | {{item.position}}</p>
       </div>
@@ -217,72 +312,30 @@
         附件
       </div>
 
-      <p style="padding-left: 14px;">
-        身份证
-      </p>
-
-      <ion-grid style="    padding-left: 9px;
-    padding-top: 0px;">
-        <ion-row>
-          <ion-col *ngIf="item.identification_A" col-4 style="position:relative;height:106px;margin-top:5px" >
-            <img src={{item.identification_A}} style="position:absolute;
-            clip:rect(0px,106px,106px,0px);"  imageViewer/>
-          </ion-col>
-
-          <ion-col  *ngIf="item.identification_B"   col-4 style="position:relative;height:106px;margin-top:5px" >
-            <img src={{item.identification_B}} style="position:absolute;
-            clip:rect(0px,106px,106px,0px);"  imageViewer/>
-          </ion-col>
-
-        </ion-row>
-      </ion-grid>
-
-      <p *ngIf="!item.identification_B && !item.identification_A"  style="text-align: center;
-      line-height: 0px;
-      color: #b7c2cb;"> 无</p>
-
-      <p style="padding-left: 14px;">
-        银行卡
-      </p>
-
-      <ion-grid style="    padding-left: 9px;
-    padding-top: 0px;">
-        <ion-col col-4 *ngIf="item.bank_card" style="position:relative;height:106px;margin-top:5px" >
-
-          <img src={{item.bank_card}} style="position:absolute;
-              clip:rect(0px,106px,106px,0px);"  imageViewer/>
-        </ion-col>
-
-      </ion-grid>
-      <p *ngIf="!item.bank_card"  style="text-align: center;
-      line-height: 0px;
-      color: #b7c2cb;"> 无</p>
-
-
       <p style="padding-left: 14px; line-height: 10px;">
         证书
       </p>
 
-      <ion-grid style="    padding-left: 9px;
+      <ion-grid style="padding-left: 9px;
     padding-top: 0px;">
         <ion-row>
-          <ion-col col-4 style="position:relative;height:106px;margin-top:5px" *ngFor="let item of item.certificate_image_ids" on-hold="onHold()"
-            >
+          <ion-col col-4 style="position:relative;height:106px;margin-top:5px" *ngFor="let item of item.certificate_image_ids" on-hold="onHold()">
 
             <img src={{item}} style="position:absolute;
-                    clip:rect(0px,106px,106px,0px);"  imageViewer/>
+                    clip:rect(0px,106px,106px,0px);" imageViewer/>
           </ion-col>
         </ion-row>
 
       </ion-grid>
 
-      <p *ngIf="item.certificate_image_ids.length==0"  style="text-align: center;
+      <p *ngIf="item.certificate_image_ids.length==0" style="text-align: center;
       line-height: 0px;
       color: #b7c2cb;"> 无</p>
-      <div  style="height:140px"></div>
+      <div style="height:140px"></div>
     </ion-item-group>
 
-    <ion-item-group style="margin-top:10px" *ngIf="show_type == 'three'">
+
+    <ion-item-group *ngIf="show_type == 'three'">
 
       <div style="background:#f0f2f5;
       height: 35px;
@@ -296,7 +349,7 @@
       </div>
 
       <div class="div_all">
-        <div text-wrap class="div_right"> {{item.probation_begin_date}} <span *ngIf="item.probation_begin_date" >~</span>{{item.probation_end_date}} </div>
+        <div text-wrap class="div_right" *ngIf="item.probation_period_id"> {{item.probation_date}} </div>
         <div class="div_left">试用期</div>
       </div>
 
@@ -316,6 +369,11 @@
       <div class="div_all">
         <div text-wrap class="div_right"> {{item.accumulation_fund}} </div>
         <div class="div_left">交金类别</div>
+      </div>
+
+      <div class="div_all">
+        <div text-wrap class="div_right"> {{item.insurance_type}} </div>
+        <div class="div_left">保险类别</div>
       </div>
 
 
@@ -357,13 +415,10 @@
         <div class="div_left">工牌 </div>
       </div>
 
-      <div  style="height:140px"></div>
-
-
+      <div style="height:140px"></div>
     </ion-item-group>
 
   </div>
-
 
 
 
@@ -379,6 +434,7 @@
       </ion-avatar>
       <ion-icon name="arrow-forward" item-end color="blue"></ion-icon>
     </ion-item>
+
     <ion-item>
       <ion-label>中文名
         <span style="color:red;"> *</span>
@@ -387,7 +443,8 @@
     </ion-item>
 
 
-    <ion-item align="center" no-lines style="height:40px;border-width:0.5px;border-color:lightgray;width:101%;margin-left:-2px;margin-right:-4px;margin-top:-10px">
+    <ion-item align="center" no-lines style="height:40px;
+    margin-top: -20px;border-width:0.5px;border-color:lightgray;width:101%;margin-left:-2px;margin-right:-4px;">
       <ion-grid>
         <ion-row class="row_class" align-items-center>
           <ion-col tappable (click)="click_one()">
@@ -408,10 +465,14 @@
         </ion-row>
       </ion-grid>
     </ion-item>
+    <div style="background: #b8c2cc;
+    width: 94%;
+    height: 1px;
+    margin-left: 3%;"></div>
 
 
 
-    <ion-item-group style="margin-top:10px" *ngIf="show_type == 'one'">
+    <ion-item-group *ngIf="show_type == 'one'">
       <ion-item>
         <ion-label style="color:black">英文名
         </ion-label>
@@ -420,9 +481,10 @@
 
 
       <ion-item>
-        <ion-label style="color:black">办公手机 <span style="color:red;"> *</span>
+        <ion-label style="color:black">办公手机
+          <span style="color:red;"> *</span>
         </ion-label>
-        <ion-input  item-end #mNumberCon text-right type="number" placeholder="请输入" [(ngModel)]="item.mobile_phone"></ion-input >
+        <ion-input item-end #mNumberCon text-right type="number" placeholder="请输入" [(ngModel)]="item.mobile_phone"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label style="color:black">工作Email
@@ -443,7 +505,7 @@
     </ion-item-group>
 
 
-    <ion-item-group style="margin-top:10px" *ngIf="show_type == 'two'">
+    <ion-item-group *ngIf="show_type == 'two'">
       <div style="background:#f0f2f5;
     height: 35px;
     padding: 8px;">
@@ -460,7 +522,6 @@
 
       <ion-item>
         <ion-label style="color:black"> 性别
-          <span style="color:red;"> *</span>
         </ion-label>
         <ion-select [(ngModel)]="item.gender_id" class="normal-select">
           <ion-option *ngFor="let item of sexList;let i = index;" value={{item.id}}>{{item.name}}</ion-option>
@@ -469,7 +530,7 @@
 
 
       <ion-item>
-        <ion-label style="color:#2e3133;font-size:14px">出生日期</ion-label>
+        <ion-label style="color:black">出生日期</ion-label>
         <ion-datetime cancelText="取消" doneText="确定" min="1907" max="2088" style="color:#5C6166;font-size:12px;margin-right:-6px"
           displayFormat="YYYY-MM-DD" [(ngModel)]="item.birthday"></ion-datetime>
         <img item-end src="assets/img/journal_sheet/right_icon.png" style="height:10px;margin-right:-4px">
@@ -477,9 +538,37 @@
 
       <ion-item>
         <ion-label style="color:black">身份证号
+          <span style="color:red;"> *</span>
         </ion-label>
-        <ion-input #mNumberCon item-end text-wrap type="number" placeholder="请输入" text-right [(ngModel)]="item.identification_id"></ion-input>
+        <ion-input item-end text-wrap placeholder="请输入" text-right [(ngModel)]="item.identification_id"></ion-input>
       </ion-item>
+      <p style="padding-left: 14px;color: #c2c7cc;">
+
+        (请拍摄有效期内身份证正反面)
+
+      </p>
+
+      <ion-grid style="    padding-left: 9px;
+  padding-top: 0px;">
+        <ion-row>
+          <ion-col col-4 *ngIf="item.identification_A" style="position:relative;height:106px;margin-top:5px" (click)="clickPositivePicture(item.identification_A)">
+
+            <img src={{item.identification_A}} style="position:absolute;
+          clip:rect(0px,106px,106px,0px);" />
+          </ion-col>
+          <ion-col col-4 *ngIf="!item.identification_A" tappable (click)="takePositive()" style="margin-top:5px">
+            <img src="assets/img/photopositive.png" />
+          </ion-col>
+          <ion-col col-4 *ngIf="item.identification_B" style="position:relative;height:106px;margin-top:5px" (click)="clickNeagtivePicture(item.identification_B)">
+
+            <img src={{item.identification_B}} style="position:absolute;
+          clip:rect(0px,106px,106px,0px);" />
+          </ion-col>
+          <ion-col col-4 *ngIf="!item.identification_B" tappable (click)="takeNegative()" style="margin-top:5px">
+            <img src="assets/img/photoneagtive.png" />
+          </ion-col>
+        </ion-row>
+      </ion-grid>
 
       <ion-item>
         <ion-label style="color:black"> 婚姻状况
@@ -492,12 +581,71 @@
 
 
 
+      <div style="background:#f0f2f5;
+      height: 35px;
+      padding: 8px;">
+        银行账号
+      </div>
 
-      
+      <ion-item>
+        <ion-label style="color:black">银行卡号
+        </ion-label>
+        <ion-input item-end text-wrap text-right #mNumberCon type="number" placeholder="请输入" [(ngModel)]="item.bank_card_num"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label style="color:black">开户行
+        </ion-label>
+        <ion-input item-end text-wrap text-right placeholder="请输入" [(ngModel)]="item.bank_card_opening_bank"></ion-input>
+      </ion-item>
+
+
+      <p style="padding-left: 14px;color: #c2c7cc;">
+        (请拍摄公司工资卡正面)
+      </p>
+
+      <ion-grid style="   height:126px;">
+        <ion-col col-4 *ngIf="item.bank_card" style="position:relative;height:106px;margin-top:5px" (click)="clickBankPicture(item.bank_card)">
+
+          <img src={{item.bank_card}} style="position:absolute;
+              clip:rect(0px,106px,106px,0px);" />
+        </ion-col>
+        <ion-col col-4 *ngIf="!item.bank_card" tappable (click)="takeBankPhoto()" style="margin-top:5px">
+          <img src="assets/img/add.png" />
+        </ion-col>
+
+      </ion-grid>
+
+      <div style="background:#f0f2f5;
+        height: 35px;
+        margin-top: 10px;
+        padding: 8px;">
+        紧急联系人
+      </div>
+
+      <ion-item>
+        <ion-label style="color:black">姓名
+          <span style="color:red;"> *</span>
+        </ion-label>
+        <ion-input [(ngModel)]="item.emergency_contact_name" placeholder="请输入" text-right></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label style="color:black">关系
+          <span style="color:red;"> *</span>
+        </ion-label>
+        <ion-input [(ngModel)]="item.emergency_contact_relation" placeholder="请输入" text-right></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label style="color:black">联系方式
+          <span style="color:red;"> *</span>
+        </ion-label>
+        <ion-input [(ngModel)]="item.emergency_contact_way" placeholder="请输入" text-right></ion-input>
+      </ion-item>
+
+
       <div style="background:#f0f2f5;
     height: 35px;
     padding: 8px;">
-        工作经验 
+        工作经验
         <label style="float: right;
         padding-right: 24px;" *ngIf="item.work_experience_ids.length==0">无 </label>
       </div>
@@ -526,56 +674,9 @@
   padding: 8px;">
         附件
       </div>
-      <p style="padding-left: 14px;">
-        身份证
-        <span style="color: #c2c7cc;
-    font-size: 12px;">(请拍摄有效期内身份证正反面)</span>
-      </p>
-
-      <ion-grid style="    padding-left: 9px;
-  padding-top: 0px;">
-        <ion-row>
-          <ion-col col-4 *ngIf="item.identification_A" style="position:relative;height:106px;margin-top:5px" (click)="clickPositivePicture(item.identification_A)">
-
-            <img src={{item.identification_A}} style="position:absolute;
-          clip:rect(0px,106px,106px,0px);" />
-          </ion-col>
-          <ion-col col-4 *ngIf="!item.identification_A" tappable (click)="takePositive()" style="margin-top:5px">
-            <img src="assets/img/photopositive.png" />
-          </ion-col>
-          <ion-col col-4 *ngIf="item.identification_B" style="position:relative;height:106px;margin-top:5px" (click)="clickNeagtivePicture(item.identification_B)">
-
-            <img src={{item.identification_B}} style="position:absolute;
-          clip:rect(0px,106px,106px,0px);" />
-          </ion-col>
-          <ion-col col-4 *ngIf="!item.identification_B" tappable (click)="takeNegative()" style="margin-top:5px">
-            <img src="assets/img/photoneagtive.png" />
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-
-      <p style="padding-left: 14px;">
-        银行卡
-        <span style="color: #c2c7cc;
-    font-size: 12px;">(请拍摄公司工资卡正面)</span>
-      </p>
-
-      <ion-grid style="    padding-left: 9px;
-  padding-top: 0px;">
-        <ion-col col-4 *ngIf="item.bank_card" style="position:relative;height:106px;margin-top:5px" (click)="clickBankPicture(item.bank_card)">
-
-          <img src={{item.bank_card}} style="position:absolute;
-            clip:rect(0px,106px,106px,0px);" />
-        </ion-col>
-        <ion-col col-4 *ngIf="!item.bank_card" tappable (click)="takeBankPhoto()" style="margin-top:5px">
-          <img src="assets/img/add.png" />
-        </ion-col>
-
-      </ion-grid>
 
 
-
-      <p style="padding-left: 14px;">
+      <p style="padding-left: 14px;color: #c2c7cc;">
         证书
         <span style="color: #c2c7cc;
     font-size: 12px;">(如学历证书、技能证书等)</span>
@@ -597,10 +698,10 @@
 
       </ion-grid>
 
-    
+
     </ion-item-group>
 
-    <ion-item-group style="margin-top:10px" *ngIf="show_type == 'three'">
+    <ion-item-group *ngIf="show_type == 'three'">
 
       <div style="background:#f0f2f5;
         height: 35px;
@@ -609,10 +710,31 @@
       </div>
 
       <ion-item>
-        <ion-label style="color:#2e3133;font-size:14px">入职日期</ion-label>
+          <ion-label style="color:black"> 用工形式
+              <span style="color:red;"> *</span>
+          </ion-label>
+          <ion-select [(ngModel)]="item.mining_productivity_id" class="normal-select">
+            <ion-option *ngFor="let item of mining_productivity_list;let i = index;" value={{item.id}}>{{item.name}}</ion-option>
+          </ion-select>
+        </ion-item>
+
+      <ion-item>
+        <ion-label style="color:#2e3133;font-size:14px">入职日期
+          <span style="color:red;"> *</span></ion-label>
         <ion-datetime cancelText="取消" doneText="确定" min="2000" max="2088" style="color:#5C6166;font-size:12px;margin-right:-6px"
-          displayFormat="YYYY-MM-DD" [(ngModel)]="item.entry_date"></ion-datetime>
+          (ionChange)="watch()" displayFormat="YYYY-MM-DD" [(ngModel)]="item.entry_date"></ion-datetime>
         <img item-end src="assets/img/journal_sheet/right_icon.png" style="height:10px;margin-right:-4px">
+      </ion-item>
+
+
+      <ion-item>
+        <ion-label style="color:black"> 试用期
+          <p style="float: right;
+              line-height: 25px;"> {{item.probation_date}} </p>
+        </ion-label>
+        <ion-select [(ngModel)]="item.probation_period_id" (ngModelChange)="watch(0)" class="normal-select">
+          <ion-option *ngFor="let item of shiyongList;let i = index;" value={{item.id}}>{{item.name}}</ion-option>
+        </ion-select>
       </ion-item>
 
 
@@ -621,33 +743,5 @@
   </div>
 
 
-  <div  style="position: fixed;
-  bottom: 0;
-  width: 100%;" *ngIf="!isModify">
-    <ion-grid  style="margin-top:0px;width:100%;background:white" class="grid_header">
-      <ion-row class="row_class" align-items-center>
-  
-  
-        <ion-col tappable (click)="sendEmail()">
-          <div align="center" style="margin-top:10px">
-            <img style="width:44px;" src="assets/img/send_email.png">
-            <br>
-            <p style="color:#5bc5f3">发邮件</p>
-          </div>
-        </ion-col>
-  
-  
-        <ion-col tappable (click)="callPhone()">
-          <div align="center" style="margin-top:10px">
-            <img style="width:44px;" src="assets/img/call_phone.png">
-            <br>
-            <p style="color:#5bc5f3">打电话</p>
-          </div>
-        </ion-col>
-  
-      </ion-row>
-    </ion-grid>
-  </div>
+
 </ion-content>
-
-
