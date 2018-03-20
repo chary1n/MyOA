@@ -149,7 +149,7 @@
   </p>
 
   <ion-grid style="    padding-left: 9px;
-  padding-top: 0px;">
+  padding-top: 0px; height:126px;">
     <ion-col col-4 *ngIf="imgPhotoBank" style="position:relative;height:106px;margin-top:5px" (click)="clickBankPicture(imgPhotoBank)">
 
       <img src={{imgPhotoBank}} style="position:absolute;
@@ -232,7 +232,9 @@
   
 
   <ion-item>
-    <ion-label style="color:#2e3133;font-size:14px">入职日期</ion-label>
+    <ion-label style="color:#2e3133;font-size:14px">入职日期 
+      <span style="color:red;"> *</span>
+    </ion-label>
     <ion-datetime cancelText="取消" doneText="确定" min="2000" max="2088" style="color:#5C6166;font-size:12px;margin-right:-6px"
       (ionChange)="watch()" displayFormat="YYYY-MM-DD" [(ngModel)]="entry_date"></ion-datetime>
     <img item-end src="assets/img/journal_sheet/right_icon.png" style="height:10px;margin-right:-4px">

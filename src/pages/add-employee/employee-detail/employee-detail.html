@@ -139,7 +139,11 @@
         <div class="div_left"> 部门 </div>
       </div>
       <div class="div_all">
-        <div text-wrap class="div_right"> {{item.job_id}} </div>
+        <div text-wrap class="div_right" >  
+          <span *ngFor="let job of item.hr_job_ids;">
+            {{job}} 
+            </span>
+            </div>
         <div class="div_left"> 工作头衔</div>
       </div>
       <div class="div_all">
@@ -599,7 +603,6 @@
         (请拍摄公司工资卡正面)
       </p>
 
-      <!--iphone适配 Warning！！！！！！！！安卓没适配-->
       <ion-grid style="   height:126px;">
         <ion-col col-4 *ngIf="item.bank_card" style="position:relative;height:106px;margin-top:5px" (click)="clickBankPicture(item.bank_card)">
 
@@ -716,7 +719,8 @@
         </ion-item>
 
       <ion-item>
-        <ion-label style="color:#2e3133;font-size:14px">入职日期</ion-label>
+        <ion-label style="color:#2e3133;font-size:14px">入职日期
+          <span style="color:red;"> *</span></ion-label>
         <ion-datetime cancelText="取消" doneText="确定" min="2000" max="2088" style="color:#5C6166;font-size:12px;margin-right:-6px"
           (ionChange)="watch()" displayFormat="YYYY-MM-DD" [(ngModel)]="item.entry_date"></ion-datetime>
         <img item-end src="assets/img/journal_sheet/right_icon.png" style="height:10px;margin-right:-4px">
