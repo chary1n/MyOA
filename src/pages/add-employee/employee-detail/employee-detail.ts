@@ -35,6 +35,9 @@ export class EmployeeDetailPage {
   marriageList = [{ name: '单身', id: 'single' }, { name: '已婚', id: 'married' }, { name: '离异', id: 'divorced' }, { name: '丧偶', id: 'widower' }]
   shiyongList = [{ name: '半个月', id: 'half_month' }, { name: '一个月', id: 'one_month' }, { name: '两个月', id: 'two_month' },
   { name: '三个月', id: 'three_month' }, { name: '无', id: '' }]
+
+  mining_productivity_list = [{ name: '实习', id: 'practice_work' },{ name: '派遣', id: 'dispatch_work' },
+  { name: '试用', id: 'try_out_work' },{ name: '正式', id: 'fixed_work' },{ name: '离职', id: 'leaving_work' },]
   minzuList;
   departmentList;
   isModify = false;
@@ -277,6 +280,11 @@ export class EmployeeDetailPage {
     if (!this.item.department_id_id) {
       mString = mString + "   请选择部门"
     }
+    if (!this.item.mining_productivity_id) {
+      mString = mString + "   请选择用工形式"
+      Utils.toastButtom(mString, this.toastCtrl)
+      return;
+    }
     if (!this.item.entry_date) {
       mString = mString + "   请选择入职日期"
       Utils.toastButtom(mString, this.toastCtrl)
@@ -344,6 +352,7 @@ export class EmployeeDetailPage {
         emergency_contact_way: this.item.emergency_contact_way,
         emergency_contact_relation: this.item.emergency_contact_relation,
         probation_period: this.item.probation_period_id,
+        mining_productivity: this.item.mining_productivity_id ,
       }
 
 

@@ -15,7 +15,7 @@ import { Component } from '@angular/core';
   templateUrl: 'prompt.html',
 })
 export class PromptPage {
-  item ;
+  item;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.item = this.navParams.get("data")
@@ -25,24 +25,28 @@ export class PromptPage {
     console.log('ionViewDidLoad PromptPage');
   }
 
-  finish(){
-    this.navCtrl.push("EmployeeDetailPage",{item:this.item})
+  finish() {
+    this.navCtrl.push("EmployeeDetailPage", { item: this.item })
   }
 
 
-  addEmployee(){
+  addEmployee() {
     this.navCtrl.push("AddEmployeePage")
   }
 
 
-  perfectEmployee(){
-    this.navCtrl.push("EmployeeDetailPage",{item:this.item,isModify:true
-})
-
+  perfectEmployee() {
+    this.navCtrl.push("EmployeeDetailPage", {
+      item: this.item, isModify: true
+    })
   }
 
 
-  
+  generate_qr_code(){
+    this.navCtrl.push("AddEmployeePage")
+  }
+
+
 
 
 }
