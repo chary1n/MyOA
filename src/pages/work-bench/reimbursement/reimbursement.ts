@@ -16,7 +16,7 @@ import { ReimbursementAutoService } from './reimbursement-auto'
   providers: [ReimbursementService, ReimbursementAutoService]
 })
 export class ReimbursementPage {
-  pet: string = "1";
+  pet: string = "2";
   user_id;
   wait_approval_list: any;
   already_approval_list: any;

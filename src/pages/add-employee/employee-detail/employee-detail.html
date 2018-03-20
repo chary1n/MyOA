@@ -541,6 +541,7 @@
       <p style="padding-left: 14px;color: #c2c7cc;">
 
         (请拍摄有效期内身份证正反面)
+
       </p>
 
       <ion-grid style="    padding-left: 9px;
@@ -598,8 +599,8 @@
         (请拍摄公司工资卡正面)
       </p>
 
-      <ion-grid style="    padding-left: 9px;
-    padding-top: 0px;">
+      <!--iphone适配 Warning！！！！！！！！安卓没适配-->
+      <ion-grid style="   height:126px;">
         <ion-col col-4 *ngIf="item.bank_card" style="position:relative;height:106px;margin-top:5px" (click)="clickBankPicture(item.bank_card)">
 
           <img src={{item.bank_card}} style="position:absolute;
