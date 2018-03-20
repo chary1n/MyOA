@@ -36,6 +36,10 @@ export class AddEmployeePage {
     , { name: '三个月', id: 'three_month' }, { name: '无', id: '' }]
   gender;
   marriageList = [{ name: '单身', id: 'single' }, { name: '已婚', id: 'married' }, { name: '离异', id: 'divorced' }, { name: '丧偶', id: 'widower' },]
+
+  mining_productivity_list = [{ name: '实习', id: 'practice_work' },{ name: '派遣', id: 'dispatch_work' },
+  { name: '试用', id: 'try_out_work' },{ name: '正式', id: 'fixed_work' },{ name: '离职', id: 'leaving_work' },]
+
   marital;
   mobile_phone;
   identification_id;
@@ -62,6 +66,7 @@ export class AddEmployeePage {
   bank_card_num;
   bank_card_opening_bank;
   probation_period;
+  mining_productivity ;
   constructor(public navCtrl: NavController,
     public nativeService: NativeService,
     public actionSheetCtrl: ActionSheetController,
@@ -316,11 +321,17 @@ export class AddEmployeePage {
       Utils.toastButtom(mString, this.toastCtrl)
       return;
     }
+    if (!this.mining_productivity) {
+      mString = mString + "   请选择用工形式"
+      Utils.toastButtom(mString, this.toastCtrl)
+      return;
+    }
     if (!this.entry_date) {
       mString = mString + "   请选择入职日期"
       Utils.toastButtom(mString, this.toastCtrl)
       return;
     }
+
 
 
     let departments;
@@ -347,7 +358,7 @@ export class AddEmployeePage {
       emergency_contact_way: this.emergency_contact_way,
       emergency_contact_relation: this.emergency_contact_relation,
       probation_period: this.probation_period,
-
+      mining_productivity: this.mining_productivity ,
     }
     this.navCtrl.push('CreateAccountPage', { data: data })
 

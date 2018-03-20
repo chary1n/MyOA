@@ -43,7 +43,6 @@
     <img item-end src="assets/img/journal_sheet/right_icon.png" style="height:10px;margin-right:-4px">
   </ion-item>
 
-
   <ion-item>
     <ion-label style="color:black">中文名
       <span style="color:red;"> *</span>
@@ -220,6 +219,17 @@
   padding: 8px;">
     合同信息
   </div>
+
+  
+  <ion-item>
+      <ion-label style="color:black"> 用工形式
+          <span style="color:red;"> *</span>
+      </ion-label>
+      <ion-select [(ngModel)]="mining_productivity" class="normal-select">
+        <ion-option *ngFor="let item of mining_productivity_list;let i = index;" value={{item.id}}>{{item.name}}</ion-option>
+      </ion-select>
+    </ion-item>
+  
 
   <ion-item>
     <ion-label style="color:#2e3133;font-size:14px">入职日期</ion-label>

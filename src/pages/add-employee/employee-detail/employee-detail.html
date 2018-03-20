@@ -538,7 +538,7 @@
         </ion-label>
         <ion-input item-end text-wrap placeholder="请输入" text-right [(ngModel)]="item.identification_id"></ion-input>
       </ion-item>
-      <p style="padding-left: 14px;">
+      <p style="padding-left: 14px;color: #c2c7cc;">
 
         (请拍摄有效期内身份证正反面)
 
@@ -595,7 +595,7 @@
       </ion-item>
 
 
-      <p style="padding-left: 14px;">
+      <p style="padding-left: 14px;color: #c2c7cc;">
         (请拍摄公司工资卡正面)
       </p>
 
@@ -673,7 +673,7 @@
       </div>
 
 
-      <p style="padding-left: 14px;">
+      <p style="padding-left: 14px;color: #c2c7cc;">
         证书
         <span style="color: #c2c7cc;
     font-size: 12px;">(如学历证书、技能证书等)</span>
@@ -705,6 +705,15 @@
         padding: 8px;">
         合同信息
       </div>
+
+      <ion-item>
+          <ion-label style="color:black"> 用工形式
+              <span style="color:red;"> *</span>
+          </ion-label>
+          <ion-select [(ngModel)]="item.mining_productivity_id" class="normal-select">
+            <ion-option *ngFor="let item of mining_productivity_list;let i = index;" value={{item.id}}>{{item.name}}</ion-option>
+          </ion-select>
+        </ion-item>
 
       <ion-item>
         <ion-label style="color:#2e3133;font-size:14px">入职日期</ion-label>
