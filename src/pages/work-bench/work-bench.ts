@@ -18,10 +18,10 @@ import { StatusBar } from '@ionic-native/status-bar';
   providers:[CommonUseServices],
 })
 export class WorkBenchPage {
-  isMoney = false;
-  isEngineer = false;
-  isBuy = false;
-  isSale = true;
+  isSale;
+  isBuy;
+  isEngineer;
+  isMoney;
   dataSource: any
   model: WorkBenchModel
   isShowPurchase = false;
@@ -69,14 +69,17 @@ export class WorkBenchPage {
           if(product.name == 'group_inventory_user'){
             this.isShowKucun = true;
           }
-          if (product.name == 'group_purchase_user' || product.name == 'group_purchase_manager') {
-            this.isShowPurchase = true;
-          }
           if (product.name == 'group_sale_salesman' || product.name == 'group_sale_manager' || product.name == 'group_sale_salesman_all_leads') {
             this.isShowSale = true;
+            this.sale();
+          }
+          if (product.name == 'group_purchase_user' || product.name == 'group_purchase_manager') {
+            this.isShowPurchase = true;
+            this.buy();
           }
           if (product.name == 'group_account_manager') {
             this.isShowZiJin = true;
+            this.engineer();
           }
           if (product.name == 'purchase_manager_1' || product.name == 'purchase_manager_plus')
           {

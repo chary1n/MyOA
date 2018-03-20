@@ -147,7 +147,10 @@
                 "ANDROID_PATHPREFIX": "/"
             },
             "com-darryncampbell-cordova-plugin-intent": {},
-            "com.lampa.startapp": {}
+            "com.lampa.startapp": {},
+            "cordova-plugin-ble-central": {
+                "BLUETOOTH_USAGE_DESCRIPTION": " "
+            }
         },
         "dependencies": {
             "@angular/common": "4.1.3",
