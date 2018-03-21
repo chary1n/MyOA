@@ -24,7 +24,7 @@
 </ion-header>
 
 
-<ion-content>
+<ion-content style="background:#f0f2f5">
   <div *ngIf="isWrite">
     <ion-item no-lines style="height:40px;min-height:50px;margin-top:-9px;border-bottom: #f0f2f5 1px solid;">
     <ion-grid style="background:white">
@@ -62,8 +62,8 @@
       </li>
     </ul>
   </div>
-  <div class="buttom_divider">
-  </div>
+  <!--<div class="buttom_divider">
+  </div>-->
   <div class='buttom_div'>
      <div class='text_class'></div> 
     <div>
@@ -121,12 +121,12 @@
       <div id= "flex-item" class="flex-item" *ngFor="let vo of currentDayList">  
         <!--<div class="item-content bk-color-day"  style='line-height:30px'>{{vo.d}}
           </div>  -->
-        <div id="item_class" tappable (click)="choose_day(vo)" [ngClass]="{true:'item-content bk-color-day',false:'item-content'}[currentDay == vo.d && currentMonth == vo.m && currentYear == vo.y]" >{{vo.d}}
+        <div id="item-content" tappable (click)="choose_day(vo)" [ngClass]="{true:'item-content bk-color-day',false:'item-content'}[currentDay == vo.d && currentMonth == vo.m && currentYear == vo.y]" style="line-height: 44px; ">{{vo.d}}
         </div>      
       </div> 
     </div>
-    <div class='buttom_divider'>
-    </div>  
+    <!--<div class='buttom_divider'>
+    </div>  -->
     <div style="background:black;width:100%;height:100%">
       <div class="bottom_class">
     <div id="divClass" class="divClass">

@@ -13,7 +13,7 @@ import { GongDanService } from '../work-bench/gongdan/gongdanService';
 import { ToastController } from 'ionic-angular';
 import { dateDataSortValue } from 'ionic-angular/util/datetime-util';
 import * as moment from 'moment';
-declare let cordova: any; 
+declare let cordova: any;
 
 /**
  * Generated class for the AddEmployeePage page.
@@ -38,8 +38,8 @@ export class AddEmployeePage {
   gender;
   marriageList = [{ name: '单身', id: 'single' }, { name: '已婚', id: 'married' }, { name: '离异', id: 'divorced' }, { name: '丧偶', id: 'widower' },]
 
-  mining_productivity_list = [{ name: '实习', id: 'practice_work' },{ name: '派遣', id: 'dispatch_work' },
-  { name: '试用', id: 'try_out_work' },{ name: '正式', id: 'fixed_work' },{ name: '离职', id: 'leaving_work' },]
+  mining_productivity_list = [{ name: '实习', id: 'practice_work' }, { name: '派遣', id: 'dispatch_work' },
+  { name: '试用', id: 'try_out_work' }, { name: '正式', id: 'fixed_work' }, { name: '离职', id: 'leaving_work' },]
 
   marital;
   mobile_phone;
@@ -67,7 +67,7 @@ export class AddEmployeePage {
   bank_card_num;
   bank_card_opening_bank;
   probation_period;
-  mining_productivity ;
+  mining_productivity;
   constructor(public navCtrl: NavController,
     public nativeService: NativeService,
     public actionSheetCtrl: ActionSheetController,
@@ -170,16 +170,16 @@ export class AddEmployeePage {
 
   watch(item) {
     if (this.entry_date && this.probation_period) {
-      let d = moment(this.entry_date,"YYYY-MM-DD");
+      let d = moment(this.entry_date, "YYYY-MM-DD");
       let endDate;
       if (this.probation_period == "half_month") {
-        endDate = d.add(15, "days").add(-1,'days').format("YYYY-MM-DD")
+        endDate = d.add(15, "days").add(-1, 'days').format("YYYY-MM-DD")
       } else if (this.probation_period == "one_month") {
-        endDate = d.add(1, "months").add(-1,'days').format("YYYY-MM-DD")
+        endDate = d.add(1, "months").add(-1, 'days').format("YYYY-MM-DD")
       } else if (this.probation_period == "two_month") {
-        endDate = d.add(2, "months").add(-1,'days').format("YYYY-MM-DD")
+        endDate = d.add(2, "months").add(-1, 'days').format("YYYY-MM-DD")
       } else if (this.probation_period == "three_month") {
-        endDate = d.add(3, "months").add(-1,'days').format("YYYY-MM-DD")
+        endDate = d.add(3, "months").add(-1, 'days').format("YYYY-MM-DD")
       }
       this.probation_date = (this.entry_date) + "   ~   " + endDate
     }
@@ -338,6 +338,22 @@ export class AddEmployeePage {
       return;
     }
 
+    if(!this.isShenFenCode(this.identification_id)){
+      mString = mString + "   请输入正确的身份证号码"
+      Utils.toastButtom(mString, this.toastCtrl)
+      return;
+    }
+
+    if(!this.isTelCode(this.emergency_contact_way)){
+      mString = mString + "   请输入正确的紧急联系人的联系方式"
+      Utils.toastButtom(mString, this.toastCtrl)
+      return;
+    }
+    if(!this.isTelCode(this.mobile_phone)){
+      mString = mString + "   请输入正确的办公手机号码"
+      Utils.toastButtom(mString, this.toastCtrl)
+      return;
+    }
 
 
     let departments;
@@ -364,7 +380,7 @@ export class AddEmployeePage {
       emergency_contact_way: this.emergency_contact_way,
       emergency_contact_relation: this.emergency_contact_relation,
       probation_period: this.probation_period,
-      mining_productivity: this.mining_productivity ,
+      mining_productivity: this.mining_productivity,
     }
     this.navCtrl.push('CreateAccountPage', { data: data })
 
@@ -374,6 +390,19 @@ export class AddEmployeePage {
     this.deletePicture = item
     this.navCtrl.push("DeletePicturePage", { item: item, AddEmployeePage: "AddEmployeePage" })
   }
+
+  isTelCode(str) {
+    var reg = /^((0\d{2,3}-\d{7,8})|(1[3584]\d{9}))$/;
+    return reg.test(str);
+  }
+
+  isShenFenCode(str) {
+    var reg = /^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X)$/;
+    return reg.test(str);
+  }
+
+
+
 
 
 }

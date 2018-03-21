@@ -34,12 +34,9 @@
 
   <ion-checkbox style="margin-left:100px;padding-bottom: 3px;"   [checked]='chooseClose' (click)="checkClose()" ></ion-checkbox>
   <span style="vertical-align:super"> 不开通</span>
-  <div *ngIf="chooseOpen" >  
-    
-    <ion-item>
+  <div *ngIf="chooseOpen"  style="margin-top:20px;    padding-left: 20px;">  
       
-        <ion-input [(ngModel)]="email" placeholder="请为该员工设置系统登录邮箱"  ></ion-input>
-      </ion-item>
+        <ion-input  style="background-color:#f5f7fa" [(ngModel)]="email" placeholder="请为该员工设置系统登录邮箱"  ></ion-input>
   </div>
 
   
