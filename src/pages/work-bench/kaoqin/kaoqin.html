@@ -24,7 +24,34 @@
 </ion-header>
 
 
+<div class="backdrop-div" >
+
+    
+    
+</div>
 <ion-content style="background:#f0f2f5">
+  <ion-backdrop *ngIf="isShowOnAlert || isShowOffAlert" disable-activated role="presentation" tappable style="opacity: 0.5; transition-delay: initial; transition-property: none;">       
+  </ion-backdrop>
+  <div *ngIf="isShowOnAlert" class="alert_div" style="opacity: 1.0;">
+    <p class="alert_p">打卡成功</p> 
+    <div class="alert_center_div">
+      <h2 class="alert_h2_class_off">{{show_date_str}}</h2>
+      <p class="alert_p_class_off">上班</p>
+    </div>  
+    <div tappable (click)="clickCancel()" class="alert_btn">
+      知道了
+    </div>    
+  </div>
+  <div *ngIf="isShowOffAlert" class="alert_div_off" style="opacity: 1.0;">
+    <p class="alert_p">打卡成功</p> 
+    <div class="alert_center_div_off">
+      <h2 class="alert_h2_class">{{show_date_str}}</h2>
+      <p class="alert_p_class">下班</p>
+    </div>  
+    <div tappable (click)="clickCancel()" class="alert_btn">
+      知道了
+    </div>    
+  </div>
   <div *ngIf="isWrite">
     <ion-item no-lines style="height:40px;min-height:50px;margin-top:-9px;border-bottom: #f0f2f5 1px solid;">
     <ion-grid style="background:white">
@@ -49,15 +76,15 @@
   <div class="header_class">
     <div id="divClass" class="divClass">
     </div>
-    <ul *ngFor="let item of items">
+    <ul *ngFor="let item of items;let i = index">
       <li *ngIf="item.check_out" class="li_class">
-        <span class="time_li_class">{{calcEnd(item)}}</span>
-        <span class="time_type_li_class">下班</span>
+        <span [ngClass]="{true:'time_li_first_class',false:'time_li_class'}[i == 0]">{{calcEnd(item)}}</span>
+        <span [ngClass]="{true:'time_type_li_first_class',false:'time_type_li_class'}[i == 0]">下班</span>
         <span class="time_company_class">{{item.company_name}}</span>
       </li>
       <li *ngIf="item.check_in" class="li_class">
-        <span class="time_li_class">{{calcStart(item)}}</span>
-        <span class="time_type_li_class">上班</span>
+        <span [ngClass]="{true:'time_li_first_class',false:'time_li_class'}[!item.check_out && i == 0]">{{calcStart(item)}}</span>
+        <span [ngClass]="{true:'time_type_li_first_class',false:'time_type_li_class'}[!item.check_out && i == 0]" class="">上班</span>
         <span class="time_company_class">{{item.company_name}}</span>
       </li>
     </ul>
@@ -72,6 +99,7 @@
     </div>
   </div> 
   </div>
+  
   <div *ngIf="isLook">
     <div *ngIf="show_type == 'me'">
     <ion-item no-lines style="height:40px;min-height:50px;margin-top:-9px;border-bottom: #f0f2f5 1px solid;">
@@ -188,6 +216,9 @@
     </div> 
     </div>
 </div>
+
+
+
 </ion-content>
 
 <ion-footer>

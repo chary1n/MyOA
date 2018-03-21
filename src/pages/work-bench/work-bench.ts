@@ -76,10 +76,11 @@ export class WorkBenchPage {
           if (product.name == 'group_purchase_user' || product.name == 'group_purchase_manager') {
             this.isShowPurchase = true;
             this.buy();
+          }else{
+            this.engineer();
           }
           if (product.name == 'group_account_manager') {
             this.isShowZiJin = true;
-            this.engineer();
           }
           if (product.name == 'purchase_manager_1' || product.name == 'purchase_manager_plus')
           {

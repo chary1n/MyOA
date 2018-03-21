@@ -43,11 +43,14 @@ export class KaoqinPage {
   total_employees
   attendance_count = 0;
   is_ble_on = false;
+  isShowOnAlert = false;
+  isShowOffAlert = false;
+  show_date_str;
   constructor(public navCtrl: NavController, public navParams: NavParams,public storage:Storage,
     public kaoqinService:KaoQinService,private datePipe: DatePipe,private ble:BLE,
-    private toastCtrl: ToastController,private loading:LoadingController,private elementRef: ElementRef) {
+    private toastCtrl: ToastController,private loading:LoadingController,private elementRef: ElementRef,
+    private alertCtrl:AlertController) {
       this.kaoqinService.get_ble_device().then(res => {
-        // console.log(res)
         if (res.result.res_data && res.result.res_code == 1) {
           this.device_list = res.result.res_data
         }
@@ -90,7 +93,9 @@ export class KaoqinPage {
                 this.change_divClass_height(this.items.length * 140 + 30)
               }
               for (let item of this.items) {
-                count += 1
+                if(item.check_in){
+                        count += 1
+                      }
                 if(item.check_out){
                   count += 1
                 }
@@ -301,14 +306,22 @@ export class KaoqinPage {
             that.kaoqinService.employee_attendance(data_obj).then(res => {
                 console.log(res)
                 if (res.result.res_data && res.result.res_code == 1) {
-                   Utils.toastButtom("签到成功", that.toastCtrl)
-                   let count = 0
+                  //  Utils.toastButtom(, that.toastCtrl)
+                    let timestamp_cal = Date.parse(that.datePipe.transform(new Date(), 'yyyy-MM-dd HH:mm:ss').replace(/-/g, '/'));
+                    let timestamp_cal_now = timestamp_cal / 1000
+                    let date_cal = new Date(timestamp_cal_now * 1000)
+                    that.show_date_str = [that.formatO(date_cal.getHours()), that.formatO(date_cal.getMinutes())].join(':')
+
+                    that.isShowOnAlert = true
+                    let count = 0
                     that.items = res.result.res_data
                     if (that.items.length * 140 + 30 > 400){
                         that.change_divClass_height(that.items.length * 140 + 30)
                     }
                     for (let item of that.items) {
-                      count += 1
+                      if(item.check_in){
+                        count += 1
+                      }
                       if(item.check_out){
                         count += 1
                       }
@@ -378,14 +391,22 @@ export class KaoqinPage {
             that.kaoqinService.employee_attendance(data_obj).then(res => {
                 console.log(res)
                 if (res.result.res_data && res.result.res_code == 1) {
-                  Utils.toastButtom("签退成功", that.toastCtrl)
+                  // Utils.toastButtom("签退成功", that.toastCtrl)
+                    let timestamp_cal = Date.parse(that.datePipe.transform(new Date(), 'yyyy-MM-dd HH:mm:ss').replace(/-/g, '/'));
+                    let timestamp_cal_now = timestamp_cal / 1000
+                    let date_cal = new Date(timestamp_cal_now * 1000)
+                    that.show_date_str = [that.formatO(date_cal.getHours()), that.formatO(date_cal.getMinutes())].join(':')
+
+                    that.isShowOffAlert = true
                     let count = 0
                     that.items = res.result.res_data
                     if (that.items.length * 140 + 30 > 400){
                         that.change_divClass_height(that.items.length * 140 + 30)
                     }
                     for (let item of that.items) {
-                      count += 1
+                      if(item.check_in){
+                        count += 1
+                      }
                       if(item.check_out){
                         count += 1
                       }
@@ -623,5 +644,27 @@ export class KaoqinPage {
       type:"已打卡",
       current_date:this.currentDate_date,
     })
+  }
+
+  showAlert(msg){
+    let prompt = this.alertCtrl.create({
+      title: '提示',
+      subTitle: msg,
+      buttons: [
+        
+        {
+          text: '确定',
+          handler: data => {
+            
+          }
+        }
+      ]
+    });
+    prompt.present();
+  }
+
+  clickCancel(){
+    this.isShowOnAlert = false
+    this.isShowOffAlert = false
   }
 }
