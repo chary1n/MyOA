@@ -279,7 +279,7 @@ export class KaoqinPage {
             for (let item_device of devices) {
               console.log(item_scan)
               console.log(item_device.device_name)
-                if ("A10000_EC64" == item_device.device_name) //item_scan
+                if (item_scan == item_device.device_name) //item_scan
                 {
                   isHas = true
                   company_name = item_device.company_name
@@ -363,7 +363,7 @@ export class KaoqinPage {
         let company_name = ""
         for (let item_scan of list) {
             for (let item_device of that.device_list) {
-                if ("A10000_EC64" == item_device.device_name)
+                if (item_scan == item_device.device_name)
                 {
                   isHas = true
                   company_name = item_device.company_name

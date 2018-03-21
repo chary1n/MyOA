@@ -33,20 +33,26 @@
   <ion-backdrop *ngIf="isShowOnAlert || isShowOffAlert" disable-activated role="presentation" tappable style="opacity: 0.5; transition-delay: initial; transition-property: none;">       
   </ion-backdrop>
   <div *ngIf="isShowOnAlert" class="alert_div" style="opacity: 1.0;">
-    <p class="alert_p">打卡成功</p> 
+    <div class="alert_p">
+      <div class="alert_icon_class"></div>
+      <span style="font-size:16px">打卡成功</span>
+    </div> 
     <div class="alert_center_div">
-      <h2 class="alert_h2_class_off">{{show_date_str}}</h2>
-      <p class="alert_p_class_off">上班</p>
+      <h2 class="alert_h2_class">{{show_date_str}}</h2>
+      <p class="alert_p_class">上班</p>
     </div>  
     <div tappable (click)="clickCancel()" class="alert_btn">
       知道了
     </div>    
   </div>
   <div *ngIf="isShowOffAlert" class="alert_div_off" style="opacity: 1.0;">
-    <p class="alert_p">打卡成功</p> 
+    <div class="alert_p">
+      <div class="alert_icon_class"></div>
+      <span style="font-size:16px">打卡成功</span>
+    </div>  
     <div class="alert_center_div_off">
-      <h2 class="alert_h2_class">{{show_date_str}}</h2>
-      <p class="alert_p_class">下班</p>
+      <h2 class="alert_h2_class_off">{{show_date_str}}</h2>
+      <p class="alert_p_class_off">下班</p>
     </div>  
     <div tappable (click)="clickCancel()" class="alert_btn">
       知道了
