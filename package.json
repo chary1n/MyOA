@@ -35,6 +35,8 @@
         "@ionic-native/image-picker": "^4.5.2",
         "@ionic-native/in-app-browser": "^4.5.2",
         "@ionic-native/network": "^4.5.2",
+        "@ionic-native/nfc": "^4.6.0",
+        "@ionic-native/screenshot": "^4.6.0",
         "@ionic-native/splash-screen": "3.12.1",
         "@ionic-native/status-bar": "3.12.1",
         "@ionic-native/toast": "^4.5.2",
@@ -49,6 +51,7 @@
         "cli-cursor": "^2.1.0",
         "cli-width": "^2.2.0",
         "com-darryncampbell-cordova-plugin-intent": "0.0.14",
+        "com.darktalker.cordova.screenshot": "^0.1.6",
         "com.lampa.startapp": "^0.1.4",
         "cordova-android": "^6.4.0",
         "cordova-browser": "^4.1.0",
@@ -90,6 +93,7 @@
         "mute-stream": "0.0.7",
         "mx.ferreyra.callnumber": "0.0.2",
         "ng2-tree": "^2.0.0-rc.4",
+        "phonegap-nfc": "^0.7.1",
         "phonegap-plugin-barcodescanner": "^6.0.8",
         "run-async": "^2.3.0",
         "rx-lite-aggregates": "^4.0.8",
@@ -150,7 +154,11 @@
             "com.lampa.startapp": {},
             "cordova-plugin-ble-central": {
                 "BLUETOOTH_USAGE_DESCRIPTION": " "
-            }
+            },
+            "phonegap-nfc": {
+                "NFC_USAGE_DESCRIPTION": "Read NFC Tags"
+            },
+            "com.darktalker.cordova.screenshot": {}
         },
         "dependencies": {
             "@angular/common": "4.1.3",

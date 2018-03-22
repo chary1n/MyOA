@@ -56,8 +56,16 @@ page-kaoqin {
 
     .li_class{
         color:#f0f2f5;
-        font-size:19px;
-        height:60px
+        font-size:18px;
+        height:60px;
+        position: relative;
+    }
+
+    .li_class_first{
+        color:#409eff;
+        font-size:18px;
+        height:60px;
+        position: relative;
     }
 
     .time_li_class{
@@ -155,7 +163,7 @@ page-kaoqin {
   align-items:center;
   display:flex;
   justify-content:center;
-  box-shadow: 1px 1px 30px 5px #b2dfff;
+  box-shadow: 1px 10px 30px #b2dfff;
   font-size: 16px;
 }
 
@@ -170,7 +178,7 @@ page-kaoqin {
   align-items:center;
   display:flex;
   justify-content:center;
-  box-shadow: 1px 1px 30px 5px #b2dfff;
+  box-shadow: 1px 10px 30px #b2dfff;
   font-size: 16px;
 }
     .text_class{
@@ -297,6 +305,8 @@ page-kaoqin {
     .alert_p{
         color:white;
         font-size: 15px;
+        display: inline-flex;
+
     }
 
     .alert_center_div{
@@ -368,12 +378,15 @@ page-kaoqin {
     }
 
     .alert_icon_class{
-        background:url('./../assets/img/attendance_icon.png');
-        background-size: 100% 100%; 
+        background: url(./../assets/img/attendance_icon.png);
+        background-size: 100% 100%;
         height: 20px;
         width: 20px;
-        display: inline-block;
         margin-top: 10px;
+    }
+
+    .back_class{
+        opacity: 0.6;
     }
     
 }
