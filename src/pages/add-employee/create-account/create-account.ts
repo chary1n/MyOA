@@ -66,7 +66,7 @@ export class CreateAccountPage {
     let firstName = pinyin.getLowerChars(name.substr(0, 1))
     let lastName = pinyin.getLowerChars(name.substr(1, ))
     if (this.data.english_name) {
-      finalName = this.data.english_name + '.' + firstName + "@robotime.com"
+      finalName = this.data.english_name.toLowerCase() + '.' + firstName + "@robotime.com"
     } else {
       finalName = lastName + '.' + firstName + "@robotime.com"
     }

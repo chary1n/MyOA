@@ -60,7 +60,15 @@ export var pinyin = (function (){
         }, 
 
 
-
+        toLower: function(str){  
+            for (var key in this.full_dict){  
+                if(-1 !== this.full_dict[key].indexOf(str)){  
+                    return this._capitalize(key).toLowerCase();   
+                    // break;  
+                }  
+            }  
+            return false;  
+        },  
 
           
         // 提取首字母，返回大写形式       

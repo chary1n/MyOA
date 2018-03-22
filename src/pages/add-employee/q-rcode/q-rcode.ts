@@ -1,5 +1,6 @@
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Component } from '@angular/core';
+import { Screenshot } from '@ionic-native/screenshot';
 
 /**
  * Generated class for the QRcodePage page.
@@ -14,11 +15,26 @@ import { Component } from '@angular/core';
 })
 export class QRcodePage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  QRData ;
+  item ;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+  public screenshot :Screenshot) {
+
+   this.QRData =  this.navParams.get("data")
+   this.item =  this.navParams.get("item")
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad QRcodePage');
+  }
+
+  savePhone(){
+    this.screenshot.save('jpg', 20, 'myscreenshot.jpg').then((res)=>{
+      alert('保存成功'+res.filePath);
+      },(err)=>{
+      alert('保存失败'+err);
+      });
   }
 
 }

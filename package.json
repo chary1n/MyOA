@@ -54,7 +54,6 @@
         "com.darktalker.cordova.screenshot": "^0.1.6",
         "com.lampa.startapp": "^0.1.4",
         "cordova-android": "^6.4.0",
-        "cordova-browser": "^4.1.0",
         "cordova-ios": "^4.5.4",
         "cordova-plugin-app-version": "^0.1.9",
         "cordova-plugin-appavailability": "^0.4.2",
@@ -646,7 +645,6 @@
         },
         "platforms": [
             "android",
-            "browser",
             "ios"
         ]
     }

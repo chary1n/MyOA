@@ -1,3 +1,4 @@
+import { HttpService } from './../../../providers/HttpService';
 import { IonicPage } from 'ionic-angular/navigation/ionic-page';
 import { NavParams } from 'ionic-angular/navigation/nav-params';
 import { NavController } from 'ionic-angular/navigation/nav-controller';
@@ -43,7 +44,7 @@ export class PromptPage {
 
 
   generate_qr_code(){
-    this.navCtrl.push("AddEmployeePage")
+    this.navCtrl.push("QRcodePage",{data:HttpService.appUrl+","+this.item.id,item:this.item})
   }
 
 
