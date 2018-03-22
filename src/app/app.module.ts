@@ -42,6 +42,7 @@ import { DatePicker } from '@ionic-native/date-picker';
 import { SupplierListPage } from '../pages/work-bench/supplier-list/supplier-list'
 import {IonicImageViewerModule} from 'ionic-img-viewer'
 import { QRCodeModule } from 'angular2-qrcode';
+import { Screenshot } from '@ionic-native/screenshot';
 // import { AutocompleteServiceProvider } from '../providers/autocomplete-service/autocomplete-service';
 // import { BLE } from '@ionic-native/ble';
 
@@ -86,6 +87,7 @@ import { QRCodeModule } from 'angular2-qrcode';
     Utils,
     BarcodeScanner,
     DatePicker,
+    Screenshot
     // BLE,
   ]
 })
