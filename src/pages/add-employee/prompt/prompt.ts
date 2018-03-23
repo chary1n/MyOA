@@ -57,7 +57,8 @@ export class PromptPage {
 
 
   generate_qr_code() {
-    this.navCtrl.push("QRcodePage", { data: HttpService.appUrl + "," + this.item.id, item: this.item })
+    // this.navCtrl.push("QRcodePage", { data: HttpService.appUrl + "," + this.item.id, item: this.item })
+    this.navCtrl.push("QRcodePage", { data: "sssssss", item: this.item })
   }
 
   generate_nfc() {
