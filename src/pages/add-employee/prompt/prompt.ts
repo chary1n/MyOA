@@ -6,7 +6,7 @@ import { IonicPage } from 'ionic-angular/navigation/ionic-page';
 import { NavParams } from 'ionic-angular/navigation/nav-params';
 import { NavController } from 'ionic-angular/navigation/nav-controller';
 import { Component } from '@angular/core';
-import { NFC, Ndef } from '@ionic-native/nfc';
+// import { NFC, Ndef } from '@ionic-native/nfc';
 import { Utils } from '../../../providers/Utils';
 
 /**
@@ -27,7 +27,7 @@ export class PromptPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public toast: ToastController,
     public employeeService:EmployeeService,
-    private nfc: NFC, private ndef: Ndef, ) {
+     ) {
     this.item = this.navParams.get("data")
   }
 
@@ -61,21 +61,21 @@ export class PromptPage {
   }
 
   generate_nfc() {
-    this.nfc.addTagDiscoveredListener(() => {
-      console.log("成功")
-    }, (err) => {
-      Utils.toastButtom("激活nfc失败", this.toast)
-    }).subscribe((event) => {
-      let NFC_id = this.nfc.bytesToHexString(event.tag.id)
-      let upDate_item = {
-        id: this.item.id,
-        edit_id: HttpService.user_id,
-        card_num :  NFC_id , 
-      }
-      this.employeeService.update_employee(upDate_item).then(res=>{
-        console.log(res)
-      })
-    })
+    // this.nfc.addTagDiscoveredListener(() => {
+    //   console.log("成功")
+    // }, (err) => {
+    //   Utils.toastButtom("激活nfc失败", this.toast)
+    // }).subscribe((event) => {
+    //   let NFC_id = this.nfc.bytesToHexString(event.tag.id)
+    //   let upDate_item = {
+    //     id: this.item.id,
+    //     edit_id: HttpService.user_id,
+    //     card_num :  NFC_id , 
+    //   }
+    //   this.employeeService.update_employee(upDate_item).then(res=>{
+    //     console.log(res)
+    //   })
+    // })
   }
 }
 

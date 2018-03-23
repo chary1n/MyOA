@@ -645,7 +645,8 @@
             }
         },
         "platforms": [
-            "ios"
+            "ios",
+            "android"
         ]
     }
 }

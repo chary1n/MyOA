@@ -6,7 +6,7 @@ import { Storage } from '@ionic/storage';
 import { StatusBar } from '@ionic-native/status-bar';
 
 declare let cordova: any;
-import { NFC, Ndef } from '@ionic-native/nfc';
+// import { NFC, Ndef } from '@ionic-native/nfc';
 /**
  * Generated class for the ContactPersonPage page.
  *

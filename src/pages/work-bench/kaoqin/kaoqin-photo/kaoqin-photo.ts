@@ -15,17 +15,24 @@ import { Geolocation } from '@ionic-native/geolocation';
 @Component({
   selector: 'page-kaoqin-photo',
   templateUrl: 'kaoqin-photo.html',
-  providers:[Geolocation],
+  providers:[Geolocation,KaoQinService],
 })
 export class KaoqinPhotoPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,public geolocation:Geolocation) {
-    this.geolocation.getCurrentPosition().then((resp) => {
-        console.log(resp.coords.latitude)
-        console.log(resp.coords.longitude)
-    }).catch((error) => {
-      console.log('Error getting location', error);
-    })
+  constructor(public navCtrl: NavController, public navParams: NavParams,public geolocation:Geolocation,
+  public kaoQinService:KaoQinService) {
+    // this.geolocation.getCurrentPosition().then((resp) => {
+        // console.log(resp.coords.latitude)
+        // console.log(resp.coords.longitude)
+        // this.kaoQinService.trans_location("31.30721890169565","120.6689012405321").then(res => {
+          // console.log(res)
+          this.kaoQinService.get_location_now("120.6689012405321","31.30721890169565").then(res_location =>{
+            console.log(res_location.pois[0].addr)
+          })
+        // })
+    // }).catch((error) => {
+    //   console.log('Error getting location', error);
+    // })
   }
 
   ionViewDidLoad() {

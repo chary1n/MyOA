@@ -52,4 +52,14 @@ export class KaoQinService {
         });
        return this.httpservice.postBody("get_department_employee_attendance",body);
     }
+
+    trans_location(latitude,longti){
+       let url_str = "http://api.map.baidu.com/geoconv/v1/?coords=" + longti + "," + latitude + "&from=1&to=5&ak=cVef1ROo1IR5OkZ5Fly78vDuOoGmLmD7" 
+       return this.httpservice.getWithUrl(url_str);
+    }
+
+    get_location_now(latitude,longti){
+        let url_str = "http://api.map.baidu.com/geocoder/v2/?callback=renderReverse&location=" + latitude + "," + longti + "&output=json&pois=1&ak=cVef1ROo1IR5OkZ5Fly78vDuOoGmLmD7"
+        return this.httpservice.getLocationWithUrl(url_str);
+    }
 }
