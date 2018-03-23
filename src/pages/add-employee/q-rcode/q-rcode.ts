@@ -1,3 +1,5 @@
+import { ToastController } from 'ionic-angular/components/toast/toast-controller';
+import { Utils } from './../../../providers/Utils';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Component } from '@angular/core';
 import { Screenshot } from '@ionic-native/screenshot';
@@ -15,26 +17,27 @@ import { Screenshot } from '@ionic-native/screenshot';
 })
 export class QRcodePage {
 
-  QRData ;
-  item ;
+  QRData;
+  item;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-  public screenshot :Screenshot) {
+    public toast: ToastController,
+    public screenshot: Screenshot) {
 
-   this.QRData =  this.navParams.get("data")
-   this.item =  this.navParams.get("item")
+    this.QRData = this.navParams.get("data")
+    this.item = this.navParams.get("item")
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad QRcodePage');
   }
 
-  savePhone(){
-    this.screenshot.save('jpg', 20, 'myscreenshot.jpg').then((res)=>{
-      alert('保存成功'+res.filePath);
-      },(err)=>{
-      alert('保存失败'+err);
-      });
+  savePhone() {
+    this.screenshot.save('jpg', 20, "").then((res) => {
+      Utils.toastButtom("保存成功", this.toast)
+    }, (err) => {
+      Utils.toastButtom("保存失败", this.toast)
+    });
   }
 
 }

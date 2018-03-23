@@ -152,10 +152,17 @@
         <variable name="CAMERA_USAGE_DESCRIPTION" value=" " />
     </plugin>
     <allow-navigation href="http://192.168.88.113:8100" />
+<<<<<<< HEAD
     <plugin name="com.darktalker.cordova.screenshot" spec="^0.1.6" />
     <plugin name="cordova-plugin-geolocation" spec="^4.0.1">
         <variable name="GEOLOCATION_USAGE_DESCRIPTION" value="To locate you" />
     </plugin>
     <engine name="android" spec="^6.4.0" />
+=======
+    <plugin name="phonegap-nfc" spec="^0.7.1">
+        <variable name="NFC_USAGE_DESCRIPTION" value="Read NFC Tags" />
+    </plugin>
+    <plugin name="com.darktalker.cordova.screenshot" spec="^0.1.6" />
+>>>>>>> c3aeffaab5e8275139e1c2f26f2c50ccc28c48fb
     <engine name="ios" spec="^4.5.4" />
 </widget>
