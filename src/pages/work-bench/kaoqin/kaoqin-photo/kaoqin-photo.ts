@@ -18,7 +18,7 @@ import { Geolocation } from '@ionic-native/geolocation';
   providers:[Geolocation,KaoQinService],
 })
 export class KaoqinPhotoPage {
-
+  location_str;
   constructor(public navCtrl: NavController, public navParams: NavParams,public geolocation:Geolocation,
   public kaoQinService:KaoQinService) {
     // this.geolocation.getCurrentPosition().then((resp) => {
@@ -26,8 +26,10 @@ export class KaoqinPhotoPage {
         // console.log(resp.coords.longitude)
         // this.kaoQinService.trans_location("31.30721890169565","120.6689012405321").then(res => {
           // console.log(res)
-          this.kaoQinService.get_location_now("120.6689012405321","31.30721890169565").then(res_location =>{
-            console.log(res_location.pois[0].addr)
+          var that = this
+          this.kaoQinService.get_location_now("31.30721890169565","120.6689012405321").then(res_location =>{
+            console.log(res_location.result.pois[0].addr)
+            that.location_str = res_location.result.pois[0].addr
           })
         // })
     // }).catch((error) => {

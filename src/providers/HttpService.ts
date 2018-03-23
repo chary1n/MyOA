@@ -54,9 +54,10 @@ export class HttpService {
   }
 
   deleteBy(res){
-    var num1=res._body.split("(")  //["deleteChild", "236737)"]
-    var num2=num1[1].split(")") //["236737", ""]
-    var result= num2[0]
+    // var num1=res._body.split("(")  //["deleteChild", "236737)"]
+    // var num2=num1[1].split(")") //["236737", ""]
+    // var result= num2[0]
+    var result = res._body.substring(29,res._body.length-1)
     return JSON.parse(result)
   }
 
