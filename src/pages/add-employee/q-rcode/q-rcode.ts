@@ -3,7 +3,8 @@ import { Utils } from './../../../providers/Utils';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Component } from '@angular/core';
 import { Screenshot } from '@ionic-native/screenshot';
-
+import { PhotoLibrary } from '@ionic-native/photo-library';
+declare var cordova: any;
 /**
  * Generated class for the QRcodePage page.
  *
@@ -14,14 +15,17 @@ import { Screenshot } from '@ionic-native/screenshot';
 @Component({
   selector: 'page-q-rcode',
   templateUrl: 'q-rcode.html',
+  providers: [PhotoLibrary]
 })
 export class QRcodePage {
 
   QRData;
   item;
 
+
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public toast: ToastController,
+    public photoLibrary: PhotoLibrary,
     public screenshot: Screenshot) {
 
     this.QRData = this.navParams.get("data")
@@ -33,11 +37,48 @@ export class QRcodePage {
   }
 
   savePhone() {
-    this.screenshot.save('jpg', 20, "").then((res) => {
-      Utils.toastButtom("保存成功", this.toast)
+    this.screenshot.save('jpg', 20, "name").then((res) => {
+      this.saveImage(res.filePath)
     }, (err) => {
       Utils.toastButtom("保存失败", this.toast)
     });
+
+  }
+
+  saveImage(imgUrl) {
+    cordova.plugins.photoLibrary.requestAuthorization(
+      function () {
+        // User gave us permission to his library, retry reading it!   
+        cordova.plugins.photoLibrary.getLibrary(
+          function ({ library }) {
+            //var url = 'file:///...'; // file or remote URL. url can also be dataURL, but giving it a file path is much faster   
+            var album = 'OA';
+            cordova.plugins.photoLibrary.saveImage("file://"+imgUrl, album,
+              function (libraryItem) {
+                alert("保存成功" + libraryItem);
+              }, function (err) {
+                alert('保存失败' + err);
+              });
+          },
+          function (err) {
+            if (err.startsWith('Permission')) {
+              // call requestAuthorization, and retry   
+            }
+            // Handle error - it's not permission-related   
+            console.log('权限' + err);
+
+          }
+        );
+      },
+      function (err) {
+        // User denied the access   
+        alert('用户拒绝访问' + err);
+      }, // if options not provided, defaults to {read: true}.   
+      {
+        read: true,
+        write: true
+      }
+    );
   }
 
 }

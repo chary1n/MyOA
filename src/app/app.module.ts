@@ -43,9 +43,10 @@ import { SupplierListPage } from '../pages/work-bench/supplier-list/supplier-lis
 import {IonicImageViewerModule} from 'ionic-img-viewer'
 import { QRCodeModule } from 'angular2-qrcode';
 import { Screenshot } from '@ionic-native/screenshot';
-// import { NFC, Ndef } from '@ionic-native/nfc';
+import { NFC, Ndef } from '@ionic-native/nfc';
 // import { AutocompleteServiceProvider } from '../providers/autocomplete-service/autocomplete-service';
 // import { BLE } from '@ionic-native/ble';
+import { PhotoLibrary } from '@ionic-native/photo-library';
 
 @NgModule({
   declarations: [
@@ -89,7 +90,8 @@ import { Screenshot } from '@ionic-native/screenshot';
     BarcodeScanner,
     DatePicker,
     Screenshot,
-    // NFC,Ndef
+    NFC,Ndef,
+    PhotoLibrary
     // BLE,
   ]
 })
