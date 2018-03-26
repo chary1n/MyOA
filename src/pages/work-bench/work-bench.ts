@@ -138,15 +138,15 @@ export class WorkBenchPage {
               this.sg_count = res.result.res_data.sg;
               this.py_count = res.result.res_data.py;
               this.kc_count = res.result.res_data.kc;
-            }
-          })
-          //判断采购小红点
+              //判断采购小红点
           if(this.py_count>0 && this.isShowPayment){
             this.isShowBuyPoint = true
           }
           if(this.kc_count>0 && this.isShowKucun){
             this.isShowEngineerPoint = true
           }
+            }
+          })
           console.log('this.currenTab = '+this.currenTab+'this.isSale = '+this.isSale
         +'this.isBuy = '+this.isBuy+'this.isEngineer = '+this.isEngineer)
           switch(this.currenTab){
