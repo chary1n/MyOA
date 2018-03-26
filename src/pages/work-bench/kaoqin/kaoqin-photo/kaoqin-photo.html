@@ -14,11 +14,26 @@
       </button>
     </ion-buttons>
   </ion-navbar>
-    <ion-textarea #mytextarea autofocus id="area_id" rows="15" placeholder="输入回复" [(ngModel)]="beizhuText" style="margin-top:10px;height:115px;margin-left:4.5%;width:91%;border: 1px solid #e2e2e4;overflow:hidden;border-radius:1px;"></ion-textarea>
 
 </ion-header>
 
 <ion-content id="main_class" style="position:relative;">
+  <ion-item class="header_items">
+    <ion-grid style="background:white">
+      <ion-row>
+        <ion-col style="background:black" col-2>
+          <div class="alert_icon_class"></div>
+          <!--<img src="assets/img/attendance_icon.png" />-->
+        </ion-col>
+        <ion-col col-7 >
+          <p  class="name_message">
+            <span style="color:#409eff">{{location_str}}</span>
+          </p>
+        </ion-col>
+
+      </ion-row>
+    </ion-grid>
+  </ion-item>
  <ion-grid style="margin-left:6px;">
     <ion-row>
       <ion-col style="height:116px" tappable (click)="clickPicture(item)" col-3 *ngFor="let item of imgList">
