@@ -455,7 +455,7 @@ export class KaoqinPage {
     },5000)
     },function(){
         Utils.toastButtom("请打开蓝牙", that.toastCtrl)
-        that.showAlert("蓝牙考勤失败次数过多？")
+        // that.showAlert("蓝牙考勤失败次数过多？")
     }) 
       
   }

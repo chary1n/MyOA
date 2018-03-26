@@ -57,7 +57,7 @@
         "com.lampa.startapp": "^0.1.4",
         "cordova-android": "7.0.0",
         "cordova-ios": "^4.5.4",
-        "cordova-plugin-add-swift-support": "^1.6.0",
+        "cordova-plugin-add-swift-support": "^1.7.1",
         "cordova-plugin-app-version": "^0.1.9",
         "cordova-plugin-appavailability": "^0.4.2",
         "cordova-plugin-appminimize": "^1.0.0",
@@ -162,7 +162,11 @@
             "com.darktalker.cordova.screenshot": {},
             "cordova-plugin-geolocation": {
                 "GEOLOCATION_USAGE_DESCRIPTION": "To locate you"
-            }
+            },
+            "cordova-plugin-photo-library": {
+                "PHOTO_LIBRARY_USAGE_DESCRIPTION": "To choose photos"
+            },
+            "cordova-plugin-add-swift-support": {}
         },
         "dependencies": {
             "@angular/common": "4.1.3",
