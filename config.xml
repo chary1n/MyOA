@@ -156,13 +156,10 @@
     <plugin name="cordova-plugin-geolocation" spec="^4.0.1">
         <variable name="GEOLOCATION_USAGE_DESCRIPTION" value="To locate you" />
     </plugin>
-<<<<<<< HEAD
     <plugin name="cordova-plugin-photo-library" spec="^2.1.0">
         <variable name="PHOTO_LIBRARY_USAGE_DESCRIPTION" value="To choose photos" />
     </plugin>
     <plugin name="cordova-plugin-add-swift-support" spec="^1.7.1" />
-=======
->>>>>>> 9864999c84e4b56c54b78d64d4d33c8e40c08462
     <engine name="ios" spec="^4.5.4" />
     <engine name="android" spec="7.0.0" />
 </widget>
