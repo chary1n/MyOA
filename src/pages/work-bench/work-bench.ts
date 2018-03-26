@@ -18,6 +18,8 @@ import { StatusBar } from '@ionic-native/status-bar';
   providers:[CommonUseServices],
 })
 export class WorkBenchPage {
+  isShowEngineerPoint = false;//工程小红点
+  isShowBuyPoint = false;//采购小红点
   isSale = false;//销售
   isBuy = false;//采购
   isEngineer;//工程
@@ -138,6 +140,13 @@ export class WorkBenchPage {
               this.kc_count = res.result.res_data.kc;
             }
           })
+          //判断采购小红点
+          if(this.py_count>0 && this.isShowPayment){
+            this.isShowBuyPoint = true
+          }
+          if(this.kc_count>0 && this.isShowKucun){
+            this.isShowEngineerPoint = true
+          }
           console.log('this.currenTab = '+this.currenTab+'this.isSale = '+this.isSale
         +'this.isBuy = '+this.isBuy+'this.isEngineer = '+this.isEngineer)
           switch(this.currenTab){
