@@ -6,7 +6,7 @@ import { Storage } from '@ionic/storage';
 import { StatusBar } from '@ionic-native/status-bar';
 
 declare let cordova: any;
-
+// import { NFC, Ndef } from '@ionic-native/nfc';
 /**
  * Generated class for the ContactPersonPage page.
  *
@@ -33,6 +33,7 @@ export class ContactPersonPage {
   isShowEdit = false;
   constructor(public navCtrl: NavController, public navParams: NavParams, public contactService: ContactService,
     public employeeService: EmployeeService,
+
     public storage: Storage, public statusbar: StatusBar) {
     this.showAll = "NO";
     this.limit = 20;
@@ -218,8 +219,9 @@ export class ContactPersonPage {
   }
 
   add() {
-    this.navCtrl.push('AddEmployeePage')
-  }
+    // this.navCtrl.push('AddEmployeePage')
 
+    this.navCtrl.push("PromptPage")
+  }
 
 }

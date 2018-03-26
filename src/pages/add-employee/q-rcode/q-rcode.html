@@ -15,8 +15,34 @@
 
 <ion-content padding>
 
+  <div style="border: 1px solid #c3c3c3;
+  text-align: center;
+  margin-top: 20px;
+  width: 90%;
+  margin-left: 5%;">
+
     <div>
-        <qr-code [value]="'All QR Code data goes here!'" [size]="150"></qr-code>
+      <ion-avatar style="     width: 44%;
+      margin-top: 10px;
+      margin-left: 26%;">
+<!-- 
+        <p style="float: right;
+            line-height: 27px;
+            font-size: 16px;">
+          {{item.name}}
+        </p>
+        <img src={{item.image}} style=" border-radius: 30px;width: 60px;
+            height: 60px;"> -->
+
+      </ion-avatar>
     </div>
+
+    <div style="text-align:center;margin-top:10px">
+      <qr-code *ngIf="QRData" [value]="QRData" [size]="180"></qr-code>
+      <p style="color:#04aaf4" tappable (click)="savePhone()"> 保存手机</p>
+    </div>
+  </div>
+
+
 
 </ion-content>

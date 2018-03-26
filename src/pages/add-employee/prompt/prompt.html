@@ -6,7 +6,7 @@
 -->
 <ion-header>
 
-  <ion-navbar  color="gongdan-color" hideBackButton="true">
+  <ion-navbar color="gongdan-color" hideBackButton="true">
     <ion-title>新增员工</ion-title>
     <ion-buttons end>
       <button ion-button (click)='finish()'>
@@ -25,16 +25,21 @@
     <p style="    font-size: 16px;
     color: #1897f2;">保存成功</p>
     <p>
-      <button  ion-button style='width:40%' (click)="addEmployee()" outline> 继续添加员工</button>
+      <button ion-button style='width:40%' (click)="addEmployee()" outline> 继续添加员工</button>
     </p>
 
 
-    <!-- <p>
-        <button  ion-button style='width:40%' (click)="generate_qr_code()" outetline> 生成员工二维码</button>
-      </p> -->
+    <p>
+      <button ion-button style='width:40%' (click)="generate_nfc()" outetline> 绑定工牌</button>
+    </p>
+
+    <p>
+      <button ion-button style='width:40%' (click)="generate_qr_code()" outetline> 生成员工二维码</button>
+    </p>
 
 
-  
+
+
 
 
   </div>

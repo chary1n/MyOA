@@ -111,4 +111,8 @@ export class MePage {
     this.navCtrl.push("EditInformationPage")
   }
 
+  test_kaoqin(){
+    this.navCtrl.push('KaoqinPage')
+  }
+
 }

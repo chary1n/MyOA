@@ -39,6 +39,28 @@ export class HttpService {
       ));
   }
 
+  public  getLocationWithUrl(url :string){
+  let loading = this.loadingCreate(true);  
+  
+    return this.http.get(url)
+      .map(data=>this.dealRe(data,loading))
+      .toPromise()
+      .then(res => this.handleSuccess(
+        this.deleteBy(res))
+      )
+      .catch(error => this.handleError(
+        error
+      ));
+  }
+
+  deleteBy(res){
+    // var num1=res._body.split("(")  //["deleteChild", "236737)"]
+    // var num2=num1[1].split(")") //["236737", ""]
+    // var result= num2[0]
+    var result = res._body.substring(29,res._body.length-1)
+    return JSON.parse(result)
+  }
+
   public  getWithUrlNoLoading(url :string){
       return this.http.get(url)
         .toPromise()
@@ -134,6 +156,7 @@ export class HttpService {
 
   private handleSuccess(result) {
     console.log(result)
+    
     if (result.error)
     {
       this.ctrl.create({

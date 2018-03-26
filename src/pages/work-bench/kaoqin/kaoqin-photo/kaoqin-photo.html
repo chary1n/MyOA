@@ -1,0 +1,51 @@
+<!--
+  Generated template for the KaoqinPhotoPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header no-border>
+
+  <ion-navbar color="gongdan-color">
+    <ion-title>考勤异常补签</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)='release()'>
+        提交
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content id="main_class" style="position:relative;">
+  <ion-item class="header_items">
+    <ion-grid style="background:white">
+      <ion-row>
+        <ion-col style="background:black" col-2>
+          <div class="alert_icon_class"></div>
+          <!--<img src="assets/img/attendance_icon.png" />-->
+        </ion-col>
+        <ion-col col-7 >
+          <p  class="name_message">
+            <span style="color:#409eff">{{location_str}}</span>
+          </p>
+        </ion-col>
+
+      </ion-row>
+    </ion-grid>
+  </ion-item>
+ <ion-grid style="margin-left:6px;">
+    <ion-row>
+      <ion-col style="height:116px" tappable (click)="clickPicture(item)" col-3 *ngFor="let item of imgList">
+        <img src={{item}} style="position:absolute;clip:rect(0px,106px,106px,0px);"/>
+      </ion-col>
+      <ion-col col-4 tappable (click)="addImg()" style="margin-top:5px">
+        <img src="assets/img/add.png" />
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <!--<div id="chat_top_div" style="border-top:#f0f2f5 1px solid;position:absolute;bottom:0px;height:40px;width:100%;visibility:hidden;background:white"  >
+    <img style="width:30px;margin-top:5px;margin-left:10px" src="assets/img/work_bench/pic.png" tappable (click)="addImg()">
+    <img style="width:30px;margin-top:5px;float:left;margin-left:10px;" src="assets/img/work_bench/at_me.png" tappable (click)="addUser()">
+  </div>-->
+</ion-content>

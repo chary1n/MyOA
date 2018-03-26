@@ -43,11 +43,16 @@ export class KaoqinPage {
   total_employees
   attendance_count = 0;
   is_ble_on = false;
+  isShowOnAlert = false;
+  isShowOffAlert = false;
+  show_date_str;
+  fail_times;
   constructor(public navCtrl: NavController, public navParams: NavParams,public storage:Storage,
     public kaoqinService:KaoQinService,private datePipe: DatePipe,private ble:BLE,
-    private toastCtrl: ToastController,private loading:LoadingController,private elementRef: ElementRef) {
+    private toastCtrl: ToastController,private loading:LoadingController,private elementRef: ElementRef,
+    private alertCtrl:AlertController) {
+      this.fail_times = 0
       this.kaoqinService.get_ble_device().then(res => {
-        // console.log(res)
         if (res.result.res_data && res.result.res_code == 1) {
           this.device_list = res.result.res_data
         }
@@ -83,6 +88,7 @@ export class KaoqinPage {
         
         this.kaoqinService.get_today_attendance(this.formatTime_day_start(new Date()),this.formatTime_day_end(new Date()),this.user.user_id).then(res => {
             // console.log(res)
+
             if (res.result.res_data && res.result.res_code == 1) {
               this.items = res.result.res_data
               let count = 0
@@ -90,7 +96,9 @@ export class KaoqinPage {
                 this.change_divClass_height(this.items.length * 140 + 30)
               }
               for (let item of this.items) {
-                count += 1
+                if(item.check_in){
+                        count += 1
+                      }
                 if(item.check_out){
                   count += 1
                 }
@@ -252,37 +260,34 @@ export class KaoqinPage {
 
   start_work(){
     let that = this
-    this.ble.isEnabled().then(function() {//成功
-          let loading = that.loading.create({  
+    this.ble.isEnabled().then(function(){
+        let loading = that.loading.create({  
       content: '签到中...'  ,
       enableBackdropDismiss: true
-    });  
+    }); 
+    let isHas = false
+    let is_kaoqin_ok = false
+    let is_ok = false
     loading.present(); 
     let list = []
-    let devices = that.device_list
     that.ble.scan([], 5).subscribe(device => {
-      if(device.name){
-        list.push(device.name)
+      console.log(device.name)
+      isHas = false
+      let company_name = ""
+      console.log(that.device_list)
+      for (let item_device of that.device_list) {
+
+          if (device.name == item_device.device_name)
+            {
+              isHas = true
+              is_kaoqin_ok = true
+              company_name = item_device.company_name
+              that.ble.stopScan()
+              loading.dismiss()
+              break;
+            }         
       }
-    });
-    let timer = self.setTimeout(function(){
-      loading.dismiss()   
-      console.log(list)
-        let isHas = false
-        let company_name = ""
-        for (let item_scan of list) {
-            for (let item_device of devices) {
-              console.log(item_scan)
-              console.log(item_device.device_name)
-                if ("A10000_EC64" == item_device.device_name) //item_scan
-                {
-                  isHas = true
-                  company_name = item_device.company_name
-                  break;
-                }
-            }
-        }
-        if (isHas){
+      if (isHas && !is_ok){
             let timestamp = Date.parse(that.datePipe.transform(new Date(), 'yyyy-MM-dd HH:mm:ss').replace(/-/g, '/'));;
             let timestamp_now = timestamp / 1000 - 8 * 60 * 60
             let date = new Date(timestamp_now * 1000)
@@ -301,14 +306,24 @@ export class KaoqinPage {
             that.kaoqinService.employee_attendance(data_obj).then(res => {
                 console.log(res)
                 if (res.result.res_data && res.result.res_code == 1) {
-                   Utils.toastButtom("签到成功", that.toastCtrl)
-                   let count = 0
+                  that.fail_times = 0;
+                  is_ok = true
+                  //  Utils.toastButtom(, that.toastCtrl)
+                    let timestamp_cal = Date.parse(that.datePipe.transform(new Date(), 'yyyy-MM-dd HH:mm:ss').replace(/-/g, '/'));
+                    let timestamp_cal_now = timestamp_cal / 1000
+                    let date_cal = new Date(timestamp_cal_now * 1000)
+                    that.show_date_str = [that.formatO(date_cal.getHours()), that.formatO(date_cal.getMinutes())].join(':')
+
+                    that.isShowOnAlert = true
+                    let count = 0
                     that.items = res.result.res_data
                     if (that.items.length * 140 + 30 > 400){
                         that.change_divClass_height(that.items.length * 140 + 30)
                     }
                     for (let item of that.items) {
-                      count += 1
+                      if(item.check_in){
+                        count += 1
+                      }
                       if(item.check_out){
                         count += 1
                       }
@@ -317,16 +332,31 @@ export class KaoqinPage {
                 }
             })
         }
-        else
-        {
-          Utils.toastButtom("不在考勤机范围内,请重试。", that.toastCtrl)
-        }
-    },5000)
-      },
-      function(){//失败
-        Utils.toastButtom("请打开蓝牙", that.toastCtrl)
-      })
+        
+    });
     
+    let timer = self.setTimeout(function(){
+        loading.dismiss()   
+        that.ble.stopScan()
+        if (!is_kaoqin_ok){
+          that.fail_times = that.fail_times + 1
+          
+          if(that.fail_times >= 3)
+          {
+              that.showAlert("蓝牙考勤失败次数过多？")
+          }
+          else
+          {
+              Utils.toastButtom("不在考勤机范围内,请重试。", that.toastCtrl)
+          }
+        }
+        
+    },5000)
+    },function(){
+        Utils.toastButtom("请打开蓝牙", that.toastCtrl)
+       
+    }) 
+      
   }
 
   end_work(){
@@ -336,29 +366,29 @@ export class KaoqinPage {
       content: '签退中...'  ,
       enableBackdropDismiss: true
     }); 
+    let isHas = false
+    let is_ok = false
+    let is_kaoqin_ok = false
     loading.present(); 
     let list = []
     that.ble.scan([], 5).subscribe(device => {
-      if(device.name){
-        list.push(device.name)
+      console.log(device.name)
+      isHas = false
+      let company_name = ""
+      console.log(that.device_list)
+      for (let item_device of that.device_list) {
+      
+          if (device.name == item_device.device_name)
+            {
+              is_kaoqin_ok = true
+              isHas = true
+              company_name = item_device.company_name
+              that.ble.stopScan()
+              loading.dismiss()
+              break;
+            }         
       }
-    });
-    
-    let timer = self.setTimeout(function(){
-      loading.dismiss()   
-        let isHas = false
-        let company_name = ""
-        for (let item_scan of list) {
-            for (let item_device of that.device_list) {
-                if ("A10000_EC64" == item_device.device_name)
-                {
-                  isHas = true
-                  company_name = item_device.company_name
-                  break;
-                }
-            }
-        }
-        if (isHas){
+      if (isHas && !is_ok){
             let timestamp = Date.parse(that.datePipe.transform(new Date(), 'yyyy-MM-dd HH:mm:ss').replace(/-/g, '/'));;
             let timestamp_now = timestamp / 1000 - 8 * 60 * 60
             let date = new Date(timestamp_now * 1000)
@@ -378,14 +408,24 @@ export class KaoqinPage {
             that.kaoqinService.employee_attendance(data_obj).then(res => {
                 console.log(res)
                 if (res.result.res_data && res.result.res_code == 1) {
-                  Utils.toastButtom("签退成功", that.toastCtrl)
+                   that.fail_times = 0;
+                   is_ok = true
+                  // Utils.toastButtom("签退成功", that.toastCtrl)
+                    let timestamp_cal = Date.parse(that.datePipe.transform(new Date(), 'yyyy-MM-dd HH:mm:ss').replace(/-/g, '/'));
+                    let timestamp_cal_now = timestamp_cal / 1000
+                    let date_cal = new Date(timestamp_cal_now * 1000)
+                    that.show_date_str = [that.formatO(date_cal.getHours()), that.formatO(date_cal.getMinutes())].join(':')
+
+                    that.isShowOffAlert = true
                     let count = 0
                     that.items = res.result.res_data
                     if (that.items.length * 140 + 30 > 400){
                         that.change_divClass_height(that.items.length * 140 + 30)
                     }
                     for (let item of that.items) {
-                      count += 1
+                      if(item.check_in){
+                        count += 1
+                      }
                       if(item.check_out){
                         count += 1
                       }
@@ -394,13 +434,28 @@ export class KaoqinPage {
                 }
             })
         }
-        else
-        {
-          Utils.toastButtom("不在考勤机范围内,请重试。", that.toastCtrl)
+        
+    });
+    
+    let timer = self.setTimeout(function(){
+        loading.dismiss()   
+        that.ble.stopScan()
+        if (!is_kaoqin_ok){
+          that.fail_times = that.fail_times + 1
+          if(that.fail_times >= 3)
+          {
+              that.showAlert("蓝牙考勤失败次数过多？")
+          }
+          else
+          {
+              Utils.toastButtom("不在考勤机范围内,请重试。", that.toastCtrl)
+          }
         }
+        
     },5000)
     },function(){
         Utils.toastButtom("请打开蓝牙", that.toastCtrl)
+        that.showAlert("蓝牙考勤失败次数过多？")
     }) 
       
   }
@@ -623,5 +678,32 @@ export class KaoqinPage {
       type:"已打卡",
       current_date:this.currentDate_date,
     })
+  }
+
+  showAlert(msg){
+    let prompt = this.alertCtrl.create({
+      title: '提示',
+      subTitle: msg,
+      buttons: [
+        {
+          text: '取消',
+          handler: data => {
+            
+          }
+        },
+        {
+          text: '确定',
+          handler: data => {
+            this.navCtrl.push('KaoqinPhotoPage')
+          }
+        }
+      ]
+    });
+    prompt.present();
+  }
+
+  clickCancel(){
+    this.isShowOnAlert = false
+    this.isShowOffAlert = false
   }
 }

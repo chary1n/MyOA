@@ -42,8 +42,11 @@ import { DatePicker } from '@ionic-native/date-picker';
 import { SupplierListPage } from '../pages/work-bench/supplier-list/supplier-list'
 import {IonicImageViewerModule} from 'ionic-img-viewer'
 import { QRCodeModule } from 'angular2-qrcode';
+import { Screenshot } from '@ionic-native/screenshot';
+import { NFC, Ndef } from '@ionic-native/nfc';
 // import { AutocompleteServiceProvider } from '../providers/autocomplete-service/autocomplete-service';
 // import { BLE } from '@ionic-native/ble';
+import { PhotoLibrary } from '@ionic-native/photo-library';
 
 @NgModule({
   declarations: [
@@ -58,8 +61,8 @@ import { QRCodeModule } from 'angular2-qrcode';
     IonicStorageModule.forRoot(),
     TreeModule,
     IonicImageViewerModule,
-    QRCodeModule
-
+    QRCodeModule,
+   
     
   ],
   bootstrap: [IonicApp],
@@ -86,6 +89,9 @@ import { QRCodeModule } from 'angular2-qrcode';
     Utils,
     BarcodeScanner,
     DatePicker,
+    Screenshot,
+    NFC,Ndef,
+    PhotoLibrary
     // BLE,
   ]
 })
