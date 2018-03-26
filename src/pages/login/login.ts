@@ -179,8 +179,13 @@ export class LoginPage {
     this.isSelected1 = false;
     this.isSelected4 = false;
     this.chooseIndex = 3;
+<<<<<<< HEAD
     // HttpService.appUrl = "http://erp.robotime.com/"
     HttpService.appUrl = "http://192.168.2.34:8089/"
+=======
+    HttpService.appUrl = "http://erp.robotime.com/"
+    // HttpService.appUrl = "http://192.168.88.115:8069/"
+>>>>>>> b9aa104ceab2e3e02d4a14c3b23498bfe552d90c
     // HttpService.appUrl = "http://192.168.2.34:8888/"   
     this.reset();
     this.img3 = "assets/img/ruobeier_clicked.png" 
@@ -195,9 +200,9 @@ export class LoginPage {
     this.isSelected1 = false;
     this.isSelected3 = false;
     this.chooseIndex = 4;
-    // HttpService.appUrl = "http://ber.robotime.com/"
+    HttpService.appUrl = "http://ber.robotime.com/"
     // HttpService.appUrl = "http://192.168.88.131:8069/"
-    HttpService.appUrl = "http://192.168.2.64:8069/"
+    // HttpService.appUrl = "http://192.168.2.64:8069/"
     this.reset();
     this.img4 = "assets/img/banchang_clicked.png" 
     this.password_src="assets/img/B_password.png"
