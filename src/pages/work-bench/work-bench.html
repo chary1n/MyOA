@@ -47,11 +47,15 @@
       </ion-col>
       <ion-col tappable *ngIf="isShowPurchase" (click)="buy()">
           <p style="padding-bottom:3px;width:40px;margin-left:auto;margin-right:auto"
-          [ngClass]="{true:'selected',false:'normal'}[isBuy]">采购</p>
+          [ngClass]="{true:'selected',false:'normal'}[isBuy]">采购
+          <span  *ngIf="isShowBuyPoint" style="margin-top:6px;position:absolute;width:8px;height:8px;border-radius:8px;background-color:red;display:inline-block;color:white;text-align:center;margin-left:5px"></span>
+        </p>
         </ion-col>
         <ion-col tappable (click)="engineer()">
             <p style="padding-bottom:3px;width:40px;margin-left:auto;margin-right:auto"
-            [ngClass]="{true:'selected',false:'normal'}[isEngineer]">工程</p>
+            [ngClass]="{true:'selected',false:'normal'}[isEngineer]">工程
+            <span  *ngIf="isShowEngineerPoint" style="margin-top:6px;position:absolute;width:8px;height:8px;border-radius:8px;background-color:red;display:inline-block;color:white;text-align:center;margin-left:5px"></span>
+          </p>
           </ion-col>
           <ion-col tappable *ngIf="isShowZiJin" (click)="money()">
               <p style="padding-bottom:3px;width:40px;margin-left:auto;margin-right:auto"
@@ -171,7 +175,7 @@
                     " tappable (click)="clickPayrequest()" *ngIf="isShowPayment">
                     <div style="padding:1px;margin-left: 15dp;overflow:hidden;text-align:left">
                         <p text-wrap style="font-size:14px;color:#2e3033;width:70px;margin-left:10px">付款确认
-                            <span *ngIf="py_count > 0" style="position:absolute;width:16px;height:16px;border-radius:8px;background-color:red;display:inline-block;color:white;line-height:16px;text-align:center;font-size:14px;margin-left:10px">{{py_count}}</span>
+                            <span *ngIf="py_count > 0" [ngClass]="{true:'textsmall',false:'textbig'}[isBigPay]" style="position:absolute;border-radius:8px;background-color:red;display:inline-block;color:white;line-height:16px;text-align:center;font-size:12px;margin-left:10px">{{py_count}}</span>
                         </p>
                         <img  src="assets/img/work_bench/pay_confirm.png" style="height:25px;width:25px;float:right;margin-top:-25px;margin-right:20px">
                         <p style="font-size:12px;color:#c2c7cc;line-height:12px;width:100px;margin-left:10px">采购付款申请审核</p>
@@ -192,7 +196,7 @@
                 " tappable (click)="change_kucun()" *ngIf="isShowKucun">
                 <div style="padding:1px;margin-left: 15dp;overflow:hidden;text-align:left">
                     <p text-wrap style="font-size:14px;color:#2e3033;width:70px;margin-left:10px">库存调整
-                        <span *ngIf="kc_count > 0" style="position:absolute;width:16px;height:16px;border-radius:8px;background-color:red;display:inline-block;color:white;line-height:16px;text-align:center;font-size:14px;margin-left:10px">{{kc_count}}</span>
+                        <span *ngIf="kc_count > 0" [ngClass]="{true:'textsmall',false:'textbig'}[isBig]" style="position:absolute;border-radius:8px;background-color:red;display:inline-block;color:white;line-height:16px;text-align:center;font-size:12px;margin-left:10px">{{kc_count}}</span>
                     </p>
                     <img  src="assets/img/work_bench/change_kucun.png" style="height:25px;width:25px;float:right;margin-top:-25px;margin-right:20px">
                     <p style="font-size:12px;color:#c2c7cc;line-height:12px;width:100px;margin-left:10px">库存调整单据审核</p>
@@ -208,11 +212,6 @@
                         <img  src="assets/img/work_bench/engineer_material.png" style="height:25px;width:25px;float:right;margin-top:-25px;margin-right:20px">
                         <p style="font-size:12px;color:#c2c7cc;line-height:12px;width:100px;margin-left:10px">领料单审核</p>
                     </div>
-                </ion-col>
-                <ion-col col-6 style="
-                border-top:1px #f5f7fa solid;
-                border-bottom: 1px #f5f7fa solid;"
-                 tappable (click)="material_request()">
                 </ion-col>
               </ion-row>
         </ion-grid>
