@@ -62,4 +62,10 @@ export class KaoQinService {
         let url_str = "http://api.map.baidu.com/geocoder/v2/?callback=renderReverse&location=" + latitude + "," + longti + "&output=json&pois=1&ak=cVef1ROo1IR5OkZ5Fly78vDuOoGmLmD7"
         return this.httpservice.getLocationWithUrl(url_str);
     }
+
+    location_attendance(data_params)
+    {
+        let body = JSON.stringify(data_params);
+       return this.httpservice.postBody("location_attendance",body);
+    }
 }

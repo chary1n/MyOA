@@ -166,7 +166,7 @@ export class LoginPage {
     this.chooseIndex = 2;
     // HttpService.appUrl = "http://dr.robotime.com/"
     // HttpService.appUrl = "http://192.168.2.34:8888/"
-    HttpService.appUrl = "http://192.168.2.34:8089/"
+        HttpService.appUrl = "http://192.168.88.122:8069/"
     this.reset();
     this.img2 = "assets/img/diy_clicked.png" 
     this.password_src="assets/img/D_password.png"

@@ -175,7 +175,7 @@
                     " tappable (click)="clickPayrequest()" *ngIf="isShowPayment">
                     <div style="padding:1px;margin-left: 15dp;overflow:hidden;text-align:left">
                         <p text-wrap style="font-size:14px;color:#2e3033;width:70px;margin-left:10px">付款确认
-                            <span *ngIf="py_count > 0" style="position:absolute;width:16px;height:16px;border-radius:8px;background-color:red;display:inline-block;color:white;line-height:16px;text-align:center;font-size:14px;margin-left:10px">{{py_count}}</span>
+                            <span *ngIf="py_count > 0" [ngClass]="{true:'textsmall',false:'textbig'}[isBigPay]" style="position:absolute;border-radius:8px;background-color:red;display:inline-block;color:white;line-height:16px;text-align:center;font-size:12px;margin-left:10px">{{py_count}}</span>
                         </p>
                         <img  src="assets/img/work_bench/pay_confirm.png" style="height:25px;width:25px;float:right;margin-top:-25px;margin-right:20px">
                         <p style="font-size:12px;color:#c2c7cc;line-height:12px;width:100px;margin-left:10px">采购付款申请审核</p>
@@ -196,7 +196,7 @@
                 " tappable (click)="change_kucun()" *ngIf="isShowKucun">
                 <div style="padding:1px;margin-left: 15dp;overflow:hidden;text-align:left">
                     <p text-wrap style="font-size:14px;color:#2e3033;width:70px;margin-left:10px">库存调整
-                        <span *ngIf="kc_count > 0" style="position:absolute;width:16px;height:16px;border-radius:8px;background-color:red;display:inline-block;color:white;line-height:16px;text-align:center;font-size:5px;margin-left:10px">{{kc_count}}</span>
+                        <span *ngIf="kc_count > 0" [ngClass]="{true:'textsmall',false:'textbig'}[isBig]" style="position:absolute;border-radius:8px;background-color:red;display:inline-block;color:white;line-height:16px;text-align:center;font-size:12px;margin-left:10px">{{kc_count}}</span>
                     </p>
                     <img  src="assets/img/work_bench/change_kucun.png" style="height:25px;width:25px;float:right;margin-top:-25px;margin-right:20px">
                     <p style="font-size:12px;color:#c2c7cc;line-height:12px;width:100px;margin-left:10px">库存调整单据审核</p>

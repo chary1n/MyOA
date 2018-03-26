@@ -1,5 +1,13 @@
 @import "./../../../node_modules/ionic2-auto-complete/auto-complete";
 page-work-bench {
+  .textsmall {
+    width:16px;
+    height:16px;
+  }
+  .textbig {
+    width:26px;
+    height:16px;
+  }
   .diyP {
     align-content:left
   }

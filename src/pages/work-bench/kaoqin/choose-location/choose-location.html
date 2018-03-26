@@ -1,0 +1,30 @@
+<!--
+  Generated template for the ChooseLocationPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header no-border>
+
+  <ion-navbar color="gongdan-color">
+    
+    <ion-title>选择位置</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)='release()'>
+        确定
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <ion-list>
+    <div style="border-bottom:#f0f2f5 1px solid;" *ngFor="let item of pois_list;let i = index" tappable (click)="clickLocation(i)">
+      <p style="margin-left:10px;font-size:13px">{{item.name}}</p>
+      <img *ngIf="select_list[i] == '1'" src="assets/img/choose_location.png" class="select_class" />
+      <p style="color:gray;margin-left:10px;font-size:12px">{{item.addr}}</p>
+    </div>
+  </ion-list>
+</ion-content>

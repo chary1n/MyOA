@@ -6,7 +6,12 @@
 -->
 <ion-header no-border>
 
-  <ion-navbar color="gongdan-color">
+  <ion-navbar hideBackButton="true" color="gongdan-color">
+    <ion-buttons left>
+      <button ion-button icon-only (click)="goBack()">
+        <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
     <ion-title>考勤异常补签</ion-title>
     <ion-buttons end>
       <button ion-button (click)='release()'>
@@ -21,10 +26,10 @@
   <ion-item class="header_items">
     <ion-grid style="background:white">
       <ion-row>
-        <!--<ion-col style="background:black" col-2>
-          <div class="alert_icon_class"></div>-->
-          <!--<img src="assets/img/attendance_icon.png" />-->
-        <!--</ion-col>-->
+        <ion-col col-2>
+          <!--<div class="alert_icon_class"></div>-->
+          <img class="alert_icon_class" src="assets/img/daka_location.png" />
+        </ion-col>
         <ion-col col-7 >
           <p  class="name_message">
             <span style="color:#409eff">{{location_str}}</span>
@@ -36,11 +41,11 @@
   </ion-item>
  <ion-grid style="margin-left:6px;">
     <ion-row>
-      <ion-col style="height:116px" tappable (click)="clickPicture(item)" col-3 *ngFor="let item of imgList">
-        <img src={{item}} style="position:absolute;clip:rect(0px,106px,106px,0px);"/>
+      <ion-col style="position:relative;height:106px;margin-top:5px"  col-4 *ngFor="let item of imgList">
+        <img tappable (click)="clickPicture(item)" src={{item}} style="position:absolute;clip:rect(0px,106px,106px,0px);"/>
       </ion-col>
       <ion-col col-4 tappable (click)="addImg()" style="margin-top:5px">
-        <img src="assets/img/add.png" />
+        <img src="assets/img/add.png"/>
       </ion-col>
     </ion-row>
   </ion-grid>

@@ -32,7 +32,7 @@
     
 </div>
 <ion-content style="background:#f0f2f5">
-  <ion-backdrop *ngIf="isShowOnAlert || isShowOffAlert" disable-activated role="presentation" tappable style="opacity: 0.6; transition-delay: initial; transition-property: none;">       
+  <ion-backdrop *ngIf="isShowOnAlert || isShowOffAlert || isShowFail || isShowFail_Three" disable-activated role="presentation" tappable style="opacity: 0.6; transition-delay: initial; transition-property: none;">       
   </ion-backdrop>
   <div *ngIf="isShowOnAlert" class="alert_div" style="opacity: 1.0;">
     <div class="alert_p">
@@ -58,6 +58,23 @@
     </div>  
     <div tappable (click)="clickCancel()" class="alert_btn">
       知道了
+    </div>    
+  </div>
+  <div *ngIf="isShowFail" class="alert_div_fail" style="opacity: 1.0;">
+    <img style="width:110px;height:110px;margin-top:30px;" src="assets/img/fail_icon.png" />    
+    <p style="color:black;font-size:20px">签到失败</p>
+    <p style="color:gray;font-size:14px;margin-top:-16px">{{fail_str}}</p>
+    <div tappable (click)="clickCancel()" class="alert_btn_fail">
+      我知道了
+    </div>    
+  </div>
+  <div *ngIf="isShowFail_Three" class="alert_div_fail_three" style="opacity: 1.0;">
+    <img style="width:110px;height:110px;margin-top:30px;" src="assets/img/fail_icon.png" />    
+    <p style="color:black;font-size:20px">签到失败</p>
+    <p style="color:gray;font-size:14px;margin-top:-16px">{{fail_str}}</p>   
+    <div class="alert_btn_fail">
+      <!--<span style="text-align:center">我知道了</span><span style="text-align:center;color:#409eff">位置签到</span>-->
+      <div tappable (click)="clickCancel()" style="width:50%;float:left;text-align:center;color:lightgray">我知道了</div><div tappable (click)="click_location()" style="width:50%;float:right;text-align:center;color:#409eff">位置签到</div>
     </div>    
   </div>
   <div *ngIf="isWrite">
@@ -88,7 +105,7 @@
       <li *ngIf="item.check_out" [ngClass]="{true:'li_class_first',false:'li_class'}[i == 0]">
         <span [ngClass]="{true:'time_li_first_class',false:'time_li_class'}[i == 0]">{{calcEnd(item)}}</span>
         <span [ngClass]="{true:'time_type_li_first_class',false:'time_type_li_class'}[i == 0]">下班</span>
-        <span class="time_company_class">{{item.company_name}}</span>
+        <span class="time_company_class">{{item.company_off_name}}</span>
       </li>
       <li *ngIf="item.check_in" [ngClass]="{true:'li_class_first',false:'li_class'}[!item.check_out && i == 0]">
         <span [ngClass]="{true:'time_li_first_class',false:'time_li_class'}[!item.check_out && i == 0]">{{calcStart(item)}}</span>
@@ -171,7 +188,7 @@
       <li *ngIf="item.check_out" class="li_class">
         <span class="time_li_class">{{calcEnd(item)}}</span>
         <span class="time_type_li_class">下班</span>
-        <span class="time_company_class">{{item.company_name}}</span>
+        <span class="time_company_class">{{item.company_off_name}}</span>
       </li>
       <li *ngIf="item.check_in" class="li_class">
         <span class="time_li_class">{{calcStart(item)}}</span>
