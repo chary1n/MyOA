@@ -152,14 +152,13 @@
         <variable name="CAMERA_USAGE_DESCRIPTION" value=" " />
     </plugin>
     <allow-navigation href="http://192.168.88.113:8100" />
+    <engine name="android" spec="^6.4.0" />
+    <engine name="ios" spec="^4.5.4" />
+    <plugin name="phonegap-nfc" spec="^0.7.1">
+        <variable name="NFC_USAGE_DESCRIPTION" value="Read NFC Tags" />
+    </plugin>
     <plugin name="com.darktalker.cordova.screenshot" spec="^0.1.6" />
     <plugin name="cordova-plugin-geolocation" spec="^4.0.1">
         <variable name="GEOLOCATION_USAGE_DESCRIPTION" value="To locate you" />
     </plugin>
-    <plugin name="cordova-plugin-photo-library" spec="^2.1.0">
-        <variable name="PHOTO_LIBRARY_USAGE_DESCRIPTION" value="To choose photos" />
-    </plugin>
-    <plugin name="cordova-plugin-add-swift-support" spec="^1.7.1" />
-    <engine name="ios" spec="^4.5.4" />
-    <engine name="android" spec="7.0.0" />
 </widget>
