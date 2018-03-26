@@ -1,6 +1,6 @@
 import { ToastController } from 'ionic-angular/components/toast/toast-controller';
 import { Utils } from './../../../providers/Utils';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 import { Component } from '@angular/core';
 import { Screenshot } from '@ionic-native/screenshot';
 import { PhotoLibrary } from '@ionic-native/photo-library';
@@ -24,6 +24,7 @@ export class QRcodePage {
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
+    public platform: Platform,
     public toast: ToastController,
     public photoLibrary: PhotoLibrary,
     public screenshot: Screenshot) {
@@ -38,7 +39,9 @@ export class QRcodePage {
 
   savePhone() {
     this.screenshot.save('jpg', 20, "name").then((res) => {
-      this.saveImage(res.filePath)
+      if (this.platform.is("ios")) {
+        this.saveImage(res.filePath)
+      }
     }, (err) => {
       Utils.toastButtom("保存失败", this.toast)
     });
@@ -55,9 +58,9 @@ export class QRcodePage {
             var album = 'OA';
             cordova.plugins.photoLibrary.saveImage("file://"+imgUrl, album,
               function (libraryItem) {
-                alert("保存成功" + libraryItem);
+                Utils.toastButtom("保存失败", this.toast)
               }, function (err) {
-                alert('保存失败' + err);
+                Utils.toastButtom("保存失败", this.toast)
               });
           },
           function (err) {
