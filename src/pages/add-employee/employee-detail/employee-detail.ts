@@ -365,7 +365,7 @@ export class EmployeeDetailPage {
         if (res.result.res_data && res.result.res_code == 1) {
           this.alertCtrl.create({
             title: '提示',
-            subTitle: '保存结束',
+            subTitle: '保存成功',
             buttons: [
               {
                 text: '确定',

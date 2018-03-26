@@ -6,43 +6,29 @@
 -->
 <ion-header>
 
-  <ion-navbar>
+  <ion-navbar color="gongdan-color">
     <ion-title>员工二维码</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
+<ion-content style="background:#f0f2f5">
 
-  <div style="border: 1px solid #c3c3c3;
-  text-align: center;
-  margin-top: 20px;
-  width: 90%;
-  margin-left: 5%;">
+  <div style="text-align: center;
+  margin-top: 30px;
+  width: 80%;
+  height: 360px;
+  background:white;
+  border-radius: 5px;
+  margin-left: 10%;">
 
-    <div>
-      <ion-avatar style="     width: 44%;
-      margin-top: 10px;
-      margin-left: 26%;">
-
-        <p style="float: right;
-            line-height: 27px;
-            font-size: 16px;">
-          {{item.name}}
-        </p>
-        <img src={{item.image}} style=" border-radius: 30px;width: 60px;
-            height: 60px;">
-
-      </ion-avatar>
-    </div>
-
-    <div style="text-align:center;margin-top:10px">
-      <qr-code *ngIf="QRData" [value]="QRData" [size]="180"></qr-code>
-      <p style="color:#04aaf4" tappable (click)="savePhone()"> 保存手机</p>
+    <div style="text-align:center;padding-top:20px">
+      <qr-code *ngIf="QRData" [value]="QRData" [size]="250"></qr-code>
+      <p class="p_font"> {{item.name}}</p>
     </div>
   </div>
 
-
+  <p class="p_button" tappable (click)="savePhone()"> 保存到手机</p>
 
 </ion-content>

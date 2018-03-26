@@ -58,9 +58,11 @@ export class PromptPage {
 
   generate_qr_code() {
     this.navCtrl.push("QRcodePage", { data: HttpService.appUrl + "," + this.item.id, item: this.item })
+    // this.navCtrl.push("QRcodePage", { data:"123123123", item: this.item })
   }
 
   generate_nfc() {
+    this.navCtrl.push("GongpaiPage")
     // this.nfc.addTagDiscoveredListener(() => {
     //   console.log("成功")
     // }, (err) => {
