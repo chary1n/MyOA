@@ -354,6 +354,40 @@ page-kaoqin {
         text-align: center;
     }
 
+    .alert_div_fail{
+        height: 300px;
+        width: 270px;
+        background:url("./../assets/img/fail_background.png");
+        position: absolute;
+        z-index: 999;
+        left: calc(50% - 135px);
+        top: calc(50% - 170px);
+        background-size: 100% 100%;
+        text-align: center;
+    }
+
+    .alert_div_fail_three{
+        height: 300px;
+        width: 270px;
+        background:url("./../assets/img/faile_three_background.png");
+        position: absolute;
+        z-index: 999;
+        left: calc(50% - 135px);
+        top: calc(50% - 170px);
+        background-size: 100% 100%;
+        text-align: center;
+    }
+
+    .alert_btn_fail{
+        color: lightgray;
+        font-size: 15px;
+        height: 50px;
+        width: 100%;
+        position: absolute;
+        bottom: 0px;
+        line-height: 55px;
+    }
+
     .alert_center_div_off{
         height: 150px;
         width: 150px;

@@ -45,8 +45,12 @@ export class KaoqinPage {
   is_ble_on = false;
   isShowOnAlert = false;
   isShowOffAlert = false;
+  isShowFail = false;
+  isShowFail_Three = false
   show_date_str;
   fail_times;
+  fail_str;
+  attendance_off;
   constructor(public navCtrl: NavController, public navParams: NavParams,public storage:Storage,
     public kaoqinService:KaoQinService,private datePipe: DatePipe,private ble:BLE,
     private toastCtrl: ToastController,private loading:LoadingController,private elementRef: ElementRef,
@@ -74,6 +78,34 @@ export class KaoqinPage {
       })
       
 
+  }
+
+  ionViewDidEnter() {
+    console.log(this.navParams.get('need_fresh'))
+    if (this.navParams.get('need_fresh') == true) {
+      this.navParams.data.need_fresh = false;
+      // this.reload_statics()
+      this.kaoqinService.get_today_attendance(this.formatTime_day_start(new Date()),this.formatTime_day_end(new Date()),this.user.user_id).then(res => {
+            // console.log(res)
+
+            if (res.result.res_data && res.result.res_code == 1) {
+              this.items = res.result.res_data
+              let count = 0
+              if (this.items.length * 140 + 30 > 400){
+                this.change_divClass_height(this.items.length * 140 + 30)
+              }
+              for (let item of this.items) {
+                if(item.check_in){
+                        count += 1
+                      }
+                if(item.check_out){
+                  count += 1
+                }
+              }
+              this.attendance_count = count
+            }
+        })
+    }
   }
 
   ionViewDidLoad() {
@@ -259,6 +291,7 @@ export class KaoqinPage {
   }
 
   start_work(){
+    
     let that = this
     this.ble.isEnabled().then(function(){
         let loading = that.loading.create({  
@@ -343,18 +376,25 @@ export class KaoqinPage {
           
           if(that.fail_times >= 3)
           {
-              that.showAlert("蓝牙考勤失败次数过多？")
+              // that.showAlert("蓝牙考勤失败次数过多？",false)
+              that.isShowFail_Three = true
+              that.fail_str = "失败次数过多？试试位置签到"
+              that.attendance_off = false
           }
           else
           {
-              Utils.toastButtom("不在考勤机范围内,请重试。", that.toastCtrl)
+              // Utils.toastButtom("不在考勤机范围内,请重试。", that.toastCtrl)
+              that.isShowFail = true
+              that.fail_str = "不在签到范围"
           }
         }
         
     },5000)
     },function(){
-        Utils.toastButtom("请打开蓝牙", that.toastCtrl)
-       
+        // Utils.toastButtom("请打开蓝牙", that.toastCtrl)
+        that.isShowFail = true
+        that.fail_str = "蓝牙未打开"
+      //  that.showAlert("蓝牙考勤失败次数过多？",false)
     }) 
       
   }
@@ -444,18 +484,25 @@ export class KaoqinPage {
           that.fail_times = that.fail_times + 1
           if(that.fail_times >= 3)
           {
-              that.showAlert("蓝牙考勤失败次数过多？")
+              // that.showAlert("蓝牙考勤失败次数过多？",true)
+              that.isShowFail_Three = true
+              that.fail_str = "失败次数过多？试试位置签到"
+              that.attendance_off = true
           }
           else
           {
-              Utils.toastButtom("不在考勤机范围内,请重试。", that.toastCtrl)
+              // Utils.toastButtom("不在考勤机范围内,请重试。", that.toastCtrl)
+              that.isShowFail = true
+              that.fail_str = "不在签到范围"
           }
         }
         
     },5000)
     },function(){
-        Utils.toastButtom("请打开蓝牙", that.toastCtrl)
-        // that.showAlert("蓝牙考勤失败次数过多？")
+        // Utils.toastButtom("请打开蓝牙", that.toastCtrl)
+        // that.showAlert("蓝牙考勤失败次数过多？",true)
+        that.isShowFail = true
+        that.fail_str = "蓝牙未打开"
     }) 
       
   }
@@ -680,7 +727,7 @@ export class KaoqinPage {
     })
   }
 
-  showAlert(msg){
+  showAlert(msg,attendance_off){
     let prompt = this.alertCtrl.create({
       title: '提示',
       subTitle: msg,
@@ -694,7 +741,9 @@ export class KaoqinPage {
         {
           text: '确定',
           handler: data => {
-            this.navCtrl.push('KaoqinPhotoPage')
+            this.navCtrl.push('ChooseLocationPage',{
+              "attendance_off":attendance_off,
+            })
           }
         }
       ]
@@ -705,5 +754,14 @@ export class KaoqinPage {
   clickCancel(){
     this.isShowOnAlert = false
     this.isShowOffAlert = false
+    this.isShowFail = false
+    this.isShowFail_Three = false
+  }
+
+  click_location(){
+    this.isShowFail_Three = false;
+      this.navCtrl.push('ChooseLocationPage',{
+              "attendance_off":this.attendance_off,
+            })
   }
 }
