@@ -6,29 +6,17 @@
 -->
 
 
-<ion-header>
-
-  <ion-navbar color="gongdan-color">
-    <ion-title>绑定工牌</ion-title>
-    <ion-buttons end>
-      <button ion-button (click)='finish()'>
-        完成
-      </button>
-    </ion-buttons>
-  </ion-navbar>
-
-</ion-header>
 
 
-<ion-content>
 
-  <div>
-    <div style="text-align:center">
-      <img style="width:120px;height:120px;margin-top:39px;" src="assets/img/near_nfc.png">
-      <p style="font-size: 16px;
-              color: #8a9199;
-              line-height: 0px;margin-top:30px">请将NFC手机靠近工牌</p>
-    </div>
+
+
+<div  class="alert_div_fail" style="opacity: 1.0;">
+    <img style="width:110px;height:110px;margin-top:30px;" src="assets/img/fail_icon.png" />    
+    <p style="color:black;font-size:20px">绑定失败</p>
+    <p style="color:gray;font-size:14px;margin-top:-16px">请移开后重试</p>
+    <div tappable (click)="clickCancel()" class="alert_btn_fail">
+      我知道了
+    </div>    
   </div>
 
-</ion-content>

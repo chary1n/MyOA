@@ -280,7 +280,7 @@ export class EmployeeDetailPage {
       return;
     }
     if (!this.item.mobile_phone) {
-      mString = mString + "   请输入办公手机"
+      mString = mString + "   请输入手机号码"
     }
     if (!this.item.department_id_id) {
       mString = mString + "   请选择部门"

@@ -219,8 +219,8 @@ export class ContactPersonPage {
   }
 
   add() {
-    // this.navCtrl.push('AddEmployeePage')
-    this.navCtrl.push("PromptPage")
+    this.navCtrl.push('AddEmployeePage')
+    // this.navCtrl.push("PromptPage")
   }
 
 }

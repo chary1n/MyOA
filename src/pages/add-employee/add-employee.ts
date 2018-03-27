@@ -318,7 +318,7 @@ export class AddEmployeePage {
       return;
     }
     if (!this.mobile_phone) {
-      mString = mString + "   请输入办公手机"
+      mString = mString + "   请输入手机号码"
       Utils.toastButtom(mString, this.toastCtrl)
       return;
     }
@@ -350,7 +350,7 @@ export class AddEmployeePage {
       return;
     }
     if(!this.isTelCode(this.mobile_phone)){
-      mString = mString + "   请输入正确的办公手机号码"
+      mString = mString + "   请输入正确的手机号码"
       Utils.toastButtom(mString, this.toastCtrl)
       return;
     }
