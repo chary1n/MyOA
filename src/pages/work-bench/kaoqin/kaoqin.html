@@ -32,9 +32,9 @@
     
 </div>
 <ion-content style="background:#f0f2f5">
-  <ion-backdrop *ngIf="isShowOnAlert || isShowOffAlert || isShowFail || isShowFail_Three" disable-activated role="presentation" tappable style="opacity: 0.6; transition-delay: initial; transition-property: none;">       
+  <ion-backdrop *ngIf="!isShowOnAlert || isShowOffAlert || isShowFail || isShowFail_Three" disable-activated tappable style="opacity: 0.6; transition-delay: initial; transition-property: none;">       
   </ion-backdrop>
-  <div *ngIf="isShowOnAlert" class="alert_div" style="opacity: 1.0;">
+  <div *ngIf="!isShowOnAlert" class="alert_div" style="opacity: 1.0;">
     <div class="alert_p">
       <div class="alert_icon_class"></div>
       <span style="font-size: 18px;margin-top: 9px;margin-left: 5px;">打卡成功</span>
@@ -105,12 +105,35 @@
       <li *ngIf="item.check_out" [ngClass]="{true:'li_class_first',false:'li_class'}[i == 0]">
         <span [ngClass]="{true:'time_li_first_class',false:'time_li_class'}[i == 0]">{{calcEnd(item)}}</span>
         <span [ngClass]="{true:'time_type_li_first_class',false:'time_type_li_class'}[i == 0]">下班</span>
-        <span class="time_company_class">{{item.company_off_name}}</span>
+        <span *ngIf="!item.is_location_off" class="time_company_class">{{item.company_off_name}}</span>
+        <div *ngIf="item.is_location_off" class="time_company_class">
+          <img style="width:15px;margin-top:4px" src="assets/img/daka_location.png"/><p style=" margin-top: -20px;margin-left: 18px">{{item.company_off_name}}<p>
+        </div>
+        <ion-grid *ngIf="item.attendance_off_ids" style="margin-top:-20px;margin-left:-10px">
+          <ion-row style="margin-right:5px;">
+            <ion-col style="height:80px" *ngFor="let image of item.attendance_off_ids" col-3>
+              <img src={{image}} style="position:absolute;clip:rect(0px,70px,70px,0px);background-color:#f0f2f5" imageViewer/>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
       </li>
       <li *ngIf="item.check_in" [ngClass]="{true:'li_class_first',false:'li_class'}[!item.check_out && i == 0]">
-        <span [ngClass]="{true:'time_li_first_class',false:'time_li_class'}[!item.check_out && i == 0]">{{calcStart(item)}}</span>
+        
+          <span [ngClass]="{true:'time_li_first_class',false:'time_li_class'}[!item.check_out && i == 0]">{{calcStart(item)}}</span>
         <span [ngClass]="{true:'time_type_li_first_class',false:'time_type_li_class'}[!item.check_out && i == 0]" class="">上班</span>
-        <span class="time_company_class">{{item.company_name}}</span>
+        <span *ngIf="!item.is_location_on" class="time_company_class">{{item.company_name}}</span>
+        <div *ngIf="item.is_location_on" class="time_company_class">
+          <img style="width:15px;margin-top:-5px" src="assets/img/daka_location.png"/>
+          <span style="margin-top:-6px;margin-left:-1px">{{item.company_name}}</span>
+        </div>
+        <ion-grid *ngIf="item.attendance_on_ids" style="margin-top:-5px;margin-left:-10px;">
+          <ion-row style="margin-right:5px;">
+            <ion-col style="height:80px" *ngFor="let image of item.attendance_on_ids" col-3>
+              <img src={{image}} style="position:absolute;clip:rect(0px,70px,70px,0px);background-color:#f0f2f5" imageViewer/>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        
       </li>
     </ul>
   </div>
