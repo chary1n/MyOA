@@ -300,27 +300,34 @@ export class KaoqinPage {
     }); 
     let isHas = false
     let is_kaoqin_ok = false
-    let is_ok = false
+    let is_ok = "no_need"
+    let already_scan = false
     loading.present(); 
     let list = []
     that.ble.scan([], 5).subscribe(device => {
       console.log(device.name)
       isHas = false
       let company_name = ""
-      console.log(that.device_list)
+      
       for (let item_device of that.device_list) {
 
           if (device.name == item_device.device_name)
             {
-              isHas = true
-              is_kaoqin_ok = true
-              company_name = item_device.company_name
+              if (is_ok == "no_need")
+              {
+                is_kaoqin_ok = true
+                isHas = true
+                is_ok = "need"
+                company_name = item_device.company_name 
+              }
               that.ble.stopScan()
               loading.dismiss()
               break;
             }         
       }
-      if (isHas && !is_ok){
+      if (isHas && is_ok == "need" && is_kaoqin_ok){
+            console.log("请求")
+            is_ok = "has_request"
             let timestamp = Date.parse(that.datePipe.transform(new Date(), 'yyyy-MM-dd HH:mm:ss').replace(/-/g, '/'));;
             let timestamp_now = timestamp / 1000 - 8 * 60 * 60
             let date = new Date(timestamp_now * 1000)
@@ -340,7 +347,7 @@ export class KaoqinPage {
                 console.log(res)
                 if (res.result.res_data && res.result.res_code == 1) {
                   that.fail_times = 0;
-                  is_ok = true
+                 
                   //  Utils.toastButtom(, that.toastCtrl)
                     let timestamp_cal = Date.parse(that.datePipe.transform(new Date(), 'yyyy-MM-dd HH:mm:ss').replace(/-/g, '/'));
                     let timestamp_cal_now = timestamp_cal / 1000
@@ -417,7 +424,7 @@ export class KaoqinPage {
       enableBackdropDismiss: true
     }); 
     let isHas = false
-    let is_ok = false
+    let is_ok = "no_need"
     let is_kaoqin_ok = false
     loading.present(); 
     let list = []
@@ -427,18 +434,23 @@ export class KaoqinPage {
       let company_name = ""
       console.log(that.device_list)
       for (let item_device of that.device_list) {
-      
           if (device.name == item_device.device_name)
             {
-              is_kaoqin_ok = true
-              isHas = true
-              company_name = item_device.company_name
+              if (is_ok == "no_need")
+              {
+                is_kaoqin_ok = true
+                isHas = true
+                is_ok = "need"
+                company_name = item_device.company_name 
+              }
               that.ble.stopScan()
               loading.dismiss()
               break;
-            }         
+            }               
       }
-      if (isHas && !is_ok){
+      if (isHas && is_ok =="need"  && is_kaoqin_ok){
+            console.log("请求")
+            is_ok = "has_request"
             let timestamp = Date.parse(that.datePipe.transform(new Date(), 'yyyy-MM-dd HH:mm:ss').replace(/-/g, '/'));;
             let timestamp_now = timestamp / 1000 - 8 * 60 * 60
             let date = new Date(timestamp_now * 1000)
@@ -459,7 +471,7 @@ export class KaoqinPage {
                 console.log(res)
                 if (res.result.res_data && res.result.res_code == 1) {
                    that.fail_times = 0;
-                   is_ok = true
+                   
                   // Utils.toastButtom("签退成功", that.toastCtrl)
                     let timestamp_cal = Date.parse(that.datePipe.transform(new Date(), 'yyyy-MM-dd HH:mm:ss').replace(/-/g, '/'));
                     let timestamp_cal_now = timestamp_cal / 1000
