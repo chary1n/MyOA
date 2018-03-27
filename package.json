@@ -655,11 +655,5 @@
             "android",
             "ios"
         ]
-      }
-    },
-    "platforms": [
-      "ios",
-      "android"
-    ]
-  }
+    }
 }

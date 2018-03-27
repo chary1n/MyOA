@@ -1,5 +1,5 @@
 import { IonicPage } from 'ionic-angular/navigation/ionic-page';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, ModalController } from 'ionic-angular';
 import { Component } from '@angular/core';
 
 /**
@@ -13,14 +13,24 @@ import { Component } from '@angular/core';
   selector: 'page-gongpai',
   templateUrl: 'gongpai.html',
 })
+
 export class GongpaiPage {
   isFinish = false ;
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  isShowOnAlert = true ;
+  constructor(public navCtrl: NavController, public navParams: NavParams,public modalCtrl :ModalController) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad GongpaiPage');
   }
+
+
+  openCertificationModal() {
+        let myModal = this.modalCtrl.create('PopmodalPage', {}, {
+            cssClass: 'custom-modal'
+        });
+        myModal.present();
+
+    }
 
 }
