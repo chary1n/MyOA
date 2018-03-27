@@ -57,14 +57,16 @@ page-kaoqin {
     .li_class{
         color:#f0f2f5;
         font-size:18px;
-        height:60px;
+        min-height:60px;
         position: relative;
+        // margin-top: 1px;
     }
+
 
     .li_class_first{
         color:#409eff;
         font-size:18px;
-        height:60px;
+        min-height:60px;
         position: relative;
     }
 

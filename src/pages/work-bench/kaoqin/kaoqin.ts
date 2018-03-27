@@ -392,9 +392,19 @@ export class KaoqinPage {
     },5000)
     },function(){
         // Utils.toastButtom("请打开蓝牙", that.toastCtrl)
-        that.isShowFail = true
-        that.fail_str = "蓝牙未打开"
-      //  that.showAlert("蓝牙考勤失败次数过多？",false)
+       that.fail_times = that.fail_times + 1
+          if(that.fail_times >= 3)
+          {
+              // that.showAlert("蓝牙考勤失败次数过多？",true)
+              that.isShowFail_Three = true
+              that.fail_str = "失败次数过多？试试位置签到"
+              that.attendance_off = true
+          }
+          else
+          {
+              that.isShowFail = true
+              that.fail_str = "蓝牙未打开"
+          }
     }) 
       
   }
@@ -501,8 +511,21 @@ export class KaoqinPage {
     },function(){
         // Utils.toastButtom("请打开蓝牙", that.toastCtrl)
         // that.showAlert("蓝牙考勤失败次数过多？",true)
-        that.isShowFail = true
-        that.fail_str = "蓝牙未打开"
+        
+
+        that.fail_times = that.fail_times + 1
+          if(that.fail_times >= 3)
+          {
+              // that.showAlert("蓝牙考勤失败次数过多？",true)
+              that.isShowFail_Three = true
+              that.fail_str = "失败次数过多？试试位置签到"
+              that.attendance_off = true
+          }
+          else
+          {
+              that.isShowFail = true
+              that.fail_str = "蓝牙未打开"
+          }
     }) 
       
   }
