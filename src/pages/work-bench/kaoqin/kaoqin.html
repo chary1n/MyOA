@@ -32,9 +32,9 @@
     
 </div>
 <ion-content style="background:#f0f2f5">
-  <ion-backdrop *ngIf="!isShowOnAlert || isShowOffAlert || isShowFail || isShowFail_Three" disable-activated tappable style="opacity: 0.6; transition-delay: initial; transition-property: none;">       
+  <ion-backdrop *ngIf="isShowOnAlert || isShowOffAlert || isShowFail || isShowFail_Three" disable-activated role="presentation" tappable style="opacity: 0.6; transition-delay: initial; transition-property: none;">       
   </ion-backdrop>
-  <div *ngIf="!isShowOnAlert" class="alert_div" style="opacity: 1.0;">
+  <div *ngIf="isShowOnAlert" class="alert_div" style="opacity: 1.0;">
     <div class="alert_p">
       <div class="alert_icon_class"></div>
       <span style="font-size: 18px;margin-top: 9px;margin-left: 5px;">打卡成功</span>
