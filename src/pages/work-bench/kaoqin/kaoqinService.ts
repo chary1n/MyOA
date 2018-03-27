@@ -20,7 +20,7 @@ export class KaoQinService {
     employee_attendance(data_params)
     {
         let body = JSON.stringify(data_params);
-       return this.httpservice.postBody("employee_attendance",body);
+       return this.httpservice.postBodyNoLoading("employee_attendance",body);
     }
 
     get_ble_device(){
