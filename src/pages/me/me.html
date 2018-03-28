@@ -12,14 +12,37 @@
   }
 </style> -->
 <ion-header no-border>
-  <ion-navbar color="gongdan-color">
+  <!-- <ion-navbar color="gongdan-color">
     <ion-title>我</ion-title>
-  </ion-navbar>
+  </ion-navbar> -->
+  <!-- <ion-navbar color="meColor" hideBackButton="true">
+</ion-navbar> -->
+<ion-grid style="background-image:url('assets/img/meBacground.png');background-repeat:round;">
+  <ion-row style="min-height:230px">
+    <ion-col>
+      <div style="margin-left:auto;margin-right:auto;text-align:center;margin-top:45px" tappable (click)='editInformation()'>
+        <img src={{user_heard}} class="image1" alt="">
+        <p style="color:white;font-size:14px;margin-top:1px">{{name}}</p>
+        <p style="color:#bfdfff;font-size:12px;margin-top:-9px">{{company}}</p>
+      </div>
+    </ion-col>
+  </ion-row>
+</ion-grid>
 </ion-header>
 
-  <ion-content  class="outer-content">
-
-    <ion-grid>
+  <ion-content class="outer-content" style="background:#f0f2f5">
+    
+    <ion-list no-lines>
+      <ion-item>
+        <img item-start src="assets/img/version_icon.png" style="width:18px;height:18px"> 
+        <!-- <ion-icon name="brush" item-start color="secondary"></ion-icon> -->
+        <ion-label style="color:2e3033;font-size:14px">版本号{{versionNumber}}</ion-label>
+      </ion-item>
+    </ion-list>
+    <div  style="text-align:center;background:white;line-height:50px;height:50px" tappable (click)="outToLogin()">
+        <p style="color:2e3033;font-size:18px">退出登录</p>
+    </div>
+    <!-- <ion-grid>
       <ion-row>
         <ion-col col-5 style="text-align:center;padding-top:10px">
           <img src={{user_heard}} class="image1" alt="" >
@@ -38,10 +61,10 @@
       <ion-icon name="create"></ion-icon>
       <span>编辑资料</span>
     </div>
-  </div>
+  </div> -->
 
 
-    <ion-list style="background-color:white">
+    <!-- <ion-list style="background-color:white">
       <button ion-item>
       <ion-icon name="lock" item-start color="blue"></ion-icon>
       <ion-label>账号与安全</ion-label>
@@ -60,16 +83,11 @@
       <button ion-item>
       <ion-icon name="call" item-start color="secondary"></ion-icon>
       <ion-label>关于我们</ion-label>
-    </button>
+    </button> -->
 
-    <button ion-item>
-        <ion-icon name="brush" item-start color="secondary"></ion-icon>
-        <ion-label>版本号{{versionNumber}}</ion-label>
-      </button>
+    <!-- </ion-list> -->
 
-    </ion-list>
-
-    <button  ion-button  outline block tappable (click)="outToLogin()" >
+    <!-- <button  ion-button  outline block tappable (click)="outToLogin()" >
     退出登录
-  </button>
+  </button> -->
   </ion-content>

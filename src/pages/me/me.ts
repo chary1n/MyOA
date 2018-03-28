@@ -50,7 +50,7 @@ export class MePage {
   }
  ionViewWillEnter(){
   this.initData();
-  this.statusbar.backgroundColorByHexString("#2597ec");
+  this.statusbar.backgroundColorByHexString("#409eff");
     this.statusbar.styleLightContent();
  }
 
