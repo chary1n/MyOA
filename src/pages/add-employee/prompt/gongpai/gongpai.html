@@ -14,15 +14,29 @@
       </button>
     </ion-buttons>
   </ion-navbar>
+  <ion-backdrop *ngIf="isFinish" style="opacity: 0.6;">
+  </ion-backdrop>
 
 
 </ion-header>
 
 
 <ion-content>
-  <button  (click)="openCertificationModal()">
+  <button (click)="openCertificationModal()">
     按钮
   </button>
+
+  <ion-backdrop *ngIf="isFinish" disable-activated role="presentation" tappable style="opacity: 0.6; transition-delay: initial; transition-property: none;">
+  </ion-backdrop>
+  <div *ngIf="isFinish" class="alert_div_fail" style="opacity: 1.0;">
+    <div style="text-align:center">
+      <img style="width:60px;height:60px;margin-top:39px;" src="assets/img/finished.png">
+      <p style="font-size: 16px;
+                  color: #8a9199;
+                  line-height: 0px;margin-top:30px">绑定成功</p>
+      <p>
+    </div>
+  </div>
   <div *ngIf="!isFinish">
     <div style="text-align:center">
       <img style="width:120px;height:120px;margin-top:39px;" src="assets/img/near_nfc.png">
@@ -31,15 +45,5 @@
           line-height: 0px;margin-top:30px">请将NFC手机靠近工牌</p>
     </div>
   </div>
-  <div *ngIf="isFinish">
-    <div style="text-align:center">
-      <img style="width:60px;height:60px;margin-top:39px;" src="assets/img/finished.png">
-      <p style="font-size: 16px;
-          color: #8a9199;
-          line-height: 0px;margin-top:30px">绑定成功</p>
-      <p>
-    </div>
-  </div>
-
 
 </ion-content>
