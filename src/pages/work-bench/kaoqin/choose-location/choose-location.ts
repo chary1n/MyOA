@@ -1,12 +1,12 @@
-import { Component,ElementRef,ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Storage } from '@ionic/storage';
-import { KaoQinService} from './../kaoqinService';
+import { KaoQinService } from './../kaoqinService';
 import { DatePipe } from '@angular/common';
-import { IonicPage, NavController, NavParams, Platform,AlertController ,ToastController,LoadingController,ActionSheetController} from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform, AlertController, ToastController, LoadingController, ActionSheetController } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 import { NativeService } from './../../../../providers/NativeService';
 import { Utils } from '../../../../providers/Utils';
-
+declare var GaoDe;
 /**
  * Generated class for the ChooseLocationPage page.
  *
@@ -17,43 +17,67 @@ import { Utils } from '../../../../providers/Utils';
 @Component({
   selector: 'page-choose-location',
   templateUrl: 'choose-location.html',
-  providers:[Geolocation,KaoQinService,NativeService,DatePipe],
+  providers: [Geolocation, KaoQinService, NativeService, DatePipe],
 })
 export class ChooseLocationPage {
   pois_list = []
   attendance_off
   select_list = []
-  select_index ;
-  constructor(public navCtrl: NavController, public navParams: NavParams,public geolocation:Geolocation,
-  public kaoQinService:KaoQinService) {
+  select_index;
+  constructor(public navCtrl: NavController,
+    public platform: Platform, public navParams: NavParams, public geolocation: Geolocation,
+    public kaoQinService: KaoQinService) {
     this.attendance_off = this.navParams.get('attendance_off')
-     this.geolocation.getCurrentPosition().then((resp) => {
-        // console.log(resp.coords.latitude)
-        // console.log(resp.coords.longitude)
-        this.kaoQinService.trans_location(resp.coords.latitude,resp.coords.longitude).then(res => {
-          // console.log(res)
-          var that = this
-          this.kaoQinService.get_location_now(res.result[0].y,res.result[0].x).then(res_location =>{
-            // console.log(res_location.result.pois[0].addr)
-            // that.location_str = res_location.result.pois[0].addr
-            that.pois_list = res_location.result.pois
-            for (let item of that.pois_list) {
-              that.select_list.push("0")
-            }
-            that.select_list[0] = "1"
-            that.select_index = 0
-          })
+    if (this.platform.is("android")) {
+      GaoDe.getCurrentPosition((success) => {
+        var that = this
+        console.log('gaode', success);
+        this.kaoQinService.trans_location(success.latitude, success.longitude).then(res => {
+        this.kaoQinService.get_location_now(res.result[0].y, res.result[0].x).then(res_location => {
+          // console.log(res_location.result.pois[0].addr)
+          // that.location_str = res_location.result.pois[0].addr
+          that.pois_list = res_location.result.pois
+          for (let item of that.pois_list) {
+            that.select_list.push("0")
+          }
+          that.select_list[0] = "1"
+          that.select_index = 0
         })
-    }).catch((error) => {
-      console.log('Error getting location', error);
-    })
+      })
+      }, (error) => {
+        console.log('Error getting location', error);
+      });
+    } else {
+      this.geolocation.getCurrentPosition()
+        .then((resp) => {
+          console.log(resp.coords.latitude)
+          console.log(resp.coords.longitude)
+          this.kaoQinService.trans_location(resp.coords.latitude, resp.coords.longitude).then(res => {
+            // console.log(res)
+            var that = this
+            this.kaoQinService.get_location_now(res.result[0].y, res.result[0].x).then(res_location => {
+              // console.log(res_location.result.pois[0].addr)
+              // that.location_str = res_location.result.pois[0].addr
+              that.pois_list = res_location.result.pois
+              for (let item of that.pois_list) {
+                that.select_list.push("0")
+              }
+              that.select_list[0] = "1"
+              that.select_index = 0
+            })
+          })
+        }).catch((error) => {
+          console.log('Error getting location', error);
+        })
+
+    }
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ChooseLocationPage');
   }
 
-  clickLocation(index){
+  clickLocation(index) {
     this.select_index = index
     let i = 0
     for (let item of this.select_list) {
@@ -67,14 +91,14 @@ export class ChooseLocationPage {
     // })
   }
 
-  goBack(){
+  goBack() {
     this.navCtrl.popTo('KaoqinPage')
   }
 
-  release(){
-    this.navCtrl.push('KaoqinPhotoPage',{
-      "attendance_off":this.attendance_off,
-      "location_str":this.pois_list[this.select_index].name,
+  release() {
+    this.navCtrl.push('KaoqinPhotoPage', {
+      "attendance_off": this.attendance_off,
+      "location_str": this.pois_list[this.select_index].name,
     })
   }
 

@@ -10,6 +10,31 @@ page-gongpai {
             overflow-y: hidden;
         }
     }
+
+
+    .alert_div{
+        height: 220px;
+        width: 270px;
+        background:url("./../assets/img/attendance_bg.png");
+        position: absolute;
+        z-index: 999;
+        left: calc(50% - 135px);
+        top: calc(50% - 130px);
+        background-size: 100% 100%;
+        text-align: center;
+    }
+
+    .alert_div_fail{
+        height: 300px;
+        width: 270px;
+        background:url("./../assets/img/fail_background.png");
+        position: absolute;
+        z-index: 999;
+        left: calc(50% - 135px);
+        top: calc(50% - 170px);
+        background-size: 100% 100%;
+        text-align: center;
+    }
 }
 
 

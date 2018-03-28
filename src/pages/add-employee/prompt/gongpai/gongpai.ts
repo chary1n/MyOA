@@ -26,11 +26,11 @@ export class GongpaiPage {
 
 
   openCertificationModal() {
-        let myModal = this.modalCtrl.create('PopmodalPage', {}, {
-            cssClass: 'custom-modal'
-        });
-        myModal.present();
-
+        // let myModal = this.modalCtrl.create('PopmodalPage', {}, {
+        //     cssClass: 'custom-modal'
+        // });
+        // myModal.present();
+    this.isFinish = true ;
     }
 
 }
