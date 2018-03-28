@@ -58,6 +58,7 @@ export class EditReimbursementPage {
           this.taxIndex = i
         }
       }
+      console.log(this.taxIndex)
     }
   }
 
@@ -114,6 +115,7 @@ export class EditReimbursementPage {
         this.production.name = this.remark;
         this.production.description = this.remarks;
         // this.production.tax_ids[0].display_name = this.taxIndex ;
+        console.log(this.taxIndex)
         if(this.taxIndex==0||this.taxIndex){
           this.production.tax_ids= [{
             display_name:this.taxList[this.taxIndex].name,

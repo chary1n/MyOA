@@ -405,7 +405,7 @@ export class KaoqinPage {
       //         // that.showAlert("蓝牙考勤失败次数过多？",true)
       //         that.isShowFail_Three = true
       //         that.fail_str = "失败次数过多？试试位置签到"
-      //         that.attendance_off = true
+      //         that.attendance_off = false
       //     }
       //     else
       //     {
@@ -526,15 +526,15 @@ export class KaoqinPage {
         
 
         // that.fail_times = that.fail_times + 1
-          // if(that.fail_times >= 3)
-          // {
-          //     // that.showAlert("蓝牙考勤失败次数过多？",true)
-          //     that.isShowFail_Three = true
-          //     that.fail_str = "失败次数过多？试试位置签到"
-          //     that.attendance_off = true
-          // }
-          // else
-          // {
+        //   if(that.fail_times >= 3)
+        //   {
+        //       // that.showAlert("蓝牙考勤失败次数过多？",true)
+        //       that.isShowFail_Three = true
+        //       that.fail_str = "失败次数过多？试试位置签到"
+        //       that.attendance_off = true
+        //   }
+        //   else
+        //   {
               that.isShowFail = true
               that.fail_str = "蓝牙未打开"
           // }
