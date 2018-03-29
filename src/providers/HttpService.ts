@@ -155,7 +155,7 @@ export class HttpService {
   }
 
   private handleSuccess(result) {
-    console.log(result)
+    // console.log(result)
     
     if (result.error)
     {

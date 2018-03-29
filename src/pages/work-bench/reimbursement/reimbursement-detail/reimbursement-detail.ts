@@ -48,6 +48,7 @@ export class ReimbursementDetailPage {
             console.log(res.result.res_data)
             this.productList = res.result.res_data.product.res_data
             this.taxList = res.result.res_data.taxList.res_data ;
+            // console.log(this.taxList)
           }
         })
         }

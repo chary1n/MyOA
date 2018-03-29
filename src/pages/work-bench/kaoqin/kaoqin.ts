@@ -5,6 +5,7 @@ import { KaoQinService} from './kaoqinService';
 import { DatePipe } from '@angular/common';
 import { IonicPage, NavController, NavParams, Platform,AlertController ,ToastController,LoadingController} from 'ionic-angular';
 import { Utils } from '../../../providers/Utils';
+
 /**
  * Generated class for the KaoqinPage page.
  *
@@ -54,17 +55,13 @@ export class KaoqinPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,public storage:Storage,
     public kaoqinService:KaoQinService,private datePipe: DatePipe,private ble:BLE,
     private toastCtrl: ToastController,private loading:LoadingController,private elementRef: ElementRef,
-    private alertCtrl:AlertController) {
+    private alertCtrl:AlertController,private platform:Platform) {
       this.fail_times = 0
       this.kaoqinService.get_ble_device().then(res => {
         if (res.result.res_data && res.result.res_code == 1) {
           this.device_list = res.result.res_data
         }
-      })
-      
-
-
-      
+      })    
       
       this.storage.get('user')
       .then(res => {
@@ -81,7 +78,7 @@ export class KaoqinPage {
   }
 
   ionViewDidEnter() {
-    console.log(this.navParams.get('need_fresh'))
+    // console.log(this.navParams.get('need_fresh'))
     if (this.navParams.get('need_fresh') == true) {
       this.navParams.data.need_fresh = false;
       // this.reload_statics()
