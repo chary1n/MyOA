@@ -33,7 +33,6 @@ export class ContactPersonPage {
   isShowEdit = false;
   constructor(public navCtrl: NavController, public navParams: NavParams, public contactService: ContactService,
     public employeeService: EmployeeService,
-
     public storage: Storage, public statusbar: StatusBar) {
     this.showAll = "NO";
     this.limit = 20;
