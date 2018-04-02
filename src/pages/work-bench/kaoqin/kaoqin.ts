@@ -303,7 +303,7 @@ export class KaoqinPage {
         let that = this
         ctrl.create({
               title: '提示',
-              subTitle: "已经打过上班卡了,是否继续？",
+              subTitle: "已经打过上班卡了,是否继续打卡？",
               buttons: [{
                 text: '取消',
                 handler: () => {
@@ -340,7 +340,7 @@ export class KaoqinPage {
         let that = this
         ctrl.create({
               title: '提示',
-              subTitle: "已经打过下班卡了,是否继续？",
+              subTitle: "已经打过下班卡了,是否继续打卡？",
               buttons: [{
                 text: '取消',
                 handler: () => {
