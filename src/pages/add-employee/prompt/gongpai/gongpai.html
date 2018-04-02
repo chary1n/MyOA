@@ -6,15 +6,20 @@
 -->
 <ion-header>
 
-  <ion-navbar color="gongdan-color">
+  <ion-navbar color="gongdan-color" hideBackButton="true">
+    <ion-buttons *ngIf="!isFinish" left>
+      <button ion-button icon-only (click)="goBack()">
+        <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
     <ion-title>绑定工牌</ion-title>
-    <ion-buttons end>
+    <ion-buttons *ngIf="isFinish" end>
       <button ion-button (click)='finish()'>
         完成
       </button>
     </ion-buttons>
   </ion-navbar>
-  <ion-backdrop *ngIf="isFinish" style="opacity: 0.6;">
+  <ion-backdrop *ngIf="isShowNotFind || isShowFail" style="opacity: 0.6;">
   </ion-backdrop>
 
 
@@ -22,13 +27,30 @@
 
 
 <ion-content>
-  <button (click)="openCertificationModal()">
-    按钮
-  </button>
 
-  <ion-backdrop *ngIf="isFinish" disable-activated role="presentation" tappable style="opacity: 0.6; transition-delay: initial; transition-property: none;">
+
+  <ion-backdrop *ngIf="isShowNotFind || isShowFail" disable-activated role="presentation" tappable style="opacity: 0.6; transition-delay: initial; transition-property: none;">
   </ion-backdrop>
-  <div *ngIf="isFinish" class="alert_div_fail" style="opacity: 1.0;">
+
+  <div *ngIf="isShowNotFind" class="alert_div_fail" style="opacity: 1.0;">
+    <img style="width:90px;height:90px;margin-top:30px;" src="assets/img/not_find_nfc.png" />
+    <p style="color:black;font-size:20px">未识别到工牌</p>
+    <p style="color:gray;font-size:14px;margin-top:-16px">请移开后重试</p>
+    <div tappable (click)="clickCancel()" class="alert_btn_fail">
+      我知道了
+    </div>
+  </div>
+  <div *ngIf="isShowFail" class="alert_div_fail" style="opacity: 1.0;">
+    <img style="width:110px;height:110px;margin-top:30px;" src="assets/img/fail.png" />
+    <p style="color:black;font-size:20px">绑定失败</p>
+    <p style="color:gray;font-size:14px;margin-top:-16px">请移开后重试</p>
+    <div tappable (click)="clickCancel()" class="alert_btn_fail">
+      我知道了
+    </div>
+  </div>
+
+
+  <div *ngIf="isFinish">
     <div style="text-align:center">
       <img style="width:60px;height:60px;margin-top:39px;" src="assets/img/finished.png">
       <p style="font-size: 16px;
@@ -37,6 +59,7 @@
       <p>
     </div>
   </div>
+
   <div *ngIf="!isFinish">
     <div style="text-align:center">
       <img style="width:120px;height:120px;margin-top:39px;" src="assets/img/near_nfc.png">

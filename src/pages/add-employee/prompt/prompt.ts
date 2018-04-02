@@ -62,22 +62,8 @@ export class PromptPage {
   }
 
   generate_nfc() {
-    this.navCtrl.push("GongpaiPage")
-    // this.nfc.addTagDiscoveredListener(() => {
-    //   console.log("成功")
-    // }, (err) => {
-    //   Utils.toastButtom("激活nfc失败", this.toast)
-    // }).subscribe((event) => {
-    //   let NFC_id = this.nfc.bytesToHexString(event.tag.id)
-    //   let upDate_item = {
-    //     id: this.item.id,
-    //     edit_id: HttpService.user_id,
-    //     card_num :  NFC_id , 
-    //   }
-    //   this.employeeService.update_employee(upDate_item).then(res=>{
-    //     console.log(res)
-    //   })
-    // })
+    this.navCtrl.push("GongpaiPage",{item :this.item})
+
   }
 }
 

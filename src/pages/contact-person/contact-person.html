@@ -26,15 +26,20 @@
 
 <ion-content (pan)="panEvent($event)">
   <ion-searchbar placeholder = "搜索" (search)="searchByKeyword($event)" (ionClear)="clearText()"></ion-searchbar>
+  <ion-scroll  zooming="true" scrollX="true" style="height:50px;width:100%">
+    <div  style="white-space:nowrap;font-size:16px;padding-top:10px;padding-left:20px">
+      组织架构
+    </div>
+  </ion-scroll>
   <ion-item *ngIf = "showAll == 'YES'">
     <ion-label>组织架构</ion-label>
     <ion-label tappable (click) = "clickAll()" text-right item-end style="font-size:150%">-</ion-label>
   </ion-item>     
 
-  <ion-item no-lines *ngIf = "showAll == 'NO'">
+  <!-- <ion-item no-lines *ngIf = "showAll == 'NO'">
     <ion-label>组织架构</ion-label>
     <ion-label tappable (click) = "clickAll()" text-right item-end style="font-size:150%">+</ion-label>
-  </ion-item>
+  </ion-item> -->
 
   <ion-item-group *ngIf = "showAll == 'YES'">
     <ion-item  style="margin-left:20px;" tappable (click) = "clickItem(item)" *ngFor='let item of departmentList'>
@@ -57,7 +62,7 @@
         <p>{{item.job_id.name}}</p>
       </ion-item>
   </ion-list>
-  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+  <!-- <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
       <ion-infinite-scroll-content></ion-infinite-scroll-content>
-    </ion-infinite-scroll>
+    </ion-infinite-scroll> -->
 </ion-content>

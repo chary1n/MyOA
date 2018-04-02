@@ -30,6 +30,7 @@
         "@ionic-native/contacts": "^4.5.2",
         "@ionic-native/core": "^3.14.0",
         "@ionic-native/date-picker": "^4.5.2",
+        "@ionic-native/device": "^4.6.0",
         "@ionic-native/file": "^4.5.2",
         "@ionic-native/geolocation": "^4.6.0",
         "@ionic-native/http": "^3.14.0",

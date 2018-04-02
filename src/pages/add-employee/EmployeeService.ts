@@ -8,6 +8,17 @@ export class EmployeeService {
 
     }
 
+    get_all_department(){
+
+        let body = JSON.stringify({
+          
+        });
+        return this.httpservice.postBody("get_all_department", body);
+
+    }
+
+
+
     // 获取民族
     get_employee_list() {
         let body = JSON.stringify({
@@ -42,5 +53,12 @@ export class EmployeeService {
         let body = JSON.stringify(data);
         return this.httpservice.postBody("update_employee", body);
     }
+
+
+    update_nfc_number(data){
+        let body = JSON.stringify(data);
+        return this.httpservice.postBody("update_nfc_number", body);
+    }
+
 
 }

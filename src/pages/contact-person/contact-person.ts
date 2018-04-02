@@ -38,6 +38,12 @@ export class ContactPersonPage {
     this.showAll = "NO";
     this.limit = 20;
     this.offset = 0
+    // 获取组织架构
+    this.employeeService.get_all_department().then((res) => {
+      if (res.result && res.result.res_code == 1) {
+        console.log(res)
+      }
+    })
     this.contactService.get_departments().then((res) => {
       if (res.result && res.result.res_code == 1) {
         this.departmentList = res.result.res_data;
@@ -219,8 +225,8 @@ export class ContactPersonPage {
   }
 
   add() {
-    this.navCtrl.push('AddEmployeePage')
-    // this.navCtrl.push("PromptPage")
+    // this.navCtrl.push('AddEmployeePage')
+    this.navCtrl.push("PromptPage")
   }
 
 }
