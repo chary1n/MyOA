@@ -26,17 +26,39 @@
 
 <ion-content (pan)="panEvent($event)">
   <ion-searchbar   placeholder = "搜索" (search)="searchByKeyword($event)" (ionClear)="clearText()"></ion-searchbar>
+
+  <ion-item *ngIf = "showAll == 'YES'" (click) = "clickAll()" >
+    <ion-label>组织架构</ion-label>
+    <ion-label tappable text-right item-end style="font-size:150%">></ion-label>
+  </ion-item>    
+
   <ion-scroll  *ngIf = "showAll == 'NO'"  zooming="true" scrollX="true" style="height:50px;width:100%">
     <div  style="white-space:nowrap;font-size:16px;padding-top:10px;padding-left:20px">
-      组织架构
+      <span (click)=clickShowAll()>
+        组织架构 >
+      </span>
+      <span *ngFor="let item of breadcrumbsList;let i = index"  (click)=clickBreadcrumbs(item,i)  >
+        {{item.name}} >
+         </span>
     </div>
   </ion-scroll>
 
+    <ion-item-group *ngIf = "showAll == 'NO'">
+    <ion-item   tappable (click) = "addBreadcrumbs(item)" *ngFor='let item of childList'>
+      <ion-label >
+        {{item.name}} ({{item.childEmployeeNumber}})
+      </ion-label>
+      <ion-label style="color:gray;margin-right:25px;" text-right item-end>
+        >
+      </ion-label>    
+  </ion-item>
+  </ion-item-group>
 
-  <ion-item *ngIf = "showAll == 'YES'">
-    <ion-label>组织架构</ion-label>
-    <ion-label tappable (click) = "clickAll()" text-right item-end style="font-size:150%">></ion-label>
-  </ion-item>     
+
+
+
+
+ 
 
   <!-- <ion-item no-lines *ngIf = "showAll == 'NO'">
     <ion-label>组织架构</ion-label>
