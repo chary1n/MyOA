@@ -22,7 +22,7 @@
     <ion-col>
       <div style="margin-left:auto;margin-right:auto;text-align:center;margin-top:45px" tappable (click)='editInformation()'>
         <img src={{user_heard}} class="image1" alt="">
-        <p style="color:white;font-size:14px;margin-top:1px">{{name}}</p>
+        <p style="color:white;font-size:18px;margin-top:1px">{{name}}</p>
         <p style="color:#bfdfff;font-size:12px;margin-top:-9px">{{company}}</p>
       </div>
     </ion-col>
@@ -33,8 +33,8 @@
   <ion-content class="outer-content" style="background:#f0f2f5">
     
     <ion-list no-lines>
-      <ion-item>
-        <img item-start src="assets/img/version_icon.png" style="width:18px;height:18px"> 
+      <ion-item style="min-height:50px">
+        <img item-start src="assets/img/version_icon.png" style="width:23px;height:23px"> 
         <!-- <ion-icon name="brush" item-start color="secondary"></ion-icon> -->
         <ion-label style="color:2e3033;font-size:14px">版本号{{versionNumber}}</ion-label>
       </ion-item>
