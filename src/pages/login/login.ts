@@ -18,7 +18,7 @@ import { Headers, RequestOptions } from '@angular/http';
 import { AppVersion } from '@ionic-native/app-version';
 import { Platform } from 'ionic-angular';
 import { UrlServer } from '../../providers/UrlServer';
-
+import {InAppBrowser} from '@ionic-native/in-app-browser';
 declare let cordova: any;
 
 
@@ -60,7 +60,7 @@ export class LoginPage {
   password_src ;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private loginservice: LoginService, private myHttp: Http, private storage: Storage, public platform: Platform, public appVersion: AppVersion,
-    public jpush: JPush, public urlServer: UrlServer,public ctrl:AlertController
+    public jpush: JPush, public urlServer: UrlServer,public ctrl:AlertController,private inAppBrowser: InAppBrowser,
   ) {
     this.storage.get("login").then(res => {
       if (res) {
@@ -75,6 +75,32 @@ export class LoginPage {
 
     this.reset();
 
+    if (!HttpService.need_back_login)
+    {
+      this.storage.get("login").then(res => {
+      this.storage.get("user").then(user=>{
+        HttpService.need_back_login = true
+        console.log(HttpService.need_back_login)
+        if (res) {
+          if (res.autoLogin&&user) {
+            this.toAutoLogin()
+          } else if (res.remerberPassword) {
+            this.storage.get('user_psd').then(res => {
+              this.email = res.user_email
+              this.password = res.user_psd
+              this.isDisabled= false
+            })
+          }
+        }
+      })
+    })
+    }
+    
+
+  }
+
+  openUrlByBrowser(url:string):void {
+    this.inAppBrowser.create(url, '_system');
   }
 
 
@@ -95,21 +121,7 @@ export class LoginPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
-    this.storage.get("login").then(res => {
-      this.storage.get("user").then(user=>{
-        if (res) {
-          if (res.autoLogin&&user) {
-            this.toAutoLogin()
-          } else if (res.remerberPassword) {
-            this.storage.get('user_psd').then(res => {
-              this.email = res.user_email
-              this.password = res.user_psd
-              this.isDisabled= false
-            })
-          }
-        }
-      })
-    })
+    
   }
 
   toAutoLogin() {
@@ -121,7 +133,8 @@ export class LoginPage {
             HttpService.appUrl = res.url
             this.navCtrl.setRoot('TabsPage');
             console.log(res)
-            this.loginservice.toLogin(res.user_email, res.user_psd, res.db_name)
+            this.appVersion.getVersionNumber().then((value: string) => {
+              this.loginservice.toLogin(res.user_email, res.user_psd, res.db_name,value)
               .then(res => {
                 console.log(res);
                 if (res.result && res.result.res_code == 1) {
@@ -131,7 +144,13 @@ export class LoginPage {
                   this.storage.set("user", res).then(() => {
                   });
                 }
+                else
+                {
+                  this.navCtrl.setRoot('LoginPage')
+                }
               })
+            })
+            
           })
         }
       });
@@ -254,7 +273,8 @@ export class LoginPage {
     }).present();
       return
     }
-    this.loginservice.toLogin(this.email, this.password, this.employee)
+    this.appVersion.getVersionNumber().then((value: string) => {
+      this.loginservice.toLogin(this.email, this.password, this.employee,value)
       .then(res => {
         console.log(res);
         if (res.result && res.result.res_code == 1) {
@@ -314,6 +334,8 @@ export class LoginPage {
           alert(res.result.res_data.error);
         }
       })
+    })
+    
   }
   watch(event){
     this.password = "";

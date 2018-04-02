@@ -28,7 +28,7 @@ export class KaoqinPage {
   user_ava;
   user_name;
   user;
-  items;
+  items = [];
   divHeight;
   scan_list = []
   device_list = []
@@ -53,6 +53,7 @@ export class KaoqinPage {
   fail_times;
   fail_str;
   attendance_off;
+  isShowActive = true;
   constructor(public navCtrl: NavController, public navParams: NavParams,public storage:Storage,
     public kaoqinService:KaoQinService,private datePipe: DatePipe,private ble:BLE,
     private toastCtrl: ToastController,private loading:LoadingController,private elementRef: ElementRef,
@@ -75,8 +76,8 @@ export class KaoqinPage {
           }
       })
       })
-     console.log('Device UUID is: ' + this.device.uuid);
-     alert(this.device.uuid)
+    //  console.log('Device UUID is: ' + this.device.uuid);
+    //  alert(this.device.uuid)
 
   }
 
@@ -291,255 +292,75 @@ export class KaoqinPage {
   }
 
   start_work(){
-    
-    let that = this
-    this.ble.isEnabled().then(function(){
-        let loading = that.loading.create({  
-      content: '签到中...'  ,
-      enableBackdropDismiss: true
-    }); 
-    let isHas = false
-    let is_kaoqin_ok = false
-    let is_ok = "no_need"
-    let already_scan = false
-    loading.present(); 
-    let list = []
-    that.ble.scan([], 5).subscribe(device => {
-      console.log(device.name)
-      isHas = false
-      let company_name = ""
-      
-      for (let item_device of that.device_list) {
-
-          if (device.name == item_device.device_name)
-            {
-              if (is_ok == "no_need")
-              {
-                is_kaoqin_ok = true
-                isHas = true
-                is_ok = "need"
-                company_name = item_device.company_name 
-              }
-              that.ble.stopScan()
-              loading.dismiss()
-              break;
-            }         
-      }
-      if (isHas && is_ok == "need" && is_kaoqin_ok){
-            console.log("请求")
-            is_ok = "has_request"
-            let timestamp = Date.parse(that.datePipe.transform(new Date(), 'yyyy-MM-dd HH:mm:ss').replace(/-/g, '/'));;
-            let timestamp_now = timestamp / 1000 - 8 * 60 * 60
-            let date = new Date(timestamp_now * 1000)
-
-            let timestamp_cal = Date.parse(that.datePipe.transform(new Date(), 'yyyy-MM-dd HH:mm:ss').replace(/-/g, '/'));
-            let timestamp_cal_now = timestamp_cal / 1000 - 24 * 60 * 60
-            let date_cal = new Date(timestamp_cal_now * 1000)
-
-            let data_obj = {
-              "employee_id":that.user.user_id,
-              "check_in":that.formatTime_odoo(date),
-              "day_start":that.formatTime_day_start(new Date()),
-              "day_end":that.formatTime_day_end(new Date()),
-              "company_name":company_name,
-            }
-            that.kaoqinService.employee_attendance(data_obj).then(res => {
-                console.log(res)
-                if (res.result.res_data && res.result.res_code == 1) {
-                  that.fail_times = 0;
-                 
-                  //  Utils.toastButtom(, that.toastCtrl)
-                    let timestamp_cal = Date.parse(that.datePipe.transform(new Date(), 'yyyy-MM-dd HH:mm:ss').replace(/-/g, '/'));
-                    let timestamp_cal_now = timestamp_cal / 1000
-                    let date_cal = new Date(timestamp_cal_now * 1000)
-                    that.show_date_str = [that.formatO(date_cal.getHours()), that.formatO(date_cal.getMinutes())].join(':')
-
-                    that.isShowOnAlert = true
-                    let count = 0
-                    that.items = res.result.res_data
-                    if (that.items.length * 140 + 30 > 400){
-                        that.change_divClass_height(that.items.length * 140 + 30)
-                    }
-                    for (let item of that.items) {
-                      if(item.check_in){
-                        count += 1
-                      }
-                      if(item.check_out){
-                        count += 1
-                      }
-                    }
-                    that.attendance_count = count
+    // console.log(this.items[0])
+    if (!this.items || !this.items.length){
+      this.startClick()
+    }
+    else
+    {
+      if (this.items[0].check_in){
+        let ctrl = this.alertCtrl;
+        let that = this
+        ctrl.create({
+              title: '提示',
+              subTitle: "上一条记录是上班,是否继续上班签到？",
+              buttons: [{
+                text: '取消',
+                handler: () => {
+                  that.startClick()
                 }
-            })
-        }
-        
-    });
+              },{
+                text: '确定',
+                handler: () => {
+                  that.startClick()
+                }
+              }
+              ]
+            }).present();
+      }
+      else
+      {
+        this.startClick()
+      }
+    }
+   
     
-    let timer = self.setTimeout(function(){
-        loading.dismiss()   
-        that.ble.stopScan()
-        if (!is_kaoqin_ok){
-          that.fail_times = that.fail_times + 1
-          
-          if(that.fail_times >= 3)
-          {
-              // that.showAlert("蓝牙考勤失败次数过多？",false)
-              that.isShowFail_Three = true
-              that.fail_str = "失败次数过多？试试位置签到"
-              that.attendance_off = false
-          }
-          else
-          {
-              // Utils.toastButtom("不在考勤机范围内,请重试。", that.toastCtrl)
-              that.isShowFail = true
-              that.fail_str = "不在签到范围"
-          }
-        }
-        
-    },5000)
-    },function(){
-        // Utils.toastButtom("请打开蓝牙", that.toastCtrl)
-      //  that.fail_times = that.fail_times + 1
-      //     if(that.fail_times >= 3)
-      //     {
-      //         // that.showAlert("蓝牙考勤失败次数过多？",true)
-      //         that.isShowFail_Three = true
-      //         that.fail_str = "失败次数过多？试试位置签到"
-      //         that.attendance_off = false
-      //     }
-      //     else
-      //     {
-              that.isShowFail = true
-              that.fail_str = "蓝牙未打开"
-          // }
-    }) 
       
   }
 
   end_work(){
-    let that = this
-    this.ble.isEnabled().then(function(){
-        let loading = that.loading.create({  
-      content: '签退中...'  ,
-      enableBackdropDismiss: true
-    }); 
-    let isHas = false
-    let is_ok = "no_need"
-    let is_kaoqin_ok = false
-    loading.present(); 
-    let list = []
-    that.ble.scan([], 5).subscribe(device => {
-      console.log(device.name)
-      isHas = false
-      let company_name = ""
-      console.log(that.device_list)
-      for (let item_device of that.device_list) {
-          if (device.name == item_device.device_name)
-            {
-              if (is_ok == "no_need")
-              {
-                is_kaoqin_ok = true
-                isHas = true
-                is_ok = "need"
-                company_name = item_device.company_name 
-              }
-              that.ble.stopScan()
-              loading.dismiss()
-              break;
-            }               
-      }
-      if (isHas && is_ok =="need"  && is_kaoqin_ok){
-            console.log("请求")
-            is_ok = "has_request"
-            let timestamp = Date.parse(that.datePipe.transform(new Date(), 'yyyy-MM-dd HH:mm:ss').replace(/-/g, '/'));;
-            let timestamp_now = timestamp / 1000 - 8 * 60 * 60
-            let date = new Date(timestamp_now * 1000)
-
-            let timestamp_cal = Date.parse(that.datePipe.transform(new Date(), 'yyyy-MM-dd HH:mm:ss').replace(/-/g, '/'));
-            let timestamp_cal_now = timestamp_cal / 1000 - 24 * 60 * 60
-            let date_cal = new Date(timestamp_cal_now * 1000)
-
-            let data_obj = {
-              "employee_id":that.user.user_id,
-              "check_out":that.formatTime_odoo(date),
-              "day_start":that.formatTime_day_start(new Date()),
-              "day_end":that.formatTime_day_end(new Date()),
-              "attendance_off": true,
-              "company_name":company_name,
-            }
-            that.kaoqinService.employee_attendance(data_obj).then(res => {
-                console.log(res)
-                if (res.result.res_data && res.result.res_code == 1) {
-                   that.fail_times = 0;
-                   
-                  // Utils.toastButtom("签退成功", that.toastCtrl)
-                    let timestamp_cal = Date.parse(that.datePipe.transform(new Date(), 'yyyy-MM-dd HH:mm:ss').replace(/-/g, '/'));
-                    let timestamp_cal_now = timestamp_cal / 1000
-                    let date_cal = new Date(timestamp_cal_now * 1000)
-                    that.show_date_str = [that.formatO(date_cal.getHours()), that.formatO(date_cal.getMinutes())].join(':')
-
-                    that.isShowOffAlert = true
-                    let count = 0
-                    that.items = res.result.res_data
-                    if (that.items.length * 140 + 30 > 400){
-                        that.change_divClass_height(that.items.length * 140 + 30)
-                    }
-                    for (let item of that.items) {
-                      if(item.check_in){
-                        count += 1
-                      }
-                      if(item.check_out){
-                        count += 1
-                      }
-                    }
-                    that.attendance_count = count
+    // console.log(this.items[0])
+    if (!this.items || !this.items.length){
+      this.endClick()
+    }
+    else
+    {
+      if (this.items[0].check_out){
+        let ctrl = this.alertCtrl;
+        let that = this
+        ctrl.create({
+              title: '提示',
+              subTitle: "上一条记录是下班,是否继续下班签退？",
+              buttons: [{
+                text: '取消',
+                handler: () => {
+                  that.startClick()
                 }
-            })
-        }
-        
-    });
+              },{
+                text: '确定',
+                handler: () => {
+                  that.endClick()
+                }
+              }
+              ]
+            }).present();
+      }
+      else
+      {
+        this.endClick()
+      }
+    }
     
-    let timer = self.setTimeout(function(){
-        loading.dismiss()   
-        that.ble.stopScan()
-        if (!is_kaoqin_ok){
-          that.fail_times = that.fail_times + 1
-          if(that.fail_times >= 3)
-          {
-              // that.showAlert("蓝牙考勤失败次数过多？",true)
-              that.isShowFail_Three = true
-              that.fail_str = "失败次数过多？试试位置签到"
-              that.attendance_off = true
-          }
-          else
-          {
-              // Utils.toastButtom("不在考勤机范围内,请重试。", that.toastCtrl)
-              that.isShowFail = true
-              that.fail_str = "不在签到范围"
-          }
-        }
-        
-    },5000)
-    },function(){
-        // Utils.toastButtom("请打开蓝牙", that.toastCtrl)
-        // that.showAlert("蓝牙考勤失败次数过多？",true)
-        
-
-        // that.fail_times = that.fail_times + 1
-        //   if(that.fail_times >= 3)
-        //   {
-        //       // that.showAlert("蓝牙考勤失败次数过多？",true)
-        //       that.isShowFail_Three = true
-        //       that.fail_str = "失败次数过多？试试位置签到"
-        //       that.attendance_off = true
-        //   }
-        //   else
-        //   {
-              that.isShowFail = true
-              that.fail_str = "蓝牙未打开"
-          // }
-    }) 
-      
   }
 
   setSchedule(currentObj){
@@ -798,5 +619,261 @@ export class KaoqinPage {
       this.navCtrl.push('ChooseLocationPage',{
               "attendance_off":this.attendance_off,
             })
+  }
+
+  startClick(){
+    this.isShowActive = false
+    let that = this
+    this.ble.isEnabled().then(function(){
+        let loading = that.loading.create({  
+      content: '签到中...'  ,
+      enableBackdropDismiss: true
+    }); 
+    let isHas = false
+    let is_kaoqin_ok = false
+    let is_ok = "no_need"
+    let already_scan = false
+    loading.present(); 
+    let list = []
+    that.ble.scan([], 5).subscribe(device => {
+      console.log(device.name)
+      isHas = false
+      let company_name = ""
+      
+      for (let item_device of that.device_list) {
+
+          if (device.name == item_device.device_name)
+            {
+              if (is_ok == "no_need")
+              {
+                is_kaoqin_ok = true
+                isHas = true
+                is_ok = "need"
+                company_name = item_device.company_name 
+              }
+              that.ble.stopScan()
+              loading.dismiss()
+              break;
+            }         
+      }
+      if (isHas && is_ok == "need" && is_kaoqin_ok){
+            console.log("请求")
+            is_ok = "has_request"
+            let timestamp = Date.parse(that.datePipe.transform(new Date(), 'yyyy-MM-dd HH:mm:ss').replace(/-/g, '/'));;
+            let timestamp_now = timestamp / 1000 - 8 * 60 * 60
+            let date = new Date(timestamp_now * 1000)
+
+            let timestamp_cal = Date.parse(that.datePipe.transform(new Date(), 'yyyy-MM-dd HH:mm:ss').replace(/-/g, '/'));
+            let timestamp_cal_now = timestamp_cal / 1000 - 24 * 60 * 60
+            let date_cal = new Date(timestamp_cal_now * 1000)
+
+            let data_obj = {
+              "employee_id":that.user.user_id,
+              "check_in":that.formatTime_odoo(date),
+              "day_start":that.formatTime_day_start(new Date()),
+              "day_end":that.formatTime_day_end(new Date()),
+              "company_name":company_name,
+              "device_version":that.device.uuid,
+            }
+            that.kaoqinService.employee_attendance(data_obj).then(res => {
+                that.isShowActive = true
+                if (res.result.res_data && res.result.res_code == 1) {
+                  that.fail_times = 0;
+                  //  Utils.toastButtom(, that.toastCtrl)
+                    let timestamp_cal = Date.parse(that.datePipe.transform(new Date(), 'yyyy-MM-dd HH:mm:ss').replace(/-/g, '/'));
+                    let timestamp_cal_now = timestamp_cal / 1000
+                    let date_cal = new Date(timestamp_cal_now * 1000)
+                    that.show_date_str = [that.formatO(date_cal.getHours()), that.formatO(date_cal.getMinutes())].join(':')
+
+                    that.isShowOnAlert = true
+                    let count = 0
+                    that.items = res.result.res_data
+                    if (that.items.length * 140 + 30 > 400){
+                        that.change_divClass_height(that.items.length * 140 + 30)
+                    }
+                    for (let item of that.items) {
+                      if(item.check_in){
+                        count += 1
+                      }
+                      if(item.check_out){
+                        count += 1
+                      }
+                    }
+                    that.attendance_count = count
+                }
+            })
+        }
+        
+    });
+    
+    let timer = self.setTimeout(function(){
+        that.isShowActive = true
+        loading.dismiss()   
+        that.ble.stopScan()
+        if (!is_kaoqin_ok){
+          that.fail_times = that.fail_times + 1
+          
+          if(that.fail_times >= 3)
+          {
+              // that.showAlert("蓝牙考勤失败次数过多？",false)
+              that.isShowFail_Three = true
+              that.fail_str = "失败次数过多？试试位置签到"
+              that.attendance_off = false
+          }
+          else
+          {
+              // Utils.toastButtom("不在考勤机范围内,请重试。", that.toastCtrl)
+              that.isShowFail = true
+              that.fail_str = "不在签到范围"
+          }
+        }
+        
+    },5000)
+    },function(){
+        // Utils.toastButtom("请打开蓝牙", that.toastCtrl)
+      //  that.fail_times = that.fail_times + 1
+      //     if(that.fail_times >= 3)
+      //     {
+      //         // that.showAlert("蓝牙考勤失败次数过多？",true)
+      //         that.isShowFail_Three = true
+      //         that.fail_str = "失败次数过多？试试位置签到"
+      //         that.attendance_off = false
+      //     }
+      //     else
+      //     {
+        that.isShowActive = true
+              that.isShowFail = true
+              that.fail_str = "蓝牙未打开"
+          // }
+    }) 
+  }
+
+  endClick(){
+    this.isShowActive = false
+    let that = this
+    this.ble.isEnabled().then(function(){
+        let loading = that.loading.create({  
+      content: '签退中...'  ,
+      enableBackdropDismiss: true
+    }); 
+    let isHas = false
+    let is_ok = "no_need"
+    let is_kaoqin_ok = false
+    loading.present(); 
+    let list = []
+    that.ble.scan([], 5).subscribe(device => {
+      console.log(device.name)
+      isHas = false
+      let company_name = ""
+      console.log(that.device_list)
+      for (let item_device of that.device_list) {
+          if (device.name == item_device.device_name)
+            {
+              if (is_ok == "no_need")
+              {
+                is_kaoqin_ok = true
+                isHas = true
+                is_ok = "need"
+                company_name = item_device.company_name 
+              }
+              that.ble.stopScan()
+              loading.dismiss()
+              break;
+            }               
+      }
+      if (isHas && is_ok =="need"  && is_kaoqin_ok){
+            console.log("请求")
+            is_ok = "has_request"
+            let timestamp = Date.parse(that.datePipe.transform(new Date(), 'yyyy-MM-dd HH:mm:ss').replace(/-/g, '/'));;
+            let timestamp_now = timestamp / 1000 - 8 * 60 * 60
+            let date = new Date(timestamp_now * 1000)
+
+            let timestamp_cal = Date.parse(that.datePipe.transform(new Date(), 'yyyy-MM-dd HH:mm:ss').replace(/-/g, '/'));
+            let timestamp_cal_now = timestamp_cal / 1000 - 24 * 60 * 60
+            let date_cal = new Date(timestamp_cal_now * 1000)
+
+            let data_obj = {
+              "employee_id":that.user.user_id,
+              "check_out":that.formatTime_odoo(date),
+              "day_start":that.formatTime_day_start(new Date()),
+              "day_end":that.formatTime_day_end(new Date()),
+              "attendance_off": true,
+              "company_name":company_name,
+              "device_version":that.device.uuid,
+            }
+            that.kaoqinService.employee_attendance(data_obj).then(res => {
+                that.isShowActive = true
+                if (res.result.res_data && res.result.res_code == 1) {
+                   that.fail_times = 0;
+                   
+                  // Utils.toastButtom("签退成功", that.toastCtrl)
+                    let timestamp_cal = Date.parse(that.datePipe.transform(new Date(), 'yyyy-MM-dd HH:mm:ss').replace(/-/g, '/'));
+                    let timestamp_cal_now = timestamp_cal / 1000
+                    let date_cal = new Date(timestamp_cal_now * 1000)
+                    that.show_date_str = [that.formatO(date_cal.getHours()), that.formatO(date_cal.getMinutes())].join(':')
+
+                    that.isShowOffAlert = true
+                    let count = 0
+                    that.items = res.result.res_data
+                    if (that.items.length * 140 + 30 > 400){
+                        that.change_divClass_height(that.items.length * 140 + 30)
+                    }
+                    for (let item of that.items) {
+                      if(item.check_in){
+                        count += 1
+                      }
+                      if(item.check_out){
+                        count += 1
+                      }
+                    }
+                    that.attendance_count = count
+                }
+            })
+        }
+        
+    });
+    
+    let timer = self.setTimeout(function(){
+      that.isShowActive = true
+        loading.dismiss()   
+        that.ble.stopScan()
+        if (!is_kaoqin_ok){
+          that.fail_times = that.fail_times + 1
+          if(that.fail_times >= 3)
+          {
+              // that.showAlert("蓝牙考勤失败次数过多？",true)
+              that.isShowFail_Three = true
+              that.fail_str = "失败次数过多？试试位置签到"
+              that.attendance_off = true
+          }
+          else
+          {
+              // Utils.toastButtom("不在考勤机范围内,请重试。", that.toastCtrl)
+              that.isShowFail = true
+              that.fail_str = "不在签到范围"
+          }
+        }
+        
+    },5000)
+    },function(){
+        // Utils.toastButtom("请打开蓝牙", that.toastCtrl)
+        // that.showAlert("蓝牙考勤失败次数过多？",true)
+        
+
+        // that.fail_times = that.fail_times + 1
+        //   if(that.fail_times >= 3)
+        //   {
+        //       // that.showAlert("蓝牙考勤失败次数过多？",true)
+        //       that.isShowFail_Three = true
+        //       that.fail_str = "失败次数过多？试试位置签到"
+        //       that.attendance_off = true
+        //   }
+        //   else
+        //   {
+          that.isShowActive = true
+              that.isShowFail = true
+              that.fail_str = "蓝牙未打开"
+          // }
+    }) 
   }
 }
