@@ -303,11 +303,11 @@ export class KaoqinPage {
         let that = this
         ctrl.create({
               title: '提示',
-              subTitle: "上一条记录是上班,是否继续上班签到？",
+              subTitle: "已经打过上班卡了,是否继续？",
               buttons: [{
                 text: '取消',
                 handler: () => {
-                  that.startClick()
+                  // that.startClick()
                 }
               },{
                 text: '确定',
@@ -340,11 +340,11 @@ export class KaoqinPage {
         let that = this
         ctrl.create({
               title: '提示',
-              subTitle: "上一条记录是下班,是否继续下班签退？",
+              subTitle: "已经打过下班卡了,是否继续？",
               buttons: [{
                 text: '取消',
                 handler: () => {
-                  that.startClick()
+                  // that.startClick()
                 }
               },{
                 text: '确定',

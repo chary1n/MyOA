@@ -12,7 +12,7 @@
 <ion-content>    
   <ion-grid>
       <ion-row>
-        <ion-col tappable (click)="kaoqin()">
+        <ion-col *ngIf="isShowKaoqin" tappable (click)="kaoqin()">
             <img src="assets/img/work_bench/dailyTime.png">
             <div style="color:#5c6166;font-size:12px">考勤</div>
         </ion-col>

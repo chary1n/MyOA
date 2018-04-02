@@ -43,7 +43,7 @@ export class WorkBenchPage {
   py_count = 0;
   kc_count = 0;
   isShowPayment = false;
-  isShowKaoqin = true;
+  isShowKaoqin = false;
   user_id;
   company_type;
   isShowJournalSheet=false
