@@ -5,6 +5,8 @@ import { KaoQinService} from './kaoqinService';
 import { DatePipe } from '@angular/common';
 import { IonicPage, NavController, NavParams, Platform,AlertController ,ToastController,LoadingController} from 'ionic-angular';
 import { Utils } from '../../../providers/Utils';
+import { Device } from '@ionic-native/device';
+// import { Device } from 'ionic-native'
 /**
  * Generated class for the KaoqinPage page.
  *
@@ -15,7 +17,7 @@ import { Utils } from '../../../providers/Utils';
 @Component({
   selector: 'page-kaoqin',
   templateUrl: 'kaoqin.html',
-  providers:[KaoQinService,DatePipe,BLE],
+  providers:[KaoQinService,DatePipe,BLE,Device],
 })
 export class KaoqinPage {
   isWrite = true;
@@ -54,17 +56,14 @@ export class KaoqinPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,public storage:Storage,
     public kaoqinService:KaoQinService,private datePipe: DatePipe,private ble:BLE,
     private toastCtrl: ToastController,private loading:LoadingController,private elementRef: ElementRef,
-    private alertCtrl:AlertController) {
+    private alertCtrl:AlertController,private platform:Platform,
+    private device:Device) {
       this.fail_times = 0
       this.kaoqinService.get_ble_device().then(res => {
         if (res.result.res_data && res.result.res_code == 1) {
           this.device_list = res.result.res_data
         }
-      })
-      
-
-
-      
+      })    
       
       this.storage.get('user')
       .then(res => {
@@ -76,12 +75,13 @@ export class KaoqinPage {
           }
       })
       })
-      
+     console.log('Device UUID is: ' + this.device.uuid);
+     alert(this.device.uuid)
 
   }
 
   ionViewDidEnter() {
-    console.log(this.navParams.get('need_fresh'))
+    // console.log(this.navParams.get('need_fresh'))
     if (this.navParams.get('need_fresh') == true) {
       this.navParams.data.need_fresh = false;
       // this.reload_statics()
@@ -405,7 +405,7 @@ export class KaoqinPage {
       //         // that.showAlert("蓝牙考勤失败次数过多？",true)
       //         that.isShowFail_Three = true
       //         that.fail_str = "失败次数过多？试试位置签到"
-      //         that.attendance_off = true
+      //         that.attendance_off = false
       //     }
       //     else
       //     {
@@ -526,15 +526,15 @@ export class KaoqinPage {
         
 
         // that.fail_times = that.fail_times + 1
-          // if(that.fail_times >= 3)
-          // {
-          //     // that.showAlert("蓝牙考勤失败次数过多？",true)
-          //     that.isShowFail_Three = true
-          //     that.fail_str = "失败次数过多？试试位置签到"
-          //     that.attendance_off = true
-          // }
-          // else
-          // {
+        //   if(that.fail_times >= 3)
+        //   {
+        //       // that.showAlert("蓝牙考勤失败次数过多？",true)
+        //       that.isShowFail_Three = true
+        //       that.fail_str = "失败次数过多？试试位置签到"
+        //       that.attendance_off = true
+        //   }
+        //   else
+        //   {
               that.isShowFail = true
               that.fail_str = "蓝牙未打开"
           // }

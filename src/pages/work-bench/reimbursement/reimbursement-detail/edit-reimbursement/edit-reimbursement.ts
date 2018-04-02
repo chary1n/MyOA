@@ -42,8 +42,10 @@ export class EditReimbursementPage {
     this.productList = this.navParams.get("product");
     this.changeItem = this.navParams.get("item");
     this.taxList = this.navParams.get("taxList");
+    console.log(this.taxList)
     if (this.changeItem) {
       this.production = this.changeItem;
+      console.log(this.production)
       this.amount = this.production.unit_amount;
       this.remark = this.production.name;
       this.remarks = this.production.description;
@@ -53,11 +55,25 @@ export class EditReimbursementPage {
         }
       }
       // console.log(this.production.tax_ids[0].displayname)
-      for(let i = 0 ;i<this.taxList.length;i++){
+      if (this.production.tax_ids.length){
+        for(let i = 0 ;i<this.taxList.length;i++){
         if(this.taxList[i].name== this.production.tax_ids[0].display_name){
           this.taxIndex = i
         }
       }
+      }
+      else
+      {
+        let i = 0
+        for (let item of this.taxList) {
+          if (item.display_name == "0%进"){
+            this.taxIndex = i
+          }
+          i = i + 1
+        }
+      }
+      
+      console.log(this.taxIndex)
     }
   }
 
@@ -114,6 +130,7 @@ export class EditReimbursementPage {
         this.production.name = this.remark;
         this.production.description = this.remarks;
         // this.production.tax_ids[0].display_name = this.taxIndex ;
+        console.log(this.taxIndex)
         if(this.taxIndex==0||this.taxIndex){
           this.production.tax_ids= [{
             display_name:this.taxList[this.taxIndex].name,

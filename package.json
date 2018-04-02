@@ -106,6 +106,7 @@
         "rxjs": "^5.5.6",
         "safari": "0.0.1",
         "sw-toolbox": "3.6.0",
+        "wifiwizard": "^0.2.11",
         "zone.js": "0.8.12"
     },
     "devDependencies": {
@@ -167,7 +168,8 @@
             },
             "phonegap-nfc": {
                 "NFC_USAGE_DESCRIPTION": "Read NFC Tags"
-            }
+            },
+            "com.pylonproducts.wifiwizard": {}
         },
         "dependencies": {
             "@angular/common": "4.1.3",
