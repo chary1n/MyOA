@@ -132,7 +132,6 @@
         <variable name="ANDROID_PATHPREFIX" value="/" />
     </plugin>
     <plugin name="cordova-plugin-datepicker" spec="^0.9.3" />
-    <plugin name="cordova-plugin-device" spec="^1.1.7" />
     <plugin name="cordova-plugin-file" spec="^4.3.3" />
     <plugin name="cordova-plugin-file-transfer" spec="^1.7.0" />
     <plugin name="cordova-plugin-geolocation" spec="^4.0.1">
@@ -160,6 +159,7 @@
         <variable name="CAMERA_USAGE_DESCRIPTION" value=" " />
     </plugin>
     <plugin name="com.pylonproducts.wifiwizard" spec="~0.2.11" />
+    <plugin name="cordova-plugin-device" spec="^1.1.7" />
     <engine name="android" spec="7.0.0" />
     <engine name="ios" spec="^4.5.4" />
 </widget>
