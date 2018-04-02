@@ -140,9 +140,13 @@
   </div>-->
   <div class='buttom_div'>
      <div class='text_class'></div> 
-    <div>
+    <div *ngIf="isShowActive">
       <div class='left_circle' tappable (click)="start_work()">上班</div>
       <div class='right_circle' tappable (click)="end_work()">下班</div>
+    </div>
+    <div *ngIf="!isShowActive">
+      <div class='left_circle_inactive' tappable >上班</div>
+      <div class='right_circle_inactive' tappable >下班</div>
     </div>
   </div> 
   </div>

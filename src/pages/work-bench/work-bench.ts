@@ -43,6 +43,7 @@ export class WorkBenchPage {
   py_count = 0;
   kc_count = 0;
   isShowPayment = false;
+  isShowKaoqin = true;
   user_id;
   company_type;
   isShowJournalSheet=false
@@ -116,18 +117,20 @@ export class WorkBenchPage {
 
         if ((new RegExp("js.robotime.com").test(res.result.res_data.user_ava))){
             this.company_type = "assets/img/S-header.png"
+            this.isShowKaoqin = true
             
           }
           else if ((new RegExp("dr.robotime.com").test(res.result.res_data.user_ava))){
             this.company_type = "assets/img/D-header.png"
-            
+            this.isShowKaoqin = false
           }
           else if ((new RegExp("erp.robotime.com").test(res.result.res_data.user_ava))){
             this.company_type = "assets/img/R-header.png"
-            
+            this.isShowKaoqin = false
           }
           else if ((new RegExp("ber.robotime.com").test(res.result.res_data.user_ava))){
             this.company_type = "assets/img/B-header.png"
+            this.isShowKaoqin = false
           }
          this.services.get_all_need_do(res.result.res_data.user_id,is_plus,this.isShowKucun,need_all).then(res => {
             console.log(res.result.res_data.bx)

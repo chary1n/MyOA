@@ -183,6 +183,38 @@ page-kaoqin {
   box-shadow: 1px 10px 30px #b2dfff;
   font-size: 16px;
 }
+
+.left_circle_inactive{
+  background:lightgray;
+  color:white;
+  float:left;
+  width:120px;
+  height:120px;
+  margin-left:calc(25% - 60px);
+  border-radius:50%;
+  align-items:center;
+  display:flex;
+  justify-content:center;
+  box-shadow: 1px 10px 30px lightgray;
+  font-size: 16px;
+}
+
+.right_circle_inactive{
+  background:lightgray;
+  color:white;
+  float:right;
+  width:120px;
+  height:120px;
+  margin-right:calc(25% - 60px);
+  border-radius:50%;
+  align-items:center;
+  display:flex;
+  justify-content:center;
+  box-shadow: 1px 10px 30px lightgray;
+  font-size: 16px;
+}
+
+
     .text_class{
   /* text-align:center; */
   width:100%;

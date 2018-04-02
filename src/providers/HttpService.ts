@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import { Storage } from '@ionic/storage';
+import {InAppBrowser} from '@ionic-native/in-app-browser';
 
 
 
@@ -13,8 +14,9 @@ export class HttpService {
   static appUrl ;
   static user_id ;
   static user ;
+  static need_back_login;
   constructor(private http: Http,private loading :LoadingController,
-    public storage :Storage,public ctrl:AlertController
+    public storage :Storage,public ctrl:AlertController,private inAppBrowser: InAppBrowser,
   ) {
   }
 
@@ -155,9 +157,28 @@ export class HttpService {
   }
 
   private handleSuccess(result) {
-    // console.log(result)
+    console.log(result)
     
     if (result.error)
+    {
+      console.log(result.error.data.message)
+      
+
+    if ((new RegExp("请更新新版OA,否则无法使用").test(result.error.data.message)))
+    {
+      this.ctrl.create({
+                  title: "提示",
+                  subTitle: result.error.data.message,
+                  buttons: [{
+                text: '立即更新',
+                    handler: () => {
+                   this.inAppBrowser.create('http://fir.im/MyOa', '_system');
+             }
+             }
+      ]
+    }).present();
+    }
+    else
     {
       this.ctrl.create({
                   title: "错误:",
@@ -170,6 +191,7 @@ export class HttpService {
              }
       ]
     }).present();
+    }
 
       return result;
     }
@@ -194,7 +216,10 @@ export class HttpService {
       console.error(msg + '，请检查路径是否正确');
     }
     console.log(error);
+    
     alert(msg);//这里使用ToastController
+    
+    
     return { success: false, msg: msg };
   }
 

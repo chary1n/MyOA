@@ -14,11 +14,12 @@ export class LoginService {
         return this.httpService.get('get_db_list', null,1);
     }
 
-    toLogin(logins,passwords,dbs) {
+    toLogin(logins,passwords,dbs,app_version) {
         let body = JSON.stringify({
             login: logins,
             password: passwords,
-            db: dbs
+            db: dbs,
+            app_version:app_version,
         });
         return this.httpService.postBody('login', body,1);
     }

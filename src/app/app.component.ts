@@ -78,7 +78,7 @@ export class MyApp {
                 this.alertCtrl.create({
                   title: '发现新版本,是否立即升级？',
                   subTitle: "更新内容："+res.changelog,
-                  buttons: [{ text: '稍后再说' },
+                  buttons: [
                  {
                     text: '立即升级',
                     handler: () => {

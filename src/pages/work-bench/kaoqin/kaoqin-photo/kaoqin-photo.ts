@@ -6,6 +6,7 @@ import { IonicPage, NavController, NavParams, Platform,AlertController ,ToastCon
 import { Geolocation } from '@ionic-native/geolocation';
 import { NativeService } from './../../../../providers/NativeService';
 import { Utils } from '../../../../providers/Utils';
+import { Device } from '@ionic-native/device';
 
 /**
  * Generated class for the KaoqinPhotoPage page.
@@ -17,7 +18,7 @@ import { Utils } from '../../../../providers/Utils';
 @Component({
   selector: 'page-kaoqin-photo',
   templateUrl: 'kaoqin-photo.html',
-  providers:[Geolocation,KaoQinService,NativeService,DatePipe],
+  providers:[Geolocation,KaoQinService,NativeService,DatePipe,Device],
 })
 export class KaoqinPhotoPage {
   location_str;
@@ -30,7 +31,7 @@ export class KaoqinPhotoPage {
   is_attendance_off;
   constructor(public navCtrl: NavController, public navParams: NavParams,public geolocation:Geolocation,
   public kaoQinService:KaoQinService,public nativeService: NativeService,public actionSheetCtrl: ActionSheetController,
-  private datePipe:DatePipe,public storage:Storage) {
+  private datePipe:DatePipe,public storage:Storage,private device:Device) {
     this.frontPage = Utils.getViewController("KaoqinPage", navCtrl)
     this.is_attendance_off = this.navParams.get('attendance_off')
     this.location_str = this.navParams.get('location_str')
@@ -147,6 +148,8 @@ export class KaoqinPhotoPage {
         "day_end":this.formatTime_day_end(new Date()),
         "company_name":this.location_str,
         "location_imgs":this.pushImgList,
+        "device_version":this.device.uuid,
+        "app_version":"0.5.9",
       }
       var that = this
       this.kaoQinService.location_attendance(data_obj).then(res => {
@@ -175,6 +178,8 @@ export class KaoqinPhotoPage {
       "attendance_off": true,
       "company_name":this.location_str,
       "location_imgs":this.pushImgList,
+      "device_version":this.device.uuid,
+      "app_version":"0.5.9",
     }
 
     var that = this
