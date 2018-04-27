@@ -183,8 +183,8 @@ export class LoginPage {
     this.isSelected3 = false;
     this.isSelected4 = false;
     this.chooseIndex = 2;
-    // HttpService.appUrl = "http://dr.robotime.com/"
-    HttpService.appUrl = "http://192.168.2.34:8089/"
+    HttpService.appUrl = "http://dr.robotime.com/"
+    // HttpService.appUrl = "http://192.168.2.34:8089/"
         // HttpService.appUrl = "http://192.168.2.64:8069/"
     this.reset();
     this.img2 = "assets/img/diy_clicked.png" 
@@ -198,8 +198,8 @@ export class LoginPage {
     this.isSelected1 = false;
     this.isSelected4 = false;
     this.chooseIndex = 3;
-    // HttpService.appUrl = "http://erp.robotime.com/"
-    HttpService.appUrl = "http://192.168.2.34:8089/"
+    HttpService.appUrl = "http://erp.robotime.com/"
+    // HttpService.appUrl = "http://192.168.2.34:8089/"
     // HttpService.appUrl = "http://192.168.2.8:8111/"
     // HttpService.appUrl = "http://192.168.2.34:8888/"   
     this.reset();
@@ -218,7 +218,7 @@ export class LoginPage {
     // HttpService.appUrl = "http://ber.robotime.com/"
     // HttpService.appUrl = "http://192.168.88.131:8069/"
     // HttpService.appUrl = "http://192.168.2.64:8069/"
-    HttpService.appUrl = "http://192.168.88.122:8069/"
+    HttpService.appUrl = "http://192.168.1.171:8069/"
     this.reset();
     this.img4 = "assets/img/banchang_clicked.png" 
     this.password_src="assets/img/B_password.png"
@@ -227,10 +227,10 @@ export class LoginPage {
 
 
   getDB() {
-    this.loginservice.getDBInfo().then(res => {
-      this.employee = res.res_data[0]; //修改
+    // this.loginservice.getDBInfo().then(res => {
+      this.employee = "zouwansheng"; //修改
       this.toLogin();
-    });
+    // });
   }
 
   isAutoLogin() {
@@ -273,8 +273,8 @@ export class LoginPage {
     }).present();
       return
     }
-    this.appVersion.getVersionNumber().then((value: string) => {
-      this.loginservice.toLogin(this.email, this.password, this.employee,value)
+    // this.appVersion.getVersionNumber().then((value: string) => {
+      this.loginservice.toLogin(this.email, this.password, this.employee,'value')
       .then(res => {
         console.log(res);
         if (res.result && res.result.res_code == 1) {
@@ -334,7 +334,7 @@ export class LoginPage {
           alert(res.result.res_data.error);
         }
       })
-    })
+    // })
     
   }
   watch(event){
