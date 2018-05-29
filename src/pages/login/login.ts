@@ -246,10 +246,10 @@ export class LoginPage {
 
 
   getDB() {
-    this.loginservice.getDBInfo().then(res => {
-      this.employee = res.res_data[0]; //修改
+    // this.loginservice.getDBInfo().then(res => {
+      this.employee = "zouwansheng"; //修改
       this.toLogin();
-    });
+    // });
   }
 
   isAutoLogin() {
@@ -292,8 +292,8 @@ export class LoginPage {
     }).present();
       return
     }
-    this.appVersion.getVersionNumber().then((value: string) => {
-      this.loginservice.toLogin(this.email, this.password, this.employee,value)
+    // this.appVersion.getVersionNumber().then((value: string) => {
+      this.loginservice.toLogin(this.email, this.password, this.employee,'value')
       .then(res => {
         console.log(res);
         if (res.result && res.result.res_code == 1) {
@@ -353,7 +353,7 @@ export class LoginPage {
           alert(res.result.res_data.error);
         }
       })
-    })
+    // })
     
   }
   watch(event){
