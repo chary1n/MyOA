@@ -51,6 +51,7 @@ export class EmployeeDetailPage {
   isShowEdit = false;
   isCanSeeAll = false;
   shiyongDate;
+  ContactPersonPage;
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public callNumber: CallNumber,
@@ -86,7 +87,7 @@ export class EmployeeDetailPage {
         }
         this.checkIsCanSeeAll();
       })
-
+    this.ContactPersonPage = Utils.getViewController("ContactPersonPage", this.navCtrl)
     this.isModify = this.navParams.get("isModify")
     this.item = '';
     this.item = this.navParams.get("item")
@@ -378,6 +379,7 @@ export class EmployeeDetailPage {
               }
             ]
           }).present();
+          this.ContactPersonPage.data.need_refresh = true
         }
       })
     }
@@ -546,9 +548,8 @@ export class EmployeeDetailPage {
   }
 
   goBack() {
-    let ContactPersonPage = Utils.getViewController("ContactPersonPage", this.navCtrl)
-    ContactPersonPage.data.need_refresh = true
-    this.navCtrl.popTo(ContactPersonPage)
+
+    this.navCtrl.popTo(this.ContactPersonPage)
   }
 
 
