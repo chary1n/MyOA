@@ -185,13 +185,8 @@ export class LoginPage {
     this.isSelected3 = false;
     this.isSelected4 = false;
     this.chooseIndex = 1;
-<<<<<<< HEAD
     HttpService.appUrl = "http://192.168.1.170:8069/"
     // HttpService.appUrl = "http://js.robotime.com/"
-=======
-    // HttpService.appUrl = "http://192.168.1.170:8069/"
-    HttpService.appUrl = "http://js.robotime.com/"
->>>>>>> 1149f47eefcf9aa0ccb9e2c4dcf8358c7b1d068f
     this.reset();
     this.img1 = "assets/img/jiangsuruotai_clicked.png"
     this.password_src = "assets/img/S_password.png"
@@ -205,15 +200,9 @@ export class LoginPage {
     this.isSelected3 = false;
     this.isSelected4 = false;
     this.chooseIndex = 2;
-<<<<<<< HEAD
     // HttpService.appUrl = "http://dr.robotime.com/"
     HttpService.appUrl = "http://192.168.1.169:8069/"
         // HttpService.appUrl = "http://192.168.2.64:8069/"
-=======
-    HttpService.appUrl = "http://dr.robotime.com/"
-    // HttpService.appUrl = "http://192.168.1.169:8069/"
-    // HttpService.appUrl = "http://192.168.2.64:8069/"
->>>>>>> 1149f47eefcf9aa0ccb9e2c4dcf8358c7b1d068f
     this.reset();
     this.img2 = "assets/img/diy_clicked.png"
     this.password_src = "assets/img/D_password.png"
@@ -230,11 +219,7 @@ export class LoginPage {
     // HttpService.appUrl = "http://erp.robotime.com/"
     // HttpService.appUrl = "http://192.168.2.34:8089/"
     // HttpService.appUrl = "http://192.168.2.8:8111/"
-<<<<<<< HEAD
     HttpService.appUrl = "http://192.168.1.170:8888/"   
-=======
-    // HttpService.appUrl = "http://192.168.1.170:8888/"
->>>>>>> 1149f47eefcf9aa0ccb9e2c4dcf8358c7b1d068f
     this.reset();
     this.img3 = "assets/img/ruobeier_clicked.png"
     this.password_src = "assets/img/R_password.png"
@@ -252,11 +237,7 @@ export class LoginPage {
     HttpService.appUrl = "http://ber.robotime.com/"
     // HttpService.appUrl = "http://192.168.88.131:8069/"
     // HttpService.appUrl = "http://192.168.2.64:8069/"
-<<<<<<< HEAD
     HttpService.appUrl = "http://192.168.1.169:8888/"
-=======
-    // HttpService.appUrl = "http://192.168.88.122:8069/"
->>>>>>> 1149f47eefcf9aa0ccb9e2c4dcf8358c7b1d068f
     this.reset();
     this.img4 = "assets/img/banchang_clicked.png"
     this.password_src = "assets/img/B_password.png"
