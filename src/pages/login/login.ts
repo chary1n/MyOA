@@ -43,6 +43,7 @@ export class LoginPage {
   dbs: any;
   employee: string;
   resUser: any;
+  isSelected0 = true;
   isSelected1 = false;
   isSelected2 = false;
   isSelected3 = false;
@@ -55,7 +56,7 @@ export class LoginPage {
   img1;
   img2;img3;img4;
   isDisabled;
-  chooseIndex  =1;
+  chooseIndex  =0;
   email_src;
   password_src ;
   constructor(public navCtrl: NavController, public navParams: NavParams,
@@ -115,7 +116,6 @@ export class LoginPage {
     }else{
       this.chooseJiangsu()
     }
-  
   }
 
 
@@ -163,7 +163,23 @@ export class LoginPage {
     this.img4 = "assets/img/banchang.png" 
   }
 
+  chooseNewJiangsu() {
+    this.isSelected0 = true;
+    this.isSelected1 = false;
+    this.isSelected2 = false;
+    this.isSelected3 = false;
+    this.isSelected4 = false;
+    this.chooseIndex = 0;
+    // HttpService.appUrl = "http://192.168.2.30:8089/"
+    HttpService.appUrl = "http://erp.linkloving.com/"
+    this.reset();
+    this.img1 = "assets/img/jiangsuruotai_clicked.png" 
+    this.password_src="assets/img/S_password.png"
+    this.email_src = "assets/img/S_email.png"
+  }
+
   chooseJiangsu() {
+    this.isSelected0 = false;
     this.isSelected1 = true;
     this.isSelected2 = false;
     this.isSelected3 = false;
@@ -178,6 +194,7 @@ export class LoginPage {
   }
 
   chooseDiy() {
+    this.isSelected0 = false;
     this.isSelected2 = true;
     this.isSelected1 = false;
     this.isSelected3 = false;
@@ -193,6 +210,7 @@ export class LoginPage {
   }
 
   chooseWanju() {
+    this.isSelected0 = false;
     this.isSelected3 = true;
     this.isSelected2 = false;
     this.isSelected1 = false;
@@ -210,15 +228,16 @@ export class LoginPage {
   }
 
   chooseBanchang(){
+    this.isSelected0 = false;
     this.isSelected4 = true;
     this.isSelected2 = false;
     this.isSelected1 = false;
     this.isSelected3 = false;
     this.chooseIndex = 4;
-    // HttpService.appUrl = "http://ber.robotime.com/"
+    HttpService.appUrl = "http://ber.robotime.com/"
     // HttpService.appUrl = "http://192.168.88.131:8069/"
     // HttpService.appUrl = "http://192.168.2.64:8069/"
-    HttpService.appUrl = "http://192.168.1.169:8888/"
+    // HttpService.appUrl = "http://192.168.88.122:8069/"
     this.reset();
     this.img4 = "assets/img/banchang_clicked.png" 
     this.password_src="assets/img/B_password.png"
