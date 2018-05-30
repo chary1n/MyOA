@@ -253,7 +253,4 @@ export class ContactPersonPage {
     // this.navCtrl.push("PromptPage")
   }
 
-
-  
-
 }
