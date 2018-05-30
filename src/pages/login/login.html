@@ -13,32 +13,29 @@
 
 
 <ion-content class="total_color" (pan)="panEvent($event)">
-  <div class="div_background" on-tap="tap()" style="height:270px;background-size: cover;
-background-position: bottom;">
 
     <p class="p_heard">专注原创·天生不一样</p>
-    <div class="div_middle">
-      <ion-checkbox class="checkbox_in_middle" color="gongdan-color" [checked]='isSelected0'></ion-checkbox>
-      <span class="span_in_middle">新江苏若态</span>
+    <div class="div_middle" (click)='chooseNewJiangsu()'>
+      <ion-checkbox class="checkbox_in_middle" color="danger" (click)='chooseNewJiangsu()'  [checked]='isSelected0'></ion-checkbox>
+      <span class="span_in_middle" [ngClass]="{'textcolor0':isSelected0}" >新江苏若态</span>
     </div>
-    <div class="div_middle">
-      <ion-checkbox class="checkbox_in_middle" color="dark" [checked]='isSelected1'></ion-checkbox>
-      <span class="span_in_middle">江苏若态</span>
+    <div class="div_middle" (click)='chooseJiangsu()'>
+      <ion-checkbox class="checkbox_in_middle" color="danger" (click)='chooseJiangsu()' [checked]='isSelected1'></ion-checkbox>
+      <span class="span_in_middle" [ngClass]="{'textcolor1':isSelected1}" >江苏若态</span>
     </div>
-    <div class="div_middle">
-      <ion-checkbox class="checkbox_in_middle" color="dark" [checked]='isSelected2'></ion-checkbox>
-      <span class="span_in_middle">diy艺术屋</span>
+    <div class="div_middle" (click)='chooseDiy()'>
+      <ion-checkbox class="checkbox_in_middle" color="diy" (click)='chooseDiy()' [checked]='isSelected2'></ion-checkbox>
+      <span class="span_in_middle" [ngClass]="{'textcolor2':isSelected2}" >diy艺术屋</span>
     </div>
-    <div class="div_middle">
-      <ion-checkbox class="checkbox_in_middle" color="dark" [checked]='isSelected3'></ion-checkbox>
-      <span class="span_in_middle">若贝尔玩具</span>
+    <div class="div_middle" (click)='chooseWanju()'>
+      <ion-checkbox class="checkbox_in_middle" color="gongdan-color" (click)='chooseWanju()' [checked]='isSelected3'></ion-checkbox>
+      <span class="span_in_middle" [ngClass]="{'textcolor3':isSelected3}" >若贝尔玩具</span>
     </div>
-    <div class="div_middle">
-      <ion-checkbox class="checkbox_in_middle" color="dark" [checked]='isSelected4'></ion-checkbox>
-      <span class="span_in_middle">板厂</span>
+    <div class="div_middle" (click)='chooseBanchang()'>
+      <ion-checkbox class="checkbox_in_middle" color="banchang" (click)='chooseBanchang()' [checked]='isSelected4'></ion-checkbox>
+      <span class="span_in_middle" [ngClass]="{'textcolor4':isSelected4}" >板厂</span>
     </div>
 
-  </div>
 
 
   <ion-item style="margin-top:30px;padding-left:10%;padding-right:10%">
@@ -91,7 +88,7 @@ background-position: bottom;">
   height: 40px;
   border-radius: 20px;
   font-size: 140%;
-    width:80%" outline block tappable (click)="getDB()" [ngClass]="{'backgroundcolor1':isSelected1,'backgroundcolor2':isSelected2,
+    width:80%" outline block tappable (click)="getDB()" [ngClass]="{'backgroundcolor0':isSelected0,'backgroundcolor1':isSelected1,'backgroundcolor2':isSelected2,
     'backgroundcolor3':isSelected3,'backgroundcolor4':isSelected4}" disabled>
       登录
     </button>
@@ -104,13 +101,14 @@ background-position: bottom;">
       border-radius: 20px;
     color:white;margin-top:50px ;
     font-size: 140%;
-      width:80%" outline block tappable (click)="getDB()" [ngClass]="{'backgroundcolor1':isSelected1,'backgroundcolor2':isSelected2,
+      width:80%" outline block tappable (click)="getDB()" [ngClass]="{'backgroundcolor0':isSelected0,'backgroundcolor1':isSelected1,'backgroundcolor2':isSelected2,
       'backgroundcolor3':isSelected3,'backgroundcolor4':isSelected4}">
       登录
     </button>
   </ng-container>
 
-
+  <ion-checkbox style="margin-left:14%;border-color: #cccccc ;margin-top:10px;padding-bottom: 2px;" color="danger" *ngIf="isSelected0"
+    (click)="isAutoLogin()" [checked]="autoLogin"></ion-checkbox>
   <ion-checkbox style="margin-left:14%;border-color: #cccccc ;margin-top:10px;padding-bottom: 2px;" color="danger" *ngIf="isSelected1"
     (click)="isAutoLogin()" [checked]="autoLogin"></ion-checkbox>
   <ion-checkbox style="margin-left:14%;border-color: #cccccc ;margin-top:10px;padding-bottom: 2px;" color="diy" *ngIf="isSelected2"
@@ -121,10 +119,13 @@ background-position: bottom;">
     (click)="isAutoLogin()" [checked]="autoLogin"></ion-checkbox>
 
   <span style="vertical-align:super;padding-top:3px" [ngClass]="{
-    'textcolor_normal':!autoLogin,
+    'textcolor_normal':!autoLogin, 'textcolor0':(isSelected0 && autoLogin),
     'textcolor1':(isSelected1 && autoLogin),'textcolor2':(isSelected2 && autoLogin),
     'textcolor3':(isSelected3 && autoLogin),'textcolor4':(isSelected4 && autoLogin)}"> 自动登录</span>
 
+
+  <ion-checkbox style="margin-left:100px;padding-bottom: 3px;" color="danger" *ngIf="isSelected0" (click)="isRemerberPassword()"
+  [checked]="remerberPassword"></ion-checkbox>
   <ion-checkbox style="margin-left:100px;padding-bottom: 3px;" color="danger" *ngIf="isSelected1" (click)="isRemerberPassword()"
     [checked]="remerberPassword"></ion-checkbox>
   <ion-checkbox style="margin-left:100px;padding-bottom: 3px;" color="diy" *ngIf="isSelected2" (click)="isRemerberPassword()"
@@ -134,12 +135,9 @@ background-position: bottom;">
     [checked]="remerberPassword"></ion-checkbox>
   <span style="vertical-align:super" [ngClass]="{
     'textcolor_normal': !remerberPassword,
+    'textcolor0':isSelected0 && remerberPassword,
     'textcolor1':isSelected1 && remerberPassword,
     'textcolor2':isSelected2 && remerberPassword,
     'textcolor3':isSelected3 && remerberPassword,'textcolor4':isSelected4 &&remerberPassword}"> 记住密码</span>
-
-
-
-
 
 </ion-content>

@@ -1,107 +1,97 @@
 page-login {
   .total_color {
-    background-color:white;
+    background-color: white;
   }
-
-  .div_background{
+  .div_background {
     background-image: url('../assets/img/bg.png');
+    height: 270px;
+    background-size: cover;
+    background-position: bottom;
   }
-
-
-  .img_select1{
+  .img_select1 {
     src: url('assets/img/jiangsuruotai.png');
   }
-
-  .img_unselect1{
+  .img_unselect1 {
     src: url('assets/img/jiangsuruotai_clicked.png');
   }
-
-  .img_unselect{
+  .img_unselect {
     width: 60px;
-    height: 60px ;
-
+    height: 60px;
   }
-
-  .img_select{
-    width:60px;
-    height: 60px ;
-  
+  .img_select {
+    width: 60px;
+    height: 60px;
   }
-
-  .p_text{
+  .p_text {
     float: right;
-    color:#cccccc;
+    color: #cccccc;
     margin-left: 20px
   }
-
-
-
-  .textcolor_normal{
-    color:#cccccc;
+  .textcolor_normal {
+    color: #cccccc;
   }
-
-  .textcolor1{
+  .textcolor0 {
     color: #ff3100
   }
-  .textcolor2{
+  .textcolor1 {
+    color: #ff3100
+  }
+  .textcolor2 {
     color: #fdc400
   }
-  .textcolor3{
+  .textcolor3 {
     color: #1897f2
   }
-  .textcolor4{
+  .textcolor4 {
     color: #b27224
   }
-
-  .backgroundcolor1{
+  .backgroundcolor0{
     background: #ff3100;
-    border-color:#ff3100;
+    border-color: #ff3100;
   }
-  .backgroundcolor2{
+  .backgroundcolor1 {
+    background: #ff3100;
+    border-color: #ff3100;
+  }
+  .backgroundcolor2 {
     background: #fdc400;
-    border-color:#fdc400;
+    border-color: #fdc400;
   }
-  .backgroundcolor3{
+  .backgroundcolor3 {
     background: #1897f2;
-    border-color:#1897f2;
+    border-color: #1897f2;
   }
-  .backgroundcolor4{
+  .backgroundcolor4 {
     background: #b27224;
-    border-color:#b27224;
+    border-color: #b27224;
   }
-
-
-  .background-color1{
-    color:danger
+  .background-color1 {
+    color: danger
   }
-  .background-color2{
-    background-color: #fdc400!important
+  .background-color2 {
+    background-color: #fdc400 !important
   }
-  .background-color3{
-    background-color: #1897f2!important
+  .background-color3 {
+    background-color: #1897f2 !important
   }
-  .background-color4{
-    background-color: #b27224!important
+  .background-color4 {
+    background-color: #b27224 !important
   }
-
-  .p_heard{
+  .p_heard {
     text-align: center;
     line-height: 55px;
     font-size: 22px;
     color: #949292;
   }
-
-  .div_middle{
+  .div_middle {
     height: 40px;
   }
-  .checkbox_in_middle{
+  .checkbox_in_middle {
     margin-left: 100px;
-    top: 6px;
-
-
+    top: 4px;
   }
-  .span_in_middle{
-    margin-left: 30px;
+  .span_in_middle {
+    margin-left: 20px;
     margin-bottom: 2px
   }
 }
