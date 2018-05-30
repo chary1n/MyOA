@@ -46,7 +46,11 @@ export class WorkBenchPage {
   isShowKaoqin = true;
   user_id;
   company_type;
-  
+  isShowSG = true;
+  isShowBX = true;
+  isShowZZ = true;
+  isShowKN = true;
+
   constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage,
     public services :CommonUseServices,public statusbar:StatusBar) {
   }
@@ -61,7 +65,11 @@ export class WorkBenchPage {
   }
 
   ionViewDidEnter() {
-
+    this.isShowKaoqin = true
+            this.isShowBX = false
+            this.isShowZZ = false
+            this.isShowKN = false
+            this.isShowSG = false
     this.storage.get('user')
       .then(res => {
         console.log(res);
@@ -112,24 +120,40 @@ export class WorkBenchPage {
         if (is_plus && is_manager){
           need_all = true
         }
-
+            
         if ((new RegExp("js.robotime.com").test(res.result.res_data.user_ava))){
             this.company_type = "assets/img/S-header.png"
-            this.isShowKaoqin = true
-            
+            this.isShowKaoqin = false
+            this.isShowBX = true
+            this.isShowZZ = true
+            this.isShowKN = true
+            this.isShowSG = true
           }
           else if ((new RegExp("dr.robotime.com").test(res.result.res_data.user_ava))){
             this.company_type = "assets/img/D-header.png"
             this.isShowKaoqin = false
+            this.isShowBX = true
+            this.isShowZZ = true
+            this.isShowKN = true
+            this.isShowSG = true
           }
           else if ((new RegExp("erp.robotime.com").test(res.result.res_data.user_ava))){
             this.company_type = "assets/img/R-header.png"
             this.isShowKaoqin = false
+            this.isShowBX = true
+            this.isShowZZ = true
+            this.isShowKN = true
+            this.isShowSG = true
           }
           else if ((new RegExp("ber.robotime.com").test(res.result.res_data.user_ava))){
             this.company_type = "assets/img/B-header.png"
             this.isShowKaoqin = false
+            this.isShowBX = true
+            this.isShowZZ = true
+            this.isShowKN = true
+            this.isShowSG = true
           }
+          
          this.services.get_all_need_do(res.result.res_data.user_id,is_plus,this.isShowKucun,need_all).then(res => {
             console.log(res.result.res_data.bx)
             if (res.result && res.result.res_code == 1 && res.result.res_data) {

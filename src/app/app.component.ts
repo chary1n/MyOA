@@ -34,7 +34,7 @@ export class MyApp {
       storage.get('user')
       .then(res => {
        this.user_env = res.result.res_data;
-       this.jpush.setAlias(res.result.res_data.user_id);
+      //  this.jpush.setAlias(res.result.res_data.user_id);
       });
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.

@@ -16,22 +16,22 @@
             <img src="assets/img/work_bench/dailyTime.png">
             <div style="color:#5c6166;font-size:12px">考勤</div>
         </ion-col>
-        <ion-col tappable (click)="shengou()">
+        <ion-col *ngIf="isShowSG" tappable (click)="shengou()">
             <img src="assets/img/work_bench/applyPurchase.png">
             <div style="color:#5c6166;font-size:12px">申购</div>
             <span *ngIf="sg_count > 0" style="position:absolute;width:20px;height:20px;border-radius:10px;background-color:red;display:inline-block;color:white;line-height:20px;right:8px;top:-8px;text-align:center;font-size:14px">{{sg_count}}</span>
         </ion-col>
-        <ion-col tappable (click)="apply()">
+        <ion-col *ngIf="isShowBX" tappable (click)="apply()">
             <img src="assets/img/work_bench/submitExpense.png">
             <div style="color:#5c6166;font-size:12px">报销</div>
             <span *ngIf="bx_count > 0" style="position:absolute;width:20px;height:20px;border-radius:10px;background-color:red;display:inline-block;color:white;line-height:20px;right:8px;top:-8px;text-align:center;font-size:14px">{{bx_count}}</span>
         </ion-col>
-        <ion-col tappable (click)="zanzhi()">
+        <ion-col *ngIf="isShowZZ" tappable (click)="zanzhi()">
             <img src="assets/img/work_bench/temporarySupport.png">
             <div style="color:#5c6166;font-size:12px">暂支</div>
             <span *ngIf="zz_count > 0" style="position:absolute;width:20px;height:20px;border-radius:10px;background-color:red;display:inline-block;color:white;line-height:20px;right:8px;top:-8px;text-align:center;font-size:14px">{{zz_count}}</span>
         </ion-col>
-        <ion-col tappable (click)="shareKnowledge()">
+        <ion-col *ngIf="isShowKN" tappable (click)="shareKnowledge()">
             <img src="assets/img/work_bench/shareKnowledge.png">
             <div style="color:#5c6166;font-size:12px">知识分享</div>
         </ion-col>

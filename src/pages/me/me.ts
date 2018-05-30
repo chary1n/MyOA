@@ -96,7 +96,7 @@ export class MePage {
                 })
                 this.statusbar.backgroundColorByHexString("#f0f2f5");
                 this.statusbar.styleLightContent();
-                this.jpush.setAlias(null);
+                // this.jpush.setAlias(null);
                let modal = this.modalctrl.create(LoginPage);
                 modal.present();
               });
