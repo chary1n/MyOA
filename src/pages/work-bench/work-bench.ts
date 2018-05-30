@@ -46,7 +46,7 @@ export class WorkBenchPage {
   isShowKaoqin = true;
   user_id;
   company_type;
-  isShowJournalSheet=false
+  
   constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage,
     public services :CommonUseServices,public statusbar:StatusBar) {
   }
@@ -68,9 +68,7 @@ export class WorkBenchPage {
         let is_plus = false
         let is_manager = false
         let need_all = false
-        if(res.result.res_data.team){
-          this.isShowJournalSheet = true
-        }
+      
         
         for (let product of res.result.res_data.groups) {
           if(product.name == 'group_inventory_user'){

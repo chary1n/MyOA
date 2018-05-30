@@ -17,9 +17,19 @@ export class WriteJournalService{
     }
 
 
-    //获取销售团队
-    get_sale_team(body){
+    //获取管理的销售团队
+    get_sale_team(uid){
+        let body = JSON.stringify({
+            uid: uid
+        });
         return this.httpservice.postBody("get_sale_team", body);
+    }
+
+    //获取所有的销售团队
+    get_all_sale_team(){
+        let body = JSON.stringify({
+        });
+        return this.httpservice.postBody("get_all_sale_team", body);
     }
 
     //获取团队的销售员

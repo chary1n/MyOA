@@ -79,9 +79,12 @@ export class VisitListPage {
 
   ionViewDidEnter() {
     console.log('visit   person_id = '+this.navParams.get('person_id'))
-    if(this.navParams.get('person_id')){
+    console.log('visit   team_id = '+this.navParams.get('team_id'))
+    if(this.navParams.get('person_id') || this.navParams.get('team_id')){
       this.person_id = this.navParams.get('person_id')
+      this.team_id = this.navParams.get('team_id')
       this.navParams.data.person_id = false;
+      this.navParams.data.team_id = false;
       this.getList()
     }
   }

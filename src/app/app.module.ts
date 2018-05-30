@@ -62,7 +62,12 @@ import { PhotoLibrary } from '@ionic-native/photo-library';
     TreeModule,
     IonicImageViewerModule,
     QRCodeModule,
-   
+  //   IonicModule.forRoot(MyApp,{
+  //     backButtonText: '',
+  //  },{
+  //     links:[
+  //     { component: SupplierListPage, name: 'Edit', segment: 'edit' }
+  //   ]})
     
   ],
   bootstrap: [IonicApp],

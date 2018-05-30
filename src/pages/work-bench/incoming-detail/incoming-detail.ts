@@ -21,7 +21,7 @@ export class IncomingDetailPage {
   constructor(public navCtrl: NavController, public navParams: NavParams) {
       this.item = navParams.get('item');
       this.type = navParams.get('type');
-      this.isPop = navParams.get('isPop') ;
+      this.isPop = navParams.get('isPop');
       this.count = 1;
       console.log('ionViewDidEnter IncomingDetailPage');
      
@@ -29,7 +29,6 @@ export class IncomingDetailPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad IncomingDetailPage');
-    
   }
 
   ionViewDidEnter(){
