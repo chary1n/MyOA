@@ -7,7 +7,7 @@ import { JPush } from '../../providers/JPush'
 
 import { LoginService } from './loginService';
 import { Component, ErrorHandler } from '@angular/core';
-import { IonicPage, NavController, NavParams ,AlertController} from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { FormBuilder, Validators } from '@angular/forms';
 
 
@@ -18,7 +18,7 @@ import { Headers, RequestOptions } from '@angular/http';
 import { AppVersion } from '@ionic-native/app-version';
 import { Platform } from 'ionic-angular';
 import { UrlServer } from '../../providers/UrlServer';
-import {InAppBrowser} from '@ionic-native/in-app-browser';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
 declare let cordova: any;
 
 
@@ -43,24 +43,25 @@ export class LoginPage {
   dbs: any;
   employee: string;
   resUser: any;
+  isSelected0 = true;
   isSelected1 = false;
   isSelected2 = false;
   isSelected3 = false;
-  isSelected4  = false;
+  isSelected4 = false;
   db;
   history_arr = [];
   email_length = 0;
   autoLogin = false;
   remerberPassword = false;
   img1;
-  img2;img3;img4;
+  img2; img3; img4;
   isDisabled;
-  chooseIndex  =1;
+  chooseIndex = 0;
   email_src;
-  password_src ;
+  password_src;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private loginservice: LoginService, private myHttp: Http, private storage: Storage, public platform: Platform, public appVersion: AppVersion,
-    public jpush: JPush, public urlServer: UrlServer,public ctrl:AlertController,private inAppBrowser: InAppBrowser,
+    public jpush: JPush, public urlServer: UrlServer, public ctrl: AlertController, private inAppBrowser: InAppBrowser,
   ) {
     this.storage.get("login").then(res => {
       if (res) {
@@ -68,60 +69,58 @@ export class LoginPage {
         this.remerberPassword = res.remerberPassword
       }
     })
-    this.storage.get("loginIndex").then(res=>{
+    this.storage.get("loginIndex").then(res => {
       this.defultChoose(res)
     })
     this.isDisabled = true
 
     this.reset();
 
-    if (!HttpService.need_back_login)
-    {
+    if (!HttpService.need_back_login) {
       this.storage.get("login").then(res => {
-      this.storage.get("user").then(user=>{
-        HttpService.need_back_login = true
-        console.log(HttpService.need_back_login)
-        if (res) {
-          if (res.autoLogin&&user) {
-            this.toAutoLogin()
-          } else if (res.remerberPassword) {
-            this.storage.get('user_psd').then(res => {
-              this.email = res.user_email
-              this.password = res.user_psd
-              this.isDisabled= false
-            })
+        this.storage.get("user").then(user => {
+          HttpService.need_back_login = true
+          console.log(HttpService.need_back_login)
+          if (res) {
+            if (res.autoLogin && user) {
+              this.toAutoLogin()
+            } else if (res.remerberPassword) {
+              this.storage.get('user_psd').then(res => {
+                this.email = res.user_email
+                this.password = res.user_psd
+                this.isDisabled = false
+              })
+            }
           }
-        }
+        })
       })
-    })
     }
-    
-
   }
 
-  openUrlByBrowser(url:string):void {
+  openUrlByBrowser(url: string): void {
     this.inAppBrowser.create(url, '_system');
   }
 
 
 
-  defultChoose(index){
-    if(index==2){
+  defultChoose(index) {
+    if (index == 2) {
       this.chooseDiy()
-    }else if(index==3){
+    } else if (index == 3) {
       this.chooseWanju()
-    }else if(index==4){
+    } else if (index == 4) {
       this.chooseBanchang()
-    }else{
+    } else  if (index == 1) { 
       this.chooseJiangsu()
+    }else {
+      this.chooseNewJiangsu()
     }
-  
   }
 
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
-    
+
   }
 
   toAutoLogin() {
@@ -134,65 +133,95 @@ export class LoginPage {
             this.navCtrl.setRoot('TabsPage');
             console.log(res)
             this.appVersion.getVersionNumber().then((value: string) => {
-              this.loginservice.toLogin(res.user_email, res.user_psd, res.db_name,value)
-              .then(res => {
-                console.log(res);
-                if (res.result && res.result.res_code == 1) {
-                  HttpService.user_id = res.result.res_data.user_id;
-                  HttpService.user = res.result.res_data ;
-                  this.storage.set('loginIndex',this.chooseIndex)
-                  this.storage.set("user", res).then(() => {
-                  });
-                }
-                else
-                {
-                  this.navCtrl.setRoot('LoginPage')
-                }
-              })
+              this.loginservice.toLogin(res.user_email, res.user_psd, res.db_name, value)
+                .then(res => {
+                  console.log(res);
+                  if (res.result && res.result.res_code == 1) {
+                    HttpService.user_id = res.result.res_data.user_id;
+                    HttpService.user = res.result.res_data;
+                    this.storage.set('loginIndex', this.chooseIndex)
+                    this.storage.set("user", res).then(() => {
+                    });
+                  }
+                  else {
+                    this.navCtrl.setRoot('LoginPage')
+                  }
+                })
             })
-            
+
           })
         }
       });
   }
 
-  reset(){
-    this.img1 = "assets/img/jiangsuruotai.png" 
-    this.img2 = "assets/img/diy.png" 
-    this.img3 = "assets/img/ruobeier.png" 
-    this.img4 = "assets/img/banchang.png" 
+  reset() {
+    this.img1 = "assets/img/jiangsuruotai.png"
+    this.img2 = "assets/img/diy.png"
+    this.img3 = "assets/img/ruobeier.png"
+    this.img4 = "assets/img/banchang.png"
+  }
+
+
+
+  chooseNewJiangsu() {
+    this.isSelected0 = true;
+    this.isSelected1 = false;
+    this.isSelected2 = false;
+    this.isSelected3 = false;
+    this.isSelected4 = false;
+    this.chooseIndex = 0;
+    // HttpService.appUrl = "http://192.168.88.143:8081/"
+    HttpService.appUrl = "http://erp.linkloving.com/"
+    this.reset();
+    this.img1 = "assets/img/jiangsuruotai_clicked.png"
+    this.password_src = "assets/img/S_password.png"
+    this.email_src = "assets/img/S_email.png"
   }
 
   chooseJiangsu() {
+    this.isSelected0 = false;
     this.isSelected1 = true;
     this.isSelected2 = false;
     this.isSelected3 = false;
     this.isSelected4 = false;
     this.chooseIndex = 1;
+<<<<<<< HEAD
     HttpService.appUrl = "http://192.168.1.170:8069/"
     // HttpService.appUrl = "http://js.robotime.com/"
+=======
+    // HttpService.appUrl = "http://192.168.1.170:8069/"
+    HttpService.appUrl = "http://js.robotime.com/"
+>>>>>>> 1149f47eefcf9aa0ccb9e2c4dcf8358c7b1d068f
     this.reset();
-    this.img1 = "assets/img/jiangsuruotai_clicked.png" 
-    this.password_src="assets/img/S_password.png"
+    this.img1 = "assets/img/jiangsuruotai_clicked.png"
+    this.password_src = "assets/img/S_password.png"
     this.email_src = "assets/img/S_email.png"
   }
 
   chooseDiy() {
+    this.isSelected0 = false;
     this.isSelected2 = true;
     this.isSelected1 = false;
     this.isSelected3 = false;
     this.isSelected4 = false;
     this.chooseIndex = 2;
+<<<<<<< HEAD
     // HttpService.appUrl = "http://dr.robotime.com/"
     HttpService.appUrl = "http://192.168.1.169:8069/"
         // HttpService.appUrl = "http://192.168.2.64:8069/"
+=======
+    HttpService.appUrl = "http://dr.robotime.com/"
+    // HttpService.appUrl = "http://192.168.1.169:8069/"
+    // HttpService.appUrl = "http://192.168.2.64:8069/"
+>>>>>>> 1149f47eefcf9aa0ccb9e2c4dcf8358c7b1d068f
     this.reset();
-    this.img2 = "assets/img/diy_clicked.png" 
-    this.password_src="assets/img/D_password.png"
+    this.img2 = "assets/img/diy_clicked.png"
+    this.password_src = "assets/img/D_password.png"
     this.email_src = "assets/img/D_email.png"
   }
 
   chooseWanju() {
+    this.isSelected0 = false;
     this.isSelected3 = true;
     this.isSelected2 = false;
     this.isSelected1 = false;
@@ -201,27 +230,36 @@ export class LoginPage {
     // HttpService.appUrl = "http://erp.robotime.com/"
     // HttpService.appUrl = "http://192.168.2.34:8089/"
     // HttpService.appUrl = "http://192.168.2.8:8111/"
+<<<<<<< HEAD
     HttpService.appUrl = "http://192.168.1.170:8888/"   
+=======
+    // HttpService.appUrl = "http://192.168.1.170:8888/"
+>>>>>>> 1149f47eefcf9aa0ccb9e2c4dcf8358c7b1d068f
     this.reset();
-    this.img3 = "assets/img/ruobeier_clicked.png" 
-    this.password_src="assets/img/R_password.png"
+    this.img3 = "assets/img/ruobeier_clicked.png"
+    this.password_src = "assets/img/R_password.png"
     this.email_src = "assets/img/R_email.png"
-    
+
   }
 
-  chooseBanchang(){
+  chooseBanchang() {
+    this.isSelected0 = false;
     this.isSelected4 = true;
     this.isSelected2 = false;
     this.isSelected1 = false;
     this.isSelected3 = false;
     this.chooseIndex = 4;
-    // HttpService.appUrl = "http://ber.robotime.com/"
+    HttpService.appUrl = "http://ber.robotime.com/"
     // HttpService.appUrl = "http://192.168.88.131:8069/"
     // HttpService.appUrl = "http://192.168.2.64:8069/"
+<<<<<<< HEAD
     HttpService.appUrl = "http://192.168.1.169:8888/"
+=======
+    // HttpService.appUrl = "http://192.168.88.122:8069/"
+>>>>>>> 1149f47eefcf9aa0ccb9e2c4dcf8358c7b1d068f
     this.reset();
-    this.img4 = "assets/img/banchang_clicked.png" 
-    this.password_src="assets/img/B_password.png"
+    this.img4 = "assets/img/banchang_clicked.png"
+    this.password_src = "assets/img/B_password.png"
     this.email_src = "assets/img/B_email.png"
   }
 
@@ -262,69 +300,68 @@ export class LoginPage {
     })
     if (this.employee == null) {
       this.ctrl.create({
-                  title: '提示',
-                  subTitle: "请选择公司",
-                  buttons: [{
-                text: '确定',
-                    handler: () => {
-                   
-             }
-             }
-      ]
-    }).present();
+        title: '提示',
+        subTitle: "请选择公司",
+        buttons: [{
+          text: '确定',
+          handler: () => {
+
+          }
+        }
+        ]
+      }).present();
       return
     }
     // this.appVersion.getVersionNumber().then((value: string) => {
-      this.loginservice.toLogin(this.email, this.password, this.employee,'value')
+    this.loginservice.toLogin(this.email, this.password, this.employee, 'value')
       .then(res => {
         console.log(res);
         if (res.result && res.result.res_code == 1) {
           HttpService.user_id = res.result.res_data.user_id;
-          HttpService.user = res.result.res_data ;
+          HttpService.user = res.result.res_data;
           this.storage.set("user_psd", {
             user_email: this.email,
             user_psd: this.password,
             db_name: this.employee,
             url: HttpService.appUrl
           })
-          this.storage.set('loginIndex',this.chooseIndex)
-          if (this.remerberPassword)
-          {
+          this.storage.set('loginIndex', this.chooseIndex)
+          if (this.remerberPassword) {
             this.storage.get("history_users").then(res => {
-            if (res) {
-              let arr = res
-              let need_add = true;
-              let index = 0;
-              for (let item of arr) {
+              if (res) {
+                let arr = res
+                let need_add = true;
+                let index = 0;
+                for (let item of arr) {
 
-                if (item.email == this.email) {
-                  arr.splice(index, 1);
+                  if (item.email == this.email) {
+                    arr.splice(index, 1);
+                    arr.push({
+                      email: this.email,
+                      password: this.password,
+                    })
+                    need_add = false;
+                    break;
+                  }
+                  index = index + 1;
+                }
+                if (need_add) {
                   arr.push({
                     email: this.email,
                     password: this.password,
                   })
-                  need_add = false;
-                  break;
                 }
-                index = index + 1;
+                this.storage.set("history_users", arr);
               }
-              if (need_add) {
+              else {
+                let arr = []
                 arr.push({
                   email: this.email,
                   password: this.password,
                 })
+                this.storage.set("history_users", arr);
               }
-              this.storage.set("history_users", arr);
-            }
-            else {
-              let arr = []
-              arr.push({
-                email: this.email,
-                password: this.password,
-              })
-              this.storage.set("history_users", arr);
-            }
-          })
+            })
           }
           this.storage.set("user", res).then(() => {
             this.jpush.setAlias(res.result.res_data.user_id);
@@ -336,65 +373,60 @@ export class LoginPage {
         }
       })
     // })
-    
-  }
-  watch(event){
-    this.password = "";
-    if (this.email)
-    {
-      this.history_arr = []
-    this.storage.get("history_users").then(res => {
-      if(res){
-        console.log(res)
-        
-        for (let item of res) {
-          // console.log((new RegExp(this.email).test(item.email)))
-        if ((new RegExp(this.email).test(item.email)))
-        {
-          this.history_arr.push(item);
-        }
-       }
-      }  
 
-    })
+  }
+  watch(event) {
+    this.password = "";
+    if (this.email) {
+      this.history_arr = []
+      this.storage.get("history_users").then(res => {
+        if (res) {
+          console.log(res)
+
+          for (let item of res) {
+            // console.log((new RegExp(this.email).test(item.email)))
+            if ((new RegExp(this.email).test(item.email))) {
+              this.history_arr.push(item);
+            }
+          }
+        }
+
+      })
     }
   }
 
 
-  watchPassword(event){
+  watchPassword(event) {
     console.log(this.password)
-    if(this.password){
+    if (this.password) {
       this.isDisabled = false
-    }else{
+    } else {
       this.isDisabled = true
     }
   }
 
-  click(item){
+  click(item) {
     console.log("2")
     this.email = item.email;
     this.password = item.password;
     this.isDisabled = false
     this.history_arr = [];
-    if (this.platform.is('ios'))
-    {
+    if (this.platform.is('ios')) {
       cordova.plugins.Keyboard.close();
     }
   }
 
-  panEvent($event){
+  panEvent($event) {
     this.history_arr = []
-    if (this.platform.is('ios'))
-    {
+    if (this.platform.is('ios')) {
       cordova.plugins.Keyboard.close();
     }
-     
+
   }
 
-  tap(){
+  tap() {
     this.history_arr = []
-    if (this.platform.is('ios'))
-    {
+    if (this.platform.is('ios')) {
       cordova.plugins.Keyboard.close();
     }
   }
