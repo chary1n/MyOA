@@ -343,8 +343,8 @@ export class LoginPage {
             })
           }
           this.storage.set("user", res).then(() => {
-            this.jpush.setAlias(res.result.res_data.user_id);
             this.navCtrl.setRoot('TabsPage');
+            // this.jpush.setAlias(res.result.res_data.user_id);
           });
         }
         else if (res.result && res.result.res_code == -1) {
