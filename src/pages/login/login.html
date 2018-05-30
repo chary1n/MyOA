@@ -13,32 +13,29 @@
 
 
 <ion-content class="total_color" (pan)="panEvent($event)">
-  <div class="div_background" on-tap="tap()" style="height:270px;background-size: cover;
-background-position: bottom;">
 
     <p class="p_heard">专注原创·天生不一样</p>
-    <div class="div_middle">
-      <ion-checkbox class="checkbox_in_middle" color="gongdan-color" [checked]='isSelected0'></ion-checkbox>
+    <div class="div_middle" (click)='chooseNewJiangsu()'>
+      <ion-checkbox class="checkbox_in_middle" color="danger" (click)='chooseNewJiangsu()'  [checked]='isSelected0'></ion-checkbox>
       <span class="span_in_middle">新江苏若态</span>
     </div>
-    <div class="div_middle">
-      <ion-checkbox class="checkbox_in_middle" color="dark" [checked]='isSelected1'></ion-checkbox>
+    <div class="div_middle" (click)='chooseJiangsu()'>
+      <ion-checkbox class="checkbox_in_middle" color="danger" (click)='chooseJiangsu()' [checked]='isSelected1'></ion-checkbox>
       <span class="span_in_middle">江苏若态</span>
     </div>
-    <div class="div_middle">
-      <ion-checkbox class="checkbox_in_middle" color="dark" [checked]='isSelected2'></ion-checkbox>
+    <div class="div_middle" (click)='chooseDiy()'>
+      <ion-checkbox class="checkbox_in_middle" color="diy" (click)='chooseDiy()' [checked]='isSelected2'></ion-checkbox>
       <span class="span_in_middle">diy艺术屋</span>
     </div>
-    <div class="div_middle">
-      <ion-checkbox class="checkbox_in_middle" color="dark" [checked]='isSelected3'></ion-checkbox>
+    <div class="div_middle" (click)='chooseWanju()'>
+      <ion-checkbox class="checkbox_in_middle" color="gongdan-color" (click)='chooseWanju()' [checked]='isSelected3'></ion-checkbox>
       <span class="span_in_middle">若贝尔玩具</span>
     </div>
-    <div class="div_middle">
-      <ion-checkbox class="checkbox_in_middle" color="dark" [checked]='isSelected4'></ion-checkbox>
+    <div class="div_middle" (click)='chooseBanchang()'>
+      <ion-checkbox class="checkbox_in_middle" color="banchang" (click)='chooseBanchang()' [checked]='isSelected4'></ion-checkbox>
       <span class="span_in_middle">板厂</span>
     </div>
 
-  </div>
 
 
   <ion-item style="margin-top:30px;padding-left:10%;padding-right:10%">

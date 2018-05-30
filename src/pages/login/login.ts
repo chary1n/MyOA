@@ -163,6 +163,10 @@ export class LoginPage {
     this.img4 = "assets/img/banchang.png" 
   }
 
+  click_1(){
+    this.chooseNewJiangsu()
+  }
+
   chooseNewJiangsu() {
     this.isSelected0 = true;
     this.isSelected1 = false;
