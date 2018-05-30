@@ -352,7 +352,11 @@ export class CreateGongdanPage {
   }
 
   chooseBiaoqian(){
-        this.navCtrl.push('BiaoqianPage')
+        this.navCtrl.push('BiaoqianPage',{
+          brand_ids:this.brand_list,
+          area_ids:this.area_list,
+          category_ids:this.category_list,
+        })
   }
 
   all_tags(){

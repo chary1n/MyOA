@@ -69,7 +69,11 @@ export class WriteJournalPage {
       this.user_id = res.result.res_data.user_id;
       if(res.result.res_data.team){
         this.saleTeam = res.result.res_data.team.team_name;
-        this.team_id = res.result.res_data.team.team_id
+        if(res.result.res_data.team.team_id){
+          this.team_id = res.result.res_data.team.team_id
+        }else{
+          Utils.toastButtom('没有所属的销售团队！', this.toastCtrl)
+        }
       }
       console.log("saleTeam= "+this.saleTeam)
     });

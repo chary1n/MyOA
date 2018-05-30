@@ -19,7 +19,7 @@ import { StatusBar } from '@ionic-native/status-bar';
   templateUrl: 'biaoqian.html',
   providers: [GongDanService, CreateBiaoQianAutoService]
 })
-export class BiaoqianPage {
+export class BiaoqianPage { 
   list;
   brand_list;
   category_list;
@@ -41,15 +41,19 @@ export class BiaoqianPage {
       this.frontPage = Utils.getViewController("CreateGongdanPage", navCtrl)
     }
 
+    this.brand_select_ids =  this.navParams.get('brand_ids')
+    this.area_select_ids = this.navParams.get('area_ids')
+    this.cate_select_ids = this.navParams.get('category_ids')
+
     this.gongdanService.get_all_biaoqian().then(res => {
       if (res.result && res.result.res_code == 1) {
         this.list = res.result.res_data
         this.brand_list = this.list.brand_list.res_data
         this.category_list = this.list.category_list.res_data
         this.area_list = this.list.area_list.res_data
-        this.brand_select_ids = this.brand_list
-        this.area_select_ids = this.area_list
-        this.cate_select_ids = this.category_list
+        // this.brand_select_ids = this.brand_list
+        // this.area_select_ids = this.area_list
+        // this.cate_select_ids = this.category_list
         for (let items of this.brand_select_ids) {
           for (let items_in of this.brand_list) {
             if (items == items_in.id) {

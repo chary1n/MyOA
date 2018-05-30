@@ -3,7 +3,8 @@ import { NativeService } from './../../../providers/NativeService';
 import { PhoneNumberPage } from './../phone-number/phone-number';
 import { Storage } from '@ionic/storage';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ActionSheetController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ActionSheetController} from 'ionic-angular';
+
 
 /**
  * Generated class for the EditInformationPage page.
@@ -15,8 +16,7 @@ import { IonicPage, NavController, NavParams, ActionSheetController } from 'ioni
 @Component({
   selector: 'page-edit-information',
   templateUrl: 'edit-information.html',
-  providers: [EditInformationService]
-
+  providers: [EditInformationService],
 })
 export class EditInformationPage {
   name: any;
