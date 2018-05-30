@@ -120,7 +120,6 @@ export class LoginPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
-
   }
 
   toAutoLogin() {
@@ -161,13 +160,6 @@ export class LoginPage {
     this.img4 = "assets/img/banchang.png"
   }
 
-<<<<<<< HEAD
-  click_1(){
-    this.chooseNewJiangsu()
-  }
-=======
-
->>>>>>> c6c92ac22348c355715a120fa8b06cd7e7bd0316
 
   chooseNewJiangsu() {
     this.isSelected0 = true;
@@ -176,8 +168,8 @@ export class LoginPage {
     this.isSelected3 = false;
     this.isSelected4 = false;
     this.chooseIndex = 0;
-    // HttpService.appUrl = "http://192.168.88.143:8081/"
-    HttpService.appUrl = "http://erp.linkloving.com/"
+    HttpService.appUrl = "http://192.168.1.9:8081/"
+    // HttpService.appUrl = "http://erp.linkloving.com/"
     this.reset();
     this.img1 = "assets/img/jiangsuruotai_clicked.png"
     this.password_src = "assets/img/S_password.png"
@@ -191,8 +183,8 @@ export class LoginPage {
     this.isSelected3 = false;
     this.isSelected4 = false;
     this.chooseIndex = 1;
-    HttpService.appUrl = "http://192.168.1.170:8069/"
-    // HttpService.appUrl = "http://js.robotime.com/"
+    // HttpService.appUrl = "http://192.168.1.170:8069/"
+    HttpService.appUrl = "http://js.robotime.com/"
     this.reset();
     this.img1 = "assets/img/jiangsuruotai_clicked.png"
     this.password_src = "assets/img/S_password.png"
@@ -206,8 +198,8 @@ export class LoginPage {
     this.isSelected3 = false;
     this.isSelected4 = false;
     this.chooseIndex = 2;
-    // HttpService.appUrl = "http://dr.robotime.com/"
-    HttpService.appUrl = "http://192.168.1.169:8069/"
+    HttpService.appUrl = "http://dr.robotime.com/"
+    // HttpService.appUrl = "http://192.168.1.169:8069/"
         // HttpService.appUrl = "http://192.168.2.64:8069/"
     this.reset();
     this.img2 = "assets/img/diy_clicked.png"
@@ -222,10 +214,10 @@ export class LoginPage {
     this.isSelected1 = false;
     this.isSelected4 = false;
     this.chooseIndex = 3;
-    // HttpService.appUrl = "http://erp.robotime.com/"
+    HttpService.appUrl = "http://erp.robotime.com/"
     // HttpService.appUrl = "http://192.168.2.34:8089/"
     // HttpService.appUrl = "http://192.168.2.8:8111/"
-    HttpService.appUrl = "http://192.168.1.170:8888/"   
+    // HttpService.appUrl = "http://192.168.1.170:8888/"   
     this.reset();
     this.img3 = "assets/img/ruobeier_clicked.png"
     this.password_src = "assets/img/R_password.png"
@@ -243,7 +235,7 @@ export class LoginPage {
     HttpService.appUrl = "http://ber.robotime.com/"
     // HttpService.appUrl = "http://192.168.88.131:8069/"
     // HttpService.appUrl = "http://192.168.2.64:8069/"
-    HttpService.appUrl = "http://192.168.1.169:8888/"
+    // HttpService.appUrl = "http://192.168.1.169:8888/"
     this.reset();
     this.img4 = "assets/img/banchang_clicked.png"
     this.password_src = "assets/img/B_password.png"

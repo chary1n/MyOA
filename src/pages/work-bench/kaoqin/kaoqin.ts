@@ -713,38 +713,26 @@ export class KaoqinPage {
         if (!is_kaoqin_ok){
           that.fail_times = that.fail_times + 1
           
-          if(that.fail_times >= 3)
-          {
-              // that.showAlert("蓝牙考勤失败次数过多？",false)
-              that.isShowFail_Three = true
-              that.fail_str = "失败次数过多？试试位置签到"
-              that.attendance_off = false
-          }
-          else
-          {
-              // Utils.toastButtom("不在考勤机范围内,请重试。", that.toastCtrl)
+          // if(that.fail_times >= 3)
+          // {
+          //     that.isShowFail_Three = true
+          //     that.fail_str = "失败次数过多？试试位置签到"
+          //     that.attendance_off = false
+          // }
+          // else
+          // {
               that.isShowFail = true
               that.fail_str = "不在签到范围"
-          }
+          // }
         }
         
     },5000)
     },function(){
-        // Utils.toastButtom("请打开蓝牙", that.toastCtrl)
-      //  that.fail_times = that.fail_times + 1
-      //     if(that.fail_times >= 3)
-      //     {
-      //         // that.showAlert("蓝牙考勤失败次数过多？",true)
-      //         that.isShowFail_Three = true
-      //         that.fail_str = "失败次数过多？试试位置签到"
-      //         that.attendance_off = false
-      //     }
-      //     else
-      //     {
+       
         that.isShowActive = true
               that.isShowFail = true
               that.fail_str = "蓝牙未打开"
-          // }
+          
     }) 
   }
 
@@ -839,41 +827,26 @@ export class KaoqinPage {
         that.ble.stopScan()
         if (!is_kaoqin_ok){
           that.fail_times = that.fail_times + 1
-          if(that.fail_times >= 3)
-          {
-              // that.showAlert("蓝牙考勤失败次数过多？",true)
-              that.isShowFail_Three = true
-              that.fail_str = "失败次数过多？试试位置签到"
-              that.attendance_off = true
-          }
-          else
-          {
-              // Utils.toastButtom("不在考勤机范围内,请重试。", that.toastCtrl)
+          // if(that.fail_times >= 3)
+          // {
+          //     that.isShowFail_Three = true
+          //     that.fail_str = "失败次数过多？试试位置签到"
+          //     that.attendance_off = true
+          // }
+          // else
+          // {
               that.isShowFail = true
               that.fail_str = "不在签到范围"
-          }
+          // }
         }
         
     },5000)
     },function(){
-        // Utils.toastButtom("请打开蓝牙", that.toastCtrl)
-        // that.showAlert("蓝牙考勤失败次数过多？",true)
         
-
-        // that.fail_times = that.fail_times + 1
-        //   if(that.fail_times >= 3)
-        //   {
-        //       // that.showAlert("蓝牙考勤失败次数过多？",true)
-        //       that.isShowFail_Three = true
-        //       that.fail_str = "失败次数过多？试试位置签到"
-        //       that.attendance_off = true
-        //   }
-        //   else
-        //   {
           that.isShowActive = true
               that.isShowFail = true
               that.fail_str = "蓝牙未打开"
-          // }
+          
     }) 
   }
 }
