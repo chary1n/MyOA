@@ -31,9 +31,12 @@ export class VisitListPage {
   showTime;
   // person = '我的';
   team_id;
+  team_list = [];
   teamGroup: any;
   person_id;
-  isShowNull = false
+  isShowNull = false;
+  admin = false
+  manager = false
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public statusBar:StatusBar, 
     private datePicker: DatePicker,
@@ -50,20 +53,30 @@ export class VisitListPage {
       if(res.result.res_data.team){
         this.saleTeam = res.result.res_data.team.team_name;
         this.team_id = res.result.res_data.team.team_id;
+        this.getStartList()
       }
-      console.log("saleTeam= "+this.saleTeam)
-      let bodyone = {
-        today: true,
-        todayTime: Utils.dateFormat(new Date(), 'yyyy-MM-dd'),
-        uid: this.user_id,
-        team_id: this.team_id
-      }
-      this.writejournalService.get_visit_list(bodyone).then(res =>{
-        if(res.result.res_code==1 && res.result){
-          console.log(res)
-          this.dataList = res.result.res_data
+      for(let product of res.result.res_data.groups){
+        if (product.name == "group_sale_manager"){
+          this.admin = true
+          this.getStartList()
+          break;
         }
-      })
+        if(product.name == "group_sale_salesman_all_leads"){
+          this.manager = true
+          this.writejournalService.get_sale_team(this.user_id).then(res =>{
+            if(res.result.res_code==1 && res.result){
+              console.log(res)
+              var list = res.result.res_data
+              var length = list.length;
+              for (var i=0; i < length; i++) {
+                this.team_list[i] = list[i].team_id
+                }
+                this.getStartList();
+            }
+           }
+          )
+        }
+      }
       //请求team成员
         let body = {
           team_id: this.team_id
@@ -77,10 +90,30 @@ export class VisitListPage {
     });
   }
 
+  //初始请求
+  getStartList(){
+      let bodyone = {
+        today: true,
+        todayTime: Utils.dateFormat(new Date(), 'yyyy-MM-dd'),
+        uid: this.user_id,
+        team_id: this.team_id,
+        admin: this.admin,
+        manager: this.manager,
+        team_list: this.team_list
+      }
+      this.writejournalService.get_visit_list(bodyone).then(res =>{
+        if(res.result.res_code==1 && res.result){
+          console.log(res)
+          this.dataList = res.result.res_data
+        }
+      })
+  }
   ionViewDidEnter() {
     console.log('visit   person_id = '+this.navParams.get('person_id'))
     console.log('visit   team_id = '+this.navParams.get('team_id'))
     if(this.navParams.get('person_id') || this.navParams.get('team_id')){
+      this.admin = false
+      this.manager = false
       this.person_id = this.navParams.get('person_id')
       this.team_id = this.navParams.get('team_id')
       this.navParams.data.person_id = false;
@@ -100,7 +133,10 @@ export class VisitListPage {
         startTime: Utils.dateFormat(new Date(this.startDate_visit), 'yyyy-MM-dd'),
         endTime: Utils.dateFormat(new Date(this.endDate_visit), 'yyyy-MM-dd'),
         uid: this.user_id,
-        team_id: this.team_id
+        team_id: this.team_id,
+        admin: this.admin,
+        manager: this.manager,
+        team_list: this.team_list
       }
     }else{
       body = {
@@ -108,7 +144,10 @@ export class VisitListPage {
         startTime: Utils.dateFormat(new Date(this.startDate_visit), 'yyyy-MM-dd'),
         endTime: Utils.dateFormat(new Date(this.endDate_visit), 'yyyy-MM-dd'),
         uid: this.person_id,
-        team_id: this.team_id
+        team_id: this.team_id,
+        admin: this.admin,
+        manager: this.manager,
+        team_list: this.team_list
       }
     }
       this.writejournalService.get_visit_list(body).then(res =>{
@@ -138,6 +177,7 @@ export class VisitListPage {
   clickMenu(){
       this.navCtrl.push('VisitBiaoqianPage', {  
         item: this.teamGroup,
+        team_id: this.team_id
       })
   }
 
@@ -194,7 +234,10 @@ export class VisitListPage {
         startTime: Utils.dateFormat(new Date(this.startDate_visit), 'yyyy-MM-dd'),
         endTime: Utils.dateFormat(new Date(this.endDate_visit), 'yyyy-MM-dd'),
         uid: this.user_id,
-        team_id: this.team_id
+        team_id: this.team_id,
+        admin: this.admin,
+        manager: this.manager,
+        team_list: this.team_list
       }
     }else{
       body = {
@@ -202,7 +245,10 @@ export class VisitListPage {
         startTime: Utils.dateFormat(new Date(this.startDate_visit), 'yyyy-MM-dd'),
         endTime: Utils.dateFormat(new Date(this.endDate_visit), 'yyyy-MM-dd'),
         uid: this.person_id,
-        team_id: this.team_id
+        team_id: this.team_id,
+        admin: this.admin,
+        manager: this.manager,
+        team_list: this.team_list
       }
     }
     this.writejournalService.get_visit_list(body).then(res =>{

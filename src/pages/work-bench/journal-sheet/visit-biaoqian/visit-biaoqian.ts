@@ -29,6 +29,7 @@ export class VisitBiaoqianPage {
   , public statusBar: StatusBar, public writeService: WriteJournalService
   ,public storage: Storage,) {
     this.teamPerson = this.navParams.get('item')
+    this.team_id = this.navParams.get('team_id')
     this.frontPage = Utils.getViewController("VisitListPage", navCtrl)
     console.log(this.teamPerson)
   }
