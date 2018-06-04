@@ -76,8 +76,9 @@ export class FirService {
 
   private handleError(error: Response | any) {
     let msg = '请求失败';
+    console.log(error.status)
     if (error.status == 0) {
-      msg = '请求地址错误';
+      msg = '网络连接不佳';
     }
     if (error.status == 400) {
       msg = '请求无效';
