@@ -22,11 +22,14 @@ export class JournalSheetPage {
   isLook = false;
   writeImg;
   lookImg;
-  num;
+  num = 0;
   user_id;
   title = '写日志';
   team_id;
   team: any;
+  admin = false;
+  manager = false;
+  team_list = [];
   constructor(public navCtrl: NavController, public navParams: NavParams, public statusBar:StatusBar,
               public writejournalService: WriteJournalService,
               public storage: Storage) {
@@ -46,32 +49,54 @@ export class JournalSheetPage {
     this.storage.get('user')
     .then(res => {
       this.user_id = res.result.res_data.user_id;
-      this.team_id = res.result.res_data.team.team_id;
-      // let bodyOne = {
-      //   uid: this.user_id
-      // }
-      // this.writejournalService.get_sale_team(bodyOne).then(res =>{
-      //   if(res.result.res_code==1 && res.result){
-      //     console.log(res)
-      //     this.team = res.result.res_data
-      //   }
-      // })
-      let body = {
-        today: true,
-        num: true,
-        todayTime: Utils.dateFormat(new Date(), 'yyyy-MM-dd'),
-        uid: this.user_id,
-        team_id: this.team_id
-    }
-    this.writejournalService.get_visit_list(body).then(res =>{
-      if(res.result.res_code==1 && res.result){
-        console.log(res)
-        this.num = res.result.res_data.num
+      if(res.result.res_data.team){
+        this.team_id = res.result.res_data.team.team_id;
+        this.getStartList()
       }
-    })
+      for(let product of res.result.res_data.groups){
+        if (product.name == "group_sale_manager"){
+          this.admin = true
+          this.getStartList()
+          break;
+        }
+        if(product.name == "group_sale_salesman_all_leads"){
+          this.manager = true
+          this.writejournalService.get_sale_team(this.user_id).then(res =>{
+            if(res.result.res_code==1 && res.result){
+              console.log(res)
+              var list = res.result.res_data
+              var length = list.length;
+              for (var i=0; i < length; i++) {
+                this.team_list[i] = list[i].team_id
+                }
+                this.getStartList();
+            }
+           }
+          )
+        }
+      }
     });
   }
 
+  //获取数目
+  getStartList(){
+    let body = {
+      today: true,
+      num: true,
+      todayTime: Utils.dateFormat(new Date(), 'yyyy-MM-dd'),
+      uid: this.user_id,
+      team_id: this.team_id,
+      admin: this.admin,
+      manager: this.manager,
+      team_list: this.team_list
+  }
+  this.writejournalService.get_visit_list(body).then(res =>{
+    if(res.result.res_code==1 && res.result){
+      console.log(res)
+      this.num = res.result.res_data.num
+    }
+  })
+  }
   goBack(){
     this.statusBar.backgroundColorByHexString("#f8f8f8");
     this.statusBar.styleDefault();

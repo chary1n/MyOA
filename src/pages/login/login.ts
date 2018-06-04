@@ -176,7 +176,7 @@ export class LoginPage {
     this.email_src = "assets/img/S_email.png"
   }
 
-  chooseJiangsu() {
+  chooseJiangsu() {  
     this.isSelected0 = false;
     this.isSelected1 = true;
     this.isSelected2 = false;
