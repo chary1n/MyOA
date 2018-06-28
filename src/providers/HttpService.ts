@@ -26,7 +26,9 @@ export class HttpService {
   getAppPath(url: string, type: number = 0) {
     if (type == 1) {
       return HttpService.appUrl + constansts.APPSUBPATH + url;
-    } else {
+    } else if(type==2){
+      return HttpService.appUrl + url;
+    }else {
       return HttpService.appUrl + constansts.OAUBPATH + url;
     }
   }
