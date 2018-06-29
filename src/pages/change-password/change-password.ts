@@ -5,6 +5,7 @@ import { LoginService } from './../login/loginService';
 import { NavParams } from 'ionic-angular/navigation/nav-params';
 import { NavController, IonicPage } from 'ionic-angular';
 import { Component } from '@angular/core';
+import { StatusBar } from '@ionic-native/status-bar';
 
 /**
  * Generated class for the ChangePasswordPage page.
@@ -28,7 +29,7 @@ export class ChangePasswordPage {
   remerberPassword;
   is_me;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private loginservice: LoginService,
+  constructor(public navCtrl: NavController,public statusBar:StatusBar, public navParams: NavParams, private loginservice: LoginService,
     public ctrl: AlertController, public storage: Storage) {
     this.storage.get("user_psd").then(res => {
       if (res) {
@@ -50,6 +51,7 @@ export class ChangePasswordPage {
   }
 
   ionViewDidLoad() {
+    this.statusBar.backgroundColorByHexString('#f8f8f8');
     console.log('ionViewDidLoad ChangePasswordPage');
   }
 

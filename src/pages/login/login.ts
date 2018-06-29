@@ -188,7 +188,7 @@ export class LoginPage {
     this.isSelected3 = false;
     this.isSelected4 = false;
     this.chooseIndex = 0;
-    HttpService.appUrl = "http://192.168.1.163:8111/"
+    HttpService.appUrl = "http://192.168.1.170:8888/"
     // HttpService.appUrl = "http://erp.linkloving.com/"
     this.reset();
     this.img1 = "assets/img/jiangsuruotai_clicked.png"
@@ -219,7 +219,7 @@ export class LoginPage {
     this.isSelected3 = false;
     this.isSelected4 = false;
     this.chooseIndex = 2;
-    HttpService.appUrl = "http://service.linkloving.net:8888/"
+    HttpService.appUrl = "http://dr.robotime.com/"
     // HttpService.appUrl = "http://192.168.1.169:8069/"
     // HttpService.appUrl = "http://192.168.2.64:8069/"
     this.reset();
@@ -235,7 +235,7 @@ export class LoginPage {
     this.isSelected1 = false;
     this.isSelected4 = false;
     this.chooseIndex = 3;
-    HttpService.appUrl = "http://192.168.1.169:8888/"
+    HttpService.appUrl = "http://erp.robotime.com/"
     // HttpService.appUrl = "http://192.168.2.34:8089/"
     this.reset();
     this.img3 = "assets/img/ruobeier_clicked.png"
@@ -251,7 +251,7 @@ export class LoginPage {
     this.isSelected1 = false;
     this.isSelected3 = false;
     this.chooseIndex = 4;
-    HttpService.appUrl = "http://erp.linkloving.com/"
+    HttpService.appUrl = "http://ruban.robotime.com/"
     // HttpService.appUrl = "http://192.168.88.131:8069/"
     this.reset();
     this.img4 = "assets/img/banchang_clicked.png"
@@ -308,6 +308,20 @@ export class LoginPage {
       }).present();
       return
     }
+    // if (this.password == '123456') {
+    //   this.ctrl.create({
+    //     title: '提示',
+    //     subTitle: "你的登录密码是初始密码，请立即修改。",
+    //     buttons: [{
+    //       text: '确定',
+    //       handler: () => {
+    //         this.navCtrl.push('ChangePasswordPage')
+    //       }
+    //     }
+    //     ]
+    //   }).present();
+    //   return
+    // }
     // this.appVersion.getVersionNumber().then((value: string) => {
     this.loginservice.toLogin(this.email, this.password, this.employee, 'value')
       .then(res => {

@@ -32,13 +32,13 @@ export class TabsPage {
           this.need_show_contact = false
         }else if ((new RegExp("若态").test(res.result.res_data.company)) || res.result.res_data.company == "若态"){
             this.need_show_gongdan = "true"
-          //  if (this.need_show_gongdan == "true"){
-          //     this.tabs.select(0); 
-          //   }
-          //   else
-          //   {
-          //     this.tabs.select(1); 
-          //   }
+           if (this.need_show_gongdan == "true"){
+              this.tabs.select(0); 
+            }
+            else
+            {
+              this.tabs.select(1); 
+            }
           }
           else
           {
