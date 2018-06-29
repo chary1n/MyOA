@@ -24,7 +24,7 @@ export class TabsPage {
   need_show_all = false
   constructor(public navCtrl: NavController, public navParams: NavParams,
   public storage:Storage) {
-    // this.tabs.select(1); 
+    
     this.storage.get('user')
       .then(res => {
         console.log(res)

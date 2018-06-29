@@ -121,6 +121,6 @@ export class MePage {
 
 
   changePassword(){
-    this.navCtrl.push('ChangePasswordPage')
+    this.navCtrl.push('ChangePasswordPage',{ is_me: true })
   }
 }
