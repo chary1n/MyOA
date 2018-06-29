@@ -19,7 +19,7 @@ export class LoginService {
             db: dbs,
             app_version:app_version,
         });
-        return this.httpService.postBody('login', body,1);
+        return this.httpService.postBodyNoLoading('login', body,1);
     }
 
     change_password(old_psw,new_psw,confirm_psw,db_name,user_id){
