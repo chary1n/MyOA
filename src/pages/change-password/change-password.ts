@@ -26,6 +26,7 @@ export class ChangePasswordPage {
   user_id
   email;
   remerberPassword;
+  is_me;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private loginservice: LoginService,
     public ctrl: AlertController, public storage: Storage) {
@@ -45,6 +46,7 @@ export class ChangePasswordPage {
         this.remerberPassword = res.remerberPassword
       }
     })
+    this.is_me=this.navParams.get('is_me')
   }
 
   ionViewDidLoad() {
@@ -112,7 +114,12 @@ export class ChangePasswordPage {
                       })
                     }
                     this.storage.set("user", res).then(() => {
-                      this.navCtrl.push('TabsPage');
+                      if(this.is_me){
+                        this.navCtrl.pop()
+                      }else{
+
+                        this.navCtrl.setRoot('TabsPage');
+                      }
                       // this.jpush.setAlias(res.result.res_data.user_id);
                     });
                   }

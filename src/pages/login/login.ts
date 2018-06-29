@@ -69,6 +69,11 @@ export class LoginPage {
         this.remerberPassword = res.remerberPassword
       }
     })
+    this.storage.get('user_psd').then(res => {
+      this.email = res.user_email
+      this.password = res.user_psd
+      this.isDisabled = false
+    })
     this.storage.get("loginIndex").then(res => {
       this.defultChoose(res)
     })
