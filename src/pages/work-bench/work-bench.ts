@@ -53,7 +53,7 @@ export class WorkBenchPage {
   isShowBX = true;
   isShowZZ = true;
   isShowKN = true;
-
+  loginIndex;
   constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage,
     public services :CommonUseServices,public statusbar:StatusBar) {
   }
@@ -73,18 +73,21 @@ export class WorkBenchPage {
             this.isShowZZ = false
             this.isShowKN = false
             this.isShowSG = false
+            this.storage.get("loginIndex").then(res => {
+              this.loginIndex = res
+              if(this.loginIndex==0){
+                this.isShowEngineer = false
+                // this.isShowNormal = false
+                this.isNormal = false
+              }
+            })
     this.storage.get('user')
       .then(res => {
         console.log(res);
         let is_plus = false
         let is_manager = false
         let need_all = false
-      
-        if(res.result.res_data.company == "Robotime"){
-          this.isShowEngineer = false
-          // this.isShowNormal = false
-          this.isNormal = false
-        }
+    
         for (let product of res.result.res_data.groups) {
           if(product.name == 'group_inventory_user'){
             this.isShowKucun = true;
