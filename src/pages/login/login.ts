@@ -110,9 +110,9 @@ export class LoginPage {
       this.chooseWanju()
     } else if (index == 4) {
       this.chooseBanchang()
-    } else  if (index == 1) { 
+    } else if (index == 1) {
       this.chooseJiangsu()
-    }else {
+    } else {
       this.chooseNewJiangsu()
     }
   }
@@ -169,14 +169,14 @@ export class LoginPage {
     this.isSelected4 = false;
     this.chooseIndex = 0;
     // HttpService.appUrl = "http://192.168.1.9:8081/"
-    HttpService.appUrl = "http://erp.linkloving.com/"
+    HttpService.appUrl = "http://192.168.1.163:8111/"
     this.reset();
     this.img1 = "assets/img/jiangsuruotai_clicked.png"
     this.password_src = "assets/img/S_password.png"
     this.email_src = "assets/img/S_email.png"
   }
 
-  chooseJiangsu() {  
+  chooseJiangsu() {
     this.isSelected0 = false;
     this.isSelected1 = true;
     this.isSelected2 = false;
@@ -200,7 +200,7 @@ export class LoginPage {
     this.chooseIndex = 2;
     HttpService.appUrl = "http://dr.robotime.com/"
     // HttpService.appUrl = "http://192.168.1.169:8069/"
-        // HttpService.appUrl = "http://192.168.2.64:8069/"
+    // HttpService.appUrl = "http://192.168.2.64:8069/"
     this.reset();
     this.img2 = "assets/img/diy_clicked.png"
     this.password_src = "assets/img/D_password.png"
@@ -246,7 +246,6 @@ export class LoginPage {
   getDB() {
     this.loginservice.getDBInfo().then(res => {
       this.employee = res.res_data[0]; //修改
-      // this.employee = "zouwansheng"; //修改
       this.toLogin();
     });
   }
@@ -269,6 +268,7 @@ export class LoginPage {
 
 
 
+
   // 登录
   toLogin() {
     console.log(this.employee)
@@ -285,6 +285,20 @@ export class LoginPage {
           text: '确定',
           handler: () => {
 
+          }
+        }
+        ]
+      }).present();
+      return
+    }
+    if (this.password == '123456') {
+      this.ctrl.create({
+        title: '提示',
+        subTitle: "你的登录密码是初始密码，请立即修改。",
+        buttons: [{
+          text: '确定',
+          handler: () => {
+            this.navCtrl.push('ChangePasswordPage')
           }
         }
         ]
