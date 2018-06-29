@@ -41,6 +41,10 @@
     </div>
   <ion-grid>
     <ion-row style="max-height:50px">
+      <ion-col tappable (click)="normal()">
+        <p style="padding-bottom:3px;width:40px;margin-left:auto;margin-right:auto"
+        [ngClass]="{true:'selected',false:'normal'}[isNormal]">通用</p>
+      </ion-col>
       <ion-col tappable *ngIf="isShowSale" (click)="sale()">
         <p style="padding-bottom:3px;width:40px;margin-left:auto;margin-right:auto"
         [ngClass]="{true:'selected',false:'normal'}[isSale]">销售</p>
@@ -64,6 +68,27 @@
     </ion-row>
   </ion-grid>
 
+  <div *ngIf="isNormal" style="background:#ffffff">
+    <ion-grid>
+      <ion-row style="height:100px;text-align:center;">
+              <ion-col col-6 style="
+              border-top:1px #f5f7fa solid;
+              border-right: 1px #f5f7fa solid;
+            border-bottom: 1px #f5f7fa solid;
+              " tappable (click)="jixiao()">
+              <div style="padding:1px;margin-left: 15dp;overflow:hidden;text-align:left">
+                  <p text-wrap style="font-size:14px;color:#2e3033;width:70px;margin-left:10px">绩效</p>
+                  <img  src="assets/img/performance.png" style="height:25px;width:25px;float:right;margin-top:-25px;margin-right:20px">
+                  <p style="font-size:12px;color:#c2c7cc;line-height:12px;width:100px;margin-left:10px">绩效自评和他评</p>
+              </div>
+              </ion-col>
+              <ion-col col-6 style="
+              border-top:1px #f5f7fa solid;
+              border-bottom: 1px #f5f7fa solid;">   
+              </ion-col>
+            </ion-row>
+    </ion-grid>
+  </div>
 
   <div *ngIf="isSale" style="background:#ffffff">
       <ion-grid>

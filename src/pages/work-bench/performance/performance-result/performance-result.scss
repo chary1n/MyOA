@@ -1,0 +1,25 @@
+page-performance-result {
+    .image1{ 
+        border-radius:200px; 
+        width: 25px;
+        height: 25px;
+    }
+    .progress-outer {
+        width: 60%;
+        margin: 10px 2%;
+        padding: 2px;
+        text-align: center;
+        background-color: #f4f4f4;
+        border: 1px solid #dcdcdc;
+        color: #fff;
+        height: 15px;
+    }
+ 
+    .progress-inner {
+        min-width: 15%;
+        white-space: nowrap;
+        overflow: hidden;
+        height: 10px;
+        background-color: map-get($colors, primary);
+    }
+}

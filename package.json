@@ -124,7 +124,6 @@
             "cordova-plugin-device": {},
             "cordova-plugin-splashscreen": {},
             "cordova-plugin-statusbar": {},
-            "cordova-plugin-whitelist": {},
             "ionic-plugin-keyboard": {},
             "cordova-plugin-http": {},
             "cordova-plugin-camera": {
@@ -171,7 +170,8 @@
             "phonegap-nfc": {
                 "NFC_USAGE_DESCRIPTION": "Read NFC Tags"
             },
-            "cordova-plugin-compat": {}
+            "cordova-plugin-compat": {},
+            "cordova-plugin-whitelist": {}
         },
         "dependencies": {
             "@angular/common": "4.1.3",
