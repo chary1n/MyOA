@@ -1,0 +1,84 @@
+<!--
+  Generated template for the PerformanceResultPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+    <ion-navbar color="gongdan-color" hideBackButton="true">
+        <ion-buttons left>
+            <button ion-button icon-only (click)="goBack()">
+              <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+            </button>
+          </ion-buttons>
+      <ion-title>考评结果</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+    <ion-item-group no-lines>
+        <ion-item style="border-bottom:#f0f2f5 1px solid;">
+            <p text-wrap style="font-size:13px;color:#1eabfe;margin-right:25px;float: right;margin-top: 0px">已完成</p>
+            <img src="assets/img/work_bench/reportForms.png" class="image1" style="float:left;">   
+            <p text-wrap style="font-size:80%;color:gray;line-height:27px;margin-left: 30px;">王小白</p>
+        </ion-item>
+      </ion-item-group>
+      <div style="border-bottom:#f0f2f5 1px solid;">
+        <p style="font-size:13px;color:#949ca1;float: right;margin-top: 0px;margin-right:180px">js5643738e88</p>
+        <p style="font-size:13px;color:#949ca1;margin-left: 20px;">单号</p>
+        <p style="font-size:13px;color:#949ca1;float: right;margin-top: 0px;margin-right:180px">js5643738e88</p>
+        <p style="font-size:13px;color:#949ca1;margin-left: 20px;">考核周期</p>
+        <p style="font-size:13px;color:#949ca1;float: right;margin-top: 0px;margin-right:180px">js5643738e88</p>
+        <p style="font-size:13px;color:#949ca1;margin-left: 20px;">部门</p>
+        <p style="font-size:13px;color:#949ca1;float: right;margin-top: 0px;margin-right:180px">js5643738e88</p>
+        <p style="font-size:13px;color:#949ca1;margin-left: 20px;">岗位</p>
+      </div>
+      <ion-item-group no-lines>
+          <ion-item no-lines>
+              <p text-wrap style="font-size:18px;color:red;margin-right:25px;float: right;margin-top: 0px">75</p>
+              <p text-wrap style="font-size:14px;line-height:27px;margin-left: 20px;">最终结果</p>
+          </ion-item>
+          <ion-item no-lines>
+              <p text-wrap style="font-size:14px;margin-left:20px;margin-top: 0px">主管评价</p>
+              <p text-wrap style="font-size:12px;color:gray;line-height:27px;margin-left: 20px;">lwoeoihasdflslklakhsdihosadhoahsdfhalsdjahsdohfaosdhlahjda</p>
+          </ion-item>
+          <ion-item no-lines>
+              <p text-wrap style="font-size:18px;margin-right:25px;float: right;margin-top: 0px">75</p>
+              <p text-wrap style="font-size:14px;line-height:27px;margin-left: 20px;">考评结果</p>
+              <p style="font-size:10px;color:gray;margin-left: 20px">(满分100分，详情请看下方的考评指标/n（计算公式：员工自评*30%+主管评分*40%+评价人4*30%）</p>
+          </ion-item>
+          <ion-item no-lines>
+              <p text-wrap style="font-size:14px;margin-left:20px;margin-top: 0px">考评人</p>
+              <div>
+                  <span style="color: white;margin-left: 20px;width:38px;height:38px;border-radius:38px;background-color:#2597ec;display:inline-block;text-align:center;padding-top: 8px;">80</span>
+                  <p style="font-size: 12px;color: #949ca1;margin-left: 27px">自评</p>
+              </div>
+          </ion-item>
+      </ion-item-group>
+      <div style="height: 10px;line-height: 10px;background:#f0f2f5;"></div>
+  <ion-grid style="padding: 0px">
+      <ion-row class="row_class" align-items-center>
+        <ion-col style="padding: 0px;border-bottom:#f0f2f5 1px solid;">
+        <div align="center">
+          <p>第一部分</p> 
+        </div>
+      </ion-col>        
+      </ion-row>
+  </ion-grid>
+  <ion-item-group no-lines style="border-bottom:#f0f2f5 1px solid;">
+        <div>
+          <span style="margin-left: 15px;width:8px;height:8px;border-radius:8px;background-color:#2597ec;display:inline-block;float: left;margin-top: 5px"></span>
+          <h4 style="font-size: 14px;margin-left: 35px">能力评价</h4>
+        </div>
+        <div>
+            <div class="progress-outer" style="float: right;margin-top: 0px;margin-right: 10px">
+                <div class="progress-inner" [style.width]="progress + '%'">
+                </div>
+            </div>
+            <p style="font-size: 13px;color: #949ca1;margin-left: 15px">学习能力</p>
+        </div>
+  </ion-item-group>
+</ion-content>
