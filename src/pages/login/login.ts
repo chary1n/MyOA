@@ -188,7 +188,7 @@ export class LoginPage {
     this.isSelected3 = false;
     this.isSelected4 = false;
     this.chooseIndex = 0;
-    HttpService.appUrl = "http://192.168.1.170:8888/"
+    HttpService.appUrl = "http://service.linkloving.net:8888/"
     // HttpService.appUrl = "http://erp.linkloving.com/"
     this.reset();
     this.img1 = "assets/img/jiangsuruotai_clicked.png"
@@ -205,7 +205,7 @@ export class LoginPage {
     this.chooseIndex = 1;
     // HttpService.appUrl = "http://192.168.1.170:8069/"
     // HttpService.appUrl = "http://192.168.1.170:8888/"
-    HttpService.appUrl = "http://erp.robotime.com/"
+    HttpService.appUrl = "http://js.robotime.com/"
     this.reset();
     this.img1 = "assets/img/jiangsuruotai_clicked.png"
     this.password_src = "assets/img/S_password.png"
