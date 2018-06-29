@@ -64,7 +64,7 @@
         "cordova-plugin-appavailability": "^0.4.2",
         "cordova-plugin-appminimize": "^1.0.0",
         "cordova-plugin-ble-central": "^1.1.4",
-        "cordova-plugin-camera": "^2.4.1",
+        "cordova-plugin-camera": "^4.0.3",
         "cordova-plugin-compat": "^1.2.0",
         "cordova-plugin-console": "^1.1.0",
         "cordova-plugin-contacts": "^2.3.1",
@@ -126,10 +126,6 @@
             "cordova-plugin-statusbar": {},
             "ionic-plugin-keyboard": {},
             "cordova-plugin-http": {},
-            "cordova-plugin-camera": {
-                "CAMERA_USAGE_DESCRIPTION": " ",
-                "PHOTOLIBRARY_USAGE_DESCRIPTION": " "
-            },
             "cordova-plugin-file-transfer": {},
             "cordova-plugin-app-version": {},
             "cordova-plugin-x-toast": {},
@@ -171,7 +167,8 @@
                 "NFC_USAGE_DESCRIPTION": "Read NFC Tags"
             },
             "cordova-plugin-compat": {},
-            "cordova-plugin-whitelist": {}
+            "cordova-plugin-whitelist": {},
+            "cordova-plugin-camera": {}
         },
         "dependencies": {
             "@angular/common": "4.1.3",
