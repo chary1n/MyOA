@@ -7,7 +7,7 @@ import { JPush } from '../../providers/JPush'
 
 import { LoginService } from './loginService';
 import { Component, ErrorHandler } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
 import { FormBuilder, Validators } from '@angular/forms';
 
 
@@ -59,7 +59,7 @@ export class LoginPage {
   chooseIndex = 0;
   email_src;
   password_src;
-  constructor(public navCtrl: NavController, public navParams: NavParams,
+  constructor(public navCtrl: NavController, public navParams: NavParams,public loading:LoadingController,
     private loginservice: LoginService, private myHttp: Http, private storage: Storage, public platform: Platform, public appVersion: AppVersion,
     public jpush: JPush, public urlServer: UrlServer, public ctrl: AlertController, private inAppBrowser: InAppBrowser,
   ) {
@@ -137,10 +137,17 @@ export class LoginPage {
             this.navCtrl.setRoot('TabsPage');
             console.log(res)
             this.appVersion.getVersionNumber().then((value: string) => {
+              let loading = this.loading.create({
+                content: '加载中',
+                enableBackdropDismiss: true
+              });
+              loading.present();  
               this.loginservice.toLogin(res.user_email, res.user_psd, res.db_name, value)
                 .then(res => {
+                  loading.dismiss()
                   console.log(res);
                   if (res.result && res.result.res_code == 1) {
+                    loading.dismiss()
                     HttpService.user_id = res.result.res_data.user_id;
                     HttpService.user = res.result.res_data;
                     this.storage.set('loginIndex', this.chooseIndex)
@@ -163,8 +170,11 @@ export class LoginPage {
                     }
                   }
                   else {
+                    loading.dismiss()
                     this.navCtrl.setRoot('LoginPage')
                   }
+                }).catch((error) => {
+                  loading.dismiss()
                 })
             })
 
@@ -323,10 +333,17 @@ export class LoginPage {
     //   return
     // }
     // this.appVersion.getVersionNumber().then((value: string) => {
+      let loading = this.loading.create({
+        content: '加载中',
+        enableBackdropDismiss: true
+      });
+      loading.present(); 
     this.loginservice.toLogin(this.email, this.password, this.employee, 'value')
       .then(res => {
+        loading.dismiss()
         console.log(res);
         if (res.result && res.result.res_code == 1) {
+          loading.dismiss()
           HttpService.user_id = res.result.res_data.user_id;
           HttpService.user = res.result.res_data;
           this.storage.set("user_psd", {
@@ -389,13 +406,17 @@ export class LoginPage {
             return
           }
           this.storage.set("user", res).then(() => {
-            this.navCtrl.setRoot('TabsPage');
+            this.navCtrl.push('TabsPage');
             // this.jpush.setAlias(res.result.res_data.user_id);
           });
         }
         else if (res.result && res.result.res_code == -1) {
+          loading.dismiss()
           alert(res.result.res_data.error);
         }
+      }).catch((error) => {
+          loading.dismiss()
+        console.log('Error getting location', error);
       })
     // })
 
