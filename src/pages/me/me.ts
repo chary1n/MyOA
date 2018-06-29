@@ -26,6 +26,7 @@ export class MePage {
   job:any;
   versionNumber :any ;
   user_id;
+  loginIndex;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public storage: Storage,
     private alertCtrl: AlertController,
@@ -42,6 +43,9 @@ export class MePage {
           this.versionNumber = value
         });
       }
+      this.storage.get("loginIndex").then(res => {
+        this.loginIndex = res
+      })
   }
 
   ionViewDidLoad() {
@@ -115,4 +119,8 @@ export class MePage {
     this.navCtrl.push('KaoqinPage')
   }
 
+
+  changePassword(){
+    this.navCtrl.push('ChangePasswordPage')
+  }
 }

@@ -141,6 +141,21 @@ export class LoginPage {
                     this.storage.set('loginIndex', this.chooseIndex)
                     this.storage.set("user", res).then(() => {
                     });
+                    if (res.user_psd == '123456'&&this.chooseIndex == 0) {
+                      this.ctrl.create({
+                        title: '提示',
+                        subTitle: "你的登录密码是初始密码，请立即修改。",
+                        enableBackdropDismiss :false,
+                        buttons: [{
+                          text: '确定',
+                          handler: () => {
+                            this.navCtrl.push('ChangePasswordPage')
+                          }
+                        }
+                        ]
+                      }).present();
+                      return
+                    }
                   }
                   else {
                     this.navCtrl.setRoot('LoginPage')
@@ -199,7 +214,7 @@ export class LoginPage {
     this.isSelected3 = false;
     this.isSelected4 = false;
     this.chooseIndex = 2;
-    HttpService.appUrl = "http://service.linkloving.net:8888/"
+    HttpService.appUrl = "http://dr.robotime.com/"
     // HttpService.appUrl = "http://192.168.1.169:8069/"
     // HttpService.appUrl = "http://192.168.2.64:8069/"
     this.reset();
@@ -215,7 +230,7 @@ export class LoginPage {
     this.isSelected1 = false;
     this.isSelected4 = false;
     this.chooseIndex = 3;
-    HttpService.appUrl = "http://192.168.1.169:8888/"
+    HttpService.appUrl = "http://erp.robotime.com/"
     // HttpService.appUrl = "http://192.168.2.34:8089/"
     this.reset();
     this.img3 = "assets/img/ruobeier_clicked.png"
@@ -231,7 +246,7 @@ export class LoginPage {
     this.isSelected1 = false;
     this.isSelected3 = false;
     this.chooseIndex = 4;
-    HttpService.appUrl = "http://erp.linkloving.com/"
+    HttpService.appUrl = "http://ruban.robotime.com/"
     // HttpService.appUrl = "http://192.168.88.131:8069/"
     this.reset();
     this.img4 = "assets/img/banchang_clicked.png"
@@ -352,6 +367,21 @@ export class LoginPage {
                 this.storage.set("history_users", arr);
               }
             })
+          }
+          if (this.password == '123456'&&this.chooseIndex == 0) {
+            this.ctrl.create({
+              title: '提示',
+              subTitle: "你的登录密码是初始密码，请立即修改。",
+              enableBackdropDismiss :false,
+              buttons: [{
+                text: '确定',
+                handler: () => {
+                  this.navCtrl.push('ChangePasswordPage')
+                }
+              }
+              ]
+            }).present();
+            return
           }
           this.storage.set("user", res).then(() => {
             this.navCtrl.setRoot('TabsPage');

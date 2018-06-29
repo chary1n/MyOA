@@ -22,17 +22,15 @@ export class LoginService {
         return this.httpService.postBody('login', body,1);
     }
 
-    change_password(old_psw,new_psw,confirm_psw){
-        let body = JSON.stringify([{
-            'name': 'old_pwd',
-            'value':old_psw,
-        },{
-            'name': 'new_password',
-            'value':new_psw,
-        },{
-            'name': 'confirm_pwd',
-            'value':confirm_psw,
-        }]);
-        return this.httpService.postBody('/web/session/change_password', body,2);
+    change_password(old_psw,new_psw,confirm_psw,db_name,user_id){
+        let body = JSON.stringify({
+            old_psw: old_psw,
+            new_psw:new_psw,
+            confirm_psw:confirm_psw,
+            uid:user_id,
+            db_name :db_name
+        }
+    );
+        return this.httpService.postBody('web/session/change_password_oa', body,2);
     }
 }
