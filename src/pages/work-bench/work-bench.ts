@@ -22,7 +22,7 @@ export class WorkBenchPage {
   isBigPay = true;
   isShowEngineerPoint = false;//工程小红点
   isShowBuyPoint = false;//采购小红点
-  isNormal = true;//通用
+  isNormal = false;//通用
   isSale = false;//销售
   isBuy = false;//采购
   isEngineer;//工程
@@ -33,7 +33,7 @@ export class WorkBenchPage {
   isShowPurchase = false;
   isShowSale = false;
   isShowKucun = false;
-  isShowNormal = true;
+  isShowNormal = false;
   isShowEngineer = true;
   isHR = false;
   isShowZiJin = false;
@@ -82,7 +82,7 @@ export class WorkBenchPage {
       
         if(res.result.res_data.company == "Robotime"){
           this.isShowEngineer = false
-          this.isShowNormal = false
+          // this.isShowNormal = false
           this.isNormal = false
         }
         for (let product of res.result.res_data.groups) {

@@ -22,7 +22,8 @@ export class EditInformationPage {
   name: any;
   user_heard: any;
   company: any;
-  job: any;
+  job='';
+  jobName;
   department: any;
   barcode: any;
   phone: any;
@@ -40,9 +41,13 @@ export class EditInformationPage {
       this.name = res.result.res_data.name;
       this.user_heard = res.result.res_data.user_ava;
       this.company = res.result.res_data.company;
-      this.job = res.result.res_data.job;
-      if (this.job == false) {
+      this.jobName = res.result.res_data.job;
+      if (this.jobName == false) {
         this.job = ''
+      }else{
+        for(var i=0;i<this.jobName.length;i++){
+          this.job = this.job + this.jobName[i]+','
+        }
       }
       this.department = res.result.res_data.department;
       if (this.department == false) {
