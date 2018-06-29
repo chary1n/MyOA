@@ -50,8 +50,12 @@ export class ChangePasswordPage {
     this.is_me=this.navParams.get('is_me')
   }
 
+  ionViewWillEnter(){
+    this.statusBar.backgroundColorByHexString("#2597ec");
+    this.statusBar.styleLightContent();
+  }
+
   ionViewDidLoad() {
-    this.statusBar.backgroundColorByHexString('#f8f8f8');
     console.log('ionViewDidLoad ChangePasswordPage');
   }
 
