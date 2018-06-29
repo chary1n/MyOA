@@ -38,6 +38,11 @@
         <!-- <ion-icon name="brush" item-start color="secondary"></ion-icon> -->
         <ion-label style="color:2e3033;font-size:14px">版本号{{versionNumber}}</ion-label>
       </ion-item>
+      <ion-item   *ngIf="loginIndex==0"   style="min-height:50px" (click)='changePassword()'>
+          <img item-start src="assets/img/edit_password.png" style="width:23px;height:23px"> 
+          <!-- <ion-icon name="brush" item-start color="secondary"></ion-icon> -->
+          <ion-label style="color:2e3033;font-size:14px">修改密码</ion-label>
+        </ion-item>
     </ion-list>
     <div  style="text-align:center;background:white;line-height:50px;height:50px" tappable (click)="outToLogin()">
         <p style="color:2e3033;font-size:18px">退出登录</p>
