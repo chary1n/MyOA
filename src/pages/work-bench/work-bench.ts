@@ -22,6 +22,7 @@ export class WorkBenchPage {
   isBigPay = true;
   isShowEngineerPoint = false;//工程小红点
   isShowBuyPoint = false;//采购小红点
+  isNormal = true;//通用
   isSale = false;//销售
   isBuy = false;//采购
   isEngineer;//工程
@@ -84,23 +85,9 @@ export class WorkBenchPage {
           }
           if (product.name == 'group_sale_salesman' || product.name == 'group_sale_manager' || product.name == 'group_sale_salesman_all_leads') {
             this.isShowSale = true;
-            this.isSale = true
-            this.isBuy = false
-            this.isEngineer = false
-            this.isMoney = false
           }
           if (product.name == 'group_purchase_user' || product.name == 'group_purchase_manager') {
             this.isShowPurchase = true;
-            this.isBuy = true
-            this.isSale = false
-            this.isEngineer = false
-            this.isMoney = false
-          }
-          if(!this.isSale && !this.isBuy){
-            this.isEngineer = true
-            this.isBuy = false
-            this.isSale = false
-            this.isMoney = false
           }
           if (product.name == 'group_account_manager') {
             this.isShowZiJin = true;
@@ -180,9 +167,11 @@ export class WorkBenchPage {
           }
             }
           })
-          console.log('this.currenTab = '+this.currenTab+'this.isSale = '+this.isSale
-        +'this.isBuy = '+this.isBuy+'this.isEngineer = '+this.isEngineer)
+          
           switch(this.currenTab){
+            case 5:
+            this.normal()
+            break
             case 1:
             this.sale()
             break
@@ -198,7 +187,16 @@ export class WorkBenchPage {
           }
       });
   }
- 
+
+ //点击通用
+  normal(){
+    this.currenTab = 5
+    this.isNormal = true
+    this.isSale = false
+    this.isBuy = false
+    this.isEngineer = false
+    this.isMoney = false
+  }
 //点击销售
   sale(){
     this.currenTab = 1
@@ -206,6 +204,7 @@ export class WorkBenchPage {
     this.isBuy = false
     this.isEngineer = false
     this.isMoney = false
+    this.isNormal = false
   }
   //点击采购
   buy(){
@@ -214,6 +213,7 @@ export class WorkBenchPage {
     this.isBuy = true
     this.isEngineer = false
     this.isMoney = false
+    this.isNormal = false
   }
   //点击工程
   engineer(){
@@ -222,6 +222,7 @@ export class WorkBenchPage {
     this.isBuy = false
     this.isEngineer = true
     this.isMoney = false
+    this.isNormal = false
   }
   //财务
   money(){
@@ -230,6 +231,7 @@ export class WorkBenchPage {
     this.isBuy = false
     this.isEngineer = false
     this.isMoney = true
+    this.isNormal = false
   }
   clickInComingWareHouse() {
     this.navCtrl.push('IncomingPage');
@@ -303,5 +305,9 @@ export class WorkBenchPage {
 
   journalSheet(){
     this.navCtrl.push('JournalSheetPage')
+  }
+
+  jixiao(){
+    this.navCtrl.push('PerformancePage')
   }
 }
