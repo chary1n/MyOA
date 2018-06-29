@@ -141,6 +141,21 @@ export class LoginPage {
                     this.storage.set('loginIndex', this.chooseIndex)
                     this.storage.set("user", res).then(() => {
                     });
+                    if (res.user_psd == '123456'&&this.chooseIndex == 0) {
+                      this.ctrl.create({
+                        title: '提示',
+                        subTitle: "你的登录密码是初始密码，请立即修改。",
+                        enableBackdropDismiss :false,
+                        buttons: [{
+                          text: '确定',
+                          handler: () => {
+                            this.navCtrl.push('ChangePasswordPage')
+                          }
+                        }
+                        ]
+                      }).present();
+                      return
+                    }
                   }
                   else {
                     this.navCtrl.setRoot('LoginPage')
@@ -291,20 +306,6 @@ export class LoginPage {
       }).present();
       return
     }
-    if (this.password == '123456') {
-      this.ctrl.create({
-        title: '提示',
-        subTitle: "你的登录密码是初始密码，请立即修改。",
-        buttons: [{
-          text: '确定',
-          handler: () => {
-            this.navCtrl.push('ChangePasswordPage')
-          }
-        }
-        ]
-      }).present();
-      return
-    }
     // this.appVersion.getVersionNumber().then((value: string) => {
     this.loginservice.toLogin(this.email, this.password, this.employee, 'value')
       .then(res => {
@@ -355,6 +356,21 @@ export class LoginPage {
                 this.storage.set("history_users", arr);
               }
             })
+          }
+          if (this.password == '123456'&&this.chooseIndex == 0) {
+            this.ctrl.create({
+              title: '提示',
+              subTitle: "你的登录密码是初始密码，请立即修改。",
+              enableBackdropDismiss :false,
+              buttons: [{
+                text: '确定',
+                handler: () => {
+                  this.navCtrl.push('ChangePasswordPage')
+                }
+              }
+              ]
+            }).present();
+            return
           }
           this.storage.set("user", res).then(() => {
             this.navCtrl.setRoot('TabsPage');
