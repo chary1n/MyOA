@@ -45,8 +45,12 @@ export class EditInformationPage {
       if (this.jobName == false) {
         this.job = ''
       }else{
-        for(var i=0;i<this.jobName.length;i++){
-          this.job = this.job + this.jobName[i]+','
+        if(this.jobName.length==1){
+          this.job = this.jobName[0]
+        }else{
+          for(var i=0;i<this.jobName.length;i++){
+            this.job = this.job + this.jobName[i]+','
+          }
         }
       }
       this.department = res.result.res_data.department;

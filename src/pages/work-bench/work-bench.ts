@@ -91,9 +91,23 @@ export class WorkBenchPage {
           }
           if (product.name == 'group_sale_salesman' || product.name == 'group_sale_manager' || product.name == 'group_sale_salesman_all_leads') {
             this.isShowSale = true;
+            this.isSale = true
+            this.isBuy = false
+            this.isEngineer = false
+            this.isMoney = false
           }
           if (product.name == 'group_purchase_user' || product.name == 'group_purchase_manager') {
             this.isShowPurchase = true;
+            this.isBuy = true
+            this.isSale = false
+            this.isEngineer = false
+            this.isMoney = false
+          }
+          if(!this.isSale && !this.isBuy){
+            this.isEngineer = true
+            this.isBuy = false
+            this.isSale = false
+            this.isMoney = false
           }
           if (product.name == 'group_account_manager') {
             this.isShowZiJin = true;
@@ -175,9 +189,9 @@ export class WorkBenchPage {
           })
           
           switch(this.currenTab){
-            case 5:
-            this.normal()
-            break
+            // case 5:
+            // this.normal()
+            // break
             case 1:
             this.sale()
             break
