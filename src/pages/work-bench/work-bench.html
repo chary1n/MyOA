@@ -41,7 +41,7 @@
     </div>
   <ion-grid>
     <ion-row style="max-height:50px">
-      <ion-col tappable (click)="normal()">
+      <ion-col tappable *ngIf="isShowNormal" (click)="normal()">
         <p style="padding-bottom:3px;width:40px;margin-left:auto;margin-right:auto"
         [ngClass]="{true:'selected',false:'normal'}[isNormal]">通用</p>
       </ion-col>
@@ -55,7 +55,7 @@
           <span  *ngIf="isShowBuyPoint" style="margin-top:6px;position:absolute;width:8px;height:8px;border-radius:8px;background-color:red;display:inline-block;color:white;text-align:center;margin-left:5px"></span>
         </p>
         </ion-col>
-        <ion-col tappable (click)="engineer()">
+        <ion-col tappable *ngIf="isShowEngineer" (click)="engineer()">
             <p style="padding-bottom:3px;width:40px;margin-left:auto;margin-right:auto"
             [ngClass]="{true:'selected',false:'normal'}[isEngineer]">工程
             <span  *ngIf="isShowEngineerPoint" style="margin-top:6px;position:absolute;width:8px;height:8px;border-radius:8px;background-color:red;display:inline-block;color:white;text-align:center;margin-left:5px"></span>

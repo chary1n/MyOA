@@ -168,13 +168,8 @@ export class LoginPage {
     this.isSelected3 = false;
     this.isSelected4 = false;
     this.chooseIndex = 0;
-<<<<<<< HEAD
     HttpService.appUrl = "http://192.168.1.170:8888/"
     // HttpService.appUrl = "http://erp.linkloving.com/"
-=======
-    // HttpService.appUrl = "http://192.168.1.9:8081/"
-    HttpService.appUrl = "http://192.168.1.163:8111/"
->>>>>>> bbcab5c43379aa254cf2eb4db519edececfe89e6
     this.reset();
     this.img1 = "assets/img/jiangsuruotai_clicked.png"
     this.password_src = "assets/img/S_password.png"
@@ -189,12 +184,8 @@ export class LoginPage {
     this.isSelected4 = false;
     this.chooseIndex = 1;
     // HttpService.appUrl = "http://192.168.1.170:8069/"
-<<<<<<< HEAD
     // HttpService.appUrl = "http://192.168.1.170:8888/"
     HttpService.appUrl = "http://erp.robotime.com/"
-=======
-    HttpService.appUrl = "http://service.linkloving.net:8888/"
->>>>>>> bbcab5c43379aa254cf2eb4db519edececfe89e6
     this.reset();
     this.img1 = "assets/img/jiangsuruotai_clicked.png"
     this.password_src = "assets/img/S_password.png"
@@ -297,20 +288,20 @@ export class LoginPage {
       }).present();
       return
     }
-    if (this.password == '123456') {
-      this.ctrl.create({
-        title: '提示',
-        subTitle: "你的登录密码是初始密码，请立即修改。",
-        buttons: [{
-          text: '确定',
-          handler: () => {
-            this.navCtrl.push('ChangePasswordPage')
-          }
-        }
-        ]
-      }).present();
-      return
-    }
+    // if (this.password == '123456') {
+    //   this.ctrl.create({
+    //     title: '提示',
+    //     subTitle: "你的登录密码是初始密码，请立即修改。",
+    //     buttons: [{
+    //       text: '确定',
+    //       handler: () => {
+    //         this.navCtrl.push('ChangePasswordPage')
+    //       }
+    //     }
+    //     ]
+    //   }).present();
+    //   return
+    // }
     // this.appVersion.getVersionNumber().then((value: string) => {
     this.loginservice.toLogin(this.email, this.password, this.employee, 'value')
       .then(res => {

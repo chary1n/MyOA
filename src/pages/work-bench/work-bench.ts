@@ -33,6 +33,8 @@ export class WorkBenchPage {
   isShowPurchase = false;
   isShowSale = false;
   isShowKucun = false;
+  isShowNormal = true;
+  isShowEngineer = true;
   isHR = false;
   isShowZiJin = false;
   isZZList = false;
@@ -78,7 +80,11 @@ export class WorkBenchPage {
         let is_manager = false
         let need_all = false
       
-        
+        if(res.result.res_data.company == "Robotime"){
+          this.isShowEngineer = false
+          this.isShowNormal = false
+          this.isNormal = false
+        }
         for (let product of res.result.res_data.groups) {
           if(product.name == 'group_inventory_user'){
             this.isShowKucun = true;
