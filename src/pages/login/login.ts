@@ -168,13 +168,8 @@ export class LoginPage {
     this.isSelected3 = false;
     this.isSelected4 = false;
     this.chooseIndex = 0;
-<<<<<<< HEAD
-    HttpService.appUrl = "http://192.168.1.170:8888/"
-    // HttpService.appUrl = "http://erp.linkloving.com/"
-=======
-    // HttpService.appUrl = "http://192.168.1.9:8081/"
-    HttpService.appUrl = "http://192.168.1.163:8111/"
->>>>>>> bbcab5c43379aa254cf2eb4db519edececfe89e6
+    // HttpService.appUrl = "http://192.168.1.170:8888/"
+    HttpService.appUrl = "http://service.linkloving.net:8888/"
     this.reset();
     this.img1 = "assets/img/jiangsuruotai_clicked.png"
     this.password_src = "assets/img/S_password.png"
@@ -189,12 +184,8 @@ export class LoginPage {
     this.isSelected4 = false;
     this.chooseIndex = 1;
     // HttpService.appUrl = "http://192.168.1.170:8069/"
-<<<<<<< HEAD
     // HttpService.appUrl = "http://192.168.1.170:8888/"
-    HttpService.appUrl = "http://erp.robotime.com/"
-=======
-    HttpService.appUrl = "http://service.linkloving.net:8888/"
->>>>>>> bbcab5c43379aa254cf2eb4db519edececfe89e6
+    HttpService.appUrl = "http://js.robotime.com/"
     this.reset();
     this.img1 = "assets/img/jiangsuruotai_clicked.png"
     this.password_src = "assets/img/S_password.png"
@@ -208,7 +199,7 @@ export class LoginPage {
     this.isSelected3 = false;
     this.isSelected4 = false;
     this.chooseIndex = 2;
-    HttpService.appUrl = "http://service.linkloving.net:8888/"
+    HttpService.appUrl = "http://dr.robotime.com/"
     // HttpService.appUrl = "http://192.168.1.169:8069/"
     // HttpService.appUrl = "http://192.168.2.64:8069/"
     this.reset();
@@ -224,7 +215,7 @@ export class LoginPage {
     this.isSelected1 = false;
     this.isSelected4 = false;
     this.chooseIndex = 3;
-    HttpService.appUrl = "http://192.168.1.169:8888/"
+    HttpService.appUrl = "http://erp.robotime.com/"
     // HttpService.appUrl = "http://192.168.2.34:8089/"
     this.reset();
     this.img3 = "assets/img/ruobeier_clicked.png"
@@ -240,7 +231,7 @@ export class LoginPage {
     this.isSelected1 = false;
     this.isSelected3 = false;
     this.chooseIndex = 4;
-    HttpService.appUrl = "http://erp.linkloving.com/"
+    HttpService.appUrl = "http://ruban.robotime.com/"
     // HttpService.appUrl = "http://192.168.88.131:8069/"
     this.reset();
     this.img4 = "assets/img/banchang_clicked.png"
