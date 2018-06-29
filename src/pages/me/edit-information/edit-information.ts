@@ -42,15 +42,25 @@ export class EditInformationPage {
       this.user_heard = res.result.res_data.user_ava;
       this.company = res.result.res_data.company;
       this.jobName = res.result.res_data.job;
-      if (this.jobName == false) {
-        this.job = ''
-      }else{
-        if(this.jobName.length==1){
-          this.job = this.jobName[0]
+      if(res.result.res_data.company == "Robotime"){
+        if (this.jobName == false) {
+          this.job = ''
         }else{
-          for(var i=0;i<this.jobName.length;i++){
-            this.job = this.job + this.jobName[i]+','
+          if(this.jobName.length==1){
+            this.job = this.jobName[0]
+          }else{
+            let length = this.jobName.length
+            for(var i=0;i<length-1;i++){
+              this.job = this.job + this.jobName[i]+','
+            }
+            this.job = this.job+this.jobName[length-1]
           }
+        }
+      }else{
+        if (this.jobName == false) {
+          this.job = ''
+        }else{
+          this.job = this.jobName
         }
       }
       this.department = res.result.res_data.department;
