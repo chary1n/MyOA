@@ -79,6 +79,14 @@ export class HttpService {
       ));
   }
 
+  public getWithUrlNoLoadingNoCatch(url: string) {
+    return this.http.get(url)
+      .toPromise()
+      .then(res => this.handleSuccess(
+        res.json())
+      )
+  }
+
   //type 不填是OA,填1是linkloving_app_apu
   public get(url: string, paramObj: any, type: number = 0) {
     let loading = this.loadingCreate(true);

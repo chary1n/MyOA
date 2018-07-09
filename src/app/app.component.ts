@@ -45,12 +45,12 @@ export class MyApp {
       statusBar.backgroundColorByHexString('#f8f8f8');
       splashScreen.hide();
 
-      // if (this.platform.is("android")) {
-      //   this.getVersionNumber();
-      // }
-      // else if (this.platform.is('ios')) {
-      //   this.getiOSVersionNumber();
-      // }
+      if (this.platform.is("android")) {
+        this.getVersionNumber();
+      }
+      else if (this.platform.is('ios')) {
+        this.getiOSVersionNumber();
+      }
     });
   }
   getVersionNumber(): Promise<string> {
