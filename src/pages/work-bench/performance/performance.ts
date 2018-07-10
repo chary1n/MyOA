@@ -129,7 +129,7 @@ export class PerformancePage {
 
   isShowStart(item){
     let start = false
-    if(item.rt_is_need_self && item.performanceDetail && item.performanceDetail.rt_state=='2'){
+    if(item.rt_state=='2' || item.rt_is_need_self && item.performanceDetail && item.performanceDetail.rt_state=='2'){
       start = false
     }else{
       start = true

@@ -33,6 +33,10 @@ export class PerformanceStartPage {
               this.item = this.navParams.get('item');
               console.log("item = "+ this.item)
               this.typeList = this.item.typeList
+              this.rt_achievement = this.item.rt_achievement
+              this.rt_advice = this.item.rt_advice
+              this.rt_insufficient = this.item.rt_insufficient
+              this.rt_salary_expectation = this.item.rt_salary_expectation
   }
 
   ionViewDidLoad() {
@@ -68,7 +72,9 @@ export class PerformanceStartPage {
     let midList = []
     let length = this.typeList.length
     for(var i=0; i<length; i++){
+      midList = []
       for(var j=0; j<this.typeList[i].tagList.length; j++){
+        list = []
         for(var k=0; k<this.typeList[i].tagList[j].subType.length; k++){
           list[k] = {
             'type_id': this.typeList[i].id,

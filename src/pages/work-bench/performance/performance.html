@@ -19,12 +19,12 @@
 
 
 <ion-content>
-    <ion-item align="center" no-lines style="height:40px;min-height:40px;background-color:#2597ec;">
+    <ion-item align="center" no-lines style="height:40px;min-height:40px;background-color:white;">
 
         <ion-grid>
             <ion-row class="row_class" align-items-center>
               <ion-col tappable (click) = "mine()">
-              <div align="center" >
+              <div align="center">
                 <p [ngClass]="{true:'under_line_style',false:'normal_style'}[isMine]">我的（{{num1}}）</p> 
               </div>
             </ion-col>
@@ -42,9 +42,9 @@
           <p text-wrap style="font-size:13px;color:#fba958;margin-right:25px;float: right;">{{changeStr(item.rt_state)}}</p>
           <h3 text-wrap style="font-size:14px;color:#2e3133;margin-left:15px;">{{item.rt_appraisaled_employee_name}}的考评</h3>
           <p style="font-size:13px;color:#949ca1;margin-left: 15px;">{{item.rt_department_id}}/{{item.rt_job_id}}</p>
-          <p style="font-size:8px;color:#b8c4cc;float: right;margin-right: 10px;margin-top: -3px">{{changeDate(item.create_date) | date:"yyyy.MM.dd HH:mm"}}</p>
-          <p style="font-size:8px;color:#b8c4cc;float: right;margin-top: -5px;margin-right: 10px">创建人: {{item.create_uid}}</p>
-          <p style="font-size:8px;color:#b8c4cc;margin-left: 15px;margin-top: -5px">单号:{{item.rt_name}}</p>
+          <p style="font-size:10px;color:#b8c4cc;float: right;margin-right: 15px;margin-top: -3px">{{changeDate(item.create_date) | date:"yyyy-MM-dd HH:mm"}}</p>
+          <p style="font-size:10px;color:#b8c4cc;float: right;margin-top: -5px;margin-right: 20px">创建人: {{item.create_uid}}</p>
+          <p style="font-size:10px;color:#b8c4cc;margin-left: 15px;margin-top: -5px">单号:{{item.rt_name}}</p>
           <div  style="background-color:white;padding: 1px;margin-bottom: 35px" tappable overflow:hidden>
             <button ion-button round outline (click)="lookPerformance(item)" *ngIf="item.rt_appraisaled_employee_id==uid" style="height: 20px;width: 80px;font-size: 12px;margin-top: 10px;float: right;">查看结果</button>
             <button ion-button round (click)="startPerformance(item)" *ngIf="isShowStart(item)" outline style="height: 20px;width: 80px;font-size: 12px;margin-top: 10px;float: right;">开始考评</button>
