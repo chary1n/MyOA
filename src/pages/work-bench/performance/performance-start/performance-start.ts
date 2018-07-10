@@ -64,15 +64,21 @@ export class PerformanceStartPage {
 
   save(){
     let list = []
-    let length = this.item.typeList.length
+    let endList = []
+    let midList = []
+    let length = this.typeList.length
     for(var i=0; i<length; i++){
-      for(var j=0; j<this.item.typeList[i].subType.length; j++){
-        list[j] = {
-          'type_id': this.item.typeList[i].id,
-          'id': this.item.typeList[i].subType[j].id,
-          'priority': this.item.typeList[i].subType[j].current_id
+      for(var j=0; j<this.typeList[i].tagList.length; j++){
+        for(var k=0; k<this.typeList[i].tagList[j].subType.length; k++){
+          list[k] = {
+            'type_id': this.typeList[i].id,
+            'id': this.typeList[i].tagList[j].subType[k].id,
+            'priority': this.typeList[i].tagList[j].subType[k].current_id
+          }
         }
+        midList = midList.concat(list)
       }
+      endList = endList.concat(midList)
     }
     let body = {
       'save': true,
@@ -81,7 +87,7 @@ export class PerformanceStartPage {
       'rt_insufficient': this.rt_insufficient,
       'rt_salary_expectation': this.rt_salary_expectation,
       'id': this.item.id,
-      'subType': list,
+      'subType': endList,
     }
     this.servicePerformance.get_performance_state(body).then(res =>{
       if(res.result.res_code==1){
@@ -93,16 +99,37 @@ export class PerformanceStartPage {
   }
 
   commit(){
-    let list = []
-    let length = this.item.typeList.length
-    for(var i=0; i<length; i++){
-      for(var j=0; j<this.item.typeList[i].subType.length; j++){
-        list[j] = {
-          'type_id': this.item.typeList[i].id,
-          'id': this.item.typeList[i].subType[j].id,
-          'priority': this.item.typeList[i].subType[j].current_id
-        }
+    let myString = ""
+      if(!this.rt_achievement){
+        myString = "   请输入工作成果总结"
       }
+      if(!this.rt_advice){
+        myString = "   请输入工作中不足"
+      }
+      if(!this.rt_insufficient){
+        myString = "   请输入意见与建议"
+      }
+      if(myString != ""){
+        Utils.toastButtom(myString, this.toastCtrl)
+      }else{
+        let list = []
+    let endList = []
+    let midList = []
+    let length = this.typeList.length
+    for(var i=0; i<length; i++){
+      midList = []
+      for(var j=0; j<this.typeList[i].tagList.length; j++){
+        list = []
+        for(var k=0; k<this.typeList[i].tagList[j].subType.length; k++){
+          list[k] = {
+            'type_id': this.typeList[i].id,
+            'id': this.typeList[i].tagList[j].subType[k].id,
+            'priority': this.typeList[i].tagList[j].subType[k].current_id
+          }
+        }
+        midList = midList.concat(list)
+      }
+      endList = endList.concat(midList)
     }
     let body = {
       'commit': true,
@@ -111,7 +138,7 @@ export class PerformanceStartPage {
       'rt_insufficient': this.rt_insufficient,
       'rt_salary_expectation': this.rt_salary_expectation,
       'id': this.item.id,
-      'subType': list,
+      'subType': endList,
     }
     this.servicePerformance.get_performance_state(body).then(res =>{
       if(res.result.res_code==1){
@@ -120,6 +147,7 @@ export class PerformanceStartPage {
         this.navCtrl.pop();
       }
     })
+  }
   }
 
   changeStr(num){

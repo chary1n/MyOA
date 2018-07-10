@@ -98,7 +98,6 @@ export class PerformancePage {
   }
 
   startPerformance(item){
-    console.log("???="+item)
     if(this.isMine){
       this.navCtrl.push('PerformanceStartPage',{
         'item': item.performanceDetail
@@ -126,5 +125,20 @@ export class PerformancePage {
       str = "完成"
     }
     return str
+  }
+
+  isShowStart(item){
+    let start = false
+    if(item.rt_is_need_self && item.performanceDetail && item.performanceDetail.rt_state=='2'){
+      start = false
+    }else{
+      start = true
+    }
+    return start
+  }
+
+  changeDate(date){
+    let new_date = new Date(date.replace(' ', 'T') + 'Z').getTime();
+    return new_date;
   }
 }

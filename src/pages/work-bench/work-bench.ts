@@ -22,7 +22,7 @@ export class WorkBenchPage {
   isBigPay = true;
   isShowEngineerPoint = false;//工程小红点
   isShowBuyPoint = false;//采购小红点
-  isNormal = false;//通用
+  isNormal = true;//通用
   isSale = false;//销售
   isBuy = false;//采购
   isEngineer;//工程
@@ -33,7 +33,7 @@ export class WorkBenchPage {
   isShowPurchase = false;
   isShowSale = false;
   isShowKucun = false;
-  isShowNormal = false;
+  isShowNormal = true;
   isShowEngineer = true;
   isHR = false;
   isShowZiJin = false;
@@ -75,6 +75,7 @@ export class WorkBenchPage {
             this.isShowSG = false
             this.storage.get("loginIndex").then(res => {
               this.loginIndex = res
+              console.log("loginIndex = "+this.loginIndex)
               if(this.loginIndex==0){
                 this.isShowEngineer = false
                 // this.isShowNormal = false
