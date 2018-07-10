@@ -99,7 +99,7 @@ export class NativeService {
   }
 
   checkNeedToUpdate(version) {
-    return this.httpService.getWithUrlNoLoading(AndroidAppVersion).then(res => {
+    return this.httpService.getWithUrlNoLoadingNoCatch(AndroidAppVersion).then(res => {
       console.log(res)
       console.log(res.changelog)
       let changelog = res.changelog

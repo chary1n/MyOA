@@ -23,10 +23,7 @@ export class FirService {
       .toPromise()
       .then(res => this.handleSuccess(
         res.json())
-      )
-      .catch(error => this.handleError(
-        error
-      ));
+      ).catch();
   }
 
   public post(url: string, paramObj: any, type: number = 0) {

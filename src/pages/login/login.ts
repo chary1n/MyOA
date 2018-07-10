@@ -59,6 +59,7 @@ export class LoginPage {
   chooseIndex = 0;
   email_src;
   password_src;
+  loadingDB;
   constructor(public navCtrl: NavController, public navParams: NavParams,public loading:LoadingController,
     private loginservice: LoginService, private myHttp: Http, private storage: Storage, public platform: Platform, public appVersion: AppVersion,
     public jpush: JPush, public urlServer: UrlServer, public ctrl: AlertController, private inAppBrowser: InAppBrowser,
@@ -214,7 +215,7 @@ export class LoginPage {
     this.isSelected4 = false;
     this.chooseIndex = 1;
     // HttpService.appUrl = "http://192.168.1.170:8069/"
-    // HttpService.appUrl = "http://192.168.1.170:8888/"
+    // HttpService.appUrl = "http://192.168.1.134:8111/"
     HttpService.appUrl = "http://js.robotime.com/"
     this.reset();
     this.img1 = "assets/img/jiangsuruotai_clicked.png"
@@ -271,6 +272,13 @@ export class LoginPage {
 
 
   getDB() {
+   this.loadingDB = this.loading.create({
+      content: '加载中',
+      enableBackdropDismiss: true
+    });
+    setTimeout(() => {
+      this.loadingDB.dismiss();//显示多久消失
+  }, 1000);
     this.loginservice.getDBInfo().then(res => {
       this.employee = res.res_data[0]; //修改
       this.toLogin();
@@ -406,7 +414,7 @@ export class LoginPage {
             return
           }
           this.storage.set("user", res).then(() => {
-            this.navCtrl.push('TabsPage');
+            this.navCtrl.setRoot('TabsPage');
             // this.jpush.setAlias(res.result.res_data.user_id);
           });
         }
