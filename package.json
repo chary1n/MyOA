@@ -94,7 +94,6 @@
         "imports-loader": "^0.7.1",
         "ionic-angular": "^3.9.2",
         "ionic-img-viewer": "^2.9.0",
-        "ionic-plugin-keyboard": "file:node_modules/ionic-plugin-keyboard",
         "ionic2-auto-complete": "^1.5.2-release",
         "ionicons": "3.0.0",
         "jpush-phonegap-plugin": "git+https://github.com/jpush/jpush-phonegap-plugin.git",
@@ -173,8 +172,7 @@
                 "PHOTO_LIBRARY_USAGE_DESCRIPTION": " "
             },
             "cordova-plugin-whitelist": {},
-            "cordova-plugin-statusbar": {},
-            "ionic-plugin-keyboard": {}
+            "cordova-plugin-statusbar": {}
         },
         "dependencies": {
             "@angular/common": "4.1.3",
