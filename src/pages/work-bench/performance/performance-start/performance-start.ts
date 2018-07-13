@@ -1,5 +1,3 @@
-import { PACKAGE_ROOT_URL } from '@angular/core/src/application_tokens';
-import { Keyboard } from '@ionic-native/keyboard';
 import { PersonService } from './../performance-service';
 import { IncomingDetailPage } from './../../incoming-detail/incoming-detail';
 import { Component } from '@angular/core';
