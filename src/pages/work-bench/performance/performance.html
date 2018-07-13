@@ -30,7 +30,7 @@
             </ion-col>
             <ion-col tappable (click) = "others()">
                <div align="center" >
-                <p [ngClass]="{true:'under_line_style',false:'normal_style'}[isOther]">评他（{{num2}}）</p>
+                <p [ngClass]="{true:'under_line_style',false:'normal_style'}[isOther]">互评（{{num2}}）</p>
               </div>
             </ion-col>         
             </ion-row>
@@ -48,7 +48,7 @@
           <p style="font-size:10px;color:#b8c4cc;margin-left: 15px;margin-top: -5px">单号:{{item.rt_name}}</p>
           <div  style="background-color:white;float: right;width: 100%;margin-bottom: 30px;border-bottom: #f0f2f5 10px solid" tappable>
             <button ion-button round outline (click)="lookPerformance(item)" *ngIf="item.rt_appraisaled_employee_id==uid" style="height: 22px;width: 80px;font-size: 12px;margin-top: 10px;float: right;">查看结果</button>
-            <button ion-button round (click)="startPerformance(item)" *ngIf="isShowStart(item)" outline style="height: 22px;width: 80px;font-size: 12px;margin-top: 10px;float: right;">开始考评</button>
+            <button ion-button round (click)="startPerformance(item)" *ngIf="isShowStart(item)" outline style="height: 21px;width: 80px;font-size: 12px;margin-top: 10px;float: right;">开始考评</button>
           </div>
       </div> 
     </ion-item-group>

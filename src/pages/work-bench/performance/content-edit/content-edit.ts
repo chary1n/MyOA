@@ -16,7 +16,7 @@ import { AlertController } from 'ionic-angular/components/alert/alert-controller
   templateUrl: 'content-edit.html',
 })
 export class ContentEditPage {
-  rt_achievement;
+  rt_achievement: any;
   frontPage:any;
   constructor(public navCtrl: NavController, public navParams: NavParams,public statusBar:StatusBar,
               private alertCtrl: AlertController) {
@@ -53,7 +53,7 @@ export class ContentEditPage {
   }
 
   save(){
-    this.frontPage.data.rt_achievement = this.rt_achievement;
+    this.frontPage.data.rt_achievement = this.rt_achievement.replaceAll(" ","&nbsp;").replaceAll("\r","<br/>");;
     this.frontPage.data.need_fresh = true;
     this.frontPage.data.postedit = 1;
     this.navCtrl.popTo(this.frontPage);
