@@ -21,50 +21,54 @@
 <ion-content>
     <ion-item-group no-lines>
         <ion-item style="border-bottom:#f0f2f5 1px solid;">
-            <p text-wrap style="font-size:13px;color:#1eabfe;margin-right:25px;float: right;margin-top: 0px">{{changeStr(state)}}</p>
-            <img src="assets/img/work_bench/reportForms.png" class="image1" style="float:left;">   
+            <p text-wrap style="font-size:13px;color:#1eabfe;margin-right:25px;float: right;margin-top: 0px"
+            [ngClass]="{true:'wait',false:'finish'}[isFinish(state)]">{{changeStr(state)}}</p>
+            <img src={{user_heard}} class="image1" style="float:left;">   
             <p text-wrap style="font-size:80%;color:gray;line-height:27px;margin-left: 30px;">{{rt_appraisaled_employee_name}}</p>
         </ion-item>
       </ion-item-group>
       <div style="border-bottom:#f0f2f5 1px solid;">
             <p style="font-size:13px;float: left;color:#949ca1;margin-left: 20px;margin-top: -2px;height: 15px;line-height: 15px">单号</p>
-            <p style="font-size:13px;color:#949ca1;margin-left: 120px">{{rt_name}}</p>
+            <p style="font-size:13px;color:#949ca1;margin-left: 120px;height: 25px;">{{rt_name}}</p>
             <p style="font-size:13px;float: left;color:#949ca1;margin-left: 20px;margin-top: -2px">考核周期</p>
-            <p style="font-size:13px;color:#949ca1;margin-left: 120px">{{changeCycle(rt_appraisal_cycle)}}</p>
+            <p style="font-size:13px;color:#949ca1;margin-left: 120px;height: 25px;">{{changeCycle(rt_appraisal_cycle)}}</p>
             <p style="font-size:13px;float: left;color:#949ca1;margin-left: 20px;margin-top: -2px">部门</p>
-            <p style="font-size:13px;color:#949ca1;margin-left: 120px">{{rt_department_id}}</p>
+            <p style="font-size:13px;color:#949ca1;margin-left: 120px;height: 25px;">{{rt_department_id}}</p>
             <p style="font-size:13px;float: left;color:#949ca1;margin-left: 20px;margin-top: -2px">岗位</p>
             <p style="font-size:13px;color:#949ca1;margin-left: 120px">{{rt_job_id}}</p>
       </div>
       <ion-item-group no-lines>
           <ion-item no-lines>
               <p text-wrap style="font-size:18px;color:red;margin-right:25px;float: right;margin-top: 0px">{{rt_manager_final_score}}</p>
-              <p text-wrap style="font-size:14px;line-height:27px;margin-left: 20px;">最终结果</p>
+              <p text-wrap style="font-size:14px;line-height:27px;margin-left: 5px;">最终结果</p>
           </ion-item>
           <ion-item no-lines>
-              <p text-wrap style="font-size:14px;margin-left:20px;margin-top: 0px">主管评价</p>
-              <p text-wrap style="font-size:12px;color:gray;line-height:27px;margin-left: 20px;">{{rt_manager_advice}}</p>
+              <p text-wrap style="font-size:14px;margin-left:5px;margin-top: 0px">主管评价</p>
+              <p text-wrap style="font-size:12px;color:gray;line-height:27px;margin-left: 5px;">{{rt_manager_advice}}</p>
           </ion-item>
           <ion-item no-lines>
               <p text-wrap style="font-size:18px;margin-right:25px;float: right;margin-top: 0px">{{result_score}}</p>
-              <p text-wrap style="font-size:14px;line-height:27px;margin-left: 20px;">考评结果</p>
-              <p style="font-size:10px;color:gray;margin-left: 20px">(满分100分，详情请看下方的考评指标/n（计算公式：员工自评*30%+主管评分*40%+评价人4*30%）</p>
+              <p text-wrap style="font-size:14px;line-height:27px;margin-left: 5px;">考评结果</p>
+              <p style="font-size:10px;color:gray;margin-left: 5px;word-wrap:break-word;">满分5分,计算公式:员工自评*{{rt_self_proportion}}%+主管评分*{{rt_manager_proportion}}%+评价人{{other_num}}*{{rt_other_proportion}}%</p>
           </ion-item>
           <ion-item-group style="padding-bottom: 80px">
-                <p text-wrap style="font-size:14px;margin-left:35px;margin-top: 0px;color: gray">考评人</p>
-                <div *ngFor="let item of rt_appraisal_detail_lines" style="float: left;margin-left: 15px" tappable (click) = "lookPerformance(item)">
-                    <span [ngClass]="{true:'backcolor1',false:'backcolor_normal'}[isShowBack(item)]"
-                    style="color: white;margin-left: 20px;width:38px;height:38px;border-radius:38px;background-color:#2597ec;display:inline-block;text-align:center;padding-top: 10px;">{{item.resultScore}}</span>
-                    <p style="font-size: 12px;color: #949ca1;margin-left: 27px">{{whoCare(item.rt_appraisal_type)}}</p>
+                <p text-wrap style="font-size:14px;margin-left:20px;margin-top: 0px;color: gray">考评人</p>
+                <div *ngFor="let item of rt_appraisal_detail_lines" style="float: left;margin-left: 5px" tappable (click) = "lookPerformance(item)">
+                    <span [ngClass]="{true:'backcolor1',false:'backcolor_normal'}[isShowBack(item.resultScore)]"
+                    style="margin-left: 20px;width:38px;height:38px;border-radius:38px;display:inline-block;text-align:center;padding-top: 10px;">{{item.resultScore}}</span>
+                    <p style="font-size: 12px;color: #949ca1;margin-left: 20px">{{whoCare(item.rt_appraisal_type)}}</p>
                 </div>
+                <!-- <div style="height: 10px;line-height: 10px;background:#f0f2f5;"></div> -->
           </ion-item-group>
       </ion-item-group>
-      <div style="height: 10px;line-height: 10px;background:#f0f2f5;"></div>
   <ion-grid style="padding: 0px">
       <ion-row class="row_class" align-items-center>
-        <ion-col style="padding: 0px;border-bottom:#f0f2f5 1px solid;">
+        <ion-col style="padding: 0px;border-bottom:#f0f2f5 1px solid;border-top: #f0f2f5 10px solid">
         <div align="center">
-          <p>第一部分</p> 
+          <p>第一部分</p>
+          <p *ngIf="show_null" style="color: gray;font-size: 12px">
+              暂无
+          </p> 
         </div>
       </ion-col>        
       </ion-row>
@@ -76,7 +80,7 @@
           <h4 style="font-size: 14px;margin-left: 35px">{{typeBean.type}}评价</h4>
           <div *ngFor="let tagBean of typeBean.tagList" style="margin-top: 15px">
                 <span style="margin-left: 15px;width:5px;height:5px;border-radius:5px;background-color:#b4b4af;display:inline-block;float: left;margin-top: 5px"></span>
-                <p style="font-size: 10px;color: #949ca1;margin-left: 25px">{{tagBean.biaoqian}}</p>
+                <p style="font-size: 10px;color: #949ca1;margin-left: 25px;word-wrap:break-word;" >{{tagBean.biaoqian}}</p>
                 <div *ngFor="let item of tagBean.subList">
                         <p style="font-size: 13px;color: #949ca1;margin-left: 15px">{{item.sub_type}}</p>
                         <div class="progress-outer" style="margin-top: 0px;margin-left: 15px">
@@ -127,8 +131,8 @@
   <ion-item-group no-lines style="border-bottom:#f0f2f5 1px solid;" *ngIf="rt_is_need_self">
       <div>
           <span style="margin-left: 15px;width:8 px;height:8px;border-radius:8px;background-color:#2597ec;display:inline-block;float: left;margin-top: 5px"></span>
-          <h4 style="font-size: 14px;margin-left: 35px;color: #2e3133">期望薪资</h4>
-          <p style="font-size: 12px;color: #949ca1;margin-left: 30px"></p>
+          <h4 style="font-size: 14px;margin-left: 20px;color: #2e3133">期望薪资</h4>
+          <p style="font-size: 12px;color: #949ca1;margin-left: 25px">{{salary_exception}}</p>
       </div>
   </ion-item-group>
 </ion-content>

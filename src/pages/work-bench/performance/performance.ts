@@ -141,4 +141,14 @@ export class PerformancePage {
     let new_date = new Date(date.replace(' ', 'T') + 'Z').getTime();
     return new_date;
   }
+
+  isFinish(rt_state){
+    let finish = false
+    if(rt_state==1){
+      finish = true
+    }else if(rt_state==2){
+      finish = false
+    }
+    return finish
+  }
 }

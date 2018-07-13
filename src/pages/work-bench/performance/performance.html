@@ -39,7 +39,8 @@
     <!-- <ion-auto-complete style="width: 94vw; margin-left:3vw" (itemSelected)="itemSelected0($event)" [dataProvider]="perSearchService"></ion-auto-complete> -->
     <ion-item-group no-lines style="background:#f0f2f5;">
       <div *ngFor="let item of lists" tappable style="margin-top: 10px;padding: 1px;background:white;">
-          <p text-wrap style="font-size:13px;color:#fba958;margin-right:25px;float: right;">{{changeStr(item.rt_state)}}</p>
+          <p text-wrap style="font-size:13px;margin-right:25px;float: right;"
+          [ngClass]="{true:'wait',false:'finish'}[isFinish(item.rt_state)]">{{changeStr(item.rt_state)}}</p>
           <h3 text-wrap style="font-size:14px;color:#2e3133;margin-left:15px;">{{item.rt_appraisaled_employee_name}}的考评</h3>
           <p style="font-size:13px;color:#949ca1;margin-left: 15px;">{{item.rt_department_id}}/{{item.rt_job_id}}</p>
           <p style="font-size:10px;color:#b8c4cc;float: right;margin-right: 15px;margin-top: -3px">{{changeDate(item.create_date) | date:"yyyy-MM-dd HH:mm"}}</p>

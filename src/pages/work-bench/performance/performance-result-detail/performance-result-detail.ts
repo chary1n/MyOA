@@ -58,13 +58,19 @@ export class PerformanceResultDetailPage {
   }
 
   changeCycle(num){
-    let str
-    if (num=="0"){
+    let str=''
+    if (num=='0'){
       str = "周"
     }else if(num=="1"){
       str = "月"
-    }else{
+    }else if(num=='2'){
+      str = "季"
+    }else if(num=='3'){
+      str = "半年"
+    }else if(num=='4'){
       str = "年"
+    }else{
+      str=''
     }
     return str
   }

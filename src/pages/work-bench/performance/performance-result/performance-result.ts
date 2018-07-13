@@ -4,6 +4,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { Utils } from '../../../../providers/Utils';
 import { ToastController } from 'ionic-angular/components/toast/toast-controller';
+import { Storage } from '@ionic/storage';
 
 /**
  * Generated class for the PerformanceResultPage page.
@@ -32,10 +33,17 @@ export class PerformanceResultPage {
   rt_appraisal_detail_lines;
   rt_is_need_self = false;
   rt_manager_final_score;
-  rt_manager_advice
+  rt_manager_advice;
+  rt_self_proportion;
+  rt_manager_proportion;
+  rt_other_proportion;
+  salary_exception;
+  other_num;
+  show_null;
+  user_heard
   constructor(public navCtrl: NavController, public navParams: NavParams
             , public statusBar:StatusBar,public servicePerformance: PersonService,
-            public toastCtrl: ToastController,) {
+            public toastCtrl: ToastController,public storage: Storage) {
 
         this.id = this.navParams.get('id')
         console.log('this.id' + this.id)
@@ -57,6 +65,12 @@ export class PerformanceResultPage {
             this.rt_is_need_self = res.result.res_data.rt_is_need_self
             this.rt_manager_final_score = res.result.res_data.rt_manager_final_score
             this.rt_manager_advice = res.result.res_data.rt_manager_advice
+            this.rt_self_proportion = res.result.res_data.rt_self_proportion
+            this.rt_manager_proportion = res.result.res_data.rt_manager_proportion
+            this.rt_other_proportion = res.result.res_data.rt_other_proportion
+            this.salary_exception = res.result.res_data.salary_exception
+            this.other_num = res.result.res_data.other_num
+            this.show_null = res.result.res_data.show_null
           }
         })
   }
@@ -68,6 +82,10 @@ export class PerformanceResultPage {
   ionViewWillEnter() {
     this.statusBar.backgroundColorByHexString("#2597ec");
     this.statusBar.styleLightContent();
+    this.storage.get('user')
+      .then(res => {
+        this.user_heard = res.result.res_data.user_ava;
+      })
   }
 
   goBack(){
@@ -89,24 +107,30 @@ export class PerformanceResultPage {
   }
 
   changeCycle(num){
-    let str
-    if (num=="0"){
+    let str=''
+    if (num=='0'){
       str = "周"
     }else if(num=="1"){
       str = "月"
-    }else{
+    }else if(num=='2'){
+      str = "季"
+    }else if(num=='3'){
+      str = "半年"
+    }else if(num=='4'){
       str = "年"
+    }else{
+      str=''
     }
     return str
   }
+   
 
-  isShowBack(item){
+  isShowBack(resultScore){
     let show = false;
-    if (item.rt_appraisal_type=="self") {
-    }else if(item.rt_appraisal_type=="other"){
-      show = true
-    }else if(item.rt_appraisal_type=="manager"){
-      show = false
+    if (resultScore=="暂无") {
+      show = false;
+    }else{
+      show = true;
     }
     return show
   }
@@ -116,9 +140,9 @@ export class PerformanceResultPage {
     if (str=="self") {
       s = "自评"
     }else if(str=="other"){
-      s = "他评"
+      s = "考评人"
     }else if(str=="manager"){
-      s = "主管评"
+      s = "主管评分"
     }
     return s
   }
@@ -133,5 +157,14 @@ export class PerformanceResultPage {
         'item': item
       })
     }
+  }
+  isFinish(rt_state){
+    let finish = false
+    if(rt_state==1){
+      finish = true
+    }else if(rt_state==2){
+      finish = false
+    }
+    return finish
   }
 }
