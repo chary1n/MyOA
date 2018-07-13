@@ -52,15 +52,15 @@
     <ion-item no-lines *ngFor="let typeBean of typeList">
 
         <div>
-            <span style="margin-left: 15px;width:8px;height:8px;border-radius:8px;background-color:#2597ec;display:inline-block;float: left;margin-top: 5px"></span>
-            <h4 style="font-size: 14px;margin-left: 35px">{{typeBean.type}}</h4>
+            <span style="margin-left: 5px;width:8px;height:8px;border-radius:8px;background-color:#2597ec;display:inline-block;float: left;margin-top: 5px"></span>
+            <h4 style="font-size: 14px;margin-left: 20px">{{typeBean.type}}</h4>
           </div>
-          <div *ngFor="let tagBean of typeBean.tagList" style="margin-top: 25px">
-                <span style="margin-left: 15px;width:5px;height:5px;border-radius:5px;background-color:#b4b4af;display:inline-block;float: left;margin-top: 5px"></span>
-                <p style="font-size: 12px;color: #949ca1;margin-left: 25px">{{tagBean.tag_name}}</p>
-                <div class="star-div" *ngFor="let subeType of tagBean.subType" style="padding: 10px">
-                    <p style="font-size: 13px;color: #949ca1;padding-bottom: 5px">{{subeType.subTp}}</p>
-                    <div *ngFor="let item of subeType.score" style="float: left;margin-top: -5px;margin-left: 10px" tappable (click)="select(subeType,subeType.score,item)">
+          <div *ngFor="let tagBean of typeBean.tagList" style="margin-top: 20px">
+                <span style="margin-left: 10px;width:5px;height:5px;border-radius:5px;background-color:#b4b4af;display:inline-block;float: left;margin-top: 5px"></span>
+                <p style="font-size: 14px;color: #949ca1;margin-left: 20px">{{tagBean.tag_name}}</p>
+                <div class="star-div" *ngFor="let subeType of tagBean.subType" style="padding: 10px;margin-top: 5px">
+                    <p style="font-size: 13px;color: #949ca1;padding-bottom: 5px;margin-left: 10px">{{subeType.subTp}}</p>
+                    <div *ngFor="let item of subeType.score" style="float: left;margin-top: 0px;margin-left: 10px" tappable (click)="select(subeType,subeType.score,item)">
                         <ion-icon name="star" style="color: #fba958" *ngIf="item.value==2;"></ion-icon>
                         <ion-icon name="star-outline" style="color: #b4b4af" *ngIf="item.value==1;"></ion-icon>
                       </div>

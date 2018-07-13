@@ -1,5 +1,4 @@
 import { PersonService } from './../performance-service';
-import { IncomingDetailPage } from './../../incoming-detail/incoming-detail';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
