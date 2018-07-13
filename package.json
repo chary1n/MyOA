@@ -36,12 +36,13 @@
         "@ionic-native/http": "^3.14.0",
         "@ionic-native/image-picker": "^4.5.2",
         "@ionic-native/in-app-browser": "^4.5.2",
+        "@ionic-native/keyboard": "^4.9.1",
         "@ionic-native/network": "^4.5.2",
         "@ionic-native/nfc": "^4.6.0",
         "@ionic-native/photo-library": "^4.6.0",
         "@ionic-native/screenshot": "^4.6.0",
         "@ionic-native/splash-screen": "3.12.1",
-        "@ionic-native/status-bar": "3.12.1",
+        "@ionic-native/status-bar": "^3.12.1",
         "@ionic-native/toast": "^4.5.2",
         "@ionic-native/transfer": "^3.14.0",
         "@ionic-native/web-intent": "^4.5.2",
@@ -57,7 +58,7 @@
         "com-darryncampbell-cordova-plugin-intent": "0.0.14",
         "com.darktalker.cordova.screenshot": "^0.1.6",
         "com.lampa.startapp": "^0.1.4",
-        "cordova-android": "^6.3.0",
+        "cordova-android": "^6.2.3",
         "cordova-ios": "^4.5.4",
         "cordova-plugin-add-swift-support": "^1.6.0",
         "cordova-plugin-app-version": "^0.1.9",
@@ -73,6 +74,7 @@
         "cordova-plugin-device": "^1.1.7",
         "cordova-plugin-file": "^4.3.3",
         "cordova-plugin-file-transfer": "^1.7.0",
+        "cordova-plugin-firebase": "^1.0.5",
         "cordova-plugin-gaodelocation": "git+https://github.com/DaiHuaXieHuaKai/GaoDeLocation.git",
         "cordova-plugin-geolocation": "^4.0.1",
         "cordova-plugin-http": "^1.2.0",
@@ -82,7 +84,7 @@
         "cordova-plugin-network-information": "^1.3.4",
         "cordova-plugin-photo-library": "^2.1.0",
         "cordova-plugin-splashscreen": "^4.1.0",
-        "cordova-plugin-statusbar": "^2.4.1",
+        "cordova-plugin-statusbar": "^2.4.2",
         "cordova-plugin-telerik-imagepicker": "git+https://github.com/Telerik-Verified-Plugins/ImagePicker.git",
         "cordova-plugin-whitelist": "^1.3.3",
         "cordova-plugin-x-toast": "^2.6.0",
@@ -92,7 +94,7 @@
         "imports-loader": "^0.7.1",
         "ionic-angular": "^3.9.2",
         "ionic-img-viewer": "^2.9.0",
-        "ionic-plugin-keyboard": "^2.2.1",
+        "ionic-plugin-keyboard": "file:node_modules/ionic-plugin-keyboard",
         "ionic2-auto-complete": "^1.5.2-release",
         "ionicons": "3.0.0",
         "jpush-phonegap-plugin": "git+https://github.com/jpush/jpush-phonegap-plugin.git",
@@ -108,6 +110,7 @@
         "safari": "0.0.1",
         "serve": "6.5.3",
         "sw-toolbox": "3.6.0",
+        "symbol-observable": "^1.2.0",
         "wifiwizard": "^0.2.11",
         "zone.js": "0.8.12"
     },
@@ -123,8 +126,6 @@
             "cordova-plugin-console": {},
             "cordova-plugin-device": {},
             "cordova-plugin-splashscreen": {},
-            "cordova-plugin-statusbar": {},
-            "ionic-plugin-keyboard": {},
             "cordova-plugin-http": {},
             "cordova-plugin-file-transfer": {},
             "cordova-plugin-app-version": {},
@@ -167,8 +168,13 @@
                 "NFC_USAGE_DESCRIPTION": "Read NFC Tags"
             },
             "cordova-plugin-compat": {},
+            "cordova-plugin-camera": {},
+            "cordova-plugin-telerik-imagepicker": {
+                "PHOTO_LIBRARY_USAGE_DESCRIPTION": " "
+            },
             "cordova-plugin-whitelist": {},
-            "cordova-plugin-camera": {}
+            "cordova-plugin-statusbar": {},
+            "ionic-plugin-keyboard": {}
         },
         "dependencies": {
             "@angular/common": "4.1.3",
@@ -237,7 +243,6 @@
             "figures": "^2.0.0",
             "imports-loader": "^0.7.1",
             "ionic-angular": "^3.6.0",
-            "ionic-plugin-keyboard": "^2.2.1",
             "ionic2-auto-complete": "^1.5.2-release",
             "ionicons": "3.0.0",
             "jpush-phonegap-plugin": "git+https://github.com/jpush/jpush-phonegap-plugin.git",
@@ -266,7 +271,6 @@
                 "cordova-plugin-splashscreen": {},
                 "cordova-plugin-statusbar": {},
                 "cordova-plugin-whitelist": {},
-                "ionic-plugin-keyboard": {},
                 "cordova-plugin-http": {},
                 "cordova-plugin-camera": {
                     "CAMERA_USAGE_DESCRIPTION": " ",
@@ -372,7 +376,6 @@
                 "figures": "^2.0.0",
                 "imports-loader": "^0.7.1",
                 "ionic-angular": "^3.6.0",
-                "ionic-plugin-keyboard": "^2.2.1",
                 "ionic2-auto-complete": "^1.5.2-release",
                 "ionicons": "3.0.0",
                 "jpush-phonegap-plugin": "git+https://github.com/jpush/jpush-phonegap-plugin.git",
@@ -401,7 +404,6 @@
                     "cordova-plugin-splashscreen": {},
                     "cordova-plugin-statusbar": {},
                     "cordova-plugin-whitelist": {},
-                    "ionic-plugin-keyboard": {},
                     "cordova-plugin-http": {},
                     "cordova-plugin-camera": {
                         "CAMERA_USAGE_DESCRIPTION": " ",
@@ -506,7 +508,6 @@
                     "figures": "^2.0.0",
                     "imports-loader": "^0.7.1",
                     "ionic-angular": "^3.6.0",
-                    "ionic-plugin-keyboard": "^2.2.1",
                     "ionic2-auto-complete": "^1.5.2-release",
                     "ionicons": "3.0.0",
                     "jpush-phonegap-plugin": "git+https://github.com/jpush/jpush-phonegap-plugin.git",
@@ -535,7 +536,6 @@
                         "cordova-plugin-splashscreen": {},
                         "cordova-plugin-statusbar": {},
                         "cordova-plugin-whitelist": {},
-                        "ionic-plugin-keyboard": {},
                         "cordova-plugin-http": {},
                         "cordova-plugin-camera": {
                             "CAMERA_USAGE_DESCRIPTION": " ",
@@ -626,7 +626,6 @@
                         "figures": "^2.0.0",
                         "imports-loader": "^0.7.1",
                         "ionic-angular": "3.5.0",
-                        "ionic-plugin-keyboard": "^2.2.1",
                         "ionicons": "3.0.0",
                         "mute-stream": "0.0.7",
                         "mx.ferreyra.callnumber": "~0.0.2",
@@ -655,7 +654,6 @@
             }
         },
         "platforms": [
-            "android",
             "ios"
         ]
     }

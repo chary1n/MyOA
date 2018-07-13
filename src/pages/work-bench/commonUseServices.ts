@@ -240,4 +240,8 @@ export class CommonUseServices {
         });
         return this.httpservice.postBodyNoLoading("get_all_need_do", body);
     }
+
+    get_all_num(body){
+        return this.httpservice.postBody("get_all_num", body);
+    }
 }

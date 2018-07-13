@@ -13,7 +13,7 @@ declare let cordova: any;
  * See http://ionicframework.com/docs/components/#navigation for more info
  * on Ionic pages and navigation.
  */
-@IonicPage()
+// @IonicPage()
 @Component({
   selector: 'page-contact-person',
   templateUrl: 'contact-person.html',
@@ -29,26 +29,22 @@ export class ContactPersonPage {
   limit;
   offset;
   need_refresh = false;
+
   isShowEdit = false;
-  originTotalList: any = [];
-  breadcrumbsList = [];
-  childList;
-  originEmployeeList = [];
   constructor(public navCtrl: NavController, public navParams: NavParams, public contactService: ContactService,
     public employeeService: EmployeeService,
+
     public storage: Storage, public statusbar: StatusBar) {
-    this.showAll = "YES";
+    this.showAll = "NO";
     this.limit = 20;
     this.offset = 0
-    // 获取组织架构
-    this.employeeService.get_all_department().then((res) => {
+    this.contactService.get_departments().then((res) => {
       if (res.result && res.result.res_code == 1) {
-        this.originTotalList = res.result.res_data[0]
+        this.departmentList = res.result.res_data;
       }
     })
     this.contactService.get_employees(this.limit, this.offset).then((res) => {
       if (res.result && res.result.res_code == 1) {
-        this.originEmployeeList = res.result.res_data;
         this.employeeList = res.result.res_data;
         this.origin_data = this.employeeList;
       }
@@ -83,9 +79,14 @@ export class ContactPersonPage {
   ionViewWillEnter() {
     this.statusbar.backgroundColorByHexString("#2597ec");
     this.statusbar.styleLightContent();
-    this.showAll = "YES";
+
     this.need_refresh = this.navParams.get("need_refresh")
     if (this.need_refresh) {
+      this.contactService.get_departments().then((res) => {
+        if (res.result && res.result.res_code == 1) {
+          this.departmentList = res.result.res_data;
+        }
+      })
       this.contactService.get_employees(this.limit, this.offset).then((res) => {
         if (res.result && res.result.res_code == 1) {
           this.employeeList = res.result.res_data;
@@ -99,12 +100,6 @@ export class ContactPersonPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ContactPersonPage');
-  }
-
-
-  clickShowAll() {
-    this.clickAll()
-    this.employeeList = this.originEmployeeList
   }
 
   clickItem(item) {
@@ -139,27 +134,11 @@ export class ContactPersonPage {
 
   clickAll() {
     if (this.showAll == "YES") {
-      this.breadcrumbsList = []
-      this.breadcrumbsList.push(this.originTotalList)
-      this.childList = this.originTotalList.child
-      this.employeeList = this.originTotalList.employees
       this.showAll = "NO";
     }
     else {
       this.showAll = "YES";
     }
-  }
-
-  addBreadcrumbs(item) {
-    this.breadcrumbsList.push(item)
-    this.childList = item.child
-    this.employeeList = item.employees
-  }
-
-  clickBreadcrumbs(item, i) {
-    this.childList = item.child
-    this.employeeList = item.employees
-    this.breadcrumbsList.splice(i + 1, this.breadcrumbsList.length - 1 - i)
   }
 
   getItems(ev: any) {
@@ -176,7 +155,6 @@ export class ContactPersonPage {
     else {
       this.employeeList = this.origin_data;
     }
-
   }
 
   panEvent($event) {
@@ -184,10 +162,6 @@ export class ContactPersonPage {
   }
 
   doInfinite(infiniteScroll) {
-    if (this.showAll == "NO") {
-      infiniteScroll.complete();
-      return ;
-    }
     if (this.isMoreData == true) {
       this.limit = 20;
       this.offset += 20;
@@ -223,7 +197,6 @@ export class ContactPersonPage {
   }
 
   searchByKeyword(event) {
-    this.showAll = "YES";
     console.log(event.target.value)
     this.isMoreData = false
     this.contactService.search_employees(event.target.value).then(res => {
@@ -246,8 +219,8 @@ export class ContactPersonPage {
   }
 
   add() {
-    // this.navCtrl.push('AddEmployeePage')
-    this.navCtrl.push("PromptPage")
+    this.navCtrl.push('AddEmployeePage')
+    // this.navCtrl.push("PromptPage")
   }
 
 }

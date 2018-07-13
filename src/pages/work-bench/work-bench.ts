@@ -54,6 +54,7 @@ export class WorkBenchPage {
   isShowZZ = true;
   isShowKN = true;
   loginIndex;
+  performance=0;
   constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage,
     public services :CommonUseServices,public statusbar:StatusBar) {
   }
@@ -69,21 +70,48 @@ export class WorkBenchPage {
 
   ionViewDidEnter() {
     this.isShowKaoqin = true
-            this.isShowBX = false
-            this.isShowZZ = false
-            this.isShowKN = false
-            this.isShowSG = false
-            this.storage.get("loginIndex").then(res => {
-              this.loginIndex = res
-              if(this.loginIndex==0){
-                this.isShowEngineer = false
-                // this.isShowNormal = false
-                this.isNormal = false
-              }
-            })
+    this.isShowBX = false
+    this.isShowZZ = false
+    this.isShowKN = false
+    this.isShowSG = false
+            
     this.storage.get('user')
       .then(res => {
         console.log(res);
+        let body = {
+          'uid': res.result.res_data.user_id
+        }
+        this.services.get_all_num(body).then(res => {
+          if(res.result.res_code==1 && res.result){
+            console.log(res)
+            this.performance = res.result.res_data.performance
+          }
+        })
+        //一会删掉
+        this.isShowNormal = true
+        this.isNormal = true
+
+
+        this.storage.get("loginIndex").then(res => {
+          this.loginIndex = res
+          console.log("loginIndex = "+this.loginIndex)
+          if(this.loginIndex==0){
+            this.isShowEngineer = false
+            this.isEngineer = false
+            this.isShowNormal = true
+            this.isNormal = true
+            let body = {
+              'uid': res.result.res_data.user_id
+            }
+            this.services.get_all_num(body).then(res => {
+              if(res.result.res_code==1 && res.result){
+                console.log(res)
+                this.performance = res.result.res_data.performance
+              }
+            })
+          }
+        })
+
         let is_plus = false
         let is_manager = false
         let need_all = false
