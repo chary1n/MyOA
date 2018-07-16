@@ -20,7 +20,7 @@ export class InsufficientEditPage {
   frontPage:any;
   constructor(public navCtrl: NavController, public navParams: NavParams,public statusBar:StatusBar,
     private alertCtrl: AlertController) {
-      this.rt_insufficient = this.navParams.get('rt_insufficient');
+      this.rt_insufficient = this.navParams.get('rt_insufficient').replace(/<br>/g,"\n");
     this.frontPage = Utils.getViewController("PerformanceStartPage", navCtrl)
   }
 
@@ -53,7 +53,7 @@ export class InsufficientEditPage {
   }
 
   save(){
-    this.frontPage.data.rt_insufficient = this.rt_insufficient;
+    this.frontPage.data.rt_insufficient = this.rt_insufficient.replace(/\n/g,"<br>");
     this.frontPage.data.need_fresh = true;
     this.frontPage.data.postedit = 2;
     this.navCtrl.popTo(this.frontPage);

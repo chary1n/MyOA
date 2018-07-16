@@ -87,12 +87,10 @@
         </div>
           <p style="color:#949ca1;font-size: 12px;margin-left: 25px">1.工作成绩：完成的重要事项，工作中的收获提升以及感悟</p>
           <p style="color:#949ca1;font-size: 12px;margin-left: 25px">2.工作不足：遇到的内外部问题、失误，如何避免或者改进</p>
-          <!-- <p style="word-wrap:break-word;color:#666666;border-radius:8px;border-top:1px #f5f7fa solid;
-            border-right: 1px #f5f7fa solid;
-          border-bottom: 1px #f5f7fa solid;border-left: 1px #f5f7fa solid;margin: 15px;padding: 10px;width:90%">{{rt_achievement}}</p> -->
-          <textarea [(ngModel)]="rt_achievement" #myInput id="myInput" rows="1" maxLength="500" (keyup)="resize()" style="border-radius:8px;border-top:1px #f5f7fa solid;
+
+          <div [innerHTML]="assembleHTML(rt_achievement)" style="word-wrap:break-word;color:#666666;border-radius:8px;border-top:1px #f5f7fa solid;
           border-right: 1px #f5f7fa solid;
-        border-bottom: 1px #f5f7fa solid;border-left: 1px #f5f7fa solid;margin: 15px;padding: 10px;width:90%;"></textarea>
+        border-bottom: 1px #f5f7fa solid;border-left: 1px #f5f7fa solid;margin: 15px;padding: 10px;width:90%"></div>
       </div>
   </ion-item-group>
   <ion-item-group no-lines style="border-bottom:#f0f2f5 1px solid;" *ngIf="item.is_self">
@@ -103,9 +101,12 @@
               <h4 style="font-size: 14px;margin-left: 35px;color: #2e3133;margin-top: 0px">工作计划</h4>
           </div>
           <p style="color:#949ca1;font-size: 12px;margin-left: 25px">1.近期计划；2.长期规划</p>
-          <p style="word-wrap:break-word;color:#666666;border-radius:8px;border-top:1px #f5f7fa solid;
+          <div [innerHTML]="assembleHTML(rt_insufficient)" style="word-wrap:break-word;color:#666666;border-radius:8px;border-top:1px #f5f7fa solid;
+          border-right: 1px #f5f7fa solid;
+        border-bottom: 1px #f5f7fa solid;border-left: 1px #f5f7fa solid;margin: 15px;padding: 10px;width:90%"></div>
+          <!-- <p style="word-wrap:break-word;color:#666666;border-radius:8px;border-top:1px #f5f7fa solid;
                 border-right: 1px #f5f7fa solid;
-              border-bottom: 1px #f5f7fa solid;border-left: 1px #f5f7fa solid;margin: 15px;padding: 10px;width:90%">{{rt_insufficient}}</p>
+              border-bottom: 1px #f5f7fa solid;border-left: 1px #f5f7fa solid;margin: 15px;padding: 10px;width:90%">{{rt_insufficient}}</p> -->
         </div>
   </ion-item-group>
   
@@ -116,11 +117,9 @@
               <span style="margin-bottom: -15px;margin-left: 15px;width:8px;height:8px;border-radius:8px;background-color:#2597ec;display:inline-block;margin-top: 5px"></span>
               <h4 style="font-size: 14px;margin-left: 35px;color: #2e3133;margin-top: 0px">意见和建议</h4>
           </div>
-          <!-- <pre> -->
-              <div style="word-wrap:break-word;color:#666666;border-radius:8px;border-top:1px #f5f7fa solid;
-                border-right: 1px #f5f7fa solid;
-              border-bottom: 1px #f5f7fa solid;border-left: 1px #f5f7fa solid;margin: 15px;padding: 10px;width:90%">{{rt_advice}}</div>
-          <!-- </pre> -->
+          <div [innerHTML]="assembleHTML(rt_advice)" style="word-wrap:break-word;color:#666666;border-radius:8px;border-top:1px #f5f7fa solid;
+          border-right: 1px #f5f7fa solid;
+        border-bottom: 1px #f5f7fa solid;border-left: 1px #f5f7fa solid;margin: 15px;padding: 10px;width:90%"></div>
       </div>
   </ion-item-group>
   <ion-item-group no-lines style="border-bottom:#f0f2f5 1px solid;" *ngIf="item.is_self">

@@ -20,7 +20,7 @@ export class AdviceEditPage {
   frontPage:any;
   constructor(public navCtrl: NavController, public navParams: NavParams,public statusBar: StatusBar,
     private alertCtrl: AlertController) {
-    this.rt_advice = this.navParams.get('rt_advice');
+    this.rt_advice = this.navParams.get('rt_advice').replace(/<br>/g,"\n");
     this.frontPage = Utils.getViewController("PerformanceStartPage", navCtrl)
   }
 
@@ -53,12 +53,8 @@ export class AdviceEditPage {
   }
 
   save(){
-
     // debugger;
-    // this.frontPage.data.rt_advice = this.rt_advice.replaceAll(" ","&nbsp;").replaceAll("\r","<br/>");
-    // var reg=new RegExp("\n","g"); //new RegExp("\r\n","g")
-    // this.rt_advice= this.rt_advice.replace(reg,"<br>");
-    this.frontPage.data.rt_advice = this.rt_advice
+    this.frontPage.data.rt_advice = this.rt_advice.replace(/\n/g,"<br>");
     this.frontPage.data.need_fresh = true;
     this.frontPage.data.postedit = 3;
     this.navCtrl.popTo(this.frontPage);

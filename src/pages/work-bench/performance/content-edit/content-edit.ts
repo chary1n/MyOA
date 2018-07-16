@@ -20,7 +20,7 @@ export class ContentEditPage {
   frontPage:any;
   constructor(public navCtrl: NavController, public navParams: NavParams,public statusBar:StatusBar,
               private alertCtrl: AlertController) {
-    this.rt_achievement = this.navParams.get('rt_achievement');
+    this.rt_achievement = this.navParams.get('rt_achievement').replace(/<br>/g,"\n");
     this.frontPage = Utils.getViewController("PerformanceStartPage", navCtrl)
   }
 
@@ -53,7 +53,7 @@ export class ContentEditPage {
   }
 
   save(){
-    this.frontPage.data.rt_achievement = this.rt_achievement;
+    this.frontPage.data.rt_achievement = this.rt_achievement.replace(/\n/g,"<br>");
     this.frontPage.data.need_fresh = true;
     this.frontPage.data.postedit = 1;
     this.navCtrl.popTo(this.frontPage);

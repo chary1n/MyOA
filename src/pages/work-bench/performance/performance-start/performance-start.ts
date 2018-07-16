@@ -1,10 +1,11 @@
 import { PersonService } from './../performance-service';
-import { Component ,ViewChild, ElementRef} from '@angular/core';
+import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { Storage } from '@ionic/storage';
 import { Utils } from '../../../../providers/Utils';
 import { ToastController } from 'ionic-angular/components/toast/toast-controller';
+import { DomSanitizer } from '@angular/platform-browser';
 
 /**
  * Generated class for the PerformanceStartPage page.
@@ -30,17 +31,17 @@ export class PerformanceStartPage {
   user_heard;
   need_fresh = false;
   postedit = 0
-  @ViewChild('myInput') myInput: ElementRef;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public statusBar:StatusBar,
-              public servicePerformance: PersonService, public storage: Storage,public toastCtrl: ToastController) {
+              public servicePerformance: PersonService, public storage: Storage,public toastCtrl: ToastController
+              ,private sanitizer: DomSanitizer,) {
 
               this.item = this.navParams.get('item');
               console.log("item = "+ this.item)
-              this.typeList = this.item.typeList
-              this.rt_achievement = this.item.rt_achievement
-              this.rt_advice = this.item.rt_advice
-              this.rt_insufficient = this.item.rt_insufficient
+              this.typeList = this.item.typeList  
+              this.rt_achievement = this.item.rt_achievement.replace(/\n/g,"<br>")
+              this.rt_advice = this.item.rt_advice.replace(/\n/g,"<br>")
+              this.rt_insufficient = this.item.rt_insufficient.replace(/\n/g,"<br>")
               this.rt_salary_expectation = this.item.rt_salary_expectation
 
               if(!this.rt_achievement){
@@ -57,14 +58,12 @@ export class PerformanceStartPage {
                })
                
   }
-  resize() {
-    console.log("resize---------")
-    this.myInput.nativeElement.style.height = this.myInput.nativeElement.scrollHeight + 'px';
+  
+  assembleHTML(str){ 
+    　　return this.sanitizer.bypassSecurityTrustHtml(str)
   }
   ionViewDidLoad() {
     console.log('ionViewDidLoad PerformanceStartPage');
-    this.myInput.nativeElement.style.height = this.myInput.nativeElement.scrollHeight + 'px';
-    console.log("resize---------"+this.myInput.nativeElement.scrollHeight)
   }
 
   ionViewWillEnter() {
