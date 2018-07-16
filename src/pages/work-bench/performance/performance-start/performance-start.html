@@ -90,9 +90,9 @@
           <!-- <p style="word-wrap:break-word;color:#666666;border-radius:8px;border-top:1px #f5f7fa solid;
             border-right: 1px #f5f7fa solid;
           border-bottom: 1px #f5f7fa solid;border-left: 1px #f5f7fa solid;margin: 15px;padding: 10px;width:90%">{{rt_achievement}}</p> -->
-          <textarea [(ngModel)]="rt_achievement" cols="20" style="border-radius:8px;border-top:1px #f5f7fa solid;
+          <textarea [(ngModel)]="rt_achievement" #myInput id="myInput" rows="1" maxLength="500" (keyup)="resize()" style="border-radius:8px;border-top:1px #f5f7fa solid;
           border-right: 1px #f5f7fa solid;
-        border-bottom: 1px #f5f7fa solid;border-left: 1px #f5f7fa solid;margin: 15px;height: 90px;padding: 10px;width:90%;"></textarea>
+        border-bottom: 1px #f5f7fa solid;border-left: 1px #f5f7fa solid;margin: 15px;padding: 10px;width:90%;"></textarea>
       </div>
   </ion-item-group>
   <ion-item-group no-lines style="border-bottom:#f0f2f5 1px solid;" *ngIf="item.is_self">

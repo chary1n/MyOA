@@ -1,5 +1,5 @@
 import { PersonService } from './../performance-service';
-import { Component } from '@angular/core';
+import { Component ,ViewChild, ElementRef} from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { Storage } from '@ionic/storage';
@@ -30,6 +30,8 @@ export class PerformanceStartPage {
   user_heard;
   need_fresh = false;
   postedit = 0
+  @ViewChild('myInput') myInput: ElementRef;
+
   constructor(public navCtrl: NavController, public navParams: NavParams, public statusBar:StatusBar,
               public servicePerformance: PersonService, public storage: Storage,public toastCtrl: ToastController) {
 
@@ -40,7 +42,6 @@ export class PerformanceStartPage {
               this.rt_advice = this.item.rt_advice
               this.rt_insufficient = this.item.rt_insufficient
               this.rt_salary_expectation = this.item.rt_salary_expectation
-              var content=document.getElementById("content");
 
               if(!this.rt_achievement){
                 this.rt_achievement='点击输入';
@@ -54,10 +55,16 @@ export class PerformanceStartPage {
               this.storage.get('user').then(res => {
                     this.user_heard = res.result.res_data.user_ava;
                })
+               
   }
-
+  resize() {
+    console.log("resize---------")
+    this.myInput.nativeElement.style.height = this.myInput.nativeElement.scrollHeight + 'px';
+  }
   ionViewDidLoad() {
     console.log('ionViewDidLoad PerformanceStartPage');
+    this.myInput.nativeElement.style.height = this.myInput.nativeElement.scrollHeight + 'px';
+    console.log("resize---------"+this.myInput.nativeElement.scrollHeight)
   }
 
   ionViewWillEnter() {
