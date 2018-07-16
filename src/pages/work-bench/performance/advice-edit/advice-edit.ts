@@ -16,7 +16,7 @@ import { AlertController } from 'ionic-angular/components/alert/alert-controller
   templateUrl: 'advice-edit.html',
 })
 export class AdviceEditPage {
-  rt_advice;
+  rt_advice: any;
   frontPage:any;
   constructor(public navCtrl: NavController, public navParams: NavParams,public statusBar: StatusBar,
     private alertCtrl: AlertController) {
@@ -53,7 +53,12 @@ export class AdviceEditPage {
   }
 
   save(){
-    this.frontPage.data.rt_advice = this.rt_advice;
+
+    // debugger;
+    // this.frontPage.data.rt_advice = this.rt_advice.replaceAll(" ","&nbsp;").replaceAll("\r","<br/>");
+    // var reg=new RegExp("\n","g"); //new RegExp("\r\n","g")
+    // this.rt_advice= this.rt_advice.replace(reg,"<br>");
+    this.frontPage.data.rt_advice = this.rt_advice
     this.frontPage.data.need_fresh = true;
     this.frontPage.data.postedit = 3;
     this.navCtrl.popTo(this.frontPage);

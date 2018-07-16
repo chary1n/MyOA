@@ -53,7 +53,7 @@ export class ContentEditPage {
   }
 
   save(){
-    this.frontPage.data.rt_achievement = this.rt_achievement.replaceAll(" ","&nbsp;").replaceAll("\r","<br/>");;
+    this.frontPage.data.rt_achievement = this.rt_achievement;
     this.frontPage.data.need_fresh = true;
     this.frontPage.data.postedit = 1;
     this.navCtrl.popTo(this.frontPage);
