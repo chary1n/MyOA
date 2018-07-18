@@ -6,6 +6,7 @@ import { Storage } from '@ionic/storage';
 import { Utils } from '../../../../providers/Utils';
 import { ToastController } from 'ionic-angular/components/toast/toast-controller';
 import { DomSanitizer } from '@angular/platform-browser';
+import { AlertController } from 'ionic-angular';
 
 /**
  * Generated class for the PerformanceStartPage page.
@@ -30,11 +31,11 @@ export class PerformanceStartPage {
   isShowFooter = true;
   user_heard;
   need_fresh = false;
-  postedit = 0
-
+  postedit = 0;
+  description;
   constructor(public navCtrl: NavController, public navParams: NavParams, public statusBar:StatusBar,
               public servicePerformance: PersonService, public storage: Storage,public toastCtrl: ToastController
-              ,private sanitizer: DomSanitizer,) {
+              ,private sanitizer: DomSanitizer,private alertCtrl: AlertController) {
 
               this.item = this.navParams.get('item');
               console.log("item = "+ this.item)
@@ -43,6 +44,7 @@ export class PerformanceStartPage {
               this.rt_advice = this.item.rt_advice.replace(/\n/g,"<br>")
               this.rt_insufficient = this.item.rt_insufficient.replace(/\n/g,"<br>")
               this.rt_salary_expectation = this.item.rt_salary_expectation
+              this.description = this.item.description
 
               if(!this.rt_achievement){
                 this.rt_achievement='点击输入';
@@ -55,8 +57,7 @@ export class PerformanceStartPage {
               }
               this.storage.get('user').then(res => {
                     this.user_heard = res.result.res_data.user_ava;
-               })
-               
+               })    
   }
   
   assembleHTML(str){ 
@@ -64,6 +65,18 @@ export class PerformanceStartPage {
   }
   ionViewDidLoad() {
     console.log('ionViewDidLoad PerformanceStartPage');
+    this.presentAlert()
+  }
+
+  presentAlert() {
+    if(this.description!=''){
+      let alert = this.alertCtrl.create({
+        title: '考核说明',
+        subTitle: this.description,
+        buttons: ['我知道了']
+      });
+      alert.present();
+    }
   }
 
   ionViewWillEnter() {

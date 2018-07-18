@@ -25,6 +25,8 @@ export class PerformancePage {
   lists=[];
   listMine=[];
   listOther=[];
+  str1;
+  str2;
   constructor(public navCtrl: NavController, public navParams: NavParams, public statusBar:StatusBar,
               public servicePerformance: PersonService, public storage: Storage) {
                 
@@ -53,8 +55,12 @@ export class PerformancePage {
           this.num2 = res.result.res_data.lenghthOther
           if(this.isMine){
             this.lists = res.result.res_data.dataMine
+            this.str1 = '自评'
+            this.str2 = '报告'
           }else if(this.isOther){
             this.lists = res.result.res_data.dataOther
+            this.str1 = '开始考评'
+            this.str2 = '查看结果'
           }
         }
       })
@@ -65,12 +71,16 @@ export class PerformancePage {
     this.isMine = true
     this.isOther = false
     this.lists = this.listMine
+    this.str1 = '自评'
+    this.str2 = '报告'
   }
 
   others(){
     this.isMine = false
     this.isOther = true
     this.lists = this.listOther
+    this.str1 = '开始考评'
+    this.str2 = '查看结果'
   }
 
   goBack(){
