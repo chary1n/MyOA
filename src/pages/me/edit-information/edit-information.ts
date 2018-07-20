@@ -117,7 +117,8 @@ export class EditInformationPage {
 
   getPicture(type) {//1拍照,0从图库选择
     let options = {
-      allowEdit: false,
+      allowEdit: true,
+      quality: 10,//图像质量，范围为0 - 100
     };
     if (type == 1) {
       this.nativeService.getPictureByCamera(options).subscribe(img_url => {

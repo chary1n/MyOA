@@ -24,9 +24,9 @@ export class PerformanceResultDetailPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public statusBar:StatusBar,) {
     this.item = this.navParams.get('item')
     this.typeList = this.item.typeList
-    this.rt_achievement = this.item.rt_achievement
-    this.rt_insufficient = this.item.rt_insufficient
-    this.rt_advice = this.item.rt_advice
+    this.rt_achievement = this.item.rt_achievement.replace(/<br>/g,"\n")
+    this.rt_insufficient = this.item.rt_insufficient.replace(/<br>/g,"\n")
+    this.rt_advice = this.item.rt_advice.replace(/<br>/g,"\n")
     this.rt_salary_expectation = this.item.rt_salary_expectation
   }
 
