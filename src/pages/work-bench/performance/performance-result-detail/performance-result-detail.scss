@@ -1,22 +1,14 @@
-page-performance-start {
+page-performance-result-detail {
     .image1{ 
         border-radius:200px; 
         width: 25px;
         height: 25px;
     }
     .star-div {
-        padding-left: 15px;
+        padding-left: 20px;
         ion-icon {
           float: left;
           font-size: 21px;
         }
-    }
-
-    .wait{
-        color: #fba958
-    }
-
-    .finish {
-        color: #2597ec
     }
 }

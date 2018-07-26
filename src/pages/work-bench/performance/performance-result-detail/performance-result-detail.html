@@ -1,0 +1,135 @@
+<!--
+  Generated template for the PerformanceResultDetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+    <ion-navbar color="gongdan-color" hideBackButton="true">
+        <ion-buttons left>
+            <button ion-button icon-only (click)="goBack()">
+              <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+            </button>
+          </ion-buttons>
+      <ion-title>考评结果</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+    <ion-item-group no-lines>
+        <ion-item style="border-bottom:#f0f2f5 1px solid;">
+            <p text-wrap style="font-size:13px;color:#fba958;margin-right:25px;float: right;margin-top: 0px">{{changeStr(item.rt_state)}}</p>
+            <img src="assets/img/work_bench/reportForms.png" class="image1" style="float:left;">   
+            <p text-wrap style="font-size:80%;color:gray;line-height:27px;margin-left: 30px;">{{item.rt_appraisaled_employee_name}}</p>
+        </ion-item>
+      </ion-item-group>
+      <div>
+          <p style="font-size:13px;float: left;color:#949ca1;margin-left: 20px;margin-top: -2px;height: 15px;line-height: 15px">单号</p>
+          <p style="font-size:13px;color:#949ca1;margin-left: 120px;height: 25px;">{{item.rt_name}}</p>
+          <p style="font-size:13px;float: left;color:#949ca1;margin-left: 20px;margin-top: -2px">类型</p>
+          <p style="font-size:13px;color:#949ca1;margin-left: 120px;height: 25px;">{{changeCycle(item.rt_appraisal_cycle)}}</p>
+          <p style="font-size:13px;float: left;color:#949ca1;margin-left: 20px;margin-top: -2px">部门</p>
+          <p style="font-size:13px;color:#949ca1;margin-left: 120px;height: 25px;">{{item.rt_department_id}}</p>
+          <p style="font-size:13px;float: left;color:#949ca1;margin-left: 20px;margin-top: -2px">岗位</p>
+          <p style="font-size:13px;color:#949ca1;margin-left: 120px">{{item.rt_job_id}}</p>
+      </div>
+      <div style="height: 10px;line-height: 10px;background:#f0f2f5;"></div>
+      <ion-grid style="padding: 0px">
+          <ion-row class="row_class" align-items-center>
+            <ion-col style="padding: 0px;border-bottom:#f0f2f5 1px solid;">
+            <div align="center">
+              <p>KPI考评</p> 
+            </div>
+          </ion-col>        
+          </ion-row>
+      </ion-grid>
+      <ion-item-group no-lines style="border-bottom:#f0f2f5 1px solid;">
+            <div *ngFor="let typeBean of typeList">
+                    <span style="margin-left: 5px;width:8px;height:8px;border-radius:8px;background-color:#2597ec;display:inline-block;float: left;margin-top: 3px"></span>
+                    <h4 style="font-size: 14px;margin-left: 20px">{{typeBean.type}}</h4>   
+                  <div *ngFor="let tagBean of typeBean.tagList" style="margin-top: 20px">
+                        <span style="margin-left: 10px;width:5px;height:5px;border-radius:5px;background-color:#b4b4af;display:inline-block;float: left;margin-top: 7px"></span>
+                        <p style="font-size: 14px;color: #949ca1;margin-left: 20px;word-wrap:break-word;">{{tagBean.tag_name}}</p>
+                        <div class="star-div" *ngFor="let subeType of tagBean.subType" style="padding: 10px;margin-top: 5px">
+                            <p style="font-size: 13px;color: #949ca1;margin-left: 10px;word-wrap: break-word;margin-top: -10px">{{subeType.subTp}}</p>
+                            <div *ngFor="let item of score" style="float: left;margin-top: -10px;margin-left: 10px" tappable>
+                                <ion-icon name="star" style="color: #fba958" *ngIf="item<=subeType.current_id;"></ion-icon>
+                                <ion-icon name="star-outline" style="color: #b4b4af" *ngIf="item>subeType.current_id;"></ion-icon>
+                            </div>
+                        </div>
+                        <div style="height: 1px;line-height: 1px;background-color: #f0f2f5;margin-left: 20px;margin-top: 15px"></div>
+                  </div>
+            </div>
+            <!-- <ion-item no-lines *ngFor="let typeBean of typeList">
+
+                    <div>
+                        <span style="margin-left: 5px;width:8px;height:8px;border-radius:8px;background-color:#2597ec;display:inline-block;float: left;margin-top: 5px"></span>
+                        <h4 style="font-size: 14px;margin-left: 20px">{{typeBean.type}}</h4>
+                      </div>
+                      <div *ngFor="let tagBean of typeBean.tagList" style="margin-top: 20px">
+                            <span style="margin-left: 10px;width:5px;height:5px;border-radius:5px;background-color:#b4b4af;display:inline-block;float: left;margin-top: 5px"></span>
+                            <p style="font-size: 10px;color: #949ca1;margin-left: 20px;word-wrap: break-word;">{{tagBean.tag_name}}</p>
+                            <div class="star-div" *ngFor="let subeType of tagBean.subType" style="padding: 10px;margin-top: 5px">
+                                <p style="font-size: 13px;color: #949ca1;padding-bottom: 5px;margin-left: 10px;word-wrap: break-word;">{{subeType.subTp}}</p>
+                                <div *ngFor="let item of score" style="float: left;margin-top: 0px;margin-left: 10px" tappable (click)="select(subeType,subeType.score,item)">
+                                    <ion-icon name="star" style="color: #fba958" *ngIf="item<=subeType.current_id;"></ion-icon>
+                                    <ion-icon name="star-outline" style="color: #b4b4af" *ngIf="item>subeType.current_id;"></ion-icon>
+                                </div>
+                            </div>
+                      </div>
+                </ion-item> -->
+      </ion-item-group>
+      <div style="height: 10px;line-height: 10px;background:#f0f2f5;"></div>
+      <ion-grid style="padding: 0px">
+          <ion-row class="row_class" align-items-center>
+            <ion-col style="padding: 0px;border-bottom:#f0f2f5 1px solid;">
+            <div align="center">
+              <p>主观描述</p> 
+            </div>
+          </ion-col>        
+          </ion-row>
+      </ion-grid>
+      <ion-item-group no-lines style="border-bottom:#f0f2f5 1px solid;" *ngIf="item.is_self">
+          <div>
+              <span style="margin-left: 15px;width:8px;height:8px;border-radius:8px;background-color:#2597ec;display:inline-block;float: left;margin-top: 4px"></span>
+              <h4 style="font-size: 14px;margin-left: 35px;color: #2e3133">工作总结</h4>
+                <p style="color:#949ca1;font-size: 12px;margin-left: 25px">1.工作成绩：完成的重要事项，工作中的收获提升以及感悟</p>
+                <p style="color:#949ca1;font-size: 12px;margin-left: 25px">2.工作不足：遇到的内外部问题、失误，如何避免或者改进</p>
+                <p style="word-wrap:break-word;color:#3d3c3c;border-radius:8px;border-top:1px #d6d6db solid;
+                border-right: 1px #d6d6db solid;
+              border-bottom: 1px #d6d6db solid;border-left: 1px #d6d6db solid;margin: 15px;padding: 10px;width:90%">{{rt_achievement}}</p>
+            </div>
+      </ion-item-group>
+      <ion-item-group no-lines style="border-bottom:#f0f2f5 1px solid;" *ngIf="item.is_self">
+          <div>
+              <span style="margin-left: 15px;width:8px;height:8px;border-radius:8px;background-color:#2597ec;display:inline-block;float: left;margin-top: 4px"></span>
+              <h4 style="font-size: 14px;margin-left: 35px;color: #2e3133">工作计划</h4>
+                <p style="color:#949ca1;font-size: 12px;margin-left: 25px">1.近期计划；2.长期规划</p>
+                <p style="word-wrap:break-word;color:#3d3c3c;border-radius:8px;border-top:1px #d6d6db solid;
+                border-right: 1px #d6d6db solid;
+              border-bottom: 1px #d6d6db solid;border-left: 1px #d6d6db solid;margin: 15px;padding: 10px;width:90%">{{rt_insufficient}}</p>
+            </div>
+      </ion-item-group>
+      
+      <ion-item-group no-lines style="border-bottom:#f0f2f5 1px solid;" *ngIf="!item.is_self">
+          <div>
+              <span style="margin-left: 15px;width:8px;height:8px;border-radius:8px;background-color:#2597ec;display:inline-block;float: left;margin-top: 4px"></span>
+              <h4 style="font-size: 14px;margin-left: 35px;color: #2e3133">意见和建议</h4>
+          <p style="word-wrap:break-word;color:#3d3c3c;border-radius:8px;border-top:1px #d6d6db solid;
+                border-right: 1px #d6d6db solid;
+              border-bottom: 1px #d6d6db solid;border-left: 1px #d6d6db solid;margin: 15px;padding: 10px;width:90%">{{rt_advice}}</p>
+          </div>
+      </ion-item-group>
+      <ion-item-group no-lines style="border-bottom:#f0f2f5 1px solid;" *ngIf="item.is_self">
+          <div>
+              <span style="margin-left: 15px;width:8px;height:8px;border-radius:8px;background-color:#2597ec;display:inline-block;float: left;margin-top: 4px"></span>
+              <h4 style="font-size: 14px;margin-left: 35px;color: #2e3133">我能够匹配的年薪</h4>
+              <ion-input readonly="true" [(ngModel)]="rt_salary_expectation"  type="number" placeholder="不代表最终结果" style="margin-top: 5px;border-radius:8px;border-top:1px #d6d6db solid;
+              border-right: 1px #d6d6db solid;
+            border-bottom: 1px #d6d6db solid;border-left: 1px #d6d6db solid;margin: 15px;height: 35px;padding-left: 10px;width:90%;padding-top: -5px"></ion-input>
+          </div>
+      </ion-item-group>
+</ion-content>

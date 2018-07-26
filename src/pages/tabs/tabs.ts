@@ -17,11 +17,14 @@ export class TabsPage {
   @ViewChild('mainTabs') tabs:Tabs;
   meRoot :any ='MePage';
   need_show_contact = true
-  msgRoot:any = 'GongdanPage';
+  // firstRoot:any = 'FirstShowPage';
+  msgRoot:any = 'FirstShowPage';
+  // msgRoot:any = 'GongdanPage';
   workRoot :any = 'WorkBenchPage';
   contactRoot  = 'ContactPersonPage';
   need_show_gongdan = "false"
   need_show_all = false;
+  need_show_first = false
   loginIndex;
   constructor(public navCtrl: NavController, public navParams: NavParams,
   public storage:Storage) {

@@ -12,111 +12,132 @@
               <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
             </button>
           </ion-buttons>
-      <ion-title>开始考评</ion-title>
+      <ion-title>{{getTitle()}}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content>
-  <ion-item-group no-lines>
-    <ion-item style="border-bottom:#f0f2f5 1px solid;">
-        <p text-wrap style="font-size:13px;color:#fba958;margin-right:25px;float: right;margin-top: 0px">{{changeStr(item.rt_state)}}</p>
-        <img src="assets/img/work_bench/reportForms.png" class="image1" style="float:left;">   
-        <p text-wrap style="font-size:80%;color:gray;line-height:27px;margin-left: 30px;">{{item.rt_appraisaled_employee_name}}</p>
-    </ion-item>
-  </ion-item-group>
-  <div>
-    <p style="font-size:13px;color:#949ca1;float: right;margin-top: 0px;margin-right:180px">{{item.rt_name}}</p>
-    <p style="font-size:13px;color:#949ca1;margin-left: 20px;">单号</p>
-    <p style="font-size:13px;color:#949ca1;float: right;margin-top: 0px;margin-right:180px">{{changeCycle(item.rt_appraisal_cycle)}}</p>
-    <p style="font-size:13px;color:#949ca1;margin-left: 20px;">考核周期</p>
-    <p style="font-size:13px;color:#949ca1;float: right;margin-top: 0px;margin-right:180px">{{item.rt_department_id}}</p>
-    <p style="font-size:13px;color:#949ca1;margin-left: 20px;">部门</p>
-    <p style="font-size:13px;color:#949ca1;float: right;margin-top: 0px;margin-right:180px">{{item.rt_job_id}}</p>
-    <p style="font-size:13px;color:#949ca1;margin-left: 20px;">岗位</p>
-  </div>
-  <div style="height: 10px;line-height: 10px;background:#f0f2f5;"></div>
-  <ion-grid style="padding: 0px">
-      <ion-row class="row_class" align-items-center>
-        <ion-col style="padding: 0px;border-bottom:#f0f2f5 1px solid;">
-        <div align="center">
-          <p>第一部分</p> 
-        </div>
-      </ion-col>        
-      </ion-row>
-  </ion-grid>
-
-  <ion-item-group no-lines style="border-bottom:#f0f2f5 1px solid;">
-    <div *ngFor="let typeBean of typeList">
-        <div >
-            <span style="margin-left: 15px;width:8px;height:8px;border-radius:8px;background-color:#2597ec;display:inline-block;float: left;margin-top: 5px"></span>
-            <h4 style="font-size: 14px;margin-left: 35px">{{typeBean.type}}</h4>
-          </div>
-          <div class="star-div" *ngFor="let subeType of typeBean.subType">
-              <div *ngFor="let item of subeType.score" style="float: right;margin-left: 10px;margin-top: -5px" tappable (click)="select(subeType,subeType.score,item)">
-                  <ion-icon name="star" style="color: #fba958" *ngIf="item.value==2;"></ion-icon>
-                  <ion-icon name="star-outline" style="color: #b4b4af" *ngIf="item.value==1;"></ion-icon>
-                </div>
-                <p style="font-size: 13px;color: #949ca1">{{subeType.subTp}}</p>
-          </div>
+    <div *ngIf="!isFirst">
+            <ion-item-group no-lines>
+                    <ion-item style="border-bottom:#f0f2f5 1px solid;">
+                        <p text-wrap style="font-size:13px;color:#fba958;margin-right:25px;float: right;margin-top: 0px"
+                        [ngClass]="{true:'wait',false:'finish'}[isFinish(item.rt_state)]">{{changeStr(item.rt_state)}}</p>
+                        <img src={{user_heard}} class="image1" style="float:left;">   
+                        <p text-wrap style="font-size:80%;color:gray;line-height:27px;margin-left: 30px;">{{item.rt_appraisaled_employee_name}}</p>
+                    </ion-item>
+                  </ion-item-group>
+                  <div>
+                    <p style="font-size:13px;float: left;color:#949ca1;margin-left: 20px;margin-top: -2px;height: 15px;line-height: 15px">单号</p>
+                    <p style="font-size:13px;color:#949ca1;margin-left: 120px;height: 25px;">{{item.rt_name}}</p>
+                    <p style="font-size:13px;float: left;color:#949ca1;margin-left: 20px;margin-top: -2px">类型</p>
+                    <p style="font-size:13px;color:#949ca1;margin-left: 120px;height: 25px;">{{changeCycle(item.rt_appraisal_cycle)}}</p>
+                    <p style="font-size:13px;float: left;color:#949ca1;margin-left: 20px;margin-top: -2px">部门</p>
+                    <p style="font-size:13px;color:#949ca1;margin-left: 120px;height: 25px;">{{item.rt_department_id}}</p>
+                    <p style="font-size:13px;float: left;color:#949ca1;margin-left: 20px;margin-top: -2px">岗位</p>
+                    <p style="font-size:13px;color:#949ca1;margin-left: 120px">{{item.rt_job_id}}</p>
+                  </div>
+                  <div style="height: 10px;line-height: 10px;background:#f0f2f5;"></div>
+                  <ion-grid style="padding: 0px">
+                      <ion-row class="row_class" align-items-center>
+                        <ion-col style="padding: 0px;border-bottom:#f0f2f5 1px solid;">
+                        <div align="center">
+                          <p>KPI考评</p> 
+                        </div>
+                      </ion-col>        
+                      </ion-row>
+                  </ion-grid>
+                
+                  <ion-item-group no-lines>
+                        <div *ngFor="let typeBean of typeList">
+                            <span style="margin-left: 8px;width:8px;height:8px;border-radius:8px;background-color:#2597ec;display:inline-block;float: left;margin-top: 3px"></span>
+                            <h4 style="font-size: 14px;margin-left: 20px">{{typeBean.type}}</h4>   
+                          <div *ngFor="let tagBean of typeBean.tagList" style="margin-top: 20px;">
+                                <span style="margin-left: 10px;width:5px;height:5px;border-radius:5px;background-color:#b4b4af;display:inline-block;float: left;margin-top: 7px"></span>
+                                <p style="font-size: 14px;color: #949ca1;margin-left: 20px;word-wrap:break-word;">{{tagBean.tag_name}}</p>
+                                <div class="star-div" *ngFor="let subeType of tagBean.subType" style="padding: 10px;margin-top: 5px">
+                                    <p style="font-size: 13px;color: #949ca1;margin-left: 10px;word-wrap: break-word;margin-top: -10px">{{subeType.subTp}}</p>
+                                    <div *ngFor="let item of score" style="float: left;margin-top: -10px;margin-left: 10px" tappable (click)="select(subeType,item)">
+                                        <ion-icon name="star" style="color: #fba958" *ngIf="item<=subeType.current_id;"></ion-icon>
+                                        <ion-icon name="star-outline" style="color: #b4b4af" *ngIf="item>subeType.current_id;"></ion-icon>
+                                    </div>
+                                </div>
+                                <div style="height: 1px;line-height: 1px;background-color: #f0f2f5;margin-left: 20px;margin-top: 15px"></div>
+                          </div>
+                        </div>
+                  </ion-item-group>
+                  <ion-grid style="padding: 0px">
+                      <ion-row class="row_class" align-items-center>
+                        <ion-col style="padding: 0px;border-bottom:#f0f2f5 1px solid;border-top: #f0f2f5 10px solid">
+                        <div align="center">
+                          <p>主观描述</p> 
+                        </div>
+                      </ion-col>        
+                      </ion-row>
+                  </ion-grid>
+                  <ion-item-group no-lines style="border-bottom:#f0f2f5 1px solid;" *ngIf="item.is_self">
+                      <div tappable (click)="editContent(rt_achievement)">
+                        <div>
+                            <span style="margin-bottom: -15px;margin-left: 15px;width:8px;height:8px;border-radius:8px;background-color:#2597ec;display:inline-block;margin-top: 4px"></span>
+                            <h4 style="font-size: 14px;margin-left: 35px;color: #2e3133;margin-top: 0px">工作总结</h4>
+                        </div>
+                        <img src="assets/img/journal_sheet/right_icon.png" style="margin-top: 13px;width:15px;height:15px;float: right;margin-right: 15px">
+                          <div [innerHTML]="assembleHTML(rt_achievement)" style="word-wrap:break-word;color:#3d3c3c;margin: 15px;padding: 10px;width:90%"></div>
+                      </div>
+                  </ion-item-group>
+                  <ion-item-group no-lines style="border-bottom:#f0f2f5 1px solid;" *ngIf="item.is_self">
+                      <div tappable (click)="editInsufficient(rt_insufficient)">
+                          <div>
+                              <span style="margin-bottom: -15px;margin-left: 15px;width:8px;height:8px;border-radius:8px;background-color:#2597ec;display:inline-block;margin-top: 4px"></span>
+                              <h4 style="font-size: 14px;margin-left: 35px;color: #2e3133;margin-top: 0px">工作计划</h4>
+                          </div>
+                          <img src="assets/img/journal_sheet/right_icon.png" style="margin-top: 13px;width:15px;height:15px;float: right;margin-right: 15px">
+                          <div [innerHTML]="assembleHTML(rt_insufficient)" style="word-wrap:break-word;color:#3d3c3c;margin: 15px;padding: 10px;width:90%"></div>
+                          <!-- <p style="word-wrap:break-word;color:#666666;border-radius:8px;border-top:1px #f5f7fa solid;
+                                border-right: 1px #f5f7fa solid;
+                              border-bottom: 1px #f5f7fa solid;border-left: 1px #f5f7fa solid;margin: 15px;padding: 10px;width:90%">{{rt_insufficient}}</p> -->
+                        </div>
+                  </ion-item-group>
+                  
+                  <ion-item-group no-lines style="border-bottom:#f0f2f5 1px solid;" *ngIf="!item.is_self">
+                      <div tappable (click)="editAdvice(rt_advice)">
+                          <div>
+                              <span style="margin-bottom: -15px;margin-left: 15px;width:8px;height:8px;border-radius:8px;background-color:#2597ec;display:inline-block;margin-top: 4px"></span>
+                              <h4 style="font-size: 14px;margin-left: 35px;color: #2e3133;margin-top: 0px">意见和建议</h4>
+                          </div>
+                          <img src="assets/img/journal_sheet/right_icon.png" style="margin-top: 13px;width:15px;height:15px;float: right;margin-right: 15px">
+                          <div [innerHTML]="assembleHTML(rt_advice)" style="word-wrap:break-word;color:#3d3c3c;margin: 15px;padding: 10px;width:90%"></div>
+                      </div>
+                  </ion-item-group>
+                  <ion-item no-lines *ngIf="item.is_self" style="min-height: 20px">
+                        <ion-label style="color:#2e3133;font-size:14px;">
+                                <span style="width:8px;height:8px;border-radius:8px;background-color:#2597ec;display:inline-block;"></span>
+                            匹配年薪</ion-label>
+                        <ion-input item-end type="number" text-right [(ngModel)]="rt_salary_expectation" style="color:#5C6166;font-size:12px;margin-right:5px" placeholder="请输入"></ion-input>
+                   </ion-item>
+                   <div *ngIf="item.is_self" style="word-wrap:break-word;color: #949ca1;font-size: 12px;margin-left: 15px">说明：在当前社会环境下，你自认为你的努力与能力能够匹配的年收入，你填的数据与你最终的薪资调整没有必然联系</div>
+                  <!-- <ion-item-group no-lines style="border-bottom:#f0f2f5 1px solid;" *ngIf="item.is_self">
+                      <div>
+                          <ion-input [(ngModel)]="rt_salary_expectation"  type="number" style="float: right;"></ion-input>
+                          <span style="margin-left: 15px;width:8px;height:8px;border-radius:8px;background-color:#2597ec;display:inline-block;float: left;margin-top: 4px"></span>
+                          <h4 style="font-size: 14px;margin-left: 35px;color: #2e3133">我能够匹配的年薪</h4>
+                      </div>
+                  </ion-item-group> -->
+                  
     </div>
-  </ion-item-group>
-  <div style="height: 10px;line-height: 10px;background:#f0f2f5;"></div>
-  <ion-grid style="padding: 0px">
-      <ion-row class="row_class" align-items-center>
-        <ion-col style="padding: 0px;border-bottom:#f0f2f5 1px solid;">
-        <div align="center">
-          <p>第二部分</p> 
-        </div>
-      </ion-col>        
-      </ion-row>
-  </ion-grid>
-  <ion-item-group no-lines style="border-bottom:#f0f2f5 1px solid;">
-      <div>
-          <span style="margin-left: 15px;width:8px;height:8px;border-radius:8px;background-color:#2597ec;display:inline-block;float: left;margin-top: 5px"></span>
-          <h4 style="font-size: 14px;margin-left: 35px;color: #2e3133">请对过去一年的工作成果做简单总结（1.主要完成的工作；2.对自己的提升；3.列举你觉得最有价值的一项工作）</h4>
-          <ion-input [(ngModel)]="rt_achievement" style="border-radius:8px;border-top:1px #f5f7fa solid;
-          border-right: 1px #f5f7fa solid;
-        border-bottom: 1px #f5f7fa solid;border-left: 1px #f5f7fa solid;margin: 15px;height: 90px;padding-left: 10px;width:90%"></ion-input>
-        </div>
-  </ion-item-group>
-  <ion-item-group no-lines style="border-bottom:#f0f2f5 1px solid;">
-      <div>
-          <span style="margin-left: 15px;width:8px;height:8px;border-radius:8px;background-color:#2597ec;display:inline-block;float: left;margin-top: 5px"></span>
-          <h4 style="font-size: 14px;margin-left: 35px;color: #2e3133">工作中的不足（1.工作中遇到的问题；2.如何改进）</h4>
-          <ion-input [(ngModel)]="rt_insufficient" style="border-radius:8px;border-top:1px #f5f7fa solid;
-          border-right: 1px #f5f7fa solid;
-        border-bottom: 1px #f5f7fa solid;border-left: 1px #f5f7fa solid;margin: 15px;height: 90px;padding-left: 10px;width:90%"></ion-input>
-        </div>
-  </ion-item-group>
-  
-  <ion-item-group no-lines style="border-bottom:#f0f2f5 1px solid;">
-      <div>
-          <span style="margin-left: 15px;width:8px;height:8px;border-radius:8px;background-color:#2597ec;display:inline-block;float: left;margin-top: 5px"></span>
-          <h4 style="font-size: 14px;margin-left: 35px;color: #2e3133">意见和建议</h4>
-          <ion-input [(ngModel)]="rt_advice" style="border-radius:8px;border-top:1px #f5f7fa solid;
-          border-right: 1px #f5f7fa solid;
-        border-bottom: 1px #f5f7fa solid;border-left: 1px #f5f7fa solid;margin: 15px;height: 90px;padding-left: 10px;width:90%"></ion-input>
-      </div>
-  </ion-item-group>
-  <ion-item-group no-lines style="border-bottom:#f0f2f5 1px solid;" *ngIf="item.is_self">
-      <div>
-          <span style="margin-left: 15px;width:8px;height:8px;border-radius:8px;background-color:#2597ec;display:inline-block;float: left;margin-top: 5px"></span>
-          <h4 style="font-size: 14px;margin-left: 35px;color: #2e3133">期望薪资</h4>
-          <ion-input [(ngModel)]="rt_salary_expectation"  type="number" placeholder="不代表最终结果" style="margin-top: 5px;border-radius:8px;border-top:1px #f5f7fa solid;
-          border-right: 1px #f5f7fa solid;
-        border-bottom: 1px #f5f7fa solid;border-left: 1px #f5f7fa solid;margin: 15px;height: 35px;padding-left: 10px;width:90%;padding-top: -5px"></ion-input>
-      </div>
-  </ion-item-group>
+    <div  padding  [innerHTML]="assembleHTML(description)" *ngIf="isFirst"></div>
 </ion-content>
 <ion-footer>
-    <div style="background:white">
-        <span align="center" style='width:50%;float:left; background-color:#1eabfe;height:44px;line-height:44px;font-size:15px;color:white' tappable (click)="save()">
+    <div style="background:white" *ngIf="!isFirst">
+        <span align="center" style='width:50%;float:left; background-color:#40aae7;height:44px;line-height:44px;font-size:15px;color:white' tappable (click)="save()">
         保存
         </span>
-        <span align="center" style='width:50%;float:right;background-color:#1eabfe;height:44px;line-height:44px;font-size:15px;color:white' tappable (click)="commit()">
+        <span align="center" style='width:50%;float:right;background-color:#1897f2;height:44px;line-height:44px;font-size:15px;color:white' tappable (click)="commit()">
         立即提交
         </span>
-        </div>
+    </div>
+    <div *ngIf="isFirst" align="center">
+            <button ion-button round tappable (click)="notFirst()">我已阅读，开始考评</button>
+    </div>
 </ion-footer>

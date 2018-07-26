@@ -32,6 +32,8 @@
     <preference name="SplashScreenDelay" value="10000" />
     <preference name="loadUrlTimeoutValue" value="700000" />
     <preference name="AutoHideSplashScreen" value="false" />
+    <preference name="Fullscreen" value="False" />
+    <preference name="android-windowSoftInputMode" value="adjustPan" />
     <platform name="android">
         <name>OA</name>
         <allow-intent href="market:*" />
@@ -109,7 +111,7 @@
     <allow-navigation href="http://192.168.2.74:8100" />
     <allow-navigation href="http://192.168.2.33:8100" />
     <allow-navigation href="http://192.168.1.163:8100" />
-    <engine name="android" spec="^6.3.0" />
+    <engine name="android" spec="^6.2.3" />
     <engine name="ios" spec="^4.5.4" />
     <plugin name="com-darryncampbell-cordova-plugin-intent" spec="0.0.14" />
     <plugin name="com.darktalker.cordova.screenshot" spec="^0.1.6" />
@@ -120,7 +122,6 @@
     <plugin name="cordova-plugin-ble-central" spec="^1.1.4">
         <variable name="BLUETOOTH_USAGE_DESCRIPTION" value=" " />
     </plugin>
-    <plugin name="cordova-plugin-camera" spec="^4.0.3" />
     <plugin name="cordova-plugin-compat" spec="^1.2.0" />
     <plugin name="cordova-plugin-console" spec="^1.1.0" />
     <plugin name="cordova-plugin-contacts" spec="^2.3.1">
@@ -146,18 +147,20 @@
     <plugin name="cordova-plugin-inappbrowser" spec="^1.7.2" />
     <plugin name="cordova-plugin-network-information" spec="^1.3.4" />
     <plugin name="cordova-plugin-splashscreen" spec="^4.1.0" />
-    <plugin name="cordova-plugin-statusbar" spec="^2.4.1" />
+    <plugin name="cordova-plugin-statusbar" spec="^2.4.2" />
+    <plugin name="cordova-plugin-telerik-imagepicker" spec="git+https://github.com/Telerik-Verified-Plugins/ImagePicker.git">
+        <variable name="PHOTO_LIBRARY_USAGE_DESCRIPTION" value=" " />
+    </plugin>
     <plugin name="cordova-plugin-whitelist" spec="^1.3.3" />
     <plugin name="cordova-plugin-x-toast" spec="^2.6.0" />
-    <plugin name="ionic-plugin-keyboard" spec="^2.2.1" />
     <plugin name="jpush-phonegap-plugin" spec="git+https://github.com/jpush/jpush-phonegap-plugin.git">
         <variable name="APP_KEY" value="f2ae889d6e4c3400fef49696" />
     </plugin>
+    <plugin name="mx.ferreyra.callnumber" spec="0.0.2" />
     <plugin name="phonegap-nfc" spec="^0.7.1">
         <variable name="NFC_USAGE_DESCRIPTION" value="Read NFC Tags" />
     </plugin>
     <plugin name="phonegap-plugin-barcodescanner" spec="^6.0.8">
         <variable name="CAMERA_USAGE_DESCRIPTION" value=" " />
     </plugin>
-    <plugin name="mx.ferreyra.callnumber" spec="~0.0.2" />
 </widget>

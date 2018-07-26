@@ -23,4 +23,9 @@ export class PersonService{
     get_performance_result(body){
         return this.httpservice.postBody("get_performance_result", body);
     }
+
+    //更改是第一次阅读
+    change_first(body){
+        return this.httpservice.postBody("change_first", body);
+    }
 }

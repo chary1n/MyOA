@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { Storage } from '@ionic/storage'; 
+import { DatePipe } from '@angular/common';
 
 /**
  * Generated class for the PerformancePage page.
@@ -14,7 +15,7 @@ import { Storage } from '@ionic/storage';
 @Component({
   selector: 'page-performance',
   templateUrl: 'performance.html',
-  providers: [PersonService],
+  providers: [PersonService, DatePipe],
 })
 export class PerformancePage {
   isMine = true;
@@ -25,8 +26,9 @@ export class PerformancePage {
   lists=[];
   listMine=[];
   listOther=[];
+  // str1;
   constructor(public navCtrl: NavController, public navParams: NavParams, public statusBar:StatusBar,
-              public servicePerformance: PersonService, public storage: Storage) {
+              public servicePerformance: PersonService, public storage: Storage,private datePipe: DatePipe) {
                 
   }
 
@@ -53,24 +55,38 @@ export class PerformancePage {
           this.num2 = res.result.res_data.lenghthOther
           if(this.isMine){
             this.lists = res.result.res_data.dataMine
+            // this.str1 = '开始自评'
           }else if(this.isOther){
             this.lists = res.result.res_data.dataOther
+            // this.str1 = '开始考评'
           }
         }
       })
     })
   }
 
+  different(item){
+      let str = ''
+      if(this.isMine){
+        str = item.rt_department_id+'/'+item.rt_job_id
+      }else if(this.isOther){
+        str = item.rt_department_id+'/'+item.rt_job_id+'    '+item.rt_appraisaled_employee_name
+      }
+      return str
+  }
+
   mine(){
     this.isMine = true
     this.isOther = false
     this.lists = this.listMine
+    // this.str1 = '开始自评'
   }
 
   others(){
     this.isMine = false
     this.isOther = true
     this.lists = this.listOther
+    // this.str1 = '开始考评'
   }
 
   goBack(){
@@ -98,7 +114,6 @@ export class PerformancePage {
   }
 
   startPerformance(item){
-    console.log("???="+item)
     if(this.isMine){
       this.navCtrl.push('PerformanceStartPage',{
         'item': item.performanceDetail
@@ -126,5 +141,30 @@ export class PerformancePage {
       str = "完成"
     }
     return str
+  }
+
+  // isShowStart(item){
+  //   let start = false
+  //   if(item.rt_state=='2' || item.rt_is_need_self && item.performanceDetail && item.performanceDetail.rt_state=='2'){
+  //     start = false
+  //   }else{
+  //     start = true
+  //   }
+  //   return start
+  // }
+
+  changeDate(date){
+    let new_date = new Date(date.replace(' ', 'T') + 'Z').getTime();
+    return this.datePipe.transform(new_date, 'yyyy-MM-dd HH:mm');
+  }
+
+  isFinish(rt_state){
+    let finish = false
+    if(rt_state==1){
+      finish = true
+    }else if(rt_state==2){
+      finish = false
+    }
+    return finish
   }
 }

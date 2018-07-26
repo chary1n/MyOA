@@ -18,37 +18,45 @@
 </ion-header>
 
 
-<ion-content>
-    <ion-item align="center" no-lines style="height:40px;min-height:40px;background-color:#2597ec;">
+<ion-content style="background-color: #f0f2f5">
+    <ion-item align="center" no-lines style="height:40px;min-height:40px;background-color:white;">
 
         <ion-grid>
             <ion-row class="row_class" align-items-center>
               <ion-col tappable (click) = "mine()">
-              <div align="center" >
+              <div align="center">
                 <p [ngClass]="{true:'under_line_style',false:'normal_style'}[isMine]">我的（{{num1}}）</p> 
               </div>
             </ion-col>
             <ion-col tappable (click) = "others()">
                <div align="center" >
-                <p [ngClass]="{true:'under_line_style',false:'normal_style'}[isOther]">评他（{{num2}}）</p>
+                <p [ngClass]="{true:'under_line_style',false:'normal_style'}[isOther]">互评（{{num2}}）</p>
               </div>
             </ion-col>         
             </ion-row>
         </ion-grid>
     </ion-item>
     <!-- <ion-auto-complete style="width: 94vw; margin-left:3vw" (itemSelected)="itemSelected0($event)" [dataProvider]="perSearchService"></ion-auto-complete> -->
-    <ion-item-group no-lines style="background:#f0f2f5;">
-      <div *ngFor="let item of lists" tappable style="margin-top: 10px;padding: 1px;background:white;">
-          <p text-wrap style="font-size:13px;color:#fba958;margin-right:25px;float: right;">{{changeStr(item.rt_state)}}</p>
-          <h3 text-wrap style="font-size:14px;color:#2e3133;margin-left:15px;">{{item.rt_appraisaled_employee_name}}的考评</h3>
-          <p style="font-size:13px;color:#949ca1;margin-left: 15px;">{{item.rt_department_id}}/{{item.rt_job_id}}</p>
-          <p style="font-size:8px;color:#b8c4cc;float: right;margin-right: 10px;margin-top: -3px">{{item.create_date}}</p>
-          <p style="font-size:8px;color:#b8c4cc;float: right;margin-top: -5px;margin-right: 10px">创建人: {{item.create_uid}}</p>
-          <p style="font-size:8px;color:#b8c4cc;margin-left: 15px;margin-top: -5px">单号:{{item.rt_name}}</p>
-          <div  style="background-color:white;padding: 1px;margin-bottom: 35px" tappable overflow:hidden>
-            <button ion-button round outline (click)="lookPerformance(item)" *ngIf="item.rt_appraisaled_employee_id==uid" style="height: 20px;width: 80px;font-size: 12px;margin-top: 10px;float: right;">查看结果</button>
-            <button ion-button round (click)="startPerformance(item)" *ngIf="item.rt_state=='1'  || item.rt_state=='0'" outline style="height: 20px;width: 80px;font-size: 12px;margin-top: 10px;float: right;">开始考评</button>
-          </div>
-      </div> 
+    <ion-item-group no-lines style="background:white;">
+      <ion-item no-lines *ngFor="let item of lists" tappable style="height: 120px;line-height: 120px;border-bottom: #f0f2f5 10px solid" (click)="startPerformance(item)">
+          <p text-wrap style="font-size:13px;margin-right:25px;float: right;margin-top: 3px"
+          [ngClass]="{true:'wait',false:'finish'}[isFinish(item.rt_state)]">{{changeStr(item.rt_state)}}</p>
+          <h3 text-wrap style="margin-left: 10px;font-size:14px;color:#2e3133;margin-top: 5px">{{item.rt_name}}</h3>
+          <p style="font-size:13px;color:#949ca1;margin-left: 10px;margin-top: 10px;">{{different(item)}}</p>
+          <p style="margin-left: 10px;font-size:10px;color:#b8c4cc;float: left;margin-top: 10px;">创建人:{{item.create_uid}}</p>
+          <p style="font-size:10px;color:#b8c4cc;margin-left: 145px;margin-top: 15px;">{{changeDate(item.create_date) | date:"yyyy-MM-dd HH:mm"}}</p>
+          <!-- <ion-item no-lines style="max-height: 20px;height: 20px;line-height: 20px">
+              <p text-wrap style="font-size:13px;margin-right:25px;float: right;"
+          [ngClass]="{true:'wait',false:'finish'}[isFinish(item.rt_state)]">{{changeStr(item.rt_state)}}</p>
+          <h3 text-wrap style="font-size:14px;color:#2e3133;">{{item.rt_name}}</h3>
+          </ion-item>
+          <p style="font-size:13px;color:#949ca1;margin-left: 15px;margin-top: 0px;">{{different(item)}}</p>
+          <p style="margin-left: 15px;font-size:10px;color:#b8c4cc;float: left;margin-top: -3px;">创建人:{{item.create_uid}}</p>
+          <p style="font-size:10px;color:#b8c4cc;margin-left: 145px;">{{changeDate(item.create_date) | date:"yyyy-MM-dd HH:mm"}}</p> -->
+      </ion-item> 
     </ion-item-group>
+    <div align="center" *ngIf="!lists || !lists.length || lists.length == 0">
+      <img style="width:100px;position:absolute;left:calc(50% - 50px);top:calc(50% - 60px)" src="assets/img/journal_sheet/null_state.png">
+      <p style="width:100px;position:absolute;left:calc(50% - 50px);top:calc(50% + 30px);color:#c2c8cc;font-size:15px">空空如也～</p>
+    </div>
 </ion-content>

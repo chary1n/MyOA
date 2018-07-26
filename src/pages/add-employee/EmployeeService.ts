@@ -24,7 +24,7 @@ export class EmployeeService {
         let body = JSON.stringify({
           
         });
-        return this.httpservice.postBody("get_employee_list", body);
+        return this.httpservice.postBodyNoLoading("get_employee_list", body);
     }
 
 

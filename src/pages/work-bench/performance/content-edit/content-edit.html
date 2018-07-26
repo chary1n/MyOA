@@ -1,0 +1,36 @@
+<!--
+  Generated template for the ContentEditPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="gongdan-color" hideBackButton="true" align-items-center>
+    <ion-buttons left>
+        <button ion-button icon-only tappable (click)="cancel()" style="font-size:14px;color: white;margin-left: 10px">
+            取消
+        </button>
+    </ion-buttons>
+    <ion-buttons right>
+        <button ion-button icon-only tappable (click)="save()" style="font-size:14px;color: white;margin-right: 10px">
+            完成
+        </button>
+  </ion-buttons>
+  <ion-title style="text-align: center">工作总结</ion-title>
+</ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+<div style="border-bottom:#f0f2f5 1px solid;">
+    <p style="color:#949ca1;font-size: 12px;margin-left: 25px">1.工作成绩：完成的重要事项，工作中的收获提升以及感悟</p>
+    <p style="color:#949ca1;font-size: 12px;margin-left: 25px;">2.工作不足：遇到的内外部问题、失误，如何避免或者改进</p>
+</div>
+<textarea [(ngModel)]="rt_achievement" cols="20" placeholder="请输入" style="border-bottom:white 0px solid;
+    border-top:white 0px solid;
+    border-left:white 0px solid;
+    border-right:white 0px solid;
+    margin-left: 15px;height: 250px;padding: 5px;width:90%"></textarea>
+</ion-content>

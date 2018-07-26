@@ -7,19 +7,46 @@ page-performance-result {
     .progress-outer {
         width: 60%;
         margin: 10px 2%;
-        padding: 2px;
+        // padding: 2px;
         text-align: center;
         background-color: #f4f4f4;
-        border: 1px solid #dcdcdc;
+        // border: 1px solid #dcdcdc;
         color: #fff;
-        height: 15px;
+        // height: 15px;
     }
  
     .progress-inner {
-        min-width: 15%;
+        // min-width: 0%;
         white-space: nowrap;
         overflow: hidden;
         height: 10px;
         background-color: map-get($colors, primary);
+    }
+
+    .backcolor1 {
+        background-color:#2597ec;
+        color: white;
+    }
+
+    .backcolor_normal {
+        background-color: #f0f2f5;
+        color: gray;
+    }
+
+
+    .wait{
+        color: #fba958
+    }
+
+    .finish {
+        color: #2597ec
+    }
+
+    .redcol {
+        color: red
+    }
+
+    .braycol {
+        color: gray
     }
 }
