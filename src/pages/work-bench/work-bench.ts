@@ -81,12 +81,6 @@ export class WorkBenchPage {
         let body = {
           'uid': res.result.res_data.user_id
         }
-        this.services.get_all_num(body).then(res => {
-          if(res.result.res_code==1 && res.result){
-            console.log(res)
-            this.performance = res.result.res_data.performance
-          }
-        })
 
 
         this.storage.get("loginIndex").then(res => {
