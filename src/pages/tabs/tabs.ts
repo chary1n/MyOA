@@ -18,8 +18,8 @@ export class TabsPage {
   meRoot :any ='MePage';
   need_show_contact = true
   // firstRoot:any = 'FirstShowPage';
-  msgRoot:any = 'FirstShowPage';
-  // msgRoot:any = 'GongdanPage';
+  // msgRoot:any = 'FirstShowPage';
+  msgRoot:any = 'GongdanPage';
   workRoot :any = 'WorkBenchPage';
   contactRoot  = 'ContactPersonPage';
   need_show_gongdan = "false"
