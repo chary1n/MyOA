@@ -186,7 +186,7 @@ export class PerformanceStartPage {
         myString = "   请输入工作计划"
       }
       if(!this.rt_salary_expectation || this.rt_salary_expectation==0){
-        myString = "   请输入期望薪资"
+        myString = "   请输入匹配年薪"
       }
     }else{
       if(!this.rt_advice || this.rt_advice=='请输入'){

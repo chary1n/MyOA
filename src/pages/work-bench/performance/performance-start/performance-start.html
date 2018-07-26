@@ -57,8 +57,8 @@
                                 <span style="margin-left: 10px;width:5px;height:5px;border-radius:5px;background-color:#b4b4af;display:inline-block;float: left;margin-top: 7px"></span>
                                 <p style="font-size: 14px;color: #949ca1;margin-left: 20px;word-wrap:break-word;">{{tagBean.tag_name}}</p>
                                 <div class="star-div" *ngFor="let subeType of tagBean.subType" style="padding: 10px;margin-top: 5px">
-                                    <p style="font-size: 13px;color: #949ca1;margin-left: 10px;word-wrap: break-word;margin-top: -10px">{{subeType.subTp}}</p>
-                                    <div *ngFor="let item of score" style="float: left;margin-top: -10px;margin-left: 10px" tappable (click)="select(subeType,item)">
+                                    <p style="font-size: 13px;color: #949ca1;margin-left: 10px;word-wrap: break-word;margin-top: -5px">{{subeType.subTp}}</p>
+                                    <div *ngFor="let item of score" style="float: left;margin-top: -7px;margin-left: 10px" tappable (click)="select(subeType,item)">
                                         <ion-icon name="star" style="color: #fba958" *ngIf="item<=subeType.current_id;"></ion-icon>
                                         <ion-icon name="star-outline" style="color: #b4b4af" *ngIf="item>subeType.current_id;"></ion-icon>
                                     </div>
