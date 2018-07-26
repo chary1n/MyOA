@@ -26,18 +26,7 @@ export class PerformancePage {
   lists=[];
   constructor(public navCtrl: NavController, public navParams: NavParams, public statusBar:StatusBar,
               public servicePerformance: PersonService, public storage: Storage,private datePipe: DatePipe) {
-                
-  }
-
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad PerformancePage');
-  }
-
-  ionViewWillEnter() {
-    this.statusBar.backgroundColorByHexString("#2597ec");
-    this.statusBar.styleLightContent();
-    this.storage.get('user')
+                this.storage.get('user')
     .then(res => {
       this.uid = res.result.res_data.user_id;
       let body = {
@@ -53,6 +42,21 @@ export class PerformancePage {
         }
       })
     })
+  }
+
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad PerformancePage');
+  }
+
+  ionViewWillEnter() {
+    this.statusBar.backgroundColorByHexString("#2597ec");
+    this.statusBar.styleLightContent();
+    if(this.isMine){
+      this.mine()
+    }else if(this.isOther){
+      this.others()
+    }
   }
 
   different(item){

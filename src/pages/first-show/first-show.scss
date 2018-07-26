@@ -1,3 +1,459 @@
 page-first-show {
+    .textcolor1 {
+        color: #1897f2;
+        font-size:10px;
+        line-height:1px;
+        margin-top:6px;
+    }
 
+    .textcolor_normal {
+        color: #8c8c8c;
+        font-size:10px;
+        line-height:1px;
+        margin-top:6px;
+    }
+
+    .test_one{
+        color:white;
+        width:60px;
+        height: 30px;
+        line-height: 30px;
+        font-size: 14px;
+        opacity: 0.75;
+    }
+    .test_choose{
+        color:white;
+        width:60px;
+        height: 30px;
+        line-height: 30px;
+        font-size:16px;
+    }
+
+    .img_message_ava{
+        width: 30px;
+        height:30px;
+        border-radius: 15px;
+        margin-top:15px;
+        margin-left: -10px;
+    }
+
+    .name_message{
+        margin-top:12px;
+        line-height: 40px;
+        margin-left: -20px;
+        color:#8a9299;
+        font-size: 15px;
+    }
+
+    .month_message{
+        margin-top:12px;
+        line-height: 40px;
+        margin-left: -20px;
+        color:#8a9299;
+        font-size: 15px;
+        float:right;
+    }
+
+    .li_class{
+        color:#f0f2f5;
+        font-size:18px;
+        min-height:60px;
+        position: relative;
+    }
+
+
+    .li_class_first{
+        color:#409eff;
+        font-size:18px;
+        min-height:60px;
+        position: relative;
+    }
+
+    .time_li_class{
+        color:black;
+        font-size:21px;
+        height:20px;
+        display:inline-block;
+        float:left;
+        margin-top:2px;
+    }
+
+    .time_li_first_class{
+        color:#409eff;
+        font-size:21px;
+        height:20px;
+        display:inline-block;
+        float:left;
+        margin-top:2px;
+    }
+
+    .time_type_li_class{
+        color:black;
+        font-size:13px;
+        background:#c2c7cc;
+        color:white;
+        margin-left:5px;
+        width:35px;
+        display:inline-block;
+        text-align:center;
+        border-radius:3px;
+        line-height:18px;
+    }
+
+    .time_type_li_first_class{
+        color:black;
+        font-size:13px;
+        background:#409eff;
+        color:white;
+        margin-left:5px;
+        width:35px;
+        display:inline-block;
+        text-align:center;
+        border-radius:3px;
+        line-height:18px;
+    }
+
+    .time_company_class{
+        text-align:left;
+        color:#c2c7cc;
+        font-size:15px;
+        margin-top:5px;
+        display:block;
+    }
+
+    .divClass{
+    width: 0px;
+    position: absolute;
+    left: 24px;
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
+    overflow: hidden;
+    border-left: 1px solid #f0f0f8;
+    height: auto;
+    margin-top:0px;
+
+}
+
+    .buttom_divider{
+    position:absolute;
+        bottom:180px;
+        overflow:hidden;
+        width:100%; 
+        height:10px;
+        background: #f0f2f5;  
+}
+.buttom_div{
+         position:absolute; 
+         bottom:0px; 
+        /* overflow:hidden; */
+        width:100%;
+         height:170px; 
+        background: white;
+         /* display:flex;
+         flex-wrap:wrap;  */
+}
+    .left_circle{
+  background:#2599ef;
+  color:white;
+  float:left;
+  width:120px;
+  height:120px;
+  margin-left:calc(25% - 60px);
+  border-radius:50%;
+  align-items:center;
+  display:flex;
+  justify-content:center;
+  box-shadow: 1px 10px 30px #b2dfff;
+  font-size: 16px;
+}
+
+.right_circle{
+  background:#27b8d7;
+  color:white;
+  float:right;
+  width:120px;
+  height:120px;
+  margin-right:calc(25% - 60px);
+  border-radius:50%;
+  align-items:center;
+  display:flex;
+  justify-content:center;
+  box-shadow: 1px 10px 30px #b2dfff;
+  font-size: 16px;
+}
+
+.left_circle_inactive{
+  background:lightgray;
+  color:white;
+  float:left;
+  width:120px;
+  height:120px;
+  margin-left:calc(25% - 60px);
+  border-radius:50%;
+  align-items:center;
+  display:flex;
+  justify-content:center;
+  box-shadow: 1px 10px 30px lightgray;
+  font-size: 16px;
+}
+
+.right_circle_inactive{
+  background:lightgray;
+  color:white;
+  float:right;
+  width:120px;
+  height:120px;
+  margin-right:calc(25% - 60px);
+  border-radius:50%;
+  align-items:center;
+  display:flex;
+  justify-content:center;
+  box-shadow: 1px 10px 30px lightgray;
+  font-size: 16px;
+}
+
+
+    .text_class{
+  /* text-align:center; */
+  width:100%;
+  font-size:12px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  color:gray;
+  /* margin-top:7px; */
+}
+
+.header_class{
+   position:absolute;
+        bottom:180px;
+        top:41px;
+  background:white;
+  width:100%;
+  overflow:scroll;
+  
+}
+
+.bottom_class{
+    position:absolute;
+    width: 100%;
+    height: 250px;
+    background:white;
+    margin-top: 12px;
+    overflow:scroll;
+}
+    
+    .box-flex {  
+  display: -webkit-box;  
+  display: -webkit-flex;  
+  display: flex;  
+  flex-wrap: wrap;  
+  justify-content: flex-end;
+  background:white;
+  /* height: 40px; */
+  /* border:#dedede 1px solid; */
+}
+
+    .flex-item {  
+  flex-flow: nowrap;  
+  flex-grow: 1;  
+  flex-shrink: 1;  
+  width: 14.2%;  
+  height: 50px;
+  /* height: 14.2% */
+} 
+.item-content-header {  
+  margin: 5px;  
+  /* padding: 0 10px;   */
+  text-align: center;  
+  /* background-color: #000;   */
+  /* height: 2rem;   */
+
+   line-height: 2rem;   
+   color: gray;   
+}  
+
+.item-content{  
+  margin: 5px;  
+  padding: 0 10px;  
+  text-align: center;  
+  /* background-color: #000;   */
+  /* height: 2rem;   */
+//    line-height: 50px; 
+   color: gray;   
+}  
+
+.bk-color-day {  
+   background-color: #159aeb; 
+//    font-size: 20px;
+//    color: #159aeb;
+  border-radius: 50%;  
+  color:white;
+  /* border: red 1px solid; */
+}  
+
+.buttom_divider{
+  /* display: -webkit-box;  
+  display: -webkit-flex;  
+  display: flex;  
+  flex-wrap: wrap;  
+  justify-content: flex-end; */
+  height:20px;
+  background: #f0f2f5;  
+  width: 100%;
+  margin-top:0px;
+  /* margin-left: -30px; */
+}
+
+.day_divClass{
+    width: 0px;
+    overflow:hidden;
+    border-left:1px solid #f0f0f8;
+    height:25px;
+    margin-top:-46px;
+    margin-left:100%;
+
+}
+    .div_visible{
+        visibility: visible
+    }
+
+    .div_hidden{
+        visibility: hidden
+    }
+    
+    .alert_div{
+        height: 220px;
+        width: 270px;
+        background:url("./../assets/img/attendance_bg.png");
+        position: absolute;
+        z-index: 999;
+        left: calc(50% - 135px);
+        top: calc(50% - 130px);
+        background-size: 100% 100%;
+        text-align: center;
+    }
+
+    .alert_p{
+        color:white;
+        font-size: 15px;
+        display: inline-flex;
+
+    }
+
+    .alert_center_div{
+        height: 150px;
+        width: 150px;
+        background: url(./../assets/img/attendance_inside.png);
+        left: calc(50% - 75px);
+        top: calc(50% - 75px);
+        background-size: 100% 100%;
+        text-align: center;
+        position: absolute;
+    }
+
+    .alert_btn{
+        color: white;
+        font-size: 15px;
+        height: 50px;
+        width: 100%;
+        position: absolute;
+        bottom: 0px;
+        line-height: 55px;
+    }
+
+    .alert_h2_class{
+        color:#409eff;
+        font-size:3.1rem;
+        line-height:81px;
+    }
+    
+    .alert_p_class{
+        font-size: 16px;
+        color: #409eff;
+        margin-top: -15px;
+    }
+
+    .alert_div_off{
+        height: 220px;
+        width: 270px;
+        background:url("./../assets/img/attendance_off_bg.png");
+        position: absolute;
+        z-index: 999;
+        left: calc(50% - 135px);
+        top: calc(50% - 130px);
+        background-size: 100% 100%;
+        text-align: center;
+    }
+
+    .alert_div_fail{
+        height: 300px;
+        width: 270px;
+        background:url("./../assets/img/fail_background.png");
+        position: absolute;
+        z-index: 999;
+        left: calc(50% - 135px);
+        top: calc(50% - 170px);
+        background-size: 100% 100%;
+        text-align: center;
+    }
+
+    .alert_div_fail_three{
+        height: 300px;
+        width: 270px;
+        background:url("./../assets/img/faile_three_background.png");
+        position: absolute;
+        z-index: 999;
+        left: calc(50% - 135px);
+        top: calc(50% - 170px);
+        background-size: 100% 100%;
+        text-align: center;
+    }
+
+    .alert_btn_fail{
+        color: lightgray;
+        font-size: 15px;
+        height: 50px;
+        width: 100%;
+        position: absolute;
+        bottom: 0px;
+        line-height: 55px;
+    }
+
+    .alert_center_div_off{
+        height: 150px;
+        width: 150px;
+        background: url(./../assets/img/attendance_off_inside.png);
+        left: calc(50% - 75px);
+        top: calc(50% - 75px);
+        background-size: 100% 100%;
+        text-align: center;
+        position: absolute;
+    }
+
+    .alert_h2_class_off{
+        color:#27b8d7;
+        font-size:3.1rem;
+        line-height:81px;
+    }
+
+    .alert_p_class_off{
+        font-size: 16px;
+        color: #27b8d7;
+        margin-top: -15px;
+    }
+
+    .alert_icon_class{
+        background: url(./../assets/img/attendance_icon.png);
+        background-size: 100% 100%;
+        height: 20px;
+        width: 20px;
+        margin-top: 10px;
+    }
+
+    .back_class{
+        opacity: 0.6;
+    }
+    
 }
