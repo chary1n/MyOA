@@ -78,10 +78,7 @@ export class WorkBenchPage {
     this.storage.get('user')
       .then(res => {
         console.log(res);
-        let body = {
-          'uid': res.result.res_data.user_id
-        }
-
+        let uid = res.result.res_data.user_id
 
         this.storage.get("loginIndex").then(res => {
           this.loginIndex = res
@@ -92,7 +89,7 @@ export class WorkBenchPage {
             this.isShowNormal = true
             this.isNormal = true
             let body = {
-              'uid': res.result.res_data.user_id
+              'uid': uid
             }
             this.services.get_all_num(body).then(res => {
               if(res.result.res_code==1 && res.result){
