@@ -242,6 +242,6 @@ export class CommonUseServices {
     }
 
     get_all_num(body){
-        return this.httpservice.postBody("get_all_num", body);
+        return this.httpservice.postBodyNoLoading("get_all_num", body);
     }
 }

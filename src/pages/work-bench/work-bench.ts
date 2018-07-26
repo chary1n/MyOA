@@ -87,9 +87,6 @@ export class WorkBenchPage {
             this.performance = res.result.res_data.performance
           }
         })
-        //一会删掉
-        this.isShowNormal = true
-        this.isNormal = true
 
 
         this.storage.get("loginIndex").then(res => {
