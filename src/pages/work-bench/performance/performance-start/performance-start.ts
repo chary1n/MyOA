@@ -188,17 +188,17 @@ export class PerformanceStartPage {
   commit(){
     let myString = ""
     if(this.item.is_self){
-      if(!this.rt_achievement){
+      if(!this.rt_achievement || this.rt_achievement=='请输入'){
         myString = "   请输入工作总结"
       }
-      if(!this.rt_insufficient){
+      if(!this.rt_insufficient || this.rt_insufficient=='请输入'){
         myString = "   请输入工作计划"
       }
       if(!this.rt_salary_expectation || this.rt_salary_expectation==0){
         myString = "   请输入期望薪资"
       }
     }
-      if(!this.rt_advice){
+      if(!this.rt_advice || this.rt_advice=='请输入'){
         myString = "   请输入意见与建议"
       }
       let length = this.typeList.length
