@@ -34,7 +34,7 @@ export class MePage {
     public jpush: JPush,
     public statusbar:StatusBar) {
       if (this.platform.is("android")) {
-        this.appVersion.getVersionCode().then((value: string) => {
+        this.appVersion.getVersionNumber().then((value: string) => {
           this.versionNumber = value
         });
       }

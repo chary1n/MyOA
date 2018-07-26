@@ -28,12 +28,12 @@ export class TabsPage {
   loginIndex;
   constructor(public navCtrl: NavController, public navParams: NavParams,
   public storage:Storage) {
-    this.storage.get("loginIndex").then(res => {
-      this.loginIndex = res
-      if(this.loginIndex==0){
-        this.need_show_contact = false
-      }
-    })
+    // this.storage.get("loginIndex").then(res => {
+    //   this.loginIndex = res
+    //   if(this.loginIndex==0){
+    //     this.need_show_contact = false
+    //   }
+    // })
     this.storage.get('user')
       .then(res => {
         console.log(res)
