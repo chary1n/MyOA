@@ -197,10 +197,11 @@ export class PerformanceStartPage {
       if(!this.rt_salary_expectation || this.rt_salary_expectation==0){
         myString = "   请输入期望薪资"
       }
-    }
+    }else{
       if(!this.rt_advice || this.rt_advice=='请输入'){
         myString = "   请输入意见与建议"
       }
+    }
       let length = this.typeList.length
       for(var a=0; a<length; a++){
         for(var b=0; b<this.typeList[a].tagList.length; b++){
