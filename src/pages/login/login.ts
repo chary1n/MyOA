@@ -231,7 +231,7 @@ export class LoginPage {
     this.isSelected4 = false;
     this.chooseIndex = 2;
     // HttpService.appUrl = "http://dr.robotime.com/"
-    HttpService.appUrl = "http://192.168.1.105:8888/"
+    HttpService.appUrl = "http://192.168.1.135:8888/"
     // HttpService.appUrl = "http://192.168.2.64:8069/"
     this.reset();
     this.img2 = "assets/img/diy_clicked.png"
@@ -279,10 +279,15 @@ export class LoginPage {
     setTimeout(() => {
       this.loadingDB.dismiss();//显示多久消失
   }, 1000);
+  if(this.chooseIndex==3){
+    this.employee = 'odoo0720'; 
+    this.toLogin();
+  }else{
     this.loginservice.getDBInfo().then(res => {
       this.employee = res.res_data[0]; //修改
       this.toLogin();
     });
+  }
   }
 
   isAutoLogin() {

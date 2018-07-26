@@ -21,6 +21,7 @@ export class PerformanceResultDetailPage {
   rt_insufficient;
   rt_advice;
   rt_salary_expectation;
+  score = [1,2,3,4,5];
   constructor(public navCtrl: NavController, public navParams: NavParams, public statusBar:StatusBar,) {
     this.item = this.navParams.get('item')
     this.typeList = this.item.typeList

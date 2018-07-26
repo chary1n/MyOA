@@ -18,14 +18,14 @@
   <ion-list>
     <ion-item tappable (click)='changeHeardImg()'>
       <ion-label>头像</ion-label>
-      <ion-img  src={{user_heard}}  item-end></ion-img>
-      <!-- <ion-icon name="arrow-forward" item-end color="blue"></ion-icon> -->
+      <img src={{user_heard}} class="image1" item-end>
+      <!-- <ion-icon name="arrow-forward" item-end class="image1"></ion-icon> -->
     </ion-item>
     <ion-item>
       <ion-label>昵称</ion-label>
       <ion-label item-end>{{name}}</ion-label>
     </ion-item>
-    <ion-item >
+    <ion-item>
       <ion-label>公司</ion-label>
       <ion-label item-end text-wrap>{{company}}</ion-label>
     </ion-item>

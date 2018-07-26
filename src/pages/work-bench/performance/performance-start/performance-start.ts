@@ -6,7 +6,6 @@ import { Storage } from '@ionic/storage';
 import { Utils } from '../../../../providers/Utils';
 import { ToastController } from 'ionic-angular/components/toast/toast-controller';
 import { DomSanitizer } from '@angular/platform-browser';
-import { AlertController } from 'ionic-angular';
 
 /**
  * Generated class for the PerformanceStartPage page.
@@ -24,18 +23,20 @@ export class PerformanceStartPage {
   uid;
   item;
   typeList=[];
-  rt_achievement='点击输入';
-  rt_advice='点击输入';
-  rt_insufficient='点击输入';
+  score = [1,2,3,4,5];
+  rt_achievement='请输入';
+  rt_advice='请输入';
+  rt_insufficient='请输入';
   rt_salary_expectation;
   isShowFooter = true;
   user_heard;
   need_fresh = false;
   postedit = 0;
   description;
+  isFirst;
   constructor(public navCtrl: NavController, public navParams: NavParams, public statusBar:StatusBar,
               public servicePerformance: PersonService, public storage: Storage,public toastCtrl: ToastController
-              ,private sanitizer: DomSanitizer,private alertCtrl: AlertController) {
+              ,private sanitizer: DomSanitizer) {
 
               this.item = this.navParams.get('item');
               console.log("item = "+ this.item)
@@ -44,20 +45,21 @@ export class PerformanceStartPage {
               this.rt_advice = this.item.rt_advice.replace(/\n/g,"<br>")
               this.rt_insufficient = this.item.rt_insufficient.replace(/\n/g,"<br>")
               this.rt_salary_expectation = this.item.rt_salary_expectation
-              this.description = this.item.description
+              this.description = this.item.description.replace(/\n/g,"<br>")
+              this.isFirst = this.item.isFirst
 
               if(!this.rt_achievement){
-                this.rt_achievement='点击输入';
+                this.rt_achievement='请输入';
               }
               if(!this.rt_insufficient){
-                this.rt_insufficient='点击输入';
+                this.rt_insufficient='请输入';
               }
               if(!this.rt_advice){
-                this.rt_advice='点击输入';
+                this.rt_advice='请输入';
               }
               this.storage.get('user').then(res => {
                     this.user_heard = res.result.res_data.user_ava;
-               })    
+              })    
   }
   
   assembleHTML(str){ 
@@ -65,18 +67,6 @@ export class PerformanceStartPage {
   }
   ionViewDidLoad() {
     console.log('ionViewDidLoad PerformanceStartPage');
-    this.presentAlert()
-  }
-
-  presentAlert() {
-    if(this.description!=''){
-      let alert = this.alertCtrl.create({
-        title: '考核说明',
-        subTitle: this.description,
-        buttons: ['我知道了']
-      });
-      alert.present();
-    }
   }
 
   ionViewWillEnter() {
@@ -93,13 +83,13 @@ export class PerformanceStartPage {
         this.rt_advice =this.navParams.get('rt_advice')
       }
       if(!this.rt_achievement){
-        this.rt_achievement='点击输入';
+        this.rt_achievement='请输入';
       }
       if(!this.rt_insufficient){
-        this.rt_insufficient='点击输入';
+        this.rt_insufficient='请输入';
       }
       if(!this.rt_advice){
-        this.rt_advice='点击输入';
+        this.rt_advice='请输入';
       }
       this.need_fresh = false
       let list = []
@@ -124,8 +114,8 @@ export class PerformanceStartPage {
       let body = {
         'save': true,
         'rt_achievement': this.changeStrEdit(this.rt_achievement),
-      'rt_advice': this.changeStrEdit(this.rt_advice),
-      'rt_insufficient': this.changeStrEdit(this.rt_insufficient),
+        'rt_advice': this.changeStrEdit(this.rt_advice),
+        'rt_insufficient': this.changeStrEdit(this.rt_insufficient),
         'rt_salary_expectation': this.rt_salary_expectation,
         'id': this.item.id,
         'subType': endList,
@@ -133,7 +123,6 @@ export class PerformanceStartPage {
       this.servicePerformance.get_performance_state(body).then(res =>{
         if(res.result.res_code==1){
           console.log(res)
-          Utils.toastButtom("提交成功", this.toastCtrl)
         }
       })
     }
@@ -145,16 +134,17 @@ export class PerformanceStartPage {
     this.navCtrl.pop();
   }
 
-  select(subeType, score, item){
-    subeType.current_id = item.id
-    let length = score.length
-    for(var i=0; i < length; i++){
-      if(score[i].id<=subeType.current_id){
-        score[i].value = 2
-      }else{
-        score[i].value = 1
-      }
-    }
+  select(subeType,item){
+    // subeType.current_id = item.id
+    subeType.current_id = item
+    // let length = score.length
+    // for(var i=0; i < length; i++){
+    //   if(score[i].id<=subeType.current_id){
+    //     score[i].value = 2
+    //   }else{
+    //     score[i].value = 1
+    //   }
+    // }
   }
 
   save(){
@@ -325,11 +315,34 @@ export class PerformanceStartPage {
 
   changeStrEdit(str){
     let ret = ''
-    if(str=='点击输入'){
+    if(str=='请输入'){
       ret=''
     }else{
       ret = str
     }
     return ret
+  }
+
+  notFirst(){
+    let body={
+      'id': this.item.id,
+    }
+    this.servicePerformance.change_first(body).then(res =>{
+      if(res.result.res_code==1){
+        console.log(res)
+        this.isFirst = false
+        // Utils.toastButtom("提交成功", this.toastCtrl)
+      }
+    })
+  }
+
+  getTitle(){
+    let title = ''
+    if(this.isFirst==false){
+      title=this.item.rt_appraisaled_employee_name+'的考评'
+     }else{
+      title='前言'
+     }
+     return title
   }
 }

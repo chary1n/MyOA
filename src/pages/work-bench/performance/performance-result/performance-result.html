@@ -12,7 +12,7 @@
               <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
             </button>
           </ion-buttons>
-      <ion-title>考评结果</ion-title>
+      <ion-title>报告</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -30,7 +30,7 @@
       <div style="border-bottom:#f0f2f5 1px solid;">
             <p style="font-size:13px;float: left;color:#949ca1;margin-left: 20px;margin-top: -2px;height: 15px;line-height: 15px">单号</p>
             <p style="font-size:13px;color:#949ca1;margin-left: 120px;height: 25px;">{{rt_name}}</p>
-            <p style="font-size:13px;float: left;color:#949ca1;margin-left: 20px;margin-top: -2px">考核周期</p>
+            <p style="font-size:13px;float: left;color:#949ca1;margin-left: 20px;margin-top: -2px">类型</p>
             <p style="font-size:13px;color:#949ca1;margin-left: 120px;height: 25px;">{{changeCycle(rt_appraisal_cycle)}}</p>
             <p style="font-size:13px;float: left;color:#949ca1;margin-left: 20px;margin-top: -2px">部门</p>
             <p style="font-size:13px;color:#949ca1;margin-left: 120px;height: 25px;">{{rt_department_id}}</p>
@@ -39,17 +39,23 @@
       </div>
       <ion-item-group no-lines>
           <ion-item no-lines>
-              <p text-wrap style="font-size:18px;color:red;margin-right:25px;float: right;margin-top: 0px">{{rt_manager_final_score}}</p>
-              <p text-wrap style="font-size:14px;line-height:27px;margin-left: 5px;">最终结果</p>
+              <p text-wrap style="font-size:18px;margin-right:25px;float: right;margin-top: 0px"
+              [ngClass]="{true:'redcol',false:'braycol'}[isHave(rt_manager_final_score)]">{{rt_manager_final_score}}</p>
+              <p text-wrap style="font-size:14px;line-height:27px;margin-left: 5px;">  
+                最终结果
+                <span text-wrap style="font-size:12px;line-height:27px;color: #babbbd">(满分5分）</span>
+            </p>
           </ion-item>
           <ion-item no-lines>
               <p text-wrap style="font-size:14px;margin-left:5px;margin-top: 0px">主管评价</p>
               <p text-wrap style="font-size:12px;color:gray;line-height:27px;margin-left: 5px;">{{rt_manager_advice}}</p>
           </ion-item>
-          <ion-item no-lines>
+          <ion-item no-lines class="item-text-wrap">
               <p text-wrap style="font-size:18px;margin-right:25px;float: right;margin-top: 0px">{{result_score}}</p>
-              <p text-wrap style="font-size:14px;line-height:27px;margin-left: 5px;">考评结果</p>
-              <p style="font-size:10px;color:gray;margin-left: 5px;word-wrap:break-word;">满分5分,计算公式:员工自评*{{rt_self_proportion}}%+主管评分*{{rt_manager_proportion}}%+评价人{{other_num}}*{{rt_other_proportion}}%</p>
+              <p text-wrap style="font-size:14px;line-height:27px;margin-left: 5px;">考评结果
+                    <span text-wrap style="font-size:12px;line-height:27px;color: #babbbd">(满分5分）</span>
+              </p>
+              <p style="font-size:10px;color:gray;margin-left: 5px;word-wrap:break-word;">{{resultStr}}</p>
           </ion-item>
           <ion-item-group style="padding-bottom: 80px">
                 <p text-wrap style="font-size:14px;margin-left:20px;margin-top: 0px;color: gray">考评人</p>
@@ -75,15 +81,15 @@
   </ion-grid>
   <ion-item-group no-lines style="border-bottom:#f0f2f5 1px solid;">
         <div *ngFor="let typeBean of listItem">
-          <p style="font-size: 14px;float: right;margin-top: 0px;margin-right: 25px;height:15px">{{typeBean.score}}</p>
-          <span style="margin-left: 15px;width:8px;height:8px;border-radius:8px;background-color:#2597ec;display:inline-block;float: left;margin-top: 5px"></span>
-          <h4 style="font-size: 14px;margin-left: 35px">{{typeBean.type}}评价</h4>
+          <!-- <p style="font-size: 14px;float: right;margin-top: 0px;margin-right: 25px;height:15px">{{typeBean.score}}</p> -->
+          <span style="margin-left: 10px;width:8px;height:8px;border-radius:8px;background-color:#2597ec;display:inline-block;float: left;margin-top: 3px"></span>
+          <h4 style="font-size: 14px;margin-left: 25px">{{typeBean.type}}评价</h4>
           <div *ngFor="let tagBean of typeBean.tagList" style="margin-top: 15px">
                 <span style="margin-left: 15px;width:5px;height:5px;border-radius:5px;background-color:#b4b4af;display:inline-block;float: left;margin-top: 5px"></span>
-                <p style="font-size: 10px;color: #949ca1;margin-left: 25px;word-wrap:break-word;" >{{tagBean.biaoqian}}</p>
+                <p style="font-size: 12px;color: #949ca1;margin-left: 25px;word-wrap: break-word;" >{{tagBean.biaoqian}}</p>
                 <div *ngFor="let item of tagBean.subList">
-                        <p style="font-size: 13px;color: #949ca1;margin-left: 15px">{{item.sub_type}}</p>
-                        <div class="progress-outer" style="margin-top: 0px;margin-left: 15px">
+                        <p style="font-size: 13px;color: #949ca1;margin-left: 25px;word-wrap: break-word;">{{item.sub_type}}</p>
+                        <div class="progress-outer" style="margin-top: 0px;margin-left: 25px">
                             <div class="progress-inner" [style.width]="item.sub_score + '%'">
                             </div>
                         </div>
@@ -103,8 +109,8 @@
   </ion-grid>
   <ion-item-group no-lines style="border-bottom:#f0f2f5 1px solid;">
       <div>
-          <span style="margin-left: 15px;width:8px;height:8px;border-radius:8px;background-color:#2597ec;display:inline-block;float: left;margin-top: 5px"></span>
-          <h4 style="font-size: 14px;margin-left: 35px;color: #2e3133">工作总结</h4>
+          <span style="margin-left: 10px;width:8px;height:8px;border-radius:8px;background-color:#2597ec;display:inline-block;float: left;margin-top: 4px"></span>
+          <h4 style="font-size: 14px;margin-left: 25px;color: #2e3133">工作总结</h4>
           <p style="color:#949ca1;font-size: 12px;margin-left: 25px">1.工作成绩：完成的重要事项，工作中的收获提升以及感悟</p>
           <p style="color:#949ca1;font-size: 12px;margin-left: 25px">2.工作不足：遇到的内外部问题、失误，如何避免或者改进</p>
           <p style="color:#949ca1;font-size: 14px;margin-left: 25px">详情见考评人</p>
@@ -112,8 +118,8 @@
   </ion-item-group>
   <ion-item-group no-lines style="border-bottom:#f0f2f5 1px solid;">
       <div>
-          <span style="margin-left: 15px;width:8px;height:8px;border-radius:8px;background-color:#2597ec;display:inline-block;float: left;margin-top: 5px"></span>
-          <h4 style="font-size: 14px;margin-left: 35px;color: #2e3133">工作计划</h4>
+          <span style="margin-left: 10px;width:8px;height:8px;border-radius:8px;background-color:#2597ec;display:inline-block;float: left;margin-top: 4px"></span>
+          <h4 style="font-size: 14px;margin-left: 25px;color: #2e3133">工作计划</h4>
           <p style="color:#949ca1;font-size: 12px;margin-left: 25px">1.近期计划；2.长期规划</p>
           <p style="color:#949ca1;font-size: 14px;margin-left: 25px">详情见考评人</p>
         </div>
@@ -121,15 +127,15 @@
   
   <ion-item-group no-lines style="border-bottom:#f0f2f5 1px solid;">
       <div>
-          <span style="margin-left: 15px;width:8px;height:8px;border-radius:8px;background-color:#2597ec;display:inline-block;float: left;margin-top: 5px"></span>
-          <h4 style="font-size: 14px;margin-left: 35px;color: #2e3133">意见和建议</h4>
+          <span style="margin-left: 10px;width:8px;height:8px;border-radius:8px;background-color:#2597ec;display:inline-block;float: left;margin-top: 4px"></span>
+          <h4 style="font-size: 14px;margin-left: 25px;color: #2e3133">意见和建议</h4>
           <p style="color:#949ca1;font-size: 14px;margin-left: 25px">详情见考评人</p>
       </div>
   </ion-item-group>
   <ion-item-group no-lines style="border-bottom:#f0f2f5 1px solid;" *ngIf="rt_is_need_self">
       <div>
-          <span style="margin-left: 15px;width:8 px;height:8px;border-radius:8px;background-color:#2597ec;display:inline-block;float: left;margin-top: 5px"></span>
-          <h4 style="font-size: 14px;margin-left: 20px;color: #2e3133">我能够匹配的年薪</h4>
+          <span style="margin-left: 10px;width:8 px;height:8px;border-radius:8px;background-color:#2597ec;display:inline-block;float: left;margin-top: 4px"></span>
+          <h4 style="font-size: 14px;margin-left: 25px;color: #2e3133">我能够匹配的年薪</h4>
           <p style="font-size: 12px;color: #949ca1;margin-left: 25px">{{salary_exception}}</p>
       </div>
   </ion-item-group>

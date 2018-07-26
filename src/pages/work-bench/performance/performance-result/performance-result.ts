@@ -40,7 +40,8 @@ export class PerformanceResultPage {
   salary_exception;
   other_num;
   show_null;
-  user_heard
+  user_heard;
+  resultStr;
   constructor(public navCtrl: NavController, public navParams: NavParams
             , public statusBar:StatusBar,public servicePerformance: PersonService,
             public toastCtrl: ToastController,public storage: Storage) {
@@ -71,6 +72,11 @@ export class PerformanceResultPage {
             this.salary_exception = res.result.res_data.salary_exception
             this.other_num = res.result.res_data.other_num
             this.show_null = res.result.res_data.show_null
+            if(this.other_num==0 || this.rt_other_proportion==''){
+              this.resultStr='满分5分,计算公式:员工自评*'+this.rt_self_proportion+'%+主管评分*'+this.rt_manager_proportion+'%'
+            }else{
+              this.resultStr='满分5分,计算公式:员工自评*'+this.rt_self_proportion+'%+主管评分*'+this.rt_manager_proportion+'%+互评均值'+this.other_num+'*'+this.rt_other_proportion+'%'
+            }
           }
         })
   }
@@ -166,5 +172,15 @@ export class PerformanceResultPage {
       finish = false
     }
     return finish
+  }
+
+  isHave(rt_manager_final_score){
+    let have = false
+    if(rt_manager_final_score=='暂无'){
+      have = false
+    }else{
+      have=true
+    }
+    return have
   }
 }
