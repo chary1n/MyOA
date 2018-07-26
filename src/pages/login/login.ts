@@ -1,3 +1,4 @@
+import { NativeService } from './../../providers/NativeService';
 
 import { HttpService } from './../../providers/HttpService';
 import { dbBean } from './../../model/dbInfoModel';
@@ -50,6 +51,7 @@ export class LoginPage {
   isSelected4 = false;
   db;
   history_arr = [];
+  version
   email_length = 0;
   autoLogin = false;
   remerberPassword = false;
@@ -60,7 +62,7 @@ export class LoginPage {
   email_src;
   password_src;
   loadingDB;
-  constructor(public navCtrl: NavController, public navParams: NavParams,public loading:LoadingController,
+  constructor(public navCtrl: NavController, public navParams: NavParams,public loading:LoadingController,private nativeService: NativeService,
     private loginservice: LoginService, private myHttp: Http, private storage: Storage, public platform: Platform, public appVersion: AppVersion,
     public jpush: JPush, public urlServer: UrlServer, public ctrl: AlertController, private inAppBrowser: InAppBrowser,
   ) {
@@ -103,6 +105,19 @@ export class LoginPage {
     }
   }
 
+  getVersionNumber(): Promise<string> {
+    return new Promise((resolve) => {
+      this.appVersion.getVersionCode().then((value: string) => {
+        resolve(value);
+        this.version = value;
+        console.log(this.version)
+        this.nativeService.detectionUpgrade(this.version);
+      }).catch(err => {
+      });
+    });
+  }
+
+
   openUrlByBrowser(url: string): void {
     this.inAppBrowser.create(url, '_system');
   }
@@ -122,7 +137,14 @@ export class LoginPage {
       this.chooseNewJiangsu()
     }
   }
+  ionViewDidEnter(){
+  }
 
+  ionViewWillEnter(){
+    if (this.platform.is("android")) {
+      this.getVersionNumber();
+    }
+  }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
@@ -305,7 +327,7 @@ export class LoginPage {
       this.autoLogin = false
     }
   }
-
+  
 
 
 
