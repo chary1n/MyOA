@@ -26,7 +26,6 @@ export class PerformancePage {
   lists=[];
   listMine=[];
   listOther=[];
-  // str1;
   constructor(public navCtrl: NavController, public navParams: NavParams, public statusBar:StatusBar,
               public servicePerformance: PersonService, public storage: Storage,private datePipe: DatePipe) {
                 
@@ -74,15 +73,15 @@ export class PerformancePage {
   }
 
   mine(){
+    this.lists = this.listMine
     this.isMine = true
     this.isOther = false
-    this.lists = this.listMine
   }
 
   others(){
+    this.lists = this.listOther
     this.isMine = false
     this.isOther = true
-    this.lists = this.listOther
   }
 
   goBack(){
