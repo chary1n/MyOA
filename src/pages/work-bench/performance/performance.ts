@@ -24,8 +24,6 @@ export class PerformancePage {
   num2;
   uid;
   lists=[];
-  listMine=[];
-  listOther=[];
   constructor(public navCtrl: NavController, public navParams: NavParams, public statusBar:StatusBar,
               public servicePerformance: PersonService, public storage: Storage,private datePipe: DatePipe) {
                 
@@ -44,19 +42,14 @@ export class PerformancePage {
       this.uid = res.result.res_data.user_id;
       let body = {
         uid: this.uid,
+        mine: true
       }
       this.servicePerformance.get_performance_list(body).then(res =>{
         if(res.result.res_code==1 && res.result){
           console.log(res)
-          this.listMine = res.result.res_data.dataMine
-          this.listOther = res.result.res_data.dataOther
+          this.lists = res.result.res_data.dataList
           this.num1 = res.result.res_data.lenghthMine
           this.num2 = res.result.res_data.lenghthOther
-          if(this.isMine){
-            this.lists = res.result.res_data.dataMine
-          }else if(this.isOther){
-            this.lists = res.result.res_data.dataOther
-          }
         }
       })
     })
@@ -73,13 +66,35 @@ export class PerformancePage {
   }
 
   mine(){
-    this.lists = this.listMine
+    let body = {
+      uid: this.uid,
+      mine: true
+    }
+    this.servicePerformance.get_performance_list(body).then(res =>{
+      if(res.result.res_code==1 && res.result){
+        console.log(res)
+        this.lists = res.result.res_data.dataList
+        this.num1 = res.result.res_data.lenghthMine
+        this.num2 = res.result.res_data.lenghthOther
+      }
+    })
     this.isMine = true
     this.isOther = false
   }
 
   others(){
-    this.lists = this.listOther
+    let body = {
+      uid: this.uid,
+      other: true
+    }
+    this.servicePerformance.get_performance_list(body).then(res =>{
+      if(res.result.res_code==1 && res.result){
+        console.log(res)
+        this.lists = res.result.res_data.dataList
+        this.num1 = res.result.res_data.lenghthMine
+        this.num2 = res.result.res_data.lenghthOther
+      }
+    })
     this.isMine = false
     this.isOther = true
   }
