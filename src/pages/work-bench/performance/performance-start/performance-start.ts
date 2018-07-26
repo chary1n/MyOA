@@ -135,16 +135,7 @@ export class PerformanceStartPage {
   }
 
   select(subeType,item){
-    // subeType.current_id = item.id
     subeType.current_id = item
-    // let length = score.length
-    // for(var i=0; i < length; i++){
-    //   if(score[i].id<=subeType.current_id){
-    //     score[i].value = 2
-    //   }else{
-    //     score[i].value = 1
-    //   }
-    // }
   }
 
   save(){
