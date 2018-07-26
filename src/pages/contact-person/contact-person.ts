@@ -40,20 +40,6 @@ export class ContactPersonPage {
     this.showAll = "YES";
     this.limit = 20;
     this.offset = 0
-    // 获取组织架构
-    this.employeeService.get_all_department().then((res) => {
-      if (res.result && res.result.res_code == 1) {
-        this.originTotalList = res.result.res_data[0]
-      }
-    })
-    this.contactService.get_employees(this.limit, this.offset).then((res) => {
-      if (res.result && res.result.res_code == 1) {
-        this.originEmployeeList = res.result.res_data;
-        this.employeeList = res.result.res_data;
-        this.origin_data = this.employeeList;
-      }
-    })
-
     this.storage.get('user')
       .then(res => {
         if ((new RegExp("js.robotime.com").test(res.result.res_data.user_ava))) {
@@ -81,19 +67,32 @@ export class ContactPersonPage {
   }
 
   ionViewWillEnter() {
+      // 获取组织架构
+    this.employeeService.get_all_department().then((res) => {
+      if (res.result && res.result.res_code == 1) {
+        this.originTotalList = res.result.res_data[0]
+      }
+    })
+    this.contactService.get_employees(this.limit, this.offset).then((res) => {
+      if (res.result && res.result.res_code == 1) {
+        this.originEmployeeList = res.result.res_data;
+        this.employeeList = res.result.res_data;
+        this.origin_data = this.employeeList;
+      }
+    })
     this.statusbar.backgroundColorByHexString("#2597ec");
     this.statusbar.styleLightContent();
     this.showAll = "YES";
     this.need_refresh = this.navParams.get("need_refresh")
-    if (this.need_refresh) {
-      this.contactService.get_employees(this.limit, this.offset).then((res) => {
-        if (res.result && res.result.res_code == 1) {
-          this.employeeList = res.result.res_data;
-          this.origin_data = this.employeeList;
-        }
-      })
-      this.need_refresh = false
-    }
+    // if (this.need_refresh) {
+    //   this.contactService.get_employees(this.limit, this.offset).then((res) => {
+    //     if (res.result && res.result.res_code == 1) {
+    //       this.employeeList = res.result.res_data;
+    //       this.origin_data = this.employeeList;
+    //     }
+    //   })
+    //   this.need_refresh = false
+    // }
 
   }
 

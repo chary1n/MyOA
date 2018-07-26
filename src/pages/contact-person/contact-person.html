@@ -30,7 +30,7 @@
   <ion-scroll *ngIf="showAll == 'NO'" zooming="true" scrollX="true" style="height:50px;width:100%">
     <div style="white-space:nowrap;font-size:16px;padding-top:10px;padding-left:20px">
       <span (click)=clickShowAll()>
-        
+        若态科技>
       </span>
       <span *ngFor="let item of breadcrumbsList;let i = index" (click)=clickBreadcrumbs(item,i)>
         {{item.name}} >
