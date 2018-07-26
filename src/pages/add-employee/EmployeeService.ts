@@ -46,7 +46,7 @@ export class EmployeeService {
             id_list:id_list,
             is_all:is_all
         });
-        return this.httpservice.postBody("get_employee_info", body);
+        return this.httpservice.postBodyNoLoading("get_employee_info", body);
     }
 
     update_employee(data){

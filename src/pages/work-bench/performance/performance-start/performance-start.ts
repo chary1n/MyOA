@@ -270,6 +270,8 @@ export class PerformanceStartPage {
       str = "半年"
     }else if(num=='4'){
       str = "年"
+    }else if(num=='5'){
+      str = '转正'
     }else{
       str=''
     }
