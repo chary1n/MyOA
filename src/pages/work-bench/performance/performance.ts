@@ -165,7 +165,7 @@ export class PerformancePage {
 
   changeDate(date){
     let new_date = new Date(date.replace(' ', 'T') + 'Z').getTime();
-    return this.datePipe.transform(new_date, 'yyyy-MM-dd HH:mm');
+    return new_date;
   }
 
   isFinish(rt_state){
