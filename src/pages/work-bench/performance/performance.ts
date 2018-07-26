@@ -55,10 +55,8 @@ export class PerformancePage {
           this.num2 = res.result.res_data.lenghthOther
           if(this.isMine){
             this.lists = res.result.res_data.dataMine
-            // this.str1 = '开始自评'
           }else if(this.isOther){
             this.lists = res.result.res_data.dataOther
-            // this.str1 = '开始考评'
           }
         }
       })
@@ -79,14 +77,12 @@ export class PerformancePage {
     this.isMine = true
     this.isOther = false
     this.lists = this.listMine
-    // this.str1 = '开始自评'
   }
 
   others(){
     this.isMine = false
     this.isOther = true
     this.lists = this.listOther
-    // this.str1 = '开始考评'
   }
 
   goBack(){
@@ -95,23 +91,23 @@ export class PerformancePage {
     this.navCtrl.pop();
   }
 
-  itemSelected0(event){
-    let type;
-    let search_text;
-    if (event.id == 1) {
-      type = "name";
-      search_text = event.name.replace("搜 标题:", "")
-    }
-    else if (event.id == 2) {
-      type = "content";
-      search_text = event.name.replace("搜 正文:", "")
-    } 
-    else if (event.id == 3) {
-      type = "create_uid";
-      search_text = event.name.replace("搜 发布人:", "")
-    }
-    console.log(search_text);
-  }
+  // itemSelected0(event){
+  //   let type;
+  //   let search_text;
+  //   if (event.id == 1) {
+  //     type = "name";
+  //     search_text = event.name.replace("搜 标题:", "")
+  //   }
+  //   else if (event.id == 2) {
+  //     type = "content";
+  //     search_text = event.name.replace("搜 正文:", "")
+  //   } 
+  //   else if (event.id == 3) {
+  //     type = "create_uid";
+  //     search_text = event.name.replace("搜 发布人:", "")
+  //   }
+  //   console.log(search_text);
+  // }
 
   startPerformance(item){
     if(this.isMine){
