@@ -37,7 +37,11 @@ export class PerformanceStartPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public statusBar:StatusBar,
               public servicePerformance: PersonService, public storage: Storage,public toastCtrl: ToastController
               ,private sanitizer: DomSanitizer) {
-
+              
+                this.storage.get('user')
+              .then(res => {
+                  this.uid = res.result.res_data.user_id;
+                 })
               this.item = this.navParams.get('item');
               console.log("item = "+ this.item)
               this.typeList = this.item.typeList  
@@ -47,6 +51,7 @@ export class PerformanceStartPage {
               this.rt_salary_expectation = this.item.rt_salary_expectation
               this.description = this.item.description.replace(/\n/g,"<br>")
               this.isFirst = this.item.isFirst
+              this.user_heard = this.item.user_img;
 
               if(!this.rt_achievement){
                 this.rt_achievement='请输入';
@@ -56,10 +61,7 @@ export class PerformanceStartPage {
               }
               if(!this.rt_advice){
                 this.rt_advice='请输入';
-              }
-              this.storage.get('user').then(res => {
-                    this.user_heard = res.result.res_data.user_ava;
-              })    
+              }  
   }
   
   assembleHTML(str){ 
@@ -235,6 +237,7 @@ export class PerformanceStartPage {
       'rt_salary_expectation': this.rt_salary_expectation,
       'id': this.item.id,
       'subType': endList,
+      'uid': this.uid
     }
     this.servicePerformance.get_performance_state(body).then(res =>{
       if(res.result.res_code==1){
@@ -318,16 +321,7 @@ export class PerformanceStartPage {
   }
 
   notFirst(){
-    let body={
-      'id': this.item.id,
-    }
-    this.servicePerformance.change_first(body).then(res =>{
-      if(res.result.res_code==1){
-        console.log(res)
-        this.isFirst = false
-        // Utils.toastButtom("提交成功", this.toastCtrl)
-      }
-    })
+    this.isFirst = false
   }
 
   getTitle(){
