@@ -1,3 +1,5 @@
+import { AndroidAppVersion ,APK_DOWNLOAD} from './../../providers/Constants';
+import { FirService } from './../../app/FirService';
 import { AppVersion } from '@ionic-native/app-version';
 import { EditInformationPage } from './edit-information/edit-information';
 import { LoginPage } from './../login/login';
@@ -6,6 +8,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, ModalController, Platform } from 'ionic-angular';
 import { JPush} from '../../providers/JPush'
 import { StatusBar } from '@ionic-native/status-bar';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { HttpService } from '../../providers/HttpService';
 
 /**
  * Generated class for the MePage page.
@@ -17,7 +21,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 @Component({
   selector: 'page-me',
   templateUrl: 'me.html',
-  providers:[JPush],
+  providers:[JPush, FirService],
 })
 export class MePage {
   name: string;
@@ -27,12 +31,15 @@ export class MePage {
   versionNumber :any ;
   user_id;
   loginIndex;
+  version: any;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public storage: Storage,
     private alertCtrl: AlertController,
     private modalctrl:ModalController, public platform :Platform,public appVersion:AppVersion,
     public jpush: JPush,
-    public statusbar:StatusBar) {
+    public statusbar:StatusBar, public firService: FirService,
+    private inAppBrowser: InAppBrowser,
+    private httpService: HttpService) {
       if (this.platform.is("android")) {
         this.appVersion.getVersionNumber().then((value: string) => {
           this.versionNumber = value
@@ -46,6 +53,107 @@ export class MePage {
       this.storage.get("loginIndex").then(res => {
         this.loginIndex = res
       })
+  }
+
+  checkVersion(){
+    this.platform.ready().then(() => {
+      // Okay, so the platform is ready and our plugins are available.
+      // Here you can do any higher level native things you might need.
+
+      if (this.platform.is("android")) {
+        this.getVersionNumber();
+      }
+      else if (this.platform.is('ios')) {
+        this.getiOSVersionNumber();
+      }
+    });
+  }
+
+  getVersionNumber(): Promise<string> {
+    return new Promise((resolve) => {
+      this.appVersion.getVersionCode().then((value: string) => {
+        resolve(value);
+        this.version = value;
+        console.log(this.version)
+        this.detectionUpgrade(this.version);
+      }).catch(err => {
+      });
+    });
+  }
+
+  /**
+   * 检查app是否需要升级
+   */
+  detectionUpgrade(version): void {
+    //这里连接后台判断是否需要升级,不需要升级就return
+    let needToUpdate = this.checkNeedToUpdate(version)
+  }
+
+  checkNeedToUpdate(version) {
+    return this.httpService.getWithUrlNoLoadingNoCatch(AndroidAppVersion).then(res => {
+      console.log(res)
+      console.log(res.changelog)
+      let changelog = res.changelog
+      if (res.version) {
+        if (res.version > version) {
+          this.alertCtrl.create({
+            title: '发现新版本,是否立即升级?',
+            subTitle: changelog,
+            buttons: [{ text: '稍后再说' },
+            {
+              text: '立即升级',
+              handler: () => {
+                this.openUrlByBrowser(APK_DOWNLOAD);
+              }
+            }
+            ]
+          }).present();
+        }else{
+          const alert = this.alertCtrl.create({
+            title: '提示!',
+            subTitle: '已是最新版本，无需更新!',
+            buttons: ['好的']
+          });
+          alert.present();
+        }
+      }
+    })
+  }
+
+  getiOSVersionNumber(): Promise<string> {
+    return new Promise((resolve) => {
+      this.appVersion.getVersionNumber().then((value: string) => {
+        this.firService.get('fir_ios', 1).then(res => {
+          console.log(res)
+          if (res.version > value) {
+            this.alertCtrl.create({
+              title: '发现新版本,是否立即升级？',
+              subTitle: "更新内容：" + res.changelog,
+              buttons: [
+                {
+                  text: '立即升级',
+                  handler: () => {
+                    this.openUrlByBrowser('http://fir.im/MyOa');
+                  }
+                }
+              ]
+            }).present();
+          }else{
+            const alert = this.alertCtrl.create({
+              title: '提示!',
+              subTitle: '已是最新版本，无需更新!',
+              buttons: ['好的']
+            });
+            alert.present();
+          }
+        });
+      }).catch(err => {
+      });
+    });
+  }
+
+  openUrlByBrowser(url: string): void {
+    this.inAppBrowser.create(url, '_system');
   }
 
   ionViewDidLoad() {

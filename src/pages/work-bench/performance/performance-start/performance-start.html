@@ -57,7 +57,7 @@
                                 <span style="margin-left: 10px;width:5px;height:5px;border-radius:5px;background-color:#b4b4af;display:inline-block;float: left;margin-top: 7px"></span>
                                 <p style="font-size: 14px;color: #949ca1;margin-left: 20px;word-wrap:break-word;">{{tagBean.tag_name}}</p>
                                 <div class="star-div" *ngFor="let subeType of tagBean.subType" style="padding: 10px;margin-top: 5px">
-                                    <p style="font-size: 13px;color: #949ca1;margin-left: 10px;word-wrap: break-word;margin-top: -5px">{{subeType.subTp}}</p>
+                                    <p style="font-size: 13px;color: #949ca1;margin-left: 10px;word-wrap: break-word;margin-top: 5px">{{subeType.subTp}}</p>
                                     <div *ngFor="let item of score" style="float: left;margin-top: -7px;margin-left: 10px" tappable (click)="select(subeType,item)">
                                         <ion-icon name="star" style="color: #fba958" *ngIf="item<=subeType.current_id;"></ion-icon>
                                         <ion-icon name="star-outline" style="color: #b4b4af" *ngIf="item>subeType.current_id;"></ion-icon>
@@ -113,8 +113,10 @@
                   <ion-item no-lines *ngIf="item.is_self" style="min-height: 20px">
                         <ion-label style="color:#2e3133;font-size:14px;">
                                 <span style="margin-right: 10px;width:8px;height:8px;border-radius:8px;background-color:#2597ec;display:inline-block;"></span>
-                            匹配年薪</ion-label>
-                        <ion-input item-end type="number" text-right [(ngModel)]="rt_salary_expectation" style="color:#5C6166;font-size:12px;margin-right:5px" placeholder="请输入"></ion-input>
+                            匹配年薪
+                            <span style="font-size: 12px">(含年终奖及提成)</span>
+                        </ion-label>
+                        <ion-input item-end type="number" text-right [(ngModel)]="rt_salary_expectation" style="color:#5C6166;font-size:12px;margin-right:5px" placeholder="请输入(单位：万元)"></ion-input>
                    </ion-item>
                    <div *ngIf="item.is_self" style="word-wrap:break-word;color: #949ca1;font-size: 12px;margin-left: 15px">说明：在当前社会环境下，你自认为你的努力与能力能够匹配的年收入，你填的数据与你最终的薪资调整没有必然联系</div>
                   <!-- <ion-item-group no-lines style="border-bottom:#f0f2f5 1px solid;" *ngIf="item.is_self">
