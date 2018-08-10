@@ -1,3 +1,4 @@
+import { FirService } from './../../app/FirService';
 import { NativeService } from './../../providers/NativeService';
 
 import { HttpService } from './../../providers/HttpService';
@@ -35,7 +36,7 @@ declare let cordova: any;
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html',
-  providers: [LoginService, JPush, UrlServer]
+  providers: [LoginService, JPush, UrlServer,FirService]
 })
 
 export class LoginPage {
@@ -64,7 +65,7 @@ export class LoginPage {
   loadingDB;
   constructor(public navCtrl: NavController, public navParams: NavParams,public loading:LoadingController,private nativeService: NativeService,
     private loginservice: LoginService, private myHttp: Http, private storage: Storage, public platform: Platform, public appVersion: AppVersion,
-    public jpush: JPush, public urlServer: UrlServer, public ctrl: AlertController, private inAppBrowser: InAppBrowser,
+    public jpush: JPush,public firService: FirService, public urlServer: UrlServer, public ctrl: AlertController, private inAppBrowser: InAppBrowser,
   ) {
     this.storage.get("login").then(res => {
       if (res) {
@@ -118,6 +119,31 @@ export class LoginPage {
   }
 
 
+  getiOSVersionNumber(): Promise<string> {
+    return new Promise((resolve) => {
+      this.appVersion.getVersionNumber().then((value: string) => {
+        this.firService.get('fir_ios', 1).then(res => {
+          console.log(res)
+          if (res.version > value) {
+            this.ctrl.create({
+              title: '发现新版本,是否立即升级？',
+              subTitle: "更新内容：" + res.changelog,
+              buttons: [
+                {
+                  text: '立即升级',
+                  handler: () => {
+                    this.openUrlByBrowser('http://fir.im/MyOa');
+                  }
+                }
+              ]
+            }).present();
+          }
+        });
+      }).catch(err => {
+      });
+    });
+  }
+
   openUrlByBrowser(url: string): void {
     this.inAppBrowser.create(url, '_system');
   }
@@ -143,6 +169,8 @@ export class LoginPage {
   ionViewWillEnter(){
     if (this.platform.is("android")) {
       this.getVersionNumber();
+    } else if (this.platform.is('ios')) {
+      this.getiOSVersionNumber();
     }
   }
 
