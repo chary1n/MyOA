@@ -29,22 +29,22 @@ export class MyApp {
     private inAppBrowser: InAppBrowser, private storage: Storage, public jpush: JPush) {
 
     platform.ready().then(() => {
-      // this.jpush.initJpush();
-
+      
       // storage.get('user')
       //   .then(res => {
-      //     this.user_env = res.result.res_data;
-      //     //  this.jpush.setAlias(res.result.res_data.user_id);
-      //   });
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
-      statusBar.overlaysWebView(false);
-      statusBar.styleDefault();
-      // statusBar.backgroundColorByHexString("#2597ec");
-      // statusBar.styleLightContent();
-      statusBar.backgroundColorByHexString('#f8f8f8');
-      splashScreen.hide();
-
+        //     this.user_env = res.result.res_data;
+        //     //  this.jpush.setAlias(res.result.res_data.user_id);
+        //   });
+        // Okay, so the platform is ready and our plugins are available.
+        // Here you can do any higher level native things you might need.
+        statusBar.overlaysWebView(false);
+        statusBar.styleDefault();
+        // statusBar.backgroundColorByHexString("#2597ec");
+        // statusBar.styleLightContent();
+        statusBar.backgroundColorByHexString('#f8f8f8');
+        splashScreen.hide();
+        this.jpush.initJpush();
+        
       // if (this.platform.is("android")) {
       //   this.getVersionNumber();
       // }
