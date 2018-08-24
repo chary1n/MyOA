@@ -15,8 +15,7 @@
 </ion-header>
 
 <ion-content>
-    <!-- <ion-scroll scrollY="true" style="width: 100%; height: 100%"> -->
-    <div style="padding: 1px;text-align: center;">
+    <div style="padding: 1px;text-align: center;" overflow-scroll="true">
       <p class="month_message">
           <span tappable (click)="delete_month()">{{"<"}}</span><span style="margin-left:10px">{{currentDate}}</span><span style="margin-left:10px" tappable (click)="add_month()">{{">"}}</span>
       </p>
@@ -52,16 +51,16 @@
                 tappable (click)="choose_day(vo)"
                 [ngClass]="{true:'item-content bk-color-day',false:'item-content'}[currentDay == vo.d && currentMonth == vo.m && currentYear == vo.y]" style="line-height: 44px;">  
                   <!-- <div id="item-content" tappable (click)="choose_day(vo)" [ngClass]="{true:'item-content bk-color-day',false:'item-content'}[currentDay == vo.d && currentMonth == vo.m && currentYear == vo.y]" style="line-height: 44px;"> -->
-                    <p style="height: 16px;margin-top: -3px" [ngClass]="{true:'pBac',false:'pBacNormal'}[currentMonth == vo.m && currentYear == vo.y]">{{vo.d}}</p>
+                    <p style="height: 16px;margin-top: -3px" [ngClass]="{'pBac':currentMonth == vo.m && currentYear == vo.y,'pBacNormal':currentMonth != vo.m,'pNormal':currentDay == vo.d && currentMonth == vo.m && currentYear == vo.y}">{{vo.d}}</p>
                     <p *ngIf="vo.s==true" [ngClass]="{true:'circleB',false:'circleA'}[currentDay == vo.d && currentMonth == vo.m && currentYear == vo.y]"></p>
                     <!-- <span style="width: 8px;border-radius:8px;background-color:red;display:inline-block;height:8px;"></span> -->
                   <!-- </div>  -->
                 </div> 
                 <!-- <ion-icon *ngIf="showIcon" name="ios-arrow-down" tappable (click)="changeCalendar()" style="color: #999999;width: 100%;margin-top: 15px;text-align: center"></ion-icon> -->
                 <ion-item no-lines style="margin-top: 5px;padding: 1px;border-bottom:#f0f2f5 1px solid;border-top:#f0f2f5 1px solid;min-height: 25px">
-                  <ion-label style="font-size: 13px;margin-left: 15px;color: #666666">{{dateNow}}</ion-label>
+                  <ion-label style="font-size: 13px;margin-left: 15px;color: black;font-weight:bold;">{{dateNow}}</ion-label>
                   <div style="padding: 1px;" item-end class="divBac" *ngIf="showLate" tappable (click)="latePage()">
-                    <p style="font-size: 12px;color: #E98553;margin-top: auto;margin-bottom: auto">{{lateNum}}个待办已逾期 》</p>
+                    <p style="font-size: 10px;color: #E98553;margin-top: auto;margin-bottom: auto">{{lateNum}}个待办已逾期 》</p>
                   </div>
                 </ion-item>
               </div>
@@ -87,5 +86,4 @@
                       </ion-item>
               </ion-list>
         </div>
-  <!-- </ion-scroll> -->
 </ion-content>
