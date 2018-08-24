@@ -1,7 +1,6 @@
 import { AndroidAppVersion ,APK_DOWNLOAD} from './../../providers/Constants';
 import { FirService } from './../../app/FirService';
 import { AppVersion } from '@ionic-native/app-version';
-import { EditInformationPage } from './edit-information/edit-information';
 import { LoginPage } from './../login/login';
 import { Storage } from '@ionic/storage';
 import { Component } from '@angular/core';
@@ -32,6 +31,7 @@ export class MePage {
   user_id;
   loginIndex;
   version: any;
+  from = false
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public storage: Storage,
     private alertCtrl: AlertController,
@@ -40,6 +40,9 @@ export class MePage {
     public statusbar:StatusBar, public firService: FirService,
     private inAppBrowser: InAppBrowser,
     private httpService: HttpService) {
+      if(this.navParams){
+        this.from = this.navParams.get('from')
+      }
       if (this.platform.is("android")) {
         this.appVersion.getVersionNumber().then((value: string) => {
           this.versionNumber = value
@@ -57,9 +60,6 @@ export class MePage {
 
   checkVersion(){
     this.platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
-
       if (this.platform.is("android")) {
         this.getVersionNumber();
       }
@@ -86,7 +86,7 @@ export class MePage {
    */
   detectionUpgrade(version): void {
     //这里连接后台判断是否需要升级,不需要升级就return
-    let needToUpdate = this.checkNeedToUpdate(version)
+    this.checkNeedToUpdate(version)
   }
 
   checkNeedToUpdate(version) {
@@ -181,9 +181,6 @@ export class MePage {
 
   }
 
-  toAccountSafePage() {
-    console.log('')
-  }
   outToLogin() {
     let alert = this.alertCtrl.create({
       message: '退出当前账号?',
@@ -223,12 +220,12 @@ export class MePage {
     this.navCtrl.push("EditInformationPage")
   }
 
-  test_kaoqin(){
-    this.navCtrl.push('KaoqinPage')
-  }
-
 
   changePassword(){
     this.navCtrl.push('ChangePasswordPage',{ is_me: true })
+  }
+
+  goBack(){
+    this.navCtrl.pop()
   }
 }

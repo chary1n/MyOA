@@ -4,22 +4,18 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-
-
-<!-- <style>
-   .center_x {
-    text-align: center;
-  }
-</style> -->
 <ion-header no-border>
-  <!-- <ion-navbar color="gongdan-color">
-    <ion-title>我</ion-title>
-  </ion-navbar> -->
-  <!-- <ion-navbar color="meColor" hideBackButton="true">
-</ion-navbar> -->
+    <!-- <ion-navbar color="gongdan-color" hideBackButton="true">
+      <ion-title>首页</ion-title>
+    </ion-navbar> -->
 <ion-grid style="background-image:url('assets/img/meBacground.png');background-repeat:round;">
   <ion-row style="min-height:230px">
     <ion-col>
+        <ion-buttons left *ngIf="from==true">
+            <button  icon-only (click)="goBack()" style="background-color: transparent">
+              <ion-icon name="arrow-back" style="color: white"></ion-icon>
+            </button>
+          </ion-buttons>
       <div style="margin-left:auto;margin-right:auto;text-align:center;margin-top:45px" tappable (click)='editInformation()'>
         <img src={{user_heard}} class="image1" alt="">
         <p style="color:white;font-size:18px;margin-top:1px">{{name}}</p>
@@ -48,52 +44,4 @@
     <div  style="text-align:center;background:white;line-height:50px;height:50px" tappable (click)="outToLogin()">
         <p style="color:2e3033;font-size:18px">退出登录</p>
     </div>
-    <!-- <ion-grid>
-      <ion-row>
-        <ion-col col-5 style="text-align:center;padding-top:10px">
-          <img src={{user_heard}} class="image1" alt="" >
-        </ion-col>
-        <ion-col col-7 style="padding-left:10px">
-          <h4>{{name}}</h4>
-          <p>{{job}}</p>
-          <p>{{company}}</p>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-
-
-  <div class="edit_wraper" tappable (click)='editInformation()'>
-    <div>
-      <ion-icon name="create"></ion-icon>
-      <span>编辑资料</span>
-    </div>
-  </div> -->
-
-
-    <!-- <ion-list style="background-color:white">
-      <button ion-item>
-      <ion-icon name="lock" item-start color="blue"></ion-icon>
-      <ion-label>账号与安全</ion-label>
-    </button>
-
-      <button ion-item>
-      <ion-icon name="chatbubbles" item-start color="primary"></ion-icon>
-      <ion-label>新消息通知</ion-label>
-    </button >
-
-      <button tappable (click)="test_kaoqin()" ion-item>
-      <ion-icon name="help-circle" item-start color="primary"></ion-icon>
-      <ion-label>考勤测试</ion-label>
-    </button>
-
-      <button ion-item>
-      <ion-icon name="call" item-start color="secondary"></ion-icon>
-      <ion-label>关于我们</ion-label>
-    </button> -->
-
-    <!-- </ion-list> -->
-
-    <!-- <button  ion-button  outline block tappable (click)="outToLogin()" >
-    退出登录
-  </button> -->
   </ion-content>

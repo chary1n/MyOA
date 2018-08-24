@@ -1,32 +1,32 @@
+import { FirstShowPage } from './../pages/first-show/first-show';
 import { Storage } from '@ionic/storage';
-import { NativeService } from './../providers/NativeService';
+// import { NativeService } from './../providers/NativeService';
 import { TabsPage } from './../pages/tabs/tabs';
 import { Component } from '@angular/core';
 import { Platform, AlertController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
-import { AppVersion } from '@ionic-native/app-version';
+// import { AppVersion } from '@ionic-native/app-version';
 import { SplashScreen } from '@ionic-native/splash-screen';
 // import { JPushPlugin } from '@ionic-native/jpush';
 
 
-import { HttpService } from '../providers/HttpService'
+// import { HttpService } from '../providers/HttpService'
 import { JPush } from '../providers/JPush'
-import { HttpModule } from "@angular/http";
-import { FirService } from './FirService';
-import { InAppBrowser } from '@ionic-native/in-app-browser';
+// import { HttpModule } from "@angular/http";
+// import { FirService } from './FirService';
+// import { InAppBrowser } from '@ionic-native/in-app-browser';
 declare let cordova: any;
 @Component({
   templateUrl: 'app.html',
-  providers: [FirService, JPush]
+  providers: [ JPush]
 })
 export class MyApp {
   rootPage: any = 'LoginPage';
   version: any;
   user_env: any;
   constructor(public platform: Platform, statusBar: StatusBar,
-    splashScreen: SplashScreen, private appVersion: AppVersion,
-    private nativeService: NativeService, public firService: FirService, private alertCtrl: AlertController,
-    private inAppBrowser: InAppBrowser, private storage: Storage, public jpush: JPush) {
+    splashScreen: SplashScreen, 
+     private storage: Storage, public jpush: JPush) {
 
     platform.ready().then(() => {
       this.jpush.initJpush();
@@ -44,54 +44,7 @@ export class MyApp {
       // statusBar.styleLightContent();
       statusBar.backgroundColorByHexString('#f8f8f8');
       splashScreen.hide();
-
-      if (this.platform.is("android")) {
-        this.getVersionNumber();
-      }
-      else if (this.platform.is('ios')) {
-        this.getiOSVersionNumber();
-      }
     });
-  }
-  getVersionNumber(): Promise<string> {
-    return new Promise((resolve) => {
-      this.appVersion.getVersionCode().then((value: string) => {
-        resolve(value);
-        this.version = value;
-        console.log(this.version)
-        this.nativeService.detectionUpgrade(this.version);
-      }).catch(err => {
-      });
-    });
-  }
-
-  getiOSVersionNumber(): Promise<string> {
-    return new Promise((resolve) => {
-      this.appVersion.getVersionNumber().then((value: string) => {
-        this.firService.get('fir_ios', 1).then(res => {
-          console.log(res)
-          if (res.version > value) {
-            this.alertCtrl.create({
-              title: '发现新版本,是否立即升级？',
-              subTitle: "更新内容：" + res.changelog,
-              buttons: [
-                {
-                  text: '立即升级',
-                  handler: () => {
-                    this.openUrlByBrowser('http://fir.im/MyOa');
-                  }
-                }
-              ]
-            }).present();
-          }
-        });
-      }).catch(err => {
-      });
-    });
-  }
-
-  openUrlByBrowser(url: string): void {
-    this.inAppBrowser.create(url, '_system');
   }
 
   // jPushInit(){

@@ -1,0 +1,37 @@
+<!--
+  Generated template for the SelectPersonPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+    <ion-navbar color="gongdan-color" hideBackButton="true">
+        <ion-buttons left *ngIf="type==1">
+            <button ion-button icon-only tappable (click)="cancel()" style="font-size:14px;color: white;margin-left: 10px">
+                取消
+            </button>
+        </ion-buttons>
+        <ion-buttons right *ngIf="type==1">
+            <button ion-button icon-only tappable (click)="finish()" style="font-size:14px;color: white;margin-right: 10px">
+                完成
+            </button>
+      </ion-buttons>
+      <ion-title style="text-align: center">通讯录</ion-title>
+    </ion-navbar>
+</ion-header>
+
+
+<ion-content (pan)="panEvent($event)">
+    <ion-searchbar placeholder = "搜索" (ionInput)="searchByKeyword($event)" (ionClear)="clearText()"></ion-searchbar>
+
+    <ion-list>
+      <ion-item  no-lines *ngFor = 'let item of employeeList' style="border-bottom: #f0f2f5 1px solid;min-height: 25px">
+          <ion-label>{{item.partner_name}}</ion-label>
+          <ion-checkbox  (click)="choosePeople(item)" [checked]=item.ischeck></ion-checkbox>
+        </ion-item>
+    </ion-list>
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+            <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+</ion-content>

@@ -1,3 +1,5 @@
+import { NativeService } from './../../providers/NativeService';
+import { FirService } from './../../app/FirService';
 
 import { HttpService } from './../../providers/HttpService';
 import { dbBean } from './../../model/dbInfoModel';
@@ -34,7 +36,7 @@ declare let cordova: any;
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html',
-  providers: [LoginService, JPush, UrlServer]
+  providers: [LoginService, JPush, UrlServer,FirService]
 })
 
 export class LoginPage {
@@ -60,9 +62,11 @@ export class LoginPage {
   email_src;
   password_src;
   loadingDB;
+  version: any;
   constructor(public navCtrl: NavController, public navParams: NavParams,public loading:LoadingController,
     private loginservice: LoginService, private myHttp: Http, private storage: Storage, public platform: Platform, public appVersion: AppVersion,
     public jpush: JPush, public urlServer: UrlServer, public ctrl: AlertController, private inAppBrowser: InAppBrowser,
+    public firService: FirService,private nativeService: NativeService,
   ) {
     this.storage.get("login").then(res => {
       if (res) {
@@ -107,7 +111,14 @@ export class LoginPage {
     this.inAppBrowser.create(url, '_system');
   }
 
-
+  ionViewDidEnter() {
+    if (this.platform.is("android")) {
+      this.getVersionNumber();
+    }
+    else if (this.platform.is('ios')) {
+      this.getiOSVersionNumber();
+    }
+  }
 
   defultChoose(index) {
     if (index == 2) {
@@ -230,8 +241,8 @@ export class LoginPage {
     this.isSelected3 = false;
     this.isSelected4 = false;
     this.chooseIndex = 2;
-    HttpService.appUrl = "http://dr.robotime.com/"
-    // HttpService.appUrl = "http://192.168.1.131:8888/"
+    // HttpService.appUrl = "http://dr.robotime.com/"
+    HttpService.appUrl = "http://192.168.1.135:8888/"
     // HttpService.appUrl = "http://192.168.2.64:8069/"
     this.reset();
     this.img2 = "assets/img/diy_clicked.png"
@@ -246,8 +257,8 @@ export class LoginPage {
     this.isSelected1 = false;   
     this.isSelected4 = false;
     this.chooseIndex = 3;
-    HttpService.appUrl = "http://erp.robotime.com/"
-    // HttpService.appUrl = "http://192.168.1.9:8081/"
+    // HttpService.appUrl = "http://erp.robotime.com/"
+    HttpService.appUrl = "http://192.168.1.9:8081/"
     this.reset();
     this.img3 = "assets/img/ruobeier_clicked.png"
     this.password_src = "assets/img/R_password.png"
@@ -262,8 +273,8 @@ export class LoginPage {
     this.isSelected1 = false;
     this.isSelected3 = false;
     this.chooseIndex = 4;
-    HttpService.appUrl = "http://ber.robotime.com/"
-    // HttpService.appUrl = "http://192.168.88.131:8069/"
+    // HttpService.appUrl = "http://ber.robotime.com/"
+    HttpService.appUrl = "http://192.168.1.36:8081/"
     this.reset();
     this.img4 = "assets/img/banchang_clicked.png"
     this.password_src = "assets/img/B_password.png"
@@ -490,4 +501,40 @@ export class LoginPage {
     }
   }
 
+  getVersionNumber(): Promise<string> {
+    return new Promise((resolve) => {
+      this.appVersion.getVersionCode().then((value: string) => {
+        resolve(value);
+        this.version = value;
+        console.log(this.version)
+        this.nativeService.detectionUpgrade(this.version);
+      }).catch(err => {
+      });
+    });
+  }
+
+  getiOSVersionNumber(): Promise<string> {
+    return new Promise((resolve) => {
+      this.appVersion.getVersionNumber().then((value: string) => {
+        this.firService.get('fir_ios', 1).then(res => {
+          console.log(res)
+          if (res.version > value) {
+            this.ctrl.create({
+              title: '发现新版本,是否立即升级？',
+              subTitle: "更新内容：" + res.changelog,
+              buttons: [
+                {
+                  text: '立即升级',
+                  handler: () => {
+                    this.openUrlByBrowser('http://fir.im/MyOa');
+                  }
+                }
+              ]
+            }).present();
+          }
+        });
+      }).catch(err => {
+      });
+    });
+  }
 }

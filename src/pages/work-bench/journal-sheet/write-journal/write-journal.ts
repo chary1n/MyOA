@@ -250,7 +250,6 @@ export class WriteJournalPage {
         myString = "   请选择拜访目的"
       }
       if(this.timeStarts && this.timeEnds){
-        console.log(this.month > Utils.dateFormat(new Date(), 'yyyy-MM-dd'))
         if (this.month > Utils.dateFormat(new Date(), 'yyyy-MM-dd'))
         {
           Utils.toastButtom('拜访日期不可超过今天！', this.toastCtrl)

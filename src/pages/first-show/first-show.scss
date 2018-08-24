@@ -1,4 +1,37 @@
 page-first-show {
+    // width: 6px;border-radius:8px;background-color:#d4dbe0;display:inline-block;height:6px;margin-top: -6px
+    .circleA{
+        width: 6px;
+        border-radius: 8px;
+        background-color: #d4dbe0;
+        display: inline-block;
+        height: 6px;
+        margin-top: -6px
+    }
+    .circleB{
+        width: 6px;
+        border-radius: 8px;
+        background-color: white;
+        display: inline-block;
+        height: 6px;
+        margin-top: -6px
+    }
+    .pBacNormal{
+        color: #d4dbe0
+    }
+    .pBac{
+        color: #6e7379
+    }
+    .image1{ 
+        border-radius:200px; 
+        width: 35px;
+        height: 35px
+    }
+    .image2{ 
+        border-radius:200px; 
+        width: 60px;
+        height: 60px
+    }
     .divBac {
         background-color: #FFC058;
         border-radius: 10px;
@@ -20,30 +53,6 @@ page-first-show {
         margin-top:6px;
     }
 
-    .test_one{
-        color:white;
-        width:60px;
-        height: 30px;
-        line-height: 30px;
-        font-size: 14px;
-        opacity: 0.75;
-    }
-    .test_choose{
-        color:white;
-        width:60px;
-        height: 30px;
-        line-height: 30px;
-        font-size:16px;
-    }
-
-    .img_message_ava{
-        width: 30px;
-        height:30px;
-        border-radius: 15px;
-        margin-top:15px;
-        margin-left: -10px;
-    }
-
     .name_message{
         margin-top:12px;
         line-height: 40px;
@@ -53,83 +62,14 @@ page-first-show {
     }
 
     .month_message{
-        margin-top:12px;
         line-height: 40px;
-        margin-left: -20px;
-        color:#8a9299;
+        color:#5a5f63;
         font-size: 15px;
-        float:right;
-    }
-
-    .li_class{
-        color:#f0f2f5;
-        font-size:18px;
-        min-height:60px;
-        position: relative;
-    }
-
-
-    .li_class_first{
-        color:#409eff;
-        font-size:18px;
-        min-height:60px;
-        position: relative;
-    }
-
-    .time_li_class{
-        color:black;
-        font-size:21px;
-        height:20px;
-        display:inline-block;
-        float:left;
-        margin-top:2px;
-    }
-
-    .time_li_first_class{
-        color:#409eff;
-        font-size:21px;
-        height:20px;
-        display:inline-block;
-        float:left;
-        margin-top:2px;
-    }
-
-    .time_type_li_class{
-        color:black;
-        font-size:13px;
-        background:#c2c7cc;
-        color:white;
-        margin-left:5px;
-        width:35px;
-        display:inline-block;
-        text-align:center;
-        border-radius:3px;
-        line-height:18px;
-    }
-
-    .time_type_li_first_class{
-        color:black;
-        font-size:13px;
-        background:#409eff;
-        color:white;
-        margin-left:5px;
-        width:35px;
-        display:inline-block;
-        text-align:center;
-        border-radius:3px;
-        line-height:18px;
-    }
-
-    .time_company_class{
-        text-align:left;
-        color:#c2c7cc;
-        font-size:15px;
-        margin-top:5px;
-        display:block;
+        margin-top: 0px;
     }
 
     .divClass{
-    width: 0px;
+    width: 1px;
     position: absolute;
     left: 24px;
     right: 0px;
@@ -137,9 +77,8 @@ page-first-show {
     bottom: 0px;
     overflow: hidden;
     border-left: 1px solid #f0f0f8;
-    height: auto;
+    height: 50px;
     margin-top:0px;
-
 }
 
     .buttom_divider{
@@ -160,67 +99,7 @@ page-first-show {
          /* display:flex;
          flex-wrap:wrap;  */
 }
-    .left_circle{
-  background:#2599ef;
-  color:white;
-  float:left;
-  width:120px;
-  height:120px;
-  margin-left:calc(25% - 60px);
-  border-radius:50%;
-  align-items:center;
-  display:flex;
-  justify-content:center;
-  box-shadow: 1px 10px 30px #b2dfff;
-  font-size: 16px;
-}
-
-.right_circle{
-  background:#27b8d7;
-  color:white;
-  float:right;
-  width:120px;
-  height:120px;
-  margin-right:calc(25% - 60px);
-  border-radius:50%;
-  align-items:center;
-  display:flex;
-  justify-content:center;
-  box-shadow: 1px 10px 30px #b2dfff;
-  font-size: 16px;
-}
-
-.left_circle_inactive{
-  background:lightgray;
-  color:white;
-  float:left;
-  width:120px;
-  height:120px;
-  margin-left:calc(25% - 60px);
-  border-radius:50%;
-  align-items:center;
-  display:flex;
-  justify-content:center;
-  box-shadow: 1px 10px 30px lightgray;
-  font-size: 16px;
-}
-
-.right_circle_inactive{
-  background:lightgray;
-  color:white;
-  float:right;
-  width:120px;
-  height:120px;
-  margin-right:calc(25% - 60px);
-  border-radius:50%;
-  align-items:center;
-  display:flex;
-  justify-content:center;
-  box-shadow: 1px 10px 30px lightgray;
-  font-size: 16px;
-}
-
-
+ 
     .text_class{
   /* text-align:center; */
   width:100%;
@@ -252,215 +131,45 @@ page-first-show {
 }
     
     .box-flex {  
-//   display: -webkit-box;  
-//   display: -webkit-flex;  
   display: flex;  
   flex-wrap: wrap;  
-//   justify-content: flex-end;
   background:white;
-  /* height: 40px; */
-  /* border:#dedede 1px solid; */
 }
 
     .flex-item {  
   flex-flow: nowrap;  
   flex-grow: 1;  
   flex-shrink: 1;  
-  width: 14.2%;  
-  height: 50px;
-  /* height: 14.2% */
+  width: 13%;  
+  height: 48px;
+  text-align: center;
+  color: white;  
+  padding:5px ;
+//   margin-top: -5px
 } 
 .item-content-header {  
   margin: 5px;  
-  /* padding: 0 10px;   */
   text-align: center;  
-  /* background-color: #000;   */
-  /* height: 2rem;   */
-
-   line-height: 2rem;   
-   color: gray;   
+//    line-height: 2rem;   
+   color: gray;  
 }  
 
-.item-content{  
-  margin: 5px;  
-  padding: 0 10px;  
-  text-align: center;  
-  /* background-color: #000;   */
-  /* height: 2rem;   */
-//    line-height: 50px; 
-   color: gray;   
-}  
+// .item-content{  
+//   margin: 5px;  
+//   text-align: center;  
+//    color: gray;   
+// }  
 
 .bk-color-day {  
    background-color: #159aeb; 
-//    font-size: 20px;
-//    color: #159aeb;
   border-radius: 50%;  
   color:white;
-  /* border: red 1px solid; */
 }  
 
 .buttom_divider{
-  /* display: -webkit-box;  
-  display: -webkit-flex;  
-  display: flex;  
-  flex-wrap: wrap;  
-  justify-content: flex-end; */
   height:20px;
   background: #f0f2f5;  
   width: 100%;
   margin-top:0px;
-  /* margin-left: -30px; */
 }
-
-.day_divClass{
-    width: 0px;
-    overflow:hidden;
-    border-left:1px solid #f0f0f8;
-    height:25px;
-    margin-top:-46px;
-    margin-left:100%;
-
-}
-    .div_visible{
-        visibility: visible
-    }
-
-    .div_hidden{
-        visibility: hidden
-    }
-    
-    .alert_div{
-        height: 220px;
-        width: 270px;
-        background:url("./../assets/img/attendance_bg.png");
-        position: absolute;
-        z-index: 999;
-        left: calc(50% - 135px);
-        top: calc(50% - 130px);
-        background-size: 100% 100%;
-        text-align: center;
-    }
-
-    .alert_p{
-        color:white;
-        font-size: 15px;
-        display: inline-flex;
-
-    }
-
-    .alert_center_div{
-        height: 150px;
-        width: 150px;
-        background: url(./../assets/img/attendance_inside.png);
-        left: calc(50% - 75px);
-        top: calc(50% - 75px);
-        background-size: 100% 100%;
-        text-align: center;
-        position: absolute;
-    }
-
-    .alert_btn{
-        color: white;
-        font-size: 15px;
-        height: 50px;
-        width: 100%;
-        position: absolute;
-        bottom: 0px;
-        line-height: 55px;
-    }
-
-    .alert_h2_class{
-        color:#409eff;
-        font-size:3.1rem;
-        line-height:81px;
-    }
-    
-    .alert_p_class{
-        font-size: 16px;
-        color: #409eff;
-        margin-top: -15px;
-    }
-
-    .alert_div_off{
-        height: 220px;
-        width: 270px;
-        background:url("./../assets/img/attendance_off_bg.png");
-        position: absolute;
-        z-index: 999;
-        left: calc(50% - 135px);
-        top: calc(50% - 130px);
-        background-size: 100% 100%;
-        text-align: center;
-    }
-
-    .alert_div_fail{
-        height: 300px;
-        width: 270px;
-        background:url("./../assets/img/fail_background.png");
-        position: absolute;
-        z-index: 999;
-        left: calc(50% - 135px);
-        top: calc(50% - 170px);
-        background-size: 100% 100%;
-        text-align: center;
-    }
-
-    .alert_div_fail_three{
-        height: 300px;
-        width: 270px;
-        background:url("./../assets/img/faile_three_background.png");
-        position: absolute;
-        z-index: 999;
-        left: calc(50% - 135px);
-        top: calc(50% - 170px);
-        background-size: 100% 100%;
-        text-align: center;
-    }
-
-    .alert_btn_fail{
-        color: lightgray;
-        font-size: 15px;
-        height: 50px;
-        width: 100%;
-        position: absolute;
-        bottom: 0px;
-        line-height: 55px;
-    }
-
-    .alert_center_div_off{
-        height: 150px;
-        width: 150px;
-        background: url(./../assets/img/attendance_off_inside.png);
-        left: calc(50% - 75px);
-        top: calc(50% - 75px);
-        background-size: 100% 100%;
-        text-align: center;
-        position: absolute;
-    }
-
-    .alert_h2_class_off{
-        color:#27b8d7;
-        font-size:3.1rem;
-        line-height:81px;
-    }
-
-    .alert_p_class_off{
-        font-size: 16px;
-        color: #27b8d7;
-        margin-top: -15px;
-    }
-
-    .alert_icon_class{
-        background: url(./../assets/img/attendance_icon.png);
-        background-size: 100% 100%;
-        height: 20px;
-        width: 20px;
-        margin-top: 10px;
-    }
-
-    .back_class{
-        opacity: 0.6;
-    }
-    
 }

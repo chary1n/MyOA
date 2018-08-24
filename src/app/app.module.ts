@@ -56,6 +56,8 @@ import { PhotoLibrary } from '@ionic-native/photo-library';
     BrowserModule,
     IonicModule.forRoot(MyApp,{
        backButtonText: '',
+       iconMode: 'ios',//安卓icon强制使用ios的icon以及样式
+       mode: 'ios',//样式强制使用ios样式
     }),
     HttpModule,
     IonicStorageModule.forRoot(),

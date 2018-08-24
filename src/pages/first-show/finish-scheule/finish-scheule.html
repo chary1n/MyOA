@@ -1,0 +1,82 @@
+<!--
+  Generated template for the FinishScheulePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+    <ion-navbar color="gongdan-color" hideBackButton="true">
+        <ion-buttons left>
+            <button ion-button icon-only (click)="goBack()">
+              <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+            </button>
+          </ion-buttons>
+      <ion-title>确认完成信息</ion-title>
+  </ion-navbar>
+
+
+</ion-header>
+
+
+
+
+<ion-content>
+
+  <ion-item no-lines style="min-height: 20px;border-bottom: #f0f2f5 1px solid;">
+    <ion-label style="font-size: 13px">实际</ion-label>
+  </ion-item>
+  <ion-grid>
+      <ion-row style="height:100px;text-align:center;">
+          <ion-col col-5>
+          <div style="padding:1px;margin-left: 15dp;overflow:hidden;text-align:left">
+              <p text-wrap class="diyP" style="font-size:14px;color:#2e3033;width:70px;margin-left:5px">开始</p>
+              <ion-datetime *ngIf="!allDay" text-wrap cancelText="取消" doneText="确定"  [(ngModel)]="relly_start_time"  min="2017-01" max="2100-12"
+                 style="width: 160px;color:#5C6166;font-size:12px;margin-top: -15px;word-wrap:break-word;padding-left: 0px;padding-right: 0px;margin-left: 5px" displayFormat="YYYY年MM月DD日 HH:mm" pickerFormat="YYYY年 MM月 DD日 HH:mm"></ion-datetime>
+              <ion-datetime *ngIf="allDay" text-wrap cancelText="取消" doneText="确定"  [(ngModel)]="relly_start_time"  min="2017-01" max="2100-12"
+                 style="width: 160px;color:#5C6166;font-size:12px;margin-top: -15px;word-wrap:break-word;padding-left: 0px;padding-right: 0px;margin-left: 5px" displayFormat="YYYY年MM月DD日" pickerFormat="YYYY年 MM月 DD日"></ion-datetime>
+              <!-- <p style="font-size:12px;color:#c2c7cc;line-height:12px;width:100px;margin-left:10px">{{item.start}}</p> -->
+          </div>
+          </ion-col>
+          <ion-col col-1>
+              <img src="assets/img/jiantou.png" style="width:15px;height:45px;margin-top: 10px">
+            </ion-col>
+          <ion-col col-5>
+          <div style="padding:1px;margin-left: 15dp;overflow:hidden;text-align:left">
+              <p text-wrap style="font-size:14px;color:#2e3033;width:35px;margin-left:5px">结束</p>
+              <ion-datetime *ngIf="!allDay" text-wrap cancelText="取消" doneText="确定"  [(ngModel)]="relly_stop_time"  min="2017-01" max="2100-12"
+                 style="width: 160px;color:#5C6166;font-size:12px;margin-top: -15px;word-wrap:break-word;padding-left: 0px;padding-right: 0px;margin-left: 5px" displayFormat="YYYY年MM月DD日 HH:mm" pickerFormat="YYYY年 MM月 DD日 HH:mm"></ion-datetime>
+              <ion-datetime *ngIf="allDay" text-wrap cancelText="取消" doneText="确定"  [(ngModel)]="relly_stop_time"  min="2017-01" max="2100-12"
+                 style="width: 160px;color:#5C6166;font-size:12px;margin-top: -15px;word-wrap:break-word;padding-left: 0px;padding-right: 0px;margin-left: 5px" displayFormat="YYYY年MM月DD日" pickerFormat="YYYY年 MM月 DD日"></ion-datetime>
+          </div>
+          </ion-col>
+        </ion-row>
+  </ion-grid>
+  <ion-item no-lines style="min-height: 20px;border-bottom: #dbdddf 1px solid;background-color: #f0f2f5">
+      <ion-label style="font-size: 13px">计划</ion-label>
+    </ion-item>
+    <ion-grid style="background-color: #f0f2f5">
+        <ion-row style="height:100px;text-align:center;">
+            <ion-col col-5>
+            <div style="padding:1px;margin-left: 15dp;overflow:hidden;text-align:left">
+                <p text-wrap class="diyP" style="font-size:14px;color:#2e3033;width:70px;margin-left:15px">开始</p>
+                <p style="font-size:12px;color:#c2c7cc;line-height:12px;width:100px;margin-left:10px">{{start}}</p>
+            </div>
+            </ion-col>
+            <ion-col col-1>
+                <img src="assets/img/jiantou.png" style="width:15px;height:45px;margin-top: 10px">
+              </ion-col>
+            <ion-col col-5>
+            <div style="padding:1px;margin-left: 15dp;overflow:hidden;text-align:left">
+                <p text-wrap style="font-size:14px;color:#2e3033;width:35px;margin-left:15px">结束</p>
+                <p style="font-size:12px;color:#c2c7cc;line-height:12px;width:100px;margin-left:10px">{{stop}}</p>
+            </div>
+            </ion-col>
+          </ion-row>
+    </ion-grid>
+
+</ion-content>
+
+<ion-footer>
+    <button ion-button tappable full (click)="finish()">完成</button>
+</ion-footer>
