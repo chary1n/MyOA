@@ -29,6 +29,8 @@ declare var cordova: any;
 export class NativeService {
   private loading: Loading;
   private loadingIsOpen: boolean = false;
+  APK_DOWNLOAD ='http://download.fir.im/v2/app/install/5987b68b959d696541000004?download_token=62db5d0976e9a53c2efc4117b535a723&source=update'
+
 
   constructor(private platform: Platform,
     private toastCtrl: ToastController,
@@ -157,7 +159,7 @@ export class NativeService {
       //     title && (title.innerHTML = '下载进度：' + num + '%');
       //   }
       // });
-      this.openUrlByBrowser(APK_DOWNLOAD);
+      this.openUrlByBrowser(this.APK_DOWNLOAD);
 
     }
     if (this.isIos()) {

@@ -107,6 +107,44 @@ export class LoginPage {
     }
   }
 
+  getVersionNumber(): Promise<string> {
+    return new Promise((resolve) => {
+      this.appVersion.getVersionCode().then((value: string) => {
+        resolve(value);
+        this.version = value;
+        console.log(this.version)
+        this.nativeService.detectionUpgrade(this.version);
+      }).catch(err => {
+      });
+    });
+  }
+
+
+  getiOSVersionNumber(): Promise<string> {
+    return new Promise((resolve) => {
+      this.appVersion.getVersionNumber().then((value: string) => {
+        this.firService.get('fir_ios', 1).then(res => {
+          console.log(res)
+          if (res.version > value) {
+            this.ctrl.create({
+              title: '发现新版本,是否立即升级？',
+              subTitle: "更新内容：" + res.changelog,
+              buttons: [
+                {
+                  text: '立即升级',
+                  handler: () => {
+                    this.openUrlByBrowser('http://fir.im/MyOa');
+                  }
+                }
+              ]
+            }).present();
+          }
+        });
+      }).catch(err => {
+      });
+    });
+  }
+
   openUrlByBrowser(url: string): void {
     this.inAppBrowser.create(url, '_system');
   }
@@ -133,7 +171,14 @@ export class LoginPage {
       this.chooseNewJiangsu()
     }
   }
-
+ 
+  ionViewWillEnter(){
+    if (this.platform.is("android")) {
+      this.getVersionNumber();
+    } else if (this.platform.is('ios')) {
+      this.getiOSVersionNumber();
+    }
+  }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
@@ -316,7 +361,7 @@ export class LoginPage {
       this.autoLogin = false
     }
   }
-
+  
 
 
 
@@ -499,42 +544,5 @@ export class LoginPage {
     if (this.platform.is('ios')) {
       cordova.plugins.Keyboard.close();
     }
-  }
-
-  getVersionNumber(): Promise<string> {
-    return new Promise((resolve) => {
-      this.appVersion.getVersionCode().then((value: string) => {
-        resolve(value);
-        this.version = value;
-        console.log(this.version)
-        this.nativeService.detectionUpgrade(this.version);
-      }).catch(err => {
-      });
-    });
-  }
-
-  getiOSVersionNumber(): Promise<string> {
-    return new Promise((resolve) => {
-      this.appVersion.getVersionNumber().then((value: string) => {
-        this.firService.get('fir_ios', 1).then(res => {
-          console.log(res)
-          if (res.version > value) {
-            this.ctrl.create({
-              title: '发现新版本,是否立即升级？',
-              subTitle: "更新内容：" + res.changelog,
-              buttons: [
-                {
-                  text: '立即升级',
-                  handler: () => {
-                    this.openUrlByBrowser('http://fir.im/MyOa');
-                  }
-                }
-              ]
-            }).present();
-          }
-        });
-      }).catch(err => {
-      });
-    });
   }
 }

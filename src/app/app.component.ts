@@ -46,6 +46,17 @@ export class MyApp {
       splashScreen.hide();
     });
   }
+  // getVersionNumber(): Promise<string> {
+  //   return new Promise((resolve) => {
+  //     this.appVersion.getVersionCode().then((value: string) => {
+  //       resolve(value);
+  //       this.version = value;
+  //       console.log(this.version)
+  //       this.nativeService.detectionUpgrade(this.version);
+  //     }).catch(err => {
+  //     });
+  //   });
+  // }
 
   // jPushInit(){
   //   //初始化极光
