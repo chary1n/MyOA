@@ -1,0 +1,93 @@
+page-attendace-recoup {
+    .under_line_style{
+        color:#2597ec;
+        width:60px;
+        height: 40px;
+        line-height: 40px;
+        border-bottom:#2597ec 3px solid;
+    }
+
+    .normal_style{
+        width:60px;
+        height: 40px;
+        line-height: 40px;
+        color:#2597ec
+    }
+
+    .row_class{
+        height: 40px;
+        background-color: white;
+    }
+
+    .searchbar_class{
+        width: 90vw;
+        margin-left:5vw;
+    }
+
+    .header_div_class{
+        width: 100%;
+        background-color: white;
+    }
+
+    .main_background{
+        background-color: #f0f2f5;
+    }
+
+    .differ_class{
+            height: 10px;
+    background-color: #f0f2f5;
+    margin-top: -4px;
+    }
+
+    .div_class{
+        height: 70px;
+    background-color: white;
+    }
+
+    .time_class{
+                font-size: 70%;
+    float: right;
+    color: gray;
+    margin-top: 8px;
+    margin-right: 10px;
+    }
+
+    .span_class{
+            font-size: 107%;
+    margin-left: 11px;
+    margin-top: 10px;
+    line-height: 32px;
+
+    }
+
+    .state_class{
+            font-size: 70%;
+    float: right;
+    color: red;
+    font-weight: bold;
+    margin-top: -31px;
+    margin-right: 10px;
+    }
+
+    .bottom_class{
+                font-size: 80%;
+    color: gray;
+    width: 200px;
+    margin-left: 11px;
+    margin-top: 3px;
+    }
+
+    .left_div{
+            width: 50%;
+    float: left;
+    height: 40px;
+    margin-top: -14px;
+    }
+    .right_div{
+            width: 50%;
+    float: right;
+    margin-top: -14px;
+    height: 40px;
+    }
+}
+
