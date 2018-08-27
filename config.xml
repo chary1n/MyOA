@@ -111,8 +111,6 @@
     <allow-navigation href="http://192.168.2.74:8100" />
     <allow-navigation href="http://192.168.2.33:8100" />
     <allow-navigation href="http://192.168.1.163:8100" />
-    <engine name="android" spec="^6.2.3" />
-    <engine name="ios" spec="^4.5.4" />
     <plugin name="com-darryncampbell-cordova-plugin-intent" spec="0.0.14" />
     <plugin name="com.darktalker.cordova.screenshot" spec="^0.1.6" />
     <plugin name="com.lampa.startapp" spec="^0.1.4" />
@@ -163,4 +161,6 @@
         <variable name="CAMERA_USAGE_DESCRIPTION" value=" " />
     </plugin>
     <plugin name="cordova-plugin-inappbrowser" spec="~1.7.1" />
+    <engine name="android" spec="^6.2.3" />
+    <engine name="ios" spec="^4.5.4" />
 </widget>
