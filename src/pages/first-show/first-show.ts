@@ -142,7 +142,8 @@ export class FirstShowPage {
     console.log('y='+$event.deltaY)
     if(!this.showIcon){
       // console.log('y='+$event.deltaY)
-      if($event.deltaY<-200){
+      if($event.deltaY<0){
+        this.showIcon=true
         // let elementContent = document.getElementById("calendar_height");
         // console.log("height = "+elementContent.style.height)
         // elementContent.style.height = Math.abs($event.deltaY) + "px"
@@ -152,10 +153,12 @@ export class FirstShowPage {
           }
         }
         this.currentDayList=this.currentDayList.slice((this.currentWeek-1)*7,this.currentWeek*7)
-        this.showIcon=true
       }
     }else{
-      if($event.deltaY>-200){
+      if($event.deltaY<0){
+        return
+      }
+      if($event.deltaY>0){
         this.showIcon = false
     if(this.haveThing.length!=0){
       for(var j=0;j<this.allDayList.length;j++){
@@ -258,6 +261,11 @@ export class FirstShowPage {
         date.m = 1
       } 
     var choose_date = date.y + "-" + date.m + "-" + date.d
+    if(date.m>this.currentMonth){
+      this.add_month()
+    }else if(date.m<this.currentMonth){
+      this.delete_month()
+    }
     this.currentDate_date =  new Date(date.y + '/' + date.m + '/' + date.d)
     this.currentYear = date.y
     this.currentMonth = date.m
@@ -265,11 +273,6 @@ export class FirstShowPage {
     var Y = new Date().getFullYear();
     var m = new Date().getMonth() + 1;
     var d = new Date().getDate();
-    if(date.m>this.currentMonth){
-      this.add_month()
-    }else if(date.m<this.currentMonth){
-      this.delete_month()
-    }
     //日
     var da = new Date(Y + "/" + m + "/" + d).getDate()
     //月
