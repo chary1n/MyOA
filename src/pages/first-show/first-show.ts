@@ -1,8 +1,8 @@
 import { AppVersion } from '@ionic-native/app-version';
 import { Storage } from '@ionic/storage';
 import { FirstShowService } from './first_service';
-import { IonicPage, NavController, NavParams, MenuController ,Platform} from 'ionic-angular';
-import { Component} from '@angular/core';
+import { IonicPage, NavController, NavParams, MenuController ,Platform, Content} from 'ionic-angular';
+import { Component, ViewChild} from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { FirService } from './../../app/FirService';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -20,6 +20,7 @@ import { StatusBar } from '@ionic-native/status-bar';
   providers: [DatePipe, FirstShowService,FirService]
 })
 export class FirstShowPage {
+  @ViewChild(Content) content: Content;
   activeMenu = 'menu1'
   user_heard: string;
   currentWeek = 1;//当前第几周
@@ -51,6 +52,7 @@ export class FirstShowPage {
               private firshowService: FirstShowService,public storage:Storage,public menuCtrl: MenuController,
               public platform :Platform,public appVersion:AppVersion,public firService: FirService,
               public statusBar:StatusBar,) {
+              
         this.storage.get('user').then(res => {
         this.name = res.result.res_data.name;
         this.user_heard = res.result.res_data.user_ava;
@@ -248,7 +250,18 @@ export class FirstShowPage {
   }
 
   choose_day(date){
+    if (date.m <= 0) {
+      date.y = date.y - 1
+      date.m = 12
+    } else if (date.m > 12) {
+      date.y = date.y + 1
+        date.m = 1
+      } 
     var choose_date = date.y + "-" + date.m + "-" + date.d
+    this.currentDate_date =  new Date(date.y + '/' + date.m + '/' + date.d)
+    this.currentYear = date.y
+    this.currentMonth = date.m
+    this.currentDay = date.d
     var Y = new Date().getFullYear();
     var m = new Date().getMonth() + 1;
     var d = new Date().getDate();
@@ -300,6 +313,8 @@ export class FirstShowPage {
     this.currentYear = this.currentDate_date.getFullYear()
     this.currentMonth = this.currentDate_date.getMonth() + 1
     this.currentDate = this.currentDate_date.getFullYear()+"年"+(this.currentDate_date.getMonth() + 1) + '月'  
+    this.dateNow = (this.currentDate_date.getMonth() + 1) + '月'+this.currentDate_date.getDate()+'日'
+    this.getDayData(this.currentDate_date.getFullYear()+'-'+(this.currentDate_date.getMonth() + 1)+'-'+this.currentDate_date.getDate())
     this.setSchedule(new Date(str))
     this.get_backlog_identify(Y, m)
   }
@@ -323,6 +338,8 @@ export class FirstShowPage {
     this.currentYear = this.currentDate_date.getFullYear()
     this.currentMonth = this.currentDate_date.getMonth() + 1
     this.currentDate = this.currentDate_date.getFullYear()+"年"+(this.currentDate_date.getMonth() + 1) + '月'
+    this.dateNow = (this.currentDate_date.getMonth() + 1) + '月'+this.currentDate_date.getDate()+'日'
+    this.getDayData(this.currentDate_date.getFullYear()+'-'+(this.currentDate_date.getMonth() + 1)+'-'+this.currentDate_date.getDate())
     this.setSchedule(new Date(str))
     this.get_backlog_identify(Y, m)
   }

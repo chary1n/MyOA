@@ -9,7 +9,6 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 // import { JPushPlugin } from '@ionic-native/jpush';
 
-
 // import { HttpService } from '../providers/HttpService'
 import { JPush } from '../providers/JPush'
 // import { HttpModule } from "@angular/http";
@@ -34,7 +33,7 @@ export class MyApp {
       storage.get('user')
         .then(res => {
           this.user_env = res.result.res_data;
-          //  this.jpush.setAlias(res.result.res_data.user_id);
+           this.jpush.setAlias(res.result.res_data.user_id);
         });
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -61,8 +60,9 @@ export class MyApp {
   // jPushInit(){
   //   //初始化极光
   //   this.jpush.init().then(res => { console.log(res) });
+  // }
 
-  //   //收到通知时会触发该事件。
+    //收到通知时会触发该事件。
   //   document.addEventListener("jpush.receiveNotification", function (event) {
   //       alert( JSON.stringify( event ) );
   //   }, false);
