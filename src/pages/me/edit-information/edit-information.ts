@@ -1,6 +1,6 @@
 import { EditInformationService } from './editInformationService';
 import { NativeService } from './../../../providers/NativeService';
-import { PhoneNumberPage } from './../phone-number/phone-number';
+// import { PhoneNumberPage } from './../phone-number/phone-number';
 import { Storage } from '@ionic/storage';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ActionSheetController} from 'ionic-angular';
@@ -118,7 +118,7 @@ export class EditInformationPage {
   getPicture(type) {//1拍照,0从图库选择
     let options = {
       allowEdit: true,
-      quality: 20,//图像质量，范围为0 - 100
+      quality: 6,//图像质量，范围为0 - 100
       circle: true
     };
     if (type == 1) {

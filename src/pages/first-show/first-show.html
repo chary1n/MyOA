@@ -79,7 +79,7 @@
                         <p item-start *ngIf="notSureList.indexOf(item)==0" style="font-size: 13px;width: 40px;color: black;">任务
                         </p>
                         <p item-start *ngIf="notSureList.indexOf(item)!=0" style="font-size: 13px;width: 40px;color: #666666;opacity: 0;">任务
-                          </p>
+                        </p>
                         <ion-icon *ngIf="!item.state" item-start name="checkmark-circle" style="padding-top: 16px;padding-left: 3px;font-size: 15px;height: 100%;;width: 10px;color: #FFC058;border-right:#d9dadb 1px solid;"></ion-icon>
                         <ion-icon *ngIf="item.state" item-start name="checkmark-circle-outline" style="padding-top: 16px;padding-left: 3px;font-size: 15px;height: 100%;;width: 10px;color: #999999;border-right:#d9dadb 1px solid;"></ion-icon>
                         <ion-label item-end style="font-size: 12px;width: 70%">[{{item.type_name}}]:{{item.subject}}</ion-label>

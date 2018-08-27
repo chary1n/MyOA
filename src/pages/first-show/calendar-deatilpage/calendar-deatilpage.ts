@@ -295,14 +295,14 @@ export class CalendarDeatilpagePage {
 
   //时间待定的按钮
   notSureClick(){
-    if(this.not_sure_time==true && this.allDay==true){
+    if(this.not_sure_time && this.allDay){
       this.allDay = false
     }
   }
 
   //全天的按钮
   allDayClick(){
-    if(this.not_sure_time==true && this.allDay==true){
+    if(this.not_sure_time && this.allDay){
       this.not_sure_time = false
     }
   }
