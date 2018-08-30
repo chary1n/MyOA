@@ -287,7 +287,7 @@ export class LoginPage {
     this.isSelected4 = false;
     this.chooseIndex = 2;
     // HttpService.appUrl = "http://dr.robotime.com/"
-    HttpService.appUrl = "http://192.168.1.143:8888/"
+    HttpService.appUrl = "http://192.168.1.135:8888/"
     // HttpService.appUrl = "http://192.168.2.64:8069/"
     this.reset();
     this.img2 = "assets/img/diy_clicked.png"
@@ -319,7 +319,7 @@ export class LoginPage {
     this.isSelected3 = false;
     this.chooseIndex = 4;
     // HttpService.appUrl = "http://ber.robotime.com/"
-    HttpService.appUrl = "http://192.168.1.36:8081/"
+    HttpService.appUrl = "http://192.168.1.47:8081/"
     this.reset();
     this.img4 = "assets/img/banchang_clicked.png"
     this.password_src = "assets/img/B_password.png"

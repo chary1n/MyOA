@@ -6,6 +6,7 @@ import { Component, ViewChild} from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { FirService } from './../../app/FirService';
 import { StatusBar } from '@ionic-native/status-bar';
+import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/native-page-transitions';
 
 /**
  * Generated class for the FirstShowPage page.
@@ -17,11 +18,10 @@ import { StatusBar } from '@ionic-native/status-bar';
 @Component({
   selector: 'page-first-show',
   templateUrl: 'first-show.html',
-  providers: [DatePipe, FirstShowService,FirService]
+  providers: [DatePipe, FirstShowService,FirService,NativePageTransitions]
 })
 export class FirstShowPage {
   @ViewChild(Content) content: Content;
-  activeMenu = 'menu1'
   user_heard: string;
   currentWeek = 1;//当前第几周
   currentDate_date ;//当前年月日
@@ -48,10 +48,11 @@ export class FirstShowPage {
   version: any;
   name: string;
   need_fresh = false;
+  subNum;//是否显示没有添加日程
   constructor(public navCtrl: NavController, public navParams: NavParams,private datePipe: DatePipe,
               private firshowService: FirstShowService,public storage:Storage,public menuCtrl: MenuController,
               public platform :Platform,public appVersion:AppVersion,public firService: FirService,
-              public statusBar:StatusBar,) {
+              public statusBar:StatusBar,private nativePageTransitions: NativePageTransitions) {
               
         this.storage.get('user').then(res => {
         this.name = res.result.res_data.name;
@@ -62,6 +63,7 @@ export class FirstShowPage {
       })
   }
   ionViewDidEnter() {
+    this.content.resize()
     this.statusBar.backgroundColorByHexString("#2597ec");
     this.statusBar.styleLightContent();
     this.need_fresh =this.navParams.get('need_fresh')
@@ -78,6 +80,7 @@ export class FirstShowPage {
     }
     this.firshowService.get_schedule_list(body).then(res => {
       if (res.result.res_data && res.result.res_code == 1) {
+        this.subNum = res.result.res_data.subNum
         this.itemList = res.result.res_data.wait
         this.notSureList = res.result.res_data.notSure
         this.lateList = res.result.res_data.late
@@ -108,7 +111,7 @@ export class FirstShowPage {
   // +"    this.currentMonth="+this.currentMonth+"  this.currentYear="+this.currentYear)
     this.setSchedule(this.currentDate_date)
     for(var i=0;i<this.currentDayList.length;i++){
-      if(this.currentDayList[i].d==this.currentDay){
+      if(this.currentDayList[i].d==this.currentDay && this.currentDayList[i].m==this.currentMonth){
         console.log("i="+i+"  currentWeek = "+Math.ceil((i+1)/7))
        this.currentWeek = Math.ceil((i+1)/7)
        break
@@ -137,16 +140,14 @@ export class FirstShowPage {
     this.currentDayList = this.allDayList
   }
 
+  
   //滑动事件
   panEvent($event) {
-    console.log('y='+$event.deltaY)
+    console.log('y='+$event.deltaY+" dirrection = "+$event.direction+ ' isFirst = '+$event.isFirst
+        +' isFinal ='+$event.isFinal)
     if(!this.showIcon){
-      // console.log('y='+$event.deltaY)
-      if($event.deltaY<0){
+      if($event.direction==8 || $event.deltaY<=-200){
         this.showIcon=true
-        // let elementContent = document.getElementById("calendar_height");
-        // console.log("height = "+elementContent.style.height)
-        // elementContent.style.height = Math.abs($event.deltaY) + "px"
         for(var i=0;i<this.currentDayList.length;i++){
           if(this.currentDayList[i].d==this.currentDay){
            this.currentWeek = Math.ceil((i+1)/7)
@@ -155,26 +156,23 @@ export class FirstShowPage {
         this.currentDayList=this.currentDayList.slice((this.currentWeek-1)*7,this.currentWeek*7)
       }
     }else{
-      if($event.deltaY<0){
-        return
-      }
-      if($event.deltaY>0){
+      if($event.direction==16 || $event.deltaY>-200){
         this.showIcon = false
-    if(this.haveThing.length!=0){
-      for(var j=0;j<this.allDayList.length;j++){
-        for(var a=0;a<this.haveThing.length;a++){
-          if (this.haveThing[a]
-          ==this.allDayList[j].y+'-'+this.allDayList[j].m+'-'+this.allDayList[j].d){
-            this.allDayList[j].s = true
-            break
+        if(this.haveThing.length!=0){
+          for(var j=0;j<this.allDayList.length;j++){
+            for(var a=0;a<this.haveThing.length;a++){
+              if (this.haveThing[a]==this.allDayList[j].y+'-'+this.allDayList[j].m+'-'+this.allDayList[j].d){
+                this.allDayList[j].s = true
+                break
+              }
+            }
           }
         }
-      }
-    }
-    this.currentDayList = this.allDayList
+          this.currentDayList = this.allDayList
       }
     }
   }
+
 
   setSchedule(currentObj){
     
@@ -410,17 +408,18 @@ export class FirstShowPage {
       if (res.result.res_data && res.result.res_code == 1) {
         let list = []
         list = res.result.res_data
+        this.haveThing = []
         for(var i=0;i<list.length;i++){
           this.haveThing[i] = this.datePipe.transform(list[i], 'yyyy-M-d')
         }
         if(this.haveThing.length!=0){
           for(var j=0;j<this.currentDayList.length;j++){
+            this.currentDayList[j].s = false
             for(var a=0;a<this.haveThing.length;a++){
               // console.log("this.currentDayList.length = "+j+"a = "+a)
               if (this.haveThing[a]
               ==this.currentDayList[j].y+'-'+this.currentDayList[j].m+'-'+this.currentDayList[j].d){
                 this.currentDayList[j].s = true
-                break
               }
             }
           }
@@ -433,11 +432,21 @@ export class FirstShowPage {
   //创建新代办
   createWait(){
     this.navCtrl.push('CalendarDeatilpagePage', {
-        'isEdit': true
+        'isEdit': true,
+        'date': this.currentDate_date
     })
   }
 //跳转到我的页面
   mePage(){
+    let options: NativeTransitionOptions = {
+      direction: 'right',
+      duration: 300,
+    iosdelay: 100,
+    androiddelay: 150,
+    fixedPixelsTop: 0,
+    fixedPixelsBottom: 60
+     };
+     this.nativePageTransitions.slide(options);
     this.navCtrl.push('MePage', {
       'from': true
     })

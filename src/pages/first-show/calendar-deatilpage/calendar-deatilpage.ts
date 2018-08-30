@@ -41,8 +41,8 @@ export class CalendarDeatilpagePage {
   partner_id_s_id//负责人id
   partner_id_s_name//负责人name
   subject//主题
-  start_datetime = this.datePipe.transform(new Date(), 'yyyy-MM-dd')
-  stop_datetime = this.datePipe.transform(new Date(), 'yyyy-MM-dd')
+  start_datetime = new Date(new Date().getTime()+8*60*60*1000).toISOString();
+  stop_datetime = new Date(new Date().getTime()+8*60*60*1000).toISOString();
   start_date = this.datePipe.transform(new Date(), 'yyyy-MM-dd')
   stop_date = this.datePipe.transform(new Date(), 'yyyy-MM-dd')
   location=''//地点
@@ -52,6 +52,8 @@ export class CalendarDeatilpagePage {
   frontPage:any;
   wait_id = ''
   pet=0//跳转返回值的类型
+  item_start
+  item_stop
   constructor(public navCtrl: NavController, public navParams: NavParams, public statusBar:StatusBar,
               public firService: FirstShowService, public storage:Storage,public toastCtrl: ToastController,
               private datePipe: DatePipe,) {
@@ -61,13 +63,19 @@ export class CalendarDeatilpagePage {
                   this.user = res.result.res_data
                   this.uid = res.result.res_data.user_id;
                   if(this.isEdit==true){
+                  let current_day = new Date()
+                  current_day = this.navParams.get('date')
                   this.partner_id_s_id = res.result.res_data.partner_id
                   this.partner_id_s_name = res.result.res_data.partner_name
-                    this.selectList.push({
+                  this.selectList.push({
                       'partner_id': this.partner_id_s_id,
                       'partner_name': this.partner_id_s_name,
                       'ischeck': true
                     })
+                  this.start_datetime = new Date(current_day.getTime()+8*60*60*1000).toISOString();
+                  this.stop_datetime = new Date(current_day.getTime()+8*60*60*1000).toISOString();
+                  this.start_date = this.datePipe.transform(current_day, 'yyyy-MM-dd')
+                  this.stop_date = this.datePipe.transform(current_day, 'yyyy-MM-dd')
                   }
                 })
                 if(this.isEdit==false){
@@ -76,6 +84,13 @@ export class CalendarDeatilpagePage {
                   this.selectList = this.item.partner_ids
                   this.alarm_id = this.item.rt_alarm_type
                   this.alarm_name = this.item.rt_alarm_type_name
+                  if(this.item.allday && this.item.start && this.item.stop){
+                    this.item_start = this.datePipe.transform(this.item.start, 'yyyy-MM-dd')
+                    this.item_stop = this.datePipe.transform(this.item.stop, 'yyyy-MM-dd')
+                  }else if(this.item.start && this.item.stop){
+                    this.item_start = this.datePipe.transform(this.item.start, 'yyyy-MM-dd HH:mm')
+                    this.item_stop = this.datePipe.transform(this.item.stop, 'yyyy-MM-dd HH:mm')
+                  }
                 }
   }
 
@@ -84,10 +99,8 @@ export class CalendarDeatilpagePage {
   }
 
   goBack(){
-    this.statusBar.backgroundColorByHexString("#f8f8f8");
-    this.statusBar.styleDefault();
     this.frontPage.data.need_fresh = true;
-    this.navCtrl.popTo(this.frontPage);
+    this.navCtrl.pop();
   }
 
   ionViewWillEnter() {
@@ -115,7 +128,7 @@ export class CalendarDeatilpagePage {
           return
         }
         let plus = false
-        for(var i=0;i<this.selectList.length;i++){
+        for(let i=0;i<this.selectList.length;i++){
           if(this.selectList[i].partner_id==this.partner_id_s_id){
             plus = false
             break
@@ -157,6 +170,7 @@ export class CalendarDeatilpagePage {
   changeCancel(){
     this.isEdit = false
     this.change = false
+    this.content.resize()
   }
   //编辑状态下完成
   changeFinish(){
@@ -166,6 +180,7 @@ export class CalendarDeatilpagePage {
       if (res.result.res_data && res.result.res_code == 1) {
         this.isEdit = false
         this.change = false
+        this.content.resize()
         this.item = res.result.res_data
       }
     })
@@ -331,7 +346,9 @@ export class CalendarDeatilpagePage {
   //选择提醒
   selectTip(){
       this.navCtrl.push('TipPage',{
-        'alarm_id': this.alarm_id
+        'alarm_id': this.alarm_id,
+        'type_app': this.type_app,
+        'type_notification': this.type_notification
       })
   }
 
@@ -348,9 +365,11 @@ export class CalendarDeatilpagePage {
   //   })
   // }
 
+  //选择负责人
   selectPartnerId(){
     this.navCtrl.push('SelectPersonPage',{
-      'type': 2
+      'type': 2,
+      'partner_id_s_id': this.partner_id_s_id
     })
   }
   //处理所有数据
@@ -360,7 +379,7 @@ export class CalendarDeatilpagePage {
         myString = "    请选择类型"
       }
       if(!this.subject){
-        myString = "    请选择类型"
+        myString = "    请选择主题"
       }
       if(!this.selectList || this.selectList.length==0){
         myString = "    请选择参与人员"
@@ -420,6 +439,8 @@ export class CalendarDeatilpagePage {
             'type_app': this.type_app,
             'type_notification': this.type_notification,
             'rt_recurrency_type':'0',
+            'start': this.datePipe.transform(this.start_date, 'yyyy-MM-dd HH:mm:ss'),
+            'stop': this.datePipe.transform(this.stop_date, 'yyyy-MM-dd HH:mm:ss'),
         }
         }else{
           if(this.start_datetime!='' && this.stop_datetime!='' && this.start_datetime && this.stop_datetime){

@@ -32,11 +32,10 @@ export class FinishScheulePage {
              ,private datePipe: DatePipe,public firService: FirstShowService,public toastCtrl: ToastController,) {
       this.frontPage = Utils.getViewController("CalendarDeatilpagePage", navCtrl)
       this.body = this.navParams.get('body')
-      this.allDay = this.body['allday']
       this.start = this.body['start']
       this.stop = this.body['stop']
-      this.relly_start_time = this.start
-      this.relly_stop_time = this.stop
+      this.relly_start_time = this.datePipe.transform(this.start, 'yyyy-MM-dd HH:mm').replace(' ','T')+'Z';
+      this.relly_stop_time = this.datePipe.transform(this.stop, 'yyyy-MM-dd HH:mm').replace(' ','T')+'Z';
   }
 
   ionViewDidLoad() {

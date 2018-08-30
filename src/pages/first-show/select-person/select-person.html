@@ -17,6 +17,11 @@
                 完成
             </button>
       </ion-buttons>
+      <ion-buttons left *ngIf="type==2">
+            <button ion-button icon-only (click)="goBack()">
+              <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+            </button>
+          </ion-buttons>
       <ion-title style="text-align: center">通讯录</ion-title>
     </ion-navbar>
 </ion-header>
