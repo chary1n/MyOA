@@ -1,0 +1,63 @@
+<!--
+  Generated template for the AttendanceRecoupCreatePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header no-border>
+
+  <ion-navbar color="gongdan-color">
+    <ion-title>新建补卡销卡</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content style="background-color:#f0f2f5">
+  <ion-item class="item_class">
+    <ion-label class="left_label">申请人</ion-label>
+    <ion-label item-end class="right_label">{{user_name}}</ion-label>
+  </ion-item>
+  <ion-item class="item_class">
+    <ion-label class="left_label">部门</ion-label>
+    <ion-label item-end class="right_label">{{department_name}}</ion-label>
+  </ion-item>
+  <ion-item no-lines class="item_class">
+    <ion-label class="left_label">月份</ion-label>
+    <ion-datetime placeholder='请选择 >' style="font-size:80%" item-end displayFormat="YYYY-MM" pickerFormat="YYYY MM" [(ngModel)]="month_time" cancelText="取消" doneText="确定"></ion-datetime>
+  </ion-item>
+  <div *ngIf="data_arr.length > 0" class="list_header_class">
+    补卡销卡明细
+  </div>
+  <div *ngFor='let item of data_arr;let i=index'>
+    <div class="list_body_class" tappable (click)="click_edit(item,i)">
+      <div class="body_type_class">
+        <div class="shu_class">
+        </div>
+        <div class="title_class">
+          {{change_type(item.type)}}-{{change_work_type(item.work_type)}}
+        </div>
+      </div>
+      <div class="body_time_class">
+        时间：{{cal_time(item.time)}}
+      </div>
+      <div text-wrap class="body_remark_class">
+        备注：{{item.remark}}
+      </div>
+    </div>
+  </div>
+  <button class="btn_class" ion-button full (click)="add_detail()">
+    + 补卡销卡明细
+  </button>
+</ion-content>
+<ion-footer>
+    <div class="footer_class">
+        <div class="left_btn" tappable (click)="save()">
+          保存
+        </div>
+        <div class="right_btn" tappable (click)="submit()">
+          提交
+        </div>
+      </div>
+</ion-footer>
+

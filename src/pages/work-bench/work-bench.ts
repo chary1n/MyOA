@@ -22,7 +22,7 @@ export class WorkBenchPage {
   isBigPay = true;
   isShowEngineerPoint = false;//工程小红点
   isShowBuyPoint = false;//采购小红点
-  isNormal = false;//通用
+  isNormal = true;//通用
   isSale = false;//销售
   isBuy = false;//采购
   isEngineer;//工程
@@ -33,7 +33,7 @@ export class WorkBenchPage {
   isShowPurchase = false;
   isShowSale = false;
   isShowKucun = false;
-  isShowNormal = false;
+  isShowNormal = true;
   isShowEngineer = true;
   isHR = false;
   isShowZiJin = false;
@@ -55,6 +55,8 @@ export class WorkBenchPage {
   isShowKN = true;
   loginIndex;
   performance=0;
+  vacation_num=0;
+  recoup_num=0
   constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage,
     public services :CommonUseServices,public statusbar:StatusBar) {
   }
@@ -339,8 +341,7 @@ export class WorkBenchPage {
   }
 
   kaoqin(){
-    // this.navCtrl.push('KaoqinPage')
-    this.navCtrl.push('AttendaceRecoupPage')
+    this.navCtrl.push('KaoqinPage')
   }
 
   journalSheet(){
@@ -349,5 +350,13 @@ export class WorkBenchPage {
 
   jixiao(){
     this.navCtrl.push('PerformancePage')
+  }
+
+  attendance_recoup(){
+    this.navCtrl.push('AttendaceRecoupPage')
+  }
+
+  vacation(){
+    this.navCtrl.push('VacationApprovalPage')
   }
 }

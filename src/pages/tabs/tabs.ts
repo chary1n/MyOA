@@ -18,8 +18,8 @@ export class TabsPage {
   @ViewChild('mainTabs') tabs:Tabs;
   meRoot :any ='MePage';
   firstRoot:any;
-  msgRoot:any = 'FirstShowPage';
-  // msgRoot:any = 'GongdanPage';
+  // msgRoot:any = 'FirstShowPage';
+  msgRoot:any = 'GongdanPage';
   workRoot :any = 'WorkBenchPage';
   contactRoot  = 'ContactPersonPage';
   need_show_gongdan = true

@@ -7,31 +7,31 @@
 <ion-header no-border>
 
   <ion-navbar color="gongdan-color">
-    <ion-title>补卡销卡</ion-title>
+    <ion-title>补卡销卡审核</ion-title>
   </ion-navbar>
   
 </ion-header>
 
 
-<ion-content class="main_background">
-  <div class="row_class" align-items-center>
+<ion-content (pan)="panEvent($event)" class="main_background">
+  <!--<div class="row_class" *ngIf="is_manager == true" align-items-center>
         <div class="left_div" align="center" tappable (click) = "click_me()">
           <p [ngClass]="{true:'under_line_style',false:'normal_style'}[inner_type == 'me']">我的申请</p> 
         </div>
          <div class="right_div" align="center" tappable (click) = "click_wait_me()">
           <p [ngClass]="{true:'under_line_style',false:'normal_style'}[inner_type == 'wait_me']">待我审核</p>
         </div>
-  </div>
+  </div>-->
   <div class="header_div_class">
       <ion-auto-complete class="searchbar_class" (itemSelected)="itemSelected($event)" [dataProvider]="attendanceAutoService"></ion-auto-complete>
   </div>
       <div *ngIf="inner_type == 'me'">
-        <div class="div_class" no-lines *ngFor='let item of me_list' tappable (click)='approval_detail(item)'>
-          <p text-wrap class="time_class">2017.10.09</p>
-          <span text-wrap class="span_class">BXSMC1323331</span><span style="margin-left:10px">2018-09</span>
+        <div class="div_class" no-lines *ngFor='let item of me_list' tappable (click)='approval_detail_no_approve(item)'>
+          <p text-wrap class="time_class">{{item.create_time}}</p>
+          <span text-wrap class="span_class">{{item.rt_name}}</span><span style="margin-left:10px">{{item.month_time}}</span>
           
-          <p text-wrap class="bottom_class">金额总计(元)：GGG </p>
-          <p text-wrap class="state_class">审核中</p>
+          <p text-wrap class="bottom_class"><span>{{item.employee_name}}</span><span>合计：{{item.total_day}}天</span></p>
+          <p text-wrap class="state_class">{{item.state}}</p>
           <div class="differ_class">
           </div>
         </div>
@@ -39,16 +39,21 @@
       </div>
 
       <div no-lines *ngIf="inner_type == 'wait_me'">
-        <ion-item *ngFor='let item of wait_me_list' tappable (click)='approval_detail(item)'>
-          <h3 text-wrap>UUUU</h3>
-          <p text-wrap style="font-size:70%;float:right;color:gray;">UUUU</p>
-          <h4 text-wrap style="font-size:80%;">UUUU</h4>
-          <p text-wrap style="font-size:70%;float:right;color:red;font-weight:bold"> UUUU </p>
-          <p text-wrap style="font-size:80%;color:gray">UUUU </p>
-          <p text-wrap style="font-size:80%;color:gray">UUUU </p>
+        <div class="div_class" no-lines *ngFor='let item of wait_me_list' tappable (click)='approval_detail(item)'>
+          <p text-wrap class="time_class">{{item.create_time}}</p>
+          <span text-wrap class="span_class">{{item.rt_name}}</span><span style="margin-left:10px">{{item.month_time}}</span>
+          
+          <p text-wrap class="bottom_class"><span>{{item.employee_name}}</span><span style="margin-left:20px">合计：{{item.total_day}}天</span></p>
+          <p text-wrap class="state_class">{{item.state}}</p>
           <div class="differ_class">
           </div>
-        </ion-item>
+        </div>
         
       </div>
 </ion-content>
+
+<!--<ion-footer>
+    <div tappable (click) = "click_submit()" class="footer_class">
+        我要申请
+    </div>
+</ion-footer>-->
