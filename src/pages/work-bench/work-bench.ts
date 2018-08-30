@@ -339,8 +339,8 @@ export class WorkBenchPage {
   }
 
   kaoqin(){
-    // this.navCtrl.push('KaoqinPage')
-    this.navCtrl.push('AttendaceRecoupPage')
+    this.navCtrl.push('KaoqinPage')
+    // this.navCtrl.push('AttendaceRecoupPage')
   }
 
   journalSheet(){

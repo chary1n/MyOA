@@ -27,10 +27,8 @@ export class LateListPage {
   }
 
   goBack(){
-    this.statusBar.backgroundColorByHexString("#f8f8f8");
-    this.statusBar.styleDefault();
     this.frontPage.data.need_fresh = true;
-    this.navCtrl.popTo(this.frontPage);
+    this.navCtrl.pop()
   }
 
   ionViewWillEnter() {

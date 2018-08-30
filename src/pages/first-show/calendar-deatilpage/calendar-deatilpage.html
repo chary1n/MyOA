@@ -49,23 +49,23 @@
 </ion-header>
 
 
-<ion-content>
+<ion-content style="background-color: #f0f2f5">
    <div *ngIf="!isEdit">
         <ion-item no-lines style="min-height: 20px;padding-left: 0px;border-bottom:#f0f2f5 1px solid;">
                 <ion-label style="font-size: 13px;padding-left: 15px">类型
                     <span style="color: red">*</span>
                 </ion-label>
-                <p item-end style="font-size: 12px;margin-right: 15px">{{item.type_name}}</p>
+                <p item-end style="font-size: 12px;margin-right: 15px;margin-top: 0px">{{item.type_name}}</p>
             </ion-item>
             <ion-item no-lines style="min-height: 20px;padding-left: 0px;border-bottom:#f0f2f5 1px solid;">
-                <ion-label style="font-size: 13px;padding-left: 15px">主题
+                <ion-label item-start style="font-size: 13px;padding-left: 15px">主题
                     <span style="color: red">*</span>
                 </ion-label>
-                <p item-end style="font-size: 12px;margin-right: 15px">{{item.subject}}</p>
+                <p item-end style="font-size: 12px;margin-right: 15px;margin-top: 0px">{{item.subject}}</p>
             </ion-item>
             <ion-item no-lines style="min-height: 20px;border-bottom: #f0f2f5 1px solid;">
                     <ion-label style="color:#2e3133;font-size:13px;">负责人</ion-label>
-                    <p item-end style="font-size:12px;margin-right: 15px">{{item.partner_id_s.partner_id_s_name}}</p>
+                    <p item-end style="font-size:12px;margin-right: 15px;margin-top: 0px">{{item.partner_id_s.partner_id_s_name}}</p>
                     <!-- <img item-end src="assets/img/journal_sheet/right_icon.png" style="height:10px;"> -->
             </ion-item>
             <button ion-item  no-lines style="border-bottom:#f0f2f5 1px solid;">
@@ -93,12 +93,12 @@
                  <ion-label style="font-size: 13px;padding-left: 15px">全天</ion-label>
                  <ion-toggle [(ngModel)]="item.allday"></ion-toggle>
            </ion-item>
-          <ion-grid  *ngIf="!item.rt_is_sure_time" style="border-bottom: #f0f2f5 10px solid;">
+          <ion-grid  *ngIf="!item.rt_is_sure_time" style="background-color: white;border-bottom: #f0f2f5 10px solid;">
               <ion-row style="height:100px;text-align:center;">
                   <ion-col col-5>
                   <div style="padding:1px;margin-left: 15dp;overflow:hidden;text-align:left">
                       <p text-wrap class="diyP" style="font-size:14px;color:#2e3033;width:70px;margin-left:15px">开始</p>
-                      <p style="font-size:12px;color:#c2c7cc;line-height:12px;width:100px;margin-left:10px">{{item.start}}</p>
+                      <p style="font-size:12px;color:#c2c7cc;line-height:12px;width:100px;margin-left:10px">{{item_start}}</p>
                   </div>
                   </ion-col>
                   <ion-col col-1>
@@ -107,7 +107,7 @@
                   <ion-col col-5>
                   <div style="padding:1px;margin-left: 15dp;overflow:hidden;text-align:left">
                       <p text-wrap style="font-size:14px;color:#2e3033;width:35px;margin-left:15px">结束</p>
-                      <p style="font-size:12px;color:#c2c7cc;line-height:12px;width:100px;margin-left:10px">{{item.stop}}</p>
+                      <p style="font-size:12px;color:#c2c7cc;line-height:12px;width:100px;margin-left:10px">{{item_stop}}</p>
                   </div>
                   </ion-col>
                 </ion-row>
@@ -116,7 +116,7 @@
           <ion-item-group *ngIf="!item.rt_is_sure_time">
             <ion-item no-lines style="min-height: 20px;border-bottom: #f0f2f5 1px solid;">
                 <ion-label style="color:#2e3133;font-size:13px;">提醒</ion-label>
-                <p item-end  style="font-size:12px;margin-right:15px;">{{item.rt_alarm_type_name}}</p>
+                <p item-end  style="font-size:12px;margin-right:15px;margin-top: 0px">{{item.rt_alarm_type_name}}</p>
             </ion-item>
             <!-- <ion-item no-lines style="min-height: 20px;">
                 <ion-label style="color:#2e3133;font-size:13px;">重复</ion-label>
@@ -126,9 +126,9 @@
           </ion-item-group>
           <ion-item no-lines style="min-height: 20px;padding-left: 0px;border-bottom:#f0f2f5 1px solid;border-top: #f0f2f5 10px solid;">
                 <ion-label style="font-size: 13px;padding-left: 15px">地点</ion-label>
-                <p item-end style="font-size: 12px;padding-right: 15px;">{{item.location}}</p>
+                <p item-end style="font-size: 12px;padding-right: 10px;margin-top: 0px">{{item.location}}</p>
            </ion-item>
-          <div style="padding: 1px;border-bottom: #f0f2f5 10px solid;">
+          <div style="padding: 1px;background-color: white;border-bottom:#f0f2f5 30px solid;">
             <p style="font-size: 13px;margin-left: 15px">内容</p>
             <p style="font-size: 12px;margin-left: 15px;color: #c2c7cc">{{item.description}}</p>
           </div>
@@ -138,7 +138,7 @@
                 <ion-label style="font-size: 13px;padding-left: 15px">类型
                     <span style="color: red">*</span>
                 </ion-label>
-                <p item-end style="font-size: 12px;margin-right: -5px">{{type_name}}</p>
+                <p item-end style="font-size: 12px;margin-right: -5px;">{{type_name}}</p>
                 <img item-end src="assets/img/journal_sheet/right_icon.png" style="height:10px;">
             </ion-item>
             <ion-item no-lines style="min-height: 20px;padding-left: 0px;border-bottom:#f0f2f5 1px solid;">
@@ -182,7 +182,7 @@
                  <ion-label style="font-size: 13px;padding-left: 15px">全天</ion-label>
                  <ion-toggle [(ngModel)]="allDay"  (ionChange)="allDayClick()"></ion-toggle>
            </ion-item>
-          <ion-grid  *ngIf="!not_sure_time" style="border-bottom: #f0f2f5 10px solid;">
+          <ion-grid  *ngIf="!not_sure_time" style="border-bottom: #f0f2f5 10px solid;background-color: white;">
               <ion-row style="height:100px;text-align:center;">
                   <ion-col col-5>
                   <div style="padding:1px;margin-left: 15dp;overflow:hidden;text-align:left">
@@ -225,7 +225,7 @@
                 <ion-label style="font-size: 13px;padding-left: 15px">地点</ion-label>
                 <ion-input type="text" text-right style="font-size: 12px;color: #abb0b4" [(ngModel)]="location" placeholder="请输入"></ion-input>
            </ion-item>
-          <div style="padding: 1px;border-bottom: #f0f2f5 30px solid;">
+          <div style="padding: 1px;border-bottom: #f0f2f5 30px solid;background-color: white;">
             <p style="font-size: 13px;margin-left: 15px">内容</p>
             <textarea [(ngModel)]="description" cols="20"  placeholder="请输入" style="font-size: 12px;color: #abb0b4;height: 100px;padding: 10px;width: 100%;
                     border-bottom:white 0px solid;
@@ -237,7 +237,7 @@
 </ion-content>
 
 
-<ion-footer *ngIf="!isEdit" style="border-top:#f0f2f5 1px solid;">
+<ion-footer *ngIf="!isEdit" style="border-top:#f0f2f5 1px solid;background-color: white;">
     <div style="background:white" *ngIf="!isEdit">
         <span align="center" *ngIf="item.state" style='width:40%;float:right;background-color:#1897f2;height:44px;line-height:44px;font-size:15px;color:white' tappable (click)="finish()">
         标记完成
@@ -245,10 +245,13 @@
         <span align="center" *ngIf="!item.state" style='width:40%;float:right;background-color:#1897f2;height:44px;line-height:44px;font-size:15px;color:white' tappable (click)="completion_event()">
         标记为待办
         </span>
-        <span align="center" style='width:30%; float:right;height:44px;line-height:44px;font-size:15px;color: #1897f2' tappable (click)="delete()">
+        <span align="center" *ngIf="!item.state" style='width: 60%; float:right;height:44px;line-height:44px;font-size:15px;color: #1897f2' tappable (click)="delete()">
         删除
         </span>
-        <span align="center" style='width:30%;float:right;height:44px;line-height:44px;font-size:15px;color: #1897f2' tappable (click)="edit()">
+        <span align="center" *ngIf="item.state" style='width: 30%; float:right;height:44px;line-height:44px;font-size:15px;color: #1897f2' tappable (click)="delete()">
+        删除
+        </span>
+        <span align="center" *ngIf="item.state" style='width:30%;float:right;height:44px;line-height:44px;font-size:15px;color: #1897f2' tappable (click)="edit()">
         编辑
         </span>
     </div>

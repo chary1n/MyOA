@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { IonicPage , NavController, NavParams} from 'ionic-angular';
 import { Utils } from './../../../providers/Utils';
 import { Storage } from '@ionic/storage';
+import { ToastController } from 'ionic-angular/components/toast/toast-controller';
 
 /**
  * Generated class for the TipPage page.
@@ -26,9 +27,11 @@ export class TipPage {
   type_app = false
   type_notification = false
   constructor(public navCtrl: NavController, public navParams: NavParams,
-              public firService: FirstShowService,public storage:Storage,) {
+              public firService: FirstShowService,public storage:Storage,public toastCtrl: ToastController) {
     this.frontPage = Utils.getViewController("CalendarDeatilpagePage", navCtrl) 
     this.alarm_id = this.navParams.get('alarm_id') 
+    this.type_app = this.navParams.get('type_app')
+    this.type_notification = this.navParams.get('type_notification')
     if(this.alarm_id=='-1'){
       this.ischeck = true
     }
@@ -61,6 +64,13 @@ export class TipPage {
   }
 
   finish(){
+    if(this.alarm_id!='-1'){
+      if(!this.type_app && !this.type_notification){
+        Utils.toastButtom('请选择提醒方式', this.toastCtrl)
+        return
+      }
+    }
+
     this.frontPage.data.need_fresh = true;
     this.frontPage.data.pet = 1;
     this.frontPage.data.alarm_id = this.alarm_id;

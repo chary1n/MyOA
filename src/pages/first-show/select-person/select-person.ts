@@ -27,11 +27,16 @@ export class SelectPersonPage {
   limit
   offset
   isMoreData=true
+  partner_id_s_id
   constructor(public navCtrl: NavController, public navParams: NavParams, public statusBar:StatusBar,
               public firstShow: FirstShowService, public storage:Storage,) {
                 this.frontPage = Utils.getViewController("CalendarDeatilpagePage", navCtrl)
                 this.type = this.navParams.get('type')
-                this.selectList = this.navParams.get('selectList')
+                if(this.type==1){
+                  this.selectList = this.navParams.get('selectList')
+                }else if(this.type==2){
+                  this.partner_id_s_id = this.navParams.get('partner_id_s_id')
+                }
                 this.limit = 40
                 this.offset = 0
   }
@@ -50,11 +55,15 @@ export class SelectPersonPage {
         }
       }
     }else if(this.type==2){
-      this.frontPage.data.need_fresh = true;
-      this.frontPage.data.pet = 5;
-      this.frontPage.data.partner_id_s_id = item.partner_id;
-      this.frontPage.data.partner_id_s_name = item.partner_name;
-      this.navCtrl.popTo(this.frontPage);
+      if(item.partner_id==this.partner_id_s_id){
+        this.navCtrl.pop()
+      }else{
+        this.frontPage.data.need_fresh = true;
+        this.frontPage.data.pet = 5;
+        this.frontPage.data.partner_id_s_id = item.partner_id;
+        this.frontPage.data.partner_id_s_name = item.partner_name;
+        this.navCtrl.popTo(this.frontPage);
+      }
     }
   }
 
@@ -76,13 +85,23 @@ export class SelectPersonPage {
     this.firstShow.get_all_partner(body).then(res => {
       if (res.result.res_data && res.result.res_code == 1) {
           this.employeeList = res.result.res_data
-          this.setCheck()
           this.origin_data = this.employeeList
+          if(this.type==1){
+            this.setCheck()
+          }else if(this.type==2){
+            for (let j = 0; j < this.employeeList.length; j++) {
+              if(this.employeeList[j].partner_id==this.partner_id_s_id){
+                this.employeeList[j].ischeck=true
+              }
+            }
+          }
       }
      })
     })
   }
-
+  goBack(){
+    this.navCtrl.pop();
+  }
   cancel(){
     this.navCtrl.pop();
   }
@@ -95,6 +114,9 @@ export class SelectPersonPage {
   }
 
   searchByKeyword(event){
+    if(!event.target.value){
+      return
+    }
     this.isMoreData = false
     let body = {
       'uid': this.uid,
@@ -169,18 +191,18 @@ export class SelectPersonPage {
 
   //比较选中的人
   setCheck(){
-    for (let i = 0; i < this.employeeList.length; i++) {
-      if(this.selectList.indexOf(this.employeeList[i].partner_id)!=-1){
-        this.employeeList[i].ischeck=true
-      }
-    }
-    // for(let i=0;i<this.selectList.length; i++){
-    //   for (let j = 0; j < this.employeeList.length; j++) {
-    //     if(this.selectList[i].partner_id==this.employeeList[j].partner_id){
-    //         this.employeeList[j].ischeck=true
-    //         break
-    //     }
+    // for (let i = 0; i < this.employeeList.length; i++) {
+    //   if(this.selectList.indexOf(this.employeeList[i].partner_id)!=-1){
+    //     this.employeeList[i].ischeck=true
     //   }
     // }
+    for(let i=0;i<this.selectList.length; i++){
+      for (let j = 0; j < this.employeeList.length; j++) {
+        if(this.selectList[i].partner_id==this.employeeList[j].partner_id){
+            this.employeeList[j].ischeck=true
+            break
+        }
+      }
+    }
   }
 }

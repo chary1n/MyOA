@@ -9,6 +9,7 @@ import { JPush} from '../../providers/JPush'
 import { StatusBar } from '@ionic-native/status-bar';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { HttpService } from '../../providers/HttpService';
+import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/native-page-transitions';
 
 /**
  * Generated class for the MePage page.
@@ -20,7 +21,7 @@ import { HttpService } from '../../providers/HttpService';
 @Component({
   selector: 'page-me',
   templateUrl: 'me.html',
-  providers:[JPush, FirService],
+  providers:[JPush, FirService,NativePageTransitions],
 })
 export class MePage {
   name: string;
@@ -39,7 +40,7 @@ export class MePage {
     public jpush: JPush,
     public statusbar:StatusBar, public firService: FirService,
     private inAppBrowser: InAppBrowser,
-    private httpService: HttpService) {
+    private httpService: HttpService,private nativePageTransitions: NativePageTransitions) {
       if(this.navParams){
         this.from = this.navParams.get('from')
       }
@@ -226,6 +227,13 @@ export class MePage {
   }
 
   goBack(){
+    let options: NativeTransitionOptions = {
+      direction: 'left',
+      duration: 400,
+      fixedPixelsTop: 0,
+      fixedPixelsBottom: 60
+     };
+     this.nativePageTransitions.slide(options);
     this.navCtrl.pop()
   }
 }
