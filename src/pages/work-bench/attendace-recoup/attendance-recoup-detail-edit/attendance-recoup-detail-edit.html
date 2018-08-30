@@ -1,0 +1,54 @@
+<!--
+  Generated template for the AttendanceRecoupAddDetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header no-border>
+
+  <ion-navbar hideBackButton="true" color="gongdan-color">
+    <ion-buttons left>
+      <button ion-button (click)="cancel()">
+        取消
+      </button>
+    </ion-buttons>
+    <ion-title>补卡销卡明细</ion-title>
+    <ion-buttons right>
+      <button ion-button (click)="confirm()">
+        确定
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content style="background-color:#f0f2f5">
+  <ion-item class="item_class">
+    <ion-label class="left_label">补卡销卡类型</ion-label>
+    <ion-select *ngIf='!is_edit' [(ngModel)]="type_index" cancelText="取消" okText="确定" class="normal_select">
+      <ion-option *ngFor="let item of type_arr;let i = index;" value={{i}}>{{item}}</ion-option>
+    </ion-select>
+    <ion-label *ngIf='is_edit' style="font-size:80%" item-end class="right_label" >{{type_arr[type_index]}}</ion-label>
+  </ion-item>
+  <ion-item class="item_class">
+    <ion-label class="left_label">上下班类型</ion-label>
+    <ion-select [(ngModel)]="work_type_index" cancelText="取消" okText="确定" class="normal_select">
+      <ion-option *ngFor="let item of work_type_arr;let i = index;" value={{i}}>{{item}}</ion-option>
+    </ion-select>
+  </ion-item>
+  <ion-item *ngIf="type_index == 0" no-lines class="item_class">
+    <ion-label class="left_label">时间</ion-label>
+    <ion-datetime placeholder='请选择 >' style="font-size:80%" item-end displayFormat="DD日 HH:mm" pickerFormat="DD HH mm" [(ngModel)]="time_add" cancelText="取消" doneText="确定"></ion-datetime>
+  </ion-item>
+  <ion-item *ngIf="type_index == 1" no-lines class="item_class">
+    <ion-label class="left_label">时间</ion-label>
+    <ion-label placeholder='请选择 >' style="font-size:80%" item-end class="right_label" tappable (click)="click_time()">{{time_delete}}</ion-label>
+  </ion-item>
+  <div style="background-color:white;margin-top:10px;">
+    <div class="textarea_title">
+      备注
+    </div>
+    <ion-textarea class="textarea_class" placeholder="请输入原因" [(ngModel)]="remark"></ion-textarea>
+  </div>
+</ion-content>

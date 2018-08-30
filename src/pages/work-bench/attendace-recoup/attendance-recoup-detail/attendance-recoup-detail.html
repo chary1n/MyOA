@@ -1,0 +1,120 @@
+<!--
+  Generated template for the AttendanceRecoupDetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header no-border>
+
+  <ion-navbar color="gongdan-color">
+    <ion-title>补卡销卡</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content style="background-color:#f0f2f5">
+  <ion-item style="min-height:60px;height:60px;">
+    <ion-grid class="bg_main">
+      <ion-row>
+        <ion-col col-2>
+          <img src="{{data.employee_avatar}}" class="imgHeard">
+        </ion-col>
+        <ion-col col-7 style="padding-top:17px">
+          <span class="name_class">{{data.employee_name}}</span>
+        </ion-col>
+        <ion-col col-3 style="padding-top:17px">
+          <span class="state_class">{{data.state}}</span>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item>
+  <ion-item no-lines>
+      <div text-wrap class="order_class"> {{data.rt_name}}</div>
+      <div class="left_label" > 单号 </div>
+    </ion-item>
+  <ion-item no-lines>
+    <div text-wrap class="order_class"> {{data.department_name}} </div>
+    <div class="left_label"> 部门 </div>
+  </ion-item>
+  <ion-item no-lines>
+    <div text-wrap class="order_class"> {{data.month_time}} </div>
+    <div class="left_label"> 月份 </div>
+  </ion-item>
+  <ion-item no-lines>
+    <div text-wrap class="order_class"> {{data.to_approve_name}} </div>
+    <div class="left_label"> 待审核人 </div>
+  </ion-item>
+ 
+  <div *ngIf="data_arr.length > 0" class="list_header_class">
+    补卡销卡明细
+  </div>
+  <ion-list no-lines>
+  <ion-item-sliding no-lines *ngFor='let item of data_arr;let i = index'>
+  <ion-item *ngIf="!item.need_delete" style="border-bottom: solid 1px #f0f2f5;" class="item_class_1">
+    <div [ngClass]="{true:'list_body_class',false:'list_body_class_no_bottom_line'}[i != data_arr.length - 1]" tappable (click)="click_edit(item,i)">
+      <div class="body_type_class">
+        <div class="shu_class">
+        </div>
+        <div class="title_class">
+          {{change_type(item.attendance_type)}}-{{change_work_type(item.attendance_work_type)}}
+        </div>
+      </div>
+      <div class="body_time_class">
+        时间：{{item.attendance_time}}
+      </div>
+      <div text-wrap class="body_remark_class">
+        备注：{{item.remark}}
+      </div>
+    </div>
+  </ion-item>
+  <ion-item-options *ngIf="data.state == '草稿'">
+        <button ion-button color="danger" (click)="deleteItem(item,i)">
+          <ion-icon name="trash"></ion-icon>
+          删除
+        </button>
+    </ion-item-options>
+  </ion-item-sliding>
+  </ion-list>
+  <button class="btn_class" *ngIf="data.state == '草稿'" ion-button full (click)="add_detail()">
+    + 补卡销卡明细
+  </button>
+  <div class="shenpi_class">审批记录</div>
+  <ion-list>
+    <ion-item no-lines *ngFor='let item of data.message_ids' class="middle_item">
+      <img style="width:40px;vertical-align:top;float:left;margin-right:10px;border-radius:20px" src={{item.create_person_ava}}>
+      <div style="overflow:hidden">
+        <span style="margin-top:3px;color:black;font-size:80%;float:left">{{item.create_person}}</span>
+
+        <span style="font-size:70%;margin-top:5px;margin-left:-5px;float:right">{{item.create_time}}</span>
+      </div>
+      <p *ngIf="item.old_state || item.new_state" style="font-size:80%;">{{item.old_state}}=>{{item.new_state}}</p>
+      <p text-wrap style="font-size:80%;">{{item.description}}</p>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+<ion-footer>
+    <div *ngIf='is_manager' class="footer_class">
+        <div class="left_btn" tappable (click)='click_refuse()'>
+          拒绝
+        </div>
+        <div class="right_btn" tappable (click)='click_confirm()'>
+          同意
+        </div>
+    </div>
+    <!--<div *ngIf='!is_manager' class="footer_class">
+      <div *ngIf="data.state == '草稿'" class="footer_class">
+         <div class="save_btn" tappable (click)='click_save()'>
+          保存
+        </div>
+         <div class="right_btn" tappable (click)='click_submit()'>
+          提交
+        </div>
+      </div>
+       
+        <div class="full_btn" *ngIf="data.state != '草稿'" tappable (click)='click_back()'>
+          撤回
+        </div>
+    </div>-->
+</ion-footer>

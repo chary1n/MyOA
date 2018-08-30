@@ -197,7 +197,7 @@ export class HttpService {
       }
       else {
         this.ctrl.create({
-          title: "错误:",
+          title: "提示",
           subTitle: result.error.data.message,
           buttons: [{
             text: '确定',

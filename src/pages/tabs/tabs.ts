@@ -17,7 +17,7 @@ export class TabsPage {
   need_show_me = true;
   @ViewChild('mainTabs') tabs:Tabs;
   meRoot :any ='MePage';
-  firstRoot:any = 'FirstShowPage';
+  firstRoot:any;
   // msgRoot:any = 'FirstShowPage';
   msgRoot:any = 'GongdanPage';
   workRoot :any = 'WorkBenchPage';

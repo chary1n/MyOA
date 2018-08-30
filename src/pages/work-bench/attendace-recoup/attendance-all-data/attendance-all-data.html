@@ -1,0 +1,132 @@
+<!--
+  Generated template for the AttendanceAllDataPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header no-border>
+
+  <ion-navbar color="gongdan-color">
+    <!--<ion-buttons left>
+      <button ion-button (click)="cancel()">
+        取消
+      </button>
+    </ion-buttons>-->
+    <ion-title>销卡</ion-title>
+    <!--<ion-buttons right>
+      <button ion-button (click)="confirm()">
+        确定
+      </button>
+    </ion-buttons>-->
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content style="background-color:#f0f2f5">
+  <div>
+    <div>
+      <ion-item no-lines style="height:40px;min-height:50px;margin-top:-9px;border-bottom: #f0f2f5 1px solid;">
+        <ion-grid style="background:white">
+          <ion-row>
+            <ion-col col-2>
+              <img src={{user_ava}} class="img_message_ava">
+            </ion-col>
+            <ion-col col-7>
+              <p class="name_message">
+                <span style="color:black">{{user_name}}</span>
+              </p>
+            </ion-col>
+            <ion-col col-3>
+              <p class="month_message">
+                <span tappable (click)="delete_month()">{{"<"}}</span><span style="margin-left:10px">{{currentDate}}</span>
+                <span
+                  style="margin-left:10px" tappable (click)="add_month()">{{">"}}</span>
+              </p>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+      <div class="box-flex">
+
+        <div class="flex-item">
+          <div class="item-content-header">一</div>
+        </div>
+        <div class="flex-item">
+          <div class="item-content-header">二</div>
+        </div>
+        <div class="flex-item">
+          <div class="item-content-header">三</div>
+        </div>
+        <div class="flex-item">
+          <div class="item-content-header">四</div>
+        </div>
+        <div class="flex-item">
+          <div class="item-content-header">五</div>
+        </div>
+        <div class="flex-item">
+          <div class="item-content-header">六</div>
+        </div>
+        <div class="flex-item">
+          <div class="item-content-header">日</div>
+        </div>
+      </div>
+      <div class="box-flex" style='margin-top:-10px'>
+        <div id="flex-item" class="flex-item" *ngFor="let vo of currentDayList">
+
+          <div id="item-content" tappable (click)="choose_day(vo)" [ngClass]="{true:'item-content bk-color-day',false:'item-content'}[currentDay == vo.d && currentMonth == vo.m && currentYear == vo.y]"
+            style="line-height: 44px; ">{{vo.d}}
+          </div>
+        </div>
+      </div>
+      <!--<div class='buttom_divider'>
+    </div>  -->
+      <div style="background:black;width:100%;height:100%">
+        <div class="bottom_class">
+          <div id="divClass" class="divClass">
+          </div>
+          <ul *ngFor="let item of items_day">
+            <li *ngIf="item.check_out" [ngClass]="{true:'li_class_first',false:'li_class'}[i == 0]">
+              <span [ngClass]="{true:'time_li_first_class',false:'time_li_class'}[i == 0]">{{calcEnd(item)}}</span>
+              <span [ngClass]="{true:'time_type_li_first_class',false:'time_type_li_class'}[i == 0]">下班</span>
+              
+              <span *ngIf="!item.is_location_off" class="time_company_class">{{item.company_off_name}}</span>
+              <span class="time_company_class_delete_attendance" tappable (click)="delete_attendance(item)">销卡</span>
+              <div *ngIf="item.is_location_off" class="time_company_class">
+                <img style="width:15px;margin-top:4px" src="assets/img/daka_location.png" />
+                <p style=" margin-top: -20px;margin-left: 18px">{{item.company_off_name}}
+                  <p>
+              </div>
+              <ion-grid *ngIf="item.attendance_off_ids" style="margin-top:-20px;margin-left:-10px">
+                <ion-row style="margin-right:5px;">
+                  <ion-col style="height:80px" *ngFor="let image of item.attendance_off_ids" col-3>
+                    <img src={{image}} style="position:absolute;clip:rect(0px,70px,70px,0px);background-color:#f0f2f5" imageViewer/>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </li>
+            <li *ngIf="item.check_in" [ngClass]="{true:'li_class_first',false:'li_class'}[!item.check_out && i == 0]">
+
+              <span [ngClass]="{true:'time_li_first_class',false:'time_li_class'}[!item.check_out && i == 0]">{{calcStart(item)}}</span>
+              <span [ngClass]="{true:'time_type_li_first_class',false:'time_type_li_class'}[!item.check_out && i == 0]" class="">上班</span>
+              <span *ngIf="!item.is_location_on" class="time_company_class">{{item.company_name}}</span>
+              <span class="time_company_class_delete_attendance" tappable (click)="delete_attendance(item)">销卡</span>
+
+              <div *ngIf="item.is_location_on" class="time_company_class">
+                <img style="width:15px;margin-top:-5px" src="assets/img/daka_location.png" />
+                <span style="margin-top:-6px;margin-left:-1px">{{item.company_name}}</span>
+              </div>
+              <ion-grid *ngIf="item.attendance_on_ids" style="margin-top:-5px;margin-left:-10px;">
+                <ion-row style="margin-right:5px;">
+                  <ion-col style="height:80px" *ngFor="let image of item.attendance_on_ids" col-3>
+                    <img src={{image}} style="position:absolute;clip:rect(0px,70px,70px,0px);background-color:#f0f2f5" imageViewer/>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>
