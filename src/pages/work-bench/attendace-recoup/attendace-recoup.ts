@@ -81,6 +81,17 @@ export class AttendaceRecoupPage {
               })         
   }
 
+  itemClearSelected(event){
+    if (this.inner_type == 'wait_me')
+            {
+              this.click_wait_me()
+            }
+            else
+            {
+              this.click_me()
+            }
+  }
+
   itemSelected(event) {
     let type;
     let search_text;

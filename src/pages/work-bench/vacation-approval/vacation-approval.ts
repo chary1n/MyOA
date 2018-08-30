@@ -88,11 +88,11 @@ export class VacationApprovalPage {
       search_text = event.name.replace("搜 申请人：", "")
     }
     this.wait_me_list = []
-    // this.vacationService.search_edit_card(type,search_text,this.user_id).then(res => {
-    //   if (res.result.res_data && res.result.res_code == 1) {
-    //     this.wait_me_list = res.result.res_data
-    //   }
-    // })
+    this.vacationService.search_vacation(type,search_text,this.user_id).then(res => {
+      if (res.result.res_data && res.result.res_code == 1) {
+        this.wait_me_list = res.result.res_data
+      }
+    })
   }
 
   approval_detail(item){

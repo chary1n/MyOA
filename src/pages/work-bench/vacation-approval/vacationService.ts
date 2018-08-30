@@ -40,4 +40,13 @@ export class VacationService {
         });
        return this.httpservice.postBody("refuse_vacation",body);
     }
+
+    search_vacation(type,search_text,user_id){
+        let body = JSON.stringify({
+            type:type,
+            search_text:search_text,
+            user_id:user_id,
+        });
+       return this.httpservice.postBody("search_vacation",body);
+    }
 }

@@ -59,6 +59,7 @@
     "com-darryncampbell-cordova-plugin-intent": "0.0.14",
     "com.darktalker.cordova.screenshot": "^0.1.6",
     "com.lampa.startapp": "^0.1.4",
+    "com.telerik.plugins.nativepagetransitions": "^0.6.5",
     "cordova-android": "^6.2.3",
     "cordova-ios": "^4.5.4",
     "cordova-plugin-add-swift-support": "^1.6.0",
@@ -173,7 +174,8 @@
         "PHOTO_LIBRARY_USAGE_DESCRIPTION": " "
       },
       "cordova-plugin-whitelist": {},
-      "cordova-plugin-statusbar": {}
+      "cordova-plugin-statusbar": {},
+      "com.telerik.plugins.nativepagetransitions": {}
     },
     "dependencies": {
       "@angular/common": "4.1.3",
