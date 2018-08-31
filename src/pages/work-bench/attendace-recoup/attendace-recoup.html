@@ -41,7 +41,7 @@
       <div no-lines *ngIf="inner_type == 'wait_me'">
         <div class="div_class" no-lines *ngFor='let item of wait_me_list' tappable (click)='approval_detail(item)'>
           <p text-wrap class="time_class">{{item.create_time}}</p>
-          <span text-wrap class="span_class">{{item.rt_name}}</span><span style="margin-left:10px">{{item.employee_name}}</span>
+          <span text-wrap class="span_class">夏天</span><span style="margin-left:10px">{{item.employee_name}}</span>
           
           <p text-wrap class="bottom_class"><span>月份：{{item.month_time}}</span><span>合计：{{item.total_day}}天</span></p>
           <p text-wrap class="state_class">{{item.state}}</p>

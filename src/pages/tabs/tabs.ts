@@ -21,10 +21,13 @@ export class TabsPage {
   // msgRoot:any = 'FirstShowPage';
   msgRoot:any = 'GongdanPage';
   workRoot :any = 'WorkBenchPage';
+  new_workRoot:any ='NewWorkBenchPage'
   contactRoot  = 'ContactPersonPage';
   need_show_gongdan = false
   need_show_all = false;
-  need_show_first = false
+  need_show_first = false;
+  need_show_new_work_bench = false;
+  need_show_contact = true;
   loginIndex;
   constructor(public navCtrl: NavController, public navParams: NavParams,
   public storage:Storage) {
@@ -48,11 +51,17 @@ export class TabsPage {
     //   })
       this.storage.get("loginIndex").then(res => {
         this.loginIndex = res
-        // if(this.loginIndex==2){//发版改成1
+        if (this.loginIndex == 0)
+        {
           this.need_show_first = true
           this.firstRoot= 'FirstShowPage';
           this.need_show_me = false
           this.need_show_gongdan = false
+          this.need_show_new_work_bench = true
+        }
+        this.tabs.select(0) 
+        // if(this.loginIndex==2){//发版改成1
+          
         // }
       })
   }
@@ -60,7 +69,7 @@ export class TabsPage {
   ionViewDidLoad() {
     
    
-  //  this.navCtrl.parent.select(1);   
+    
   }
 
 }

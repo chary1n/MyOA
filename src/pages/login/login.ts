@@ -191,7 +191,15 @@ export class LoginPage {
           window.localStorage.setItem("id", res.result.res_data.user_id)
           this.storage.get('user_psd').then(res => {
             HttpService.appUrl = res.url
-            this.navCtrl.setRoot('TabsPage');
+            if (this.chooseIndex == 0)
+            {
+              this.navCtrl.setRoot('NewTabsPage');
+            }
+            else
+            {
+              this.navCtrl.setRoot('TabsPage');
+            }
+            
             console.log(res)
             this.appVersion.getVersionNumber().then((value: string) => {
               let loading = this.loading.create({
@@ -475,7 +483,13 @@ export class LoginPage {
             return
           }
           this.storage.set("user", res).then(() => {
-            this.navCtrl.setRoot('TabsPage');
+            if (this.chooseIndex == 0){
+               this.navCtrl.setRoot('NewTabsPage');
+            }
+           else
+           {
+             this.navCtrl.setRoot('TabsPage');
+           }
             // this.jpush.setAlias(res.result.res_data.user_id);
           });
         }
