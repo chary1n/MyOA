@@ -23,14 +23,14 @@
         </div>
   </div>-->
   <div class="header_div_class">
-      <ion-auto-complete class="searchbar_class" (itemSelected)="itemSelected($event)" [dataProvider]="attendanceAutoService"></ion-auto-complete>
+      <ion-auto-complete class="searchbar_class" (itemSelected)="itemSelected($event)" (itemClearSelected)="itemClearSelected($event)" [dataProvider]="attendanceAutoService" showCancelButton="true"></ion-auto-complete>
   </div>
       <div *ngIf="inner_type == 'me'">
         <div class="div_class" no-lines *ngFor='let item of me_list' tappable (click)='approval_detail_no_approve(item)'>
           <p text-wrap class="time_class">{{item.create_time}}</p>
-          <span text-wrap class="span_class">{{item.rt_name}}</span><span style="margin-left:10px">{{item.month_time}}</span>
+          <span text-wrap class="span_class">{{item.rt_name}}</span><span style="margin-left:10px">{{item.employee_name}}</span>
           
-          <p text-wrap class="bottom_class"><span>{{item.employee_name}}</span><span>合计：{{item.total_day}}天</span></p>
+          <p text-wrap class="bottom_class"><span>月份：{{item.month_time}}</span><span>合计：{{item.total_day}}天</span></p>
           <p text-wrap class="state_class">{{item.state}}</p>
           <div class="differ_class">
           </div>
@@ -41,15 +41,19 @@
       <div no-lines *ngIf="inner_type == 'wait_me'">
         <div class="div_class" no-lines *ngFor='let item of wait_me_list' tappable (click)='approval_detail(item)'>
           <p text-wrap class="time_class">{{item.create_time}}</p>
-          <span text-wrap class="span_class">{{item.rt_name}}</span><span style="margin-left:10px">{{item.month_time}}</span>
+          <span text-wrap class="span_class">{{item.rt_name}}</span><span style="margin-left:10px">{{item.employee_name}}</span>
           
-          <p text-wrap class="bottom_class"><span>{{item.employee_name}}</span><span style="margin-left:20px">合计：{{item.total_day}}天</span></p>
+          <p text-wrap class="bottom_class"><span>月份：{{item.month_time}}</span><span>合计：{{item.total_day}}天</span></p>
           <p text-wrap class="state_class">{{item.state}}</p>
           <div class="differ_class">
           </div>
         </div>
         
       </div>
+  <div align="center" *ngIf="!wait_me_list || wait_me_list.length == 0">
+      <img style="width:100px;position:absolute;left:calc(50% - 50px);top:calc(50% - 60px)" src="assets/img/nodataimg.png">
+      <p style="width:100px;position:absolute;left:calc(50% - 50px);top:calc(50% + 30px);color:#c2c8cc;font-size:15px">空空如也～</p>
+    </div>
 </ion-content>
 
 <!--<ion-footer>

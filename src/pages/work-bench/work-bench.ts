@@ -97,6 +97,8 @@ export class WorkBenchPage {
               if(res.result.res_code==1 && res.result){
                 console.log(res)
                 this.performance = res.result.res_data.performance
+                this.vacation_num = res.result.res_data.vacation_num
+                this.recoup_num = res.result.res_data.recoup_num
               }
             })
           }

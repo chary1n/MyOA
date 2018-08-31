@@ -75,7 +75,11 @@ export class AttendanceRecoupDetailPage {
           placeholder: '拒绝原因(必填)'
         },
       ],
-      buttons: [
+      buttons: [{
+          text: '取消',
+          handler: data => {
+          }
+        },
         {
           text: '确定',
           handler: data => {
@@ -95,10 +99,6 @@ export class AttendanceRecoupDetailPage {
             }
             
           }
-        },{
-          text: '取消',
-          handler: data => {
-          }
         }]}).present()
   }
 
@@ -113,7 +113,11 @@ export class AttendanceRecoupDetailPage {
           placeholder: '审核意见'
         },
       ],
-      buttons: [
+      buttons: [{
+          text: '取消',
+          handler: data => {
+          }
+        },
         {
           text: '确定',
           handler: data => {
@@ -138,10 +142,6 @@ export class AttendanceRecoupDetailPage {
             }
             
           }
-        },{
-          text: '取消',
-          handler: data => {
-          }
         }]}).present()
   }
 
@@ -156,7 +156,11 @@ export class AttendanceRecoupDetailPage {
           placeholder: '撤回原因(必填)'
         },
       ],
-      buttons: [
+      buttons: [{
+          text: '取消',
+          handler: data => {
+          }
+        },
         {
           text: '确定',
           handler: data => {
@@ -175,10 +179,6 @@ export class AttendanceRecoupDetailPage {
                 Utils.toastButtom("请填写撤回原因", this.toastCtrl)
             }
             
-          }
-        },{
-          text: '取消',
-          handler: data => {
           }
         }]}).present()
   }
