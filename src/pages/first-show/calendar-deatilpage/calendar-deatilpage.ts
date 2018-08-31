@@ -86,11 +86,11 @@ export class CalendarDeatilpagePage {
                   this.alarm_id = this.item.rt_alarm_type
                   this.alarm_name = this.item.rt_alarm_type_name
                   if(this.item.allday && this.item.start && this.item.stop){
-                    this.item_start = this.datePipe.transform(this.item.start, 'yyyy-MM-dd')
-                    this.item_stop = this.datePipe.transform(this.item.stop, 'yyyy-MM-dd')
+                    this.item_start = this.datePipe.transform(new Date(this.item.start), 'yyyy-MM-dd')
+                    this.item_stop = this.datePipe.transform(new Date(this.item.stop), 'yyyy-MM-dd')
                   }else if(this.item.start && this.item.stop){
-                    this.item_start = this.datePipe.transform(this.item.start, 'yyyy-MM-dd HH:mm').replace(' ','T')+'Z'
-                    this.item_stop = this.datePipe.transform(this.item.stop, 'yyyy-MM-dd HH:mm').replace(' ','T')+'Z'
+                    this.item_start = this.datePipe.transform(new Date(this.item.start), 'yyyy-MM-dd HH:mm').replace(' ','T')+'Z'
+                    this.item_stop = this.datePipe.transform(new Date(this.item.stop), 'yyyy-MM-dd HH:mm').replace(' ','T')+'Z'
                   }
                   this.description = this.item.description.replace(/\n/g,"<br>")
                 }
@@ -212,10 +212,10 @@ export class CalendarDeatilpagePage {
       if(this.not_sure_time==true){
         
       }else{
-          this.start_date = this.datePipe.transform(this.item.start, 'yyyy-MM-dd')
-          this.stop_date = this.datePipe.transform(this.item.stop, 'yyyy-MM-dd')
-          this.start_datetime = this.datePipe.transform(this.item.start, 'yyyy-MM-dd HH:mm').replace(' ','T')+'Z'
-          this.stop_datetime = this.datePipe.transform(this.item.stop, 'yyyy-MM-dd HH:mm').replace(' ','T')+'Z'
+          this.start_date = this.datePipe.transform(new Date(this.item.start), 'yyyy-MM-dd')
+          this.stop_date = this.datePipe.transform(new Date(this.item.stop), 'yyyy-MM-dd')
+          this.start_datetime = this.datePipe.transform(new Date(this.item.start), 'yyyy-MM-dd HH:mm').replace(' ','T')+'Z'
+          this.stop_datetime = this.datePipe.transform(new Date(this.item.stop), 'yyyy-MM-dd HH:mm').replace(' ','T')+'Z'
       }
       this.location = this.item.location
       this.description = this.item.description
@@ -251,12 +251,12 @@ export class CalendarDeatilpagePage {
         
       }else{
         if(this.allDay==true){
-          this.start_date = this.datePipe.transform(this.item.start, 'yyyy-MM-dd')
-          this.stop_date = this.datePipe.transform(this.item.stop, 'yyyy-MM-dd')
+          this.start_date = this.datePipe.transform(new Date(this.item.start), 'yyyy-MM-dd')
+          this.stop_date = this.datePipe.transform(new Date(this.item.stop), 'yyyy-MM-dd')
           console.log('this.start_date = '+this.start_date)
         }else{
-          this.start_datetime = this.datePipe.transform(this.item.start, 'yyyy-MM-dd HH:mm').replace(' ','T')+'Z'
-          this.stop_datetime = this.datePipe.transform(this.item.stop, 'yyyy-MM-dd HH:mm').replace(' ','T')+'Z'
+          this.start_datetime = this.datePipe.transform(new Date(this.item.start), 'yyyy-MM-dd HH:mm').replace(' ','T')+'Z'
+          this.stop_datetime = this.datePipe.transform(new Date(this.item.stop), 'yyyy-MM-dd HH:mm').replace(' ','T')+'Z'
           console.log('this.start_date = '+this.start_datetime)
         }
       }
@@ -287,12 +287,12 @@ export class CalendarDeatilpagePage {
         
       }else{
         if(this.allDay==true){
-          this.start_date = this.datePipe.transform(this.item.start, 'yyyy-MM-dd')
-          this.stop_date = this.datePipe.transform(this.item.stop, 'yyyy-MM-dd')
+          this.start_date = this.datePipe.transform(new Date(this.item.start), 'yyyy-MM-dd')
+          this.stop_date = this.datePipe.transform(new Date(this.item.stop), 'yyyy-MM-dd')
           console.log('this.start_date = '+this.start_date)
         }else{
-          this.start_datetime = this.datePipe.transform(this.item.start, 'yyyy-MM-dd HH:mm')
-          this.stop_datetime = this.datePipe.transform(this.item.stop, 'yyyy-MM-dd HH:mm')
+          this.start_datetime = this.datePipe.transform(new Date(this.item.start), 'yyyy-MM-dd HH:mm')
+          this.stop_datetime = this.datePipe.transform(new Date(this.item.stop), 'yyyy-MM-dd HH:mm')
           console.log('this.start_date = '+this.start_datetime)
         }
       }
