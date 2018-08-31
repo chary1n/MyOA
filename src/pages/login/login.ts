@@ -150,12 +150,12 @@ export class LoginPage {
   }
 
   ionViewDidEnter() {
-    if (this.platform.is("android")) {
-      this.getVersionNumber();
-    }
-    else if (this.platform.is('ios')) {
-      this.getiOSVersionNumber();
-    }
+    // if (this.platform.is("android")) {
+    //   this.getVersionNumber();
+    // }
+    // else if (this.platform.is('ios')) {
+    //   this.getiOSVersionNumber();
+    // }
   }
 
   defultChoose(index) {

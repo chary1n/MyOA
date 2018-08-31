@@ -25,7 +25,23 @@ export class NewWorkBenchPage {
   recoup_num = 0
   constructor(public navCtrl: NavController, public navParams: NavParams,public statusbar:StatusBar,public services:CommonUseServices,
               public storage: Storage) {
-      this.storage.get('user')
+      
+              
+  }
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad NewWorkBenchPage');
+  }
+
+  ionViewWillEnter(){
+    this.statusbar.backgroundColorByHexString("#2597ec");
+    this.statusbar.styleLightContent();
+
+    
+  }
+
+  ionViewDidEnter() {
+    this.storage.get('user')
       .then(res => {
         console.log(res);
         let uid = res.result.res_data.user_id
@@ -46,16 +62,6 @@ export class NewWorkBenchPage {
             })
           })
         })
-              
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad NewWorkBenchPage');
-  }
-
-  ionViewWillEnter(){
-    this.statusbar.backgroundColorByHexString("#2597ec");
-    this.statusbar.styleLightContent();
   }
 
   click_attendance(){
