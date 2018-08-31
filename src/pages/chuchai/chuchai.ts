@@ -1,34 +1,32 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ActionSheetController,AlertController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
-import { VacationAutoService } from './vacation-approval-autoService';
-import { VacationService } from './vacationService';
-declare let cordova: any;
+import { ChuChaiAutoService } from './chuchai-autoService';
+import { ChuChaiService } from './chuchaiService';
 /**
- * Generated class for the VacationApprovalPage page.
+ * Generated class for the ChuchaiPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
 @IonicPage()
 @Component({
-  selector: 'page-vacation-approval',
-  templateUrl: 'vacation-approval.html',
-  providers: [VacationAutoService,VacationService],
+  selector: 'page-chuchai',
+  templateUrl: 'chuchai.html',
+  providers:[ChuChaiAutoService,ChuChaiService],
 })
-export class VacationApprovalPage {
+export class ChuchaiPage {
   inner_type = 'wait_me'
   me_list = []
   wait_me_list = []
   is_manager = false
   user_id;
-  constructor(public navCtrl: NavController, public navParams: NavParams,public vacationAutoService: VacationAutoService,
-              public vacationService: VacationService,public storage: Storage) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,public chuChaiService:ChuChaiService,
+              public chuChaiAutoService: ChuChaiAutoService,public storage: Storage) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad VacationApprovalPage');
-    // cordova.plugins.Keyboard.close();
+    console.log('ionViewDidLoad ChuchaiPage');
   }
 
   ionViewWillEnter() {
@@ -36,7 +34,7 @@ export class VacationApprovalPage {
     this.storage.get('user')
       .then(res => {
         this.user_id = res.result.res_data.user_id
-        this.vacationService.get_is_department(res.result.res_data.user_id).then(result => {
+        this.chuChaiService.get_is_department(res.result.res_data.user_id).then(result => {
             if (result.result.res_data && result.result.res_code == 1) {
               this.is_manager = result.result.res_data.is_manager
             }
@@ -69,7 +67,7 @@ export class VacationApprovalPage {
   click_wait_me(){
      this.inner_type = 'wait_me'
      this.wait_me_list = []
-     this.vacationService.get_total_vacation(this.user_id,true).then(my_data => {
+     this.chuChaiService.get_total_vacation(this.user_id,true).then(my_data => {
                 if (my_data.result.res_data && my_data.result.res_code == 1) {
                     this.wait_me_list = my_data.result.res_data
                 }
@@ -88,7 +86,7 @@ export class VacationApprovalPage {
       search_text = event.name.replace("搜 申请人：", "")
     }
     this.wait_me_list = []
-    this.vacationService.search_vacation(type,search_text,this.user_id).then(res => {
+    this.chuChaiService.search_vacation(type,search_text,this.user_id).then(res => {
       if (res.result.res_data && res.result.res_code == 1) {
         this.wait_me_list = res.result.res_data
       }
@@ -107,9 +105,9 @@ export class VacationApprovalPage {
   }
 
   approval_detail(item){
-    this.navCtrl.push('VacationDetailPage',{
-      data_item:item,
-    })
+    // this.navCtrl.push('VacationDetailPage',{
+    //   data_item:item,
+    // })
   }
 
 }

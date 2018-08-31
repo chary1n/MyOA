@@ -71,15 +71,29 @@ page-new-work-bench {
     }
 
     .number_class{
-            width: 20px;
-    height: 20px;
+            width: 17px;
+    height: 17px;
     background-color: red;
     color: white;
-    border-radius: 10px;
-    line-height: 20px;
+    border-radius: 8.5px;
+    line-height: 17px;
     position: absolute;
     right: 20px;
     top: -3px;
+    font-size: 13px;
+        }
+
+    .big_number_class{
+            width: 23px;
+    height: 17px;
+    background-color: red;
+    color: white;
+    border-radius: 8.5px;
+    line-height: 17px;
+    position: absolute;
+    right: 20px;
+    top: -3px;
+    font-size: 13px;
         }
 
     .body_class{

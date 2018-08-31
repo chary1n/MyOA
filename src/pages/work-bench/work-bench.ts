@@ -22,7 +22,7 @@ export class WorkBenchPage {
   isBigPay = true;
   isShowEngineerPoint = false;//工程小红点
   isShowBuyPoint = false;//采购小红点
-  isNormal = true;//通用
+  isNormal = false;//通用
   isSale = false;//销售
   isBuy = false;//采购
   isEngineer;//工程
@@ -33,7 +33,7 @@ export class WorkBenchPage {
   isShowPurchase = false;
   isShowSale = false;
   isShowKucun = false;
-  isShowNormal = true;
+  isShowNormal = false;
   isShowEngineer = true;
   isHR = false;
   isShowZiJin = false;
@@ -88,8 +88,8 @@ export class WorkBenchPage {
           if(this.loginIndex==0){
             this.isShowEngineer = false
             this.isEngineer = false
-            this.isShowNormal = true
-            this.isNormal = true
+            this.isShowNormal = false
+            this.isNormal = false
             let body = {
               'uid': uid
             }

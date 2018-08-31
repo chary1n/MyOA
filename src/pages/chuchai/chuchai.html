@@ -7,7 +7,7 @@
 <ion-header no-border>
 
   <ion-navbar color="gongdan-color">
-    <ion-title>休假审核</ion-title>
+    <ion-title>出差审核</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -15,7 +15,7 @@
 
 <ion-content style="background-color:#f0f2f5">
   <div class="header_div_class">
-      <ion-auto-complete class="searchbar_class" (itemSelected)="itemSelected($event)" (itemClearSelected)="itemClearSelected($event)" [dataProvider]="vacationAutoService"></ion-auto-complete>
+      <ion-auto-complete class="searchbar_class" (itemSelected)="itemSelected($event)" (itemClearSelected)="itemClearSelected($event)" [dataProvider]="chuChaiAutoService" showCancelButton="true"></ion-auto-complete>
   </div>
       <div *ngIf="inner_type == 'me'">
         <div class="div_class" no-lines *ngFor='let item of me_list' tappable (click)='approval_detail_no_approve(item)'>
