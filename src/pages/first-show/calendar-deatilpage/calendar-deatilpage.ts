@@ -89,8 +89,8 @@ export class CalendarDeatilpagePage {
                     this.item_start = this.datePipe.transform(new Date(this.item.start.replace(/-/g, "/")), 'yyyy-MM-dd')
                     this.item_stop = this.datePipe.transform(new Date(this.item.stop.replace(/-/g, "/")), 'yyyy-MM-dd')
                   }else if(this.item.start && this.item.stop){
-                    this.item_start = this.datePipe.transform(new Date(this.item.start.replace(/-/g, "/")), 'yyyy-MM-dd HH:mm').replace(' ','T')+'Z'
-                    this.item_stop = this.datePipe.transform(new Date(this.item.stop.replace(/-/g, "/")), 'yyyy-MM-dd HH:mm').replace(' ','T')+'Z'
+                    this.item_start = this.datePipe.transform(new Date(this.item.start.replace(/-/g, "/")), 'yyyy-MM-dd HH:mm')
+                    this.item_stop = this.datePipe.transform(new Date(this.item.stop.replace(/-/g, "/")), 'yyyy-MM-dd HH:mm')
                   }
                   this.description = this.item.description.replace(/\n/g,"<br>")
                 }

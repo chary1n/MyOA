@@ -14,8 +14,8 @@
     </ion-navbar>
 </ion-header>
 
-<ion-content>
-    <div style="padding: 1px;text-align: center;">
+<ion-content overflow-scroll="true">
+    <div style="padding: 1px;text-align: center;" overflow-scroll="true">
       <p class="month_message">
           <span tappable (click)="delete_month()">{{"<"}}</span><span style="margin-left:10px">{{currentDate}}</span><span style="margin-left:10px" tappable (click)="add_month()">{{">"}}</span>
       </p>
@@ -61,7 +61,7 @@
                   <ion-label style="font-size: 13px;margin-left: 15px;color: black;font-weight:bold;">{{dateNow}}</ion-label>
                   <div style="padding: 1px;" item-end class="divBac" *ngIf="showLate" tappable (click)="latePage()">
                     <p style="font-size: 10px;color: #E98553;margin-top: auto;margin-bottom: auto">{{lateNum}}个待办已逾期
-                        <ion-icon name="arrow-forward" style="color: #E98553;margin-top: 5px;margin-top: auto;margin-bottom: auto"></ion-icon>
+                        <ion-icon name="arrow-forward" style="color: #E98553;margin-top: auto;margin-bottom: auto"></ion-icon>
                     </p>
                   </div>
                 </ion-item>
@@ -71,7 +71,7 @@
                   <ion-label style="font-size: 13px;padding-left: 15px">没有添加日程</ion-label>
              </ion-item>
               <ion-list style="width: 100%;border-top:#f0f2f5 1px solid;">
-                    <ion-item no-lines style="height: 50px;;min-height: 25px;cursor :pointer;"  *ngFor="let item of itemList" tappable (click)="gotoDeatil(item)">
+                    <ion-item no-lines style="height: 50px;;min-height: 25px;"  *ngFor="let item of itemList" tappable (click)="gotoDeatil(item)">
                         <p item-start  *ngIf="!item.allday" style="font-size: 12px;width: 40px">{{item.event_time}}
                         </p>
                         <p item-start  *ngIf="item.allday" style="font-size: 12px;width: 40px;opacity: 0;">{{item.event_time}}
@@ -88,7 +88,7 @@
                       <ion-icon *ngIf="item.state" item-start name="contrast" style="padding-top: 16px;padding-left: 3px;font-size: 15px;height: 105%;;width: 10px;color: #999999;border-right:#d9dadb 1px solid;"></ion-icon> -->
                       <ion-label item-end [ngClass]="{true:'notFinish',false:'finish'}[item.state]">[{{item.type_name}}]:{{item.subject}}</ion-label>
                     </ion-item>
-                    <ion-item no-lines style="height: 50px;;min-height: 25px;cursor :pointer;"  *ngFor="let item of notSureList" tappable (click)="gotoDeatil(item)">
+                    <ion-item no-lines style="height: 50px;;min-height: 25px;"  *ngFor="let item of notSureList" tappable (click)="gotoDeatil(item)">
                         <p item-start *ngIf="notSureList.indexOf(item)==0" style="font-size: 13px;width: 40px;color: black;">任务
                         </p>
                         <p item-start *ngIf="notSureList.indexOf(item)!=0" style="font-size: 13px;width: 40px;color: #666666;opacity: 0;">任务

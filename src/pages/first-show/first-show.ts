@@ -147,11 +147,8 @@ export class FirstShowPage {
         +' isFinal ='+$event.isFinal+' deltaTime = '+$event.deltaTime+' x = '+$event.center.x+' y = '+$event.center.y
       +' distance = '+$event.distance+' overallVelocity = '+$event.overallVelocity+ ' overallVelocityY = '+$event.overallVelocityY
     +' velocityY = '+$event.velocityY+' velocity = '+$event.velocity)
-    if($event.center.y!=0){
-      return
-    }
     if(!this.showIcon){
-      if($event.velocity<=0){
+      if($event.velocity<0){
         this.showIcon=true
         for(var i=0;i<this.currentDayList.length;i++){
           if(this.currentDayList[i].d==this.currentDay){
@@ -161,7 +158,7 @@ export class FirstShowPage {
         this.currentDayList=this.currentDayList.slice((this.currentWeek-1)*7,this.currentWeek*7)
       }
     }else{
-      if($event.velocity>0){
+      if($event.velocity>=0){
         this.showIcon = false
         if(this.haveThing.length!=0){
           for(var j=0;j<this.allDayList.length;j++){
