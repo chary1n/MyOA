@@ -7,6 +7,7 @@ import { DatePipe } from '@angular/common';
 import { FirService } from './../../app/FirService';
 import { StatusBar } from '@ionic-native/status-bar';
 import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/native-page-transitions';
+declare let cordova: any;
 
 /**
  * Generated class for the FirstShowPage page.
@@ -143,6 +144,7 @@ export class FirstShowPage {
   
   //滑动事件
   panEvent($event) {
+    cordova.plugins.Keyboard.close();
     // console.log('y='+$event.deltaY+" dirrection = "+$event.direction+ ' isFirst = '+$event.isFirst
     //     +' isFinal ='+$event.isFinal+' deltaTime = '+$event.deltaTime+' x = '+$event.center.x+' y = '+$event.center.y
     //   +' distance = '+$event.distance+' overallVelocity = '+$event.overallVelocity+ ' overallVelocityY = '+$event.overallVelocityY

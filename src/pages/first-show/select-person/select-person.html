@@ -28,7 +28,10 @@
 
 
 <ion-content (pan)="panEvent($event)">
-    <ion-searchbar placeholder = "搜索" (ionInput)="searchByKeyword($event)" (ionClear)="clearText()"></ion-searchbar>
+        <div class="header_div_class">
+                <ion-auto-complete class="searchbar_class" (itemSelected)="itemSelected($event)" (itemClearSelected)="itemClearSelected($event)" [dataProvider]="autoSelect"></ion-auto-complete>
+        </div>
+    <!-- <ion-searchbar placeholder = "搜索" (ionInput)="searchByKeyword($event)" (ionClear)="clearText()"></ion-searchbar> -->
 
     <ion-list>
       <ion-item  no-lines *ngFor = 'let item of employeeList' style="border-bottom: #f0f2f5 1px solid;min-height: 25px">

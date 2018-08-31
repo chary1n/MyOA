@@ -1,3 +1,4 @@
+import { SelectPersonAuto } from './auto_select_person';
 import { FirstShowService } from './../first_service';
 import { Component } from '@angular/core';
 import { IonicPage , NavController, NavParams} from 'ionic-angular';
@@ -15,7 +16,7 @@ import { Utils } from './../../../providers/Utils';
 @Component({
   selector: 'page-select-person',
   templateUrl: 'select-person.html',
-  providers: [FirstShowService]
+  providers: [FirstShowService,SelectPersonAuto]
 })
 export class SelectPersonPage {
   uid;
@@ -29,7 +30,7 @@ export class SelectPersonPage {
   isMoreData=true
   partner_id_s_id
   constructor(public navCtrl: NavController, public navParams: NavParams, public statusBar:StatusBar,
-              public firstShow: FirstShowService, public storage:Storage,) {
+              public firstShow: FirstShowService, public storage:Storage,public autoSelect :SelectPersonAuto) {
                 this.frontPage = Utils.getViewController("CalendarDeatilpagePage", navCtrl)
                 this.type = this.navParams.get('type')
                 if(this.type==1){
@@ -113,14 +114,45 @@ export class SelectPersonPage {
     this.navCtrl.popTo(this.frontPage);
   }
 
-  searchByKeyword(event){
-    if(!event.target.value){
-      return
+  // searchByKeyword(event){
+  //   if(!event.target.value){
+  //     return
+  //   }
+  //   this.isMoreData = false
+  //   let body = {
+  //     'uid': this.uid,
+  //     'name': event.target.value
+  //   }
+  //   this.firstShow.search_one_partner(body).then(res => {
+  //     if (res.result && res.result.res_code == 1) {
+  //       this.employeeList = res.result.res_data;
+  //       if(this.type==1){
+  //         this.setCheck()
+  //       }else if(this.type==2){
+  //         for (let j = 0; j < this.employeeList.length; j++) {
+  //           if(this.employeeList[j].partner_id==this.partner_id_s_id){
+  //             this.employeeList[j].ischeck=true
+  //           }
+  //         }
+  //       }
+  //     }
+  //   })
+  // }
+
+  itemClearSelected(event){
+    this.employeeList = this.origin_data
+    this.isMoreData = true
+  }
+
+  itemSelected(event) {
+    let search_text;
+    if (event.id == 1) {
+      search_text = event.name.replace("搜 名字：", "")
     }
     this.isMoreData = false
     let body = {
       'uid': this.uid,
-      'name': event.target.value
+      'name': search_text
     }
     this.firstShow.search_one_partner(body).then(res => {
       if (res.result && res.result.res_code == 1) {
@@ -138,23 +170,12 @@ export class SelectPersonPage {
     })
   }
 
-  clearText() {
-    this.employeeList = this.origin_data
-  //   this.limit = 40;
-  //   this.offset = 0;
-    this.isMoreData = true
-  //   let body = {
-  //     'uid': this.uid,
-  //     'limit': this.limit,
-  //     'offset': this.offset
+  // clearText() {
+  //   this.employeeList = this.origin_data
+  // //   this.limit = 40;
+  // //   this.offset = 0;
+  //   this.isMoreData = true
   // }
-  //   this.firstShow.get_all_partner(body).then((res) => {
-  //     if (res.result && res.result.res_code == 1) {
-  //       this.employeeList = res.result.res_data;
-  //       this.origin_data = this.employeeList;
-  //     }
-  //   })
-  }
 
   doInfinite(infiniteScroll) {
     if (this.isMoreData == true) {
