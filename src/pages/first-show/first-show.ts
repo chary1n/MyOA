@@ -418,7 +418,7 @@ export class FirstShowPage {
         list = res.result.res_data
         this.haveThing = []
         for(var i=0;i<list.length;i++){
-          this.haveThing[i] = this.datePipe.transform(list[i], 'yyyy-M-d')
+          this.haveThing[i] = this.datePipe.transform(new Date(list[i]), 'yyyy-M-d')
         }
         if(this.haveThing.length!=0){
           for(var j=0;j<this.currentDayList.length;j++){
