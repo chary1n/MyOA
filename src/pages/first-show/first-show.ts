@@ -84,7 +84,7 @@ export class FirstShowPage {
         this.itemList = res.result.res_data.wait
         this.notSureList = res.result.res_data.notSure
         this.lateList = res.result.res_data.late
-        if(this.dateNow=='今天' && this.lateList && this.lateList.length!=0){
+        if(this.dateNow=='今天' && res.result.res_data.num!=0){
           this.showLate = true
           this.lateNum = res.result.res_data.num
         }else{
@@ -144,9 +144,14 @@ export class FirstShowPage {
   //滑动事件
   panEvent($event) {
     console.log('y='+$event.deltaY+" dirrection = "+$event.direction+ ' isFirst = '+$event.isFirst
-        +' isFinal ='+$event.isFinal)
+        +' isFinal ='+$event.isFinal+' deltaTime = '+$event.deltaTime+' x = '+$event.center.x+' y = '+$event.center.y
+      +' distance = '+$event.distance+' overallVelocity = '+$event.overallVelocity+ ' overallVelocityY = '+$event.overallVelocityY
+    +' velocityY = '+$event.velocityY+' velocity = '+$event.velocity)
+    if($event.center.y!=0){
+      return
+    }
     if(!this.showIcon){
-      if($event.direction==8 || $event.deltaY<=-200){
+      if($event.velocity<=0){
         this.showIcon=true
         for(var i=0;i<this.currentDayList.length;i++){
           if(this.currentDayList[i].d==this.currentDay){
@@ -156,7 +161,7 @@ export class FirstShowPage {
         this.currentDayList=this.currentDayList.slice((this.currentWeek-1)*7,this.currentWeek*7)
       }
     }else{
-      if($event.direction==16 || $event.deltaY>-200){
+      if($event.velocity>0){
         this.showIcon = false
         if(this.haveThing.length!=0){
           for(var j=0;j<this.allDayList.length;j++){
@@ -259,10 +264,13 @@ export class FirstShowPage {
         date.m = 1
       } 
     var choose_date = date.y + "-" + date.m + "-" + date.d
+    let isQuest = false
     if(date.m>this.currentMonth){
       this.add_month()
     }else if(date.m<this.currentMonth){
       this.delete_month()
+    }else{
+      isQuest = true
     }
     this.currentDate_date =  new Date(date.y + '/' + date.m + '/' + date.d)
     this.currentYear = date.y
@@ -283,7 +291,9 @@ export class FirstShowPage {
     }else{
       this.dateNow = date.m+'月'+date.d+'日'
     }
-    this.getDayData(choose_date)
+    if(isQuest){
+      this.getDayData(choose_date)
+    }
 
     this.items_day = []
     this.currentDay = date.d
@@ -392,9 +402,7 @@ export class FirstShowPage {
   }
 
   latePage(){
-    this.navCtrl.push('LateListPage',{
-      'item': this.lateList
-    })
+    this.navCtrl.push('LateListPage')
   }
 
   //获取有事件的日期

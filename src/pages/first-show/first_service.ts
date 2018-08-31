@@ -55,4 +55,8 @@ export class FirstShowService {
     search_one_partner(body){
         return this.httpService.postBody("search_one_partner", body);
     }
+
+    get_late_list(body){
+        return this.httpService.postBody("get_late_list", body);
+    }
 }
