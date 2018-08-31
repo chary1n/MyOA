@@ -446,8 +446,8 @@ export class CalendarDeatilpagePage {
         }
         }else{
           if(this.start_datetime!='' && this.stop_datetime!='' && this.start_datetime && this.stop_datetime){
-            this.start_datetime = this.datePipe.transform(new Date(new Date(this.start_datetime).getTime()-2*8*60*60*1000), 'yyyy-MM-dd HH:mm:ss')
-            this.stop_datetime = this.datePipe.transform(new Date(new Date(this.stop_datetime).getTime()-2*8*60*60*1000), 'yyyy-MM-dd HH:mm:ss')
+            this.start_datetime = this.datePipe.transform(new Date(new Date(this.start_datetime.replace(/-/g, "/")).getTime()-2*8*60*60*1000), 'yyyy-MM-dd HH:mm:ss')
+            this.stop_datetime = this.datePipe.transform(new Date(new Date(this.stop_datetime.replace(/-/g, "/")).getTime()-2*8*60*60*1000), 'yyyy-MM-dd HH:mm:ss')
             if(new Date(this.start_datetime.replace(/-/g, "/")).getTime() > new Date(this.stop_datetime.replace(/-/g, "/")).getTime()){
               Utils.toastButtom('开始时间不能大于结束时间！', this.toastCtrl)
               return
