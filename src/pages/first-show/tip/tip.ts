@@ -30,6 +30,7 @@ export class TipPage {
               public firService: FirstShowService,public storage:Storage,public toastCtrl: ToastController) {
     this.frontPage = Utils.getViewController("CalendarDeatilpagePage", navCtrl) 
     this.alarm_id = this.navParams.get('alarm_id') 
+    this.alarm_name = this.navParams.get('alarm_name') 
     this.type_app = this.navParams.get('type_app')
     this.type_notification = this.navParams.get('type_notification')
     if(this.alarm_id=='-1'){

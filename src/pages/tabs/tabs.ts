@@ -53,6 +53,7 @@ export class TabsPage {
           this.firstRoot= 'FirstShowPage';
           this.need_show_me = false
           this.need_show_gongdan = false
+          this.tabs.select(0); 
         // }
       })
   }

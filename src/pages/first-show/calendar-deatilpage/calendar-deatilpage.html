@@ -58,10 +58,10 @@
                 <p item-end style="font-size: 12px;margin-right: 15px;margin-top: 0px">{{item.type_name}}</p>
             </ion-item>
             <ion-item no-lines style="min-height: 20px;padding-left: 0px;border-bottom:#f0f2f5 1px solid;">
-                <ion-label item-start style="font-size: 13px;padding-left: 15px">主题
+                <ion-label  style="font-size: 13px;padding-left: 15px;max-width: 20%;">主题
                     <span style="color: red">*</span>
                 </ion-label>
-                <p item-end style="font-size: 12px;margin-right: 15px;margin-top: 0px">{{item.subject}}</p>
+                <ion-label   style="text-align: right;font-size: 12px;margin-right: 15px;max-width: 80%;color: #999999;margin-left: 25px;white-space: pre-line">{{item.subject}}</ion-label>
             </ion-item>
             <ion-item no-lines style="min-height: 20px;border-bottom: #f0f2f5 1px solid;">
                     <ion-label style="color:#2e3133;font-size:13px;">负责人</ion-label>
@@ -69,14 +69,14 @@
                     <!-- <img item-end src="assets/img/journal_sheet/right_icon.png" style="height:10px;"> -->
             </ion-item>
             <button ion-item  no-lines style="border-bottom:#f0f2f5 1px solid;">
-                    <div style="position: relative;">
+                    <div style="position: relative;margin-bottom: -11px;margin-top: -11px">
                       <span style="    display: inline-block;
                         position: absolute;
                         top: calc(50% - 11px);display: inline-block;font-size: 13px"> 参与人员
                         <span style="color: red">*</span></span>
                 
                       <div style="justify-content:space-around;white-space: pre-line;width: 200px;display: inline-block;
-                      position: relative;top: calc(50% - 11px);
+                      position: relative;top: -12px;
                       left: 88px;">
                         <span round style='background-color:#f0f2f5;flex :1 1 100%;color: #999999' *ngFor="let item of selectList" ion-button>
                                 {{item.partner_name}}
@@ -130,7 +130,7 @@
            </ion-item>
           <div style="padding: 1px;background-color: white;border-bottom:#f0f2f5 30px solid;">
             <p style="font-size: 13px;margin-left: 15px">内容</p>
-            <p style="font-size: 12px;margin-left: 15px;color: #c2c7cc">{{item.description}}</p>
+            <div [innerHTML]="assembleHTML(description)" style="word-wrap:break-word;color:#c2c7cc;margin: 15px;padding: 10px;width:90%"></div>
           </div>
    </div>
    <div *ngIf="isEdit">
@@ -153,14 +153,14 @@
                     <img item-end src="assets/img/journal_sheet/right_icon.png" style="height:10px;">
             </ion-item>
             <button ion-item  no-lines (click)="selectPartner()" style="border-bottom:#f0f2f5 1px solid;">
-                    <div style="position: relative;">
+                    <div style="position: relative;margin-bottom: -11px;margin-top: -11px">
                       <span style="    display: inline-block;
                         position: absolute;
                         top: calc(50% - 11px);display: inline-block;font-size: 13px">参与人员
                         <span style="color: red">*</span></span>
                 
                       <div style="justify-content:space-around;white-space: pre-line;width: 200px;display: inline-block;
-                      position: relative;top: calc(50% - 11px);
+                      position: relative;top: -12px;
                       left: 88px;">
                         <span round style='background-color:#f0f2f5;flex :1 1 100%;color: #999999' *ngFor="let item of selectList" ion-button>
                                 {{item.partner_name}}
@@ -231,7 +231,7 @@
                     border-bottom:white 0px solid;
                     border-top:white 0px solid;
                     border-left:white 0px solid;
-                    border-right:white 0px solid;"></textarea>
+                    border-right:white 0px solid;overflow-y: visible"></textarea>
           </div>
    </div>
 </ion-content>

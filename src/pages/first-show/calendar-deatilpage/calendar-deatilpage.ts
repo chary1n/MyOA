@@ -6,6 +6,7 @@ import { IonicPage , NavController, NavParams, Content} from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { ToastController } from 'ionic-angular/components/toast/toast-controller';
 import { DatePipe } from '@angular/common';
+import { DomSanitizer } from '@angular/platform-browser';
 
 
 /**
@@ -56,7 +57,7 @@ export class CalendarDeatilpagePage {
   item_stop
   constructor(public navCtrl: NavController, public navParams: NavParams, public statusBar:StatusBar,
               public firService: FirstShowService, public storage:Storage,public toastCtrl: ToastController,
-              private datePipe: DatePipe,) {
+              private datePipe: DatePipe,private sanitizer: DomSanitizer) {
                 this.frontPage = Utils.getViewController("FirstShowPage", navCtrl)
                 this.isEdit = this.navParams.get('isEdit')
                 this.storage.get('user').then(res =>{
@@ -91,7 +92,12 @@ export class CalendarDeatilpagePage {
                     this.item_start = this.datePipe.transform(this.item.start, 'yyyy-MM-dd HH:mm')
                     this.item_stop = this.datePipe.transform(this.item.stop, 'yyyy-MM-dd HH:mm')
                   }
+                  this.description = this.item.description.replace(/\n/g,"<br>")
                 }
+  }
+
+  assembleHTML(str){ 
+    　　return this.sanitizer.bypassSecurityTrustHtml(str)
   }
 
   ionViewDidLoad() {
@@ -158,8 +164,7 @@ export class CalendarDeatilpagePage {
     }
     this.firService.delete_res_model(body).then(res => {
       if (res.result.res_code == 1) {
-        this.frontPage.data.need_fresh = true;
-        this.navCtrl.popTo(this.frontPage);
+        this.navCtrl.pop();
       }
     })
     }else{
@@ -182,6 +187,7 @@ export class CalendarDeatilpagePage {
         this.change = false
         this.content.resize()
         this.item = res.result.res_data
+        this.description = this.item.description.replace(/\n/g,"<br>")
       }
     })
   }
@@ -206,15 +212,10 @@ export class CalendarDeatilpagePage {
       if(this.not_sure_time==true){
         
       }else{
-        if(this.allDay==true){
           this.start_date = this.datePipe.transform(this.item.start, 'yyyy-MM-dd')
           this.stop_date = this.datePipe.transform(this.item.stop, 'yyyy-MM-dd')
-          console.log('this.start_date = '+this.start_date)
-        }else{
-          this.start_datetime = this.datePipe.transform(this.item.start, 'yyyy-MM-dd HH:mm')
-          this.stop_datetime = this.datePipe.transform(this.item.stop, 'yyyy-MM-dd HH:mm')
-          console.log('this.start_date = '+this.start_datetime)
-        }
+          this.start_datetime = this.datePipe.transform(this.item.start, 'yyyy-MM-dd HH:mm').replace(' ','T')+'Z'
+          this.stop_datetime = this.datePipe.transform(this.item.stop, 'yyyy-MM-dd HH:mm').replace(' ','T')+'Z'
       }
       this.location = this.item.location
       this.description = this.item.description
@@ -254,8 +255,8 @@ export class CalendarDeatilpagePage {
           this.stop_date = this.datePipe.transform(this.item.stop, 'yyyy-MM-dd')
           console.log('this.start_date = '+this.start_date)
         }else{
-          this.start_datetime = this.datePipe.transform(this.item.start, 'yyyy-MM-dd HH:mm')
-          this.stop_datetime = this.datePipe.transform(this.item.stop, 'yyyy-MM-dd HH:mm')
+          this.start_datetime = this.datePipe.transform(this.item.start, 'yyyy-MM-dd HH:mm').replace(' ','T')+'Z'
+          this.stop_datetime = this.datePipe.transform(this.item.stop, 'yyyy-MM-dd HH:mm').replace(' ','T')+'Z'
           console.log('this.start_date = '+this.start_datetime)
         }
       }
@@ -347,6 +348,7 @@ export class CalendarDeatilpagePage {
   selectTip(){
       this.navCtrl.push('TipPage',{
         'alarm_id': this.alarm_id,
+        'alarm_name': this.alarm_name,
         'type_app': this.type_app,
         'type_notification': this.type_notification
       })
@@ -379,7 +381,7 @@ export class CalendarDeatilpagePage {
         myString = "    请选择类型"
       }
       if(!this.subject){
-        myString = "    请选择主题"
+        myString = "    请输入主题"
       }
       if(!this.selectList || this.selectList.length==0){
         myString = "    请选择参与人员"
@@ -444,8 +446,8 @@ export class CalendarDeatilpagePage {
         }
         }else{
           if(this.start_datetime!='' && this.stop_datetime!='' && this.start_datetime && this.stop_datetime){
-            this.start_datetime = this.datePipe.transform(this.start_datetime, 'yyyy-MM-dd HH:mm:ss')
-            this.stop_datetime = this.datePipe.transform(this.stop_datetime, 'yyyy-MM-dd HH:mm:ss')
+            this.start_datetime = this.datePipe.transform(new Date(new Date(this.start_datetime).getTime()-2*8*60*60*1000), 'yyyy-MM-dd HH:mm:ss')
+            this.stop_datetime = this.datePipe.transform(new Date(new Date(this.stop_datetime).getTime()-2*8*60*60*1000), 'yyyy-MM-dd HH:mm:ss')
             if(new Date(this.start_datetime.replace(/-/g, "/")).getTime() > new Date(this.stop_datetime.replace(/-/g, "/")).getTime()){
               Utils.toastButtom('开始时间不能大于结束时间！', this.toastCtrl)
               return

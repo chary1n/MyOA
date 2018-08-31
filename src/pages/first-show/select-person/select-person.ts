@@ -125,7 +125,15 @@ export class SelectPersonPage {
     this.firstShow.search_one_partner(body).then(res => {
       if (res.result && res.result.res_code == 1) {
         this.employeeList = res.result.res_data;
-        this.setCheck()
+        if(this.type==1){
+          this.setCheck()
+        }else if(this.type==2){
+          for (let j = 0; j < this.employeeList.length; j++) {
+            if(this.employeeList[j].partner_id==this.partner_id_s_id){
+              this.employeeList[j].ischeck=true
+            }
+          }
+        }
       }
     })
   }

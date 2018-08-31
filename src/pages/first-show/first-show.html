@@ -60,7 +60,9 @@
                 <ion-item no-lines style="margin-top: 5px;padding: 1px;border-bottom:#f0f2f5 1px solid;border-top:#f0f2f5 1px solid;min-height: 25px">
                   <ion-label style="font-size: 13px;margin-left: 15px;color: black;font-weight:bold;">{{dateNow}}</ion-label>
                   <div style="padding: 1px;" item-end class="divBac" *ngIf="showLate" tappable (click)="latePage()">
-                    <p style="font-size: 10px;color: #E98553;margin-top: auto;margin-bottom: auto">{{lateNum}}个待办已逾期 》</p>
+                    <p style="font-size: 10px;color: #E98553;margin-top: auto;margin-bottom: auto">{{lateNum}}个待办已逾期
+                        <ion-icon name="arrow-forward" style="color: #E98553;margin-top: 5px;margin-top: auto;margin-bottom: auto"></ion-icon>
+                    </p>
                   </div>
                 </ion-item>
               </div>

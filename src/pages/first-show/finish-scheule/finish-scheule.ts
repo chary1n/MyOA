@@ -54,6 +54,8 @@ export class FinishScheulePage {
   }
 
   finish(){
+    this.relly_start_time = this.datePipe.transform(new Date(new Date(this.relly_start_time).getTime()-2*8*60*60*1000), 'yyyy-MM-dd HH:mm:ss')
+    this.relly_stop_time = this.datePipe.transform(new Date(new Date(this.relly_stop_time).getTime()-2*8*60*60*1000), 'yyyy-MM-dd HH:mm:ss')
     if(new Date(this.relly_start_time.replace(/-/g, "/")).getTime() > new Date(this.relly_stop_time.replace(/-/g, "/")).getTime()){
       Utils.toastButtom('开始时间不能大于结束时间！', this.toastCtrl)
       return
