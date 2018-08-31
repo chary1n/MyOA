@@ -67,7 +67,7 @@ export class ChuchaiPage {
   click_wait_me(){
      this.inner_type = 'wait_me'
      this.wait_me_list = []
-     this.chuChaiService.get_total_vacation(this.user_id,true).then(my_data => {
+     this.chuChaiService.get_total_trip(this.user_id,true).then(my_data => {
                 if (my_data.result.res_data && my_data.result.res_code == 1) {
                     this.wait_me_list = my_data.result.res_data
                 }
@@ -86,7 +86,7 @@ export class ChuchaiPage {
       search_text = event.name.replace("搜 申请人：", "")
     }
     this.wait_me_list = []
-    this.chuChaiService.search_vacation(type,search_text,this.user_id).then(res => {
+    this.chuChaiService.search_trip(type,search_text,this.user_id).then(res => {
       if (res.result.res_data && res.result.res_code == 1) {
         this.wait_me_list = res.result.res_data
       }
@@ -105,9 +105,9 @@ export class ChuchaiPage {
   }
 
   approval_detail(item){
-    // this.navCtrl.push('VacationDetailPage',{
-    //   data_item:item,
-    // })
+    this.navCtrl.push('ChuchaiDetailPage',{
+      data_item:item,
+    })
   }
 
 }
