@@ -499,6 +499,11 @@ export class KaoqinPage {
     var d = this.currentDate_date.getDate();
     let str = ''
     console.log(m)
+    //获取下一个月有多少天
+    let days = new Date(Y, m+1, 0).getDate();
+    if(d>days){
+      d = days
+    }
       m = m + 1
       console.log(m)
       if (m <= 12) {

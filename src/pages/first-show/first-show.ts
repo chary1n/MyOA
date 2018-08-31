@@ -143,10 +143,10 @@ export class FirstShowPage {
   
   //滑动事件
   panEvent($event) {
-    console.log('y='+$event.deltaY+" dirrection = "+$event.direction+ ' isFirst = '+$event.isFirst
-        +' isFinal ='+$event.isFinal+' deltaTime = '+$event.deltaTime+' x = '+$event.center.x+' y = '+$event.center.y
-      +' distance = '+$event.distance+' overallVelocity = '+$event.overallVelocity+ ' overallVelocityY = '+$event.overallVelocityY
-    +' velocityY = '+$event.velocityY+' velocity = '+$event.velocity)
+    // console.log('y='+$event.deltaY+" dirrection = "+$event.direction+ ' isFirst = '+$event.isFirst
+    //     +' isFinal ='+$event.isFinal+' deltaTime = '+$event.deltaTime+' x = '+$event.center.x+' y = '+$event.center.y
+    //   +' distance = '+$event.distance+' overallVelocity = '+$event.overallVelocity+ ' overallVelocityY = '+$event.overallVelocityY
+    // +' velocityY = '+$event.velocityY+' velocity = '+$event.velocity)
     if(!this.showIcon){
       if($event.velocity<0){
         this.showIcon=true
@@ -303,6 +303,11 @@ export class FirstShowPage {
     var Y = this.currentDate_date.getFullYear();
     var m = this.currentDate_date.getMonth() + 1;
     var d = this.currentDate_date.getDate();
+    //获取下一个月有多少天
+    let days = new Date(Y, m+1, 0).getDate();
+    if(d>days){
+      d = days
+    }
     let str = ''
     // console.log(m)
       m = m + 1
@@ -316,12 +321,10 @@ export class FirstShowPage {
       }
 
     this.currentDate_date =  new Date(str)
-    // console.log(this.currentDate_date)
-    // console.log()
     this.currentYear = this.currentDate_date.getFullYear()
     this.currentMonth = this.currentDate_date.getMonth() + 1
-    this.currentDate = this.currentDate_date.getFullYear()+"年"+(this.currentDate_date.getMonth() + 1) + '月'  
-    this.dateNow = (this.currentDate_date.getMonth() + 1) + '月'+this.currentDate_date.getDate()+'日'
+    this.currentDate = this.currentYear+"年"+this.currentMonth + '月'  
+    this.dateNow = this.currentMonth + '月'+this.currentDate_date.getDate()+'日'
     this.getDayData(this.currentDate_date.getFullYear()+'-'+(this.currentDate_date.getMonth() + 1)+'-'+this.currentDate_date.getDate())
     this.setSchedule(new Date(str))
     this.get_backlog_identify(Y, m)

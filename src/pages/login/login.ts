@@ -263,7 +263,7 @@ export class LoginPage {
     this.isSelected3 = false;
     this.isSelected4 = false;
     this.chooseIndex = 0;
-    HttpService.appUrl = "http://192.168.1.131:8888/"
+    HttpService.appUrl = "http://192.168.1.151:8888/"
     // HttpService.appUrl = "http://erp.linkloving.com/"
     this.reset();
     this.img1 = "assets/img/jiangsuruotai_clicked.png"
