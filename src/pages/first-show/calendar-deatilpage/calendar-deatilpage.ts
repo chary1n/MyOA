@@ -121,7 +121,8 @@ export class CalendarDeatilpagePage {
         this.type_app = this.navParams.get('type_app')
         this.type_notification = this.navParams.get('type_notification')
       }else if(this.pet==2){
-        this.item = this.navParams.get('item')
+        // this.item = this.navParams.get('item')
+        this.navCtrl.pop()
       }else if(this.pet==3){
         this.selectList = this.navParams.get('selectList')
       }else if(this.pet==4){
@@ -446,8 +447,13 @@ export class CalendarDeatilpagePage {
         }
         }else{
           if(this.start_datetime!='' && this.stop_datetime!='' && this.start_datetime && this.stop_datetime){
-            this.start_datetime = this.datePipe.transform(new Date(new Date(this.start_datetime.replace(/-/g, "/")).getTime()-2*8*60*60*1000), 'yyyy-MM-dd HH:mm:ss')
-            this.stop_datetime = this.datePipe.transform(new Date(new Date(this.stop_datetime.replace(/-/g, "/")).getTime()-2*8*60*60*1000), 'yyyy-MM-dd HH:mm:ss')
+            if(this.start_datetime.indexOf('T') != -1 ){
+              this.start_datetime = this.datePipe.transform(new Date(new Date(this.start_datetime).getTime()-2*8*60*60*1000), 'yyyy-MM-dd HH:mm:ss')
+              this.stop_datetime = this.datePipe.transform(new Date(new Date(this.stop_datetime).getTime()-2*8*60*60*1000), 'yyyy-MM-dd HH:mm:ss')
+            }else{
+              this.start_datetime = this.datePipe.transform(new Date(new Date(this.start_datetime.replace(/-/g, "/")).getTime()-2*8*60*60*1000), 'yyyy-MM-dd HH:mm:ss')
+              this.stop_datetime = this.datePipe.transform(new Date(new Date(this.stop_datetime.replace(/-/g, "/")).getTime()-2*8*60*60*1000), 'yyyy-MM-dd HH:mm:ss')
+            }
             if(new Date(this.start_datetime.replace(/-/g, "/")).getTime() > new Date(this.stop_datetime.replace(/-/g, "/")).getTime()){
               Utils.toastButtom('开始时间不能大于结束时间！', this.toastCtrl)
               return

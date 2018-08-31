@@ -149,6 +149,9 @@ export class FirstShowPage {
     //     +' isFinal ='+$event.isFinal+' deltaTime = '+$event.deltaTime+' x = '+$event.center.x+' y = '+$event.center.y
     //   +' distance = '+$event.distance+' overallVelocity = '+$event.overallVelocity+ ' overallVelocityY = '+$event.overallVelocityY
     // +' velocityY = '+$event.velocityY+' velocity = '+$event.velocity)
+    // if($event.isFirst){
+
+    // }
     if(!this.showIcon){
       if($event.velocity<0){
         this.showIcon=true
