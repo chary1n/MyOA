@@ -34,8 +34,8 @@ export class FinishScheulePage {
       this.body = this.navParams.get('body')
       this.start = this.body['start']
       this.stop = this.body['stop']
-      this.relly_start_time = this.datePipe.transform(new Date(this.start), 'yyyy-MM-dd HH:mm').replace(' ','T')+'Z';
-      this.relly_stop_time = this.datePipe.transform(new Date(this.stop), 'yyyy-MM-dd HH:mm').replace(' ','T')+'Z';
+      this.relly_start_time = this.datePipe.transform(new Date(this.start.replace(/-/g, "/")), 'yyyy-MM-dd HH:mm').replace(' ','T')+'Z';
+      this.relly_stop_time = this.datePipe.transform(new Date(this.stop.replace(/-/g, "/")), 'yyyy-MM-dd HH:mm').replace(' ','T')+'Z';
   }
 
   ionViewDidLoad() {
