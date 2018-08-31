@@ -32,38 +32,38 @@ export class TabsPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,
   public storage:Storage) {
     
-    // this.storage.get('user')
-    //   .then(res => {
-    //     console.log(res)
-    //     if ((new RegExp("若态").test(res.result.res_data.company)) || res.result.res_data.company == "若态"){
-    //         this.need_show_gongdan = true
-    //        if (this.need_show_gongdan == true){
-    //           this.tabs.select(0); 
-    //         }
-    //         else
-    //         {
-    //           this.tabs.select(1); 
-    //         }
-    //       }
-    //       else
-    //       {
-    //       }
-    //   })
-      this.storage.get("loginIndex").then(res => {
-        this.loginIndex = res
-        if (this.loginIndex == 0)
-        {
-          this.need_show_first = true
-          this.firstRoot= 'FirstShowPage';
-          this.need_show_me = false
-          this.need_show_gongdan = false
-          this.need_show_new_work_bench = true
-        }
-        this.tabs.select(0) 
-        // if(this.loginIndex==2){//发版改成1
-          
-        // }
+    this.storage.get('user')
+      .then(res => {
+        console.log(res)
+        if ((new RegExp("若态").test(res.result.res_data.company)) || res.result.res_data.company == "若态"){
+            this.need_show_gongdan = true
+           if (this.need_show_gongdan == true){
+              this.tabs.select(0); 
+            }
+            else
+            {
+              this.tabs.select(1); 
+            }
+          }
+          else
+          {
+          }
       })
+      // this.storage.get("loginIndex").then(res => {
+      //   this.loginIndex = res
+      //   if (this.loginIndex == 0)
+      //   {
+      //     this.need_show_first = true
+      //     this.firstRoot= 'FirstShowPage';
+      //     this.need_show_me = false
+      //     this.need_show_gongdan = false
+      //     this.need_show_new_work_bench = true
+      //   }
+      //   this.tabs.select(0) 
+      //   // if(this.loginIndex==2){//发版改成1
+          
+      //   // }
+      // })
   }
 
   ionViewDidLoad() {

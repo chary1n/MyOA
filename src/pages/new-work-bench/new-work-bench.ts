@@ -71,7 +71,7 @@ export class NewWorkBenchPage {
   }
 
   click_chuchai(){
-
+    this.navCtrl.push('ChuchaiPage')
   }
 
   click_jixiao(){

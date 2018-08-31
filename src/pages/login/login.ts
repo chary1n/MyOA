@@ -264,7 +264,7 @@ export class LoginPage {
     this.isSelected4 = false;
     this.chooseIndex = 0;
     HttpService.appUrl = "http://192.168.1.151:8888/"
-    // HttpService.appUrl = "http://erp.linkloving.com/"
+    // HttpService.appUrl = "http://service.linkloving.net:8888/"
     this.reset();
     this.img1 = "assets/img/jiangsuruotai_clicked.png"
     this.password_src = "assets/img/S_password.png"
@@ -280,7 +280,7 @@ export class LoginPage {
     this.chooseIndex = 1;
     // HttpService.appUrl = "http://192.168.1.170:8069/"
     // HttpService.appUrl = "http://192.168.1.134:8111/"
-    HttpService.appUrl = "http://10.0.0.15:8081/"
+    HttpService.appUrl = "http://js.robotime.com/"
     this.reset();
     this.img1 = "assets/img/jiangsuruotai_clicked.png"
     this.password_src = "assets/img/S_password.png"
@@ -294,8 +294,8 @@ export class LoginPage {
     this.isSelected3 = false;
     this.isSelected4 = false;
     this.chooseIndex = 2;
-    // HttpService.appUrl = "http://dr.robotime.com/"
-    HttpService.appUrl = "http://192.168.1.131:8888/"
+    HttpService.appUrl = "http://dr.robotime.com/"
+    // HttpService.appUrl = "http://192.168.1.131:8888/"
     // HttpService.appUrl = "http://192.168.2.64:8069/"
     this.reset();
     this.img2 = "assets/img/diy_clicked.png"
@@ -310,8 +310,8 @@ export class LoginPage {
     this.isSelected1 = false;   
     this.isSelected4 = false;
     this.chooseIndex = 3;
-    // HttpService.appUrl = "http://erp.robotime.com/"
-    HttpService.appUrl = "http://192.168.1.9:8081/"
+    HttpService.appUrl = "http://erp.robotime.com/"
+    // HttpService.appUrl = "http://192.168.1.9:8081/"
     this.reset();
     this.img3 = "assets/img/ruobeier_clicked.png"
     this.password_src = "assets/img/R_password.png"
@@ -326,8 +326,8 @@ export class LoginPage {
     this.isSelected1 = false;
     this.isSelected3 = false;
     this.chooseIndex = 4;
-    // HttpService.appUrl = "http://ber.robotime.com/"
-    HttpService.appUrl = "http://192.168.1.47:8081/"
+    HttpService.appUrl = "http://ber.robotime.com/"
+    // HttpService.appUrl = "http://192.168.1.47:8081/"
     this.reset();
     this.img4 = "assets/img/banchang_clicked.png"
     this.password_src = "assets/img/B_password.png"

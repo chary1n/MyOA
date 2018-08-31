@@ -34,7 +34,7 @@
       </ion-col>
 
       <ion-col class="col_class" tappable (click)="click_vacation()" col-3>
-        <div *ngIf="vacation_num > 0" align="center" class="number_class">
+        <div *ngIf="vacation_num > 0" align="center" [ngClass]="{true:'big_number_class',false:'number_class'}[vacation_num >= 10]" >
             {{vacation_num}}
           </div>
         <div class="body_class" align="center">
@@ -46,7 +46,7 @@
       </ion-col>
 
       <ion-col class="col_class" tappable (click)="click_recoup()" col-3>
-        <div *ngIf="recoup_num > 0" align="center" class="number_class">
+        <div *ngIf="recoup_num > 0" align="center" [ngClass]="{true:'big_number_class',false:'number_class'}[recoup_num >= 10]">
             {{recoup_num}}
           </div>
         <div class="body_class" align="center">
@@ -71,8 +71,8 @@
       工作汇报
     </div>
     <ion-row class="body_row_class" align-items-center>
-      <ion-col class="col_class" tappable (click)="click_chuchai()" col-3>
-        <div *ngIf="performance > 0" align="center" class="number_class">
+      <ion-col class="col_class" tappable (click)="click_jixiao()" col-3>
+        <div *ngIf="performance > 0" align="center" [ngClass]="{true:'big_number_class',false:'number_class'}[performance >= 10]">
             {{performance}}
           </div>
         <div class="body_class" align="center">
