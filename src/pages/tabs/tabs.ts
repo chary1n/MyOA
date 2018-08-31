@@ -57,15 +57,11 @@ export class TabsPage {
           this.firstRoot= 'FirstShowPage';
           this.need_show_me = false
           this.need_show_gongdan = false
-<<<<<<< HEAD
           this.need_show_new_work_bench = true
         }
         this.tabs.select(0) 
         // if(this.loginIndex==2){//发版改成1
           
-=======
-          this.tabs.select(0); 
->>>>>>> e4c6ace89712d32d1c1f0f4c1531a81f0da9c89f
         // }
       })
   }
