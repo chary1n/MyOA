@@ -6,13 +6,33 @@
 -->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>AllSchedulePage</ion-title>
+    <ion-navbar color="gongdan-color" hideBackButton="true">
+        <ion-buttons left>
+            <button ion-button icon-only (click)="goBack()">
+              <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+            </button>
+          </ion-buttons>
+      <ion-title>待办</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
-
+<ion-content style="background-color:#f0f2f5">
+    <ion-grid style="border-bottom:#f0f2f5 1px solid;background-color: white">
+        <ion-row style="max-height:50px;margin-top: -15px">
+          <ion-col   col-2 tappable  (click)="selectType(item)" style="text-align: center;margin-left: 10px" *ngFor="let item of dataList" >
+            <p style="padding-bottom:5px;width:65px;"
+            [ngClass]="{true:'selected',false:'normal'}[item.select]">{{item.display_name}}</p>
+          </ion-col>
+        </ion-row>
+    </ion-grid>
+    <div class="header_div_class">
+        <!-- <ion-auto-complete class="searchbar_class" (itemSelected)="itemSelected($event)" (itemClearSelected)="itemClearSelected($event)"></ion-auto-complete> -->
+    </div>
+          <div class="div_class" no-lines *ngFor='let item of type_list' tappable (click)='toDetail(item)'>
+            <p style="margin-left: 25px;margin-top: 10px;padding-top: 10px;color: #5f6163">{{item.subject}}</p>
+            <p style="margin-left: 25px;font-size: 13px;color: #c7cace">{{item.start}}  至  {{item.stop}}</p>
+          </div>
+  
 </ion-content>

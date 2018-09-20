@@ -291,7 +291,7 @@ export class LoginPage {
     this.isSelected4 = false;
     this.chooseIndex = 2;
     // HttpService.appUrl = "http://dr.robotime.com/"
-    HttpService.appUrl = "http://192.168.1.54:8888/"
+    HttpService.appUrl = "http://192.168.1.122:8888/"
     // HttpService.appUrl = "http://192.168.2.64:8069/"
     this.reset();
     this.img2 = "assets/img/diy_clicked.png"
