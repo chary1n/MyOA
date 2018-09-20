@@ -101,4 +101,9 @@ export class FirstShowService {
     get_all_schedule(body){
         return this.httpService.postBody("get_all_schedule", body);
     }
+    
+
+    search_all_schedule(body){
+        return this.httpService.postBody("search_all_schedule", body);
+    }
 }

@@ -55,7 +55,8 @@ export class LateListPage {
   toDetail(sub){
     this.navCtrl.push('CalendarDeatilpagePage',{
       'isEdit': false,
-      'item': sub
+      'item': sub,
+      'frontPage': 'LateListPage'
     })
   }
 }

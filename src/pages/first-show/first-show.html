@@ -48,7 +48,7 @@
                 <span tappable (click)="delete_month()">{{"<"}}</span><span style="margin-left:10px">{{currentDate}}</span><span style="margin-left:10px" tappable (click)="add_month()">{{">"}}</span>
             </p>
           </div>
-          <ion-backdrop *ngIf="isShowBac" disable-activated role="presentation"  style="opacity: 0.9; background-color: white;transition-delay: initial;filter: blur(0px);">       
+          <ion-backdrop *ngIf="isShowBac" tappable (click)="closeFab()" disable-activated role="presentation"  style="opacity: 0.9; background-color: white;transition-delay: initial;filter: blur(0px);">       
           </ion-backdrop>
           <ion-fab style="margin-bottom:90px;position:fixed;opacity: 1.0;" bottom right edge #fab>
               <button (click)="showback()" style="box-shadow:1px 2px 10px #888888;width: 50px;height: 50px;line-height: 50px;background-color: #2597ec" ion-fab mini><ion-icon name="add" style="color: white;line-height: 50px"></ion-icon></button>

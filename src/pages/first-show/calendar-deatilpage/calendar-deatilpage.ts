@@ -73,7 +73,7 @@ export class CalendarDeatilpagePage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public statusBar:StatusBar,
               public firService: FirstShowService, public storage:Storage,public toastCtrl: ToastController,
               private datePipe: DatePipe,private sanitizer: DomSanitizer,public alertCtrl: AlertController) {
-                this.frontPage = Utils.getViewController("FirstShowPage", navCtrl)
+                this.frontPage = Utils.getViewController(this.navParams.get('frontPage'), navCtrl)
                 this.isEdit = this.navParams.get('isEdit')
                 this.storage.get('user').then(res =>{
                   this.user = res.result.res_data
@@ -98,7 +98,6 @@ export class CalendarDeatilpagePage {
                         this.isMeeting = true
                         this.allday = false
                         this.meeting_id = this.navParams.get('meeting_id')
-                        this.frontPage = Utils.getViewController("MeetingPage", navCtrl)
                       }
                   }
                   this.rt_project_principal = res.result.res_data.partner_id
@@ -109,12 +108,6 @@ export class CalendarDeatilpagePage {
                       'ischeck': true
                   })
                   }else{
-                      if(this.navParams.get('type')){
-                        let type = this.navParams.get('type')
-                          if(type==1){
-                            this.frontPage = Utils.getViewController("MeetingPage", navCtrl)
-                          }
-                      }
                         this.item = this.navParams.get('item');
                         this.item_change()
                   }

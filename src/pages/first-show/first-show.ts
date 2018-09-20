@@ -1,7 +1,7 @@
 import { Storage } from '@ionic/storage';
 import { FirstShowService } from './first_service';
 import { IonicPage, NavController, NavParams , FabContainer} from 'ionic-angular';
-import { Component} from '@angular/core';
+import { Component, ViewChild} from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { StatusBar } from '@ionic-native/status-bar';
 
@@ -18,6 +18,7 @@ import { StatusBar } from '@ionic-native/status-bar';
   providers: [DatePipe, FirstShowService]
 })
 export class FirstShowPage {
+  @ViewChild('fab')fab : FabContainer;
   isDay = true
   isShen = false
   isMessage = false
@@ -423,12 +424,14 @@ export class FirstShowPage {
         this.navCtrl.push('MeetingPage',{
           'meeting_id': item.rt_meeeting_s_id,
           'isEdit': false,
-          'uid': this.uid
+          'uid': this.uid,
+          'frontPage': 'FirstShowPage'
         })
       }else{
         this.navCtrl.push('CalendarDeatilpagePage',{
           'item': item,
-          'isEdit': false
+          'isEdit': false,
+          'frontPage': 'FirstShowPage'
         })
       }
     }
@@ -483,14 +486,16 @@ export class FirstShowPage {
     if(this.type_id==item.id){
       this.navCtrl.push('MeetingPage', {
         'isEdit': true,
-        'date': this.currentDate_date
+        'date': this.currentDate_date,
+        'frontPage': 'FirstShowPage'
     })
     }else{
       this.navCtrl.push('CalendarDeatilpagePage', {
         'isEdit': true,
         'date': this.currentDate_date,
         'type_id': item.id,
-        'type_name': item.display_name
+        'type_name': item.display_name,
+        'frontPage': 'FirstShowPage'
     })
     }
   }
@@ -558,4 +563,8 @@ export class FirstShowPage {
     this.navCtrl.push('AllSchedulePage')
   }
 
+  closeFab(){
+    this.isShowBac = false
+    this.fab.close()
+  }
 }

@@ -65,7 +65,7 @@ export class MeetingPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,public storage:Storage,
               private datePipe: DatePipe, public statusBar:StatusBar,public firService: FirstShowService
               ,public toastCtrl: ToastController,private sanitizer: DomSanitizer,) {
-                this.frontPage = Utils.getViewController("FirstShowPage", navCtrl)
+                this.frontPage = Utils.getViewController(this.navParams.get('frontPage'), navCtrl)
                 this.isEdit = this.navParams.get('isEdit')
                 this.storage.get('user').then(res =>{
                   this.user = res.result.res_data
@@ -472,6 +472,7 @@ handleData(){
       'isEdit': true,
       'type': 1,
       'meeting_id': this.meeting_id,
+      'frontPage': 'MeetingPage'
     })
   }
 
@@ -479,12 +480,9 @@ handleData(){
     this.navCtrl.push('CalendarDeatilpagePage',{
       'item': item,
       'isEdit': false,
-      'type': 1
+      'type': 1,
+      'frontPage': 'MeetingPage'
     })
-    // this.navCtrl.push('CalendarDeatilpagePage',{
-    //   'item': item,
-    //   'isEdit': false
-    // })
   }
 
   delete(){
