@@ -1,3 +1,13 @@
 page-new-tabs {
 
+    .tab-red-point {
+        position: absolute;
+        // top: 4%;
+        // right: calc(50% - 16px);
+        height: 6px;
+        width: 6px;
+        border-radius: 3px;
+        background-color: red
+      }
+
 }

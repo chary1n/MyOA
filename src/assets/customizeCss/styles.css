@@ -136,6 +136,30 @@ ion-list ion-col{
 }
 
 
+.badge-ios{
+    color: red;
+    background-color: red
+}
+
+.tab-badge {
+    right: 4%;
+    top: 6%;
+    right: calc(50% - 50px);
+    /* padding: 1px 6px; */
+    position: absolute;
+    height: auto;
+    font-size: 1px;
+    line-height: 9px;
+    width: 8px;
+    padding: 0px;
+    padding-top: 1px;
+  }
+
+  .fab[mini] .fab-close-icon {
+    line-height: 50px;
+  }
+
+
 
 
   

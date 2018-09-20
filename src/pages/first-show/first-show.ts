@@ -1,13 +1,9 @@
-import { AppVersion } from '@ionic-native/app-version';
 import { Storage } from '@ionic/storage';
 import { FirstShowService } from './first_service';
-import { IonicPage, NavController, NavParams, MenuController ,Platform, Content} from 'ionic-angular';
-import { Component, ViewChild} from '@angular/core';
+import { IonicPage, NavController, NavParams , FabContainer} from 'ionic-angular';
+import { Component} from '@angular/core';
 import { DatePipe } from '@angular/common';
-import { FirService } from './../../app/FirService';
 import { StatusBar } from '@ionic-native/status-bar';
-import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/native-page-transitions';
-declare let cordova: any;
 
 /**
  * Generated class for the FirstShowPage page.
@@ -19,10 +15,12 @@ declare let cordova: any;
 @Component({
   selector: 'page-first-show',
   templateUrl: 'first-show.html',
-  providers: [DatePipe, FirstShowService,FirService,NativePageTransitions]
+  providers: [DatePipe, FirstShowService]
 })
 export class FirstShowPage {
-  @ViewChild(Content) content: Content;
+  isDay = true
+  isShen = false
+  isMessage = false
   user_heard: string;
   currentWeek = 1;//当前第几周
   currentDate_date ;//当前年月日
@@ -43,28 +41,50 @@ export class FirstShowPage {
   showLate = false//显示逾期
   lateNum = 0
   haveThing = []//有事件的list
-  company:any;
-  job:any;
-  versionNumber :any ;
-  version: any;
-  name: string;
   need_fresh = false;
   subNum;//是否显示没有添加日程
+  recoup_num//补卡销卡数目
+  vacation_num//休假单数目
+  isShowApprovalPoint = false
+  all_approval = 0//审批总和
+  type_id;//会议的类型
+  event_list
+  isShowBac = false
   constructor(public navCtrl: NavController, public navParams: NavParams,private datePipe: DatePipe,
-              private firshowService: FirstShowService,public storage:Storage,public menuCtrl: MenuController,
-              public platform :Platform,public appVersion:AppVersion,public firService: FirService,
-              public statusBar:StatusBar,private nativePageTransitions: NativePageTransitions) {
-              
+              private firshowService: FirstShowService,public storage:Storage,
+              public statusBar:StatusBar) {
         this.storage.get('user').then(res => {
-        this.name = res.result.res_data.name;
         this.user_heard = res.result.res_data.user_ava;
         this.uid = res.result.res_data.user_id;
         this.getDayData(this.datePipe.transform(new Date(), 'yyyy-MM-dd'))
         this.get_backlog_identify(this.currentYear, this.currentMonth)
+        this.get_approval_num()
+        this.getType()
       })
   }
+  showback(){
+    if(this.isShowBac){
+      this.isShowBac = false
+    }else{
+      this.isShowBac = true
+    }
+  }
+  //获取所有的待办类型
+  getType(){
+    let body = {
+      'uid':this.uid
+    }
+    this.firshowService.get_event_type(body).then(res => {
+      if (res.result.res_data && res.result.res_code == 1) {
+        this.event_list = res.result.res_data
+      }
+    })
+  }
   ionViewDidEnter() {
-    this.content.resize()
+    this.storage.get('user').then(res => {
+      this.uid = res.result.res_data.user_id;
+      this.get_approval_num()
+    })
     this.statusBar.backgroundColorByHexString("#2597ec");
     this.statusBar.styleLightContent();
     this.need_fresh =this.navParams.get('need_fresh')
@@ -85,6 +105,7 @@ export class FirstShowPage {
         this.itemList = res.result.res_data.wait
         this.notSureList = res.result.res_data.notSure
         this.lateList = res.result.res_data.late
+        this.type_id = res.result.res_data.type_id
         if(this.dateNow=='今天' && res.result.res_data.num!=0){
           this.showLate = true
           this.lateNum = res.result.res_data.num
@@ -113,7 +134,6 @@ export class FirstShowPage {
     this.setSchedule(this.currentDate_date)
     for(var i=0;i<this.currentDayList.length;i++){
       if(this.currentDayList[i].d==this.currentDay && this.currentDayList[i].m==this.currentMonth){
-        console.log("i="+i+"  currentWeek = "+Math.ceil((i+1)/7))
        this.currentWeek = Math.ceil((i+1)/7)
        break
       }
@@ -124,6 +144,7 @@ export class FirstShowPage {
       this.currentDayList = this.allDayList
     }
   }
+
   //控制按钮是否显示
   changeCalendar(){
     this.showIcon = false
@@ -141,45 +162,20 @@ export class FirstShowPage {
     this.currentDayList = this.allDayList
   }
 
-  
-  //滑动事件
-  panEvent($event) {
-    cordova.plugins.Keyboard.close();
-    // console.log('y='+$event.deltaY+" dirrection = "+$event.direction+ ' isFirst = '+$event.isFirst
-    //     +' isFinal ='+$event.isFinal+' deltaTime = '+$event.deltaTime+' x = '+$event.center.x+' y = '+$event.center.y
-    //   +' distance = '+$event.distance+' overallVelocity = '+$event.overallVelocity+ ' overallVelocityY = '+$event.overallVelocityY
-    // +' velocityY = '+$event.velocityY+' velocity = '+$event.velocity)
-    // if($event.isFirst){
-
-    // }
-    if(!this.showIcon){
-      if($event.velocity<0){
-        this.showIcon=true
+  changeCalendarAll(){
+    this.showIcon=true
         for(var i=0;i<this.currentDayList.length;i++){
           if(this.currentDayList[i].d==this.currentDay){
            this.currentWeek = Math.ceil((i+1)/7)
           }
         }
-        this.currentDayList=this.currentDayList.slice((this.currentWeek-1)*7,this.currentWeek*7)
-      }
-    }else{
-      if($event.velocity>=0){
-        this.showIcon = false
-        if(this.haveThing.length!=0){
-          for(var j=0;j<this.allDayList.length;j++){
-            for(var a=0;a<this.haveThing.length;a++){
-              if (this.haveThing[a]==this.allDayList[j].y+'-'+this.allDayList[j].m+'-'+this.allDayList[j].d){
-                this.allDayList[j].s = true
-                break
-              }
-            }
-          }
-        }
-          this.currentDayList = this.allDayList
-      }
-    }
+    this.currentDayList=this.currentDayList.slice((this.currentWeek-1)*7,this.currentWeek*7)
   }
 
+  //考勤
+  kaoqin(){
+    this.navCtrl.push('KaoqinPage')
+  }
 
   setSchedule(currentObj){
     
@@ -198,8 +194,8 @@ export class FirstShowPage {
     let currentDayList = []
     //本月总共有几周
     var total_weeks = this.getWeeks(Y, m) 
-    console.log("currentDayNum="+currentDayNum+"   currentDayWeek="+currentDayWeek
-  +"    result="+result+"  firstKey="+firstKey+"   total_weeks="+total_weeks)
+  //   console.log("currentDayNum="+currentDayNum+"   currentDayWeek="+currentDayWeek
+  // +"    result="+result+"  firstKey="+firstKey+"   total_weeks="+total_weeks)
     var f = 0
     var num = 1//用来显示多出来的下个月的几个日期
     var snum = days-firstKey+2//用来显示多出来的上个月的几个日期
@@ -268,9 +264,35 @@ export class FirstShowPage {
     var choose_date = date.y + "-" + date.m + "-" + date.d
     let isQuest = false
     if(date.m>this.currentMonth){
-      this.add_month()
+      this.showIcon = false
+      let str = ''
+      if (date.m <= 12) {
+        str = date.y + '/' + date.m + '/' + date.d
+      } else {
+        date.y = date.y + 1
+        date.m = 1
+        str = date.y + '/' + 1 + '/' + date.d
+      }
+    this.currentDate_date =  new Date(str)
+    this.currentDate = this.currentDate_date.getFullYear()+"年"+(this.currentDate_date.getMonth() + 1) + '月'
+    this.getDayData(this.currentDate_date.getFullYear()+'-'+(this.currentDate_date.getMonth() + 1)+'-'+this.currentDate_date.getDate())
+    this.setSchedule(new Date(str))
+    this.get_backlog_identify(date.y, date.m)
     }else if(date.m<this.currentMonth){
-      this.delete_month()
+      this.showIcon = false
+      let str = ''
+      if (date.m <= 0) {
+        date.y = date.y - 1
+        date.m = 12
+        str = date.y + '/' + 12 + '/' + date.d
+      } else {
+        str = date.y + '/' + date.m + '/' + date.d
+      }
+    this.currentDate_date =  new Date(str)
+    this.currentDate = this.currentDate_date.getFullYear()+"年"+(this.currentDate_date.getMonth() + 1) + '月'
+    this.getDayData(this.currentDate_date.getFullYear()+'-'+(this.currentDate_date.getMonth() + 1)+'-'+this.currentDate_date.getDate())
+    this.setSchedule(new Date(str))
+    this.get_backlog_identify(date.y, date.m)
     }else{
       isQuest = true
     }
@@ -329,10 +351,27 @@ export class FirstShowPage {
     this.currentYear = this.currentDate_date.getFullYear()
     this.currentMonth = this.currentDate_date.getMonth() + 1
     this.currentDate = this.currentYear+"年"+this.currentMonth + '月'  
-    this.dateNow = this.currentMonth + '月'+this.currentDate_date.getDate()+'日'
+    if((this.currentDate_date.getFullYear()+'-'+(this.currentDate_date.getMonth() + 1)+'-'+this.currentDate_date.getDate())==this.getNowDay()){
+      this.dateNow='今天'
+    }else{
+      this.dateNow = this.dateNow = (this.currentDate_date.getMonth() + 1) + '月'+this.currentDate_date.getDate()+'日'
+    }
     this.getDayData(this.currentDate_date.getFullYear()+'-'+(this.currentDate_date.getMonth() + 1)+'-'+this.currentDate_date.getDate())
     this.setSchedule(new Date(str))
     this.get_backlog_identify(Y, m)
+  }
+
+  getNowDay(){
+    var Y = new Date().getFullYear();
+    var m = new Date().getMonth() + 1;
+    var d = new Date().getDate();
+    //日
+    var da = new Date(Y + "/" + m + "/" + d).getDate()
+    //月
+    var mon = new Date(Y + "/" + m + "/" + d).getMonth() + 1
+    //年
+    var year = new Date(Y + "/" + m + "/" + d).getFullYear()
+    return year+"-"+mon+"-"+da
   }
 
   delete_month(){
@@ -354,35 +393,16 @@ export class FirstShowPage {
     this.currentYear = this.currentDate_date.getFullYear()
     this.currentMonth = this.currentDate_date.getMonth() + 1
     this.currentDate = this.currentDate_date.getFullYear()+"年"+(this.currentDate_date.getMonth() + 1) + '月'
-    this.dateNow = (this.currentDate_date.getMonth() + 1) + '月'+this.currentDate_date.getDate()+'日'
+    if((this.currentDate_date.getFullYear()+'-'+(this.currentDate_date.getMonth() + 1)+'-'+this.currentDate_date.getDate())==this.getNowDay()){
+      this.dateNow='今天'
+    }else{
+      this.dateNow = this.dateNow = (this.currentDate_date.getMonth() + 1) + '月'+this.currentDate_date.getDate()+'日'
+    }
     this.getDayData(this.currentDate_date.getFullYear()+'-'+(this.currentDate_date.getMonth() + 1)+'-'+this.currentDate_date.getDate())
     this.setSchedule(new Date(str))
     this.get_backlog_identify(Y, m)
   }
 
-  delete_day(){
-    var timestamp = Date.parse(this.datePipe.transform(this.currentDate_date, 'yyyy-MM-dd').replace(/-/g, '/'));
-    var timestamp_now = timestamp / 1000 - 24 * 60 * 60
-    var date = new Date(timestamp_now * 1000)
-    this.currentDate_date = date
-    this.currentDate_day = (date.getMonth() + 1) + "月" + date.getDate() + "日"
-    this.get_day_data(date)
-  }
-
-  add_day(){
-    var timestamp = Date.parse(this.datePipe.transform(this.currentDate_date, 'yyyy-MM-dd').replace(/-/g, '/'));
-    var timestamp_now = timestamp / 1000 + 24 * 60 * 60
-    var date = new Date(timestamp_now * 1000)
-    this.currentDate_date = date
-    this.currentDate_day = (date.getMonth() + 1) + "月" + date.getDate() + "日"
-    this.get_day_data(date)
-  }
-
-  get_day_data(date){
-    // var timestamp = Date.parse(date);
-    // var timestamp_now = timestamp / 1000 - 24 * 60 * 60
-    // var date_later = new Date(timestamp_now * 1000)
-  }
 
   gotoDeatil(item){
     if(item.res_model_s=='rt.performance.appraisal.detail' && item.res_id!=false){
@@ -399,10 +419,18 @@ export class FirstShowPage {
         }
       })
     }else{
-      this.navCtrl.push('CalendarDeatilpagePage',{
-        'item': item,
-        'isEdit': false
-      })
+      if(this.type_id==item.type_id && item.is_meeting_sch==false){
+        this.navCtrl.push('MeetingPage',{
+          'meeting_id': item.rt_meeeting_s_id,
+          'isEdit': false,
+          'uid': this.uid
+        })
+      }else{
+        this.navCtrl.push('CalendarDeatilpagePage',{
+          'item': item,
+          'isEdit': false
+        })
+      }
     }
   }
 
@@ -441,27 +469,93 @@ export class FirstShowPage {
     })
   }
 
-
+  // createMetting(fab: FabContainer){
+  //   fab.close();
+  //   this.navCtrl.push('MeetingPage', {
+  //     'isEdit': true,
+  //     'date': this.currentDate_date
+  // })
+  // }
   //创建新代办
-  createWait(){
-    this.navCtrl.push('CalendarDeatilpagePage', {
+  createWait(item,fab: FabContainer){
+    fab.close();
+    this.isShowBac = false
+    if(this.type_id==item.id){
+      this.navCtrl.push('MeetingPage', {
         'isEdit': true,
         'date': this.currentDate_date
     })
+    }else{
+      this.navCtrl.push('CalendarDeatilpagePage', {
+        'isEdit': true,
+        'date': this.currentDate_date,
+        'type_id': item.id,
+        'type_name': item.display_name
+    })
+    }
   }
 //跳转到我的页面
-  mePage(){
-    let options: NativeTransitionOptions = {
-      direction: 'right',
-      duration: 300,
-    iosdelay: 100,
-    androiddelay: 150,
-    fixedPixelsTop: 0,
-    fixedPixelsBottom: 60
-     };
-     this.nativePageTransitions.slide(options);
-    this.navCtrl.push('MePage', {
-      'from': true
+  // mePage(){
+  //   let options: NativeTransitionOptions = {
+  //     direction: 'right',
+  //     duration: 300,
+  //     iosdelay: 100,
+  //     androiddelay: 150,
+  //     fixedPixelsTop: 0,
+  //     fixedPixelsBottom: 60
+  //    };
+  //    this.nativePageTransitions.slide(options);
+  //   this.navCtrl.push('MePage', {
+  //     'from': true
+  //   })
+  // }
+  daything(){
+      this.isDay = true
+      this.isMessage = false
+      this.isShen = false
+  }
+
+  consider(){
+    this.isDay = false
+    this.isMessage = false
+    this.isShen = true
+  }
+
+  message(){
+    this.isDay = false
+    this.isMessage = true
+    this.isShen = false
+  }
+
+  toVacation(){
+    this.navCtrl.push('VacationApprovalPage')
+  }
+
+  toBuka(){
+    this.navCtrl.push('AttendaceRecoupPage')
+  }
+
+  //获取审批的数目
+  get_approval_num(){
+    let body ={
+      'uid': this.uid
+    }
+    this.firshowService.get_approval_num(body).then(res =>{
+      if(res.result.res_data && res.result.res_code == 1){
+         this.recoup_num = res.result.res_data.recoup_num
+         this.vacation_num = res.result.res_data.vacation_num
+         this.all_approval = this.recoup_num+this.vacation_num
+         if(this.all_approval!=0){
+          this.isShowApprovalPoint=true
+         }else{
+           this.isShowApprovalPoint = false
+         }
+      }
     })
   }
+
+  toAll(){
+    this.navCtrl.push('AllSchedulePage')
+  }
+
 }

@@ -9,7 +9,6 @@ import { JPush} from '../../providers/JPush'
 import { StatusBar } from '@ionic-native/status-bar';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { HttpService } from '../../providers/HttpService';
-import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/native-page-transitions';
 
 /**
  * Generated class for the MePage page.
@@ -21,7 +20,7 @@ import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/na
 @Component({
   selector: 'page-me',
   templateUrl: 'me.html',
-  providers:[JPush, FirService,NativePageTransitions],
+  providers:[JPush, FirService],
 })
 export class MePage {
   name: string;
@@ -39,11 +38,7 @@ export class MePage {
     private modalctrl:ModalController, public platform :Platform,public appVersion:AppVersion,
     public jpush: JPush,
     public statusbar:StatusBar, public firService: FirService,
-    private inAppBrowser: InAppBrowser,
-    private httpService: HttpService,private nativePageTransitions: NativePageTransitions) {
-      if(this.navParams){
-        this.from = this.navParams.get('from')
-      }
+    private inAppBrowser: InAppBrowser,private httpService: HttpService) {
       if (this.platform.is("android")) {
         this.appVersion.getVersionNumber().then((value: string) => {
           this.versionNumber = value
@@ -226,14 +221,14 @@ export class MePage {
     this.navCtrl.push('ChangePasswordPage',{ is_me: true })
   }
 
-  goBack(){
-    let options: NativeTransitionOptions = {
-      direction: 'left',
-      duration: 400,
-      fixedPixelsTop: 0,
-      fixedPixelsBottom: 60
-     };
-     this.nativePageTransitions.slide(options);
-    this.navCtrl.pop()
-  }
+  // goBack(){
+  //   let options: NativeTransitionOptions = {
+  //     direction: 'left',
+  //     duration: 400,
+  //     fixedPixelsTop: 0,
+  //     fixedPixelsBottom: 60
+  //    };
+  //    this.nativePageTransitions.slide(options);
+  //   this.navCtrl.pop()
+  // }
 }

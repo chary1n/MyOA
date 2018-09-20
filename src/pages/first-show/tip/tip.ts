@@ -26,9 +26,11 @@ export class TipPage {
   ischeck=false
   type_app = false
   type_notification = false
+  page = 'CalendarDeatilpagePage'
   constructor(public navCtrl: NavController, public navParams: NavParams,
               public firService: FirstShowService,public storage:Storage,public toastCtrl: ToastController) {
-    this.frontPage = Utils.getViewController("CalendarDeatilpagePage", navCtrl) 
+    this.page = this.navParams.get('page') 
+    this.frontPage = Utils.getViewController(this.page, navCtrl) 
     this.alarm_id = this.navParams.get('alarm_id') 
     this.alarm_name = this.navParams.get('alarm_name') 
     this.type_app = this.navParams.get('type_app')

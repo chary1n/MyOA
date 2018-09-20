@@ -32,23 +32,23 @@ export class TabsPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,
   public storage:Storage) {
     
-    this.storage.get('user')
-      .then(res => {
-        console.log(res)
-        if ((new RegExp("若态").test(res.result.res_data.company)) || res.result.res_data.company == "若态"){
-            this.need_show_gongdan = true
-           if (this.need_show_gongdan == true){
-              this.tabs.select(0); 
-            }
-            else
-            {
-              this.tabs.select(1); 
-            }
-          }
-          else
-          {
-          }
-      })
+    // this.storage.get('user')
+    //   .then(res => {
+    //     console.log(res)
+    //     if ((new RegExp("若态").test(res.result.res_data.company)) || res.result.res_data.company == "若态"){
+    //         this.need_show_gongdan = true
+    //        if (this.need_show_gongdan == true){
+    //           this.tabs.select(0); 
+    //         }
+    //         else
+    //         {
+    //           this.tabs.select(1); 
+    //         }
+    //       }
+    //       else
+    //       {
+    //       }
+    //   })
       // this.storage.get("loginIndex").then(res => {
       //   this.loginIndex = res
       //   if (this.loginIndex == 0)
