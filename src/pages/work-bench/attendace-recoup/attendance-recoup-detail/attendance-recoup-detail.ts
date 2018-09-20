@@ -4,7 +4,7 @@ import { AttendanceAutoService } from '../attendance-recoup-auto'
 import { Storage } from '@ionic/storage';
 import { AttendanceService} from '../attendanceService';
 import { Utils } from './../../../../providers/Utils';
-
+declare let cordova: any;
 /**
  * Generated class for the AttendanceRecoupDetailPage page.
  *
@@ -37,12 +37,14 @@ export class AttendanceRecoupDetailPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AttendanceRecoupDetailPage');
+    cordova.plugins.Keyboard.close();
   }
 
   ionViewWillEnter() {
+    cordova.plugins.Keyboard.close();
     let data = this.navParams.get("data")
     console.log(this.navParams.get('item_index'))
-    if (this.navParams.get('item_index'))
+    if (this.navParams.get('item_index') >= 0)
     {
       if (data){
         this.data_arr.splice(this.navParams.get('item_index'), 1, data);

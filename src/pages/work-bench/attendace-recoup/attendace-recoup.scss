@@ -43,7 +43,14 @@ page-attendace-recoup {
     .div_class{
         height: 70px;
     background-color: white;
+    margin-top: 5px;
     }
+
+    .div_class:first-child{
+        height: 70px;
+    background-color: white;
+    margin-top: -3px;
+    } 
 
     .time_class{
                 font-size: 95%;

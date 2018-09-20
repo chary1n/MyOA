@@ -6,6 +6,8 @@ import { DatePipe } from '@angular/common';
 import { IonicPage, NavController, NavParams, Platform,AlertController ,ToastController,LoadingController} from 'ionic-angular';
 import { Utils } from '../../../providers/Utils';
 import { Device } from '@ionic-native/device';
+import { DatePicker } from '@ionic-native/date-picker';
+
 // import { Device } from 'ionic-native'
 /**
  * Generated class for the KaoqinPage page.
@@ -54,6 +56,8 @@ export class KaoqinPage {
   fail_str;
   attendance_off;
   isShowActive = true;
+  attendance_data;
+  has_start = false;
   constructor(public navCtrl: NavController, public navParams: NavParams,public storage:Storage,
     public kaoqinService:KaoQinService,private datePipe: DatePipe,private ble:BLE,
     private toastCtrl: ToastController,private loading:LoadingController,private elementRef: ElementRef,
@@ -97,6 +101,7 @@ export class KaoqinPage {
               }
               for (let item of this.items) {
                 if(item.check_in){
+                  this.has_start = true
                         count += 1
                       }
                 if(item.check_out){
@@ -130,6 +135,7 @@ export class KaoqinPage {
               }
               for (let item of this.items) {
                 if(item.check_in){
+                  this.has_start = true
                         count += 1
                       }
                 if(item.check_out){
@@ -189,6 +195,11 @@ export class KaoqinPage {
               if (this.items_day.length * 140 + 30 > 400){
                 this.change_divClass_height(this.items_day.length * 140 + 30)
               }
+              for (let item of this.items_day) {
+                if(item.check_in){
+                  this.has_start = true
+                      }
+              }
             }
         })
   
@@ -211,6 +222,11 @@ export class KaoqinPage {
               this.items_day = res.result.res_data
               if (this.items_day.length * 140 + 30 > 400){
                 this.change_divClass_height(this.items_day.length * 140 + 30)
+              }
+              for (let item of this.items_day) {
+                if(item.check_in){
+                  this.has_start = true
+                      }
               }
             }
         })
@@ -293,26 +309,29 @@ export class KaoqinPage {
 
   start_work(){
     // console.log(this.items[0])
+
+      var has_in = false
+      for (let one_item of this.items){
+        if (one_item.check_in){
+          has_in = true
+        }
+      }
+
     if (!this.items || !this.items.length){
       this.startClick()
     }
     else
     {
-      if (this.items[0].check_in){
+      if (has_in){
         let ctrl = this.alertCtrl;
         let that = this
         ctrl.create({
               title: '提示',
-              subTitle: "已经打过上班卡了,是否继续打卡？",
+              subTitle: "已经打过上班卡了",
               buttons: [{
-                text: '取消',
-                handler: () => {
-                  // that.startClick()
-                }
-              },{
                 text: '确定',
                 handler: () => {
-                  that.startClick()
+                  // that.startClick()
                 }
               }
               ]
@@ -331,16 +350,48 @@ export class KaoqinPage {
   end_work(){
     // console.log(this.items[0])
     if (!this.items || !this.items.length){
-      this.endClick()
+      let ctrl = this.alertCtrl;
+        let that = this
+        ctrl.create({
+              title: '提示',
+              subTitle: "还没打过上班卡，确定下班？",
+              buttons: [{
+                text: '取消',
+                handler: () => {
+                  // that.startClick()
+                }
+              },{
+                text: '确定',
+                handler: () => {
+                  that.endClick()
+                }
+              }
+              ]
+            }).present();
     }
     else
     {
-      if (this.items[0].check_out){
+      var has_out = false
+      for (let one_item of this.items){
+        if (one_item.check_out){
+          has_out = true
+        }
+      }
+
+      var has_in = false
+      for (let one_item of this.items){
+        if (one_item.check_in){
+          has_in = true
+        }
+      }
+
+      if (has_in){
+          if (has_out){
         let ctrl = this.alertCtrl;
         let that = this
         ctrl.create({
               title: '提示',
-              subTitle: "已经打过下班卡了,是否继续打卡？",
+              subTitle: "已经打过下班卡了,确定更新？",
               buttons: [{
                 text: '取消',
                 handler: () => {
@@ -359,6 +410,29 @@ export class KaoqinPage {
       {
         this.endClick()
       }
+    }
+    else
+    {
+        let ctrl = this.alertCtrl;
+        let that = this
+        ctrl.create({
+              title: '提示',
+              subTitle: "还没打过上班卡，确定下班？",
+              buttons: [{
+                text: '取消',
+                handler: () => {
+                  // that.startClick()
+                }
+              },{
+                text: '确定',
+                handler: () => {
+                  that.endClick()
+                }
+              }
+              ]
+            }).present();
+    }
+      
     }
     
   }
@@ -390,6 +464,8 @@ export class KaoqinPage {
              y: Y,
         m: m,
         d: "",
+        is_late:false,
+        is_queqin:false,
           }
         }
         
@@ -403,11 +479,37 @@ export class KaoqinPage {
              y: Y,
         m: m,
         d: "",
+        is_late:false,
+        is_queqin:false,
           }
         }
       }
       this.currentDayList = currentDayList
     }
+
+    var month_str = this.currentDate_date.getFullYear() + "-" + this.formatO(this.currentDate_date.getMonth() + 1)
+    this.kaoqinService.get_month_attendance(month_str,this.user.user_id).then(res => {
+        if (res.result.res_data && res.result.res_code == 1) {
+            this.attendance_data = res.result.res_data
+            // 缺勤天数
+            for (let date of this.attendance_data.calc_ab_arr){
+              for (var i = 0; i < this.currentDayList.length;i ++ ){
+                if (date == this.formatO(this.currentDayList[i].d)){
+                  this.currentDayList[i].is_queqin = true
+                }
+              }
+            }
+
+            // 迟到天数
+            for (let date of this.attendance_data.calc_late){
+              for (var i = 0; i < this.currentDayList.length;i ++ ){
+                if (date == this.formatO(this.currentDayList[i].d)){
+                  this.currentDayList[i].is_late = true
+                }
+              }
+            }
+        }
+    })
   }
 
   setTimeSchedule(currentObj){
@@ -439,6 +541,8 @@ export class KaoqinPage {
              y: Y,
         m: m,
         d: "",
+        is_late:false,
+        is_queqin:false,
           }
         }
         
@@ -471,7 +575,8 @@ export class KaoqinPage {
   }
 
   choose_day(date){
-    this.items_day = []
+    if (date.d > 0){
+      this.items_day = []
     var choose_date = date.y + "/" + date.m + "/" + date.d
     this.currentDay = date.d
     this.currentMonth = date.m
@@ -489,8 +594,14 @@ export class KaoqinPage {
               if (this.items_day.length * 140 + 30 > 400){
                 this.change_divClass_height(this.items_day.length * 140 + 30)
               }
+              for (let item of this.items_day) {
+                if(item.check_in){
+                  this.has_start = true
+                      }
+              }
             }
         })
+    }
   }
 
   add_month(){
@@ -698,6 +809,7 @@ export class KaoqinPage {
                     }
                     for (let item of that.items) {
                       if(item.check_in){
+                        that.has_start = true
                         count += 1
                       }
                       if(item.check_out){
@@ -813,6 +925,7 @@ export class KaoqinPage {
                     }
                     for (let item of that.items) {
                       if(item.check_in){
+                        that.has_start = true
                         count += 1
                       }
                       if(item.check_out){
@@ -853,5 +966,20 @@ export class KaoqinPage {
               that.fail_str = "蓝牙未打开"
           
     }) 
+  }
+
+  update_attendance(item){
+    var time = item.check_out ? item.check_out : item.check_in
+    var month_time = time.split(' ')[0].split('-')[0] + "-" + time.split(' ')[0].split('-')[1]
+    this.navCtrl.push('AttendanceUpdatePage',{
+        is_edit:true,
+        item_data:{
+          attendance_type:0,
+          attendance_work_type:item.check_out ? '下班' : '上班',
+          remark:'',
+          attendance_time: time,
+        },
+        month_time: month_time,
+      })
   }
 }
