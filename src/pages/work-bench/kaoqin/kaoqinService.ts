@@ -68,4 +68,13 @@ export class KaoQinService {
         let body = JSON.stringify(data_params);
        return this.httpservice.postBody("location_attendance",body);
     }
+
+    get_month_attendance(month_str, user_id)
+    {
+        let body = JSON.stringify({
+            month_str:month_str,
+            user_id:user_id,
+        });
+       return this.httpservice.postBody("get_month_attendance",body);
+    }
 }

@@ -1,5 +1,5 @@
 <!--
-  Generated template for the AttendanceRecoupAddDetailPage page.
+  Generated template for the AttendanceUpdatePage page.
 
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
@@ -12,7 +12,8 @@
         取消
       </button>
     </ion-buttons>
-    <ion-title>补卡销卡明细</ion-title>
+    <ion-title>更新打卡
+    </ion-title>
     <ion-buttons right>
       <button ion-button (click)="confirm()">
         确定
@@ -33,10 +34,14 @@
   </ion-item>-->
   <ion-item class="item_class">
     <ion-label class="left_label">上下班类型</ion-label>
-    <ion-select [(ngModel)]="work_type_index" cancelText="取消" okText="确定" class="normal_select">
+    <!--<ion-select [(ngModel)]="work_type_index" cancelText="取消" okText="确定" class="normal_select">
       <ion-option *ngFor="let item of work_type_arr;let i = index;" value={{i}}>{{item}}</ion-option>
-    </ion-select>
+    </ion-select>-->
+    <span item-end style="margin-left:14px;font-size:13px;color: gray;" >
+          {{show_work_type}} 
+      </span>
   </ion-item>
+  
   <ion-item *ngIf="type_index == 0" class="item_class">
     <ion-label class="left_label">日期</ion-label>
     <!--<ion-datetime placeholder='请选择 >' style="font-size:80%" item-end displayFormat="DD日 HH:mm" pickerFormat="MM-DD HH:mm" [(ngModel)]="time_add" cancelText="取消" doneText="确定"></ion-datetime>-->

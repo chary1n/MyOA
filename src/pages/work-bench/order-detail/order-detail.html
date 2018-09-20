@@ -27,12 +27,12 @@
     </div>
 
     <div class="div_all">
-      <div text-wrap class="div_right"> {{item.data_order}} </div>
+      <div text-wrap class="div_right"> {{changeDate(item.data_order) | date:"yyyy-MM-dd"}}</div>
       <div class="left_label,div_left" text-right> 单据日期 </div>
     </div>
 
     <div class="div_all">
-      <div text-wrap class="div_right"> {{item.date_planned}} </div>
+      <div text-wrap class="div_right"> {{changeDate(item.date_planned) | date:"yyyy-MM-dd"}}</div>
       <div class="left_label,div_left" text-right> 交期 </div>
     </div>
 
