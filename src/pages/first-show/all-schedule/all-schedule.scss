@@ -1,3 +1,22 @@
 page-all-schedule {
+    .selected {
+        color: #409eff;
+        border-bottom: 2px solid #409eff;
+        font-size: 14px;
+        padding-bottom: 0px;
+      }
+      .normal {
+        color: #409eff;
+        font-size: 14px;
+        padding-bottom: 0px;
+      }
 
+      .header_div_class{
+        width: 100%;
+        background-color: #f0f2f5;
+    }
+    .div_class{
+      height: 70px;
+  background-color: white;
+  }
 }

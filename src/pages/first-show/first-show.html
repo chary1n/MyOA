@@ -43,7 +43,7 @@
     </ion-grid>
     <div *ngIf='isDay'>
           <div style="padding: 1px;text-align: center;height: 37px;">
-            <p style="font-size: 13px;color: #2597ec;float: right;" tappable (click)="toAll()">全部待办</p>
+            <p style="font-size: 13px;color: #2597ec;float: right;margin-right: 15px;margin-top: 10px" tappable (click)="toAll()">全部待办</p>
             <p class="month_message">
                 <span tappable (click)="delete_month()">{{"<"}}</span><span style="margin-left:10px">{{currentDate}}</span><span style="margin-left:10px" tappable (click)="add_month()">{{">"}}</span>
             </p>
