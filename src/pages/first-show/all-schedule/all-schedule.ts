@@ -2,6 +2,7 @@ import { FirstShowService } from './../first_service';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams} from 'ionic-angular';
 import { Storage } from '@ionic/storage';
+import { StatusBar } from '@ionic-native/status-bar';
 
 /**
  * Generated class for the AllSchedulePage page.
@@ -18,9 +19,15 @@ import { Storage } from '@ionic/storage';
 export class AllSchedulePage {
   uid
   constructor(public navCtrl: NavController, public navParams: NavParams, private firshowService: FirstShowService,
-              public storage:Storage,) {
+              public storage:Storage,public statusBar:StatusBar) {
                 this.storage.get('user').then(res => {
                   this.uid = res.result.res_data.user_id;
+                  let body = {
+                    'uid': this.uid
+                  }
+                  this.firshowService.get_all_schedule(body).then(res=>{
+                    console.log(res.result.res_data)
+                  })
                 })
   }
 
@@ -28,4 +35,12 @@ export class AllSchedulePage {
     console.log('ionViewDidLoad AllSchedulePage');
   }
 
+    goBack(){
+      this.navCtrl.pop()
+    }
+  
+    ionViewWillEnter(){
+      this.statusBar.backgroundColorByHexString("#2597ec");
+      this.statusBar.styleLightContent();
+  }
 }

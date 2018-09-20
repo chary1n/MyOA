@@ -6,8 +6,13 @@
 -->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>AllSchedulePage</ion-title>
+    <ion-navbar color="gongdan-color" hideBackButton="true">
+        <ion-buttons left>
+            <button ion-button icon-only (click)="goBack()">
+              <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+            </button>
+          </ion-buttons>
+      <ion-title>待办</ion-title>
   </ion-navbar>
 
 </ion-header>
