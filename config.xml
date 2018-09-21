@@ -133,6 +133,7 @@
     </plugin>
     <plugin name="cordova-plugin-datepicker" spec="^0.9.3" />
     <plugin name="cordova-plugin-device" spec="^1.1.7" />
+    <plugin name="cordova-plugin-file" spec="^4.3.3" />
     <plugin name="cordova-plugin-geolocation" spec="^4.0.1">
         <variable name="GEOLOCATION_USAGE_DESCRIPTION" value="To locate you" />
     </plugin>
@@ -164,6 +165,4 @@
     <engine name="ios" spec="^4.5.4" />
     <plugin name="cordova-plugin-file-transfer" spec="~1.6.3" />
     <plugin name="cordova-plugin-file-opener2" spec="~2.0.19" />
-    <plugin name="cordova-plugin-file" spec="~4.3.3" />
-    <allow-navigation href="http://192.168.1.244:8100" />
 </widget>
