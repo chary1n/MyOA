@@ -83,8 +83,8 @@ export class EmailPage {
     this.menu.enable(true)
     var bar = document.getElementsByClassName('tabbar').item(0);
     bar['style'].display = 'flex';
-    if (this.title.indexOf('收件')!=-1&&this.frontPageIsUnseen) {
-      this.get_email_list(this.account_id, this.email_type, this.state_type, this.data_id, this.limit+this.offset, 0).then(res => {
+    if (this.title.indexOf('收件') != -1 && this.frontPageIsUnseen) {
+      this.get_email_list(this.account_id, this.email_type, this.state_type, this.data_id, this.limit + this.offset, 0).then(res => {
         if (res.result && res.result.res_data) {
           this.email_list = res.result.res_data.email_list
         }
@@ -160,48 +160,50 @@ export class EmailPage {
   }
 
 
-  email_detail(id,rt_is_unseen) {
+  email_detail(id, rt_is_unseen) {
     this.frontPageIsUnseen = rt_is_unseen
     this.navCtrl.push('EmailDetailPage', { 'id': id })
   }
 
 
   showUnseenSelect() {
-    let alert = this.alertCtrl.create({
-      cssClass: 'title_alert',
-      title: '收件箱'
-    });
-    let unseen = {
-      type: 'radio',
-      label: '未读',
-      value: '未读',
-      handler: (data) => {
-        this.unseenChoose = data.value
-        this.event.publish('click_envnt', this.account_id, 'state', 'unseen', '')
-        alert.dismiss()
+    if (this.title.indexOf('收件') != -1) {
+      let alert = this.alertCtrl.create({
+        cssClass: 'title_alert',
+        title: '收件箱'
+      });
+      let unseen = {
+        type: 'radio',
+        label: '未读',
+        value: '未读',
+        handler: (data) => {
+          this.unseenChoose = data.value
+          this.event.publish('click_envnt', this.account_id, 'state', 'unseen', '')
+          alert.dismiss()
+        }
       }
-    }
-    let all = {
-      type: 'radio',
-      label: '全部',
-      value: '全部',
-      checked: true,
-      handler: (data) => {
-        this.unseenChoose = data.value
-        this.event.publish('click_envnt', this.account_id, 'state', 'all_received', '')
-        alert.dismiss()
+      let all = {
+        type: 'radio',
+        label: '全部',
+        value: '全部',
+        checked: true,
+        handler: (data) => {
+          this.unseenChoose = data.value
+          this.event.publish('click_envnt', this.account_id, 'state', 'all_received', '')
+          alert.dismiss()
+        }
       }
+      if (this.unseenChoose == '未读') {
+        unseen['checked'] = true
+        all['checked'] = false
+      } else {
+        all['checked'] = true
+        unseen['checked'] = false
+      }
+      alert.addInput(unseen)
+      alert.addInput(all)
+      alert.present();
     }
-    if (this.unseenChoose == '未读') {
-      unseen['checked'] = true
-      all['checked'] = false
-    } else {
-      all['checked'] = true
-      unseen['checked'] = false
-    }
-    alert.addInput(unseen)
-    alert.addInput(all)
-    alert.present();
   }
 
   edit() {
