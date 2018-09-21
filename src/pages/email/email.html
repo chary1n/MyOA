@@ -1,0 +1,58 @@
+<ion-header>
+
+  <ion-navbar color="gongdan-color">
+    <button ion-button [menuToggle]="activeMenu" (click)="showMenu()">
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      {{title}}
+      <ion-icon *ngIf="title.indexOf('收件')!=-1" name="arrow-down" (click)="showUnseenSelect()"></ion-icon>
+    </ion-title>
+
+    <ion-buttons right>
+      <button ion-button (click)="edit()">
+        <img style="width: 21px;
+       margin-right: 2px;" src="assets/img/edit.png">
+      </button>
+    </ion-buttons>
+
+  </ion-navbar>
+
+</ion-header>
+<ion-content>
+  <ng-container *ngIf="!accounts_list">
+    <p class="no_account">你还没有添加账号</p>
+  </ng-container>
+  <ng-container *ngIf="accounts_list">
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+    <ion-list style="padding-right:5px">
+      <ion-item *ngFor="let item of email_list" (click)="email_detail(item.id,item.rt_is_unseen)" no-lines style=" border-bottom:1px solid #F0F2F5">
+        <div>
+          <div>
+            <div class="email_date">
+              {{item.date_time}}
+            </div>
+            <div [ngClass]="{true:'email_title_bold',false:'email_title'}[item.state=='received'&&item.rt_is_unseen]">
+              <span class="red-point" *ngIf="item.state=='received'&&item.rt_is_unseen"></span>
+              {{ item.state=="sent" ?item.email_to :item.email_from }}
+            </div>
+          </div>
+          <div [ngClass]="{true:'email_summary_bold',false:'email_summary'}[item.state=='received'&&item.rt_is_unseen]">
+            {{item.subject}}
+          </div>
+          <div class="email_content">
+            {{item.summary}}
+          </div>
+        </div>
+        <!-- <div>
+          <div *ngFor="let item of item.attachment_list" ></div>
+        </div> -->
+      </ion-item>
+    </ion-list>
+    <ion-infinite-scroll immediate-check="false" (ionInfinite)="doInfinite($event)">
+      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </ng-container>
+</ion-content>

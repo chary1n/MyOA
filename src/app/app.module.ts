@@ -10,6 +10,7 @@ import { Transfer } from '@ionic-native/transfer';
 import { File } from '@ionic-native/file';
 import { Toast } from '@ionic-native/toast';
 import { AppVersion } from '@ionic-native/app-version';
+import { FileTransfer, FileTransferObject, FileUploadOptions } from '@ionic-native/file-transfer';
 import { LoginPageModule } from './../pages/login/login.module';
 
 import { Camera } from '@ionic-native/camera';
@@ -47,6 +48,7 @@ import { NFC, Ndef } from '@ionic-native/nfc';
 // import { AutocompleteServiceProvider } from '../providers/autocomplete-service/autocomplete-service';
 // import { BLE } from '@ionic-native/ble';
 import { PhotoLibrary } from '@ionic-native/photo-library';
+
 
 @NgModule({
   declarations: [
@@ -86,7 +88,7 @@ import { PhotoLibrary } from '@ionic-native/photo-library';
     WebIntent,
     Toast,
     File,
-    Transfer,
+    Transfer,FileTransferObject,FileTransfer,
     InAppBrowser,
     Network,
     AppMinimize,

@@ -19,6 +19,7 @@ export class NewTabsPage {
   firstRoot:any= 'FirstShowPage';
   workRoot :any = 'NewWorkBenchPage';
   contactRoot:any  = 'ContactPersonPage';
+  emailRoot: any = 'EmailMenuPage';
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
