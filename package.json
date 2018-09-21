@@ -32,6 +32,7 @@
     "@ionic-native/date-picker": "^4.5.2",
     "@ionic-native/device": "^4.6.0",
     "@ionic-native/file": "^4.5.2",
+    "@ionic-native/file-transfer": "^4.14.0",
     "@ionic-native/geolocation": "^4.6.0",
     "@ionic-native/http": "^3.14.0",
     "@ionic-native/image-picker": "^4.5.2",
