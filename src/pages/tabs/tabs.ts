@@ -1,5 +1,5 @@
-import {Tabs} from "ionic-angular";
-import { Component,ViewChild } from '@angular/core';
+import { Tabs } from "ionic-angular";
+import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 /**
@@ -15,14 +15,15 @@ import { Storage } from '@ionic/storage';
 })
 export class TabsPage {
   need_show_me = true;
-  @ViewChild('mainTabs') tabs:Tabs;
-  meRoot :any ='MePage';
-  firstRoot:any;
+  @ViewChild('mainTabs') tabs: Tabs;
+  meRoot: any = 'MePage';
+  firstRoot: any;
   // msgRoot:any = 'FirstShowPage';
-  msgRoot:any = 'GongdanPage';
-  workRoot :any = 'WorkBenchPage';
-  new_workRoot:any ='NewWorkBenchPage'
-  contactRoot  = 'ContactPersonPage';
+  msgRoot: any = 'GongdanPage';
+  workRoot: any = 'WorkBenchPage';
+  new_workRoot: any = 'NewWorkBenchPage'
+  contactRoot = 'ContactPersonPage';
+ 
   need_show_gongdan = false
   need_show_all = false;
   need_show_first = false;
@@ -67,9 +68,9 @@ export class TabsPage {
   }
 
   ionViewDidLoad() {
-    
-   
-    
+
+
+
   }
 
 }

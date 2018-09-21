@@ -1,0 +1,128 @@
+page-email-menu {
+
+
+  .top_div {
+    height: 10px;
+    background: white
+  }
+
+  .account_name {
+    font-size: 13px
+  }
+
+  .account_address {
+    font-size: 12px
+  }
+
+  .box_item {
+    min-height: 1rem;
+    height: 40px;
+  }
+
+  .ion-list-account {
+    margin-bottom: 0px;
+    background: #f0f2f5;
+  }
+
+  .account_item {
+    min-height: 1rem;
+    height: 40px;
+  }
+
+  .box_numebr {
+    text-align: right;
+    margin-right: 6px;
+    color: black;
+    font-size: 12px;
+  }
+
+  .box_name {
+    font-size: 13px;
+    color: black;
+  }
+  .box_item_choose{
+    background: #dfdfe4
+  }
+
+  ion-item ion-icon {
+    padding-top: 3px;
+    color: #529eff;
+  }
+
+  .tag_class {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin-right: 4px;
+    margin-left: 0px;
+    border-radius: 2px;
+    float: left;
+    margin-top:3px;
+  }
+
+  .label_c {
+    text-align: left;
+    margin-left: 26px
+  }
+
+  .checkmark {
+    float: left;
+    width: 40px;
+  }
+
+  .img_account {
+    width: 21px;
+    height: 27px;
+    margin-top: 3px;
+  }
+
+
+  .box_icon {
+    font-size: 2rem;
+    font-size: 27px;
+    font-weight: 600px;
+  }
+
+  .line {
+    height: 0.5px;
+    background: #e4e4e4;
+    margin-left: 12px;
+  }
+
+  .folder_span {
+    margin-left: 12px;
+    font-size: 13px;
+    line-height: 29px;
+    color: #919294;
+  }
+
+
+  .tree_div {
+    margin-top: -16px;
+    margin-left: 13px;
+  }
+
+
+  tree-internal .tree .folding.node-expanded {
+    margin-top: 10px
+  }
+
+  tree-internal .tree .folding.node-collapsed {
+    margin-top: 10px;
+  }
+
+  tree-internal .tree .folding.node-leaf {
+    margin-top: 8px
+  }
+
+  tree-internal .tree .node-value {
+    // width: 300px;
+  }
+
+
+
+
+
+
+
+}

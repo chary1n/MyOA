@@ -1,0 +1,82 @@
+page-email-detail {
+  .email_subject {
+    display: block;
+    border-bottom: 1px solid #f0f2f5;
+    padding: 10px 0 10px 10px;
+    font-size: 13px;
+    font-weight: bold;
+  }
+
+  .email_content_ul {
+    list-style-type: none;
+    padding-left: 10px!important;
+    margin-top: 10px!important;
+  }
+
+  .html_div {
+    padding-left: 10px;
+    padding-right: 10px;
+    overflow: auto;
+  }
+
+  .span_c{
+    font-size: 12px;
+    color: gray;
+  }
+
+  .li_c{
+    margin-top: 10px!important;
+  }
+
+  .line {
+    height: 0.5px;
+    background: #e4e4e4;
+ 
+  }
+
+  .ion-list-account {
+    margin-bottom: 0px;
+    background: #f0f2f5;
+  }
+
+  .attach_item {
+    min-height: 1rem;
+    height: 53px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+  }    
+
+
+  .attach_img {
+
+  }
+
+
+  .account_name {
+    font-size: 13px;
+    padding-left: 50px;
+    margin-top: 3px;
+  }
+
+  .account_address {
+    font-size: 12px
+  }
+
+  .content_footer{
+      height: 30px;
+  }
+
+
+  .attach_size{
+      font-size: 12px;
+      color:gray;
+      margin-top: 2px;
+      padding-left: 50px;
+  }
+
+  .div_email_to{
+      display: flex;
+  }
+
+
+}

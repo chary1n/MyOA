@@ -22,6 +22,7 @@ export class NewTabsPage {
   workRoot :any = 'NewWorkBenchPage';
   contactRoot:any  = 'ContactPersonPage';
   meRoot :any ='MePage';
+  emailRoot: any = 'EmailMenuPage';
   messageNum = 1
   all_approval
   uid
