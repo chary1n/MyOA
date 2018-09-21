@@ -86,7 +86,6 @@ export class AllSchedulePage {
   }
 
   selectType(item){
-    
     this.type_id = item.id
     item.select = true
     for (let i = 0; i < this.dataList.length; i++) {
@@ -133,11 +132,13 @@ export class AllSchedulePage {
       type = "partner_ids";
       search_text = event.name.replace("搜 参与人：", "")
     }
+    if(search_text)
     this.type_list = []
     let body = {
       'type': type,
       'search_text': search_text,
-      'uid': this.uid
+      'uid': this.uid,
+      'event_type': this.type_id
     }
     this.firshowService.search_all_schedule(body).then(res => {
       if (res.result.res_data && res.result.res_code == 1) {

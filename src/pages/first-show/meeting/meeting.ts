@@ -125,6 +125,14 @@ export class MeetingPage {
           this.item_start = this.datePipe.transform(new Date(this.item.rt_meeting_start.replace(/-/g, "/")), 'MM-dd HH:mm')
           this.item_stop = this.datePipe.transform(new Date(this.item.rt_meeting_stop.replace(/-/g, "/")), 'MM-dd HH:mm')
         }
+        if(this.rt_is_sure_time==true){
+        
+        }else{
+            this.start_date = this.datePipe.transform(new Date(this.item.rt_meeting_start.replace(/-/g, "/")), 'yyyy-MM-dd')
+            this.stop_date = this.datePipe.transform(new Date(this.item.rt_meeting_stop.replace(/-/g, "/")), 'yyyy-MM-dd')
+            this.start_datetime = this.datePipe.transform(new Date(this.item.rt_meeting_start.replace(/-/g, "/")), 'yyyy-MM-dd HH:mm').replace(' ','T')+'Z'
+            this.stop_datetime = this.datePipe.transform(new Date(this.item.rt_meeting_stop.replace(/-/g, "/")), 'yyyy-MM-dd HH:mm').replace(' ','T')+'Z'
+        }
         this.item_tip_name=''
         if(this.item.rt_alarm_type=='-1'){
           this.item_tip_name = this.item.rt_alarm_type_name
@@ -177,7 +185,6 @@ export class MeetingPage {
       }else if(this.pet==4){
         this.get_all_data()
       }
-
   }
 }
 
@@ -503,6 +510,7 @@ handleData(){
   }
   //点击编辑
   edit(){
+
     this.content.resize()
     this.rt_description = this.item.rt_description
     this.rt_hint = this.item.rt_hint
