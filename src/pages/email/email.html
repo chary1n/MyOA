@@ -4,9 +4,9 @@
     <button ion-button [menuToggle]="activeMenu" (click)="showMenu()">
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>
+    <ion-title (click)="showUnseenSelect()">
       {{title}}
-      <ion-icon *ngIf="title.indexOf('收件')!=-1" name="arrow-down" (click)="showUnseenSelect()"></ion-icon>
+      <ion-icon *ngIf="title.indexOf('收件')!=-1" name="arrow-down" ></ion-icon>
     </ion-title>
 
     <ion-buttons right>
@@ -28,7 +28,7 @@
       <ion-refresher-content></ion-refresher-content>
     </ion-refresher>
     <ion-list style="padding-right:5px">
-      <ion-item *ngFor="let item of email_list" (click)="email_detail(item.id,item.rt_is_unseen)" no-lines style=" border-bottom:1px solid #F0F2F5">
+      <ion-item tappable *ngFor="let item of email_list" (click)="email_detail(item.id,item.rt_is_unseen)" no-lines style=" border-bottom:1px solid #F0F2F5">
         <div>
           <div>
             <div class="email_date">
