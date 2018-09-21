@@ -45,6 +45,21 @@ page-kaoqin {
         font-size: 15px;
     }
 
+    .chidao_class{
+        margin-top:12px;
+        line-height: 40px;
+        color:#8a9299;
+        font-size: 15px;
+    }
+
+    .queqin_class{
+         margin-top:12px;
+        line-height: 40px;
+        color:#8a9299;
+        font-size: 15px;
+        margin-left: 10px;
+    }
+
     .month_message{
         margin-top:12px;
         line-height: 40px;
@@ -70,12 +85,12 @@ page-kaoqin {
     }
 
     .time_li_class{
-        color:black;
-        font-size:21px;
-        height:20px;
-        display:inline-block;
-        float:left;
-        margin-top:2px;
+        color: black;
+    font-size: 21px;
+    height: 20px;
+    display: inline-block;
+    margin-top: 2px;
+    margin-left: 5px;
     }
 
     .time_li_first_class{
@@ -85,19 +100,22 @@ page-kaoqin {
         display:inline-block;
         float:left;
         margin-top:2px;
+        line-height: 20px
     }
 
     .time_type_li_class{
-        color:black;
-        font-size:13px;
-        background:#c2c7cc;
-        color:white;
-        margin-left:5px;
-        width:35px;
-        display:inline-block;
-        text-align:center;
-        border-radius:3px;
-        line-height:18px;
+        color: black;
+    font-size: 13px;
+    background: #c2c7cc;
+    color: white;
+    /* margin-left: 5px; */
+    width: 35px;
+    display: inline-block;
+    text-align: center;
+    border-radius: 3px;
+    line-height: 20px;
+    float: left;
+    margin-top: 3px;
     }
 
     .time_type_li_first_class{
@@ -110,7 +128,7 @@ page-kaoqin {
         display:inline-block;
         text-align:center;
         border-radius:3px;
-        line-height:18px;
+        line-height:19px;
     }
 
     .time_company_class{
@@ -285,11 +303,11 @@ page-kaoqin {
 }  
 
 .bk-color-day {  
-   background-color: #159aeb; 
+   background-color: #f2f2f2; 
 //    font-size: 20px;
 //    color: #159aeb;
   border-radius: 50%;  
-  color:white;
+    color: gray;
   /* border: red 1px solid; */
 }  
 
@@ -454,6 +472,59 @@ page-kaoqin {
 
     .back_class{
         opacity: 0.6;
+    }
+
+    .circleRedBig{
+        width: 8px;
+        border-radius: 8px;
+        background-color: #c51c35;
+        display: inline-block;
+        height: 8px;
+        margin-top: -6px
+    }
+
+    .circleOrangeBig{
+        width: 8px;
+        border-radius: 8px;
+        background-color: #fdad2f;
+        display: inline-block;
+        height: 8px;
+        margin-top: -6px
+    }
+
+    .circleRed{
+        width: 6px;
+        border-radius: 8px;
+        background-color: #c51c35;
+        display: inline-block;
+        height: 6px;
+        margin-top: -6px
+    }
+
+    .circleOrange{
+        width: 6px;
+        border-radius: 8px;
+        background-color: #fdad2f;
+        display: inline-block;
+        height: 6px;
+        margin-top: -6px
+    }
+
+    .circleWhite{
+        width: 6px;
+        border-radius: 8px;
+        background-color: white;
+        display: inline-block;
+        height: 6px;
+        margin-top: -6px
+    }
+
+    .time_company_class_delete_attendance{
+        text-align:left;
+        color:#2597ec;
+        font-size:15px;
+        margin-top:5px;
+        display:block;
     }
     
 }

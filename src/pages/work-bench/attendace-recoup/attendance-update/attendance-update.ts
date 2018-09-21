@@ -5,20 +5,19 @@ import { AttendanceService} from '../attendanceService';
 import { DatePipe } from '@angular/common';
 import { DatePicker } from '@ionic-native/date-picker';
 import { Utils } from './../../../../providers/Utils';
-
 /**
- * Generated class for the AttendanceRecoupDetailEditPage page.
+ * Generated class for the AttendanceUpdatePage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
 @IonicPage()
 @Component({
-  selector: 'page-attendance-recoup-detail-edit',
-  templateUrl: 'attendance-recoup-detail-edit.html',
+  selector: 'page-attendance-update',
+  templateUrl: 'attendance-update.html',
   providers: [DatePipe],
 })
-export class AttendanceRecoupDetailEditPage {
+export class AttendanceUpdatePage {
   type_arr = ['补卡','销卡'];
   type_index = 0;
   work_type_arr = ['上班','下班']
@@ -32,22 +31,18 @@ export class AttendanceRecoupDetailEditPage {
   month_time;
   time = '请选择时间 >' ;
   time_str = '请选择日期 >';
+  show_work_type;
   constructor(public navCtrl: NavController, public navParams: NavParams,public alertCtrl: AlertController,
               public toastCtrl: ToastController, private datePipe: DatePipe,
     private datePicker: DatePicker) {
-                this.attendanceRecoupCreatePage = Utils.getViewController("AttendanceRecoupDetailPage", navCtrl);
+
                 this.is_edit = this.navParams.get('is_edit')
                 this.month_time = this.navParams.get('month_time')
                 if (this.is_edit){
                   let before_data = this.navParams.get('item_data')
                   this.attendance_id = before_data.attendance_id ? before_data.attendance_id : false
-                  if (before_data.attendance_type == '申请补卡'){
-                      before_data.attendance_type = 0
-                  }
-                  else if (before_data.attendance_type == '申请销卡')
-                  {
-                    before_data.attendance_type = 1
-                  }
+                  before_data.attendance_type = 0
+                  this.show_work_type = before_data.attendance_work_type
                   if (before_data.attendance_work_type == '上班'){
                       before_data.attendance_work_type = 0
                   }
@@ -76,26 +71,26 @@ export class AttendanceRecoupDetailEditPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad AttendanceRecoupDetailEditPage');
+    console.log('ionViewDidLoad AttendanceUpdatePage');
   }
 
   ionViewWillEnter() {
-    let time = this.navParams.get("time")
-    let work_type = this.navParams.get('work_type')
-    if (this.navParams.get('attendance_id'))
-    {
-      this.attendance_id = this.navParams.get('attendance_id')
-    } 
-    if (time && work_type){
-        this.time_delete = time
-        if (work_type == '上班'){
-          this.work_type_index = 0
-        }
-        else
-        {
-          this.work_type_index = 1
-        }
-    }
+    // let time = this.navParams.get("time")
+    // let work_type = this.navParams.get('work_type')
+    // if (this.navParams.get('attendance_id'))
+    // {
+    //   this.attendance_id = this.navParams.get('attendance_id')
+    // } 
+    // if (time && work_type){
+    //     this.time_delete = time
+    //     if (work_type == '上班'){
+    //       this.work_type_index = 0
+    //     }
+    //     else
+    //     {
+    //       this.work_type_index = 1
+    //     }
+    // }
   }
 
   confirm(){
@@ -122,29 +117,17 @@ export class AttendanceRecoupDetailEditPage {
     } else {
       if (this.is_edit)
       {
-        this.attendanceRecoupCreatePage.data.data = {
-        attendance_type:type,
-        attendance_work_type:work_type,
-        attendance_time:time.replace('T',' ').replace('Z',''),
-        remark:this.remark ? this.remark : '', 
-        attendance_id: this.attendance_id ? this.attendance_id : false,
-        is_edit:true,
-      }
-        this.attendanceRecoupCreatePage.data.item_index = this.navParams.get('item_index')
-      }
-      else
-      {
-        this.attendanceRecoupCreatePage.data.data = {
-        attendance_type:type,
-        attendance_work_type:work_type,
-        attendance_time:time.replace('T',' ').replace('Z',''),
-        remark:this.remark ? this.remark : '', 
-        attendance_id: this.attendance_id ? this.attendance_id : false,
-        is_create:true
-      };
-      this.attendanceRecoupCreatePage.data.item_index = -1
-      }
-      this.navCtrl.pop();
+      //   this.attendanceRecoupCreatePage.data.data = {
+      //   attendance_type:type,
+      //   attendance_work_type:work_type,
+      //   attendance_time:time.replace('T',' ').replace('Z',''),
+      //   remark:this.remark ? this.remark : '', 
+      //   attendance_id: this.attendance_id ? this.attendance_id : false,
+      //   is_edit:true,
+      // }
+      //   this.attendanceRecoupCreatePage.data.item_index = this.navParams.get('item_index')
+      
+    }
     }
   }
 

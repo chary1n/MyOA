@@ -1,22 +1,18 @@
+import { Utils } from './../../providers/Utils';
 import { NativeService } from './../../providers/NativeService';
 import { FirService } from './../../app/FirService';
 
 import { HttpService } from './../../providers/HttpService';
-import { dbBean } from './../../model/dbInfoModel';
 import { Storage } from '@ionic/storage';
 
 import { JPush } from '../../providers/JPush'
 
 import { LoginService } from './loginService';
-import { Component, ErrorHandler } from '@angular/core';
+import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
-import { FormBuilder, Validators } from '@angular/forms';
+import { ToastController } from 'ionic-angular/components/toast/toast-controller';
 
 
-import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
-import { Headers, RequestOptions } from '@angular/http';
 import { AppVersion } from '@ionic-native/app-version';
 import { Platform } from 'ionic-angular';
 import { UrlServer } from '../../providers/UrlServer';
@@ -64,9 +60,9 @@ export class LoginPage {
   loadingDB;
   version: any;
   constructor(public navCtrl: NavController, public navParams: NavParams,public loading:LoadingController,
-    private loginservice: LoginService, private myHttp: Http, private storage: Storage, public platform: Platform, public appVersion: AppVersion,
+    private loginservice: LoginService, private storage: Storage, public platform: Platform, public appVersion: AppVersion,
     public jpush: JPush, public urlServer: UrlServer, public ctrl: AlertController, private inAppBrowser: InAppBrowser,
-    public firService: FirService,private nativeService: NativeService,
+    public firService: FirService,private nativeService: NativeService,public toastCtrl: ToastController,
   ) {
     this.storage.get("login").then(res => {
       if (res) {
@@ -191,7 +187,7 @@ export class LoginPage {
           window.localStorage.setItem("id", res.result.res_data.user_id)
           this.storage.get('user_psd').then(res => {
             HttpService.appUrl = res.url
-            if (this.chooseIndex == 0)
+            if (this.chooseIndex == 2|| this.chooseIndex==3 || this.chooseIndex==0)
             {
               this.navCtrl.setRoot('NewTabsPage');
             }
@@ -263,9 +259,8 @@ export class LoginPage {
     this.isSelected3 = false;
     this.isSelected4 = false;
     this.chooseIndex = 0;
-    // HttpService.appUrl = "http://192.168.1.151:8888/"
-    // HttpService.appUrl = "http://192.168.1.244:8111/"
     HttpService.appUrl = "http://service.linkloving.net:8888/"
+    // HttpService.appUrl = "http://192.168.1.9:8081/"
     this.reset();
     this.img1 = "assets/img/jiangsuruotai_clicked.png"
     this.password_src = "assets/img/S_password.png"
@@ -295,8 +290,8 @@ export class LoginPage {
     this.isSelected3 = false;
     this.isSelected4 = false;
     this.chooseIndex = 2;
-    HttpService.appUrl = "http://dr.robotime.com/"
-    // HttpService.appUrl = "http://192.168.1.131:8888/"
+    // HttpService.appUrl = "http://dr.robotime.com/"
+    HttpService.appUrl = "http://192.168.1.131:8888/"
     // HttpService.appUrl = "http://192.168.2.64:8069/"
     this.reset();
     this.img2 = "assets/img/diy_clicked.png"
@@ -378,10 +373,14 @@ export class LoginPage {
   toLogin() {
     console.log(this.employee)
     console.log(this.remerberPassword)
-    this.storage.set("login", {
-      autoLogin: this.autoLogin,
-      remerberPassword: this.remerberPassword,
-    })
+    try {
+      this.storage.set("login", {
+        autoLogin: this.autoLogin,
+        remerberPassword: this.remerberPassword,
+      })
+    } catch (error) {
+      Utils.toastButtom('手机内存不足，请清理之后重试！', this.toastCtrl)
+    }
     if (this.employee == null) {
       this.ctrl.create({
         title: '提示',
@@ -424,13 +423,17 @@ export class LoginPage {
           loading.dismiss()
           HttpService.user_id = res.result.res_data.user_id;
           HttpService.user = res.result.res_data;
-          this.storage.set("user_psd", {
-            user_email: this.email,
-            user_psd: this.password,
-            db_name: this.employee,
-            url: HttpService.appUrl
-          })
-          this.storage.set('loginIndex', this.chooseIndex)
+          try {
+            this.storage.set("user_psd", {
+              user_email: this.email,
+              user_psd: this.password,
+              db_name: this.employee,
+              url: HttpService.appUrl
+            })
+            this.storage.set('loginIndex', this.chooseIndex)
+          } catch (error) {
+            Utils.toastButtom('手机内存不足，请清理之后重试！', this.toastCtrl)
+          }
           if (this.remerberPassword) {
             this.storage.get("history_users").then(res => {
               if (res) {
@@ -456,7 +459,12 @@ export class LoginPage {
                     password: this.password,
                   })
                 }
-                this.storage.set("history_users", arr);
+                
+                try {
+                  this.storage.set("history_users", arr);
+                } catch (error) {
+                  Utils.toastButtom('手机内存不足，请清理之后重试！', this.toastCtrl)
+                }
               }
               else {
                 let arr = []
@@ -464,7 +472,11 @@ export class LoginPage {
                   email: this.email,
                   password: this.password,
                 })
-                this.storage.set("history_users", arr);
+                try {
+                  this.storage.set("history_users", arr);
+                } catch (error) {
+                  Utils.toastButtom('手机内存不足，请清理之后重试！', this.toastCtrl)
+                }
               }
             })
           }
@@ -483,16 +495,20 @@ export class LoginPage {
             }).present();
             return
           }
-          this.storage.set("user", res).then(() => {
-            if (this.chooseIndex == 0){
-               this.navCtrl.setRoot('NewTabsPage');
-            }
-           else
-           {
-             this.navCtrl.setRoot('TabsPage');
-           }
-            // this.jpush.setAlias(res.result.res_data.user_id);
-          });
+          try {
+            this.storage.set("user", res).then(() => {
+              if (this.chooseIndex == 2 || this.chooseIndex==3 || this.chooseIndex==0){
+                 this.navCtrl.setRoot('NewTabsPage');
+              }
+             else
+             {
+               this.navCtrl.setRoot('TabsPage');
+             }
+              // this.jpush.setAlias(res.result.res_data.user_id);
+            });
+          } catch (error) {
+            Utils.toastButtom('手机内存不足，请清理之后重试！', this.toastCtrl)
+          }
         }
         else if (res.result && res.result.res_code == -1) {
           loading.dismiss()

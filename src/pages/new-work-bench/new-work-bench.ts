@@ -84,4 +84,7 @@ export class NewWorkBenchPage {
     this.navCtrl.push('PerformancePage')
   }
 
+  toAll(){
+    this.navCtrl.push('AllSchedulePage')
+  }
 }

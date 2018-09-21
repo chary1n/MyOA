@@ -1,4 +1,77 @@
 page-first-show {
+    .fabBcOne{
+        border-radius: 25px;
+        width: 70px;
+        background-color: #E98553;
+        color: white;
+        margin-bottom: 4px;
+        margin-top: 4px;
+        padding: 0px 2.5rem;
+        font-size: 13px;
+        height: 35px;
+        font-weight: bold
+    }
+    .fabBcTwo{
+        border-radius: 25px;
+        width: 70px;
+        background-color: rgb(88, 181, 224);
+        color: white;
+        margin-bottom: 4px;
+        margin-top: 4px;
+        padding: 0px 2.5rem;
+        font-size: 13px;
+        height: 35px;
+        font-weight: bold
+    }
+    .fabBcThree{
+        border-radius: 25px;
+        width: 70px;
+        background-color:  #2597ec;
+        color: white;
+        margin-bottom: 4px;
+        margin-top: 4px;
+        padding: 0px 2.5rem;
+        font-size: 13px;
+        height: 35px;
+        font-weight: bold
+    }
+    .big_span_bac{
+        margin-top: -46px;
+        position: absolute;
+        width: 23px;
+        height: 17px;
+        line-height: 17px;
+        border-radius: 8.5px;
+        background-color:red;
+        display:inline-block;
+        color:white;
+        text-align:center;
+        margin-left:11px
+    }
+    .normal_span_bac{
+        margin-top: -46px;
+        position: absolute;
+        width: 17px;
+        height: 17px;
+        line-height: 17px;
+        border-radius: 8.5px;
+        background-color:red;
+        display:inline-block;
+        color:white;
+        text-align:center;
+        margin-left:11px
+    }
+    .selected {
+        color: #409eff;
+        border-bottom: 2px solid #409eff;
+        font-size: 14px;
+        padding-bottom: 0px;
+      }
+      .normal {
+        color: #5a5f63;
+        font-size: 14px;
+        padding-bottom: 0px;
+      }
     .notFinish{
         font-size: 12px;
         width: 70%;

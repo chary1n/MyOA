@@ -1,4 +1,3 @@
-import { FirstShowPage } from './../pages/first-show/first-show';
 import { Storage } from '@ionic/storage';
 // import { NativeService } from './../providers/NativeService';
 import { TabsPage } from './../pages/tabs/tabs';

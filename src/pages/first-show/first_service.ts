@@ -25,7 +25,7 @@ export class FirstShowService {
     }
 
     get_event_type(body){
-        return this.httpService.postBody("get_event_type", body);
+        return this.httpService.postBodyNoLoading("get_event_type", body);
     }
     
     get_all_partner(body){
@@ -53,10 +53,57 @@ export class FirstShowService {
     }
 
     search_one_partner(body){
-        return this.httpService.postBody("search_one_partner", body);
+        return this.httpService.postBodyNoLoading("search_one_partner", body);
     }
 
     get_late_list(body){
         return this.httpService.postBody("get_late_list", body);
+    }
+
+    //获取审批页面的数目
+    get_approval_num(body){
+        return this.httpService.postBodyNoLoading("get_approval_num", body);
+    }
+
+    create_meeting(body){
+        return this.httpService.postBody("create_meeting", body);
+    }
+    
+    get_meeting(body){
+        return this.httpService.postBody("get_meeting", body);
+    }
+    
+    create_meeting_line(body){
+        return this.httpService.postBody("create_meeting_line", body);
+    }
+
+
+    // delete_meeting_line(body){
+    //     return this.httpService.postBody("delete_meeting_line", body);
+    // }
+
+    delete_meeting(body){
+        return this.httpService.postBody("delete_meeting", body);
+    }
+
+    write_meeting(body){
+        return this.httpService.postBody("write_meeting", body);
+    }
+
+    // get_meeting_line(body){
+    //     return this.httpService.postBody("get_meeting_line", body);
+    // }
+
+    change_meeting(body){
+        return this.httpService.postBody("change_meeting", body);
+    }
+    
+    get_all_schedule(body){
+        return this.httpService.postBody("get_all_schedule", body);
+    }
+    
+
+    search_all_schedule(body){
+        return this.httpService.postBody("search_all_schedule", body);
     }
 }
