@@ -187,7 +187,7 @@ export class LoginPage {
           window.localStorage.setItem("id", res.result.res_data.user_id)
           this.storage.get('user_psd').then(res => {
             HttpService.appUrl = res.url
-            if (this.chooseIndex == 2|| this.chooseIndex==3 || this.chooseIndex==0)
+            if (this.chooseIndex==0)
             {
               this.navCtrl.setRoot('NewTabsPage');
             }
@@ -497,7 +497,7 @@ export class LoginPage {
           }
           try {
             this.storage.set("user", res).then(() => {
-              if (this.chooseIndex == 2 || this.chooseIndex==3 || this.chooseIndex==0){
+              if (this.chooseIndex==0){
                  this.navCtrl.setRoot('NewTabsPage');
               }
              else
