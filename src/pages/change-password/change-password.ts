@@ -123,7 +123,6 @@ export class ChangePasswordPage {
                       if(this.is_me){
                         this.navCtrl.pop()
                       }else{
-
                         this.navCtrl.setRoot('NewTabsPage');
                       }
                       // this.jpush.setAlias(res.result.res_data.user_id);

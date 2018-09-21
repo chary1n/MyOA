@@ -1,0 +1,81 @@
+<!--
+  Generated template for the EmailDetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="gongdan-color" hideBackButton="true">
+    <ion-buttons left>
+      <button ion-button icon-only (click)="goBack()">
+        <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title></ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <div class="email_subject">
+    {{subject}}
+  </div>
+  <ul class="email_content_ul">
+    <li class="li_c">
+      <span class="span_c">发件人 :</span>
+      <span class="span_c" *ngFor="let item of email_from"> {{item}}</span>
+    </li>
+    <li class="li_c">
+      <div style="float:left">
+        <span class="span_c">收件人 :</span>
+      </div>
+      <div style="padding-left:46px">
+        <span class="span_c" *ngFor="let item of email_to;let i = index;">{{item}}{{i!=email_to.length-1?';':''}}</span>
+      </div>
+    </li>
+    <li class="li_c" *ngIf="email_cc">
+      <div style="float:left">
+        <span class="span_c">抄&nbsp;&nbsp;&nbsp;&nbsp;送 :</span>
+      </div>
+      <div style="padding-left:46px">
+        <span class="span_c" *ngFor="let item of email_cc;let i = index;">{{item}}{{i!=email_cc.length-1?';':''}}</span>
+      </div>
+    </li>
+    <li class="li_c" *ngIf="email_bcc">
+      <div style="float:left">
+        <span class="span_c">密&nbsp;&nbsp;&nbsp;&nbsp;送 :</span>
+      </div>
+      <div style="padding-left:46px">
+        <span class="span_c" *ngFor="let item of email_bcc;let i = index;">{{item}}{{i!=email_bcc.length-1?';':''}}</span>
+      </div>
+    </li>
+    <li class="li_c">
+      <span class="span_c">时&nbsp;&nbsp;&nbsp;&nbsp;间 :</span>
+      <span class="span_c">{{date}}</span>
+    </li>
+  </ul>
+  <div style="width:100%">
+    <div class="html_div" [innerHTML]="assembleHTML(body_html)"> </div>
+  </div>
+  <ion-list *ngIf="attachment_list.length!=0" no-lines class="ion-list-account" style="border-top: 0.55px solid #c8c7cce0">
+    <ion-item nolines class="attach_item" style="border-bottom: 0.55px solid #c8c7cce0" *ngFor='let item of attachment_list'
+      (click)='clickAttach(item.id,item.mimetype)'>
+      <div class="checkmark">
+        <img class="attach_img" src={{item.icon_src}}>
+      </div>
+      <div>
+        <div class="account_name">
+          {{item.fname}}
+        </div>
+        <div class="attach_size">
+          {{item.size}}
+        </div>
+      </div>
+      <div class="border_div"></div>
+    </ion-item>
+  </ion-list>
+
+  <div class="content_footer"></div>
+</ion-content>

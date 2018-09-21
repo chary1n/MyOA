@@ -1,0 +1,75 @@
+page-email {
+  .add_account_text {
+    text-align: center;
+    margin-top: 200px;
+    font-size: 18px;
+    color: #999999;
+  }
+
+  .add_account_button {
+    background: #FFFFFF;
+    border: 1px solid #409EFF;
+    border-radius: 100px;
+    text-align: center;
+    font-size: 18px;
+    padding: 10px;
+    width: 40%;
+    margin-left: 30%;
+    color: #409eff;
+  }
+
+  .email_title {
+    font-size: 14px;
+  }
+
+  .email_title_bold {
+    font-weight: bold;
+    font-size: 14px;
+  }
+
+
+  .email_summary_bold{
+    font-size: 12px;
+    font-weight: bold;
+  }
+
+  .email_summary {
+    font-size: 12px;
+  }
+
+  .email_content {
+    font-size: 12px;
+    color: #919294;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    margin-top: 1px
+  }
+
+  .email_date {
+    float: right;
+    font-size: 12px;
+    color: #919294;
+    margin-top: 3px
+  }
+
+  .title_alert {}
+
+  .no_account {
+    margin-top: 200px;
+    text-align: center;
+    font-size: 19px;
+    color: gray;
+  }
+
+
+  .red-point {
+    width: 8px;
+    height: 8px;
+    background: red;
+    border-radius: 4px;
+    float: left;
+    margin-top: 4px;
+    margin-right: 6px;
+  }
+
+}

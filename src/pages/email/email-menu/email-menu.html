@@ -1,0 +1,86 @@
+<!--
+  Generated template for the EmailMenuPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-menu [content]="content" type="overlay" (ionDrag)="dragMenu()" (ionClose)="closeMenu()" (ionOpen)="openMenu()" id="menu1">
+
+  <ion-content >
+    <div class="top_div"></div>
+    <ion-list class="ion-list-account">
+      <ion-item no-lines class="account_item" *ngFor='let item of account_list' (click)='chooseAccount(item.id)'>
+        <div class="checkmark">
+          <img   *ngIf="item.id==account_id" class="img_account" src="assets/img/work_bench/checkbox_true.png">
+          <div *ngIf="item.id!=account_id" class="img_account"></div>
+        </div>
+        <div>
+          <div class="account_name">
+            {{item.name}}
+          </div>
+          <div class="
+            account_address">
+            {{item.email}}
+          </div>
+        </div>
+      </ion-item>
+    </ion-list>
+    <ion-item class="box_item" no-lines  tappable (click)="click_box('state','all_received',$event)">
+      <ion-icon   class="box_icon" item-start name="ios-archive-outline"></ion-icon>
+      <ion-label class="box_name">收件箱</ion-label>
+      <ion-label class="box_numebr">{{unseen_count}}</ion-label>
+    </ion-item>
+
+    <ion-item class="box_item" no-lines  tappable (click)="click_box('flag','',$event)">
+       <ion-icon class="box_icon"item-start name="ios-attach-outline"></ion-icon>
+      <ion-label class="box_name">已固定</ion-label>
+    </ion-item>
+
+    <ion-item class="box_item" no-lines  tappable (click)="click_box('state','draft',$event)">
+       <ion-icon class="box_icon"item-start name="ios-paper-outline"></ion-icon>
+      <ion-label class="box_name">草稿箱</ion-label>
+    </ion-item>
+
+    <ion-item class="box_item" no-lines  tappable (click)="click_box('state','all_sent',$event)">
+       <ion-icon class="box_icon"item-start name="ios-navigate-outline"></ion-icon>
+      <ion-label class="box_name">发件箱</ion-label>
+    </ion-item>
+
+    <ion-item class="box_item" no-lines  tappable (click)="click_box('state','junk',$event)">
+       <ion-icon class="box_icon"item-start name="ios-trash-outline"></ion-icon>
+      <ion-label class="box_name">垃圾箱</ion-label>
+    </ion-item>
+
+    <ion-item class="box_item" no-lines  tappable (click)="click_box('state','deleted',$event)">
+       <ion-icon class="box_icon"item-start name="ios-cut-outline"></ion-icon>
+      <ion-label class="box_name">已删除</ion-label>
+    </ion-item>
+
+    <ion-item class="box_item" no-lines  tappable (click)="click_box('label','','')">
+       <ion-icon class="box_icon"item-start name="ios-bookmark-outline"></ion-icon>
+      <ion-label class="box_name">标签</ion-label>
+      <ion-icon item-end name="arrow-down" *ngIf="!showLabel" (click)='changeLabel();$event.stopPropagation();'></ion-icon>
+      <ion-icon item-end name="arrow-up" *ngIf="showLabel" (click)='changeLabel();$event.stopPropagation();'></ion-icon>
+    </ion-item>
+
+    <div *ngIf="showLabel" style="background:#fff">
+      <ion-item style="margin-left:40px" class="box_item" no-lines *ngFor="let item of label_list" (click)="click_label(item.id)">
+        <div class="tag_class" id="label_{{item.id}}" style="background-color:burlywood">
+        </div>
+        <div  class="label_c box_name">
+          {{item.name}}
+        </div>
+      </ion-item>
+    </div>
+
+    <div class="line" style="padding:0.5px"></div>
+    <span class="folder_span"> 智能文件夹</span>
+    <div *ngIf="tree" class="tree_div" >
+        <tree [tree]="tree"   (nodeSelected)="handleSelected($event)"></tree>
+    </div>
+
+
+  </ion-content>
+</ion-menu>
+
+<ion-nav [root]="root" #content swipeBackEnabled="false"></ion-nav>

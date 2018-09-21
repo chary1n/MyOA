@@ -1,11 +1,11 @@
-import { AndroidAppVersion ,APK_DOWNLOAD} from './../../providers/Constants';
+import { AndroidAppVersion, APK_DOWNLOAD } from './../../providers/Constants';
 import { FirService } from './../../app/FirService';
 import { AppVersion } from '@ionic-native/app-version';
 import { LoginPage } from './../login/login';
 import { Storage } from '@ionic/storage';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, ModalController, Platform } from 'ionic-angular';
-import { JPush} from '../../providers/JPush'
+import { IonicPage, NavController, NavParams, AlertController, ModalController, Platform, MenuController, Events } from 'ionic-angular';
+import { JPush } from '../../providers/JPush'
 import { StatusBar } from '@ionic-native/status-bar';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { HttpService } from '../../providers/HttpService';
@@ -25,18 +25,20 @@ import { HttpService } from '../../providers/HttpService';
 export class MePage {
   name: string;
   user_heard: string;
-  company:any;
-  job:any;
-  versionNumber :any ;
+  company: any;
+  job: any;
+  versionNumber: any;
   user_id;
   loginIndex;
   version: any;
   from = false
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public storage: Storage,
+    public menu: MenuController,
     private alertCtrl: AlertController,
-    private modalctrl:ModalController, public platform :Platform,public appVersion:AppVersion,
+    private modalctrl: ModalController, public platform: Platform, public appVersion: AppVersion,
     public jpush: JPush,
+    public event:Events,
     public statusbar:StatusBar, public firService: FirService,
     private inAppBrowser: InAppBrowser,private httpService: HttpService) {
       if (this.platform.is("android")) {
@@ -54,7 +56,7 @@ export class MePage {
       })
   }
 
-  checkVersion(){
+  checkVersion() {
     this.platform.ready().then(() => {
       if (this.platform.is("android")) {
         this.getVersionNumber();
@@ -104,7 +106,7 @@ export class MePage {
             }
             ]
           }).present();
-        }else{
+        } else {
           const alert = this.alertCtrl.create({
             title: '提示!',
             subTitle: '已是最新版本，无需更新!',
@@ -134,7 +136,7 @@ export class MePage {
                 }
               ]
             }).present();
-          }else{
+          } else {
             const alert = this.alertCtrl.create({
               title: '提示!',
               subTitle: '已是最新版本，无需更新!',
@@ -154,25 +156,25 @@ export class MePage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad MePage');
-    
+
   }
- ionViewWillEnter(){
-  this.initData();
-  this.statusbar.backgroundColorByHexString("#409eff");
+  ionViewWillEnter() {
+    this.initData();
+    this.statusbar.backgroundColorByHexString("#409eff");
     this.statusbar.styleLightContent();
- }
+  }
 
   initData() {
     this.storage.get('user')
       .then(res => {
         console.log(res);
         this.name = res.result.res_data.name;
-        this.job=res.result.res_data.job;
-        if(this.job==false){
-          this.job=" "
+        this.job = res.result.res_data.job;
+        if (this.job == false) {
+          this.job = " "
         }
         this.user_heard = res.result.res_data.user_ava;
-        this.company=res.result.res_data.company;
+        this.company = res.result.res_data.company;
       })
 
   }
@@ -193,17 +195,26 @@ export class MePage {
           handler: () => {
             this.storage.set('user', null)
               .then(() => {
-                this.storage.get("login").then(res=>{
-                  if(!(res&&res.remerberPassword)){
-                    this.storage.set('user_psd',null)
+                this.storage.get("login").then(res => {
+                  if (!(res && res.remerberPassword)) {
+                    this.storage.set('user_psd', null)
                     console.log("密码设置为空")
                   }
                 })
                 this.statusbar.backgroundColorByHexString("#f0f2f5");
                 this.statusbar.styleLightContent();
                 // this.jpush.setAlias(null);
-               let modal = this.modalctrl.create(LoginPage);
+                let modal = this.modalctrl.create("LoginPage");
                 modal.present();
+                let tabs = document.getElementsByClassName('tabbar').item(0);
+                tabs.remove();
+                let menus =  this.menu.getMenus()
+                if (menus) {
+                  menus.pop()
+                  // this.menu.enable(false)
+                }
+                console.log('注销事件传递')
+                this.event.unsubscribe('click_envnt')
               });
           }
         }
@@ -212,13 +223,13 @@ export class MePage {
     alert.present();
   }
 
-  editInformation(){
+  editInformation() {
     this.navCtrl.push("EditInformationPage")
   }
 
 
-  changePassword(){
-    this.navCtrl.push('ChangePasswordPage',{ is_me: true })
+  changePassword() {
+    this.navCtrl.push('ChangePasswordPage', { is_me: true })
   }
 
   // goBack(){
