@@ -475,12 +475,16 @@ handleData(){
 }
 
   addMeeting(){
-    this.navCtrl.push('CalendarDeatilpagePage', {
-      'isEdit': true,
-      'type': 1,
-      'meeting_id': this.meeting_id,
-      'frontPage': 'MeetingPage'
-    })
+    if(this.user.partner_id==this.item.rt_project_principal.partner_id_s_id || this.uid==this.item.create_uid){
+      this.navCtrl.push('CalendarDeatilpagePage', {
+        'isEdit': true,
+        'type': 1,
+        'meeting_id': this.meeting_id,
+        'frontPage': 'MeetingPage'
+      })
+    }else{
+      Utils.toastButtom('只有负责人和创建人可以添加任务', this.toastCtrl)
+    }
   }
 
   lookDetail(item){
