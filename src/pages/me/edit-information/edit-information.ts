@@ -107,7 +107,6 @@ export class EditInformationPage {
         }
       ]
     });
-
     actionSheet.present();
   }
 
