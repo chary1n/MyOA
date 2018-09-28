@@ -421,18 +421,33 @@ export class FirstShowPage {
       })
     }else{
       if(this.type_id==item.type_id && item.is_meeting_sch==false){
-        this.navCtrl.push('MeetingPage',{
+        this.firshowService.get_event_detail({'uid': this.uid,
+        'event_id': item.id}).then(res => {
+          if (res.result.res_data && res.result.res_code == 1) {
+            item = res.result.res_data
+            this.navCtrl.push('MeetingPage',{
           'meeting_id': item.rt_meeeting_s_id,
           'isEdit': false,
           'uid': this.uid,
           'frontPage': 'FirstShowPage'
         })
+          }
+        })
+
+
+        
       }else{
-        this.navCtrl.push('CalendarDeatilpagePage',{
+        this.firshowService.get_event_detail({'uid': this.uid,
+        'event_id': item.id}).then(res => {
+          if (res.result.res_data && res.result.res_code == 1) {
+            item = res.result.res_data
+            this.navCtrl.push('CalendarDeatilpagePage',{
           'item': item,
           'isEdit': false,
           'frontPage': 'FirstShowPage'
         })
+          }})
+        
       }
     }
   }

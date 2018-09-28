@@ -2,7 +2,7 @@ import { Utils } from './../../../providers/Utils';
 import { Storage } from '@ionic/storage';
 import { FirstShowService } from './../first_service';
 import { Component , ViewChild} from '@angular/core';
-import { IonicPage, NavController, NavParams, Content, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Content, AlertController ,Keyboard} from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { ToastController } from 'ionic-angular/components/toast/toast-controller';
 import { DatePipe } from '@angular/common';
@@ -26,6 +26,7 @@ declare let cordova: any;
 export class CalendarDeatilpagePage {
   @ViewChild(Content) content: Content;
   @ViewChild('searchbar') searchbar:Searchbar;
+  @ViewChild('contextInput') contextInput;
   @ViewChild('nameInput') nameInput;
   item;
   uid
@@ -69,10 +70,12 @@ export class CalendarDeatilpagePage {
   meeting_id;
   state;
   event_list=[];
-  meeting_type=0
+  meeting_type=0;
+  context_message;
   constructor(public navCtrl: NavController, public navParams: NavParams, public statusBar:StatusBar,
               public firService: FirstShowService, public storage:Storage,public toastCtrl: ToastController,
-              private datePipe: DatePipe,private sanitizer: DomSanitizer,public alertCtrl: AlertController) {
+              private datePipe: DatePipe,private sanitizer: DomSanitizer,public alertCtrl: AlertController,
+              public keyboard: Keyboard) {
                 this.frontPage = Utils.getViewController(this.navParams.get('frontPage'), navCtrl)
                 this.isEdit = this.navParams.get('isEdit')
                 this.storage.get('user').then(res =>{
@@ -152,6 +155,8 @@ export class CalendarDeatilpagePage {
       this.item_tip_name = this.item.rt_alarm_type_name+'(App提醒、网页提醒)'
     }
     this.description = this.item.description.replace(/\n/g,"<br>")
+
+
   }
 //滑动事件
 panEvent($event) {
@@ -702,4 +707,27 @@ panEvent($event) {
       return body
     }
   }
+
+  changeDate(date) {
+    if (date) {
+      let new_date = new Date(date.replace(' ', 'T') + 'Z').getTime();
+      return new_date;
+    }
+  }
+
+  focusInput(){
+    console.log('1')
+  }
+
+  blurInput(){
+    console.log('2')
+  }
+
+    reply_to(items){
+      this.contextInput.setFocus()
+      // this.keyboard.willShow()
+    }
+
+    
+
 }

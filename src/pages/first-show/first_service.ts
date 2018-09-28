@@ -6,6 +6,9 @@ export class FirstShowService {
     constructor(private httpService: HttpService) {
 
     }
+    get_event_detail(body){
+        return this.httpService.postBody("get_event_detail", body);
+    }
 
     get_schedule_list(body){
         return this.httpService.postBody("get_schedule_list", body);
