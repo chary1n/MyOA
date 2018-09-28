@@ -263,7 +263,7 @@ export class WriteEmailPage {
   }
 
   private getPictureSuccess(img) {
-    this.emailService.uploadAttachment(this.user_id, 'IMG_PHOTO', img).then(res => {
+    this.emailService.uploadAttachment(this.user_id, 'IMG_PHOTO.jpg', img).then(res => {
       console.log(res)
       if (res.result.res_code == 1) {
         this.attachment_list.push(res.result.res_data)
