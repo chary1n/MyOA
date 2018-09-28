@@ -193,7 +193,8 @@ export class LoginPage {
             }
             else
             {
-              this.navCtrl.setRoot('TabsPage');
+              this.navCtrl.setRoot('NewTabsPage');
+              // this.navCtrl.setRoot('TabsPage');
             }
             
             console.log(res)
@@ -259,8 +260,8 @@ export class LoginPage {
     this.isSelected3 = false;
     this.isSelected4 = false;
     this.chooseIndex = 0;
-    HttpService.appUrl = "http://service.linkloving.net:8888/"
-    // HttpService.appUrl = "http://192.168.1.9:8081/"
+    // HttpService.appUrl = "http://service.linkloving.net:8888/"
+    HttpService.appUrl = "http://10.0.0.2:8081/"
     this.reset();
     this.img1 = "assets/img/jiangsuruotai_clicked.png"
     this.password_src = "assets/img/S_password.png"
@@ -322,8 +323,8 @@ export class LoginPage {
     this.isSelected1 = false;
     this.isSelected3 = false;
     this.chooseIndex = 4;
-    HttpService.appUrl = "http://ber.robotime.com/"
-    // HttpService.appUrl = "http://192.168.1.244:8111/"
+    // HttpService.appUrl = "http://ber.robotime.com/"
+    HttpService.appUrl = "http://192.168.1.244:8111/"
     this.reset();
     this.img4 = "assets/img/banchang_clicked.png"
     this.password_src = "assets/img/B_password.png"
@@ -502,7 +503,8 @@ export class LoginPage {
               }
              else
              {
-               this.navCtrl.setRoot('TabsPage');
+              //  this.navCtrl.setRoot('TabsPage');
+               this.navCtrl.setRoot('NewTabsPage');
              }
               // this.jpush.setAlias(res.result.res_data.user_id);
             });

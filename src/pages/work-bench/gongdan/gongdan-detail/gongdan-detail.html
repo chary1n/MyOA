@@ -14,12 +14,12 @@
       </button>
     </ion-buttons>
   </ion-navbar>
-  
+
 </ion-header>
 
 
 <ion-content style="background:#f4f4f4">
-  <ion-item-group  no-lines style="background:#f0f2f5;margin-top:-10px">
+  <ion-item-group no-lines style="background:#f0f2f5;margin-top:-10px">
     <div style="margin-top:10px;background-color:white" tappable (click)="gongdanDetail(item)">
       <div>
         <img *ngIf="item.priority == 3" src="assets/img/work_bench/up_one.png" class="priority_icon">
@@ -41,24 +41,24 @@
     </span>
   </div>-->
 
-      <div *ngIf="all_tag_ids.length > 0" >
+      <div *ngIf="all_tag_ids.length > 0">
         <ion-grid style="height:30px;">
-      <ion-row>
-         <ion-col col-3 tappable  *ngFor="let item_tag of all_tag_ids;let i = index">
-          <div class = "biaoqian_div_choose" align="center">
-            {{item_tag.name}}
-          </div>
-        </ion-col>
-        
-      </ion-row>
-    </ion-grid>
+          <ion-row>
+            <ion-col col-3 tappable *ngFor="let item_tag of all_tag_ids;let i = index">
+              <div class="biaoqian_div_choose" align="center">
+                {{item_tag.name}}
+              </div>
+            </ion-col>
+
+          </ion-row>
+        </ion-grid>
       </div>
       <P text-wrap class="data_list_desprition">
         {{item.description}}
       </P>
       <ion-grid *ngIf="item.work_order_images" style="margin-top:-20px;margin-left:5px">
         <ion-row style="margin-right:5px;">
-          <ion-col style="height:80px" *ngFor="let image of item.work_order_images" col-3 >
+          <ion-col style="height:80px" *ngFor="let image of item.work_order_images" col-3>
             <img style="position:absolute;clip:rect(0px,70px,70px,0px);background-color:#f0f2f5" src={{image}} imageViewer/>
           </ion-col>
         </ion-row>
@@ -81,114 +81,121 @@
     </div>
   </ion-item-group>
   <p class="divided_p">{{"操作记录" + "（" + message_item.length + "）"}}</p>
-  <ion-list class="message_list"> 
+  <ion-list class="message_list">
     <div *ngFor="let items of message_item" class="div_message">
       <ion-item no-lines style="height:40px;min-height:50px">
-    <ion-grid style="background:white">
-      <ion-row>
-        <ion-col col-2>
-          <img src={{items.create_uid.user_ava}} class="img_message_ava">
-        </ion-col>
-        <ion-col col-7 >
-          <p class="name_message">
-            <span>{{items.create_uid.name}}</span><span style="margin-left:10px">{{changeDate(items.create_date) | date:'MM-dd HH:mm'}}</span>
-          </p>
-        </ion-col>
-        <ion-col col-3 tappable (click)="reply_to(items)">
-          <img src="assets/img/work_bench/feedback.png" class="reply_small_icon">
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </ion-item>
-  <ion-item no-lines *ngIf="items.record_type == 'reply'" style="margin-top:-5px">
-   <p text-wrap [ngClass]="{true:'content_message',false:'content_message_no_lines'}[items.reply_record_line_ids.length > 0]" class="">
-     <span>回复：</span><span style="color:#1f6699;" tappable (click)="clickUser(items.reply_uid)">{{"@" + items.reply_uid.name + " "}}</span><span>{{items.content}}</span>
-     <ion-grid *ngIf="items.record_images.length > 0" style="margin-top:-5px;margin-bottom:5px">
-        <ion-row style="margin-right:5px;">
-          <ion-col style="height:80px" *ngFor="let image of items.record_images" col-3 >
-            <img style="position:absolute;clip:rect(0px,70px,70px,0px);background-color:#f0f2f5" src={{image}} imageViewer/>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-   </p>
-   
-  </ion-item>
-  <ion-item no-lines *ngIf="items.record_type == 'assign'" style="height:20px;min-height:40px;margin-top:-5px">
-   <p [ngClass]="{true:'content_message_zhipai',false:'content_message_zhipai_no_lines'}[items.reply_record_line_ids.length > 0]" class="">{{items.content}}</p><p *ngIf="items.reply_uid.name" [ngClass]="{true:'content_message',false:'content_message_no_lines'}[items.reply_record_line_ids.length > 0]" style="color:#1f6699" tappable (click)="clickUser(items.reply_uid)">{{"@" + items.reply_uid.name}}</p><p *ngIf="!items.reply_uid.name" [ngClass]="{true:'content_message_empty',false:'content_message_empty_no_lines'}[items.reply_record_line_ids.length > 0]">Empty</p>
-  </ion-item>
-  <ion-item no-lines *ngIf="items.record_type == 'check'" style="height:20px;min-height:40px;margin-top:-5px">
-   <p [ngClass]="{true:'content_message',false:'content_message_no_lines'}[items.reply_record_line_ids.length > 0]" class="">处理完成</p>
-  </ion-item>
-  <ion-item no-lines *ngIf="items.record_type == 'reject'" style="height:20px;min-height:40px;margin-top:-5px">
-   <p [ngClass]="{true:'content_message',false:'content_message_no_lines'}[items.reply_record_line_ids.length > 0]" class="">验收不通过</p>
-  </ion-item>
-  <ion-item no-lines *ngIf="items.record_type == 'finish'" style="height:20px;min-height:40px;margin-top:-5px">
-   <p [ngClass]="{true:'content_message',false:'content_message_no_lines'}[items.reply_record_line_ids.length > 0]" class="">验收通过</p>
-  </ion-item>
-   <ion-item no-lines *ngIf="items.record_type == 'draft'" style="height:20px;min-height:40px;margin-top:-5px">
-   <p [ngClass]="{true:'content_message',false:'content_message_no_lines'}[items.reply_record_line_ids.length > 0]" class="">{{items.content}}</p>
-  </ion-item>
-  <ion-item no-lines *ngFor="let line of items.reply_record_line_ids;" [ngClass]="{true:'item_class_image',false:'item_calss_one'}[line.record_images.length > 0]">
-   <p [ngClass]="{true:'item_class_image_p',false:'item_class_normal_p'}[line.record_images.length > 0]">
-    <span style="color:#1f6699;" tappable (click)="clickUser(line.reply_uid)">{{line.create_uid.name + "：@" + line.reply_uid.name}} </span><span style="color:8a9299">{{line.content}}</span>
-  </p>
+        <ion-grid style="background:white">
+          <ion-row>
+            <ion-col col-2>
+              <img src={{items.create_uid.user_ava}} class="img_message_ava">
+            </ion-col>
+            <ion-col col-7>
+              <p class="name_message">
+                <span>{{items.create_uid.name}}</span><span style="margin-left:10px">{{changeDate(items.create_date) | date:'MM-dd HH:mm'}}</span>
+              </p>
+            </ion-col>
+            <ion-col col-3 tappable (click)="reply_to(items)">
+              <img src="assets/img/work_bench/feedback.png" class="reply_small_icon">
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+      <ion-item no-lines *ngIf="items.record_type == 'reply'" style="margin-top:-5px">
+        <p text-wrap [ngClass]="{true:'content_message',false:'content_message_no_lines'}[items.reply_record_line_ids.length > 0]"
+          class="">
+          <span>回复：</span><span style="color:#1f6699;" tappable (click)="clickUser(items.reply_uid)">{{"@" + items.reply_uid.name + " "}}</span><span>{{items.content}}</span>
+          <ion-grid *ngIf="items.record_images.length > 0" style="margin-top:-5px;margin-bottom:5px">
+            <ion-row style="margin-right:5px;">
+              <ion-col style="height:80px" *ngFor="let image of items.record_images" col-3>
+                <img style="position:absolute;clip:rect(0px,70px,70px,0px);background-color:#f0f2f5" src={{image}} imageViewer/>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </p>
 
-  <ion-grid *ngIf="line.record_images.length > 0" >
-        <ion-row style="margin-right:5px;">
-          <ion-col style="height:80px" *ngFor="let image of line.record_images" col-3 >
-            <img  style="position:absolute;clip:rect(0px,70px,70px,0px);background-color:#f0f2f5" src={{image}} imageViewer/>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-  </ion-item>   
+      </ion-item>
+      <ion-item no-lines *ngIf="items.record_type == 'assign'" style="height:20px;min-height:40px;margin-top:-5px">
+        <p [ngClass]="{true:'content_message_zhipai',false:'content_message_zhipai_no_lines'}[items.reply_record_line_ids.length > 0]"
+          class="">{{items.content}}</p>
+        <p *ngIf="items.reply_uid.name" [ngClass]="{true:'content_message',false:'content_message_no_lines'}[items.reply_record_line_ids.length > 0]"
+          style="color:#1f6699" tappable (click)="clickUser(items.reply_uid)">{{"@" + items.reply_uid.name}}</p>
+        <p *ngIf="!items.reply_uid.name" [ngClass]="{true:'content_message_empty',false:'content_message_empty_no_lines'}[items.reply_record_line_ids.length > 0]">Empty</p>
+      </ion-item>
+      <ion-item no-lines *ngIf="items.record_type == 'check'" style="height:20px;min-height:40px;margin-top:-5px">
+        <p [ngClass]="{true:'content_message',false:'content_message_no_lines'}[items.reply_record_line_ids.length > 0]" class="">处理完成</p>
+      </ion-item>
+      <ion-item no-lines *ngIf="items.record_type == 'reject'" style="height:20px;min-height:40px;margin-top:-5px">
+        <p [ngClass]="{true:'content_message',false:'content_message_no_lines'}[items.reply_record_line_ids.length > 0]" class="">验收不通过</p>
+      </ion-item>
+      <ion-item no-lines *ngIf="items.record_type == 'finish'" style="height:20px;min-height:40px;margin-top:-5px">
+        <p [ngClass]="{true:'content_message',false:'content_message_no_lines'}[items.reply_record_line_ids.length > 0]" class="">验收通过</p>
+      </ion-item>
+      <ion-item no-lines *ngIf="items.record_type == 'draft'" style="height:20px;min-height:40px;margin-top:-5px">
+        <p [ngClass]="{true:'content_message',false:'content_message_no_lines'}[items.reply_record_line_ids.length > 0]" class="">{{items.content}}</p>
+      </ion-item>
+      <ion-item no-lines *ngFor="let line of items.reply_record_line_ids;" [ngClass]="{true:'item_class_image',false:'item_calss_one'}[line.record_images.length > 0]">
+        <p [ngClass]="{true:'item_class_image_p',false:'item_class_normal_p'}[line.record_images.length > 0]">
+          <span style="color:#1f6699;" tappable (click)="clickUser(line.reply_uid)">{{line.create_uid.name + "：@" + line.reply_uid.name}} </span>
+          <span
+            style="color:8a9299">{{line.content}}</span>
+        </p>
 
-  <!--<ion-item *ngIf="items.reply_record_line_ids.length > 0" no-lines class="item_divide">
+        <ion-grid *ngIf="line.record_images.length > 0">
+          <ion-row style="margin-right:5px;">
+            <ion-col style="height:80px" *ngFor="let image of line.record_images" col-3>
+              <img style="position:absolute;clip:rect(0px,70px,70px,0px);background-color:#f0f2f5" src={{image}} imageViewer/>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+
+      <!--<ion-item *ngIf="items.reply_record_line_ids.length > 0" no-lines class="item_divide">
   </ion-item> -->
     </div>
   </ion-list>
-  
+
 </ion-content>
 <ion-footer>
   <div class="buttom_div">
     <ion-grid style="width:100%;">
-    <ion-row class="row_class" align-items-center>
-      <ion-col *ngIf="isShowCheHui" tappable (click) = "chehui()">
-         <div align="center">
-          <img [ngClass]="{true:'bottom_img_ios',false:'bottom_img_md'}[is_ios]" src="assets/img/work_bench/chehui.png"><br>
-          <p [ngClass]="{true:'bottom_p_ios',false:'bottom_p_md'}[is_ios]">撤回</p>
-        </div>
-      </ion-col>
-      <ion-col *ngIf="item.issue_state != 'draft'" tappable (click) = "replyClick()">
-        <div align="center">
-         <img [ngClass]="{true:'bottom_img_ios',false:'bottom_img_md'}[is_ios]" src="assets/img/work_bench/re_back.png"><br>
-          <p [ngClass]="{true:'bottom_p_ios',false:'bottom_p_md'}[is_ios]">回复</p>
-        </div>
-      </ion-col>
-      <ion-col *ngIf="isShowZhiPai" tappable (click) = "zhipai()">
-        <div align="center" >
-         <img [ngClass]="{true:'bottom_img_ios',false:'bottom_img_md'}[is_ios]" src="assets/img/work_bench/zhipai.png"><br>
-         <p [ngClass]="{true:'bottom_p_ios',false:'bottom_p_md'}[is_ios]">指派</p> 
-        </div>
-      </ion-col>
-      <ion-col *ngIf="isShowConfirm" tappable (click) = "confirm()">
-        <div align="center" >
-         <img [ngClass]="{true:'bottom_img_ios',false:'bottom_img_md'}[is_ios]" src="assets/img/work_bench/ok_icon.png"><br>
-         <p [ngClass]="{true:'bottom_p_ios',false:'bottom_p_md'}[is_ios]">同意</p> 
-        </div>
-      </ion-col>
-      <ion-col *ngIf="isShowRefuse" tappable (click) = "refuse()">
-        <div align="center" >
-         <img [ngClass]="{true:'bottom_img_ios',false:'bottom_img_md'}[is_ios]" src="assets/img/work_bench/refuse_icon.png"><br>
-         <p [ngClass]="{true:'bottom_p_ios',false:'bottom_p_md'}[is_ios]">拒绝</p> 
-        </div>
-      </ion-col>
-      <ion-col *ngIf="isShowFinish" tappable (click) = "finish()">
-        <div align="center" >
-         <img [ngClass]="{true:'bottom_img_ios',false:'bottom_img_md'}[is_ios]" src="assets/img/work_bench/finish.png"><br>
-         <p [ngClass]="{true:'bottom_p_ios',false:'bottom_p_md'}[is_ios]">处理完成</p> 
-        </div>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+      <ion-row class="row_class" align-items-center>
+        <ion-col *ngIf="isShowCheHui" tappable (click)="chehui()">
+          <div align="center">
+            <img [ngClass]="{true:'bottom_img_ios',false:'bottom_img_md'}[is_ios]" src="assets/img/work_bench/chehui.png"><br>
+            <p [ngClass]="{true:'bottom_p_ios',false:'bottom_p_md'}[is_ios]">撤回</p>
+          </div>
+        </ion-col>
+        <ion-col *ngIf="item.issue_state != 'draft'" tappable (click)="replyClick()">
+          <div align="center">
+            <img [ngClass]="{true:'bottom_img_ios',false:'bottom_img_md'}[is_ios]" src="assets/img/work_bench/re_back.png"><br>
+            <p [ngClass]="{true:'bottom_p_ios',false:'bottom_p_md'}[is_ios]">回复</p>
+          </div>
+        </ion-col>
+        <ion-col *ngIf="isShowZhiPai" tappable (click)="zhipai()">
+          <div align="center">
+            <img [ngClass]="{true:'bottom_img_ios',false:'bottom_img_md'}[is_ios]" src="assets/img/work_bench/zhipai.png"><br>
+            <p [ngClass]="{true:'bottom_p_ios',false:'bottom_p_md'}[is_ios]">指派</p>
+          </div>
+        </ion-col>
+        <ion-col *ngIf="isShowConfirm" tappable (click)="confirm()">
+          <div align="center">
+            <img [ngClass]="{true:'bottom_img_ios',false:'bottom_img_md'}[is_ios]" src="assets/img/work_bench/ok_icon.png"><br>
+            <p [ngClass]="{true:'bottom_p_ios',false:'bottom_p_md'}[is_ios]">同意</p>
+          </div>
+        </ion-col>
+        <ion-col *ngIf="isShowRefuse" tappable (click)="refuse()">
+          <div align="center">
+            <img [ngClass]="{true:'bottom_img_ios',false:'bottom_img_md'}[is_ios]" src="assets/img/work_bench/refuse_icon.png"><br>
+            <p [ngClass]="{true:'bottom_p_ios',false:'bottom_p_md'}[is_ios]">拒绝</p>
+          </div>
+        </ion-col>
+        <ion-col *ngIf="isShowFinish" tappable (click)="finish()">
+          <div align="center">
+            <img [ngClass]="{true:'bottom_img_ios',false:'bottom_img_md'}[is_ios]" src="assets/img/work_bench/finish.png"><br>
+            <p [ngClass]="{true:'bottom_p_ios',false:'bottom_p_md'}[is_ios]">处理完成</p>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </div>
 </ion-footer>

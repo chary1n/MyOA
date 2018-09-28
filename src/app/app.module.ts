@@ -1,3 +1,4 @@
+import { FileChooser } from '@ionic-native/file-chooser';
 import { TreeModule } from 'ng2-tree';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { GlobalData } from './../providers/GlobalData';
@@ -48,6 +49,7 @@ import { NFC, Ndef } from '@ionic-native/nfc';
 // import { AutocompleteServiceProvider } from '../providers/autocomplete-service/autocomplete-service';
 // import { BLE } from '@ionic-native/ble';
 import { PhotoLibrary } from '@ionic-native/photo-library';
+import { FileOpener } from '@ionic-native/file-opener';
 
 
 @NgModule({
@@ -88,7 +90,7 @@ import { PhotoLibrary } from '@ionic-native/photo-library';
     WebIntent,
     Toast,
     File,
-    Transfer,FileTransferObject,FileTransfer,
+    Transfer,FileTransferObject,FileTransfer,FileOpener,FileChooser,
     InAppBrowser,
     Network,
     AppMinimize,

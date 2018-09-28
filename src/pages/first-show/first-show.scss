@@ -49,17 +49,18 @@ page-first-show {
         margin-left:11px
     }
     .normal_span_bac{
-        margin-top: -46px;
         position: absolute;
         width: 17px;
         height: 17px;
         line-height: 17px;
         border-radius: 8.5px;
-        background-color:red;
-        display:inline-block;
-        color:white;
-        text-align:center;
-        margin-left:11px
+        background-color: red;
+        display: inline-block;
+        color: white;
+        text-align: center;
+        position: absolute;
+        top: 5px;
+        left: calc(50% - -18px);
     }
     .selected {
         color: #409eff;
@@ -258,4 +259,80 @@ page-first-show {
   width: 100%;
   margin-top:0px;
 }
+
+.test_one{
+        color:white;
+        width:60px;
+        height: 30px;
+        line-height: 30px;
+        font-size: 14px;
+    }
+    .test_choose{
+        color:white;
+        width:60px;
+        height: 30px;
+        line-height: 30px;
+        font-size:14px;
+    }
+
+    .icon_class{
+        background-color: transparent;
+        height: 35px;
+        position: absolute;
+        right: 0px;
+        top: -1px;
+    }
+
+    .p_daiban_line_height_select{
+        line-height: 30px;
+        margin-top: 0px;
+        border-bottom: solid 2px white;
+        width: 40px;
+        text-align: center;
+        float: right;
+    }
+
+    .p_daiban_line_height{
+        line-height: 30px;
+        margin-top: 0px;
+        // border-bottom: solid 2px white;
+        width: 40px;
+        text-align: center;
+        float: right;
+    }
+
+    .p_shenhe_line_height_select{
+        line-height: 30px;
+        margin-top: 0px;
+        border-bottom: solid 2px white;
+        width: 40px;
+        text-align: center;
+    }
+
+    .p_shenhe_line_height{
+        line-height: 30px;
+        margin-top: 0px;
+        // border-bottom: solid 2px white;
+        width: 40px;
+        text-align: center;
+    }
+
+    .p_message_line_height_select{
+        line-height: 30px;
+        margin-top: 0px;
+        border-bottom: solid 2px white;
+        width: 40px;
+        text-align: center;
+        float: left;
+    }
+
+    .p_message_line_height{
+        line-height: 30px;
+        margin-top: 0px;
+        // border-bottom: solid 2px white;
+        width: 40px;
+        text-align: center;
+        float: left;
+    }
+
 }

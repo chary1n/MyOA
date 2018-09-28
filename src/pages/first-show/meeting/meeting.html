@@ -223,9 +223,63 @@
                       border-right:white 0px solid;overflow-y: visible"></ion-textarea>
           </div>
    </div>
+   <div class="differ_div_class">
+       评论
+   </div>
+
+   <ion-list *ngIf='item' class="message_list">
+    <div *ngFor="let items of item.message_ids" class="div_message">
+      <ion-item no-lines style="height:40px;min-height:50px">
+        <ion-grid style="background:white">
+          <ion-row>
+            <ion-col col-2>
+              <img src={{items.create_user_ava}} class="img_message_ava">
+            </ion-col>
+            <ion-col col-7>
+              <p class="name_message">
+                <span>{{items.create_uid}}</span><span style="margin-left:10px">{{changeDate(items.create_date) | date:'MM-dd HH:mm'}}</span>
+              </p>
+            </ion-col>
+            <ion-col col-3 tappable (click)="reply_to(items)">
+              <img src="assets/img/work_bench/feedback.png" class="reply_small_icon">
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+      <ion-item no-lines style="margin-top:-5px">
+        <p text-wrap [ngClass]="{true:'content_message',false:'content_message_no_lines'}[items.child_ids.length > 0]"
+          class="">
+          <span></span><span style="color:#1f6699;" tappable (click)="clickUser(items.reply_uid)"></span><span>{{items.context}}</span>
+          <!--<ion-grid *ngIf="items.record_images.length > 0" style="margin-top:-5px;margin-bottom:5px">-->
+            <!--<ion-row style="margin-right:5px;">
+              <ion-col style="height:80px" *ngFor="let image of items.record_images" col-3>
+                <img style="position:absolute;clip:rect(0px,70px,70px,0px);background-color:#f0f2f5" src={{image}} imageViewer/>
+              </ion-col>
+            </ion-row>-->
+          <!--</ion-grid>-->
+        </p>
+
+      </ion-item>
+      <!--<ion-item no-lines *ngIf="items.record_type == 'assign'" style="height:20px;min-height:40px;margin-top:-5px">
+        <p [ngClass]="{true:'content_message_zhipai',false:'content_message_zhipai_no_lines'}[items.reply_record_line_ids.length > 0]"
+          class="">{{items.content}}</p>
+        <p *ngIf="items.reply_uid.name" [ngClass]="{true:'content_message',false:'content_message_no_lines'}[items.reply_record_line_ids.length > 0]"
+          style="color:#1f6699" tappable (click)="clickUser(items.reply_uid)">{{"@" + items.reply_uid.name}}</p>
+        <p *ngIf="!items.reply_uid.name" [ngClass]="{true:'content_message_empty',false:'content_message_empty_no_lines'}[items.reply_record_line_ids.length > 0]">Empty</p>
+      </ion-item>-->
+  
+      <ion-item no-lines *ngFor="let line of items.child_ids;" [ngClass]="{true:'item_class_image',false:'item_calss_one'}[false]">
+        <p [ngClass]="{true:'item_class_image_p',false:'item_class_normal_p'}[false]">
+          <span style="color:#1f6699;" tappable (click)="clickUser(line.reply_uid)">{{line.create_uid + "："}} </span>
+          <span
+            style="color:8a9299">{{line.context}}</span>
+        </p>
+      </ion-item>
+    </div>
+  </ion-list>
 </ion-content>
 
-<ion-footer *ngIf="!isEdit" style="border-top:#f0f2f5 1px solid;background-color: white;">
+<!--<ion-footer *ngIf="!isEdit" style="border-top:#f0f2f5 1px solid;background-color: white;">
     <div style="background:white" *ngIf="!isEdit">
         <span align="center" *ngIf="rt_meeting_state" style='width:40%;float:right;background-color:#1897f2;height:44px;line-height:44px;font-size:15px;color:white' tappable (click)="finish()">
         标记完成
@@ -243,4 +297,4 @@
         编辑
         </span>
     </div>
-</ion-footer>
+</ion-footer>-->
