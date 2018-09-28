@@ -7,20 +7,38 @@
 
 <ion-header no-border>
     <ion-navbar color="gongdan-color" hideBackButton="true">
-        <button ion-button style="background-color: transparent;margin: 0px;height: 35px;float: right;" tappable (click)="kaoqin()">
-            <ion-icon name='pin' style="color: white;font-size: 23px"></ion-icon>
-        </button>
+        
         <!-- <button ion-button style="background-color: transparent;margin: 0px;height: 35px;">
             <img src={{user_heard}} class="image1" tappable (click)="mePage()">
         </button> -->
-      <ion-title>首页</ion-title>
+      <!--<ion-title>首页</ion-title>-->
+      <div align="center" style="height:30px;margin-left:10px">
+        <div style="width:33%;float:right;text-align:left" [ngClass]="{true:'test_choose',false:'test_one'}[isMessage]" align="center" tappable (click)="message()">
+          <p [ngClass]="{true:'p_message_line_height_select',false:'p_message_line_height'}[isMessage]">消息</p>
+        </div>
+        <div style="width:33%;float:right" [ngClass]="{true:'test_choose',false:'test_one'}[isShen]" align="center" tappable (click)="consider()">
+          <p [ngClass]="{true:'p_shenhe_line_height_select',false:'p_shenhe_line_height'}[isShen]">审核</p>
+          <span  *ngIf="isShowApprovalPoint" [ngClass]="{true:'big_span_bac',false:'normal_span_bac'}[all_approval>=10]">
+            {{all_approval}}
+          </span>
+        </div>
+        <div style="width:33%;float:left;text-align:right" [ngClass]="{true:'test_choose',false:'test_one'}[isDay]" align="center" tappable (click)="daything()">
+          <p [ngClass]="{true:'p_daiban_line_height_select',false:'p_daiban_line_height'}[isDay]">待办</p>
+        </div> 
+        <button ion-button class="icon_class" tappable (click)="kaoqin()">
+            <ion-icon name='pin' style="color: white;font-size: 23px"></ion-icon>
+        </button>
+        
+    </div>
     </ion-navbar>
     <ion-backdrop *ngIf="isShowBac" style="opacity: 0.9; background-color: white;">       
       </ion-backdrop>
+      
+
 </ion-header>
 
 <ion-content>
-    <ion-grid style="border-bottom:#f0f2f5 1px solid">
+    <!--<ion-grid style="border-bottom:#f0f2f5 1px solid">
         <ion-row style="max-height:50px;margin-top: -15px">
           <ion-col tappable  (click)="daything()" style="text-align: center">
             <p style="padding-bottom:5px;width:35px;margin-left:auto;margin-right:auto"
@@ -37,10 +55,10 @@
               <p style="padding-bottom:5px;width:35px;margin-left:auto;margin-right:auto"
               [ngClass]="{true:'selected',false:'normal'}[isMessage]">消息
               <!-- <span  *ngIf="isShowBuyPoint" style="margin-top:6px;position:absolute;width:8px;height:8px;border-radius:8px;background-color:red;display:inline-block;color:white;text-align:center;margin-left:5px"></span> -->
-            </p>
+            <!--</p>
             </ion-col>
         </ion-row>
-    </ion-grid>
+    </ion-grid>-->
     <div *ngIf='isDay'>
           <div style="padding: 1px;text-align: center;height: 37px;">
             <p style="font-size: 13px;color: #2597ec;float: right;margin-right: 15px;margin-top: 10px" tappable (click)="toAll()">全部待办</p>
@@ -87,6 +105,7 @@
                           <p style="height: 16px;margin-top: -3px" [ngClass]="{'pBac':currentMonth == vo.m && currentYear == vo.y,'pBacNormal':currentMonth != vo.m,'pNormal':currentDay == vo.d && currentMonth == vo.m && currentYear == vo.y}">{{vo.d}}</p>
                           <p *ngIf="vo.s==true" [ngClass]="{true:'circleB',false:'circleA'}[currentDay == vo.d && currentMonth == vo.m && currentYear == vo.y]"></p>
                       </div> 
+
                       <ion-icon *ngIf="showIcon" name="arrow-down" tappable (click)="changeCalendar()" style="color: #999999;width: 100%;margin-top: 15px;text-align: center"></ion-icon>
                       <ion-icon *ngIf="!showIcon" name="arrow-up" tappable (click)="changeCalendarAll()" style="color: #999999;width: 100%;margin-top: 15px;text-align: center"></ion-icon>
                       <ion-item no-lines style="margin-top: 5px;padding: 1px;border-bottom:#f0f2f5 1px solid;border-top:#f0f2f5 1px solid;min-height: 25px">
