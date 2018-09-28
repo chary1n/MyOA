@@ -32,6 +32,7 @@
         <span class="span_c">收件人 :</span>
       </div>
       <div style="padding-left:46px">
+        <span *ngIf="!email_to" >&nbsp; </span>
         <span class="span_c" *ngFor="let item of email_to;let i = index;">{{item}}{{i!=email_to.length-1?';':''}}</span>
       </div>
     </li>
@@ -40,6 +41,7 @@
         <span class="span_c">抄&nbsp;&nbsp;&nbsp;&nbsp;送 :</span>
       </div>
       <div style="padding-left:46px">
+          <span *ngIf="!email_cc" >&nbsp; </span>
         <span class="span_c" *ngFor="let item of email_cc;let i = index;">{{item}}{{i!=email_cc.length-1?';':''}}</span>
       </div>
     </li>
@@ -48,6 +50,7 @@
         <span class="span_c">密&nbsp;&nbsp;&nbsp;&nbsp;送 :</span>
       </div>
       <div style="padding-left:46px">
+          <span *ngIf="!email_bcc" >&nbsp; </span>
         <span class="span_c" *ngFor="let item of email_bcc;let i = index;">{{item}}{{i!=email_bcc.length-1?';':''}}</span>
       </div>
     </li>

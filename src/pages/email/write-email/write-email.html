@@ -22,25 +22,79 @@
 
 
 <ion-content>
-  <ion-item class="item_c">
-    <ion-input class="input_c" #input_email_to text-wrap placeholder="收件人:" [(ngModel)]="email_to"></ion-input>
-  </ion-item>
-  <ion-item  *ngIf="!isShow"   class="item_c" (click)="showEmailCC()">
+
+  <div class="input_div">
+    <span round class='chooseItemSpan' *ngFor="let item of chooseEmailTo;let i = index" ion-button>
+      {{item.name}}
+      <ion-icon name="close" class="chooseItemIcon" tappable (click)="closeEmailTo(i)"></ion-icon>
+    </span>
+    <input class="input_c" id="input_email_to" text-wrap placeholder="收件人:" [(ngModel)]="email_to">
+  </div>
+
+
+  <ion-list *ngIf="contact_email_to_list" class='contact_list'>
+    <ion-item *ngFor='let item of contact_email_to_list' class="contact_c" tappable (click)="choose_contact_email_to(item)">
+      <p>{{item.name}} : {{item.email}}</p>
+    </ion-item>
+  </ion-list>
+
+  <ion-item *ngIf="!isShow" class="item_c" (click)="showEmailCC()">
     <ion-label class="label_c">抄送/密送,发件人:{{account_email}}</ion-label>
   </ion-item>
-  <ion-item *ngIf="isShow"  class="item_c">
+  <!-- <ion-item *ngIf="isShow" class="item_c">
     <ion-input class="input_c" text-wrap placeholder="抄送:" [(ngModel)]="email_cc"></ion-input>
-  </ion-item>
-  <ion-item *ngIf="isShow" class="item_c">
-    <ion-input class="input_c" text-wrap placeholder="密送:" [(ngModel)]="email_bcc"></ion-input>
-  </ion-item>
-  <ion-item  *ngIf="isShow"   class="item_c" >
-      <ion-label class="label_c">发件人:{{account_email}}</ion-label>
+  </ion-item> -->
+
+  <div *ngIf="isShow" class="input_div">
+    <span round class='chooseItemSpan' *ngFor="let item of chooseEmailcc;let i = index" ion-button>
+      {{item.name}}
+      <ion-icon name="close" class="chooseItemIcon" tappable (click)="closeEmailcc(i)"></ion-icon>
+    </span>
+    <input class="input_c" id="input_email_cc" text-wrap placeholder="抄送:" [(ngModel)]="email_cc">
+  </div>
+
+  <ion-list *ngIf="contact_email_cc_list" class='contact_list'>
+    <ion-item *ngFor='let item of contact_email_cc_list' class="contact_c" tappable (click)="choose_contact_email_cc(item)">
+      <p>{{item.name}} : {{item.email}}</p>
     </ion-item>
-  <ion-item class="item_c">
-    <ion-input class="input_c" text-wrap placeholder="主题:" [(ngModel)]="subject"></ion-input>
+  </ion-list>
+
+  <!-- <ion-item *ngIf="isShow" class="item_c">
+    <ion-input class="input_c" text-wrap placeholder="密送:" [(ngModel)]="email_bcc"></ion-input>
+  </ion-item> -->
+
+  <div *ngIf="isShow" class="input_div">
+    <span round class='chooseItemSpan' *ngFor="let item of chooseEmailbcc;let i = index" ion-button>
+      {{item.name}}
+      <ion-icon name="close" class="chooseItemIcon" tappable (click)="closeEmailbcc(i)"></ion-icon>
+    </span>
+    <input class="input_c" id="input_email_bcc" text-wrap placeholder="密送:" [(ngModel)]="email_bcc">
+  </div>
+
+  <ion-list *ngIf="contact_email_bcc_list" class='contact_list'>
+    <ion-item *ngFor='let item of contact_email_bcc_list' class="contact_c" tappable (click)="choose_contact_email_bcc(item)">
+      <p>{{item.name}} : {{item.email}}</p>
+    </ion-item>
+  </ion-list>
+
+
+
+  <ion-item *ngIf="isShow" class="item_c">
+    <ion-label class="label_c">发件人:{{account_email}}</ion-label>
   </ion-item>
-  <ion-textarea text-wrap  rows="20" [(ngModel)]="body" placeholder="内容:"  class='area_class'>
+  <ion-item class="item_c">
+    <ion-input class="input_c" style="margin-bottom:6px;margin-right: 20px" text-wrap placeholder="主题:" [(ngModel)]="subject"></ion-input>
+    <ion-icon name='ios-attach' style="width: 20px;transform: rotate(270deg);margin-bottom: 15px;" tappable item-end (click)='chooseAttach()'></ion-icon>
+  </ion-item>
+  <ul class="mail-attach-list" *ngIf="attachment_list.length!=0" >
+    <li class="attachment_li" *ngFor="let item of attachment_list;let i = index" >
+      <span class="name"> {{item.name}}</span>
+      <span class="size">{{item.file_size}}</span>
+      <span class="size" (click)='delete_attachment(i,item.id)'>删除</span>
+    </li>
+  </ul>
+
+  <ion-textarea text-wrap rows="20" [(ngModel)]="body" placeholder="内容:" class='area_class'>
   </ion-textarea>
 
 
