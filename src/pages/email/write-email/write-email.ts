@@ -1,9 +1,10 @@
+import { NativeService } from './../../../providers/NativeService';
 import { HttpService } from './../../../providers/HttpService';
 import { FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
 ///<reference path="../../../services/jquery.d.ts"/>  
 import { AlertController } from 'ionic-angular/components/alert/alert-controller';
 import { NavParams } from 'ionic-angular/navigation/nav-params';
-import { NavController, ActionSheetController } from 'ionic-angular';
+import { NavController, ActionSheetController, Platform } from 'ionic-angular';
 import { IonicPage } from 'ionic-angular/navigation/ionic-page';
 import { Component, ViewChild } from '@angular/core';
 import { File } from '@ionic-native/file';
@@ -23,14 +24,18 @@ import { FilePath } from '@ionic-native/file-path';
   providers: [EmailService, FileChooser, File, FilePath]
 })
 export class WriteEmailPage {
-  datass={  'id': 2,
-  'file_size': '22kb',
-  'mimetype': '2222',
-  'name': 'asdasdasdasdasdasdasdasdasdasdasdasdasdasdasd'}
-  datasss={  'id': 2,
-  'file_size': '22qwkb',
-  'mimetype': '2222',
-  'name': 'asdsdasdasdasd'}
+  // datass = {
+  //   'id': 2,
+  //   'file_size': '22kb',
+  //   'mimetype': '2222',
+  //   'name': 'asdasdasdasdasdasdasdasdasdasdasdasdasdasdasd'
+  // }
+  // datasss = {
+  //   'id': 2,
+  //   'file_size': '22qwkb',
+  //   'mimetype': '2222',
+  //   'name': 'asdsdasdasdasd'
+  // }
   // attachment_list = [this.datass,this.datasss,this.datass];
   attachment_list = [];
   isShow = false
@@ -56,6 +61,8 @@ export class WriteEmailPage {
     public emailService: EmailService,
     public alert: AlertController,
     public fileChooser: FileChooser,
+    public platform: Platform,
+    private nativeService: NativeService,
     private filePath: FilePath, public file: File,
     private transfer: FileTransferObject,
     public navParams: NavParams, public actionSheetCtrl: ActionSheetController) {
@@ -97,7 +104,7 @@ export class WriteEmailPage {
           'name': value,
           'email': value,
         })
-        $('#input_email_to').attr('placeholder','')
+        $('#input_email_to').attr('placeholder', '')
       }
     });
   }
@@ -129,15 +136,15 @@ export class WriteEmailPage {
       }
     }
     // 隐藏提示
-    $('#input_email_to').attr('placeholder','')
+    $('#input_email_to').attr('placeholder', '')
     this.chooseEmailTo.push(item)
 
   }
 
   closeEmailTo(index) {
     this.chooseEmailTo.splice(index, 1)
-    if(this.chooseEmailTo.length==0){
-      $('#input_email_to').attr('placeholder','收件人:')
+    if (this.chooseEmailTo.length == 0) {
+      $('#input_email_to').attr('placeholder', '收件人:')
     }
   }
 
@@ -152,15 +159,15 @@ export class WriteEmailPage {
         return
       }
     }
-    $('#input_email_cc').attr('placeholder','')
+    $('#input_email_cc').attr('placeholder', '')
     this.chooseEmailcc.push(item)
 
   }
 
   closeEmailcc(index) {
     this.chooseEmailcc.splice(index, 1)
-    if(this.chooseEmailcc.length==0){
-      $('#input_email_cc').attr('placeholder','抄送:')
+    if (this.chooseEmailcc.length == 0) {
+      $('#input_email_cc').attr('placeholder', '抄送:')
     }
   }
 
@@ -175,14 +182,14 @@ export class WriteEmailPage {
         return
       }
     }
-    $('#input_email_bcc').attr('placeholder','')
+    $('#input_email_bcc').attr('placeholder', '')
     this.chooseEmailbcc.push(item)
   }
 
   closeEmailbcc(index) {
     this.chooseEmailbcc.splice(index, 1)
-    if(this.chooseEmailbcc.length==0){
-      $('#input_email_bcc').attr('placeholder','密送:')
+    if (this.chooseEmailbcc.length == 0) {
+      $('#input_email_bcc').attr('placeholder', '密送:')
     }
   }
 
@@ -191,15 +198,81 @@ export class WriteEmailPage {
 
   chooseAttach() {
     console.log('chooseAttach')
-    this.fileChooser.open().then(uri => {
-      console.log(uri)
-      this.resolveUri(uri).then(path => {
-        this.uploadAttachment(path);
+    if (this.platform.is('ios')) {
+    // if (this.platform.is('android')) {
+      this.changeHeardImg()
+    }
+    else if (this.platform.is('android')) {
+      this.fileChooser.open().then(uri => {
+        console.log(uri)
+        this.resolveUri(uri).then(path => {
+          this.uploadAttachment(path);
+        })
+      }).catch(e => {
+        // reject(e);
       })
-    }).catch(e => {
-      // reject(e);
+    }
+  }
+
+  changeHeardImg() {
+    let actionSheet = this.actionSheetCtrl.create({
+      title: '',
+      buttons: [
+        {
+          text: '拍照',
+          //  role: 'destructive',
+          handler: () => {
+            console.log('Destructive clicked');
+            this.getPicture(1);
+          }
+        },
+        {
+          text: '从手机相册选择',
+          handler: () => {
+            console.log('Archive clicked');
+            this.getPicture(0);
+          }
+        },
+        {
+          text: '取消',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }
+      ]
+    });
+    actionSheet.present();
+  }
+
+  getPicture(type) {//1拍照,0从图库选择
+    let options = {
+      allowEdit: false,
+      quality: 6,//图像质量，范围为0 - 100
+      circle: true
+    };
+    if (type == 1) {
+      this.nativeService.getPictureByCamera(options).subscribe(img_url => {
+        this.getPictureSuccess(img_url);
+      });
+    } else {
+      this.nativeService.getPictureByPhotoLibrary(options).subscribe(img_url => {
+        this.getPictureSuccess(img_url);
+      });
+    }
+  }
+
+  private getPictureSuccess(img) {
+    this.emailService.uploadAttachment(this.user_id, 'IMG_PHOTO.jpg', img).then(res => {
+      console.log(res)
+      if (res.result.res_code == 1) {
+        this.attachment_list.push(res.result.res_data)
+      }
     })
   }
+
+
+
 
 
   delete_attachment(index, id) {
@@ -320,7 +393,7 @@ export class WriteEmailPage {
             'name': value,
             'email': value,
           })
-          $('#input_email_cc').attr('placeholder','')
+          $('#input_email_cc').attr('placeholder', '')
         }
         self.contact_email_to_list = []
       });
@@ -337,7 +410,7 @@ export class WriteEmailPage {
             'name': value,
             'email': value,
           })
-          $('#input_email_bcc').attr('placeholder','')
+          $('#input_email_bcc').attr('placeholder', '')
         }
         self.contact_email_to_list = []
       });
@@ -415,12 +488,12 @@ export class WriteEmailPage {
     if (is_draft) {
       draft = 'true'
     }
-    let  attach_list = []
-    for(let i=0;i<this.attachment_list.length;i++){
+    let attach_list = []
+    for (let i = 0; i < this.attachment_list.length; i++) {
       attach_list.push(this.attachment_list[i].id)
     }
     this.emailService.send_mail(this.user_id, this.account_id, this.email_list_to_string(this.chooseEmailTo),
-      this.email_list_to_string(this.chooseEmailcc), this.email_list_to_string(this.chooseEmailbcc), this.subject, this.body,attach_list, draft)
+      this.email_list_to_string(this.chooseEmailcc), this.email_list_to_string(this.chooseEmailbcc), this.subject, this.body, attach_list, draft)
       .then(res => {
         console.log(res)
         if (res.result == '发送成功' || res.result == "保存成功") {

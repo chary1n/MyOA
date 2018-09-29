@@ -94,7 +94,7 @@
         <splash height="1024" src="resources/ios/splash/Default-Portrait~ipad.png" width="768" />
         <splash height="960" src="resources/ios/splash/Default@2x~iphone.png" width="640" />
         <splash height="480" src="resources/ios/splash/Default~iphone.png" width="320" />
-        <preference name="KeyboardDisplayRequiresUserAction" value="true" />
+        <preference name="KeyboardDisplayRequiresUserAction" value="false" />
     </platform>
     <allow-navigation href="http://192.168.2.99:8100" />
     <allow-navigation href="http://192.168.88.104:8100" />
@@ -162,13 +162,10 @@
     <plugin name="cordova-plugin-inappbrowser" spec="~1.7.1" />
     <plugin name="com.telerik.plugins.nativepagetransitions" spec="^0.6.5" />
     <plugin name="cordova-plugin-file-transfer" spec="~1.6.3" />
-    <plugin name="cordova-plugin-file-opener2" spec="~2.0.19" />
-    <engine name="android" spec="^6.2.3" />
-    <engine name="ios" spec="^4.5.4" />
     <plugin name="cordova-plugin-filechooser" spec="~1.0.1" />
-    <preference name="AndroidPersistentFileLocation" value="Internal" />
-    <preference name="AndroidExtraFilesystems" value="files,files-external,documents,sdcard,cache,cache-external,assets,root" />
-    <preference name="AndroidPersistentFileLocation" value="Compatibility" />
     <allow-navigation href="http://192.168.1.244:8100" />
     <plugin name="cordova-plugin-filepath" spec="~1.4.2" />
+    <plugin name="cordova-plugin-file-opener2" spec="^2.0.19" />
+    <engine name="android" spec="^6.2.3" />
+    <engine name="ios" spec="^4.5.4" />
 </widget>

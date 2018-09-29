@@ -76,6 +76,7 @@ export class CalendarDeatilpagePage {
               public firService: FirstShowService, public storage:Storage,public toastCtrl: ToastController,
               private datePipe: DatePipe,private sanitizer: DomSanitizer,public alertCtrl: AlertController,
               public keyboard: Keyboard) {
+                // cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
                 this.frontPage = Utils.getViewController(this.navParams.get('frontPage'), navCtrl)
                 this.isEdit = this.navParams.get('isEdit')
                 this.storage.get('user').then(res =>{
@@ -716,16 +717,25 @@ panEvent($event) {
   }
 
   focusInput(){
-    console.log('1')
+    var idInput=document.getElementById("contextInput");
+  idInput.onkeyup=(event)=>{
+    console.log(event)
+    console.log(event.keyCode)
+    if(event.keyCode==13){
+      console.log('11112312')
+    }
+  }
+ 
   }
 
   blurInput(){
-    console.log('2')
   }
 
     reply_to(items){
-      this.contextInput.setFocus()
-      // this.keyboard.willShow()
+      
+      setTimeout(()=>{
+        this.contextInput.setFocus();//输入框获取焦点
+      })
     }
 
     
