@@ -179,7 +179,8 @@
       },
       "cordova-plugin-whitelist": {},
       "cordova-plugin-statusbar": {},
-      "com.telerik.plugins.nativepagetransitions": {}
+      "com.telerik.plugins.nativepagetransitions": {},
+      "cordova-plugin-file-opener2": {}
     },
     "dependencies": {
       "@angular/common": "4.1.3",

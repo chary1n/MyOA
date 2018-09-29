@@ -159,6 +159,12 @@ ion-list ion-col{
     line-height: 50px;
   }
 
+  .text-input-ios {
+        margin: 9px 8px 11px 0;
+        padding: 0px;
+        width: calc(100% - 8px);
+  }
+
 
 
 

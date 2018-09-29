@@ -6,6 +6,10 @@ export class FirstShowService {
     constructor(private httpService: HttpService) {
 
     }
+    reply_to(body){
+        return this.httpService.postBody("reply_to", body);
+    }
+
     get_event_detail(body){
         return this.httpService.postBody("get_event_detail", body);
     }
