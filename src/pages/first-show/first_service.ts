@@ -7,6 +7,14 @@ export class FirstShowService {
 
     }
 
+    read_total_reply(body){
+        return this.httpService.postBody("read_total_reply", body);
+    }
+
+    get_un_read_reply(body){
+        return this.httpService.postBody("get_un_read_reply", body);
+    }
+
     get_employee_detail(user_id){
         let body = JSON.stringify({
            user_id:user_id,

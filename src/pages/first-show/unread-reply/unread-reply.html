@@ -1,0 +1,46 @@
+<!--
+  Generated template for the UnreadReplyPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header no-border >
+
+  <ion-navbar color="gongdan-color">
+    <ion-title>未读回复</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content style="background-color:#f0f2f5">
+  <div *ngFor="let items of item" class="div_message">
+      <ion-item no-lines style="height:40px;min-height:50px">
+        <ion-grid style="background:white">
+          <ion-row>
+            <ion-col col-2>
+              <img src={{items.create_user_ava}} class="img_message_ava">
+            </ion-col>
+            <ion-col col-7>
+              <p class="name_message">
+                <span>{{items.create_uid}}</span><span style="margin-left:10px">{{changeDate(items.create_date) | date:'MM-dd HH:mm'}}</span>
+              </p>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+      <ion-item no-lines style="margin-top:-8px">
+        <p text-wrap class="content_message_no_lines">
+          <span></span><span style="color:#1f6699;" ></span><span>{{items.context}}</span>
+        </p>
+      </ion-item>
+
+      <div *ngFor="let item_one of items.parent_data" class="parent_class">
+        <p class="context_p_class">{{item_one.context}}</p>
+        <p class="name_p_class">
+          <span>{{item_one.create_uid}}</span>
+          <span>{{changeDate(item_one.create_date) | date:'MM-dd HH:mm'}}</span>
+        </p>
+      </div>
+  </div>
+</ion-content>

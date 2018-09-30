@@ -59,6 +59,11 @@
             </ion-col>
         </ion-row>
     </ion-grid>-->
+    <div align="center" tappable (click)="click_un_read_reply()" *ngIf="un_read_list.length > 0">
+      <div class="un_read_class">
+        {{un_read_list.length}}条新回复
+      </div>
+    </div>
     <div *ngIf='isDay'>
           <div style="padding: 1px;text-align: center;height: 37px;">
             <p style="font-size: 13px;color: #2597ec;float: right;margin-right: 15px;margin-top: 10px" tappable (click)="toAll()">全部待办</p>
