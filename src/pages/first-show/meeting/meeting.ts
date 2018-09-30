@@ -1,5 +1,5 @@
 import { Component ,ViewChild} from '@angular/core';
-import { IonicPage, NavController, NavParams, Content } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Content,ActionSheetController } from 'ionic-angular';
 import { Utils } from './../../../providers/Utils';
 import { Storage } from '@ionic/storage';
 import { DatePipe } from '@angular/common';
@@ -62,9 +62,10 @@ export class MeetingPage {
   meeting_id;
   rt_meeting_ids=[];
   rt_meeting_state;
+  context_message;
   constructor(public navCtrl: NavController, public navParams: NavParams,public storage:Storage,
               private datePipe: DatePipe, public statusBar:StatusBar,public firService: FirstShowService
-              ,public toastCtrl: ToastController,private sanitizer: DomSanitizer,) {
+              ,public toastCtrl: ToastController,private sanitizer: DomSanitizer, public actionSheetCtrl: ActionSheetController) {
                 this.frontPage = Utils.getViewController(this.navParams.get('frontPage'), navCtrl)
                 this.isEdit = this.navParams.get('isEdit')
                 this.storage.get('user').then(res =>{
@@ -186,6 +187,11 @@ export class MeetingPage {
         this.get_all_data()
       }
   }
+      var need_fresh_reply = this.navParams.get('need_fresh_reply')
+
+  if (need_fresh_reply){
+      this.get_all_data()
+    }
 }
 
 //取消新建待办事项
@@ -606,5 +612,137 @@ handleData(){
       let new_date = new Date(date.replace(' ', 'T') + 'Z').getTime();
       return new_date;
     }
+  }
+
+  reply_to(items){
+      
+      this.navCtrl.push('CalendarChatPage',{
+        item: items,
+        res_id: this.item.id,
+        navCtrl: 'MeetingPage',
+        type: 'rt.meeting',
+      })
+    }
+
+    send(){
+      if (this.context_message.length == 0){
+      Utils.toastButtom("回复不可为空", this.toastCtrl)
+    }
+    else{
+      let body = {
+        'uid': this.uid,
+        'res_id': this.item.id,
+        'context': this.context_message,
+        'parent_id': false,
+        'type': 'rt.meeting',
+      }
+      this.firService.reply_to(body).then(res => {
+        if (res.result.res_code == 1) {
+          this.context_message = ''
+          Utils.toastButtom("回复成功", this.toastCtrl)
+          this.get_all_data()
+        }
+      })
+    }
+  }
+  
+  refresh_view()
+  {
+     this.firService.get_event_detail({'uid': this.uid,
+        'event_id': this.item.id}).then(res => {
+          if (res.result.res_data && res.result.res_code == 1) {
+            this.item = res.result.res_data
+          }
+        })
+  }
+
+  click_more() {
+    if (this.rt_meeting_state) {
+      let actionSheet = this.actionSheetCtrl.create({
+        title: '',
+        buttons: [
+          {
+            text: '标记完成',
+            handler: () => {
+              this.finish()
+            }
+          },{
+            text: '编辑',
+            handler: () => {
+              this.edit()
+            }
+          },
+          {
+            text: '删除',
+            handler: () => {
+              this.delete()
+            }
+          },
+          
+          {
+            text: '取消',
+            role: 'cancel',
+            handler: () => {
+              console.log('Cancel clicked');
+            }
+          }
+        ]
+      });
+      actionSheet.present();
+    }
+    else {
+      let actionSheet = this.actionSheetCtrl.create({
+        title: '',
+        buttons: [
+          {
+            text: '标记为待办',
+            //  role: 'destructive',
+            handler: () => {
+              this.completion_event()
+            }
+          },
+          {
+            text: '删除',
+            handler: () => {
+              this.delete()
+            }
+          },
+          {
+            text: '取消',
+            role: 'cancel',
+            handler: () => {
+              console.log('Cancel clicked');
+            }
+          }
+        ]
+      });
+      actionSheet.present();
+    }
+  }
+
+  cancel_zan(items){
+    let body = {
+      'uid': this.uid,
+      'type': 'delete',
+      'msg_id': items.msg_id, 
+    }
+    this.firService.update_zan(body).then(res => {
+      if (res.result.res_code == 1) {
+        this.get_all_data()
+      }
+    })
+  }
+
+  update_zan(items){
+    let body = {
+      'uid': this.uid,
+      'type': 'add',
+      'msg_id': items.msg_id, 
+    }
+    this.firService.update_zan(body).then(res => {
+      if (res.result.res_code == 1) {
+        this.get_all_data()
+      }
+    })
   }
 }

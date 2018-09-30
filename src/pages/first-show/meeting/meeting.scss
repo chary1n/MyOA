@@ -14,6 +14,7 @@ page-meeting {
             margin-top: 5px;
     margin-left: 20px;
     color: gray;
+    text-align: center;
     }
 
     .buttom_div{
@@ -189,7 +190,7 @@ page-meeting {
         line-height:30px;
         float:left;
     }
-    content_message_reply{
+    .content_message_reply{
         color:#1f6699;
         margin-right: 10px;
         position: absolute;
@@ -224,8 +225,24 @@ page-meeting {
     }
     .reply_small_icon{
         width:20px;
-        float:right;
+        // float:right;
         margin-top: 20px;
+        // margin-left: 10px;
+    }
+
+    .zan_small_icon{
+        width:20px;
+        margin-left: 10px;
+        // float:right;
+        // margin-top: 20px;
+        // margin-right: 30px;
+    }
+
+    .img_span_class{
+        font-size: 14px;
+        margin-top: 23px;
+        position: absolute;
+        color: gray;
     }
 
     .bottom_p_ios{
@@ -301,5 +318,45 @@ page-meeting {
 
     .item_class_image_p{
         margin-top:-3px
+    }
+
+    .keyboard_class{
+            border-top: #f0f2f5 1px solid;
+    position: fixed;
+    bottom: 0px;
+    height: 44px;
+    width: 100%;
+    background: white;
+    }
+
+    .input_class{
+        background-color: #eeeeee;
+    height: 34px;
+    margin-top: 5px;
+    margin-left: 10px;
+    line-height: 15px;
+    width: calc(100% - 90px);
+    border-radius: 6px;
+    padding-left: 10px;
+    color: gray;
+    padding-bottom: 10px;
+    -webkit-appearance: none;
+    }
+
+    .footer_class{
+        background: white;
+    border-top: solid 1px #f0f2f5;
+    height: 44px;
+    }
+
+    .btn_class{
+        font-size: 13px;
+    color: white;
+    margin-right: 10px;
+    float: right;
+    /* display: inline; */
+    margin-top: -34px;
+    height: 34px;
+    width: 60px;
     }
 }

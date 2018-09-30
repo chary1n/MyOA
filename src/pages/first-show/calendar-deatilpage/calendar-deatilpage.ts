@@ -1,8 +1,8 @@
 import { Utils } from './../../../providers/Utils';
 import { Storage } from '@ionic/storage';
 import { FirstShowService } from './../first_service';
-import { Component , ViewChild} from '@angular/core';
-import { IonicPage, NavController, NavParams, Content, AlertController ,Keyboard} from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams, Content, AlertController, Keyboard, ActionSheetController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { ToastController } from 'ionic-angular/components/toast/toast-controller';
 import { DatePipe } from '@angular/common';
@@ -21,11 +21,11 @@ declare let cordova: any;
 @Component({
   selector: 'page-calendar-deatilpage',
   templateUrl: 'calendar-deatilpage.html',
-  providers: [FirstShowService,DatePipe]
+  providers: [FirstShowService, DatePipe]
 })
 export class CalendarDeatilpagePage {
   @ViewChild(Content) content: Content;
-  @ViewChild('searchbar') searchbar:Searchbar;
+  @ViewChild('searchbar') searchbar: Searchbar;
   @ViewChild('contextInput') contextInput;
   @ViewChild('nameInput') nameInput;
   item;
@@ -34,99 +34,99 @@ export class CalendarDeatilpagePage {
   search = false//是否显示搜索
   rt_is_sure_time = false
   allday = true
-  type_name=''//类型名字
+  type_name = ''//类型名字
   type_id//类型id
   need_fresh = false;
-  event_time=''
-  alarm_id='-1' //提醒
-  alarm_name='不提醒'//提醒名称
-  selectList=[] //参与者的列表
+  event_time = ''
+  alarm_id = '-1' //提醒
+  alarm_name = '不提醒'//提醒名称
+  selectList = [] //参与者的列表
   type_app = false//app提醒
   type_notification = false//网页提醒
   rt_project_principal//负责人id
   rt_project_principal_name//负责人name
   partner_id_name
   subject//主题
-  start_datetime = new Date(new Date().getTime()+8*60*60*1000).toISOString();
-  stop_datetime = new Date(new Date().getTime()+8*60*60*1000).toISOString();
+  start_datetime = new Date(new Date().getTime() + 8 * 60 * 60 * 1000).toISOString();
+  stop_datetime = new Date(new Date().getTime() + 8 * 60 * 60 * 1000).toISOString();
   start_date = this.datePipe.transform(new Date(), 'yyyy-MM-dd')
   stop_date = this.datePipe.transform(new Date(), 'yyyy-MM-dd')
-  location=''//地点
-  description=''//内容
+  location = ''//地点
+  description = ''//内容
   change = false//从查看到编辑状态为true
   user;
-  frontPage:any;
+  frontPage: any;
   wait_id = ''
-  pet=0//跳转返回值的类型
+  pet = 0//跳转返回值的类型
   item_start
   item_stop
-  item_tip_name='不提醒'
-  employeeList=[]//搜索的人员列表
+  item_tip_name = '不提醒'
+  employeeList = []//搜索的人员列表
   select_type = 1;
-  linshiString=''
-  showPeopleList=[]//用于选择人员的临时数组
-  storeList=[]
+  linshiString = ''
+  showPeopleList = []//用于选择人员的临时数组
+  storeList = []
   isMeeting = false
   meeting_id;
   state;
-  event_list=[];
-  meeting_type=0;
+  event_list = [];
+  meeting_type = 0;
   context_message;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public statusBar:StatusBar,
-              public firService: FirstShowService, public storage:Storage,public toastCtrl: ToastController,
-              private datePipe: DatePipe,private sanitizer: DomSanitizer,public alertCtrl: AlertController,
-              public keyboard: Keyboard) {
-                // cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-                this.frontPage = Utils.getViewController(this.navParams.get('frontPage'), navCtrl)
-                this.isEdit = this.navParams.get('isEdit')
-                this.storage.get('user').then(res =>{
-                  this.user = res.result.res_data
-                  this.uid = res.result.res_data.user_id;
-                  this.getType()
-                  if(this.isEdit==true){
-                    let current_day
-                    if(this.navParams.get('type_id')){
-                      this.type_id = this.navParams.get('type_id')
-                      this.type_name = this.navParams.get('type_name')
-                    }
-                  if(this.navParams.get('date')){
-                    current_day = this.navParams.get('date')
-                    this.start_datetime = new Date(current_day.getTime()+8*60*60*1000).toISOString();
-                    this.stop_datetime = new Date(current_day.getTime()+8*60*60*1000).toISOString();
-                    this.start_date = this.datePipe.transform(current_day, 'yyyy-MM-dd')
-                    this.stop_date = this.datePipe.transform(current_day, 'yyyy-MM-dd')
-                  }
-                  if(this.navParams.get('type')){
-                    this.meeting_type = this.navParams.get('type')
-                      if(this.meeting_type==1){
-                        this.isMeeting = true
-                        this.allday = false
-                        this.meeting_id = this.navParams.get('meeting_id')
-                      }
-                  }
-                  this.rt_project_principal = res.result.res_data.partner_id
-                  this.rt_project_principal_name = res.result.res_data.partner_name
-                  this.selectList.push({
-                      'partner_id': this.rt_project_principal,
-                      'partner_name': this.rt_project_principal_name,
-                      'ischeck': true
-                  })
-                  }else{
-                        this.item = this.navParams.get('item');
-                        this.item_change()
-                  }
-                })
+  constructor(public navCtrl: NavController, public navParams: NavParams, public statusBar: StatusBar,
+    public firService: FirstShowService, public storage: Storage, public toastCtrl: ToastController,
+    private datePipe: DatePipe, private sanitizer: DomSanitizer, public alertCtrl: AlertController,
+    public keyboard: Keyboard, public actionSheetCtrl: ActionSheetController) {
+    // cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+    this.frontPage = Utils.getViewController(this.navParams.get('frontPage'), navCtrl)
+    this.isEdit = this.navParams.get('isEdit')
+    this.storage.get('user').then(res => {
+      this.user = res.result.res_data
+      this.uid = res.result.res_data.user_id;
+      this.getType()
+      if (this.isEdit == true) {
+        let current_day
+        if (this.navParams.get('type_id')) {
+          this.type_id = this.navParams.get('type_id')
+          this.type_name = this.navParams.get('type_name')
+        }
+        if (this.navParams.get('date')) {
+          current_day = this.navParams.get('date')
+          this.start_datetime = new Date(current_day.getTime() + 8 * 60 * 60 * 1000).toISOString();
+          this.stop_datetime = new Date(current_day.getTime() + 8 * 60 * 60 * 1000).toISOString();
+          this.start_date = this.datePipe.transform(current_day, 'yyyy-MM-dd')
+          this.stop_date = this.datePipe.transform(current_day, 'yyyy-MM-dd')
+        }
+        if (this.navParams.get('type')) {
+          this.meeting_type = this.navParams.get('type')
+          if (this.meeting_type == 1) {
+            this.isMeeting = true
+            this.allday = false
+            this.meeting_id = this.navParams.get('meeting_id')
+          }
+        }
+        this.rt_project_principal = res.result.res_data.partner_id
+        this.rt_project_principal_name = res.result.res_data.partner_name
+        this.selectList.push({
+          'partner_id': this.rt_project_principal,
+          'partner_name': this.rt_project_principal_name,
+          'ischeck': true
+        })
+      } else {
+        this.item = this.navParams.get('item');
+        this.item_change()
+      }
+    })
   }
 
-  assembleHTML(str){ 
-    　　return this.sanitizer.bypassSecurityTrustHtml(str)
+  assembleHTML(str) {
+    return this.sanitizer.bypassSecurityTrustHtml(str)
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CalendarDeatilpagePage');
   }
   //根据item赋值
-  item_change(){
+  item_change() {
     this.state = this.item.state
     this.location = this.item.location
     this.rt_project_principal_name = this.item.rt_project_principal.partner_id_s_name
@@ -138,32 +138,32 @@ export class CalendarDeatilpagePage {
     this.selectList = this.item.partner_ids
     this.alarm_id = this.item.rt_alarm_type
     this.alarm_name = this.item.rt_alarm_type_name
-    if(this.allday && this.item.start && this.item.stop){
+    if (this.allday && this.item.start && this.item.stop) {
       this.item_start = this.datePipe.transform(new Date(this.item.start.replace(/-/g, "/")), 'yyyy-MM-dd')
       this.item_stop = this.datePipe.transform(new Date(this.item.stop.replace(/-/g, "/")), 'yyyy-MM-dd')
-    }else if(this.item.start && this.item.stop){
+    } else if (this.item.start && this.item.stop) {
       this.item_start = this.datePipe.transform(new Date(this.item.start.replace(/-/g, "/")), 'yyyy-MM-dd HH:mm')
       this.item_stop = this.datePipe.transform(new Date(this.item.stop.replace(/-/g, "/")), 'yyyy-MM-dd HH:mm')
     }
-    this.item_tip_name=''
-    if(this.item.rt_alarm_type=='-1'){
+    this.item_tip_name = ''
+    if (this.item.rt_alarm_type == '-1') {
       this.item_tip_name = this.item.rt_alarm_type_name
-    }else if(this.item.type_app && !this.item.type_notification){
-      this.item_tip_name = this.item.rt_alarm_type_name+'(App提醒)'
-    }else if(this.item.type_notification && !this.item.type_app){
-      this.item_tip_name = this.item.rt_alarm_type_name+'(网页提醒)'
-    }else if(this.item.type_app && this.item.type_notification){
-      this.item_tip_name = this.item.rt_alarm_type_name+'(App提醒、网页提醒)'
+    } else if (this.item.type_app && !this.item.type_notification) {
+      this.item_tip_name = this.item.rt_alarm_type_name + '(App提醒)'
+    } else if (this.item.type_notification && !this.item.type_app) {
+      this.item_tip_name = this.item.rt_alarm_type_name + '(网页提醒)'
+    } else if (this.item.type_app && this.item.type_notification) {
+      this.item_tip_name = this.item.rt_alarm_type_name + '(App提醒、网页提醒)'
     }
-    this.description = this.item.description.replace(/\n/g,"<br>")
+    this.description = this.item.description.replace(/\n/g, "<br>")
 
 
   }
-//滑动事件
-panEvent($event) {
-  cordova.plugins.Keyboard.close();
-}
-  goBack(){
+  //滑动事件
+  panEvent($event) {
+    cordova.plugins.Keyboard.close();
+  }
+  goBack() {
     this.frontPage.data.need_fresh = true;
     this.navCtrl.pop();
   }
@@ -171,39 +171,59 @@ panEvent($event) {
   ionViewWillEnter() {
     this.statusBar.backgroundColorByHexString("#2597ec");
     this.statusBar.styleLightContent();
-    this.need_fresh =this.navParams.get('need_fresh')
+    this.need_fresh = this.navParams.get('need_fresh')
     this.pet = this.navParams.get('pet')
-    if(this.need_fresh==true){
-      if(this.pet==1){
+    var need_fresh_reply = this.navParams.get('need_fresh_reply')
+
+    if (this.need_fresh == true) {
+      if (this.pet == 1) {
         this.alarm_id = this.navParams.get('alarm_id')
         this.alarm_name = this.navParams.get('alarm_name')
         this.type_app = this.navParams.get('type_app')
         this.type_notification = this.navParams.get('type_notification')
-        this.item_tip_name=''
-        if(this.alarm_id=='-1'){
+        this.item_tip_name = ''
+        if (this.alarm_id == '-1') {
           this.item_tip_name = this.navParams.get('alarm_name')
-        }else if(this.type_app && !this.type_notification){
-          this.item_tip_name = this.navParams.get('alarm_name')+'(App提醒)'
-        }else if(this.type_notification && !this.type_app){
-          this.item_tip_name = this.navParams.get('alarm_name')+'(网页提醒)'
-        }else if(this.type_app && this.type_notification){
-          this.item_tip_name = this.navParams.get('alarm_name')+'(App提醒、网页提醒)'
+        } else if (this.type_app && !this.type_notification) {
+          this.item_tip_name = this.navParams.get('alarm_name') + '(App提醒)'
+        } else if (this.type_notification && !this.type_app) {
+          this.item_tip_name = this.navParams.get('alarm_name') + '(网页提醒)'
+        } else if (this.type_app && this.type_notification) {
+          this.item_tip_name = this.navParams.get('alarm_name') + '(App提醒、网页提醒)'
         }
-      }else if(this.pet==2){
+      } else if (this.pet == 2) {
         this.frontPage.data.need_fresh = true;
         this.navCtrl.pop()
-      }else if(this.pet==3){
+      } else if (this.pet == 3) {
         this.selectList = this.navParams.get('selectList')
       }
+    }
+
+
+    if (need_fresh_reply) {
+      this.refresh_view()
     }
   }
 
   //删除一个待办事项
-  delete(){
-    if(this.user.partner_id==this.item.rt_project_principal.partner_id_s_id || this.uid==this.item.create_uid){
-        let body = {
-          'id': this.item.id,
-          'uid': this.uid
+  delete() {
+    var ctrl = this.alertCtrl;
+        ctrl.create({
+            title: '提示',
+            message: "是否确定删除？",
+            buttons: [{
+                    text: '取消',
+                    handler: function (data) {
+                        // cordova.plugins.Keyboard.close();
+                    }
+                },
+                {
+                    text: '确定',
+                    handler: function (data) {
+                        if (this.user.partner_id == this.item.rt_project_principal.partner_id_s_id || this.uid == this.item.create_uid) {
+      let body = {
+        'id': this.item.id,
+        'uid': this.uid
       }
       this.firService.delete_res_model(body).then(res => {
         if (res.result.res_code == 1) {
@@ -211,66 +231,73 @@ panEvent($event) {
           this.navCtrl.pop()
         }
       })
-      }else{
+    } else {
       Utils.toastButtom('只有负责人和创建人可以删除', this.toastCtrl)
     }
+                    }
+                }]
+        }).present();
+
+
+
+    
   }
   //编辑状态下取消
-  changeCancel(){
-    if(this.search){
-      this.search=false
-      if(this.select_type==1){
-        this.selectList=this.storeList
+  changeCancel() {
+    if (this.search) {
+      this.search = false
+      if (this.select_type == 1) {
+        this.selectList = this.storeList
       }
-    }else{
+    } else {
       this.isEdit = false
       this.change = false
       this.content.resize()
     }
   }
   //编辑状态下完成
-  changeFinish(){
-    if(this.search){
-      this.search=false
+  changeFinish() {
+    if (this.search) {
+      this.search = false
       return
     }
     let body = this.handleData()
     body['wait_id'] = this.item.id
-    this.firService.write_wait_thing(body).then(res =>{
+    this.firService.write_wait_thing(body).then(res => {
       if (res.result.res_data && res.result.res_code == 1) {
         this.isEdit = false
         this.change = false
         this.content.resize()
         this.item = res.result.res_data
-        this.description = this.item.description.replace(/\n/g,"<br>")
-        if(this.allday && this.item.start && this.item.stop){
+        this.description = this.item.description.replace(/\n/g, "<br>")
+        if (this.allday && this.item.start && this.item.stop) {
           this.item_start = this.datePipe.transform(new Date(this.item.start.replace(/-/g, "/")), 'yyyy-MM-dd')
           this.item_stop = this.datePipe.transform(new Date(this.item.stop.replace(/-/g, "/")), 'yyyy-MM-dd')
-        }else if(this.item.start && this.item.stop){
+        } else if (this.item.start && this.item.stop) {
           this.item_start = this.datePipe.transform(new Date(this.item.start.replace(/-/g, "/")), 'yyyy-MM-dd HH:mm')
           this.item_stop = this.datePipe.transform(new Date(this.item.stop.replace(/-/g, "/")), 'yyyy-MM-dd HH:mm')
         }
-        this.item_tip_name=''
-        if(this.item.rt_alarm_type=='-1'){
+        this.item_tip_name = ''
+        if (this.item.rt_alarm_type == '-1') {
           this.item_tip_name = this.item.rt_alarm_type_name
-        }else if(this.item.type_app && !this.item.type_notification){
-          this.item_tip_name = this.item.rt_alarm_type_name+'(App提醒)'
-        }else if(this.item.type_notification && !this.item.type_app){
-          this.item_tip_name = this.item.rt_alarm_type_name+'(网页提醒)'
-        }else if(this.item.type_app && this.item.type_notification){
-          this.item_tip_name = this.item.rt_alarm_type_name+'(App提醒、网页提醒)'
+        } else if (this.item.type_app && !this.item.type_notification) {
+          this.item_tip_name = this.item.rt_alarm_type_name + '(App提醒)'
+        } else if (this.item.type_notification && !this.item.type_app) {
+          this.item_tip_name = this.item.rt_alarm_type_name + '(网页提醒)'
+        } else if (this.item.type_app && this.item.type_notification) {
+          this.item_tip_name = this.item.rt_alarm_type_name + '(App提醒、网页提醒)'
         }
       }
     })
   }
   //编辑
-  edit(){
+  edit() {
     this.content.resize()
-    if(this.item.state==false){
+    if (this.item.state == false) {
       Utils.toastButtom('完成状态不可编辑', this.toastCtrl)
       return
     }
-    if(this.user.partner_id==this.item.rt_project_principal.partner_id_s_id ||  this.uid==this.item.create_uid){
+    if (this.user.partner_id == this.item.rt_project_principal.partner_id_s_id || this.uid == this.item.create_uid) {
       this.isEdit = true
       this.change = true
       this.type_name = this.item.type_name
@@ -281,44 +308,44 @@ panEvent($event) {
       this.subject = this.item.subject
       this.type_name = this.item.type_name
       this.type_id = this.item.type_id
-      if(this.rt_is_sure_time==true){
-        
-      }else{
-          this.start_date = this.datePipe.transform(new Date(this.item.start.replace(/-/g, "/")), 'yyyy-MM-dd')
-          this.stop_date = this.datePipe.transform(new Date(this.item.stop.replace(/-/g, "/")), 'yyyy-MM-dd')
-          this.start_datetime = this.datePipe.transform(new Date(this.item.start.replace(/-/g, "/")), 'yyyy-MM-dd HH:mm').replace(' ','T')+'Z'
-          this.stop_datetime = this.datePipe.transform(new Date(this.item.stop.replace(/-/g, "/")), 'yyyy-MM-dd HH:mm').replace(' ','T')+'Z'
+      if (this.rt_is_sure_time == true) {
+
+      } else {
+        this.start_date = this.datePipe.transform(new Date(this.item.start.replace(/-/g, "/")), 'yyyy-MM-dd')
+        this.stop_date = this.datePipe.transform(new Date(this.item.stop.replace(/-/g, "/")), 'yyyy-MM-dd')
+        this.start_datetime = this.datePipe.transform(new Date(this.item.start.replace(/-/g, "/")), 'yyyy-MM-dd HH:mm').replace(' ', 'T') + 'Z'
+        this.stop_datetime = this.datePipe.transform(new Date(this.item.stop.replace(/-/g, "/")), 'yyyy-MM-dd HH:mm').replace(' ', 'T') + 'Z'
       }
       this.location = this.item.location
       this.description = this.item.description
       this.type_app = this.item.type_app
       this.type_notification = this.item.type_notification
-    }else{
+    } else {
       Utils.toastButtom('只有负责人和创建人可以编辑', this.toastCtrl)
     }
   }
   //取消新建待办事项
-  cancel(){
-    if(this.search){
-      this.search=false
-      if(this.select_type==1){
-        this.selectList=this.storeList
+  cancel() {
+    if (this.search) {
+      this.search = false
+      if (this.select_type == 1) {
+        this.selectList = this.storeList
       }
-    }else{
+    } else {
       this.navCtrl.pop();
     }
   }
   //新建待办事项完成
-  stateFinish(){
-    if(this.search){
-      this.search=false
+  stateFinish() {
+    if (this.search) {
+      this.search = false
       return
     }
-    let body = this.handleData() 
-    if(this.isMeeting){
-      if(body){
+    let body = this.handleData()
+    if (this.isMeeting) {
+      if (body) {
         body['rt_meeting_id'] = this.meeting_id
-        this.firService.create_meeting_line(body).then(res =>{
+        this.firService.create_meeting_line(body).then(res => {
           if (res.result.res_code == 1) {
             this.frontPage.data.need_fresh = true;
             this.frontPage.data.pet = 4
@@ -326,120 +353,120 @@ panEvent($event) {
           }
         })
       }
-    }else{
-      if(body){
-        this.firService.create_new_schedule(body).then(res =>{
+    } else {
+      if (body) {
+        this.firService.create_new_schedule(body).then(res => {
           if (res.result.res_code == 1) {
             this.frontPage.data.need_fresh = true;
             this.navCtrl.popTo(this.frontPage);
           }
         })
       }
-    } 
+    }
   }
   //标记为待办
-  completion_event(){
+  completion_event() {
     this.type_name = this.item.type_name
-      this.allday = this.item.allday
-      this.rt_project_principal = this.item.rt_project_principal.partner_id_s_id
-      this.rt_is_sure_time = this.item.rt_is_sure_time
-      this.subject = this.item.subject
-      this.type_id = this.item.type_id
-      if(this.rt_is_sure_time==true){
-        
-      }else{
-        if(this.allday==true){
-          this.start_date = this.datePipe.transform(new Date(this.item.start.replace(/-/g, "/")), 'yyyy-MM-dd')
-          this.stop_date = this.datePipe.transform(new Date(this.item.stop.replace(/-/g, "/")), 'yyyy-MM-dd')
-          console.log('this.start_date = '+this.start_date)
-        }else{
-          this.start_datetime = this.datePipe.transform(new Date(this.item.start.replace(/-/g, "/")), 'yyyy-MM-dd HH:mm').replace(' ','T')+'Z'
-          this.stop_datetime = this.datePipe.transform(new Date(this.item.stop.replace(/-/g, "/")), 'yyyy-MM-dd HH:mm').replace(' ','T')+'Z'
-          console.log('this.start_date = '+this.start_datetime)
-        }
+    this.allday = this.item.allday
+    this.rt_project_principal = this.item.rt_project_principal.partner_id_s_id
+    this.rt_is_sure_time = this.item.rt_is_sure_time
+    this.subject = this.item.subject
+    this.type_id = this.item.type_id
+    if (this.rt_is_sure_time == true) {
+
+    } else {
+      if (this.allday == true) {
+        this.start_date = this.datePipe.transform(new Date(this.item.start.replace(/-/g, "/")), 'yyyy-MM-dd')
+        this.stop_date = this.datePipe.transform(new Date(this.item.stop.replace(/-/g, "/")), 'yyyy-MM-dd')
+        console.log('this.start_date = ' + this.start_date)
+      } else {
+        this.start_datetime = this.datePipe.transform(new Date(this.item.start.replace(/-/g, "/")), 'yyyy-MM-dd HH:mm').replace(' ', 'T') + 'Z'
+        this.stop_datetime = this.datePipe.transform(new Date(this.item.stop.replace(/-/g, "/")), 'yyyy-MM-dd HH:mm').replace(' ', 'T') + 'Z'
+        console.log('this.start_date = ' + this.start_datetime)
       }
-      this.location = this.item.location
-      this.description = this.item.description
-    if(this.user.partner_id==this.item.rt_project_principal.partner_id_s_id ||  this.uid==this.item.create_uid){
+    }
+    this.location = this.item.location
+    this.description = this.item.description
+    if (this.user.partner_id == this.item.rt_project_principal.partner_id_s_id || this.uid == this.item.create_uid) {
       let body = this.handleData()
       body['wait_id'] = this.item.id
       body['state'] = 'draft'
-      this.firService.cancel_wait_thing(body).then(res =>{
+      this.firService.cancel_wait_thing(body).then(res => {
         if (res.result.res_data && res.result.res_code == 1) {
           this.item = res.result.res_data
           this.item_change()
         }
       })
-    }else{
+    } else {
       Utils.toastButtom('只有负责人和创建人可以标记为待办', this.toastCtrl)
     }
   }
   //标记完成
-  finish(){
-      this.type_name = this.item.type_name
-      this.allday = this.item.allday
-      this.rt_project_principal = this.item.rt_project_principal.partner_id_s_id
-      this.rt_is_sure_time = this.item.rt_is_sure_time
-      this.subject = this.item.subject
-      this.type_id = this.item.type_id
-      if(this.rt_is_sure_time==true){
-        
-      }else{
-        if(this.allday==true){
-          this.start_date = this.datePipe.transform(new Date(this.item.start.replace(/-/g, "/")), 'yyyy-MM-dd')
-          this.stop_date = this.datePipe.transform(new Date(this.item.stop.replace(/-/g, "/")), 'yyyy-MM-dd')
-          console.log('this.start_date = '+this.start_date)
-        }else{
-          this.start_datetime = this.datePipe.transform(new Date(this.item.start.replace(/-/g, "/")), 'yyyy-MM-dd HH:mm')
-          this.stop_datetime = this.datePipe.transform(new Date(this.item.stop.replace(/-/g, "/")), 'yyyy-MM-dd HH:mm')
-          console.log('this.start_date = '+this.start_datetime)
-        }
+  finish() {
+    this.type_name = this.item.type_name
+    this.allday = this.item.allday
+    this.rt_project_principal = this.item.rt_project_principal.partner_id_s_id
+    this.rt_is_sure_time = this.item.rt_is_sure_time
+    this.subject = this.item.subject
+    this.type_id = this.item.type_id
+    if (this.rt_is_sure_time == true) {
+
+    } else {
+      if (this.allday == true) {
+        this.start_date = this.datePipe.transform(new Date(this.item.start.replace(/-/g, "/")), 'yyyy-MM-dd')
+        this.stop_date = this.datePipe.transform(new Date(this.item.stop.replace(/-/g, "/")), 'yyyy-MM-dd')
+        console.log('this.start_date = ' + this.start_date)
+      } else {
+        this.start_datetime = this.datePipe.transform(new Date(this.item.start.replace(/-/g, "/")), 'yyyy-MM-dd HH:mm')
+        this.stop_datetime = this.datePipe.transform(new Date(this.item.stop.replace(/-/g, "/")), 'yyyy-MM-dd HH:mm')
+        console.log('this.start_date = ' + this.start_datetime)
       }
-      this.location = this.item.location
-      this.description = this.item.description
-    if(this.user.partner_id==this.item.rt_project_principal.partner_id_s_id ||  this.uid==this.item.create_uid){
+    }
+    this.location = this.item.location
+    this.description = this.item.description
+    if (this.user.partner_id == this.item.rt_project_principal.partner_id_s_id || this.uid == this.item.create_uid) {
       let body = this.handleData()
       body['wait_id'] = this.item.id
-      this.navCtrl.push('FinishScheulePage',{
+      this.navCtrl.push('FinishScheulePage', {
         'body': body
       })
-    }else{
+    } else {
       Utils.toastButtom('只有负责人和创建人可以标记完成', this.toastCtrl)
     }
   }
 
   //时间待定的按钮
-  notSureClick(){
-    if(this.rt_is_sure_time && this.allday){
+  notSureClick() {
+    if (this.rt_is_sure_time && this.allday) {
       this.allday = false
     }
   }
 
   //全天的按钮
-  allDayClick(){
-    if(this.rt_is_sure_time && this.allday){
+  allDayClick() {
+    if (this.rt_is_sure_time && this.allday) {
       this.rt_is_sure_time = false
     }
   }
   typeChange(option1: any) {
-    for (let i = 0; i < this.event_list.length; i++){
-      if(this.event_list[i].display_name==this.type_name){
+    for (let i = 0; i < this.event_list.length; i++) {
+      if (this.event_list[i].display_name == this.type_name) {
         this.type_id = this.event_list[i].id
         break
       }
     }
   }
   //获取所有的待办类型
-  getType(){
+  getType() {
     let body = {
-      'uid':this.uid
+      'uid': this.uid
     }
     this.firService.get_event_type(body).then(res => {
       if (res.result.res_data && res.result.res_code == 1) {
         this.event_list = res.result.res_data
-        if(this.meeting_type==1){
-          for (let i = 0; i < this.event_list.length; i++){
-            if(this.event_list[i].display_name=='任务'){
+        if (this.meeting_type == 1) {
+          for (let i = 0; i < this.event_list.length; i++) {
+            if (this.event_list[i].display_name == '任务') {
               this.type_name = '任务'
               this.type_id = this.event_list[i].id
               break
@@ -450,47 +477,47 @@ panEvent($event) {
     })
   }
   //删除一个人员
-  closePartner(item){
-    for(var i=0;i<this.showPeopleList.length;i++){
-      if(item.partner_id == this.showPeopleList[i].partner_id){
-        this.showPeopleList.splice(i,1)
+  closePartner(item) {
+    for (var i = 0; i < this.showPeopleList.length; i++) {
+      if (item.partner_id == this.showPeopleList[i].partner_id) {
+        this.showPeopleList.splice(i, 1)
         break
       }
     }
   }
   //选择负责人
-  selectPartnerId(){
-    this.showPeopleList=[]
+  selectPartnerId() {
+    this.showPeopleList = []
     this.showPeopleList.push({
       'partner_id': this.rt_project_principal,
       'partner_name': this.rt_project_principal_name,
       'ischeck': true
     })
-    this.search = true  
-    this.select_type = 2 
-    setTimeout(()=>{
+    this.search = true
+    this.select_type = 2
+    setTimeout(() => {
       this.nameInput.setFocus();//输入框获取焦点
       // cordova.plugins.Keyboard.show();
     })
   }
   //选择参与人员
-  selectPartner(){
+  selectPartner() {
     this.showPeopleList = this.selectList
-    this.storeList=[]
-    this.storeList=this.storeList.concat(this.selectList)
+    this.storeList = []
+    this.storeList = this.storeList.concat(this.selectList)
     this.search = true
     this.select_type = 1
-    setTimeout(()=>{
+    setTimeout(() => {
       this.nameInput.setFocus();//输入框获取焦点
       // cordova.plugins.Keyboard.show();
     })
   }
 
-  searchInput($event){
-    console.log('sadfasd= '+ $event)
-    if($event==''){
+  searchInput($event) {
+    console.log('sadfasd= ' + $event)
+    if ($event == '') {
       this.employeeList = []
-    }else{
+    } else {
       let body = {
         'uid': this.uid,
         'name': $event
@@ -498,12 +525,12 @@ panEvent($event) {
       this.firService.search_one_partner(body).then(res => {
         if (res.result.res_data && res.result.res_code == 1) {
           this.employeeList = res.result.res_data;
-          if(this.select_type==1){
+          if (this.select_type == 1) {
             this.setCheck()
-          }else if(this.select_type==2){
+          } else if (this.select_type == 2) {
             for (let j = 0; j < this.employeeList.length; j++) {
-              if(this.employeeList[j].partner_id==this.rt_project_principal){
-                this.employeeList[j].ischeck=true
+              if (this.employeeList[j].partner_id == this.rt_project_principal) {
+                this.employeeList[j].ischeck = true
               }
             }
           }
@@ -516,54 +543,54 @@ panEvent($event) {
   }
 
   //比较选中的人
-  setCheck(){
-    for(let i=0;i<this.selectList.length; i++){
+  setCheck() {
+    for (let i = 0; i < this.selectList.length; i++) {
       for (let j = 0; j < this.employeeList.length; j++) {
-        if(this.selectList[i].partner_id==this.employeeList[j].partner_id){
-            this.employeeList[j].ischeck=true
-            break
+        if (this.selectList[i].partner_id == this.employeeList[j].partner_id) {
+          this.employeeList[j].ischeck = true
+          break
         }
       }
     }
   }
 
-  choosePeople(item){
-    this.linshiString=''
-    this.employeeList=[]
-    if(this.select_type==1){
+  choosePeople(item) {
+    this.linshiString = ''
+    this.employeeList = []
+    if (this.select_type == 1) {
       item.ischeck = !item.ischeck
-      if(item.ischeck){
+      if (item.ischeck) {
         this.showPeopleList.push(item)
-      }else{
-        for(var i=0;i<this.showPeopleList.length;i++){
-          if(item.partner_id == this.showPeopleList[i].partner_id){
+      } else {
+        for (var i = 0; i < this.showPeopleList.length; i++) {
+          if (item.partner_id == this.showPeopleList[i].partner_id) {
             break
           }
         }
       }
-    }else if(this.select_type==2){
-      if(item.partner_id==this.rt_project_principal){
+    } else if (this.select_type == 2) {
+      if (item.partner_id == this.rt_project_principal) {
         this.search = false
         return
-      }else{
+      } else {
         this.search = false
-        this.showPeopleList=[]
+        this.showPeopleList = []
         //接下来的逻辑是，（前提，负责人默认是参与人）,选的负责人如果已经在选择的人里面了，就不加，不在里面，就加，避免重复
         this.rt_project_principal = item.partner_id
         this.rt_project_principal_name = item.partner_name
-        if(!this.selectList || this.selectList.length<=0){
+        if (!this.selectList || this.selectList.length <= 0) {
           return
         }
         let plus = false
-        for(let i=0;i<this.selectList.length;i++){
-          if(this.selectList[i].partner_id==item.partner_id){
+        for (let i = 0; i < this.selectList.length; i++) {
+          if (this.selectList[i].partner_id == item.partner_id) {
             plus = false
             break
-          }else{
+          } else {
             plus = true
           }
         }
-        if(plus){
+        if (plus) {
           this.selectList.push({
             'partner_id': item.partner_id,
             'partner_name': item.partner_name,
@@ -575,48 +602,69 @@ panEvent($event) {
   }
 
   //选择提醒
-  selectTip(){
-    this.navCtrl.push('TipPage',{
+  selectTip() {
+    this.navCtrl.push('TipPage', {
       'page': 'CalendarDeatilpagePage',
       'alarm_id': this.alarm_id,
       'alarm_name': this.alarm_name,
       'type_app': this.type_app,
       'type_notification': this.type_notification
     })
-}
+  }
   //处理所有数据
-  handleData(){
+  handleData() {
     let myString = ""
-      if(!this.type_id){
-        myString = "    请选择类型"
-      }
-      if(!this.subject){
-        myString = "    请输入主题"
-      }
-      if(!this.selectList || this.selectList.length==0){
-        myString = "    请选择参与人员"
-      }
-      if(myString != ""){
-        Utils.toastButtom(myString, this.toastCtrl)
-      }else{
-        let partner_ids = []
-        if(this.selectList && this.selectList.length>0){
-          for(var i=0;i<this.selectList.length;i++){
-            partner_ids[i] = this.selectList[i].partner_id
-          }
+    if (!this.type_id) {
+      myString = "    请选择类型"
+    }
+    if (!this.subject) {
+      myString = "    请输入主题"
+    }
+    if (!this.selectList || this.selectList.length == 0) {
+      myString = "    请选择参与人员"
+    }
+    if (myString != "") {
+      Utils.toastButtom(myString, this.toastCtrl)
+    } else {
+      let partner_ids = []
+      if (this.selectList && this.selectList.length > 0) {
+        for (var i = 0; i < this.selectList.length; i++) {
+          partner_ids[i] = this.selectList[i].partner_id
         }
-        if(!this.alarm_id){
-            this.alarm_id = '-1'
+      }
+      if (!this.alarm_id) {
+        this.alarm_id = '-1'
+      }
+      let body = {}
+      if (this.allday == true && this.start_date != '' && this.stop_date != '' && this.start_date && this.stop_date) {
+        console.log('start = ' + this.start_date + '  stop = ' + this.stop_date)
+        this.start_date = this.datePipe.transform(this.start_date, 'yyyy-MM-dd HH:mm:ss')
+        this.stop_date = this.datePipe.transform(this.stop_date, 'yyyy-MM-dd HH:mm:ss')
+        if (new Date(this.start_date.replace(/-/g, "/")).getTime() > new Date(this.stop_date.replace(/-/g, "/")).getTime()) {
+          Utils.toastButtom('开始时间不能大于结束时间！', this.toastCtrl)
+          return
         }
-        let body = {}
-        if(this.allday==true && this.start_date!='' && this.stop_date!='' && this.start_date && this.stop_date){
-          console.log('start = '+this.start_date+'  stop = '+this.stop_date)
-          this.start_date = this.datePipe.transform(this.start_date, 'yyyy-MM-dd HH:mm:ss')
-          this.stop_date = this.datePipe.transform(this.stop_date, 'yyyy-MM-dd HH:mm:ss')
-          if(new Date(this.start_date.replace(/-/g, "/")).getTime() > new Date(this.stop_date.replace(/-/g, "/")).getTime()){
-            Utils.toastButtom('开始时间不能大于结束时间！', this.toastCtrl)
-            return
-          }
+        body = {
+          'uid': this.uid,
+          'rt_is_sure_time': this.rt_is_sure_time,
+          'allday': this.allday,
+          'event_type_id': this.type_id,
+          'subject_name': this.subject,
+          'partner_ids': partner_ids,
+          'start_date': this.start_date,
+          'stop_date': this.stop_date,
+          'start': this.start_date,
+          'stop': this.stop_date,
+          'rt_alarm_type': this.alarm_id,
+          'location': this.location,
+          'description': this.description,
+          'rt_project_principal': this.rt_project_principal,
+          'type_app': this.type_app,
+          'type_notification': this.type_notification,
+          'rt_recurrency_type': '0',
+        }
+      } else {
+        if (this.rt_is_sure_time == true) {
           body = {
             'uid': this.uid,
             'rt_is_sure_time': this.rt_is_sure_time,
@@ -624,64 +672,43 @@ panEvent($event) {
             'event_type_id': this.type_id,
             'subject_name': this.subject,
             'partner_ids': partner_ids,
-            'start_date': this.start_date,
-            'stop_date': this.stop_date,
-            'start': this.start_date,
-            'stop': this.stop_date,
             'rt_alarm_type': this.alarm_id,
             'location': this.location,
             'description': this.description,
             'rt_project_principal': this.rt_project_principal,
             'type_app': this.type_app,
             'type_notification': this.type_notification,
-            'rt_recurrency_type':'0',
-        }
-      }else{
-        if(this.rt_is_sure_time==true){
-          body = {
-            'uid': this.uid,
-            'rt_is_sure_time': this.rt_is_sure_time,
-            'allday': this.allday,
-            'event_type_id': this.type_id,
-            'subject_name': this.subject,
-            'partner_ids': partner_ids,
-            'rt_alarm_type': this.alarm_id,
-            'location': this.location,
-            'description': this.description,
-            'rt_project_principal': this.rt_project_principal,
-            'type_app': this.type_app,
-            'type_notification': this.type_notification,
-            'rt_recurrency_type':'0',
+            'rt_recurrency_type': '0',
             'start': this.datePipe.transform(this.start_date, 'yyyy-MM-dd HH:mm:ss'),
             'stop': this.datePipe.transform(this.stop_date, 'yyyy-MM-dd HH:mm:ss'),
-        }
-        }else{
-          if(this.start_datetime!='' && this.stop_datetime!='' && this.start_datetime && this.stop_datetime){
+          }
+        } else {
+          if (this.start_datetime != '' && this.stop_datetime != '' && this.start_datetime && this.stop_datetime) {
             let startTime;
             let stopTime;
-            if(this.start_datetime.indexOf('T') != -1 ){
+            if (this.start_datetime.indexOf('T') != -1) {
               startTime = new Date(this.start_datetime).getTime()
-            }else{
+            } else {
               startTime = new Date(this.start_datetime.replace(/-/g, "/")).getTime()
             }
-            if(this.stop_datetime.indexOf('T') != -1){
+            if (this.stop_datetime.indexOf('T') != -1) {
               stopTime = new Date(this.stop_datetime).getTime()
-            }else{
+            } else {
               stopTime = new Date(this.stop_datetime.replace(/-/g, "/")).getTime()
             }
-            if(startTime > stopTime){
+            if (startTime > stopTime) {
               Utils.toastButtom('开始时间不能大于结束时间！', this.toastCtrl)
               return
             }
-            if(this.start_datetime.indexOf('T') != -1){
-              this.start_datetime = this.datePipe.transform(new Date(new Date(this.start_datetime).getTime()-2*8*60*60*1000), 'yyyy-MM-dd HH:mm:ss')
-            }else{
-              this.start_datetime = this.datePipe.transform(new Date(new Date(this.start_datetime.replace(/-/g, "/")).getTime()-2*8*60*60*1000), 'yyyy-MM-dd HH:mm:ss')
+            if (this.start_datetime.indexOf('T') != -1) {
+              this.start_datetime = this.datePipe.transform(new Date(new Date(this.start_datetime).getTime() - 2 * 8 * 60 * 60 * 1000), 'yyyy-MM-dd HH:mm:ss')
+            } else {
+              this.start_datetime = this.datePipe.transform(new Date(new Date(this.start_datetime.replace(/-/g, "/")).getTime() - 2 * 8 * 60 * 60 * 1000), 'yyyy-MM-dd HH:mm:ss')
             }
-            if(this.stop_datetime.indexOf('T') != -1){
-              this.stop_datetime = this.datePipe.transform(new Date(new Date(this.stop_datetime).getTime()-2*8*60*60*1000), 'yyyy-MM-dd HH:mm:ss')
-            }else{
-              this.stop_datetime = this.datePipe.transform(new Date(new Date(this.stop_datetime.replace(/-/g, "/")).getTime()-2*8*60*60*1000), 'yyyy-MM-dd HH:mm:ss')
+            if (this.stop_datetime.indexOf('T') != -1) {
+              this.stop_datetime = this.datePipe.transform(new Date(new Date(this.stop_datetime).getTime() - 2 * 8 * 60 * 60 * 1000), 'yyyy-MM-dd HH:mm:ss')
+            } else {
+              this.stop_datetime = this.datePipe.transform(new Date(new Date(this.stop_datetime.replace(/-/g, "/")).getTime() - 2 * 8 * 60 * 60 * 1000), 'yyyy-MM-dd HH:mm:ss')
             }
           }
           body = {
@@ -701,7 +728,7 @@ panEvent($event) {
             'rt_project_principal': this.rt_project_principal,
             'type_app': this.type_app,
             'type_notification': this.type_notification,
-            'rt_recurrency_type':'0',
+            'rt_recurrency_type': '0',
           }
         }
       }
@@ -716,28 +743,154 @@ panEvent($event) {
     }
   }
 
-  focusInput(){
-    var idInput=document.getElementById("contextInput");
-  idInput.onkeyup=(event)=>{
-    console.log(event)
-    console.log(event.keyCode)
-    if(event.keyCode==13){
-      console.log('11112312')
+  focusInput() {
+    //   var idInput=document.getElementById("contextInput");
+    // idInput.onkeyup=(event)=>{
+    //   console.log(event)
+    //   console.log(event.keyCode)
+    //   if(event.keyCode==13){
+    //     console.log('11112312')
+    //   }
+    // }
+
+  }
+
+  blurInput() {
+  }
+
+  reply_to(items) {
+
+    this.navCtrl.push('CalendarChatPage', {
+      item: items,
+      res_id: this.item.id,
+      navCtrl: 'CalendarDeatilpagePage',
+      type: 'calendar.event',
+    })
+  }
+
+  send() {
+    if (this.context_message.length == 0) {
+      Utils.toastButtom("回复不可为空", this.toastCtrl)
     }
-  }
- 
-  }
-
-  blurInput(){
-  }
-
-    reply_to(items){
-      
-      setTimeout(()=>{
-        this.contextInput.setFocus();//输入框获取焦点
+    else {
+      let body = {
+        'uid': this.uid,
+        'res_id': this.item.id,
+        'context': this.context_message,
+        'parent_id': false,
+        'type': 'calendar.event',
+      }
+      this.firService.reply_to(body).then(res => {
+        if (res.result.res_code == 1) {
+          this.context_message = ''
+          Utils.toastButtom("回复成功", this.toastCtrl)
+          this.refresh_view()
+        }
       })
     }
+  }
 
-    
+  refresh_view() {
+    this.firService.get_event_detail({
+      'uid': this.uid,
+      'event_id': this.item.id
+    }).then(res => {
+      if (res.result.res_data && res.result.res_code == 1) {
+        this.item = res.result.res_data
+      }
+    })
+  }
+
+  click_more() {
+    if (this.state) {
+      let actionSheet = this.actionSheetCtrl.create({
+        title: '',
+        buttons: [
+          {
+            text: '标记完成',
+            handler: () => {
+              this.finish()
+            }
+          },{
+            text: '编辑',
+            handler: () => {
+              this.edit()
+            }
+          },
+          {
+            text: '删除',
+            handler: () => {
+              this.delete()
+            }
+          },
+          
+          {
+            text: '取消',
+            role: 'cancel',
+            handler: () => {
+              console.log('Cancel clicked');
+            }
+          }
+        ]
+      });
+      actionSheet.present();
+    }
+    else {
+      let actionSheet = this.actionSheetCtrl.create({
+        title: '',
+        buttons: [
+          {
+            text: '标记为待办',
+            //  role: 'destructive',
+            handler: () => {
+              this.completion_event()
+            }
+          },
+          {
+            text: '删除',
+            handler: () => {
+              this.delete()
+            }
+          },
+          {
+            text: '取消',
+            role: 'cancel',
+            handler: () => {
+              console.log('Cancel clicked');
+            }
+          }
+        ]
+      });
+      actionSheet.present();
+    }
+  }
+
+  cancel_zan(items){
+    let body = {
+      'uid': this.uid,
+      'type': 'delete',
+      'msg_id': items.msg_id, 
+    }
+    this.firService.update_zan(body).then(res => {
+      if (res.result.res_code == 1) {
+        this.refresh_view()
+      }
+    })
+  }
+
+  update_zan(items){
+    let body = {
+      'uid': this.uid,
+      'type': 'add',
+      'msg_id': items.msg_id, 
+    }
+    this.firService.update_zan(body).then(res => {
+      if (res.result.res_code == 1) {
+        this.refresh_view()
+      }
+    })
+  }
+
+
 
 }
