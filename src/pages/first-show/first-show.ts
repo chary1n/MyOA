@@ -51,6 +51,7 @@ export class FirstShowPage {
   type_id;//会议的类型
   event_list
   isShowBac = false
+  un_read_list = []
   constructor(public navCtrl: NavController, public navParams: NavParams,private datePipe: DatePipe,
               private firshowService: FirstShowService,public storage:Storage,
               public statusBar:StatusBar) {
@@ -93,6 +94,17 @@ export class FirstShowPage {
       this.getDayData(this.datePipe.transform((this.currentYear+'-'+this.currentMonth+'-'+this.currentDay), 'yyyy-MM-dd'))
       this.get_backlog_identify(this.currentYear, this.currentMonth)
     }
+     this.storage.get('user').then(res => {
+        this.uid = res.result.res_data.user_id
+        this.firshowService.get_un_read_reply({'uid':this.uid}).then(res => {
+      if (res.result.res_data && res.result.res_code == 1) {
+        this.un_read_list = res.result.res_data
+      }
+    })
+     })
+       
+    
+
   }
   //获取某一天的数据
   getDayData(date){
@@ -581,5 +593,12 @@ export class FirstShowPage {
   closeFab(){
     this.isShowBac = false
     this.fab.close()
+  }
+
+  click_un_read_reply(){
+    console.log(this.un_read_list)
+    this.navCtrl.push('UnreadReplyPage',{
+          item:this.un_read_list
+        })
   }
 }

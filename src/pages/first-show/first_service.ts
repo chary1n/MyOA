@@ -6,6 +6,26 @@ export class FirstShowService {
     constructor(private httpService: HttpService) {
 
     }
+
+    read_total_reply(body){
+        return this.httpService.postBody("read_total_reply", body);
+    }
+
+    get_un_read_reply(body){
+        return this.httpService.postBody("get_un_read_reply", body);
+    }
+
+    get_employee_detail(user_id){
+        let body = JSON.stringify({
+           user_id:user_id,
+          });
+        return this.httpService.postBody("get_employee_detail", body,1);
+    }
+
+    update_zan(body){
+        return this.httpService.postBody("update_zan", body);
+    }
+
     reply_to(body){
         return this.httpService.postBody("reply_to", body);
     }
