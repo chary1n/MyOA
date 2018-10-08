@@ -80,7 +80,7 @@
                   <button *ngFor="let item of event_list" [ngClass]="{'fabBcOne':event_list.indexOf(item)%3==0,'fabBcTwo':event_list.indexOf(item)%3==1,'fabBcThree':event_list.indexOf(item)%3==2}" ion-fab (click)="createWait(item, fab)">{{item.display_name}}</button>
               </ion-fab-list>
           </ion-fab>
-            <div class="box-flex" style="margin-left: 10px;margin-right: 10px;margin-top: 5px">  
+            <div class="box-flex" style="margin-left: 10px;margin-right: 10px;margin-top: 10px">  
                 <div class="flex-item">  
                   <div class="item-content-header">一</div>  
                 </div>  

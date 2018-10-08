@@ -1,4 +1,4 @@
-<ion-tabs #mainTabs style="position: relative;">
+<ion-tabs #mainTabs style="position: relative;" (ionChange)="changeTabs()">
   <ion-tab  [root]='firstRoot'  tabTitle='首页' tabIcon ='list-box' tabsHideOnSubPages [tabBadge]="messageNum" tabBadgeStyle="danger"></ion-tab>
   <ion-tab  [root]='emailRoot' tabTitle='邮件' tabIcon ='ios-mail-outline' tabsHideOnSubPages></ion-tab>
   <ion-tab  [root]='workRoot' tabTitle='工作台' tabIcon ='apps' tabsHideOnSubPages></ion-tab>
