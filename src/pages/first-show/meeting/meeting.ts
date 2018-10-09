@@ -110,7 +110,7 @@ export class MeetingPage {
       if (res.result.res_data && res.result.res_code == 1) {
         this.item = res.result.res_data
         this.item_change()
-        if(that.user.partner_id==that.item.rt_project_principal.partner_id_s_id || that.uid==that.item.create_uid){
+        if(that.user.partner_id==that.item.rt_project_principal.id || that.uid==that.item.create_uid){
           that.need_show_more_icon = true
         }
         else
@@ -539,7 +539,7 @@ handleData(){
       Utils.toastButtom('完成状态不可编辑', this.toastCtrl)
       return
     }
-    if(this.user.partner_id==this.item.rt_project_principal.partner_id_s_id || this.uid==this.item.create_uid){
+    if(this.user.partner_id==this.item.rt_project_principal.id || this.uid==this.item.create_uid){
       this.isEdit = true
       this.change = true
     }else{
@@ -579,7 +579,7 @@ handleData(){
   }
 //标记完成
   finish(){
-    if(this.user.partner_id==this.item.rt_project_principal.partner_id_s_id || this.uid==this.item.create_uid){
+    if(this.user.partner_id==this.item.rt_project_principal.id || this.uid==this.item.create_uid){
       let body = {
         'meeting_id': this.item.id,
         'uid': this.uid,
@@ -597,7 +597,7 @@ handleData(){
   }
   //标记为代办
   completion_event(){
-    if(this.user.partner_id==this.item.rt_project_principal.partner_id_s_id || this.uid==this.item.create_uid){
+    if(this.user.partner_id==this.item.rt_project_principal.id || this.uid==this.item.create_uid){
       let body = {
         'meeting_id': this.item.id,
         'uid': this.uid,
