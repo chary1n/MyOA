@@ -27,29 +27,49 @@ export class AllSchedulePage {
   constructor(public navCtrl: NavController, public navParams: NavParams, private firshowService: FirstShowService,
     public storage: Storage, public statusBar: StatusBar, public allScheduleService: AllScheduleService) {
 
-    this.storage.get('user').then(res => {
-      this.uid = res.result.res_data.user_id;
-      let body = {
-        'uid': this.uid
-      }
-      this.firshowService.get_all_schedule(body).then(res => {
-        if (res.result.res_data && res.result.res_code == 1) {
-          this.dataList = res.result.res_data.data
-          this.meeting_id = res.result.res_data.meeting_id
-          for (let i = 0; i < this.dataList.length; i++) {
-            if (this.dataList[i].id == -1) {
-              this.type_list = this.dataList[i].dataList
-            }
-          }
-        }
-      })
-    })
+    // this.storage.get('user').then(res => {
+    //   this.uid = res.result.res_data.user_id;
+    //   let body = {
+    //     'uid': this.uid
+    //   }
+    //   this.firshowService.get_all_schedule(body).then(res => {
+    //     if (res.result.res_data && res.result.res_code == 1) {
+    //       this.dataList = res.result.res_data.data
+    //       this.meeting_id = res.result.res_data.meeting_id
+    //       for (let i = 0; i < this.dataList.length; i++) {
+    //         if (this.dataList[i].id == -1) {
+    //           this.type_list = this.dataList[i].dataList
+    //         }
+    //       }
+    //     }
+    //   })
+    // })
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AllSchedulePage');
   }
 
+  ionViewDidEnter() {
+     this.storage.get('user').then(res => {
+      this.uid = res.result.res_data.user_id;
+    this.type_id = -1
+    let body = {
+      'uid': this.uid
+    }
+    this.firshowService.get_all_schedule(body).then(res => {
+      if (res.result.res_data && res.result.res_code == 1) {
+        this.dataList = res.result.res_data.data
+        this.meeting_id = res.result.res_data.meeting_id
+        for (let i = 0; i < this.dataList.length; i++) {
+          if (this.dataList[i].id == -1) {
+            this.type_list = this.dataList[i].dataList
+          }
+        }
+      }
+    })
+     })
+  }
 
   goBack() {
     this.navCtrl.pop()
@@ -58,33 +78,33 @@ export class AllSchedulePage {
   ionViewWillEnter() {
     this.statusBar.backgroundColorByHexString("#2597ec");
     this.statusBar.styleLightContent();
-    this.need_fresh = this.navParams.get('need_fresh')
-    this.type_list = []
-    if (this.need_fresh) {
-      let body = {
-        'uid': this.uid
-      }
-      this.firshowService.get_all_schedule(body).then(res => {
-        if (res.result.res_data && res.result.res_code == 1) {
-          this.meeting_id = res.result.res_data.meeting_id
-          if (this.type_id == -1) {
-            this.dataList = res.result.res_data.data
-          } else {
-            let listData = []
-            listData = res.result.res_data.data
-            for (let i = 0; i < listData.length; i++) {
-              if (listData[i].id == this.type_id) {
-                this.type_list = listData[i].dataList
-                listData[i].select = true
-              } else {
-                listData[i].select = false
-              }
-            }
-            this.dataList = listData
-          }
-        }
-      })
-    }
+    // this.need_fresh = this.navParams.get('need_fresh')
+    // this.type_list = []
+    // if (this.need_fresh) {
+    //   let body = {
+    //     'uid': this.uid
+    //   }
+    //   this.firshowService.get_all_schedule(body).then(res => {
+    //     if (res.result.res_data && res.result.res_code == 1) {
+    //       this.meeting_id = res.result.res_data.meeting_id
+    //       if (this.type_id == -1) {
+    //         this.dataList = res.result.res_data.data
+    //       } else {
+    //         let listData = []
+    //         listData = res.result.res_data.data
+    //         for (let i = 0; i < listData.length; i++) {
+    //           if (listData[i].id == this.type_id) {
+    //             this.type_list = listData[i].dataList
+    //             listData[i].select = true
+    //           } else {
+    //             listData[i].select = false
+    //           }
+    //         }
+    //         this.dataList = listData
+    //       }
+    //     }
+    //   })
+    // }
   }
 
   selectType(item) {
