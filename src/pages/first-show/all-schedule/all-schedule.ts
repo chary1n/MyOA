@@ -50,7 +50,6 @@ export class AllSchedulePage {
     console.log('ionViewDidLoad AllSchedulePage');
   }
 
-<<<<<<< HEAD
   ionViewDidEnter() {
      this.storage.get('user').then(res => {
       this.uid = res.result.res_data.user_id;
@@ -71,8 +70,6 @@ export class AllSchedulePage {
     })
      })
   }
-=======
->>>>>>> 03db4f5126ce252406c1b3b78fcd73b9b6eacf98
 
   goBack() {
     this.navCtrl.pop()
