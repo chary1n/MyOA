@@ -1,12 +1,12 @@
 page-all-schedule {
   .notfinishState{
-    margin-left: 25px;
+    margin-left: 15px;
     margin-top: 0px;
     padding-top: 10px;
     color: #5f6163
   }
   .finishState{
-    margin-left: 25px;
+    margin-left: 15px;
     margin-top: 0px;
     padding-top: 10px;
     color: #c7cace
@@ -41,9 +41,9 @@ page-all-schedule {
         background-color: #f0f2f5;
     }
     .div_class{
-      height: 75px;
       background-color: white;
       border-bottom:#f0f2f5 10px solid;
+      padding: 1px
   }
   .searchbar_class{
     width: 92vw;

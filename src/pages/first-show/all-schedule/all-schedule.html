@@ -29,10 +29,11 @@
             [dataProvider]="allScheduleService"></ion-auto-complete>
     </div>
     <div class="div_class" no-lines *ngFor='let item of type_list' tappable (click)='toDetail(item)'>
-        <p [ngClass]="{true:'notfinishState',false:'finishState'}[item.state]">{{item.subject}}
-            <span *ngIf="type_id==-1" style="color: #409eff;border-style: solid;border-radius: 5px;border-width: 1px;font-size: 12px;padding: 1px 5px;position: absolute;margin-top: -3px;margin-left: 5px">{{item.type_name}}</span>
+        <p *ngIf="type_id==-1" style="float: left;;color: #409eff;border-style: solid;border-radius: 5px;border-width: 1px;font-size: 12px;padding: 1px 5px;margin-top: 0px;margin-left: 5px;margin-top: 9px;margin-right: 5px">{{item.type_name}}</p>
+        <p [ngClass]="{true:'notfinishState',false:'finishState'}[item.state]">
+            {{item.subject}}
         </p>
-        <p style="margin-left: 25px;font-size: 13px;color: #c7cace;margin-top: -5px">{{item.start}} 至 {{item.stop}}</p>
+        <p style="margin-left: 15px;font-size: 13px;color: #c7cace;margin-top: 17px">{{item.start}} 至 {{item.stop}}</p>
     </div>
     <div align="center" *ngIf="!type_list || type_list.length == 0">
         <img style="width:100px;position:absolute;left:calc(50% - 50px);top:calc(50% - 60px)" src="assets/img/nodataimg.png">

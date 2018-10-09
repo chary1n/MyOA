@@ -73,6 +73,7 @@ export class CalendarDeatilpagePage {
   meeting_type = 0;
   context_message;
   need_show_more_icon = true;
+  title_meeting = '新建';
   constructor(public navCtrl: NavController, public navParams: NavParams, public statusBar: StatusBar,
     public firService: FirstShowService, public storage: Storage, public toastCtrl: ToastController,
     private datePipe: DatePipe, private sanitizer: DomSanitizer, public alertCtrl: AlertController,
@@ -247,9 +248,6 @@ export class CalendarDeatilpagePage {
                     }
                 }]
         }).present();
-
-
-
     
   }
   //编辑状态下取消
@@ -341,6 +339,7 @@ export class CalendarDeatilpagePage {
   cancel() {
     cordova.plugins.Keyboard.close()
     if (this.search) {
+      this.title_meeting = '新建'
       this.search = false
       if (this.select_type == 1) {
         this.selectList = this.storeList
@@ -353,6 +352,7 @@ export class CalendarDeatilpagePage {
   stateFinish() {
     cordova.plugins.Keyboard.close()
     if (this.search) {
+      this.title_meeting = '新建'
       this.search = false
       return
     }
@@ -502,6 +502,7 @@ export class CalendarDeatilpagePage {
   }
   //选择负责人
   selectPartnerId() {
+    this.title_meeting = '负责人'
     this.showPeopleList = []
     this.showPeopleList.push({
       'partner_id': this.rt_project_principal,
@@ -517,6 +518,7 @@ export class CalendarDeatilpagePage {
   }
   //选择参与人员
   selectPartner() {
+    this.title_meeting = '参与人员'
     this.showPeopleList = this.selectList
     this.storeList = []
     this.storeList = this.storeList.concat(this.selectList)
@@ -584,6 +586,7 @@ export class CalendarDeatilpagePage {
         }
       }
     } else if (this.select_type == 2) {
+      this.title_meeting = '新建'
       if (item.partner_id == this.rt_project_principal) {
         this.search = false
         return

@@ -65,6 +65,8 @@ export class MeetingPage {
   context_message;
   need_show_more_icon = true;
   isShowTip = false
+  title_meeting = '新建会议'
+  title_meeting_two = '会议'
   constructor(public navCtrl: NavController, public navParams: NavParams,public storage:Storage,
               private datePipe: DatePipe, public statusBar:StatusBar,public firService: FirstShowService
               ,public toastCtrl: ToastController,private sanitizer: DomSanitizer, public actionSheetCtrl: ActionSheetController) {
@@ -221,6 +223,10 @@ export class MeetingPage {
 cancel(){
   cordova.plugins.Keyboard.close()
   if(this.search){
+    this.title_meeting = '新建会议'
+    if(this.edit && this.search && this.change){
+      this.title_meeting_two = '会议'
+    }
     this.search=false
     if(this.select_type==1){
       this.selectList=this.storeList
@@ -233,6 +239,10 @@ cancel(){
 stateFinish(){
   cordova.plugins.Keyboard.close()
   if(this.search){
+    this.title_meeting = '新建会议'
+    if(this.edit && this.search && this.change){
+      this.title_meeting_two = '会议'
+    }
     this.search=false
     return
   }
@@ -271,6 +281,8 @@ closePartner(item){
 }
 //选择负责人
 selectPartnerId(){
+  this.title_meeting = '负责人'
+  this.title_meeting_two = '负责人'
   this.showPeopleList=[]
   this.showPeopleList.push({
     'partner_id': this.rt_project_principal_id,
@@ -285,6 +297,8 @@ selectPartnerId(){
 }
 //选择参与人员
 selectPartner(){
+  this.title_meeting = '参与人员'
+  this.title_meeting_two = '参与人员'
   this.showPeopleList = this.selectList
   this.storeList=[]
   this.storeList=this.storeList.concat(this.selectList)
@@ -347,6 +361,8 @@ choosePeople(item){
       }
     }
   }else if(this.select_type==2){
+    this.title_meeting = '新建会议'
+    this.title_meeting_two = '会议'
     if(item.partner_id==this.rt_project_principal_id){
       this.search = false
       return
@@ -545,7 +561,7 @@ handleData(){
   }
   //点击编辑
   edit(){
-
+    this.title_meeting_two = "会议"
     this.content.resize()
     this.rt_description = this.item.rt_description
     this.rt_hint = this.item.rt_hint
