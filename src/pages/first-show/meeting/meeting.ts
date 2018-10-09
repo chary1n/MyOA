@@ -109,14 +109,15 @@ export class MeetingPage {
     this.firService.get_meeting(body).then(res =>{
       if (res.result.res_data && res.result.res_code == 1) {
         this.item = res.result.res_data
-        this.item_change()
-        if(that.user.partner_id==that.item.rt_project_principal.id || that.uid==that.item.create_uid){
-          that.need_show_more_icon = true
+        if(this.user.partner_id==this.item.rt_project_principal.id || this.uid==this.item.create_uid){
+          this.need_show_more_icon = true
         }
         else
         {
-          that.need_show_more_icon = false
+          this.need_show_more_icon = false
         }
+        this.item_change()
+        
      }
   })
   }
@@ -128,6 +129,22 @@ export class MeetingPage {
         this.selectList = this.item.rt_meeting_participant
         this.rt_alarm_type_id = this.item.rt_alarm_type
         this.rt_alarm_type = this.item.rt_alarm_type_name
+
+        this.item_tip_name=''
+        if(this.item.rt_alarm_type=='-1'){
+          this.item_tip_name = this.item.rt_alarm_type_name
+        }else if(this.item.rt_type_app && !this.item.rt_type_notification){
+          this.item_tip_name = this.item.rt_alarm_type_name+'(App提醒)'
+        }else if(this.item.rt_type_notification && !this.item.rt_type_app){
+          this.item_tip_name = this.item.rt_alarm_type_name+'(网页提醒)'
+        }else if(this.item.rt_type_app && this.item.rt_type_notification){
+          this.item_tip_name = this.item.rt_alarm_type_name+'(App提醒、网页提醒)'
+        }
+        this.rt_location = this.item.rt_location
+        this.rt_description = this.item.rt_description.replace(/\n/g,"<br>")
+        this.rt_hint = this.item.rt_hint.replace(/\n/g,"<br>")
+        this.rt_meeting_state = this.item.rt_meeting_state
+
         if(this.item.rt_allday && this.item.rt_meeting_start && this.item.rt_meeting_stop){
           this.item_start = this.datePipe.transform(new Date(this.item.rt_meeting_start.replace(/-/g, "/")), 'MM-dd')
           this.item_stop = this.datePipe.transform(new Date(this.item.rt_meeting_stop.replace(/-/g, "/")), 'MM-dd')
@@ -143,20 +160,7 @@ export class MeetingPage {
             this.start_datetime = this.datePipe.transform(new Date(this.item.rt_meeting_start.replace(/-/g, "/")), 'yyyy-MM-dd HH:mm').replace(' ','T')+'Z'
             this.stop_datetime = this.datePipe.transform(new Date(this.item.rt_meeting_stop.replace(/-/g, "/")), 'yyyy-MM-dd HH:mm').replace(' ','T')+'Z'
         }
-        this.item_tip_name=''
-        if(this.item.rt_alarm_type=='-1'){
-          this.item_tip_name = this.item.rt_alarm_type_name
-        }else if(this.item.rt_type_app && !this.item.rt_type_notification){
-          this.item_tip_name = this.item.rt_alarm_type_name+'(App提醒)'
-        }else if(this.item.rt_type_notification && !this.item.rt_type_app){
-          this.item_tip_name = this.item.rt_alarm_type_name+'(网页提醒)'
-        }else if(this.item.rt_type_app && this.item.rt_type_notification){
-          this.item_tip_name = this.item.rt_alarm_type_name+'(App提醒、网页提醒)'
-        }
-        this.rt_location = this.item.rt_location
-        this.rt_description = this.item.rt_description.replace(/\n/g,"<br>")
-        this.rt_hint = this.item.rt_hint.replace(/\n/g,"<br>")
-        this.rt_meeting_state = this.item.rt_meeting_state
+        
         
 
   }

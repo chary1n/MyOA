@@ -27,7 +27,7 @@ export class FirstShowService {
     }
 
     update_zan(body){
-        return this.httpService.postBody("update_zan", body);
+        return this.httpService.postBodyNoLoading("update_zan", body);
     }
 
     reply_to(body){
@@ -35,7 +35,7 @@ export class FirstShowService {
     }
 
     get_event_detail(body){
-        return this.httpService.postBody("get_event_detail", body);
+        return this.httpService.postBodyNoLoading("get_event_detail", body);
     }
 
     get_schedule_list(body){
@@ -101,7 +101,7 @@ export class FirstShowService {
     }
     
     get_meeting(body){
-        return this.httpService.postBody("get_meeting", body);
+        return this.httpService.postBodyNoLoading("get_meeting", body);
     }
     
     create_meeting_line(body){
