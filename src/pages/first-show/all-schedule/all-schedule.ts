@@ -50,23 +50,6 @@ export class AllSchedulePage {
     console.log('ionViewDidLoad AllSchedulePage');
   }
 
-  ionViewDidEnter() {
-    this.type_id = -1
-    let body = {
-      'uid': this.uid
-    }
-    this.firshowService.get_all_schedule(body).then(res => {
-      if (res.result.res_data && res.result.res_code == 1) {
-        this.dataList = res.result.res_data.data
-        this.meeting_id = res.result.res_data.meeting_id
-        for (let i = 0; i < this.dataList.length; i++) {
-          if (this.dataList[i].id == -1) {
-            this.type_list = this.dataList[i].dataList
-          }
-        }
-      }
-    })
-  }
 
   goBack() {
     this.navCtrl.pop()
@@ -168,8 +151,11 @@ export class AllSchedulePage {
 
   itemClearSelected(event) {
     for (let i = 0; i < this.dataList.length; i++) {
-      if (this.dataList[i].id == -1) {
-        this.selectType(this.dataList[i])
+      if (this.dataList[i].id == this.type_id) {
+        this.type_list = this.dataList[i].dataList
+        this.dataList[i].select = true
+      } else {
+        this.dataList[i].select = false
       }
     }
   }
