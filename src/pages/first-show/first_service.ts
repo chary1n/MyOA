@@ -16,7 +16,7 @@ export class FirstShowService {
     }
 
     get_un_read_reply(body){
-        return this.httpService.postBody("get_un_read_reply", body);
+        return this.httpService.postBodyNoLoading("get_un_read_reply", body);
     }
 
     get_employee_detail(user_id){
