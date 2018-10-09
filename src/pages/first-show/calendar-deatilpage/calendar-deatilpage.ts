@@ -254,6 +254,7 @@ export class CalendarDeatilpagePage {
   }
   //编辑状态下取消
   changeCancel() {
+    cordova.plugins.Keyboard.close()
     if (this.search) {
       this.search = false
       if (this.select_type == 1) {
@@ -267,6 +268,7 @@ export class CalendarDeatilpagePage {
   }
   //编辑状态下完成
   changeFinish() {
+    cordova.plugins.Keyboard.close()
     if (this.search) {
       this.search = false
       return
@@ -302,6 +304,7 @@ export class CalendarDeatilpagePage {
   }
   //编辑
   edit() {
+
     this.content.resize()
     if (this.item.state == false) {
       Utils.toastButtom('完成状态不可编辑', this.toastCtrl)
@@ -336,6 +339,7 @@ export class CalendarDeatilpagePage {
   }
   //取消新建待办事项
   cancel() {
+    cordova.plugins.Keyboard.close()
     if (this.search) {
       this.search = false
       if (this.select_type == 1) {
@@ -347,6 +351,7 @@ export class CalendarDeatilpagePage {
   }
   //新建待办事项完成
   stateFinish() {
+    cordova.plugins.Keyboard.close()
     if (this.search) {
       this.search = false
       return

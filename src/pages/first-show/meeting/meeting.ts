@@ -207,6 +207,7 @@ export class MeetingPage {
 
 //取消新建待办事项
 cancel(){
+  cordova.plugins.Keyboard.close()
   if(this.search){
     this.search=false
     if(this.select_type==1){
@@ -218,6 +219,7 @@ cancel(){
 }
 //新建待办事项完成
 stateFinish(){
+  cordova.plugins.Keyboard.close()
   if(this.search){
     this.search=false
     return
@@ -548,6 +550,7 @@ handleData(){
   }
   //编辑完成
   changeFinish(){
+    cordova.plugins.Keyboard.close()
     if(this.search){
       this.search=false
       return
@@ -566,6 +569,7 @@ handleData(){
   }
   //编辑取消
   changeCancel(){
+    cordova.plugins.Keyboard.close()
     if(this.search){
       this.search=false
       if(this.select_type==1){

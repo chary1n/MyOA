@@ -279,14 +279,14 @@
         <p *ngIf="!items.reply_uid.name" [ngClass]="{true:'content_message_empty',false:'content_message_empty_no_lines'}[items.reply_record_line_ids.length > 0]">Empty</p>
       </ion-item>-->
   
-      <ion-item no-lines *ngFor="let line of items.child_ids;" [ngClass]="{true:'item_class_image',false:'item_calss_one'}[false]" tappable (click)='reply_to(line)'>
+      <div no-lines *ngFor="let line of items.child_ids;" [ngClass]="{true:'item_class_image',false:'item_calss_one'}[false]" tappable (click)='reply_to(line)'>
         <p [ngClass]="{true:'item_class_image_p',false:'item_class_normal_p'}[false]">
           <span style="color:#1f6699;" >{{line.create_uid + "："}} </span>
           <span style="color:#1f6699;" >@{{line.reply_name}} </span>
           <span
             style="color:8a9299">{{line.context}}</span>
         </p>
-      </ion-item>
+      </div>
     </div>
   </ion-list>
 </ion-content>
