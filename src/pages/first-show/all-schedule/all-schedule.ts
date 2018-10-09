@@ -50,6 +50,7 @@ export class AllSchedulePage {
     console.log('ionViewDidLoad AllSchedulePage');
   }
 
+<<<<<<< HEAD
   ionViewDidEnter() {
      this.storage.get('user').then(res => {
       this.uid = res.result.res_data.user_id;
@@ -70,6 +71,8 @@ export class AllSchedulePage {
     })
      })
   }
+=======
+>>>>>>> 03db4f5126ce252406c1b3b78fcd73b9b6eacf98
 
   goBack() {
     this.navCtrl.pop()
@@ -171,8 +174,11 @@ export class AllSchedulePage {
 
   itemClearSelected(event) {
     for (let i = 0; i < this.dataList.length; i++) {
-      if (this.dataList[i].id == -1) {
-        this.selectType(this.dataList[i])
+      if (this.dataList[i].id == this.type_id) {
+        this.type_list = this.dataList[i].dataList
+        this.dataList[i].select = true
+      } else {
+        this.dataList[i].select = false
       }
     }
   }
