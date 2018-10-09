@@ -64,6 +64,7 @@ export class MeetingPage {
   rt_meeting_state;
   context_message;
   need_show_more_icon = true;
+  isShowTip = false
   constructor(public navCtrl: NavController, public navParams: NavParams,public storage:Storage,
               private datePipe: DatePipe, public statusBar:StatusBar,public firService: FirstShowService
               ,public toastCtrl: ToastController,private sanitizer: DomSanitizer, public actionSheetCtrl: ActionSheetController) {
@@ -86,13 +87,13 @@ export class MeetingPage {
                   this.stop_datetime = new Date(current_day.getTime()+8*60*60*1000).toISOString();
                   this.start_date = this.datePipe.transform(current_day, 'yyyy-MM-dd')
                   this.stop_date = this.datePipe.transform(current_day, 'yyyy-MM-dd')
-                  }
+                  }else{
+                    this.meeting_id = this.navParams.get('meeting_id');
+                    this.uid = this.navParams.get('uid');
+                    this.get_all_data()
+                }
                 })
-                if(this.isEdit==false){
-                  this.meeting_id = this.navParams.get('meeting_id');
-                  this.uid = this.navParams.get('uid');
-                  this.get_all_data()
-              }
+                
   }
 
   ionViewDidLoad() {
@@ -121,6 +122,13 @@ export class MeetingPage {
   })
   }
   item_change(){
+    if(this.user.partner_id==this.item.rt_project_principal.id || this.uid==this.item.create_uid){
+      this.isShowTip = true
+    }
+    else
+    {
+      this.isShowTip = false
+    }
     this.rt_is_sure_time = this.item.rt_is_sure_time
         this.name = this.item.name
         this.rt_project_principal = this.item.rt_project_principal.name
@@ -157,8 +165,7 @@ export class MeetingPage {
         this.rt_description = this.item.rt_description.replace(/\n/g,"<br>")
         this.rt_hint = this.item.rt_hint.replace(/\n/g,"<br>")
         this.rt_meeting_state = this.item.rt_meeting_state
-        
-
+      
   }
   //滑动事件
   panEvent($event) {
@@ -494,7 +501,7 @@ handleData(){
 }
 
   addMeeting(){
-    if(this.user.partner_id==this.item.rt_project_principal.partner_id_s_id || this.uid==this.item.create_uid){
+    if(this.user.partner_id==this.item.rt_project_principal.id || this.uid==this.item.create_uid){
       this.navCtrl.push('CalendarDeatilpagePage', {
         'isEdit': true,
         'type': 1,
