@@ -1,7 +1,7 @@
 import { AllScheduleService } from './all-schedule-service';
 import { FirstShowService } from './../first_service';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams} from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { StatusBar } from '@ionic-native/status-bar';
 
@@ -19,93 +19,112 @@ import { StatusBar } from '@ionic-native/status-bar';
 })
 export class AllSchedulePage {
   uid
-  dataList=[]
-  type_list=[]
+  dataList = []
+  type_list = []
   meeting_id
-  type_id=-1
+  type_id = -1
   need_fresh = false;
   constructor(public navCtrl: NavController, public navParams: NavParams, private firshowService: FirstShowService,
-              public storage:Storage,public statusBar:StatusBar, public allScheduleService: AllScheduleService) {
-              
-                this.storage.get('user').then(res => {
-                  this.uid = res.result.res_data.user_id;
-                  let body = {
-                    'uid': this.uid
-                  }
-                  this.firshowService.get_all_schedule(body).then(res=>{
-                    if (res.result.res_data && res.result.res_code == 1) {
-                        this.dataList = res.result.res_data.data
-                        this.meeting_id = res.result.res_data.meeting_id
-                          for (let i = 0; i < this.dataList.length; i++) {
-                            if(this.dataList[i].id==-1){
-                              this.type_list = this.dataList[i].dataList
-                            }
-                          }
-                    }
-                  })
-                })
+    public storage: Storage, public statusBar: StatusBar, public allScheduleService: AllScheduleService) {
+
+    this.storage.get('user').then(res => {
+      this.uid = res.result.res_data.user_id;
+      let body = {
+        'uid': this.uid
+      }
+      this.firshowService.get_all_schedule(body).then(res => {
+        if (res.result.res_data && res.result.res_code == 1) {
+          this.dataList = res.result.res_data.data
+          this.meeting_id = res.result.res_data.meeting_id
+          for (let i = 0; i < this.dataList.length; i++) {
+            if (this.dataList[i].id == -1) {
+              this.type_list = this.dataList[i].dataList
+            }
+          }
+        }
+      })
+    })
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AllSchedulePage');
   }
 
-    goBack(){
-      this.navCtrl.pop()
+  ionViewDidEnter() {
+    this.type_id = -1
+    let body = {
+      'uid': this.uid
     }
-  
-    ionViewWillEnter(){
-      this.statusBar.backgroundColorByHexString("#2597ec");
-      this.statusBar.styleLightContent();
-      this.need_fresh =this.navParams.get('need_fresh')
-      if(this.need_fresh){
-        let body = {
-          'uid': this.uid
-        }
-        this.firshowService.get_all_schedule(body).then(res=>{
-          if (res.result.res_data && res.result.res_code == 1) {
-            this.meeting_id = res.result.res_data.meeting_id
-            if(this.type_id==-1){
-              this.dataList = res.result.res_data.data
-            }else{
-              let listData = []
-              listData= res.result.res_data.data
-                  for (let i = 0; i < listData.length; i++) {
-                    if(listData[i].id==this.type_id){
-                      this.type_list = listData[i].dataList
-                      listData[i].select = true
-                    }else{
-                      listData[i].select = false
-                    }
-                  }
-                  this.dataList = listData
-            }
+    this.firshowService.get_all_schedule(body).then(res => {
+      if (res.result.res_data && res.result.res_code == 1) {
+        this.dataList = res.result.res_data.data
+        this.meeting_id = res.result.res_data.meeting_id
+        for (let i = 0; i < this.dataList.length; i++) {
+          if (this.dataList[i].id == -1) {
+            this.type_list = this.dataList[i].dataList
           }
-        })
+        }
       }
+    })
   }
 
-  selectType(item){
+  goBack() {
+    this.navCtrl.pop()
+  }
+
+  ionViewWillEnter() {
+    this.statusBar.backgroundColorByHexString("#2597ec");
+    this.statusBar.styleLightContent();
+    this.need_fresh = this.navParams.get('need_fresh')
+    this.type_list = []
+    if (this.need_fresh) {
+      let body = {
+        'uid': this.uid
+      }
+      this.firshowService.get_all_schedule(body).then(res => {
+        if (res.result.res_data && res.result.res_code == 1) {
+          this.meeting_id = res.result.res_data.meeting_id
+          if (this.type_id == -1) {
+            this.dataList = res.result.res_data.data
+          } else {
+            let listData = []
+            listData = res.result.res_data.data
+            for (let i = 0; i < listData.length; i++) {
+              if (listData[i].id == this.type_id) {
+                this.type_list = listData[i].dataList
+                listData[i].select = true
+              } else {
+                listData[i].select = false
+              }
+            }
+            this.dataList = listData
+          }
+        }
+      })
+    }
+  }
+
+  selectType(item) {
     this.type_id = item.id
     item.select = true
     for (let i = 0; i < this.dataList.length; i++) {
-      if(this.dataList[i].id!=item.id){
+      if (this.dataList[i].id != item.id) {
         this.dataList[i].select = false
       }
     }
     this.type_list = item.dataList
   }
 
-  toDetail(item){
-    if(this.meeting_id==item.id){
-      this.navCtrl.push('MeetingPage',{
+  toDetail(item) {
+    if (this.meeting_id == item.id) {
+      this.navCtrl.push('MeetingPage', {
         'meeting_id': item.rt_meeeting_s_id,
         'isEdit': false,
         'uid': this.uid,
         'frontPage': 'AllSchedulePage',
       })
-    }else{
-      this.navCtrl.push('CalendarDeatilpagePage',{
+    } else {
+      this.navCtrl.push('CalendarDeatilpagePage', {
         'item': item,
         'isEdit': false,
         'frontPage': 'AllSchedulePage',
@@ -132,8 +151,8 @@ export class AllSchedulePage {
       type = "partner_ids";
       search_text = event.name.replace("搜 参与人：", "")
     }
-    if(search_text)
-    this.type_list = []
+    if (search_text)
+      this.type_list = []
     let body = {
       'type': type,
       'search_text': search_text,
@@ -147,9 +166,9 @@ export class AllSchedulePage {
     })
   }
 
-  itemClearSelected(event){
+  itemClearSelected(event) {
     for (let i = 0; i < this.dataList.length; i++) {
-      if(this.dataList[i].id==-1){
+      if (this.dataList[i].id == -1) {
         this.selectType(this.dataList[i])
       }
     }

@@ -72,6 +72,7 @@ export class CalendarDeatilpagePage {
   event_list = [];
   meeting_type = 0;
   context_message;
+  need_show_more_icon = true;
   constructor(public navCtrl: NavController, public navParams: NavParams, public statusBar: StatusBar,
     public firService: FirstShowService, public storage: Storage, public toastCtrl: ToastController,
     private datePipe: DatePipe, private sanitizer: DomSanitizer, public alertCtrl: AlertController,
@@ -115,6 +116,16 @@ export class CalendarDeatilpagePage {
         this.item = this.navParams.get('item');
         this.item_change()
       }
+
+      if (this.user.partner_id == this.item.rt_project_principal.partner_id_s_id || this.uid == this.item.create_uid)
+      {
+        this.need_show_more_icon = true
+      }
+      else
+      {
+        this.need_show_more_icon = false
+      }
+
     })
   }
 
@@ -207,6 +218,7 @@ export class CalendarDeatilpagePage {
 
   //删除一个待办事项
   delete() {
+    var that = this
     var ctrl = this.alertCtrl;
         ctrl.create({
             title: '提示',
@@ -220,16 +232,14 @@ export class CalendarDeatilpagePage {
                 {
                     text: '确定',
                     handler: function (data) {
-                        if (this.user.partner_id == this.item.rt_project_principal.partner_id_s_id || this.uid == this.item.create_uid) {
+                        if (that.user.partner_id == that.item.rt_project_principal.partner_id_s_id || that.uid == that.item.create_uid) {
       let body = {
-        'id': this.item.id,
-        'uid': this.uid
+        'id': that.item.id,
+        'uid': that.uid
       }
-      this.firService.delete_res_model(body).then(res => {
-        if (res.result.res_code == 1) {
-          this.frontPage.data.need_fresh = true;
-          this.navCtrl.pop()
-        }
+      that.firService.delete_res_model(body).then(res => {
+        that.frontPage.data.need_fresh = true;
+          that.navCtrl.pop()
       })
     } else {
       Utils.toastButtom('只有负责人和创建人可以删除', this.toastCtrl)
@@ -758,8 +768,7 @@ export class CalendarDeatilpagePage {
   blurInput() {
   }
 
-  reply_to(items) {
-
+  only_reply_to(items){
     this.navCtrl.push('CalendarChatPage', {
       item: items,
       res_id: this.item.id,
@@ -768,8 +777,49 @@ export class CalendarDeatilpagePage {
     })
   }
 
+  reply_to(items) {
+    if (items.create_uid_id == this.uid)
+    {
+        let actionSheet = this.actionSheetCtrl.create({
+        title: '是否删除此回复',
+        buttons: [
+          {
+            text: '确定',
+            handler: () => {
+              this.firService.delete_reply({'uid': this.uid,'reply_id':items.msg_id}).then(res => {
+                          if (res.result.res_code == 1) {
+                            Utils.toastButtom("删除成功", this.toastCtrl)
+                            this.refresh_view()
+                          }
+                        })
+            }
+          },
+          {
+            text: '取消',
+            role: 'cancel',
+            handler: () => {
+              console.log('Cancel clicked');
+            }
+          }
+        ]
+      });
+      actionSheet.present();
+    }
+    else
+    {
+      this.navCtrl.push('CalendarChatPage', {
+      item: items,
+      res_id: this.item.id,
+      navCtrl: 'CalendarDeatilpagePage',
+      type: 'calendar.event',
+    })
+    }
+    
+  }
+
   send() {
-    if (this.context_message.length == 0) {
+
+    if (this.context_message.length == 0 || this.context_message.match(/^\s+$/g)) {
       Utils.toastButtom("回复不可为空", this.toastCtrl)
     }
     else {
@@ -889,6 +939,36 @@ export class CalendarDeatilpagePage {
         this.refresh_view()
       }
     })
+  }
+
+  delete_reply(items){
+    if (items.create_uid_id == this.uid)
+    {
+        let actionSheet = this.actionSheetCtrl.create({
+        title: '是否删除此回复',
+        buttons: [
+          {
+            text: '确定',
+            handler: () => {
+              this.firService.delete_reply({'uid': this.uid,'reply_id':items.msg_id}).then(res => {
+                          if (res.result.res_code == 1) {
+                            Utils.toastButtom("删除成功", this.toastCtrl)
+                            this.refresh_view()
+                          }
+                        })
+            }
+          },
+          {
+            text: '取消',
+            role: 'cancel',
+            handler: () => {
+              console.log('Cancel clicked');
+            }
+          }
+        ]
+      });
+      actionSheet.present();
+    }
   }
 
 

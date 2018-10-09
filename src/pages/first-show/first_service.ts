@@ -7,6 +7,10 @@ export class FirstShowService {
 
     }
 
+    delete_reply(body){
+        return this.httpService.postBody("delete_reply", body);
+    }
+
     read_total_reply(body){
         return this.httpService.postBody("read_total_reply", body);
     }

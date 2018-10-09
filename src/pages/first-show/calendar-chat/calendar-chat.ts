@@ -45,7 +45,7 @@ export class CalendarChatPage {
   }
 
   release(){
-    if (this.beizhuText.length == 0){
+    if (this.beizhuText.length == 0 || this.beizhuText.match(/^\s+$/g)){
       Utils.toastButtom("回复不可为空", this.toast)
     }
     else

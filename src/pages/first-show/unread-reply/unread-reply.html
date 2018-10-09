@@ -14,7 +14,7 @@
 
 
 <ion-content style="background-color:#f0f2f5">
-  <div *ngFor="let items of item" class="div_message">
+  <div *ngFor="let items of item" tappable (click)="gotoDeatil(items)" class="div_message">
       <ion-item no-lines style="height:40px;min-height:50px">
         <ion-grid style="background:white">
           <ion-row>
@@ -35,12 +35,12 @@
         </p>
       </ion-item>
 
-      <div *ngFor="let item_one of items.parent_data" class="parent_class">
-        <p class="context_p_class">{{item_one.context}}</p>
-        <p class="name_p_class">
+      <div class="parent_class" text-wrap>
+        <p class="context_p_class" >[{{items.subject_type}}] {{items.subject_name}}</p>
+        <!--<p class="name_p_class">
           <span>{{item_one.create_uid}}</span>
           <span>{{changeDate(item_one.create_date) | date:'MM-dd HH:mm'}}</span>
-        </p>
+        </p>-->
       </div>
   </div>
 </ion-content>

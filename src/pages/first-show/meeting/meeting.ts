@@ -63,6 +63,7 @@ export class MeetingPage {
   rt_meeting_ids=[];
   rt_meeting_state;
   context_message;
+  need_show_more_icon = true;
   constructor(public navCtrl: NavController, public navParams: NavParams,public storage:Storage,
               private datePipe: DatePipe, public statusBar:StatusBar,public firService: FirstShowService
               ,public toastCtrl: ToastController,private sanitizer: DomSanitizer, public actionSheetCtrl: ActionSheetController) {
@@ -104,10 +105,18 @@ export class MeetingPage {
       'uid': this.uid,
       'meeting_id': this.meeting_id
     }
+    var that = this
     this.firService.get_meeting(body).then(res =>{
       if (res.result.res_data && res.result.res_code == 1) {
         this.item = res.result.res_data
         this.item_change()
+        if(that.user.partner_id==that.item.rt_project_principal.partner_id_s_id || that.uid==that.item.create_uid){
+          that.need_show_more_icon = true
+        }
+        else
+        {
+          that.need_show_more_icon = false
+        }
      }
   })
   }
@@ -148,6 +157,8 @@ export class MeetingPage {
         this.rt_description = this.item.rt_description.replace(/\n/g,"<br>")
         this.rt_hint = this.item.rt_hint.replace(/\n/g,"<br>")
         this.rt_meeting_state = this.item.rt_meeting_state
+        
+
   }
   //滑动事件
   panEvent($event) {
@@ -509,10 +520,10 @@ handleData(){
         'uid': this.uid
     }
     this.firService.delete_meeting(body).then(res => {
-      if (res.result.res_code == 1){
+      // if (res.result.res_code == 1){
         this.frontPage.data.need_fresh = true;
         this.navCtrl.pop()
-      }
+      // }
     })
     }else{
       Utils.toastButtom('只有负责人和创建人可以删除', this.toastCtrl)
@@ -614,8 +625,45 @@ handleData(){
     }
   }
 
+  only_reply_to(items){
+    this.navCtrl.push('CalendarChatPage',{
+        item: items,
+        res_id: this.item.id,
+        navCtrl: 'MeetingPage',
+        type: 'rt.meeting',
+      })
+  }
+
   reply_to(items){
-      
+      if (items.create_uid_id == this.uid)
+    {
+        let actionSheet = this.actionSheetCtrl.create({
+        title: '是否删除此回复',
+        buttons: [
+          {
+            text: '确定',
+            handler: () => {
+              this.firService.delete_reply({'uid': this.uid,'reply_id':items.msg_id}).then(res => {
+                          if (res.result.res_code == 1) {
+                            Utils.toastButtom("删除成功", this.toastCtrl)
+                            this.get_all_data()
+                          }
+                        })
+            }
+          },
+          {
+            text: '取消',
+            role: 'cancel',
+            handler: () => {
+              console.log('Cancel clicked');
+            }
+          }
+        ]
+      });
+      actionSheet.present();
+    }
+    else
+    {
       this.navCtrl.push('CalendarChatPage',{
         item: items,
         res_id: this.item.id,
@@ -624,8 +672,12 @@ handleData(){
       })
     }
 
+
+      
+    }
+
     send(){
-      if (this.context_message.length == 0){
+      if (this.context_message.length == 0 || this.context_message.match(/^\s+$/g)){
       Utils.toastButtom("回复不可为空", this.toastCtrl)
     }
     else{
@@ -745,4 +797,37 @@ handleData(){
       }
     })
   }
+
+  delete_reply(items){
+    if (items.create_uid_id == this.uid)
+    {
+        let actionSheet = this.actionSheetCtrl.create({
+        title: '是否删除此回复',
+        buttons: [
+          {
+            text: '确定',
+            handler: () => {
+              this.firService.delete_reply({'uid': this.uid,'reply_id':items.msg_id}).then(res => {
+                          if (res.result.res_code == 1) {
+                            Utils.toastButtom("删除成功", this.toastCtrl)
+                            this.get_all_data()
+                          }
+                        })
+            }
+          },
+          {
+            text: '取消',
+            role: 'cancel',
+            handler: () => {
+              console.log('Cancel clicked');
+            }
+          }
+        ]
+      });
+      actionSheet.present();
+    }
+  }
+
 }
+
+
