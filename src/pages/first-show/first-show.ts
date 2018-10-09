@@ -85,33 +85,25 @@ export class FirstShowPage {
 
   ionViewWillEnter(){
     this.un_read_list = []
+    this.statusBar.backgroundColorByHexString("#2597ec");
+    this.statusBar.styleLightContent();
     this.storage.get('user').then(res => {
         this.uid = res.result.res_data.user_id
+        this.get_approval_num()
         this.firshowService.get_un_read_reply({'uid':this.uid}).then(res => {
       if (res.result.res_data && res.result.res_code == 1) {
         this.un_read_list = res.result.res_data
       }
     })
-     })
-  }
-
-  ionViewDidEnter() {
-    this.storage.get('user').then(res => {
-      this.uid = res.result.res_data.user_id;
-      this.get_approval_num()
-    })
-    this.statusBar.backgroundColorByHexString("#2597ec");
-    this.statusBar.styleLightContent();
     this.need_fresh =this.navParams.get('need_fresh')
     if(this.need_fresh){
       this.getDayData(this.datePipe.transform((this.currentYear+'-'+this.currentMonth+'-'+this.currentDay), 'yyyy-MM-dd'))
       this.get_backlog_identify(this.currentYear, this.currentMonth)
     }
-     
-       
-    
-
+     })
   }
+
+
   //获取某一天的数据
   getDayData(date){
     let body = {
