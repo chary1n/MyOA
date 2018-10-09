@@ -33,6 +33,10 @@ export class NewTabsPage {
     })
   }
 
+  changeTabs(){
+    this.get_approval_num()
+  }
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad NewTabsPage');
   }
