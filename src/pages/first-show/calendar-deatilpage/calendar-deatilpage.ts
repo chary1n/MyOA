@@ -173,7 +173,7 @@ export class CalendarDeatilpagePage {
   }
   //滑动事件
   panEvent($event) {
-    cordova.plugins.Keyboard.close();
+    // cordova.plugins.Keyboard.close();
   }
   goBack() {
     this.frontPage.data.need_fresh = true;
