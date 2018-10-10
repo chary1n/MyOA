@@ -271,11 +271,12 @@
            </ion-item>
           <div style="padding: 1px;border-bottom: #f0f2f5 30px solid;background-color: white;">
             <p style="font-size: 13px;margin-left: 15px">内容</p>
-            <ion-textarea [(ngModel)]="description" cols="20"  placeholder="请输入" style="line-height: 20px;font-size: 12px;color: #abb0b4;height: 100px;padding: 10px;width: 100%;
+            <textarea [(ngModel)]="description" autofocus rows="15" placeholder="请输入" style="line-height: 20px;font-size: 12px;color: #abb0b4;height: 100px;padding: 10px;width: 100%;
                     border-bottom:white 0px solid;
                     border-top:white 0px solid;
                     border-left:white 0px solid;
-                    border-right:white 0px solid;overflow-y: visible"></ion-textarea>
+                    border-right:white 0px solid;overflow-y: visible;"></textarea>
+                    
           </div>
    </div>
    <div *ngIf='item && !isEdit && !search && !change' class="differ_div_class">
