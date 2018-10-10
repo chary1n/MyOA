@@ -74,6 +74,7 @@ export class CalendarDeatilpagePage {
   context_message;
   need_show_more_icon = true;
   title_meeting = '新建';
+  showIcon = false;
   constructor(public navCtrl: NavController, public navParams: NavParams, public statusBar: StatusBar,
     public firService: FirstShowService, public storage: Storage, public toastCtrl: ToastController,
     private datePipe: DatePipe, private sanitizer: DomSanitizer, public alertCtrl: AlertController,
@@ -977,6 +978,28 @@ export class CalendarDeatilpagePage {
       });
       actionSheet.present();
     }
+  }
+
+  onScroll(){
+    console.log('111')
+    var node = document.getElementById('mytextarea');
+    if(node.style.textShadow === '') 
+         {		            
+           node.style.textShadow = 'rgba(0,0,0,0) 0 0 0';
+         } else 
+         {		            
+           node.style.textShadow = '';		        
+          }  
+
+
+  }
+
+  down_view(){
+    this.showIcon = false
+  }
+
+  up_view(){
+    this.showIcon = true
   }
 
 

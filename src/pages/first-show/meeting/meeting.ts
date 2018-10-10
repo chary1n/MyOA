@@ -860,6 +860,20 @@ handleData(){
     }
   }
 
+  onScroll(){
+    console.log('111')
+    var node = document.getElementById('mytextarea');
+    if(node.style.textShadow === '') 
+         {		            
+           node.style.textShadow = 'rgba(0,0,0,0) 0 0 0';
+         } else 
+         {		            
+           node.style.textShadow = '';		        
+          }  
+
+
+  }
+
 }
 
 
