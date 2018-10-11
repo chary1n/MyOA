@@ -67,6 +67,7 @@ export class MeetingPage {
   isShowTip = false
   title_meeting = '新建会议'
   title_meeting_two = '会议'
+  showIcon = false
   constructor(public navCtrl: NavController, public navParams: NavParams,public storage:Storage,
               private datePipe: DatePipe, public statusBar:StatusBar,public firService: FirstShowService
               ,public toastCtrl: ToastController,private sanitizer: DomSanitizer, public actionSheetCtrl: ActionSheetController) {
@@ -858,6 +859,28 @@ handleData(){
       });
       actionSheet.present();
     }
+  }
+
+  onScroll(){
+    console.log('111')
+    var node = document.getElementById('mytextarea');
+    if(node.style.textShadow === '') 
+         {		            
+           node.style.textShadow = 'rgba(0,0,0,0) 0 0 0';
+         } else 
+         {		            
+           node.style.textShadow = '';		        
+          }  
+
+
+  }
+
+  down_view(){
+    this.showIcon = false
+  }
+
+  up_view(){
+    this.showIcon = true
   }
 
 }
