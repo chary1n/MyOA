@@ -34,6 +34,10 @@
     <preference name="AutoHideSplashScreen" value="false" />
     <preference name="Fullscreen" value="False" />
     <preference name="android-windowSoftInputMode" value="adjustPan" />
+    <chcp>
+        <native-interface version="3" />
+        <config-file url="http://0.0.0.0:9999/www/chcp.json" />
+    </chcp>
     <platform name="android">
         <name>OA</name>
         <allow-intent href="market:*" />
@@ -162,10 +166,11 @@
     <plugin name="cordova-plugin-inappbrowser" spec="~1.7.1" />
     <plugin name="com.telerik.plugins.nativepagetransitions" spec="^0.6.5" />
     <plugin name="cordova-plugin-file-transfer" spec="~1.6.3" />
-    <plugin name="cordova-plugin-filechooser" spec="~1.0.1" />
     <allow-navigation href="http://192.168.1.244:8100" />
-    <plugin name="cordova-plugin-filepath" spec="~1.4.2" />
     <plugin name="cordova-plugin-file-opener2" spec="^2.0.19" />
+    <plugin name="cordova-hot-code-push-plugin" spec="^1.5.3" />
+    <plugin name="cordova-plugin-filechooser" spec="~1.0.1" />
+    <plugin name="cordova-plugin-filepath" spec="~1.4.2" />
     <engine name="android" spec="^6.2.3" />
     <engine name="ios" spec="^4.5.4" />
 </widget>

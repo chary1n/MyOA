@@ -52,7 +52,7 @@
 
 
 <ion-content on-scroll="onScroll()" style="background-color: #f0f2f5" (pan)="panEvent($event)">
-    <div style="background-color: white" *ngIf="search">
+    <div style="background-color: white" *ngIf="search && !showIcon">
         <div style="justify-content:space-around;white-space: pre-line;width: 100%;display: inline-block;
             position: relative;top: -12px;">
             <span round style='background-color:#f0f2f5;flex :1 1 100%;color: #999999;font-size: 12px;padding: 0 1rem;height: 20px;'
@@ -70,7 +70,7 @@
             </ion-item>
         </ion-list>
     </div>
-    <div *ngIf="!isEdit && !search">
+    <div *ngIf="!isEdit && !search && !showIcon">
         <div style="background-color: white">
             <div style="padding: 1px;border-bottom:#f0f2f5 1px solid;margin-left: 20px;background-color: white">
                 <span style="background-color: #409eff;width: 3px;border-radius: 3px;height: 13px;float: left;margin-top: 18px;margin-left: -12px"></span>
@@ -140,7 +140,7 @@
             <button (click)="addMeeting()" ion-button style="border-radius: 34px;height: 2.5em;font-size: 13px" outline>+ 会议任务</button>
         </div>
     </div>
-    <div *ngIf="isEdit  && !search">
+    <div *ngIf="isEdit  && !search && !showIcon">
         <ion-item no-lines style="min-height: 20px;padding-left: 0px;border-bottom:#f0f2f5 1px solid;">
             <ion-label style="font-size: 13px;padding-left: 15px">主题
                 <span style="color: red">*</span>
@@ -231,6 +231,8 @@
                       border-right:white 0px solid;overflow-y: visible;"></textarea>
         </div>
     </div>
+    <ion-icon *ngIf="showIcon" name="arrow-down" tappable (click)="down_view()" class="icon_class_down"></ion-icon>
+    <ion-icon *ngIf="!showIcon" name="arrow-up" tappable (click)="up_view()" class="icon_class"></ion-icon>
     <div *ngIf='item && !isEdit && !search && !change' class="differ_div_class">
         <div *ngIf='item.message_length > 0'>
             评论 ( {{item.message_length}} )

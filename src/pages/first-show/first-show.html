@@ -68,11 +68,10 @@
   </div>
   <div *ngIf='isDay'>
     <div style="padding: 1px;text-align: center;height: 37px;">
-      <p style="font-size: 13px;color: #2597ec;float: right;margin-right: 15px;margin-top: 10px" tappable (click)="toAll()">全部待办</p>
+      <p style="font-size: 13px;color: #2597ec;float: right;margin-right: 15px;margin-top: 10px" tappable (click)="toAll()">全部待办XX</p>
       <p class="month_message">
         <span tappable (click)="delete_month()">{{"<"}}</span><span style="margin-left:10px">{{currentDate}}</span>
-        <span
-          style="margin-left:10px" tappable (click)="add_month()">{{">"}}</span>
+        <span style="margin-left:10px" tappable (click)="add_month()">{{">"}}</span>
       </p>
     </div>
     <ion-backdrop *ngIf="isShowBac" tappable (click)="closeFab()" disable-activated role="presentation" style="opacity: 0.9; background-color: white;transition-delay: initial;filter: blur(0px);">
@@ -128,8 +127,8 @@
       </ion-item>
     </div>
     <div>
-      <ion-item no-lines *ngIf="subNum == 0" style="min-height: 20px;padding-left: 0px;">
-        <ion-label style="font-size: 13px;padding-left: 15px">没有添加日程</ion-label>
+      <ion-item no-lines *ngIf="itemList.length == 0" style="min-height: 20px;padding-left: 0px;">
+        <ion-label style="font-size: 13px;padding-left: 15px;text-align:center;width:100%;color:#999999;">没有添加待办</ion-label>
       </ion-item>
       <ion-list style="width: 100%;border-top:#f0f2f5 1px solid;">
         <ion-item no-lines style="height: 50px;;min-height: 25px;" *ngFor="let item of itemList" tappable (click)="gotoDeatil(item)">
@@ -143,12 +142,17 @@
             <img *ngIf="!item.state" src="assets/img/finish_circle.png" style="padding-top: 20px">
             <div style="position: absolute;width: 1px;border-left:#f0f2f5 1px solid;height: 70%;margin-left: 4px;margin-top: -5px"></div>
           </div>
-          <ion-label item-end [ngClass]="{true:'notFinish',false:'finish'}[item.state]">[{{item.type_name}}]:{{item.subject}}</ion-label>
+          <ion-label item-end [ngClass]="{true:'notFinish',false:'finish'}[item.state]">[{{item.type_name}}]:{{item.rt_project_principal_display_name}}-{{item.subject}}</ion-label>
+        </ion-item>
+        <ion-item no-lines style="margin-top: 5px;padding: 1px;border-bottom:#f0f2f5 1px solid;border-top:#f0f2f5 1px solid;min-height: 25px" *ngIf="notSureList.length > 0"> 
+          <ion-label style="font-size: 13px;margin-left: 15px;color: black;font-weight:bold;">时间待定</ion-label>
         </ion-item>
         <ion-item no-lines style="height: 50px;;min-height: 25px;" *ngFor="let item of notSureList" tappable (click)="gotoDeatil(item)">
-          <p item-start *ngIf="notSureList.indexOf(item)==0" style="font-size: 13px;width: 40px;color: black;">任务
+          <!--<p item-start *ngIf="notSureList.indexOf(item)==0" style="font-size: 13px;width: 40px;color: black;">任务
           </p>
           <p item-start *ngIf="notSureList.indexOf(item)!=0" style="font-size: 13px;width: 40px;color: #666666;opacity: 0;">任务
+          </p>-->
+          <p item-start style="font-size: 12px;width: 40px">   
           </p>
           <div item-start style="height: 105%;;width: 10px">
             <div style="position: absolute;width: 1px;border-left:#f0f2f5 1px solid;height: 40%;margin-left: 4px;"></div>
@@ -156,7 +160,7 @@
             <img *ngIf="!item.state" src="assets/img/finish_circle.png" style="padding-top: 20px">
             <div style="position: absolute;width: 1px;border-left:#f0f2f5 1px solid;height: 70%;margin-left: 4px;margin-top: -5px"></div>
           </div>
-          <ion-label item-end [ngClass]="{true:'notFinish',false:'finish'}[item.state]">[{{item.type_name}}]:{{item.subject}}</ion-label>
+          <ion-label item-end [ngClass]="{true:'notFinish',false:'finish'}[item.state]">[{{item.type_name}}]:{{item.rt_project_principal_display_name}}-{{item.subject}}</ion-label>
         </ion-item>
       </ion-list>
     </div>
