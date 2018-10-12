@@ -318,7 +318,7 @@ var HttpService_1;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__ionic_native_app_minimize__ = __webpack_require__(237);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__Constants__ = __webpack_require__(109);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__GlobalData__ = __webpack_require__(129);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16_rxjs__ = __webpack_require__(239);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16_rxjs__ = __webpack_require__(240);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16_rxjs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_16_rxjs__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -922,727 +922,727 @@ GlobalData = __decorate([
 
 var map = {
 	"../pages/add-employee/add-employee.module": [
-		586,
+		587,
 		1
 	],
 	"../pages/add-employee/create-account/create-account.module": [
-		587,
+		588,
 		43
 	],
 	"../pages/add-employee/employee-detail/employee-detail.module": [
-		588,
+		589,
 		0
 	],
 	"../pages/add-employee/prompt/gongpai/gongpai.module": [
-		590,
+		591,
 		131
 	],
 	"../pages/add-employee/prompt/gongpai/popmodal/popmodal.module": [
-		591,
+		592,
 		180
 	],
 	"../pages/add-employee/prompt/prompt.module": [
-		589,
+		590,
 		130
 	],
 	"../pages/add-employee/q-rcode/q-rcode.module": [
-		592,
+		593,
 		179
 	],
 	"../pages/change-password/change-password.module": [
-		593,
+		594,
 		129
 	],
 	"../pages/chuchai/chuchai-detail/chuchai-detail.module": [
-		595,
+		596,
 		128
 	],
 	"../pages/chuchai/chuchai.module": [
-		594,
+		595,
 		41
 	],
 	"../pages/contact-person/contact-person.module": [
-		560,
+		561,
 		42
 	],
 	"../pages/contact-person/employee-list/employee-list.module": [
-		596,
+		597,
 		127
 	],
 	"../pages/customer/add-customer/add-customer.module": [
-		597,
+		598,
 		123
 	],
 	"../pages/customer/biao-qian/biao-qian.module": [
-		606,
+		607,
 		122
 	],
 	"../pages/customer/cam-card/cam-card.module": [
-		604,
+		605,
 		4
 	],
 	"../pages/customer/choose/choose.module": [
-		602,
+		603,
 		121
 	],
 	"../pages/customer/create-info/create-info.module": [
-		607,
+		608,
 		125
 	],
 	"../pages/customer/customer-detail/customer-detail.module": [
-		599,
+		600,
 		11
 	],
 	"../pages/customer/customer.module": [
-		601,
+		602,
 		40
 	],
 	"../pages/customer/edit-card/edit-card.module": [
-		605,
+		606,
 		39
 	],
 	"../pages/customer/productlist/productlist.module": [
-		603,
+		604,
 		120
 	],
 	"../pages/customer/xiansuo-detail/xiansuo-detail.module": [
-		600,
+		601,
 		119
 	],
 	"../pages/email/email-detail/email-detail.module": [
-		609,
+		610,
 		118
 	],
 	"../pages/email/email-menu/email-menu.module": [
-		610,
+		611,
 		117
 	],
 	"../pages/email/email.module": [
-		608,
+		609,
 		116
 	],
 	"../pages/email/write-email/write-email.module": [
-		611,
+		612,
 		115
 	],
 	"../pages/first-show/all-schedule/all-schedule.module": [
-		613,
+		614,
 		38
 	],
 	"../pages/first-show/calendar-chat/calendar-chat.module": [
-		614,
+		615,
 		114
 	],
 	"../pages/first-show/calendar-deatilpage/calendar-deatilpage.module": [
-		615,
+		616,
 		113
 	],
 	"../pages/first-show/finish-scheule/finish-scheule.module": [
-		616,
+		617,
 		112
 	],
 	"../pages/first-show/first-show.module": [
-		612,
+		613,
 		111
 	],
 	"../pages/first-show/late-list/late-list.module": [
-		617,
+		618,
 		110
 	],
 	"../pages/first-show/meeting/meeting.module": [
-		618,
+		619,
 		109
 	],
 	"../pages/first-show/select-person/select-person.module": [
-		619,
+		620,
 		37
 	],
 	"../pages/first-show/tip/tip.module": [
-		620,
+		621,
 		108
 	],
 	"../pages/first-show/unread-reply/unread-reply.module": [
-		621,
+		622,
 		107
 	],
 	"../pages/login/login-popover/login-popover.module": [
-		622,
+		623,
 		178
 	],
 	"../pages/login/login.module": [
-		557,
+		558,
 		12
 	],
 	"../pages/me/edit-information/edit-information.module": [
-		623,
+		624,
 		105
 	],
 	"../pages/me/me.module": [
-		582,
+		583,
 		132
 	],
 	"../pages/me/phone-number/phone-number.module": [
-		624,
+		625,
 		177
 	],
 	"../pages/msg/msg-detail/msg-detail.module": [
-		583,
+		584,
 		176
 	],
 	"../pages/msg/msg.module": [
-		584,
+		585,
 		175
 	],
 	"../pages/new-tabs/new-tabs.module": [
-		625,
+		626,
 		106
 	],
 	"../pages/new-work-bench/new-work-bench.module": [
-		626,
+		627,
 		104
 	],
 	"../pages/rangtest/rangtest.module": [
-		627,
+		628,
 		174
 	],
 	"../pages/tabs/tabs.module": [
-		556,
+		557,
 		173
 	],
 	"../pages/work-bench/apply/apply-detail/apply-detail.module": [
-		630,
+		631,
 		103
 	],
 	"../pages/work-bench/apply/apply.module": [
-		629,
+		630,
 		3
 	],
 	"../pages/work-bench/apply/baoxiao-apply/add-apply-detail/add-apply-detail.module": [
-		632,
+		633,
 		172
 	],
 	"../pages/work-bench/apply/baoxiao-apply/baoxiao-apply.module": [
-		631,
+		632,
 		102
 	],
 	"../pages/work-bench/apply/baoxiao-apply/shengou-item/shengou-item.module": [
-		633,
+		634,
 		101
 	],
 	"../pages/work-bench/apply/leave-apply/leave-apply.module": [
-		634,
+		635,
 		100
 	],
 	"../pages/work-bench/apply/leave-detail/leave-detail.module": [
-		635,
+		636,
 		171
 	],
 	"../pages/work-bench/attendace-recoup/attendace-recoup.module": [
-		636,
+		637,
 		36
 	],
 	"../pages/work-bench/attendace-recoup/attendance-all-data/attendance-all-data.module": [
-		637,
+		638,
 		99
 	],
 	"../pages/work-bench/attendace-recoup/attendance-recoup-add-detail/attendance-recoup-add-detail.module": [
-		638,
+		639,
 		170
 	],
 	"../pages/work-bench/attendace-recoup/attendance-recoup-create/attendance-recoup-create.module": [
-		639,
+		640,
 		98
 	],
 	"../pages/work-bench/attendace-recoup/attendance-recoup-detail-edit/attendance-recoup-detail-edit.module": [
-		641,
+		642,
 		169
 	],
 	"../pages/work-bench/attendace-recoup/attendance-recoup-detail/attendance-recoup-detail.module": [
-		640,
+		641,
 		97
 	],
 	"../pages/work-bench/attendace-recoup/attendance-update/attendance-update.module": [
-		642,
+		643,
 		168
 	],
 	"../pages/work-bench/baobiao/baobiao-detail/baobiao-detail.module": [
-		644,
+		645,
 		96
 	],
 	"../pages/work-bench/baobiao/baobiao.module": [
-		643,
+		644,
 		95
 	],
 	"../pages/work-bench/baobiao/hk-baobiao/hk-baobiao.module": [
-		645,
+		646,
 		167
 	],
 	"../pages/work-bench/cardinfo/cardinfo.module": [
-		646,
+		647,
 		166
 	],
 	"../pages/work-bench/change-kucun/change-kucun-detail/change-kucun-detail.module": [
-		648,
+		649,
 		35
 	],
 	"../pages/work-bench/change-kucun/change-kucun.module": [
-		647,
+		648,
 		34
 	],
 	"../pages/work-bench/contact-list/contact-list.module": [
-		598,
+		599,
 		165
 	],
 	"../pages/work-bench/create-apply/create-apply.module": [
-		628,
+		629,
 		94
 	],
 	"../pages/work-bench/delivery-extra/delivery-extra.module": [
-		650,
+		651,
 		164
 	],
 	"../pages/work-bench/delivery-initial-request/delivery-initial-request.module": [
-		651,
+		652,
 		163
 	],
 	"../pages/work-bench/delivery-notes-detail/delivery-notes-detail.module": [
-		577,
+		578,
 		162
 	],
 	"../pages/work-bench/delivery-notes/delivery-notes.module": [
-		578,
+		579,
 		91
 	],
 	"../pages/work-bench/delivery/delivery.module": [
-		649,
+		650,
 		161
 	],
 	"../pages/work-bench/gongdan/at-me-list/at-me-list.module": [
-		653,
+		654,
 		90
 	],
 	"../pages/work-bench/gongdan/change-biaoqian/change-biaoqian.module": [
-		654,
+		655,
 		29
 	],
 	"../pages/work-bench/gongdan/create-gongdan/assign-people/assign-people.module": [
-		656,
+		657,
 		126
 	],
 	"../pages/work-bench/gongdan/create-gongdan/biaoqian/biaoqian.module": [
-		657,
+		658,
 		28
 	],
 	"../pages/work-bench/gongdan/create-gongdan/choose-department/choose-department.module": [
-		658,
+		659,
 		160
 	],
 	"../pages/work-bench/gongdan/create-gongdan/create-gongdan.module": [
-		655,
+		656,
 		89
 	],
 	"../pages/work-bench/gongdan/create-gongdan/delete-picture/delete-picture.module": [
-		659,
+		660,
 		159
 	],
 	"../pages/work-bench/gongdan/create-gongdan/who-can-see/who-can-see.module": [
-		660,
+		661,
 		88
 	],
 	"../pages/work-bench/gongdan/gongdan-biaoqian/gongdan-biaoqian.module": [
-		661,
+		662,
 		27
 	],
 	"../pages/work-bench/gongdan/gongdan-chat/gongdan-chat.module": [
-		662,
+		663,
 		87
 	],
 	"../pages/work-bench/gongdan/gongdan-choose-people/gongdan-choose-people.module": [
-		663,
+		664,
 		86
 	],
 	"../pages/work-bench/gongdan/gongdan-detail/gongdan-detail.module": [
-		664,
+		665,
 		85
 	],
 	"../pages/work-bench/gongdan/gongdan-new-chat/gongdan-new-chat.module": [
-		665,
+		666,
 		84
 	],
 	"../pages/work-bench/gongdan/gongdan-search/gongdan-search.module": [
-		666,
+		667,
 		26
 	],
 	"../pages/work-bench/gongdan/gongdan-zhipai/gongdan-zhipai.module": [
-		667,
+		668,
 		83
 	],
 	"../pages/work-bench/gongdan/gongdan.module": [
-		652,
+		653,
 		82
 	],
 	"../pages/work-bench/gongdan/my-gongdan-list/my-gongdan-list.module": [
-		668,
+		669,
 		81
 	],
 	"../pages/work-bench/gongdan/reback-gongdan/reback-gongdan.module": [
-		669,
+		670,
 		80
 	],
 	"../pages/work-bench/incoming-detail/incoming-detail.module": [
-		576,
+		577,
 		158
 	],
 	"../pages/work-bench/incoming/incoming.module": [
-		574,
+		575,
 		79
 	],
 	"../pages/work-bench/inspection-detail/inspection-detail.module": [
-		575,
+		576,
 		157
 	],
 	"../pages/work-bench/journal-sheet/journal-sheet.module": [
-		670,
+		671,
 		78
 	],
 	"../pages/work-bench/journal-sheet/new-delete/new-delete.module": [
-		671,
+		672,
 		156
 	],
 	"../pages/work-bench/journal-sheet/visit-biaoqian/visit-biaoqian.module": [
-		672,
+		673,
 		77
 	],
 	"../pages/work-bench/journal-sheet/visit-detail/visit-detail.module": [
-		673,
+		674,
 		155
 	],
 	"../pages/work-bench/journal-sheet/visit-list/visit-list.module": [
-		674,
+		675,
 		76
 	],
 	"../pages/work-bench/journal-sheet/write-journal/write-journal.module": [
-		675,
+		676,
 		75
 	],
 	"../pages/work-bench/kaoqin/choose-location/choose-location.module": [
-		677,
+		678,
 		25
 	],
 	"../pages/work-bench/kaoqin/delete-kaoqin-photo/delete-kaoqin-photo.module": [
-		678,
+		679,
 		154
 	],
 	"../pages/work-bench/kaoqin/kaoqin-people/kaoqin-people.module": [
-		679,
+		680,
 		74
 	],
 	"../pages/work-bench/kaoqin/kaoqin-photo/kaoqin-photo.module": [
-		680,
+		681,
 		10
 	],
 	"../pages/work-bench/kaoqin/kaoqin.module": [
-		676,
+		677,
 		24
 	],
 	"../pages/work-bench/material-request/edit-material-request/edit-material-request.module": [
-		682,
+		683,
 		73
 	],
 	"../pages/work-bench/material-request/material-request-detail/material-request-detail.module": [
-		683,
+		684,
 		153
 	],
 	"../pages/work-bench/material-request/material-request.module": [
-		681,
+		682,
 		23
 	],
 	"../pages/work-bench/material-request/shenhe-material-request/shenhe-material-request.module": [
-		684,
+		685,
 		22
 	],
 	"../pages/work-bench/new-production/more-level-list/more-level-list.module": [
-		686,
+		687,
 		72
 	],
 	"../pages/work-bench/new-production/new-product-detail/new-product-detail.module": [
-		687,
+		688,
 		71
 	],
 	"../pages/work-bench/new-production/new-product-list/new-product-list.module": [
-		688,
+		689,
 		9
 	],
 	"../pages/work-bench/new-production/new-production.module": [
-		685,
+		686,
 		8
 	],
 	"../pages/work-bench/new-production/new-stock-move/new-stock-move.module": [
-		689,
+		690,
 		152
 	],
 	"../pages/work-bench/order-detail/order-detail.module": [
-		692,
+		693,
 		70
 	],
 	"../pages/work-bench/order-detail/product-detail/product-detail.module": [
-		693,
+		694,
 		69
 	],
 	"../pages/work-bench/order/approve-order/approve-order.module": [
-		691,
+		692,
 		68
 	],
 	"../pages/work-bench/order/order.module": [
-		690,
+		691,
 		21
 	],
 	"../pages/work-bench/pay-request/bill-detail/bill-detail.module": [
-		695,
+		696,
 		64
 	],
 	"../pages/work-bench/pay-request/pay-request-detail/pay-request-detail.module": [
-		696,
+		697,
 		63
 	],
 	"../pages/work-bench/pay-request/pay-request.module": [
-		694,
+		695,
 		20
 	],
 	"../pages/work-bench/performance/advice-edit/advice-edit.module": [
-		698,
+		699,
 		151
 	],
 	"../pages/work-bench/performance/content-edit/content-edit.module": [
-		699,
+		700,
 		150
 	],
 	"../pages/work-bench/performance/insufficient-edit/insufficient-edit.module": [
-		700,
+		701,
 		149
 	],
 	"../pages/work-bench/performance/performance-result-detail/performance-result-detail.module": [
-		702,
+		703,
 		148
 	],
 	"../pages/work-bench/performance/performance-result/performance-result.module": [
-		701,
+		702,
 		62
 	],
 	"../pages/work-bench/performance/performance-start/performance-start.module": [
-		703,
+		704,
 		61
 	],
 	"../pages/work-bench/performance/performance.module": [
-		697,
+		698,
 		60
 	],
 	"../pages/work-bench/po-contact/po-contact.module": [
-		579,
+		580,
 		19
 	],
 	"../pages/work-bench/popover-order/popover-order.module": [
-		704,
+		705,
 		2
 	],
 	"../pages/work-bench/production-search/production-detail/bom/bom.module": [
-		559,
+		560,
 		147
 	],
 	"../pages/work-bench/production-search/production-detail/production-detail.module": [
-		561,
+		562,
 		146
 	],
 	"../pages/work-bench/production-search/production-detail/warehouse-move/warehouse-move.module": [
-		558,
+		559,
 		145
 	],
 	"../pages/work-bench/production-search/production-search.module": [
-		562,
+		563,
 		59
 	],
 	"../pages/work-bench/reimbursement/my-apply/my-apply.module": [
-		706,
+		707,
 		144
 	],
 	"../pages/work-bench/reimbursement/reimbursement-detail/edit-reimbursement/edit-reimbursement.module": [
-		708,
+		709,
 		143
 	],
 	"../pages/work-bench/reimbursement/reimbursement-detail/reimbursement-detail.module": [
-		707,
+		708,
 		33
 	],
 	"../pages/work-bench/reimbursement/reimbursement.module": [
-		705,
+		706,
 		5
 	],
 	"../pages/work-bench/reimbursement/wait-me-apply/wait-me-apply.module": [
-		709,
+		710,
 		142
 	],
 	"../pages/work-bench/return-order-detail/return-order-detail.module": [
-		710,
+		711,
 		141
 	],
 	"../pages/work-bench/return-order-detail/return-product-detail/return-product-detail.module": [
-		711,
+		712,
 		67
 	],
 	"../pages/work-bench/return-popover/return-popover.module": [
-		712,
+		713,
 		7
 	],
 	"../pages/work-bench/salesOrder/create-quotes/add-production/add-production.module": [
-		569,
+		570,
 		140
 	],
 	"../pages/work-bench/salesOrder/create-quotes/create-quotes.module": [
-		571,
+		572,
 		58
 	],
 	"../pages/work-bench/salesOrder/create-quotes/customer-list/customer-list.module": [
-		564,
+		565,
 		124
 	],
 	"../pages/work-bench/salesOrder/create-quotes/improve-quotation/billing-info/billing-info.module": [
-		567,
+		568,
 		139
 	],
 	"../pages/work-bench/salesOrder/create-quotes/improve-quotation/delivery-info/delivery-info.module": [
-		566,
+		567,
 		57
 	],
 	"../pages/work-bench/salesOrder/create-quotes/improve-quotation/improve-quotation.module": [
-		570,
+		571,
 		56
 	],
 	"../pages/work-bench/salesOrder/create-quotes/improve-quotation/sales-info/sales-info.module": [
-		565,
+		566,
 		55
 	],
 	"../pages/work-bench/salesOrder/create-quotes/production-list/production-list.module": [
-		568,
+		569,
 		54
 	],
 	"../pages/work-bench/salesOrder/jiaohuo-list/jiaohuo-detail/jiaohuo-detail.module": [
-		714,
+		715,
 		138
 	],
 	"../pages/work-bench/salesOrder/jiaohuo-list/jiaohuo-list.module": [
-		713,
+		714,
 		53
 	],
 	"../pages/work-bench/salesOrder/jiaohuo-list/wuliu-detail/wuliu-detail.module": [
-		715,
+		716,
 		137
 	],
 	"../pages/work-bench/salesOrder/sales-detail/baojia-detail/baojia-detail.module": [
-		716,
+		717,
 		66
 	],
 	"../pages/work-bench/salesOrder/sales-detail/create-invoice/create-invoice.module": [
-		563,
+		564,
 		18
 	],
 	"../pages/work-bench/salesOrder/sales-detail/delivery/delivery.module": [
-		572,
+		573,
 		136
 	],
 	"../pages/work-bench/salesOrder/sales-detail/popover/popover.module": [
-		717,
+		718,
 		65
 	],
 	"../pages/work-bench/salesOrder/sales-detail/purchase-back-order/purchase-back-order.module": [
-		718,
+		719,
 		135
 	],
 	"../pages/work-bench/salesOrder/sales-detail/sales-detail.module": [
-		580,
+		581,
 		6
 	],
 	"../pages/work-bench/salesOrder/salesOrder.module": [
-		573,
+		574,
 		17
 	],
 	"../pages/work-bench/share-knowledge/share-knowledge.module": [
-		719,
+		720,
 		52
 	],
 	"../pages/work-bench/share-knowledge/shareknowledgedetail/shareknowledgedetail.module": [
-		720,
+		721,
 		51
 	],
 	"../pages/work-bench/share-knowledge/shareknowlelist/shareknowlelist.module": [
-		721,
+		722,
 		134
 	],
 	"../pages/work-bench/shengoupage/audited-purchase/audited-purchase.module": [
-		723,
+		724,
 		50
 	],
 	"../pages/work-bench/shengoupage/create-shengou/add-shengou-detail/add-shengou-detail.module": [
-		725,
+		726,
 		49
 	],
 	"../pages/work-bench/shengoupage/create-shengou/create-shengou.module": [
-		724,
+		725,
 		32
 	],
 	"../pages/work-bench/shengoupage/edit-add-shengou/edit-add-shengou.module": [
-		726,
+		727,
 		48
 	],
 	"../pages/work-bench/shengoupage/edit-new-shengou/edit-new-shengou.module": [
-		727,
+		728,
 		47
 	],
 	"../pages/work-bench/shengoupage/edit-shengou/edit-shengou.module": [
-		728,
+		729,
 		46
 	],
 	"../pages/work-bench/shengoupage/myshengoudetail/myshengoudetail.module": [
-		729,
+		730,
 		45
 	],
 	"../pages/work-bench/shengoupage/shengoupage.module": [
-		722,
+		723,
 		16
 	],
 	"../pages/work-bench/supplier-detail/supplier-detail.module": [
-		730,
+		731,
 		15
 	],
 	"../pages/work-bench/supplier-list/supplier-list.module": [
-		585,
+		586,
 		14
 	],
 	"../pages/work-bench/vacation-approval/vacation-approval.module": [
-		731,
+		732,
 		13
 	],
 	"../pages/work-bench/vacation-approval/vacation-detail/vacation-detail.module": [
-		732,
+		733,
 		44
 	],
 	"../pages/work-bench/wait-approval/wait-approval.module": [
-		733,
+		734,
 		133
 	],
 	"../pages/work-bench/work-bench.module": [
-		581,
+		582,
 		31
 	],
 	"../pages/work-bench/zanzhi/zanzhi-apply/zanzhi-apply.module": [
-		735,
+		736,
 		93
 	],
 	"../pages/work-bench/zanzhi/zanzhi-detail/zanzhi-detail.module": [
-		736,
+		737,
 		92
 	],
 	"../pages/work-bench/zanzhi/zanzhi.module": [
-		734,
+		735,
 		30
 	]
 };
@@ -1662,7 +1662,7 @@ webpackAsyncContext.id = 135;
 
 /***/ }),
 
-/***/ 238:
+/***/ 239:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1786,7 +1786,7 @@ Utils = __decorate([
 
 /***/ }),
 
-/***/ 247:
+/***/ 248:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1889,7 +1889,7 @@ JPush = __decorate([
 
 /***/ }),
 
-/***/ 256:
+/***/ 257:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1901,7 +1901,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_status_bar__ = __webpack_require__(67);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_splash_screen__ = __webpack_require__(99);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_JPush__ = __webpack_require__(247);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_JPush__ = __webpack_require__(248);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_native_code_push__ = __webpack_require__(238);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1920,15 +1921,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 // import { JPushPlugin } from '@ionic-native/jpush';
 // import { HttpService } from '../providers/HttpService'
 
+
 var MyApp = (function () {
-    function MyApp(platform, statusBar, splashScreen, storage, jpush) {
+    function MyApp(platform, statusBar, splashScreen, storage, jpush, codePush) {
         var _this = this;
         this.platform = platform;
         this.storage = storage;
         this.jpush = jpush;
+        this.codePush = codePush;
         this.rootPage = 'LoginPage';
         platform.ready().then(function () {
+            splashScreen.hide();
             _this.jpush.initJpush();
+            _this.checkCodePush();
             storage.get('user')
                 .then(function (res) {
                 _this.user_env = res.result.res_data;
@@ -1941,26 +1946,38 @@ var MyApp = (function () {
             // statusBar.backgroundColorByHexString("#2597ec");
             // statusBar.styleLightContent();
             statusBar.backgroundColorByHexString('#f8f8f8');
-            splashScreen.hide();
         });
     }
+    MyApp.prototype.checkCodePush = function () {
+        this.codePush.sync({
+            updateDialog: {
+                appendReleaseDescription: true,
+                descriptionPrefix: "\n\nChange log:\n"
+            },
+            installMode: __WEBPACK_IMPORTED_MODULE_6__ionic_native_code_push__["b" /* InstallMode */].IMMEDIATE
+        }).subscribe(function (data) {
+            console.log('CODE PUSH SUCCESSFUL: ' + data);
+        }, function (err) {
+            console.log('CODE PUSH ERROR: ' + err);
+        });
+    };
     return MyApp;
 }());
 MyApp = __decorate([
     __WEBPACK_IMPORTED_MODULE_1__angular_core__["Component"]({template:/*ion-inline-start:"/Users/bin/Downloads/OA项目备份/src/app/app.html"*/'<ion-nav [root]="rootPage"></ion-nav>\n'/*ion-inline-end:"/Users/bin/Downloads/OA项目备份/src/app/app.html"*/,
-        providers: [__WEBPACK_IMPORTED_MODULE_5__providers_JPush__["a" /* JPush */]]
+        providers: [__WEBPACK_IMPORTED_MODULE_5__providers_JPush__["a" /* JPush */], __WEBPACK_IMPORTED_MODULE_6__ionic_native_code_push__["a" /* CodePush */]]
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["z" /* Platform */], __WEBPACK_IMPORTED_MODULE_3__ionic_native_status_bar__["a" /* StatusBar */],
         __WEBPACK_IMPORTED_MODULE_4__ionic_native_splash_screen__["a" /* SplashScreen */],
-        __WEBPACK_IMPORTED_MODULE_0__ionic_storage__["b" /* Storage */], __WEBPACK_IMPORTED_MODULE_5__providers_JPush__["a" /* JPush */]])
+        __WEBPACK_IMPORTED_MODULE_0__ionic_storage__["b" /* Storage */], __WEBPACK_IMPORTED_MODULE_5__providers_JPush__["a" /* JPush */], __WEBPACK_IMPORTED_MODULE_6__ionic_native_code_push__["a" /* CodePush */]])
 ], MyApp);
 
 //# sourceMappingURL=app.component.js.map
 // CONCATENATED MODULE: ./src/app/app.module.ts
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ionic_native_file_chooser__ = __webpack_require__(250);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ng2_tree__ = __webpack_require__(245);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ionic_native_file_chooser__ = __webpack_require__(251);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ng2_tree__ = __webpack_require__(246);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ng2_tree___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_ng2_tree__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_barcode_scanner__ = __webpack_require__(246);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_barcode_scanner__ = __webpack_require__(247);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_GlobalData__ = __webpack_require__(129);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_NativeService__ = __webpack_require__(103);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_image_picker__ = __webpack_require__(235);
@@ -1971,25 +1988,26 @@ MyApp = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__ionic_native_file__ = __webpack_require__(108);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__ionic_native_toast__ = __webpack_require__(233);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__ionic_native_app_version__ = __webpack_require__(107);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__ionic_native_file_transfer__ = __webpack_require__(249);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__ionic_native_file_transfer__ = __webpack_require__(250);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__ionic_native_camera__ = __webpack_require__(232);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__angular_platform_browser__ = __webpack_require__(25);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_17_ionic_angular__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__ionic_native_web_intent__ = __webpack_require__(254);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__ionic_native_web_intent__ = __webpack_require__(255);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__ionic_native_status_bar__ = __webpack_require__(67);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__ionic_native_splash_screen__ = __webpack_require__(99);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__providers_HttpService__ = __webpack_require__(100);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__providers_Utils__ = __webpack_require__(238);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__providers_Utils__ = __webpack_require__(239);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__angular_http__ = __webpack_require__(101);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__ionic_storage__ = __webpack_require__(66);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__ionic_native_date_picker__ = __webpack_require__(242);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27_ionic_img_viewer__ = __webpack_require__(244);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28_angular2_qrcode__ = __webpack_require__(248);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__ionic_native_screenshot__ = __webpack_require__(252);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__ionic_native_nfc__ = __webpack_require__(251);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__ionic_native_photo_library__ = __webpack_require__(253);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__ionic_native_file_opener__ = __webpack_require__(255);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__ionic_native_date_picker__ = __webpack_require__(243);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27_ionic_img_viewer__ = __webpack_require__(245);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28_angular2_qrcode__ = __webpack_require__(249);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__ionic_native_screenshot__ = __webpack_require__(253);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__ionic_native_nfc__ = __webpack_require__(252);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__ionic_native_photo_library__ = __webpack_require__(254);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__ionic_native_file_opener__ = __webpack_require__(256);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__ionic_native_code_push__ = __webpack_require__(238);
 var app_module___decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2029,6 +2047,7 @@ var app_module___decorate = (this && this.__decorate) || function (decorators, t
 
 // import { AutocompleteServiceProvider } from '../providers/autocomplete-service/autocomplete-service';
 // import { BLE } from '@ionic-native/ble';
+
 
 
 var AppModule = (function () {
@@ -2264,15 +2283,15 @@ AppModule = app_module___decorate([
             __WEBPACK_IMPORTED_MODULE_26__ionic_native_date_picker__["a" /* DatePicker */],
             __WEBPACK_IMPORTED_MODULE_29__ionic_native_screenshot__["a" /* Screenshot */],
             __WEBPACK_IMPORTED_MODULE_30__ionic_native_nfc__["a" /* NFC */], __WEBPACK_IMPORTED_MODULE_30__ionic_native_nfc__["b" /* Ndef */],
-            __WEBPACK_IMPORTED_MODULE_31__ionic_native_photo_library__["a" /* PhotoLibrary */]
-            // BLE,
+            __WEBPACK_IMPORTED_MODULE_31__ionic_native_photo_library__["a" /* PhotoLibrary */],
+            __WEBPACK_IMPORTED_MODULE_33__ionic_native_code_push__["a" /* CodePush */],
         ]
     })
 ], AppModule);
 
 //# sourceMappingURL=app.module.js.map
 // CONCATENATED MODULE: ./src/app/main.ts
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(257);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(258);
 
 
 // import { enableProdMode } from '@angular/core';
@@ -2282,5 +2301,5 @@ __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* platformB
 
 /***/ })
 
-},[256]);
+},[257]);
 //# sourceMappingURL=main.js.map

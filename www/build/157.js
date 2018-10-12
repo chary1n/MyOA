@@ -1,6 +1,6 @@
 webpackJsonp([157],{
 
-/***/ 575:
+/***/ 576:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -95,7 +95,7 @@ InspectionService = __decorate([
 
 //# sourceMappingURL=inspectionService.js.map
 // CONCATENATED MODULE: ./src/pages/work-bench/inspection-detail/inspection-detail.ts
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__providers_Utils__ = __webpack_require__(238);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__providers_Utils__ = __webpack_require__(239);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ionic_angular__ = __webpack_require__(20);
 var inspection_detail___decorate = (this && this.__decorate) || function (decorators, target, key, desc) {

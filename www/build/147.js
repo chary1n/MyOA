@@ -1,6 +1,6 @@
 webpackJsonp([147],{
 
-/***/ 559:
+/***/ 560:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -91,7 +91,7 @@ BomPage = __decorate([
 //# sourceMappingURL=bom.js.map
 // CONCATENATED MODULE: ./src/pages/work-bench/production-search/production-detail/bom/bom.module.ts
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BomPageModule", function() { return BomPageModule; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_ng2_tree__ = __webpack_require__(245);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_ng2_tree__ = __webpack_require__(246);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_ng2_tree___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_ng2_tree__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(20);

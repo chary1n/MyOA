@@ -1,16 +1,16 @@
 webpackJsonp([81],{
 
-/***/ 668:
+/***/ 669:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 // CONCATENATED MODULE: ./src/pages/work-bench/gongdan/my-gongdan-list/my-gongdan-list.ts
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_ionic_angular_navigation_ionic_page__ = __webpack_require__(241);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_ionic_angular_navigation_ionic_page__ = __webpack_require__(242);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__gongdanService__ = __webpack_require__(739);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__gongdanService__ = __webpack_require__(740);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_status_bar__ = __webpack_require__(67);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -133,7 +133,7 @@ MyGongdanListPage = __decorate([
 //# sourceMappingURL=my-gongdan-list.js.map
 // CONCATENATED MODULE: ./src/pages/work-bench/gongdan/my-gongdan-list/my-gongdan-list.module.ts
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MyGongdanListPageModule", function() { return MyGongdanListPageModule; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_ionic_img_viewer_dist_es2015_src_module__ = __webpack_require__(243);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_ionic_img_viewer_dist_es2015_src_module__ = __webpack_require__(244);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(20);
 var my_gongdan_list_module___decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -166,7 +166,7 @@ MyGongdanListPageModule = my_gongdan_list_module___decorate([
 
 /***/ }),
 
-/***/ 739:
+/***/ 740:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

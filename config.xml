@@ -34,10 +34,6 @@
     <preference name="AutoHideSplashScreen" value="false" />
     <preference name="Fullscreen" value="False" />
     <preference name="android-windowSoftInputMode" value="adjustPan" />
-    <chcp>
-        <native-interface version="3" />
-        <config-file url="http://0.0.0.0:9999/www/chcp.json" />
-    </chcp>
     <platform name="android">
         <name>OA</name>
         <allow-intent href="market:*" />
@@ -99,6 +95,7 @@
         <splash height="960" src="resources/ios/splash/Default@2x~iphone.png" width="640" />
         <splash height="480" src="resources/ios/splash/Default~iphone.png" width="320" />
         <preference name="KeyboardDisplayRequiresUserAction" value="false" />
+        <preference name="CodePushDeploymentKey" value="2UFz8P4ExEcioCDF8CxahRoHX7SRec058a54-db8b-4662-8f01-27dfa637e2a5" />
     </platform>
     <allow-navigation href="http://192.168.2.99:8100" />
     <allow-navigation href="http://192.168.88.104:8100" />
@@ -168,9 +165,9 @@
     <plugin name="cordova-plugin-file-transfer" spec="~1.6.3" />
     <allow-navigation href="http://192.168.1.244:8100" />
     <plugin name="cordova-plugin-file-opener2" spec="^2.0.19" />
-    <plugin name="cordova-hot-code-push-plugin" spec="^1.5.3" />
     <plugin name="cordova-plugin-filechooser" spec="~1.0.1" />
     <plugin name="cordova-plugin-filepath" spec="~1.4.2" />
+    <plugin name="cordova-plugin-code-push" spec="~1.11.13" />
     <engine name="android" spec="^6.2.3" />
     <engine name="ios" spec="^4.5.4" />
 </widget>

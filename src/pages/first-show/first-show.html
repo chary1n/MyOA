@@ -61,7 +61,7 @@
             </ion-col>
         </ion-row>
     </ion-grid>-->
-  <div align="center" tappable (click)="click_un_read_reply()" *ngIf="un_read_list.length > 0">
+  <div align="center" tappable (click)="click_un_read_reply()" *ngIf="un_read_list.length > 0 && isDay">
     <div class="un_read_class">
       {{un_read_list.length}}条新回复
     </div>
