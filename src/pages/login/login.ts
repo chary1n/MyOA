@@ -17,6 +17,8 @@ import { AppVersion } from '@ionic-native/app-version';
 import { Platform } from 'ionic-angular';
 import { UrlServer } from '../../providers/UrlServer';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
+
+import { SplashScreen } from '@ionic-native/splash-screen';
 declare let cordova: any;
 
 
@@ -62,7 +64,7 @@ export class LoginPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,public loading:LoadingController,
     private loginservice: LoginService, private storage: Storage, public platform: Platform, public appVersion: AppVersion,
     public jpush: JPush, public urlServer: UrlServer, public ctrl: AlertController, private inAppBrowser: InAppBrowser,
-    public firService: FirService,private nativeService: NativeService,public toastCtrl: ToastController,
+    public firService: FirService,private nativeService: NativeService,public toastCtrl: ToastController,public splashScreen: SplashScreen
   ) {
     this.storage.get("login").then(res => {
       if (res) {
@@ -174,6 +176,7 @@ export class LoginPage {
     } else if (this.platform.is('ios')) {
       this.getiOSVersionNumber();
     }
+    this.splashScreen.hide()
   }
 
   ionViewDidLoad() {
@@ -260,8 +263,8 @@ export class LoginPage {
     this.isSelected3 = false;
     this.isSelected4 = false;
     this.chooseIndex = 0;
-    HttpService.appUrl = "http://service.linkloving.net:8888/"
-    // HttpService.appUrl = "http://10.0.0.5:8081/"
+    // HttpService.appUrl = "http://service.linkloving.net:8888/"
+    HttpService.appUrl = "http://10.0.0.5:8081/"
     this.reset();
     this.img1 = "assets/img/jiangsuruotai_clicked.png"
     this.password_src = "assets/img/S_password.png"

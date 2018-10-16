@@ -585,7 +585,9 @@ export class FirstShowPage {
   }
 
   toAll(){
-    this.navCtrl.push('AllSchedulePage')
+    // this.navCtrl.push('AllSchedulePage')
+    this.navCtrl.push('ChooseMenuPage')
+    
   }
 
   closeFab(){

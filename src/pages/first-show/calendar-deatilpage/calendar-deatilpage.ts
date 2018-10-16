@@ -45,6 +45,7 @@ export class CalendarDeatilpagePage {
   type_notification = false//网页提醒
   rt_project_principal//负责人id
   rt_project_principal_name//负责人name
+  create_user_name
   partner_id_name
   subject//主题
   start_datetime = new Date(new Date().getTime() + 8 * 60 * 60 * 1000).toISOString();
@@ -143,6 +144,7 @@ export class CalendarDeatilpagePage {
     this.state = this.item.state
     this.location = this.item.location
     this.rt_project_principal_name = this.item.rt_project_principal.partner_id_s_name
+    this.create_user_name = this.item.create_user_name
     this.subject = this.item.subject
     this.rt_is_sure_time = this.item.rt_is_sure_time
     this.allday = this.item.allday
@@ -316,6 +318,7 @@ export class CalendarDeatilpagePage {
       this.allday = this.item.allday
       this.rt_project_principal_name = this.item.rt_project_principal.partner_id_s_name
       this.rt_project_principal = this.item.rt_project_principal.partner_id_s_id
+      this.create_user_name = this.item.create_user_name
       this.rt_is_sure_time = this.item.rt_is_sure_time
       this.subject = this.item.subject
       this.type_name = this.item.type_name

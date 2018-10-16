@@ -82,6 +82,10 @@
                 <p item-start style="color: #2e3133;font-size: 13px">负责人</p>
                 <p item-start style="margin-left: 7%;color: #8d9296;font-size: 13px">{{rt_project_principal}}</p>
             </ion-item>
+            <ion-item no-lines style="min-height: 25px;height: 30px;">
+                <p item-start style="color: #2e3133;font-size: 13px">创建人</p>
+                <p item-start style="margin-left: 7%;color: #8d9296;font-size: 13px">{{create_user_name}}</p>
+            </ion-item>
             <ion-item no-lines>
                 <div style="position: relative;margin-bottom: -11px;margin-top: -11px">
                     <span style="    display: inline-block;position: absolute;
@@ -235,10 +239,10 @@
     <ion-icon *ngIf="!showIcon" name="arrow-up" tappable (click)="up_view()" class="icon_class"></ion-icon>
     <div *ngIf='item && !isEdit && !search && !change' class="differ_div_class">
         <div *ngIf='item.message_length > 0'>
-            评论 ( {{item.message_length}} )
+            回复 ( {{item.message_length}} )
         </div>
         <div *ngIf='item.message_length == 0'>
-            暂无评论
+            暂无回复
         </div>
     </div>
 
@@ -267,13 +271,13 @@
             <ion-item tappable (click)='delete_reply(items)' no-lines style="margin-top:-5px">
                 <p text-wrap [ngClass]="{true:'content_message',false:'content_message_no_lines'}[items.child_ids.length > 0]" class="">
                     <span></span><span style="color:#1f6699;"></span><span>{{items.context}}</span>
-                    <!--<ion-grid *ngIf="items.record_images.length > 0" style="margin-top:-5px;margin-bottom:5px">-->
-                    <!--<ion-row style="margin-right:5px;">
-              <ion-col style="height:80px" *ngFor="let image of items.record_images" col-3>
-                <img style="position:absolute;clip:rect(0px,70px,70px,0px);background-color:#f0f2f5" src={{image}} imageViewer/>
+                    <ion-grid *ngIf="items.attachment_ids.length > 0" style="margin-top:-5px;margin-bottom:5px">
+            <ion-row style="margin-right:5px;">
+              <ion-col style="height:70px" *ngFor="let image of items.attachment_ids" col-3>
+                <img style="position:absolute;clip:rect(0px,70px,70px,0px);background-color:#f0f2f5" src='{{image}}' imageViewer/>
               </ion-col>
-            </ion-row>-->
-                    <!--</ion-grid>-->
+            </ion-row>
+          </ion-grid>
                 </p>
 
             </ion-item>
@@ -292,13 +296,21 @@
                     <span style="color:#1f6699;">@{{line.reply_name}} </span>
                     <span style="color:8a9299">{{line.context}}</span>
                 </p>
+                <ion-grid *ngIf="line.attachment_ids.length > 0" style="margin-top: -30px;
+    margin-bottom: 25px;">
+            <ion-row style="margin-right:5px;">
+              <ion-col style="height:70px;margin-top:10px;" *ngFor="let image of line.attachment_ids" col-3>
+                <img style="position:absolute;clip:rect(0px,70px,70px,0px);background-color:#f0f2f5" src='{{image}}' imageViewer/>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
             </div>
         </div>
     </ion-list>
 </ion-content>
 
 <ion-footer *ngIf="!isEdit && !search && !change" class="footer_class">
-    <ion-input #contextInput id='contextInput' class="input_class" [(ngModel)]="context_message" placeholder="写下你的评论..."></ion-input>
+    <ion-input #contextInput id='contextInput' class="input_class" [(ngModel)]="context_message" placeholder="写下你的回复..."></ion-input>
     <button ion-button icon-only tappable (click)="send()" class="btn_class">
                 发送
       </button>

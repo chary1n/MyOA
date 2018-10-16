@@ -22,10 +22,14 @@
 <ion-content id="main_class" style="position:relative;">
  <ion-grid style="margin-left:6px;">
     <ion-row>
-      <ion-col style="height:116px" tappable (click)="clickPicture(item)" col-3 *ngFor="let item of imgList">
-        <img src={{item}} style="position:absolute;clip:rect(0px,106px,106px,0px);"/>
+      <ion-col style="position:relative;height:106px;margin-top:5px" tappable (click)="clickPicture(item)" col-4 *ngFor="let item of imgList">
+        <img src={{item}} style="position:absolute;
+                  clip:rect(0px,106px,106px,0px);"/>
       </ion-col>
     </ion-row>
+    <ion-col col-4 tappable (click)="addImg()" style="margin-top:5px">
+        <img src="assets/img/add.png" />
+      </ion-col>
   </ion-grid>
   <!--<div id="chat_top_div" style="border-top:#f0f2f5 1px solid;position:absolute;bottom:0px;height:40px;width:100%;visibility:hidden;background:white"  >
     <img style="width:30px;margin-top:5px;margin-left:10px" src="assets/img/work_bench/pic.png" tappable (click)="addImg()">

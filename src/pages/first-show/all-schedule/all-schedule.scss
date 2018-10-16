@@ -38,7 +38,7 @@ page-all-schedule {
 }
       .header_div_class{
         width: 100%;
-        background-color: #f0f2f5;
+        background-color: white;
     }
     .div_class{
       background-color: white;
@@ -46,8 +46,66 @@ page-all-schedule {
       padding: 1px
   }
   .searchbar_class{
-    width: 92vw;
+    width: 70vw;
     margin-left:4vw;
     background-color: #f0f2f5;
 }
+
+.searchbar-ios .searchbar-input {
+    padding: 0 28px;
+    border-radius: 22px;
+    height: 3rem;
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: #000;
+    background-color: #f0f2f5;
+    /* background-color: #fff; */
+}
+
+.searchbar-ios {
+    padding: 0 8px;
+    min-height: 44px;
+    border-top: 0.55px solid transparent;
+    background: white;
+    border-bottom: 0px solid rgba(0, 0, 0, 0.05);
+}
+
+  .choose_people_div{
+    position: absolute;
+    z-index: 99;
+    background: white;
+    width: 100%;
+    box-shadow: 1px 10px 30px lightgrey;
+  }
+
+  .gou_class{
+    display: inline-block;
+    height: 100%;
+    width: 50px;
+    text-align: center;
+    font-size: 15px;
+    color: #2597ec;
+  }
+
+  .gou_class_un_choose{
+    display: inline-block;
+    height: 100%;
+    width: 50px;
+    text-align: center;
+    font-size: 15px;
+    color: white;
+  }
+
+  .me_p_class{
+        display: inline-block;
+    width: calc(100% - 60px);
+    height: 38px;
+    border-bottom: solid 1px #f0f2f5;
+    line-height: 26px;
+  }
+
+  .team_p_class{
+    width: calc(100% - 60px);
+    display:inline-block
+  }
 }

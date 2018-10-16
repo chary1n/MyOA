@@ -31,7 +31,7 @@ export class MyApp {
     platform.ready().then(() => {
       splashScreen.hide();
       this.jpush.initJpush();
-      this.checkCodePush()
+      // this.checkCodePush()
       storage.get('user')
         .then(res => {
           this.user_env = res.result.res_data;

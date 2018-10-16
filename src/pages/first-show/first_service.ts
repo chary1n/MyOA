@@ -7,6 +7,13 @@ export class FirstShowService {
 
     }
 
+    get_is_department(employee_id){
+        let body = JSON.stringify({
+            employee_id:employee_id,
+        });
+       return this.httpService.postBodyNoLoading("get_is_department",body);
+    }
+
     delete_reply(body){
         return this.httpService.postBody("delete_reply", body);
     }

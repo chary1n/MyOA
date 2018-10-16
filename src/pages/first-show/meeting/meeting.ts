@@ -68,6 +68,7 @@ export class MeetingPage {
   title_meeting = '新建会议'
   title_meeting_two = '会议'
   showIcon = false
+  create_user_name
   constructor(public navCtrl: NavController, public navParams: NavParams,public storage:Storage,
               private datePipe: DatePipe, public statusBar:StatusBar,public firService: FirstShowService
               ,public toastCtrl: ToastController,private sanitizer: DomSanitizer, public actionSheetCtrl: ActionSheetController) {
@@ -136,6 +137,7 @@ export class MeetingPage {
     this.rt_is_sure_time = this.item.rt_is_sure_time
         this.name = this.item.name
         this.rt_project_principal = this.item.rt_project_principal.name
+        this.create_user_name = this.item.create_user_name
         this.rt_meeting_ids = this.item.rt_meeting_ids
         this.selectList = this.item.rt_meeting_participant
         this.rt_alarm_type_id = this.item.rt_alarm_type

@@ -1,7 +1,7 @@
 import { AllScheduleService } from './all-schedule-service';
 import { FirstShowService } from './../first_service';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, MenuController, Events } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { StatusBar } from '@ionic-native/status-bar';
 
@@ -24,8 +24,29 @@ export class AllSchedulePage {
   meeting_id
   type_id = -1
   need_fresh = false;
+  me_type = 'all'
+  state_type = 'all'
+  start_date
+  end_date
+  show_me = true
+  need_show_choose = false
+  title = '我的'
+  is_manager = false
   constructor(public navCtrl: NavController, public navParams: NavParams, private firshowService: FirstShowService,
-    public storage: Storage, public statusBar: StatusBar, public allScheduleService: AllScheduleService) {
+    public storage: Storage, public statusBar: StatusBar, public allScheduleService: AllScheduleService,
+    public menu: MenuController, public event: Events) {
+    this.me_type = 'all'
+    this.state_type = 'all'
+    this.show_me = true
+    this.title = '我的'
+    this.event.publish('ChooseMenuPage')
+    this.storage.get('user').then(res => {
+      this.firshowService.get_is_department(res.result.res_data.user_id).then(res => {
+        if (res.result.res_data && res.result.res_code == 1) {
+          this.is_manager = res.result.res_data.is_manager
+        }
+      })
+    })
 
     // this.storage.get('user').then(res => {
     //   this.uid = res.result.res_data.user_id;
@@ -51,33 +72,54 @@ export class AllSchedulePage {
   }
 
   ionViewDidEnter() {
-     this.storage.get('user').then(res => {
+    this.event.subscribe('search_domain', (data) => {
+      console.log(data)
+      // this.event.unsubscribe('search_domain')
+      this.me_type = data.me_type
+      this.state_type = data.state_type
+      this.start_date = data.start_date
+      this.end_date = data.end_date
+      this.get_all_data()
+    })
+
+
+
+    this.storage.get('user').then(res => {
       this.uid = res.result.res_data.user_id;
-    this.type_id = -1
-    let body = {
-      'uid': this.uid
-    }
-    this.firshowService.get_all_schedule(body).then(res => {
-      if (res.result.res_data && res.result.res_code == 1) {
-        this.dataList = res.result.res_data.data
-        this.meeting_id = res.result.res_data.meeting_id
-        for (let i = 0; i < this.dataList.length; i++) {
-          if (this.dataList[i].id == -1) {
-            this.type_list = this.dataList[i].dataList
+      this.type_id = -1
+      let body = {
+        'uid': this.uid,
+        'me_type': this.me_type,
+        'state_type': this.state_type,
+      }
+      this.firshowService.get_all_schedule(body).then(res => {
+        if (res.result.res_data && res.result.res_code == 1) {
+          this.dataList = res.result.res_data.data
+          this.meeting_id = res.result.res_data.meeting_id
+          for (let i = 0; i < this.dataList.length; i++) {
+            if (this.dataList[i].id == -1) {
+              this.type_list = this.dataList[i].dataList
+            }
           }
         }
-      }
+      })
     })
-     })
   }
 
   goBack() {
+    this.navCtrl.setRoot('NewTabsPage')
     this.navCtrl.pop()
+  }
+
+  ionViewWillLeave() {
+    this.menu.enable(false)
+    this.event.unsubscribe('search_domain')
   }
 
   ionViewWillEnter() {
     this.statusBar.backgroundColorByHexString("#2597ec");
     this.statusBar.styleLightContent();
+    this.menu.enable(true, 'menu2')
     // this.need_fresh = this.navParams.get('need_fresh')
     // this.type_list = []
     // if (this.need_fresh) {
@@ -115,7 +157,10 @@ export class AllSchedulePage {
         this.dataList[i].select = false
       }
     }
-    this.type_list = item.dataList
+    this.get_all_data()
+
+
+    // this.type_list = item.dataList
   }
 
   toDetail(item) {
@@ -160,7 +205,11 @@ export class AllSchedulePage {
       'type': type,
       'search_text': search_text,
       'uid': this.uid,
-      'event_type': this.type_id
+      'event_type': this.type_id,
+      'me_type': this.me_type,
+      'state_type': this.state_type,
+      'start_date': this.start_date,
+      'end_date': this.end_date,
     }
     this.firshowService.search_all_schedule(body).then(res => {
       if (res.result.res_data && res.result.res_code == 1) {
@@ -178,5 +227,56 @@ export class AllSchedulePage {
         this.dataList[i].select = false
       }
     }
+  }
+
+  clickMenu() {
+    this.menu.toggle('right');
+  }
+
+  get_all_data() {
+    this.type_list = []
+    this.storage.get('user').then(res => {
+      this.uid = res.result.res_data.user_id;
+      let body = {
+        'uid': this.uid,
+        'me_type': this.me_type,
+        'state_type': this.state_type,
+        'event_type': this.type_id,
+        'start_date': this.start_date,
+        'end_date': this.end_date,
+      }
+      this.firshowService.get_all_schedule(body).then(res => {
+        if (res.result.res_data && res.result.res_code == 1) {
+          this.dataList = res.result.res_data.data
+          this.meeting_id = res.result.res_data.meeting_id
+          for (let i = 0; i < this.dataList.length; i++) {
+            if (this.dataList[i].id == this.type_id) {
+              this.type_list = this.dataList[i].dataList
+              this.dataList[i].select = true
+            }
+            else {
+              this.dataList[i].select = false
+            }
+          }
+        }
+      })
+    })
+  }
+
+  click_search_peopkle() {
+    this.need_show_choose = true
+  }
+
+  click_team_div() {
+    this.show_me = false
+    this.need_show_choose = false
+    this.title = '团队'
+  }
+
+  click_me_div() {
+    this.show_me = true
+    this.need_show_choose = false
+    this.title = '我的'
+    this.get_all_data()
   }
 }

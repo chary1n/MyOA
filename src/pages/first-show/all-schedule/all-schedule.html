@@ -12,22 +12,61 @@
               <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
             </button>
         </ion-buttons>
-        <ion-title>待办</ion-title>
+        <ion-title *ngIf='is_manager' tappable (click)='click_search_peopkle()'>
+            <div style="font-size: 15px;margin-top: 8px;">
+                我的
+            </div>
+            <ion-icon name="arrow-down" style="display: block;font-size: 14px;"></ion-icon>
+        </ion-title>
+        <ion-title *ngIf='!is_manager' tappable (click)='click_search_peopkle()'>
+            待办
+        </ion-title>
     </ion-navbar>
 
 </ion-header>
 
 
 <ion-content style="background-color:#f0f2f5">
-    <div style="border-bottom: solid 1px #f0f2f5;background-color: white;height: 50px;width: 100%;" align-items-center>
-        <div class="left_div" align="center" tappable (click)="selectType(item)" *ngFor="let item of dataList">
-            <span [ngClass]="{true:'under_line_style',false:'normal_style'}[item.select]">{{item.display_name}}</span>
+    <div class="choose_people_div" *ngIf='need_show_choose'>
+        <div tappable (click)='click_me_div()'>
+            <div [ngClass]="{true:'gou_class',false:'gou_class_un_choose'}[show_me == true]">
+                √
+            </div>
+            <p class="me_p_class">
+                <span style="color:#333333">
+                    我的
+                </span>
+                <span style="color:gray">
+                    （与我相关）
+                </span>
+            </p>
+        </div>
+        <div style="margin-top: -10px;"  tappable (click)='click_team_div()'>
+            <div [ngClass]="{true:'gou_class',false:'gou_class_un_choose'}[show_me == false]">
+                √
+            </div>
+            <p class='team_p_class'>
+                <span style="color:#333333">
+                    团队
+                </span>
+                <span style="color:gray">
+                    （所负责部门）
+                </span>
+            </p>
         </div>
     </div>
     <div class="header_div_class">
         <ion-auto-complete class="searchbar_class" (itemSelected)="itemSelected($event)" (itemClearSelected)="itemClearSelected($event)"
             [dataProvider]="allScheduleService"></ion-auto-complete>
+            <img src= "assets/img/work_bench/shaixuan.png" height="18px" width="18px" style="margin-right:10px;margin-top:15px;float:right" tappable (click)="clickMenu()">
+            <span tappable (click)="clickMenu()"  style="float:right;margin-top:14px;color:gray;margin-right:5px;border-left:#f0f2f5 1px solid;width:40px;text-align:right">筛选</span>
     </div>
+    <div style="border-bottom: solid 1px #f0f2f5;background-color: white;height: 44px;width: 100%;margin-top: -9px;" align-items-center>
+        <div class="left_div" align="center" tappable (click)="selectType(item)" *ngFor="let item of dataList">
+            <span [ngClass]="{true:'under_line_style',false:'normal_style'}[item.select]">{{item.display_name}}</span>
+        </div>
+    </div>
+    
     <div class="div_class" no-lines *ngFor='let item of type_list' tappable (click)='toDetail(item)'>
         <p *ngIf="type_id==-1" style="float: left;;color: #409eff;border-style: solid;border-radius: 5px;border-width: 1px;font-size: 12px;padding: 1px 5px;margin-top: 0px;margin-left: 5px;margin-top: 9px;margin-right: 5px">{{item.type_name}}</p>
         <p [ngClass]="{true:'notfinishState',false:'finishState'}[item.state]">

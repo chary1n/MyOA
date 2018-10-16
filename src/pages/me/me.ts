@@ -9,6 +9,7 @@ import { JPush } from '../../providers/JPush'
 import { StatusBar } from '@ionic-native/status-bar';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { HttpService } from '../../providers/HttpService';
+import { MeServices} from './meService'
 
 /**
  * Generated class for the MePage page.
@@ -20,7 +21,7 @@ import { HttpService } from '../../providers/HttpService';
 @Component({
   selector: 'page-me',
   templateUrl: 'me.html',
-  providers:[JPush, FirService],
+  providers:[JPush, FirService,MeServices],
 })
 export class MePage {
   name: string;
@@ -40,7 +41,8 @@ export class MePage {
     public jpush: JPush,
     public event:Events,
     public statusbar:StatusBar, public firService: FirService,
-    private inAppBrowser: InAppBrowser,private httpService: HttpService) {
+    private inAppBrowser: InAppBrowser,private httpService: HttpService,
+    public meService: MeServices) {
       if (this.platform.is("android")) {
         this.appVersion.getVersionNumber().then((value: string) => {
           this.versionNumber = value
@@ -193,6 +195,11 @@ export class MePage {
         {
           text: '确定',
           handler: () => {
+            this.meService.logoutApp({}).then(res =>{
+
+            })
+
+              
             this.storage.set('user', null)
               .then(() => {
                 this.storage.get("login").then(res => {
