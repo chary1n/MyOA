@@ -14,9 +14,10 @@
         </ion-buttons>
         <ion-title *ngIf='is_manager' tappable (click)='click_search_peopkle()'>
             <div style="font-size: 15px;margin-top: 8px;">
-                我的
+                {{title}}
             </div>
-            <ion-icon name="arrow-down" style="display: block;font-size: 14px;"></ion-icon>
+            <ion-icon name="arrow-down" *ngIf="!need_show_choose" style="display: block;font-size: 14px;"></ion-icon>
+            <ion-icon name="arrow-up" *ngIf="need_show_choose" style="display: block;font-size: 14px;"></ion-icon>
         </ion-title>
         <ion-title *ngIf='!is_manager' tappable (click)='click_search_peopkle()'>
             待办
@@ -41,7 +42,7 @@
                 </span>
             </p>
         </div>
-        <div style="margin-top: -10px;"  tappable (click)='click_team_div()'>
+        <div style="margin-top: -10px;" tappable (click)='click_team_div()'>
             <div [ngClass]="{true:'gou_class',false:'gou_class_un_choose'}[show_me == false]">
                 √
             </div>
@@ -55,27 +56,41 @@
             </p>
         </div>
     </div>
+
     <div class="header_div_class">
         <ion-auto-complete class="searchbar_class" (itemSelected)="itemSelected($event)" (itemClearSelected)="itemClearSelected($event)"
             [dataProvider]="allScheduleService"></ion-auto-complete>
-            <img src= "assets/img/work_bench/shaixuan.png" height="18px" width="18px" style="margin-right:10px;margin-top:15px;float:right" tappable (click)="clickMenu()">
-            <span tappable (click)="clickMenu()"  style="float:right;margin-top:14px;color:gray;margin-right:5px;border-left:#f0f2f5 1px solid;width:40px;text-align:right">筛选</span>
+        <img src="assets/img/work_bench/shaixuan.png" height="18px" width="18px" style="margin-right:10px;margin-top:15px;float:right"
+            tappable (click)="clickMenu()">
+        <span tappable (click)="clickMenu()" style="float:right;margin-top:14px;color:gray;margin-right:5px;border-left:#f0f2f5 1px solid;width:40px;text-align:right">筛选</span>
     </div>
     <div style="border-bottom: solid 1px #f0f2f5;background-color: white;height: 44px;width: 100%;margin-top: -9px;" align-items-center>
         <div class="left_div" align="center" tappable (click)="selectType(item)" *ngFor="let item of dataList">
             <span [ngClass]="{true:'under_line_style',false:'normal_style'}[item.select]">{{item.display_name}}</span>
         </div>
     </div>
-    
-    <div class="div_class" no-lines *ngFor='let item of type_list' tappable (click)='toDetail(item)'>
-        <p *ngIf="type_id==-1" style="float: left;;color: #409eff;border-style: solid;border-radius: 5px;border-width: 1px;font-size: 12px;padding: 1px 5px;margin-top: 0px;margin-left: 5px;margin-top: 9px;margin-right: 5px">{{item.type_name}}</p>
-        <p [ngClass]="{true:'notfinishState',false:'finishState'}[item.state]">
-            {{item.subject}}
-        </p>
-        <p style="margin-left: 15px;font-size: 13px;color: #c7cace;margin-top: 17px">{{item.start}} 至 {{item.stop}}</p>
+    <div *ngIf='show_me'>
+        <div class="div_class" no-lines *ngFor='let item of type_list' tappable (click)='toDetail(item)'>
+            <p *ngIf="type_id==-1" style="float: left;;color: #409eff;border-style: solid;border-radius: 5px;border-width: 1px;font-size: 12px;padding: 1px 5px;margin-top: 0px;margin-left: 5px;margin-top: 9px;margin-right: 5px">{{item.type_name}}</p>
+            <p [ngClass]="{true:'notfinishState',false:'finishState'}[item.state]">
+                {{item.subject}}
+            </p>
+            <p style="margin-left: 15px;font-size: 13px;color: #c7cace;margin-top: 17px">{{item.start}} 至 {{item.stop}}</p>
+        </div>
+        <div align="center" *ngIf="!type_list || type_list.length == 0">
+            <img style="width:100px;position:absolute;left:calc(50% - 50px);top:calc(50% - 60px)" src="assets/img/nodataimg.png">
+            <p style="width:100px;position:absolute;left:calc(50% - 50px);top:calc(50% + 30px);color:#c2c8cc;font-size:15px">空空如也～</p>
+        </div>
+        
     </div>
-    <div align="center" *ngIf="!type_list || type_list.length == 0">
-        <img style="width:100px;position:absolute;left:calc(50% - 50px);top:calc(50% - 60px)" src="assets/img/nodataimg.png">
-        <p style="width:100px;position:absolute;left:calc(50% - 50px);top:calc(50% + 30px);color:#c2c8cc;font-size:15px">空空如也～</p>
-    </div>
+    <div *ngIf='!show_me'>
+            <ul id="ztree" class="ztree" style="padding-bottom:44px"></ul>
+
+        </div>
+
 </ion-content>
+<ion-footer *ngIf='!show_me'>
+    <div class="team_btn_class" tappable (click)='click_watch()'>
+        查看
+    </div>
+</ion-footer>

@@ -4,7 +4,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, MenuController, Events } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { StatusBar } from '@ionic-native/status-bar';
-
+import 'jquery'
+declare var $: any;
 /**
  * Generated class for the AllSchedulePage page.
  *
@@ -28,10 +29,14 @@ export class AllSchedulePage {
   state_type = 'all'
   start_date
   end_date
-  show_me = true
+  show_me = false
   need_show_choose = false
   title = '我的'
   is_manager = false
+
+  setting
+  zNodes = []
+  tree_obj
   constructor(public navCtrl: NavController, public navParams: NavParams, private firshowService: FirstShowService,
     public storage: Storage, public statusBar: StatusBar, public allScheduleService: AllScheduleService,
     public menu: MenuController, public event: Events) {
@@ -48,23 +53,28 @@ export class AllSchedulePage {
       })
     })
 
-    // this.storage.get('user').then(res => {
-    //   this.uid = res.result.res_data.user_id;
-    //   let body = {
-    //     'uid': this.uid
-    //   }
-    //   this.firshowService.get_all_schedule(body).then(res => {
-    //     if (res.result.res_data && res.result.res_code == 1) {
-    //       this.dataList = res.result.res_data.data
-    //       this.meeting_id = res.result.res_data.meeting_id
-    //       for (let i = 0; i < this.dataList.length; i++) {
-    //         if (this.dataList[i].id == -1) {
-    //           this.type_list = this.dataList[i].dataList
-    //         }
-    //       }
-    //     }
-    //   })
-    // })
+    this.setting = {
+			check: {
+				enable: true,
+				chkStyle: "checkbox",
+				chkboxType: { "Y": "s", "N": "ps" }
+			},
+			data: {
+				simpleData: {
+					enable: true
+				}
+			},
+      callback: {
+				onClick: function (event, treeId, treeNode, clickFlag){
+          // this.tree_obj = $.fn.zTree.init($("#ztree"),this.setting,this.zNodes);
+          $.fn.zTree.getZTreeObj("ztree").checkNode(treeNode, !treeNode.checked, "checkTruePS", null)
+        },
+			}
+		};
+    this.zNodes = [
+      
+    ]
+
   }
 
   ionViewDidLoad() {
@@ -72,6 +82,8 @@ export class AllSchedulePage {
   }
 
   ionViewDidEnter() {
+    
+
     this.event.subscribe('search_domain', (data) => {
       console.log(data)
       // this.event.unsubscribe('search_domain')
@@ -264,13 +276,20 @@ export class AllSchedulePage {
   }
 
   click_search_peopkle() {
-    this.need_show_choose = true
+    this.need_show_choose = !this.need_show_choose
   }
 
   click_team_div() {
     this.show_me = false
     this.need_show_choose = false
     this.title = '团队'
+
+    this.firshowService.get_all_department({'uid':this.uid}).then(res => {
+      if (res.result.res_data && res.result.res_code == 1) {
+          this.zNodes = res.result.res_data
+          this.tree_obj = $.fn.zTree.init($("#ztree"),this.setting,this.zNodes);
+        }
+    })
   }
 
   click_me_div() {
@@ -278,5 +297,9 @@ export class AllSchedulePage {
     this.need_show_choose = false
     this.title = '我的'
     this.get_all_data()
+  }
+
+  click_watch(){
+    
   }
 }

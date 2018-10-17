@@ -7,6 +7,10 @@ export class FirstShowService {
 
     }
 
+    get_all_department(body){
+        return this.httpService.postBody("get_all_department_tree", body);
+    }
+
     get_is_department(employee_id){
         let body = JSON.stringify({
             employee_id:employee_id,

@@ -45,6 +45,8 @@ export class MyApp {
       // statusBar.styleLightContent();
       statusBar.backgroundColorByHexString('#f8f8f8');
       
+
+      
     });
   }
 
