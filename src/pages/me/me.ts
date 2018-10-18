@@ -195,9 +195,9 @@ export class MePage {
         {
           text: '确定',
           handler: () => {
-            this.meService.logoutApp({}).then(res =>{
+            // this.meService.logoutApp({}).then(res =>{
 
-            })
+            // })
 
               
             this.storage.set('user', null)

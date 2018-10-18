@@ -300,6 +300,20 @@ export class AllSchedulePage {
   }
 
   click_watch(){
-    
+    let line_ids = []
+    let select_data = $.fn.zTree.getZTreeObj("ztree").getCheckedNodes(true)
+    for (let i =0; i < select_data.length; i++){
+      if (select_data[i].partner_id){
+        line_ids.push(select_data[i].partner_id)
+      }
+    }
+    let body = {
+      'list_ids': line_ids,
+    }
+    this.firshowService.get_calendar_all(body).then(res => {
+      if (res.result.res_data && res.result.res_code == 1) {
+        console.log(res.result.res_data)
+      }
+    })
   }
 }

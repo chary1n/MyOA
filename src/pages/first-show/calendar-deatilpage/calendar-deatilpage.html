@@ -69,11 +69,14 @@
     <ion-input #nameInput type="search" style="width: 100%;border-bottom: #c3c5c9 1px solid;padding-left: 10px;" (ngModelChange)="searchInput($event)"
       [(ngModel)]="linshiString"></ion-input>
     <!-- <ion-searchbar #searchbar id="searchbar" placeholder = "搜索"   (search)="searchByKeyword($event)" (ionClear)="clearText()"></ion-searchbar> -->
-    <ion-list>
+    <ion-list *ngIf="employeeList.length > 0">
       <ion-item no-lines *ngFor='let item of employeeList' tappable (click)="choosePeople(item)" style="border-bottom: #f0f2f5 1px solid;min-height: 25px">
         <ion-label>{{item.partner_name}}</ion-label>
       </ion-item>
     </ion-list>
+    <div>
+      <ul id="ztree" class="ztree" style="padding-bottom:44px"></ul>
+    </div>
   </div>
 
   <div *ngIf="!isEdit && !search && !showIcon">
@@ -288,8 +291,8 @@
 
     </div>
   </div>
-  <ion-icon *ngIf="showIcon" name="arrow-down" tappable (click)="down_view()" class="icon_class_down"></ion-icon>
-  <ion-icon *ngIf="!showIcon" name="arrow-up" tappable (click)="up_view()" class="icon_class"></ion-icon>
+  <ion-icon *ngIf="showIcon && !isEdit && !change && !search" name="arrow-down" tappable (click)="down_view()" class="icon_class_down"></ion-icon>
+  <ion-icon *ngIf="!showIcon && !isEdit && !change && !search" name="arrow-up" tappable (click)="up_view()" class="icon_class"></ion-icon>
   <div *ngIf='item && !isEdit && !search && !change' class="differ_div_class">
     <div *ngIf='item.message_length > 0'>
       回复 ( {{item.message_length}} )
@@ -366,11 +369,18 @@
   </div>-->
 </ion-content>
 <ion-footer *ngIf="!isEdit && !search && !change" class="footer_class">
-  <ion-input #contextInput id='contextInput' (ionBlur)="blurInput()" (ionFocus)="focusInput()" class="input_class" [(ngModel)]="context_message"
-    placeholder="写下你的回复..."></ion-input>
-  <button ion-button icon-only tappable (click)="send()" class="btn_class">
-      发送
+  <!--<ion-input #contextInput id='contextInput' (ionBlur)="blurInput()" (ionFocus)="focusInput()" class="input_class" [(ngModel)]="context_message"
+    placeholder="写下你的回复..."></ion-input>-->
+  <ion-label tappable (click)="send()" class="input_class">
+      写下你的回复...
+  </ion-label>
+  <!--<button ion-button icon-only tappable (click)="send()" class="btn_class">
+      回复
   </button>
+
+  <!--<div class="team_btn_class" tappable (click)='send()'>
+        回复
+    </div>-->
 </ion-footer>
 
 

@@ -7,6 +7,10 @@ export class FirstShowService {
 
     }
 
+    get_calendar_all(body){
+        return this.httpService.postBody("get_calendar_all", body);
+    }
+
     get_all_department(body){
         return this.httpService.postBody("get_all_department_tree", body);
     }

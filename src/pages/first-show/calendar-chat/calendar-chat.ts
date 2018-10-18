@@ -1,6 +1,6 @@
 import { HttpService } from './../../../providers/HttpService';
-import { Component ,ViewChild} from '@angular/core';
-import { IonicPage, NavController, NavParams ,ToastController,ActionSheetController} from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams, ToastController, ActionSheetController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { Utils } from './../../../providers/Utils';
 import { FirstShowService } from './../first_service';
@@ -19,7 +19,7 @@ declare let cordova: any;
 @Component({
   selector: 'page-calendar-chat',
   templateUrl: 'calendar-chat.html',
-  providers: [FirstShowService,NativeService],
+  providers: [FirstShowService, NativeService],
 })
 export class CalendarChatPage {
   item;
@@ -31,16 +31,18 @@ export class CalendarChatPage {
   imgList = [];
   isDeletePicture = false
   deletePicture
+  has_parent = false
   constructor(public navCtrl: NavController, public navParams: NavParams,
-              public showService: FirstShowService,public toast:ToastController,
-              public storage:Storage,public actionSheetCtrl:ActionSheetController,public nativeService:NativeService) {
-                this.frontPage = Utils.getViewController(this.navParams.get('navCtrl'), navCtrl)
-                this.item = this.navParams.get('item')
-                this.res_id = this.navParams.get('res_id')
-                this.type = this.navParams.get('type')
-                this.storage.get('user').then(res =>{
-                  this.uid = res.result.res_data.user_id;
-                })
+    public showService: FirstShowService, public toast: ToastController,
+    public storage: Storage, public actionSheetCtrl: ActionSheetController, public nativeService: NativeService) {
+    this.frontPage = Utils.getViewController(this.navParams.get('navCtrl'), navCtrl)
+    this.item = this.navParams.get('item')
+    this.res_id = this.navParams.get('res_id')
+    this.type = this.navParams.get('type')
+    this.has_parent = this.navParams.get('has_parent')
+    this.storage.get('user').then(res => {
+      this.uid = res.result.res_data.user_id;
+    })
   }
 
   ionViewDidLoad() {
@@ -51,18 +53,17 @@ export class CalendarChatPage {
     this.isDeletePicture = this.navParams.get('isDeletePicture')
     if (this.isDeletePicture) {
       this.navParams.data.isDeletePicture = false;
-     
-        this.imgList.splice(this.imgList.indexOf(this.deletePicture), 1)
-      
+
+      this.imgList.splice(this.imgList.indexOf(this.deletePicture), 1)
+
     }
   }
 
-  release(){
-    if (this.beizhuText.length == 0 || this.beizhuText.match(/^\s+$/g)){
+  release() {
+    if (this.beizhuText.length == 0 || this.beizhuText.match(/^\s+$/g)) {
       Utils.toastButtom("回复不可为空", this.toast)
     }
-    else
-    {
+    else {
       let body = {
         'uid': this.uid,
         'res_id': this.res_id,
@@ -70,6 +71,16 @@ export class CalendarChatPage {
         'parent_id': this.item.msg_id,
         'type': this.type,
         'imgList': this.imgList,
+      }
+      if (!this.has_parent) {
+        body = {
+          'uid': this.uid,
+          'res_id': this.res_id,
+          'context': this.beizhuText,
+          'parent_id': false,
+          'type': this.type,
+          'imgList': this.imgList,
+        }
       }
       this.showService.reply_to(body).then(res => {
         if (res.result.res_code == 1) {

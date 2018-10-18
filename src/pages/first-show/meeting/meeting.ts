@@ -666,6 +666,7 @@ handleData(){
         res_id: this.item.id,
         navCtrl: 'MeetingPage',
         type: 'rt.meeting',
+        has_parent:true,
       })
   }
 
@@ -704,6 +705,7 @@ handleData(){
         res_id: this.item.id,
         navCtrl: 'MeetingPage',
         type: 'rt.meeting',
+        has_parent:true,
       })
     }
 
@@ -712,25 +714,32 @@ handleData(){
     }
 
     send(){
-      if (this.context_message.length == 0 || this.context_message.match(/^\s+$/g)){
-      Utils.toastButtom("回复不可为空", this.toastCtrl)
-    }
-    else{
-      let body = {
-        'uid': this.uid,
-        'res_id': this.item.id,
-        'context': this.context_message,
-        'parent_id': false,
-        'type': 'rt.meeting',
-      }
-      this.firService.reply_to(body).then(res => {
-        if (res.result.res_code == 1) {
-          this.context_message = ''
-          Utils.toastButtom("回复成功", this.toastCtrl)
-          this.get_all_data()
-        }
+      this.navCtrl.push('CalendarChatPage',{
+        item: this.item,
+        res_id: this.item.id,
+        navCtrl: 'MeetingPage',
+        type: 'rt.meeting',
+        has_parent:false,
       })
-    }
+    //   if (this.context_message.length == 0 || this.context_message.match(/^\s+$/g)){
+    //   Utils.toastButtom("回复不可为空", this.toastCtrl)
+    // }
+    // else{
+    //   let body = {
+    //     'uid': this.uid,
+    //     'res_id': this.item.id,
+    //     'context': this.context_message,
+    //     'parent_id': false,
+    //     'type': 'rt.meeting',
+    //   }
+    //   this.firService.reply_to(body).then(res => {
+    //     if (res.result.res_code == 1) {
+    //       this.context_message = ''
+    //       Utils.toastButtom("回复成功", this.toastCtrl)
+    //       this.get_all_data()
+    //     }
+    //   })
+    // }
   }
   
   refresh_view()

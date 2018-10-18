@@ -310,10 +310,16 @@
 </ion-content>
 
 <ion-footer *ngIf="!isEdit && !search && !change" class="footer_class">
-    <ion-input #contextInput id='contextInput' class="input_class" [(ngModel)]="context_message" placeholder="写下你的回复..."></ion-input>
+    <!--<ion-input #contextInput id='contextInput' class="input_class" [(ngModel)]="context_message" placeholder="写下你的回复..."></ion-input>
     <button ion-button icon-only tappable (click)="send()" class="btn_class">
                 发送
-      </button>
+      </button>-->
+      <!--<div class="team_btn_class" tappable (click)='send()'>
+        回复
+    </div>-->
+    <ion-label tappable (click)="send()" class="input_class">
+      写下你的回复...
+  </ion-label>
 </ion-footer>
 
 <!--<ion-footer *ngIf="!isEdit" style="border-top:#f0f2f5 1px solid;background-color: white;">

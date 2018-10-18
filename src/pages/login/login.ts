@@ -34,7 +34,7 @@ declare let cordova: any;
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html',
-  providers: [LoginService, JPush, UrlServer,FirService]
+  providers: [LoginService, JPush, UrlServer, FirService]
 })
 
 export class LoginPage {
@@ -61,10 +61,10 @@ export class LoginPage {
   password_src;
   loadingDB;
   version: any;
-  constructor(public navCtrl: NavController, public navParams: NavParams,public loading:LoadingController,
+  constructor(public navCtrl: NavController, public navParams: NavParams, public loading: LoadingController,
     private loginservice: LoginService, private storage: Storage, public platform: Platform, public appVersion: AppVersion,
     public jpush: JPush, public urlServer: UrlServer, public ctrl: AlertController, private inAppBrowser: InAppBrowser,
-    public firService: FirService,private nativeService: NativeService,public toastCtrl: ToastController,public splashScreen: SplashScreen
+    public firService: FirService, private nativeService: NativeService, public toastCtrl: ToastController, public splashScreen: SplashScreen
   ) {
     this.storage.get("login").then(res => {
       if (res) {
@@ -169,8 +169,8 @@ export class LoginPage {
       this.chooseNewJiangsu()
     }
   }
- 
-  ionViewWillEnter(){
+
+  ionViewWillEnter() {
     if (this.platform.is("android")) {
       this.getVersionNumber();
     } else if (this.platform.is('ios')) {
@@ -190,23 +190,21 @@ export class LoginPage {
           window.localStorage.setItem("id", res.result.res_data.user_id)
           this.storage.get('user_psd').then(res => {
             HttpService.appUrl = res.url
-            if (this.chooseIndex==0)
-            {
+            if (res.db_name == 'odoo10') {
               this.navCtrl.setRoot('NewTabsPage');
             }
-            else
-            {
-              this.navCtrl.setRoot('NewTabsPage');
+            else {
+              this.navCtrl.setRoot('TabsPage');
               // this.navCtrl.setRoot('TabsPage');
             }
-            
+
             console.log(res)
             this.appVersion.getVersionNumber().then((value: string) => {
               let loading = this.loading.create({
                 content: '加载中',
                 enableBackdropDismiss: true
               });
-              loading.present();  
+              loading.present();
               this.loginservice.toLogin(res.user_email, res.user_psd, res.db_name, value)
                 .then(res => {
                   loading.dismiss()
@@ -218,11 +216,11 @@ export class LoginPage {
                     this.storage.set('loginIndex', this.chooseIndex)
                     this.storage.set("user", res).then(() => {
                     });
-                    if (res.user_psd == '123456'&&this.chooseIndex == 0) {
+                    if (res.user_psd == '123456' && this.chooseIndex == 0) {
                       this.ctrl.create({
                         title: '提示',
                         subTitle: "你的登录密码是初始密码，请立即修改。",
-                        enableBackdropDismiss :false,
+                        enableBackdropDismiss: false,
                         buttons: [{
                           text: '确定',
                           handler: () => {
@@ -307,7 +305,7 @@ export class LoginPage {
     this.isSelected0 = false;
     this.isSelected3 = true;
     this.isSelected2 = false;
-    this.isSelected1 = false;   
+    this.isSelected1 = false;
     this.isSelected4 = false;
     this.chooseIndex = 3;
     HttpService.appUrl = "http://erp.robotime.com/"
@@ -336,22 +334,22 @@ export class LoginPage {
 
 
   getDB() {
-   this.loadingDB = this.loading.create({
+    this.loadingDB = this.loading.create({
       content: '加载中',
       enableBackdropDismiss: true
     });
     setTimeout(() => {
       this.loadingDB.dismiss();//显示多久消失
-  }, 1000);
-  // if(this.chooseIndex==3){
-  //   this.employee = 'odoo0720'; 
-  //   this.toLogin();
-  // }else{
+    }, 1000);
+    // if(this.chooseIndex==3){
+    //   this.employee = 'odoo0720'; 
+    //   this.toLogin();
+    // }else{
     this.loginservice.getDBInfo().then(res => {
       this.employee = res.res_data[0]; //修改
       this.toLogin();
     });
-  // }
+    // }
   }
 
   isAutoLogin() {
@@ -369,7 +367,7 @@ export class LoginPage {
       this.autoLogin = false
     }
   }
-  
+
 
 
 
@@ -414,11 +412,11 @@ export class LoginPage {
     //   return
     // }
     // this.appVersion.getVersionNumber().then((value: string) => {
-      let loading = this.loading.create({
-        content: '加载中',
-        enableBackdropDismiss: true
-      });
-      loading.present(); 
+    let loading = this.loading.create({
+      content: '加载中',
+      enableBackdropDismiss: true
+    });
+    loading.present();
     this.loginservice.toLogin(this.email, this.password, this.employee, 'value')
       .then(res => {
         loading.dismiss()
@@ -463,7 +461,7 @@ export class LoginPage {
                     password: this.password,
                   })
                 }
-                
+
                 try {
                   this.storage.set("history_users", arr);
                 } catch (error) {
@@ -484,11 +482,11 @@ export class LoginPage {
               }
             })
           }
-          if (this.password == '123456'&&this.chooseIndex == 0) {
+          if (this.password == '123456' && this.chooseIndex == 0) {
             this.ctrl.create({
               title: '提示',
               subTitle: "你的登录密码是初始密码，请立即修改。",
-              enableBackdropDismiss :false,
+              enableBackdropDismiss: false,
               buttons: [{
                 text: '确定',
                 handler: () => {
@@ -501,14 +499,13 @@ export class LoginPage {
           }
           try {
             this.storage.set("user", res).then(() => {
-              if (this.chooseIndex==0){
-                 this.navCtrl.setRoot('NewTabsPage');
+              if (this.chooseIndex == 0) {
+                this.navCtrl.setRoot('NewTabsPage');
               }
-             else
-             {
-               this.navCtrl.setRoot('TabsPage');
-              //  this.navCtrl.setRoot('NewTabsPage');
-             }
+              else {
+                this.navCtrl.setRoot('TabsPage');
+                //  this.navCtrl.setRoot('NewTabsPage');
+              }
               // this.jpush.setAlias(res.result.res_data.user_id);
             });
           } catch (error) {
@@ -520,7 +517,7 @@ export class LoginPage {
           alert(res.result.res_data.error);
         }
       }).catch((error) => {
-          loading.dismiss()
+        loading.dismiss()
         console.log('Error getting location', error);
       })
     // })
