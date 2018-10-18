@@ -10,13 +10,15 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 // import { HttpService } from '../providers/HttpService'
 import { JPush } from '../providers/JPush'
+import { CodePush, InstallMode, SyncStatus } from '@ionic-native/code-push';
+
 // import { HttpModule } from "@angular/http";
 // import { FirService } from './FirService';
 // import { InAppBrowser } from '@ionic-native/in-app-browser';
 declare let cordova: any;
 @Component({
   templateUrl: 'app.html',
-  providers: [ JPush]
+  providers: [ JPush,CodePush]
 })
 export class MyApp {
   rootPage: any = 'LoginPage';
@@ -24,14 +26,12 @@ export class MyApp {
   user_env: any;
   constructor(public platform: Platform, statusBar: StatusBar,
     splashScreen: SplashScreen, 
-     private storage: Storage, public jpush: JPush) {
-    console.log('cnm')
+     private storage: Storage, public jpush: JPush,public codePush:CodePush) {
+
     platform.ready().then(() => {
-      console.log('nmb')
       splashScreen.hide();
-
       this.jpush.initJpush();
-
+      // this.checkCodePush()
       storage.get('user')
         .then(res => {
           this.user_env = res.result.res_data;
@@ -45,7 +45,29 @@ export class MyApp {
       // statusBar.styleLightContent();
       statusBar.backgroundColorByHexString('#f8f8f8');
       
+
+      
     });
+  }
+
+  checkCodePush() {
+    
+     this.codePush.sync({
+      updateDialog: {
+       appendReleaseDescription: true,
+       descriptionPrefix: "\n\nChange log:\n"   
+      },
+      installMode: InstallMode.IMMEDIATE
+   }).subscribe(
+     (data) => {
+      console.log('CODE PUSH SUCCESSFUL: ' + data);
+      
+     },
+     (err) => {
+      console.log('CODE PUSH ERROR: ' + err);
+      
+     }
+   );
   }
   // getVersionNumber(): Promise<string> {
   //   return new Promise((resolve) => {

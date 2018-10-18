@@ -50,7 +50,7 @@ import { NFC, Ndef } from '@ionic-native/nfc';
 // import { BLE } from '@ionic-native/ble';
 import { PhotoLibrary } from '@ionic-native/photo-library';
 import { FileOpener } from '@ionic-native/file-opener';
-
+import { CodePush } from '@ionic-native/code-push';
 
 @NgModule({
   declarations: [
@@ -102,7 +102,8 @@ import { FileOpener } from '@ionic-native/file-opener';
     DatePicker,
     Screenshot,
     NFC,Ndef,
-    PhotoLibrary
+    PhotoLibrary,
+    CodePush,
     // BLE,
   ]
 })
