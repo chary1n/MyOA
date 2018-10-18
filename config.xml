@@ -29,7 +29,7 @@
     <preference name="SplashShowOnlyFirstTime" value="false" />
     <preference name="FadeSplashScreen" value="true" />
     <preference name="SplashScreen" value="screen" />
-    <preference name="SplashScreenDelay" value="10000" />
+    <preference name="SplashScreenDelay" value="3000" />
     <preference name="loadUrlTimeoutValue" value="700000" />
     <preference name="AutoHideSplashScreen" value="false" />
     <preference name="Fullscreen" value="False" />
@@ -56,6 +56,7 @@
         <splash density="port-xhdpi" src="resources/android/splash/drawable-port-xhdpi-screen.png" />
         <splash density="port-xxhdpi" src="resources/android/splash/drawable-port-xxhdpi-screen.png" />
         <splash density="port-xxxhdpi" src="resources/android/splash/drawable-port-xxxhdpi-screen.png" />
+        <preference name="CodePushDeploymentKey" value="pbWCXsf_D5YaqfaFGa2__SvPnbBqec058a54-db8b-4662-8f01-27dfa637e2a5" />
     </platform>
     <platform name="ios">
         <allow-intent href="market:*" />

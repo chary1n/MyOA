@@ -4,6 +4,7 @@ import { FirService } from './../../app/FirService';
 
 import { HttpService } from './../../providers/HttpService';
 import { Storage } from '@ionic/storage';
+import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { JPush } from '../../providers/JPush'
 
@@ -63,6 +64,7 @@ export class LoginPage {
     private loginservice: LoginService, private storage: Storage, public platform: Platform, public appVersion: AppVersion,
     public jpush: JPush, public urlServer: UrlServer, public ctrl: AlertController, private inAppBrowser: InAppBrowser,
     public firService: FirService,private nativeService: NativeService,public toastCtrl: ToastController,
+    public splashScreen:SplashScreen
   ) {
     this.storage.get("login").then(res => {
       if (res) {
@@ -146,6 +148,7 @@ export class LoginPage {
   }
 
   ionViewDidEnter() {
+    this.splashScreen.hide();
     // if (this.platform.is("android")) {
     //   this.getVersionNumber();
     // }

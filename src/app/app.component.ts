@@ -25,8 +25,11 @@ export class MyApp {
   constructor(public platform: Platform, statusBar: StatusBar,
     splashScreen: SplashScreen, 
      private storage: Storage, public jpush: JPush) {
-
+    console.log('cnm')
     platform.ready().then(() => {
+      console.log('nmb')
+      splashScreen.hide();
+
       this.jpush.initJpush();
 
       storage.get('user')
@@ -41,7 +44,7 @@ export class MyApp {
       // statusBar.backgroundColorByHexString("#2597ec");
       // statusBar.styleLightContent();
       statusBar.backgroundColorByHexString('#f8f8f8');
-      splashScreen.hide();
+      
     });
   }
   // getVersionNumber(): Promise<string> {
