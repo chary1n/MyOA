@@ -67,6 +67,8 @@ export class MeetingPage {
   isShowTip = false
   title_meeting = '新建会议'
   title_meeting_two = '会议'
+  showIcon = false
+  create_user_name
   constructor(public navCtrl: NavController, public navParams: NavParams,public storage:Storage,
               private datePipe: DatePipe, public statusBar:StatusBar,public firService: FirstShowService
               ,public toastCtrl: ToastController,private sanitizer: DomSanitizer, public actionSheetCtrl: ActionSheetController) {
@@ -135,6 +137,7 @@ export class MeetingPage {
     this.rt_is_sure_time = this.item.rt_is_sure_time
         this.name = this.item.name
         this.rt_project_principal = this.item.rt_project_principal.name
+        this.create_user_name = this.item.create_user_name
         this.rt_meeting_ids = this.item.rt_meeting_ids
         this.selectList = this.item.rt_meeting_participant
         this.rt_alarm_type_id = this.item.rt_alarm_type
@@ -663,6 +666,7 @@ handleData(){
         res_id: this.item.id,
         navCtrl: 'MeetingPage',
         type: 'rt.meeting',
+        has_parent:true,
       })
   }
 
@@ -701,6 +705,7 @@ handleData(){
         res_id: this.item.id,
         navCtrl: 'MeetingPage',
         type: 'rt.meeting',
+        has_parent:true,
       })
     }
 
@@ -709,25 +714,32 @@ handleData(){
     }
 
     send(){
-      if (this.context_message.length == 0 || this.context_message.match(/^\s+$/g)){
-      Utils.toastButtom("回复不可为空", this.toastCtrl)
-    }
-    else{
-      let body = {
-        'uid': this.uid,
-        'res_id': this.item.id,
-        'context': this.context_message,
-        'parent_id': false,
-        'type': 'rt.meeting',
-      }
-      this.firService.reply_to(body).then(res => {
-        if (res.result.res_code == 1) {
-          this.context_message = ''
-          Utils.toastButtom("回复成功", this.toastCtrl)
-          this.get_all_data()
-        }
+      this.navCtrl.push('CalendarChatPage',{
+        item: this.item,
+        res_id: this.item.id,
+        navCtrl: 'MeetingPage',
+        type: 'rt.meeting',
+        has_parent:false,
       })
-    }
+    //   if (this.context_message.length == 0 || this.context_message.match(/^\s+$/g)){
+    //   Utils.toastButtom("回复不可为空", this.toastCtrl)
+    // }
+    // else{
+    //   let body = {
+    //     'uid': this.uid,
+    //     'res_id': this.item.id,
+    //     'context': this.context_message,
+    //     'parent_id': false,
+    //     'type': 'rt.meeting',
+    //   }
+    //   this.firService.reply_to(body).then(res => {
+    //     if (res.result.res_code == 1) {
+    //       this.context_message = ''
+    //       Utils.toastButtom("回复成功", this.toastCtrl)
+    //       this.get_all_data()
+    //     }
+    //   })
+    // }
   }
   
   refresh_view()
@@ -858,6 +870,28 @@ handleData(){
       });
       actionSheet.present();
     }
+  }
+
+  onScroll(){
+    console.log('111')
+    var node = document.getElementById('mytextarea');
+    if(node.style.textShadow === '') 
+         {		            
+           node.style.textShadow = 'rgba(0,0,0,0) 0 0 0';
+         } else 
+         {		            
+           node.style.textShadow = '';		        
+          }  
+
+
+  }
+
+  down_view(){
+    this.showIcon = false
+  }
+
+  up_view(){
+    this.showIcon = true
   }
 
 }

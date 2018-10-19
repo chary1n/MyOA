@@ -45,6 +45,7 @@ export class CalendarDeatilpagePage {
   type_notification = false//网页提醒
   rt_project_principal//负责人id
   rt_project_principal_name//负责人name
+  create_user_name
   partner_id_name
   subject//主题
   start_datetime = new Date(new Date().getTime() + 8 * 60 * 60 * 1000).toISOString();
@@ -74,10 +75,61 @@ export class CalendarDeatilpagePage {
   context_message;
   need_show_more_icon = true;
   title_meeting = '新建';
+  showIcon = false;
+
+  setting
+  zNodes = []
+  tree_obj
   constructor(public navCtrl: NavController, public navParams: NavParams, public statusBar: StatusBar,
     public firService: FirstShowService, public storage: Storage, public toastCtrl: ToastController,
     private datePipe: DatePipe, private sanitizer: DomSanitizer, public alertCtrl: AlertController,
     public keyboard: Keyboard, public actionSheetCtrl: ActionSheetController) {
+    var self = this
+    this.setting = {
+      check: {
+        enable: true,
+        chkStyle: "checkbox",
+        chkboxType: { "Y": "s", "N": "ps" }
+      },
+      data: {
+        simpleData: {
+          enable: true
+        }
+      },
+      callback: {
+        onClick: function (event, treeId, treeNode, clickFlag) {
+          self.showPeopleList = []
+          self.selectList = []
+          // this.tree_obj = $.fn.zTree.init($("#ztree"),this.setting,this.zNodes);
+          $.fn.zTree.getZTreeObj("ztree").checkNode(treeNode, !treeNode.checked, "checkTruePS", null)
+          var select_data = $.fn.zTree.getZTreeObj("ztree").getCheckedNodes(true)
+          for (let i = 0; i < select_data.length; i++) {
+            if (select_data[i].partner_id) {
+              select_data[i]['ischeck'] = true
+              self.showPeopleList.push(select_data[i])
+              self.selectList.push(select_data[i])
+            }
+          }
+        },
+        onCheck: function (e, treeId, treeNode) {
+          self.showPeopleList = []
+          self.selectList = []
+          var select_data = $.fn.zTree.getZTreeObj("ztree").getCheckedNodes(true)
+          for (let i = 0; i < select_data.length; i++) {
+            if (select_data[i].partner_id) {
+              select_data[i]['ischeck'] = true
+              self.showPeopleList.push(select_data[i])
+              self.selectList.push(select_data[i])
+            }
+          }
+        }
+      }
+    };
+    this.zNodes = [
+
+    ]
+
+
     // cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
     this.frontPage = Utils.getViewController(this.navParams.get('frontPage'), navCtrl)
     this.isEdit = this.navParams.get('isEdit')
@@ -118,12 +170,10 @@ export class CalendarDeatilpagePage {
         this.item_change()
       }
 
-      if (this.user.partner_id == this.item.rt_project_principal.partner_id_s_id || this.uid == this.item.create_uid)
-      {
+      if (this.user.partner_id == this.item.rt_project_principal.partner_id_s_id || this.uid == this.item.create_uid) {
         this.need_show_more_icon = true
       }
-      else
-      {
+      else {
         this.need_show_more_icon = false
       }
 
@@ -134,7 +184,12 @@ export class CalendarDeatilpagePage {
     return this.sanitizer.bypassSecurityTrustHtml(str)
   }
 
+  ionViewDidEnter() {
+    this.tree_obj = $.fn.zTree.init($("#ztree"), this.setting, this.zNodes);
+  }
+
   ionViewDidLoad() {
+
     console.log('ionViewDidLoad CalendarDeatilpagePage');
   }
   //根据item赋值
@@ -142,6 +197,7 @@ export class CalendarDeatilpagePage {
     this.state = this.item.state
     this.location = this.item.location
     this.rt_project_principal_name = this.item.rt_project_principal.partner_id_s_name
+    this.create_user_name = this.item.create_user_name
     this.subject = this.item.subject
     this.rt_is_sure_time = this.item.rt_is_sure_time
     this.allday = this.item.allday
@@ -221,38 +277,38 @@ export class CalendarDeatilpagePage {
   delete() {
     var that = this
     var ctrl = this.alertCtrl;
-        ctrl.create({
-            title: '提示',
-            message: "是否确定删除？",
-            buttons: [{
-                    text: '取消',
-                    handler: function (data) {
-                        // cordova.plugins.Keyboard.close();
-                    }
-                },
-                {
-                    text: '确定',
-                    handler: function (data) {
-                        if (that.user.partner_id == that.item.rt_project_principal.partner_id_s_id || that.uid == that.item.create_uid) {
-      let body = {
-        'id': that.item.id,
-        'uid': that.uid
-      }
-      that.firService.delete_res_model(body).then(res => {
-        that.frontPage.data.need_fresh = true;
-          that.navCtrl.pop()
-      })
-    } else {
-      Utils.toastButtom('只有负责人和创建人可以删除', this.toastCtrl)
-    }
-                    }
-                }]
-        }).present();
-    
+    ctrl.create({
+      title: '提示',
+      message: "是否确定删除？",
+      buttons: [{
+        text: '取消',
+        handler: function (data) {
+          // cordova.plugins.Keyboard.close();
+        }
+      },
+      {
+        text: '确定',
+        handler: function (data) {
+          if (that.user.partner_id == that.item.rt_project_principal.partner_id_s_id || that.uid == that.item.create_uid) {
+            let body = {
+              'id': that.item.id,
+              'uid': that.uid
+            }
+            that.firService.delete_res_model(body).then(res => {
+              that.frontPage.data.need_fresh = true;
+              that.navCtrl.pop()
+            })
+          } else {
+            Utils.toastButtom('只有负责人和创建人可以删除', this.toastCtrl)
+          }
+        }
+      }]
+    }).present();
+
   }
   //编辑状态下取消
   changeCancel() {
-    cordova.plugins.Keyboard.close()
+    // cordova.plugins.Keyboard.close()
     if (this.search) {
       this.search = false
       if (this.select_type == 1) {
@@ -266,7 +322,7 @@ export class CalendarDeatilpagePage {
   }
   //编辑状态下完成
   changeFinish() {
-    cordova.plugins.Keyboard.close()
+    // cordova.plugins.Keyboard.close()
     if (this.search) {
       this.search = false
       return
@@ -315,6 +371,7 @@ export class CalendarDeatilpagePage {
       this.allday = this.item.allday
       this.rt_project_principal_name = this.item.rt_project_principal.partner_id_s_name
       this.rt_project_principal = this.item.rt_project_principal.partner_id_s_id
+      this.create_user_name = this.item.create_user_name
       this.rt_is_sure_time = this.item.rt_is_sure_time
       this.subject = this.item.subject
       this.type_name = this.item.type_name
@@ -337,7 +394,7 @@ export class CalendarDeatilpagePage {
   }
   //取消新建待办事项
   cancel() {
-    cordova.plugins.Keyboard.close()
+    // cordova.plugins.Keyboard.close()
     if (this.search) {
       this.title_meeting = '新建'
       this.search = false
@@ -350,7 +407,7 @@ export class CalendarDeatilpagePage {
   }
   //新建待办事项完成
   stateFinish() {
-    cordova.plugins.Keyboard.close()
+    // cordova.plugins.Keyboard.close()
     if (this.search) {
       this.title_meeting = '新建'
       this.search = false
@@ -496,6 +553,15 @@ export class CalendarDeatilpagePage {
     for (var i = 0; i < this.showPeopleList.length; i++) {
       if (item.partner_id == this.showPeopleList[i].partner_id) {
         this.showPeopleList.splice(i, 1)
+        var select_datas = $.fn.zTree.getZTreeObj("ztree").getCheckedNodes(true)
+        for (var j = 0; j < select_datas.length; j++) {
+          if (select_datas[j].partner_id) {
+            if (select_datas[j].partner_id == item.partner_id) {
+              this.tree_obj.checkNode(select_datas[j], false, "checkTruePS", null)
+            }
+          }
+
+        }
         break
       }
     }
@@ -511,10 +577,10 @@ export class CalendarDeatilpagePage {
     })
     this.search = true
     this.select_type = 2
-    setTimeout(() => {
-      this.nameInput.setFocus();//输入框获取焦点
-      // cordova.plugins.Keyboard.show();
-    })
+    // setTimeout(() => {
+    //   this.nameInput.setFocus();//输入框获取焦点
+    //   // cordova.plugins.Keyboard.show();
+    // })
   }
   //选择参与人员
   selectPartner() {
@@ -524,9 +590,28 @@ export class CalendarDeatilpagePage {
     this.storeList = this.storeList.concat(this.selectList)
     this.search = true
     this.select_type = 1
-    setTimeout(() => {
-      this.nameInput.setFocus();//输入框获取焦点
-      // cordova.plugins.Keyboard.show();
+    // setTimeout(() => {
+    //   this.nameInput.setFocus();//输入框获取焦点
+    //   // cordova.plugins.Keyboard.show();
+    // })
+    var self = this
+    this.firService.get_all_department({ 'uid': this.uid }).then(res => {
+      if (res.result.res_data && res.result.res_code == 1) {
+        self.zNodes = res.result.res_data
+        for (let i = 0; i < self.selectList.length; i++) {
+          var select_data = self.selectList[i]
+          for (let j = 0; j < self.zNodes.length; j++) {
+            var node_data = self.zNodes[j]
+            if (node_data.partner_id) {
+              if (select_data.partner_id == node_data.partner_id) {
+                self.zNodes[j]['checked'] = true
+              }
+            }
+          }
+        }
+
+        self.tree_obj = $.fn.zTree.init($("#ztree"), self.setting, self.zNodes);
+      }
     })
   }
 
@@ -776,30 +861,30 @@ export class CalendarDeatilpagePage {
   blurInput() {
   }
 
-  only_reply_to(items){
+  only_reply_to(items) {
     this.navCtrl.push('CalendarChatPage', {
       item: items,
       res_id: this.item.id,
       navCtrl: 'CalendarDeatilpagePage',
       type: 'calendar.event',
+      has_parent:true,
     })
   }
 
   reply_to(items) {
-    if (items.create_uid_id == this.uid)
-    {
-        let actionSheet = this.actionSheetCtrl.create({
+    if (items.create_uid_id == this.uid) {
+      let actionSheet = this.actionSheetCtrl.create({
         title: '是否删除此回复',
         buttons: [
           {
             text: '确定',
             handler: () => {
-              this.firService.delete_reply({'uid': this.uid,'reply_id':items.msg_id}).then(res => {
-                          if (res.result.res_code == 1) {
-                            Utils.toastButtom("删除成功", this.toastCtrl)
-                            this.refresh_view()
-                          }
-                        })
+              this.firService.delete_reply({ 'uid': this.uid, 'reply_id': items.msg_id }).then(res => {
+                if (res.result.res_code == 1) {
+                  Utils.toastButtom("删除成功", this.toastCtrl)
+                  this.refresh_view()
+                }
+              })
             }
           },
           {
@@ -813,39 +898,47 @@ export class CalendarDeatilpagePage {
       });
       actionSheet.present();
     }
-    else
-    {
+    else {
       this.navCtrl.push('CalendarChatPage', {
-      item: items,
-      res_id: this.item.id,
-      navCtrl: 'CalendarDeatilpagePage',
-      type: 'calendar.event',
-    })
+        item: items,
+        res_id: this.item.id,
+        navCtrl: 'CalendarDeatilpagePage',
+        type: 'calendar.event',
+        has_parent: true,
+      })
     }
-    
+
   }
 
   send() {
 
-    if (this.context_message.length == 0 || this.context_message.match(/^\s+$/g)) {
-      Utils.toastButtom("回复不可为空", this.toastCtrl)
-    }
-    else {
-      let body = {
-        'uid': this.uid,
-        'res_id': this.item.id,
-        'context': this.context_message,
-        'parent_id': false,
-        'type': 'calendar.event',
-      }
-      this.firService.reply_to(body).then(res => {
-        if (res.result.res_code == 1) {
-          this.context_message = ''
-          Utils.toastButtom("回复成功", this.toastCtrl)
-          this.refresh_view()
-        }
+    // if (this.context_message.length == 0 || this.context_message.match(/^\s+$/g)) {
+    //   Utils.toastButtom("回复不可为空", this.toastCtrl)
+    // }
+    // else {
+      this.navCtrl.push('CalendarChatPage', {
+        item: this.item,
+        res_id: this.item.id,
+        navCtrl: 'CalendarDeatilpagePage',
+        type: 'calendar.event',
+        has_parent: false,
       })
-    }
+
+      // let body = {
+      //   'uid': this.uid,
+      //   'res_id': this.item.id,
+      //   'context': this.context_message,
+      //   'parent_id': false,
+      //   'type': 'calendar.event',
+      // }
+      // this.firService.reply_to(body).then(res => {
+      //   if (res.result.res_code == 1) {
+      //     this.context_message = ''
+      //     Utils.toastButtom("回复成功", this.toastCtrl)
+      //     this.refresh_view()
+      //   }
+      // })
+    // }
   }
 
   refresh_view() {
@@ -869,7 +962,7 @@ export class CalendarDeatilpagePage {
             handler: () => {
               this.finish()
             }
-          },{
+          }, {
             text: '编辑',
             handler: () => {
               this.edit()
@@ -881,7 +974,7 @@ export class CalendarDeatilpagePage {
               this.delete()
             }
           },
-          
+
           {
             text: '取消',
             role: 'cancel',
@@ -923,11 +1016,11 @@ export class CalendarDeatilpagePage {
     }
   }
 
-  cancel_zan(items){
+  cancel_zan(items) {
     let body = {
       'uid': this.uid,
       'type': 'delete',
-      'msg_id': items.msg_id, 
+      'msg_id': items.msg_id,
     }
     this.firService.update_zan(body).then(res => {
       if (res.result.res_code == 1) {
@@ -936,11 +1029,11 @@ export class CalendarDeatilpagePage {
     })
   }
 
-  update_zan(items){
+  update_zan(items) {
     let body = {
       'uid': this.uid,
       'type': 'add',
-      'msg_id': items.msg_id, 
+      'msg_id': items.msg_id,
     }
     this.firService.update_zan(body).then(res => {
       if (res.result.res_code == 1) {
@@ -949,21 +1042,20 @@ export class CalendarDeatilpagePage {
     })
   }
 
-  delete_reply(items){
-    if (items.create_uid_id == this.uid)
-    {
-        let actionSheet = this.actionSheetCtrl.create({
+  delete_reply(items) {
+    if (items.create_uid_id == this.uid) {
+      let actionSheet = this.actionSheetCtrl.create({
         title: '是否删除此回复',
         buttons: [
           {
             text: '确定',
             handler: () => {
-              this.firService.delete_reply({'uid': this.uid,'reply_id':items.msg_id}).then(res => {
-                          if (res.result.res_code == 1) {
-                            Utils.toastButtom("删除成功", this.toastCtrl)
-                            this.refresh_view()
-                          }
-                        })
+              this.firService.delete_reply({ 'uid': this.uid, 'reply_id': items.msg_id }).then(res => {
+                if (res.result.res_code == 1) {
+                  Utils.toastButtom("删除成功", this.toastCtrl)
+                  this.refresh_view()
+                }
+              })
             }
           },
           {
@@ -977,6 +1069,26 @@ export class CalendarDeatilpagePage {
       });
       actionSheet.present();
     }
+  }
+
+  onScroll() {
+    console.log('111')
+    var node = document.getElementById('mytextarea');
+    if (node.style.textShadow === '') {
+      node.style.textShadow = 'rgba(0,0,0,0) 0 0 0';
+    } else {
+      node.style.textShadow = '';
+    }
+
+
+  }
+
+  down_view() {
+    this.showIcon = false
+  }
+
+  up_view() {
+    this.showIcon = true
   }
 
 
