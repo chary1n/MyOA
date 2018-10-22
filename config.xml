@@ -13,6 +13,7 @@
     <allow-navigation href="http://192.168.2.8:8101" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
+    
     <allow-intent href="tel:*" />
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
@@ -29,7 +30,15 @@
     <preference name="SplashShowOnlyFirstTime" value="false" />
     <preference name="FadeSplashScreen" value="true" />
     <preference name="SplashScreen" value="screen" />
+<<<<<<< HEAD
+    <preference name="SplashScreenDelay" value="3000" />
+=======
+<<<<<<< HEAD
+    <preference name="SplashScreenDelay" value="3000" />
+=======
     <preference name="SplashScreenDelay" value="2000" />
+>>>>>>> f0a1fbaac99acee6fbe885f86ed561f5844d14c9
+>>>>>>> 35d09c05a5215aa39727793d31eac780f6179e0b
     <preference name="loadUrlTimeoutValue" value="700000" />
     <preference name="AutoHideSplashScreen" value="false" />
     <preference name="Fullscreen" value="False" />
@@ -56,6 +65,7 @@
         <splash density="port-xhdpi" src="resources/android/splash/drawable-port-xhdpi-screen.png" />
         <splash density="port-xxhdpi" src="resources/android/splash/drawable-port-xxhdpi-screen.png" />
         <splash density="port-xxxhdpi" src="resources/android/splash/drawable-port-xxxhdpi-screen.png" />
+        <preference name="CodePushDeploymentKey" value="pbWCXsf_D5YaqfaFGa2__SvPnbBqec058a54-db8b-4662-8f01-27dfa637e2a5" />
     </platform>
     <platform name="ios">
         <allow-intent href="market:*" />
@@ -165,6 +175,7 @@
     <plugin name="cordova-plugin-file-transfer" spec="~1.6.3" />
     <allow-navigation href="http://192.168.1.244:8100" />
     <plugin name="cordova-plugin-file-opener2" spec="^2.0.19" />
+    <plugin name="cordova-plugin-camera" spec="^2.4.1" />
     <plugin name="cordova-plugin-filechooser" spec="~1.0.1" />
     <plugin name="cordova-plugin-filepath" spec="~1.4.2" />
     <plugin name="cordova-plugin-code-push" spec="~1.11.13" />
