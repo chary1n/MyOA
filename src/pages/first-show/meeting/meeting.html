@@ -64,11 +64,14 @@
         <ion-input #nameInput type="search" style="width: 100%;border-bottom: #c3c5c9 1px solid;padding-left: 10px;" (ngModelChange)="searchInput($event)"
             [(ngModel)]="linshiString"></ion-input>
         <!-- <ion-searchbar #searchbar id="searchbar" placeholder = "搜索"   (search)="searchByKeyword($event)" (ionClear)="clearText()"></ion-searchbar> -->
-        <ion-list>
+        <ion-list *ngIf="employeeList.length > 0">
             <ion-item no-lines *ngFor='let item of employeeList' tappable (click)="choosePeople(item)" style="border-bottom: #f0f2f5 1px solid;min-height: 25px">
                 <ion-label>{{item.partner_name}}</ion-label>
             </ion-item>
         </ion-list>
+        <div>
+            <ul id="ztree" class="ztree" style="padding-bottom:44px"></ul>
+        </div>
     </div>
     <div *ngIf="!isEdit && !search && !showIcon">
         <div style="background-color: white">
@@ -235,8 +238,8 @@
                       border-right:white 0px solid;overflow-y: visible;"></textarea>
         </div>
     </div>
-    <ion-icon *ngIf="showIcon" name="arrow-down" tappable (click)="down_view()" class="icon_class_down"></ion-icon>
-    <ion-icon *ngIf="!showIcon" name="arrow-up" tappable (click)="up_view()" class="icon_class"></ion-icon>
+    <!--<ion-icon *ngIf="showIcon && !isEdit && !change && !search" name="arrow-down" tappable (click)="down_view()" class="icon_class_down"></ion-icon>
+    <ion-icon *ngIf="!showIcon && !isEdit && !change && !search" name="arrow-up" tappable (click)="up_view()" class="icon_class"></ion-icon>-->
     <div *ngIf='item && !isEdit && !search && !change' class="differ_div_class">
         <div *ngIf='item.message_length > 0'>
             回复 ( {{item.message_length}} )
@@ -272,12 +275,12 @@
                 <p text-wrap [ngClass]="{true:'content_message',false:'content_message_no_lines'}[items.child_ids.length > 0]" class="">
                     <span></span><span style="color:#1f6699;"></span><span>{{items.context}}</span>
                     <ion-grid *ngIf="items.attachment_ids.length > 0" style="margin-top:-5px;margin-bottom:5px">
-            <ion-row style="margin-right:5px;">
-              <ion-col style="height:70px" *ngFor="let image of items.attachment_ids" col-3>
-                <img style="position:absolute;clip:rect(0px,70px,70px,0px);background-color:#f0f2f5" src='{{image}}' imageViewer/>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
+                        <ion-row style="margin-right:5px;">
+                            <ion-col style="height:70px" *ngFor="let image of items.attachment_ids" col-3>
+                                <img style="position:absolute;clip:rect(0px,70px,70px,0px);background-color:#f0f2f5" src='{{image}}' imageViewer/>
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
                 </p>
 
             </ion-item>
@@ -298,12 +301,12 @@
                 </p>
                 <ion-grid *ngIf="line.attachment_ids.length > 0" style="margin-top: -30px;
     margin-bottom: 25px;">
-            <ion-row style="margin-right:5px;">
-              <ion-col style="height:70px;margin-top:10px;" *ngFor="let image of line.attachment_ids" col-3>
-                <img style="position:absolute;clip:rect(0px,70px,70px,0px);background-color:#f0f2f5" src='{{image}}' imageViewer/>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
+                    <ion-row style="margin-right:5px;">
+                        <ion-col style="height:70px;margin-top:10px;" *ngFor="let image of line.attachment_ids" col-3>
+                            <img style="position:absolute;clip:rect(0px,70px,70px,0px);background-color:#f0f2f5" src='{{image}}' imageViewer/>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
             </div>
         </div>
     </ion-list>
@@ -314,12 +317,12 @@
     <button ion-button icon-only tappable (click)="send()" class="btn_class">
                 发送
       </button>-->
-      <!--<div class="team_btn_class" tappable (click)='send()'>
+    <!--<div class="team_btn_class" tappable (click)='send()'>
         回复
     </div>-->
     <ion-label tappable (click)="send()" class="input_class">
-      写下你的回复...
-  </ion-label>
+        写下你的回复...
+    </ion-label>
 </ion-footer>
 
 <!--<ion-footer *ngIf="!isEdit" style="border-top:#f0f2f5 1px solid;background-color: white;">

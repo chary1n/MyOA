@@ -88,7 +88,7 @@ export class LoginPage {
       this.storage.get("login").then(res => {
         this.storage.get("user").then(user => {
           HttpService.need_back_login = true
-          console.log(HttpService.need_back_login)
+          // console.log(HttpService.need_back_login)
           if (res) {
             if (res.autoLogin && user) {
               this.toAutoLogin()
@@ -110,7 +110,7 @@ export class LoginPage {
       this.appVersion.getVersionCode().then((value: string) => {
         resolve(value);
         this.version = value;
-        console.log(this.version)
+        // console.log(this.version)
         this.nativeService.detectionUpgrade(this.version);
       }).catch(err => {
       });
@@ -122,7 +122,7 @@ export class LoginPage {
     return new Promise((resolve) => {
       this.appVersion.getVersionNumber().then((value: string) => {
         this.firService.get('fir_ios', 1).then(res => {
-          console.log(res)
+          // console.log(res)
           if (res.version > value) {
             this.ctrl.create({
               title: '发现新版本,是否立即升级？',
@@ -190,7 +190,7 @@ export class LoginPage {
           window.localStorage.setItem("id", res.result.res_data.user_id)
           this.storage.get('user_psd').then(res => {
             HttpService.appUrl = res.url
-            if (res.db_name == 'odoo10') {
+            if (res.db_name == 'odoo10') {  // 
               this.navCtrl.setRoot('NewTabsPage');
             }
             else {
@@ -198,7 +198,7 @@ export class LoginPage {
               // this.navCtrl.setRoot('TabsPage');
             }
 
-            console.log(res)
+            // console.log(res)
             this.appVersion.getVersionNumber().then((value: string) => {
               let loading = this.loading.create({
                 content: '加载中',
@@ -208,7 +208,7 @@ export class LoginPage {
               this.loginservice.toLogin(res.user_email, res.user_psd, res.db_name, value)
                 .then(res => {
                   loading.dismiss()
-                  console.log(res);
+                  // console.log(res);
                   if (res.result && res.result.res_code == 1) {
                     loading.dismiss()
                     HttpService.user_id = res.result.res_data.user_id;
@@ -373,8 +373,8 @@ export class LoginPage {
 
   // 登录
   toLogin() {
-    console.log(this.employee)
-    console.log(this.remerberPassword)
+    // console.log(this.employee)
+    // console.log(this.remerberPassword)
     try {
       this.storage.set("login", {
         autoLogin: this.autoLogin,
@@ -420,7 +420,7 @@ export class LoginPage {
     this.loginservice.toLogin(this.email, this.password, this.employee, 'value')
       .then(res => {
         loading.dismiss()
-        console.log(res);
+        // console.log(res);
         if (res.result && res.result.res_code == 1) {
           loading.dismiss()
           HttpService.user_id = res.result.res_data.user_id;
@@ -518,7 +518,7 @@ export class LoginPage {
         }
       }).catch((error) => {
         loading.dismiss()
-        console.log('Error getting location', error);
+        // console.log('Error getting location', error);
       })
     // })
 
@@ -529,7 +529,7 @@ export class LoginPage {
       this.history_arr = []
       this.storage.get("history_users").then(res => {
         if (res) {
-          console.log(res)
+          // console.log(res)
 
           for (let item of res) {
             // console.log((new RegExp(this.email).test(item.email)))
@@ -545,7 +545,7 @@ export class LoginPage {
 
 
   watchPassword(event) {
-    console.log(this.password)
+    // console.log(this.password)
     if (this.password) {
       this.isDisabled = false
     } else {
@@ -554,7 +554,7 @@ export class LoginPage {
   }
 
   click(item) {
-    console.log("2")
+    // console.log("2")
     this.email = item.email;
     this.password = item.password;
     this.isDisabled = false

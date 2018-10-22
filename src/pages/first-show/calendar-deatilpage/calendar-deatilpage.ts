@@ -106,8 +106,11 @@ export class CalendarDeatilpagePage {
           for (let i = 0; i < select_data.length; i++) {
             if (select_data[i].partner_id) {
               select_data[i]['ischeck'] = true
-              self.showPeopleList.push(select_data[i])
-              self.selectList.push(select_data[i])
+              if (self.fetch_is_in_arr(select_data[i])) {
+                self.showPeopleList.push(select_data[i])
+                self.selectList.push(select_data[i])
+              }
+
             }
           }
         },
@@ -118,8 +121,10 @@ export class CalendarDeatilpagePage {
           for (let i = 0; i < select_data.length; i++) {
             if (select_data[i].partner_id) {
               select_data[i]['ischeck'] = true
-              self.showPeopleList.push(select_data[i])
-              self.selectList.push(select_data[i])
+              if (self.fetch_is_in_arr(select_data[i])) {
+                self.showPeopleList.push(select_data[i])
+                self.selectList.push(select_data[i])
+              }
             }
           }
         }
@@ -317,7 +322,7 @@ export class CalendarDeatilpagePage {
     } else {
       this.isEdit = false
       this.change = false
-      this.content.resize()
+      // this.content.resize()
     }
   }
   //编辑状态下完成
@@ -333,7 +338,7 @@ export class CalendarDeatilpagePage {
       if (res.result.res_data && res.result.res_code == 1) {
         this.isEdit = false
         this.change = false
-        this.content.resize()
+        // this.content.resize()
         this.item = res.result.res_data
         this.description = this.item.description.replace(/\n/g, "<br>")
         if (this.allday && this.item.start && this.item.stop) {
@@ -358,8 +363,8 @@ export class CalendarDeatilpagePage {
   }
   //编辑
   edit() {
-
-    this.content.resize()
+    this.down_view()
+    // this.content.resize()
     if (this.item.state == false) {
       Utils.toastButtom('完成状态不可编辑', this.toastCtrl)
       return
@@ -385,7 +390,7 @@ export class CalendarDeatilpagePage {
         this.stop_datetime = this.datePipe.transform(new Date(this.item.stop.replace(/-/g, "/")), 'yyyy-MM-dd HH:mm').replace(' ', 'T') + 'Z'
       }
       this.location = this.item.location
-      this.description = this.item.description
+      // this.description = this.item.description
       this.type_app = this.item.type_app
       this.type_notification = this.item.type_notification
     } else {
@@ -560,7 +565,6 @@ export class CalendarDeatilpagePage {
               this.tree_obj.checkNode(select_datas[j], false, "checkTruePS", null)
             }
           }
-
         }
         break
       }
@@ -662,7 +666,14 @@ export class CalendarDeatilpagePage {
     if (this.select_type == 1) {
       item.ischeck = !item.ischeck
       if (item.ischeck) {
-        this.showPeopleList.push(item)
+        if (this.fetch_is_in_arr(item)) {
+          this.showPeopleList.push(item)
+          let need_select = this.tree_obj.getNodesByParam('partner_id', item.partner_id, null)
+          for (let i = 0; i < need_select.length; i++) {
+            this.tree_obj.checkNode(need_select[i], true, "checkTruePS", null)
+          }
+        }
+
       } else {
         for (var i = 0; i < this.showPeopleList.length; i++) {
           if (item.partner_id == this.showPeopleList[i].partner_id) {
@@ -867,7 +878,7 @@ export class CalendarDeatilpagePage {
       res_id: this.item.id,
       navCtrl: 'CalendarDeatilpagePage',
       type: 'calendar.event',
-      has_parent:true,
+      has_parent: true,
     })
   }
 
@@ -916,28 +927,28 @@ export class CalendarDeatilpagePage {
     //   Utils.toastButtom("回复不可为空", this.toastCtrl)
     // }
     // else {
-      this.navCtrl.push('CalendarChatPage', {
-        item: this.item,
-        res_id: this.item.id,
-        navCtrl: 'CalendarDeatilpagePage',
-        type: 'calendar.event',
-        has_parent: false,
-      })
+    this.navCtrl.push('CalendarChatPage', {
+      item: this.item,
+      res_id: this.item.id,
+      navCtrl: 'CalendarDeatilpagePage',
+      type: 'calendar.event',
+      has_parent: false,
+    })
 
-      // let body = {
-      //   'uid': this.uid,
-      //   'res_id': this.item.id,
-      //   'context': this.context_message,
-      //   'parent_id': false,
-      //   'type': 'calendar.event',
-      // }
-      // this.firService.reply_to(body).then(res => {
-      //   if (res.result.res_code == 1) {
-      //     this.context_message = ''
-      //     Utils.toastButtom("回复成功", this.toastCtrl)
-      //     this.refresh_view()
-      //   }
-      // })
+    // let body = {
+    //   'uid': this.uid,
+    //   'res_id': this.item.id,
+    //   'context': this.context_message,
+    //   'parent_id': false,
+    //   'type': 'calendar.event',
+    // }
+    // this.firService.reply_to(body).then(res => {
+    //   if (res.result.res_code == 1) {
+    //     this.context_message = ''
+    //     Utils.toastButtom("回复成功", this.toastCtrl)
+    //     this.refresh_view()
+    //   }
+    // })
     // }
   }
 
@@ -1089,6 +1100,16 @@ export class CalendarDeatilpagePage {
 
   up_view() {
     this.showIcon = true
+  }
+
+  fetch_is_in_arr(item) {
+    let is_has = false
+    for (let i = 0; i < this.showPeopleList.length; i++) {
+      if (this.showPeopleList[i].partner_id == item.partner_id) {
+        is_has = true
+      }
+    }
+    return !is_has
   }
 
 

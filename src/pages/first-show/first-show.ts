@@ -596,7 +596,7 @@ export class FirstShowPage {
   }
 
   click_un_read_reply(){
-    console.log(this.un_read_list)
+    // console.log(this.un_read_list)
     this.navCtrl.push('UnreadReplyPage',{
           item:this.un_read_list
         })

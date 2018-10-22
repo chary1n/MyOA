@@ -120,8 +120,8 @@
       <ion-item no-lines style="margin-top: 5px;padding: 1px;border-bottom:#f0f2f5 1px solid;border-top:#f0f2f5 1px solid;min-height: 25px">
         <ion-label style="font-size: 13px;margin-left: 15px;color: black;font-weight:bold;">{{dateNow}}</ion-label>
         <div style="padding: 1px;" item-end class="divBac" *ngIf="showLate" tappable (click)="latePage()">
-          <p style="font-size: 12px;color: #E98553;margin-top: auto;margin-bottom: auto">
-            <span>逾期({{lateNum}})</span>
+          <p style="font-size: 12px;color: #E98553;margin-top: auto;margin-bottom: auto;line-height: 25px;">
+            <span>逾期({{lateNum}}) ></span>
             <!--<span>            
               <ion-icon name="arrow-forward" style="color: #E98553;margin-top: auto;margin-bottom: auto"></ion-icon>
             </span>-->
@@ -135,23 +135,42 @@
       </ion-item>
       <ion-list style="width: 100%;border-top:#f0f2f5 1px solid;">
         <ion-item no-lines style="height: 50px;;min-height: 25px;" *ngFor="let item of itemList" tappable (click)="gotoDeatil(item)">
-          <p item-start *ngIf="!item.allday" style="font-size: 12px;width: 40px">{{item.event_time}}
+          <p item-start style="font-size: 12px;width: 40px">{{item.event_time}}
           </p>
-          <p item-start *ngIf="item.allday" style="font-size: 12px;width: 40px;opacity: 0;">{{item.event_time}}
-          </p>
+          <!--<p item-start *ngIf="item.allday" style="font-size: 12px;width: 40px;opacity: 0;">{{item.event_time}}
+          </p>-->
           <div item-start style="height: 105%;;width: 10px">
             <div style="position: absolute;width: 1px;border-left:#f0f2f5 1px solid;height: 40%;margin-left: 4px;"></div>
             <img *ngIf="item.state" src="assets/img/circle.png" style="padding-top: 20px">
             <img *ngIf="!item.state" src="assets/img/finish_circle.png" style="padding-top: 20px">
             <div style="position: absolute;width: 1px;border-left:#f0f2f5 1px solid;height: 70%;margin-left: 4px;margin-top: -5px"></div>
           </div>
-          <ion-label item-end [ngClass]="{true:'notFinish',false:'finish'}[item.state]">[{{item.type_name}}]:{{item.subject}}-{{item.rt_project_principal_display_name}}</ion-label>
+          <div [ngClass]="{true:'notFinish',false:'finish'}[item.state]">
+            <div style="float: left;
+    height: 20px;">
+              <span style="    overflow: hidden;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 190px;
+    display: block;">
+              [{{item.type_name}}]:{{item.subject}}
+              </span>
+            </div>
+            <div>
+              <span>
+              ——{{item.rt_project_principal_display_name}}
+            </span>
+            </div>
+
+          </div>
         </ion-item>
-        <ion-item no-lines style="margin-top: 5px;padding: 1px;border-bottom:#f0f2f5 1px solid;border-top:#f0f2f5 1px solid;min-height: 25px" *ngIf="notSureList.length > 0"> 
+        <ion-item no-lines style="margin-top: 5px;padding: 1px;border-bottom:#f0f2f5 1px solid;border-top:#f0f2f5 1px solid;min-height: 25px"
+          *ngIf="notSureList.length > 0">
           <ion-label style="font-size: 13px;margin-left: 15px;color: black;font-weight:bold;">时间待定</ion-label>
         </ion-item>
         <ion-item no-lines style="height: 50px;;min-height: 25px;" *ngFor="let item of notSureList" tappable (click)="gotoDeatil(item)">
-          <p item-start  style="font-size: 13px;width: 40px;">待定
+          <p item-start style="font-size: 13px;width: 40px;">待定
           </p>
           <div item-start style="height: 105%;;width: 10px">
             <div style="position: absolute;width: 1px;border-left:#f0f2f5 1px solid;height: 40%;margin-left: 4px;"></div>
@@ -159,7 +178,24 @@
             <img *ngIf="!item.state" src="assets/img/finish_circle.png" style="padding-top: 20px">
             <div style="position: absolute;width: 1px;border-left:#f0f2f5 1px solid;height: 70%;margin-left: 4px;margin-top: -5px"></div>
           </div>
-          <ion-label item-end [ngClass]="{true:'notFinish',false:'finish'}[item.state]">[{{item.type_name}}]:{{item.subject}}-{{item.rt_project_principal_display_name}}</ion-label>
+          <div [ngClass]="{true:'notFinish',false:'finish'}[item.state]">
+            <div style="float: left;
+    height: 20px;">
+              <span style="    overflow: hidden;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 190px;
+    display: block;">
+              [{{item.type_name}}]:{{item.subject}}
+              </span>
+            </div>
+            <div>
+              <span>
+              ——{{item.rt_project_principal_display_name}}
+            </span>
+            </div>
+          </div>
         </ion-item>
       </ion-list>
     </div>

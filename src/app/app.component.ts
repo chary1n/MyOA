@@ -31,7 +31,7 @@ export class MyApp {
     platform.ready().then(() => {
       splashScreen.hide();
       this.jpush.initJpush();
-      // this.checkCodePush()
+      this.checkCodePush()
       storage.get('user')
         .then(res => {
           this.user_env = res.result.res_data;
@@ -53,10 +53,10 @@ export class MyApp {
   checkCodePush() {
     
      this.codePush.sync({
-      updateDialog: {
-       appendReleaseDescription: true,
-       descriptionPrefix: "\n\nChange log:\n"   
-      },
+      // updateDialog: {
+      //  appendReleaseDescription: true,
+      //  descriptionPrefix: "\n\nChange log:\n"   
+      // },
       installMode: InstallMode.IMMEDIATE
    }).subscribe(
      (data) => {

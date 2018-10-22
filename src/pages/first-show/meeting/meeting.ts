@@ -1,5 +1,5 @@
-import { Component ,ViewChild} from '@angular/core';
-import { IonicPage, NavController, NavParams, Content,ActionSheetController } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams, Content, ActionSheetController } from 'ionic-angular';
 import { Utils } from './../../../providers/Utils';
 import { Storage } from '@ionic/storage';
 import { DatePipe } from '@angular/common';
@@ -34,8 +34,8 @@ export class MeetingPage {
   rt_project_principal_id;
   uid;
   selectList = []
-  start_datetime = new Date(new Date().getTime()+8*60*60*1000).toISOString();
-  stop_datetime = new Date(new Date().getTime()+8*60*60*1000).toISOString();
+  start_datetime = new Date(new Date().getTime() + 8 * 60 * 60 * 1000).toISOString();
+  stop_datetime = new Date(new Date().getTime() + 8 * 60 * 60 * 1000).toISOString();
   start_date = this.datePipe.transform(new Date(), 'yyyy-MM-dd')
   stop_date = this.datePipe.transform(new Date(), 'yyyy-MM-dd')
   need_fresh = false
@@ -48,19 +48,19 @@ export class MeetingPage {
   select_type;
   rt_is_sure_time = false
   rt_allday = false
-  showPeopleList=[]
-  employeeList=[]
-  storeList=[]
-  linshiString=''
-  name=''
-  rt_location=''
+  showPeopleList = []
+  employeeList = []
+  storeList = []
+  linshiString = ''
+  name = ''
+  rt_location = ''
   rt_description = ''
-  rt_hint=''
+  rt_hint = ''
   wait_id;
   item_start;
   item_stop;
   meeting_id;
-  rt_meeting_ids=[];
+  rt_meeting_ids = [];
   rt_meeting_state;
   context_message;
   need_show_more_icon = true;
@@ -69,112 +69,169 @@ export class MeetingPage {
   title_meeting_two = '会议'
   showIcon = false
   create_user_name
-  constructor(public navCtrl: NavController, public navParams: NavParams,public storage:Storage,
-              private datePipe: DatePipe, public statusBar:StatusBar,public firService: FirstShowService
-              ,public toastCtrl: ToastController,private sanitizer: DomSanitizer, public actionSheetCtrl: ActionSheetController) {
-                this.frontPage = Utils.getViewController(this.navParams.get('frontPage'), navCtrl)
-                this.isEdit = this.navParams.get('isEdit')
-                this.storage.get('user').then(res =>{
-                  this.user = res.result.res_data
-                  this.uid = res.result.res_data.user_id;
-                  if(this.isEdit==true){
-                  let current_day = new Date()
-                  current_day = this.navParams.get('date')
-                  this.rt_project_principal_id = this.user.partner_id
-                  this.rt_project_principal = this.user.partner_name
-                  this.selectList.push({
-                      'partner_id': this.rt_project_principal_id,
-                      'partner_name': this.rt_project_principal,
-                      'ischeck': true
-                    })
-                  this.start_datetime = new Date(current_day.getTime()+8*60*60*1000).toISOString();
-                  this.stop_datetime = new Date(current_day.getTime()+8*60*60*1000).toISOString();
-                  this.start_date = this.datePipe.transform(current_day, 'yyyy-MM-dd')
-                  this.stop_date = this.datePipe.transform(current_day, 'yyyy-MM-dd')
-                  }else{
-                    this.meeting_id = this.navParams.get('meeting_id');
-                    this.uid = this.navParams.get('uid');
-                    this.get_all_data()
-                }
-                })
-                
+
+  setting
+  zNodes = []
+  tree_obj
+  constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage,
+    private datePipe: DatePipe, public statusBar: StatusBar, public firService: FirstShowService
+    , public toastCtrl: ToastController, private sanitizer: DomSanitizer, public actionSheetCtrl: ActionSheetController) {
+
+    var self = this
+    this.setting = {
+      check: {
+        enable: true,
+        chkStyle: "checkbox",
+        chkboxType: { "Y": "s", "N": "ps" }
+      },
+      data: {
+        simpleData: {
+          enable: true
+        }
+      },
+      callback: {
+        onClick: function (event, treeId, treeNode, clickFlag) {
+          self.showPeopleList = []
+          self.selectList = []
+          // this.tree_obj = $.fn.zTree.init($("#ztree"),this.setting,this.zNodes);
+          $.fn.zTree.getZTreeObj("ztree").checkNode(treeNode, !treeNode.checked, "checkTruePS", null)
+          var select_data = $.fn.zTree.getZTreeObj("ztree").getCheckedNodes(true)
+          for (let i = 0; i < select_data.length; i++) {
+            if (select_data[i].partner_id) {
+              select_data[i]['ischeck'] = true
+              if (self.fetch_is_in_arr(select_data[i])) {
+                self.showPeopleList.push(select_data[i])
+                self.selectList.push(select_data[i])
+              }
+            }
+          }
+        },
+        onCheck: function (e, treeId, treeNode) {
+          self.showPeopleList = []
+          self.selectList = []
+          var select_data = $.fn.zTree.getZTreeObj("ztree").getCheckedNodes(true)
+          for (let i = 0; i < select_data.length; i++) {
+            if (select_data[i].partner_id) {
+              select_data[i]['ischeck'] = true
+              if (self.fetch_is_in_arr(select_data[i])) {
+                self.showPeopleList.push(select_data[i])
+                self.selectList.push(select_data[i])
+              }
+            }
+          }
+        }
+      }
+    };
+    this.zNodes = [
+
+    ]
+
+
+    this.frontPage = Utils.getViewController(this.navParams.get('frontPage'), navCtrl)
+    this.isEdit = this.navParams.get('isEdit')
+    this.storage.get('user').then(res => {
+      this.user = res.result.res_data
+      this.uid = res.result.res_data.user_id;
+      if (this.isEdit == true) {
+        let current_day = new Date()
+        current_day = this.navParams.get('date')
+        this.rt_project_principal_id = this.user.partner_id
+        this.rt_project_principal = this.user.partner_name
+        this.selectList.push({
+          'partner_id': this.rt_project_principal_id,
+          'partner_name': this.rt_project_principal,
+          'ischeck': true
+        })
+        this.start_datetime = new Date(current_day.getTime() + 8 * 60 * 60 * 1000).toISOString();
+        this.stop_datetime = new Date(current_day.getTime() + 8 * 60 * 60 * 1000).toISOString();
+        this.start_date = this.datePipe.transform(current_day, 'yyyy-MM-dd')
+        this.stop_date = this.datePipe.transform(current_day, 'yyyy-MM-dd')
+      } else {
+        this.meeting_id = this.navParams.get('meeting_id');
+        this.uid = this.navParams.get('uid');
+        this.get_all_data()
+      }
+    })
+
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad MeetingPage');
   }
 
+  ionViewDidEnter() {
+    this.tree_obj = $.fn.zTree.init($("#ztree"), this.setting, this.zNodes);
+  }
+
   //获取页面数据
-  get_all_data(){
-    let body ={
+  get_all_data() {
+    let body = {
       'uid': this.uid,
       'meeting_id': this.meeting_id
     }
     var that = this
-    this.firService.get_meeting(body).then(res =>{
+    this.firService.get_meeting(body).then(res => {
       if (res.result.res_data && res.result.res_code == 1) {
         this.item = res.result.res_data
-        if(this.user.partner_id==this.item.rt_project_principal.id || this.uid==this.item.create_uid){
+        if (this.user.partner_id == this.item.rt_project_principal.id || this.uid == this.item.create_uid) {
           this.need_show_more_icon = true
         }
-        else
-        {
+        else {
           this.need_show_more_icon = false
         }
         this.item_change()
-        
-     }
-  })
+
+      }
+    })
   }
-  item_change(){
-    if(this.user.partner_id==this.item.rt_project_principal.id || this.uid==this.item.create_uid){
+  item_change() {
+    if (this.user.partner_id == this.item.rt_project_principal.id || this.uid == this.item.create_uid) {
       this.isShowTip = true
     }
-    else
-    {
+    else {
       this.isShowTip = false
     }
     this.rt_is_sure_time = this.item.rt_is_sure_time
-        this.name = this.item.name
-        this.rt_project_principal = this.item.rt_project_principal.name
-        this.create_user_name = this.item.create_user_name
-        this.rt_meeting_ids = this.item.rt_meeting_ids
-        this.selectList = this.item.rt_meeting_participant
-        this.rt_alarm_type_id = this.item.rt_alarm_type
-        this.rt_alarm_type = this.item.rt_alarm_type_name
+    this.name = this.item.name
+    this.rt_project_principal = this.item.rt_project_principal.name
+    this.create_user_name = this.item.create_user_name
+    this.rt_meeting_ids = this.item.rt_meeting_ids
+    this.selectList = this.item.rt_meeting_participant
+    this.rt_alarm_type_id = this.item.rt_alarm_type
+    this.rt_alarm_type = this.item.rt_alarm_type_name
 
-        this.item_tip_name=''
-        if(this.item.rt_alarm_type=='-1'){
-          this.item_tip_name = this.item.rt_alarm_type_name
-        }else if(this.item.rt_type_app && !this.item.rt_type_notification){
-          this.item_tip_name = this.item.rt_alarm_type_name+'(App提醒)'
-        }else if(this.item.rt_type_notification && !this.item.rt_type_app){
-          this.item_tip_name = this.item.rt_alarm_type_name+'(网页提醒)'
-        }else if(this.item.rt_type_app && this.item.rt_type_notification){
-          this.item_tip_name = this.item.rt_alarm_type_name+'(App提醒、网页提醒)'
-        }
-        this.rt_location = this.item.rt_location
-        this.rt_description = this.item.rt_description.replace(/\n/g,"<br>")
-        this.rt_hint = this.item.rt_hint.replace(/\n/g,"<br>")
-        this.rt_meeting_state = this.item.rt_meeting_state
+    this.item_tip_name = ''
+    if (this.item.rt_alarm_type == '-1') {
+      this.item_tip_name = this.item.rt_alarm_type_name
+    } else if (this.item.rt_type_app && !this.item.rt_type_notification) {
+      this.item_tip_name = this.item.rt_alarm_type_name + '(App提醒)'
+    } else if (this.item.rt_type_notification && !this.item.rt_type_app) {
+      this.item_tip_name = this.item.rt_alarm_type_name + '(网页提醒)'
+    } else if (this.item.rt_type_app && this.item.rt_type_notification) {
+      this.item_tip_name = this.item.rt_alarm_type_name + '(App提醒、网页提醒)'
+    }
+    this.rt_location = this.item.rt_location
+    this.rt_description = this.item.rt_description.replace(/\n/g, "<br>")
+    this.rt_hint = this.item.rt_hint.replace(/\n/g, "<br>")
+    this.rt_meeting_state = this.item.rt_meeting_state
 
-        if(this.item.rt_allday && this.item.rt_meeting_start && this.item.rt_meeting_stop){
-          this.item_start = this.datePipe.transform(new Date(this.item.rt_meeting_start.replace(/-/g, "/")), 'MM-dd')
-          this.item_stop = this.datePipe.transform(new Date(this.item.rt_meeting_stop.replace(/-/g, "/")), 'MM-dd')
-        }else if(this.item.rt_meeting_start && this.item.rt_meeting_stop){
-          this.item_start = this.datePipe.transform(new Date(this.item.rt_meeting_start.replace(/-/g, "/")), 'MM-dd HH:mm')
-          this.item_stop = this.datePipe.transform(new Date(this.item.rt_meeting_stop.replace(/-/g, "/")), 'MM-dd HH:mm')
-        }
-        if(this.rt_is_sure_time==true){
-        
-        }else{
-            this.start_date = this.datePipe.transform(new Date(this.item.rt_meeting_start.replace(/-/g, "/")), 'yyyy-MM-dd')
-            this.stop_date = this.datePipe.transform(new Date(this.item.rt_meeting_stop.replace(/-/g, "/")), 'yyyy-MM-dd')
-            this.start_datetime = this.datePipe.transform(new Date(this.item.rt_meeting_start.replace(/-/g, "/")), 'yyyy-MM-dd HH:mm').replace(' ','T')+'Z'
-            this.stop_datetime = this.datePipe.transform(new Date(this.item.rt_meeting_stop.replace(/-/g, "/")), 'yyyy-MM-dd HH:mm').replace(' ','T')+'Z'
-        }
-        
-        
+    if (this.item.rt_allday && this.item.rt_meeting_start && this.item.rt_meeting_stop) {
+      this.item_start = this.datePipe.transform(new Date(this.item.rt_meeting_start.replace(/-/g, "/")), 'MM-dd')
+      this.item_stop = this.datePipe.transform(new Date(this.item.rt_meeting_stop.replace(/-/g, "/")), 'MM-dd')
+    } else if (this.item.rt_meeting_start && this.item.rt_meeting_stop) {
+      this.item_start = this.datePipe.transform(new Date(this.item.rt_meeting_start.replace(/-/g, "/")), 'MM-dd HH:mm')
+      this.item_stop = this.datePipe.transform(new Date(this.item.rt_meeting_stop.replace(/-/g, "/")), 'MM-dd HH:mm')
+    }
+    if (this.rt_is_sure_time == true) {
+
+    } else {
+      this.start_date = this.datePipe.transform(new Date(this.item.rt_meeting_start.replace(/-/g, "/")), 'yyyy-MM-dd')
+      this.stop_date = this.datePipe.transform(new Date(this.item.rt_meeting_stop.replace(/-/g, "/")), 'yyyy-MM-dd')
+      this.start_datetime = this.datePipe.transform(new Date(this.item.rt_meeting_start.replace(/-/g, "/")), 'yyyy-MM-dd HH:mm').replace(' ', 'T') + 'Z'
+      this.stop_datetime = this.datePipe.transform(new Date(this.item.rt_meeting_stop.replace(/-/g, "/")), 'yyyy-MM-dd HH:mm').replace(' ', 'T') + 'Z'
+    }
+
+
 
   }
   //滑动事件
@@ -182,258 +239,291 @@ export class MeetingPage {
     cordova.plugins.Keyboard.close();
   }
 
-  goBack(){
+  goBack() {
     this.frontPage.data.need_fresh = true;
     this.navCtrl.pop();
   }
 
-  ionViewWillEnter(){
+  ionViewWillEnter() {
     this.statusBar.backgroundColorByHexString("#2597ec");
     this.statusBar.styleLightContent();
-    this.need_fresh =this.navParams.get('need_fresh')
+    this.need_fresh = this.navParams.get('need_fresh')
     this.pet = this.navParams.get('pet')
-    if(this.need_fresh==true){
-      if(this.pet==1){
+    if (this.need_fresh == true) {
+      if (this.pet == 1) {
         this.rt_alarm_type_id = this.navParams.get('alarm_id')
         this.rt_alarm_type = this.navParams.get('alarm_name')
         this.rt_type_app = this.navParams.get('type_app')
         this.rt_type_notification = this.navParams.get('type_notification')
-        this.item_tip_name=''
-        if(this.rt_alarm_type_id=='-1'){
+        this.item_tip_name = ''
+        if (this.rt_alarm_type_id == '-1') {
           this.item_tip_name = this.navParams.get('alarm_name')
-        }else if(this.rt_type_app && !this.rt_type_notification){
-          this.item_tip_name = this.navParams.get('alarm_name')+'(App提醒)'
-        }else if(this.rt_type_notification && !this.rt_type_app){
-          this.item_tip_name = this.navParams.get('alarm_name')+'(网页提醒)'
-        }else if(this.rt_type_app && this.rt_type_notification){
-          this.item_tip_name = this.navParams.get('alarm_name')+'(App提醒、网页提醒)'
+        } else if (this.rt_type_app && !this.rt_type_notification) {
+          this.item_tip_name = this.navParams.get('alarm_name') + '(App提醒)'
+        } else if (this.rt_type_notification && !this.rt_type_app) {
+          this.item_tip_name = this.navParams.get('alarm_name') + '(网页提醒)'
+        } else if (this.rt_type_app && this.rt_type_notification) {
+          this.item_tip_name = this.navParams.get('alarm_name') + '(App提醒、网页提醒)'
         }
-      }else if(this.pet==2){
+      } else if (this.pet == 2) {
         this.frontPage.data.need_fresh = true;
         this.navCtrl.pop()
-      }else if(this.pet==4){
+      } else if (this.pet == 4) {
         this.get_all_data()
       }
-  }
-      var need_fresh_reply = this.navParams.get('need_fresh_reply')
+    }
+    var need_fresh_reply = this.navParams.get('need_fresh_reply')
 
-  if (need_fresh_reply){
+    if (need_fresh_reply) {
       this.get_all_data()
     }
-}
+  }
 
-//取消新建待办事项
-cancel(){
-  cordova.plugins.Keyboard.close()
-  if(this.search){
-    this.title_meeting = '新建会议'
-    if(this.edit && this.search && this.change){
-      this.title_meeting_two = '会议'
-    }
-    this.search=false
-    if(this.select_type==1){
-      this.selectList=this.storeList
-    }
-  }else{
-    this.navCtrl.pop();
-  }
-}
-//新建待办事项完成
-stateFinish(){
-  cordova.plugins.Keyboard.close()
-  if(this.search){
-    this.title_meeting = '新建会议'
-    if(this.edit && this.search && this.change){
-      this.title_meeting_two = '会议'
-    }
-    this.search=false
-    return
-  }
-  let body = this.handleData() 
-  if(body){
-    this.firService.create_meeting(body).then(res =>{
-      if (res.result.res_code == 1) {
-        this.frontPage.data.need_fresh = true;
-        this.navCtrl.popTo(this.frontPage);
+  //取消新建待办事项
+  cancel() {
+    // cordova.plugins.Keyboard.close()
+    if (this.search) {
+      this.title_meeting = '新建会议'
+      if (this.edit && this.search && this.change) {
+        this.title_meeting_two = '会议'
       }
-    })
-  }
-}
- //时间待定的按钮
- notSureClick(){
-  if(this.rt_is_sure_time && this.rt_allday){
-    this.rt_allday = false
-  }
-}
-
-//全天的按钮
-allDayClick(){
-  if(this.rt_is_sure_time && this.rt_allday){
-    this.rt_is_sure_time = false
-  }
-}
-
-//删除一个人员
-closePartner(item){
-  for(var i=0;i<this.showPeopleList.length;i++){
-    if(item.partner_id == this.showPeopleList[i].partner_id){
-      this.showPeopleList.splice(i,1)
-      break
+      this.search = false
+      if (this.select_type == 1) {
+        this.selectList = this.storeList
+      }
+    } else {
+      this.navCtrl.pop();
     }
   }
-}
-//选择负责人
-selectPartnerId(){
-  this.title_meeting = '负责人'
-  this.title_meeting_two = '负责人'
-  this.showPeopleList=[]
-  this.showPeopleList.push({
-    'partner_id': this.rt_project_principal_id,
-    'partner_name': this.rt_project_principal,
-    'ischeck': true
-  })
-  this.search = true  
-  this.select_type = 2 
-  setTimeout(()=>{
-    this.nameInput.setFocus();//输入框获取焦点
-  })
-}
-//选择参与人员
-selectPartner(){
-  this.title_meeting = '参与人员'
-  this.title_meeting_two = '参与人员'
-  this.showPeopleList = this.selectList
-  this.storeList=[]
-  this.storeList=this.storeList.concat(this.selectList)
-  this.search = true
-  this.select_type = 1
-  setTimeout(()=>{
-    this.nameInput.setFocus();//输入框获取焦点
-  })
-}
-searchInput($event){
-  console.log('sadfasd= '+ $event)
-  if($event==''){
-    this.employeeList = []
-  }else{
-    let body = {
-      'uid': this.uid,
-      'name': $event
+  //新建待办事项完成
+  stateFinish() {
+    // cordova.plugins.Keyboard.close()
+    if (this.search) {
+      this.title_meeting = '新建会议'
+      if (this.edit && this.search && this.change) {
+        this.title_meeting_two = '会议'
+      }
+      this.search = false
+      return
     }
-    this.firService.search_one_partner(body).then(res => {
-      if (res.result.res_data && res.result.res_code == 1) {
-        this.employeeList = res.result.res_data;
-        if(this.select_type==1){
-          this.setCheck()
-        }else if(this.select_type==2){
-          for (let j = 0; j < this.employeeList.length; j++) {
-            if(this.employeeList[j].partner_id==this.rt_project_principal){
-              this.employeeList[j].ischeck=true
+    let body = this.handleData()
+    if (body) {
+      this.firService.create_meeting(body).then(res => {
+        if (res.result.res_code == 1) {
+          this.frontPage.data.need_fresh = true;
+          this.navCtrl.popTo(this.frontPage);
+        }
+      })
+    }
+  }
+  //时间待定的按钮
+  notSureClick() {
+    if (this.rt_is_sure_time && this.rt_allday) {
+      this.rt_allday = false
+    }
+  }
+
+  //全天的按钮
+  allDayClick() {
+    if (this.rt_is_sure_time && this.rt_allday) {
+      this.rt_is_sure_time = false
+    }
+  }
+
+  //删除一个人员
+  closePartner(item) {
+    for (var i = 0; i < this.showPeopleList.length; i++) {
+      if (item.partner_id == this.showPeopleList[i].partner_id) {
+        this.showPeopleList.splice(i, 1)
+        var select_datas = $.fn.zTree.getZTreeObj("ztree").getCheckedNodes(true)
+        for (var j = 0; j < select_datas.length; j++) {
+          if (select_datas[j].partner_id) {
+            if (select_datas[j].partner_id == item.partner_id) {
+              this.tree_obj.checkNode(select_datas[j], false, "checkTruePS", null)
             }
           }
         }
+        break
+      }
+    }
+  }
+  //选择负责人
+  selectPartnerId() {
+    this.title_meeting = '负责人'
+    this.title_meeting_two = '负责人'
+    this.showPeopleList = []
+    this.showPeopleList.push({
+      'partner_id': this.rt_project_principal_id,
+      'partner_name': this.rt_project_principal,
+      'ischeck': true
+    })
+    this.search = true
+    this.select_type = 2
+    setTimeout(() => {
+      this.nameInput.setFocus();//输入框获取焦点
+    })
+  }
+  //选择参与人员
+  selectPartner() {
+    this.title_meeting = '参与人员'
+    this.title_meeting_two = '参与人员'
+    this.showPeopleList = this.selectList
+    this.storeList = []
+    this.storeList = this.storeList.concat(this.selectList)
+    this.search = true
+    this.select_type = 1
+    // setTimeout(() => {
+    //   this.nameInput.setFocus();//输入框获取焦点
+    // })
+
+    var self = this
+    this.firService.get_all_department({ 'uid': this.uid }).then(res => {
+      if (res.result.res_data && res.result.res_code == 1) {
+        self.zNodes = res.result.res_data
+        for (let i = 0; i < self.selectList.length; i++) {
+          var select_data = self.selectList[i]
+          for (let j = 0; j < self.zNodes.length; j++) {
+            var node_data = self.zNodes[j]
+            if (node_data.partner_id) {
+              if (select_data.partner_id == node_data.partner_id) {
+                self.zNodes[j]['checked'] = true
+              }
+            }
+          }
+        }
+        self.tree_obj = $.fn.zTree.init($("#ztree"), self.setting, self.zNodes);
       }
     })
   }
-}
-
-//比较选中的人
-setCheck(){
-  for(let i=0;i<this.selectList.length; i++){
-    for (let j = 0; j < this.employeeList.length; j++) {
-      if(this.selectList[i].partner_id==this.employeeList[j].partner_id){
-          this.employeeList[j].ischeck=true
-          break
+  searchInput($event) {
+    console.log('sadfasd= ' + $event)
+    if ($event == '') {
+      this.employeeList = []
+    } else {
+      let body = {
+        'uid': this.uid,
+        'name': $event
       }
+      this.firService.search_one_partner(body).then(res => {
+        if (res.result.res_data && res.result.res_code == 1) {
+          this.employeeList = res.result.res_data;
+          if (this.select_type == 1) {
+            this.setCheck()
+          } else if (this.select_type == 2) {
+            for (let j = 0; j < this.employeeList.length; j++) {
+              if (this.employeeList[j].partner_id == this.rt_project_principal) {
+                this.employeeList[j].ischeck = true
+              }
+            }
+          }
+        }
+      })
     }
   }
-}
 
-choosePeople(item){
-  this.linshiString=''
-  this.employeeList=[]
-  if(this.select_type==1){
-    item.ischeck = !item.ischeck
-    if(item.ischeck){
-      this.showPeopleList.push(item)
-    }else{
-      for(var i=0;i<this.showPeopleList.length;i++){
-        if(item.partner_id == this.showPeopleList[i].partner_id){
+  //比较选中的人
+  setCheck() {
+    for (let i = 0; i < this.selectList.length; i++) {
+      for (let j = 0; j < this.employeeList.length; j++) {
+        if (this.selectList[i].partner_id == this.employeeList[j].partner_id) {
+          this.employeeList[j].ischeck = true
           break
         }
       }
     }
-  }else if(this.select_type==2){
-    this.title_meeting = '新建会议'
-    this.title_meeting_two = '会议'
-    if(item.partner_id==this.rt_project_principal_id){
-      this.search = false
-      return
-    }else{
-      this.search = false
-      this.showPeopleList=[]
-      //接下来的逻辑是，（前提，负责人默认是参与人）,选的负责人如果已经在选择的人里面了，就不加，不在里面，就加，避免重复
-      this.rt_project_principal_id = item.partner_id
-      this.rt_project_principal = item.partner_name
-      if(!this.selectList || this.selectList.length<=0){
+  }
+
+  choosePeople(item) {
+    this.linshiString = ''
+    this.employeeList = []
+    if (this.select_type == 1) {
+      item.ischeck = !item.ischeck
+      if (item.ischeck) {
+        if (this.fetch_is_in_arr(item)) {
+          this.showPeopleList.push(item)
+          let need_select = this.tree_obj.getNodesByParam('partner_id', item.partner_id, null)
+          for (let i = 0; i < need_select.length; i++) {
+            this.tree_obj.checkNode(need_select[i], true, "checkTruePS", null)
+          }
+        }
+      } else {
+        for (var i = 0; i < this.showPeopleList.length; i++) {
+          if (item.partner_id == this.showPeopleList[i].partner_id) {
+            break
+          }
+        }
+      }
+    } else if (this.select_type == 2) {
+      this.title_meeting = '新建会议'
+      this.title_meeting_two = '会议'
+      if (item.partner_id == this.rt_project_principal_id) {
+        this.search = false
         return
-      }
-      let plus = false
-      for(let i=0;i<this.selectList.length;i++){
-        if(this.selectList[i].partner_id==item.partner_id){
-          plus = false
-          break
-        }else{
-          plus = true
+      } else {
+        this.search = false
+        this.showPeopleList = []
+        //接下来的逻辑是，（前提，负责人默认是参与人）,选的负责人如果已经在选择的人里面了，就不加，不在里面，就加，避免重复
+        this.rt_project_principal_id = item.partner_id
+        this.rt_project_principal = item.partner_name
+        if (!this.selectList || this.selectList.length <= 0) {
+          return
         }
-      }
-      if(plus){
-        this.selectList.push({
-          'partner_id': item.partner_id,
-          'partner_name': item.partner_name,
-          'ischeck': true
-        })
+        let plus = false
+        for (let i = 0; i < this.selectList.length; i++) {
+          if (this.selectList[i].partner_id == item.partner_id) {
+            plus = false
+            break
+          } else {
+            plus = true
+          }
+        }
+        if (plus) {
+          this.selectList.push({
+            'partner_id': item.partner_id,
+            'partner_name': item.partner_name,
+            'ischeck': true
+          })
+        }
       }
     }
   }
-}
 
-//选择提醒
-selectTip(){
-  this.navCtrl.push('TipPage',{
-    'page': 'MeetingPage',
-    'alarm_id': this.rt_alarm_type_id,
-    'alarm_name': this.rt_alarm_type,
-    'type_app': this.rt_type_app,
-    'type_notification': this.rt_type_notification
-  })
-}
+  //选择提醒
+  selectTip() {
+    this.navCtrl.push('TipPage', {
+      'page': 'MeetingPage',
+      'alarm_id': this.rt_alarm_type_id,
+      'alarm_name': this.rt_alarm_type,
+      'type_app': this.rt_type_app,
+      'type_notification': this.rt_type_notification
+    })
+  }
 
-//处理所有数据
-handleData(){
-  let myString = ""
-    if(!this.name){
+  //处理所有数据
+  handleData() {
+    let myString = ""
+    if (!this.name) {
       myString = "    请输入主题"
     }
-    if(!this.selectList || this.selectList.length==0){
+    if (!this.selectList || this.selectList.length == 0) {
       myString = "    请选择参与人员"
     }
-    if(myString != ""){
+    if (myString != "") {
       Utils.toastButtom(myString, this.toastCtrl)
-    }else{
+    } else {
       let partner_ids = []
-      if(this.selectList && this.selectList.length>0){
-        for(var i=0;i<this.selectList.length;i++){
+      if (this.selectList && this.selectList.length > 0) {
+        for (var i = 0; i < this.selectList.length; i++) {
           partner_ids[i] = this.selectList[i].partner_id
         }
       }
-      if(!this.rt_alarm_type_id){
-          this.rt_alarm_type_id = '-1'
+      if (!this.rt_alarm_type_id) {
+        this.rt_alarm_type_id = '-1'
       }
       let body = {}
-      if(this.rt_allday==true  && this.start_date && this.stop_date && this.rt_is_sure_time==false){
-        console.log('start = '+this.start_date+'  stop = '+this.stop_date)
-        if(new Date(this.start_date.replace(/-/g, "/")).getTime() > new Date(this.stop_date.replace(/-/g, "/")).getTime()){
+      if (this.rt_allday == true && this.start_date && this.stop_date && this.rt_is_sure_time == false) {
+        console.log('start = ' + this.start_date + '  stop = ' + this.stop_date)
+        if (new Date(this.start_date.replace(/-/g, "/")).getTime() > new Date(this.stop_date.replace(/-/g, "/")).getTime()) {
           Utils.toastButtom('开始时间不能大于结束时间！', this.toastCtrl)
           return
         }
@@ -451,94 +541,94 @@ handleData(){
           'rt_project_principal': this.rt_project_principal_id,
           'rt_type_app': this.rt_type_app,
           'rt_type_notification': this.rt_type_notification,
-          'rt_hint':this.rt_hint,
+          'rt_hint': this.rt_hint,
           'rt_start_date': this.start_date,
           'rt_stop_date': this.stop_date
-      }
-    }else{
-      if(this.rt_is_sure_time==true){
-        body = {
-          'uid': this.uid,
-          'rt_is_sure_time': this.rt_is_sure_time,
-          'rt_allday': this.rt_allday,
-          'name': this.name,
-          'rt_meeting_participant': partner_ids,
-          'rt_alarm_type': this.rt_alarm_type_id,
-          'rt_location': this.rt_location,
-          'rt_description': this.rt_description,
-          'rt_project_principal': this.rt_project_principal_id,
-          'rt_type_app': this.rt_type_app,
-          'rt_type_notification': this.rt_type_notification,
-          'rt_meeting_start': this.datePipe.transform(this.start_date, 'yyyy-MM-dd HH:mm:ss'),
-          'rt_meeting_stop': this.datePipe.transform(this.stop_date, 'yyyy-MM-dd HH:mm:ss'),
-          'rt_hint':this.rt_hint,
-      }
-      }else{
-        if(this.start_datetime && this.stop_datetime){
-          let startTime;
-          let stopTime;
-          if(this.start_datetime.indexOf('T') != -1 ){
-            startTime = new Date(this.start_datetime).getTime()
-          }else{
-            startTime = new Date(this.start_datetime.replace(/-/g, "/")).getTime()
+        }
+      } else {
+        if (this.rt_is_sure_time == true) {
+          body = {
+            'uid': this.uid,
+            'rt_is_sure_time': this.rt_is_sure_time,
+            'rt_allday': this.rt_allday,
+            'name': this.name,
+            'rt_meeting_participant': partner_ids,
+            'rt_alarm_type': this.rt_alarm_type_id,
+            'rt_location': this.rt_location,
+            'rt_description': this.rt_description,
+            'rt_project_principal': this.rt_project_principal_id,
+            'rt_type_app': this.rt_type_app,
+            'rt_type_notification': this.rt_type_notification,
+            'rt_meeting_start': this.datePipe.transform(this.start_date, 'yyyy-MM-dd HH:mm:ss'),
+            'rt_meeting_stop': this.datePipe.transform(this.stop_date, 'yyyy-MM-dd HH:mm:ss'),
+            'rt_hint': this.rt_hint,
           }
-          if(this.stop_datetime.indexOf('T') != -1){
-            stopTime = new Date(this.stop_datetime).getTime()
-          }else{
-            stopTime = new Date(this.stop_datetime.replace(/-/g, "/")).getTime()
+        } else {
+          if (this.start_datetime && this.stop_datetime) {
+            let startTime;
+            let stopTime;
+            if (this.start_datetime.indexOf('T') != -1) {
+              startTime = new Date(this.start_datetime).getTime()
+            } else {
+              startTime = new Date(this.start_datetime.replace(/-/g, "/")).getTime()
+            }
+            if (this.stop_datetime.indexOf('T') != -1) {
+              stopTime = new Date(this.stop_datetime).getTime()
+            } else {
+              stopTime = new Date(this.stop_datetime.replace(/-/g, "/")).getTime()
+            }
+            if (startTime > stopTime) {
+              Utils.toastButtom('开始时间不能大于结束时间！', this.toastCtrl)
+              return
+            }
+            if (this.start_datetime.indexOf('T') != -1) {
+              this.start_datetime = this.datePipe.transform(new Date(new Date(this.start_datetime).getTime() - 2 * 8 * 60 * 60 * 1000), 'yyyy-MM-dd HH:mm:ss')
+            } else {
+              this.start_datetime = this.datePipe.transform(new Date(new Date(this.start_datetime.replace(/-/g, "/")).getTime() - 2 * 8 * 60 * 60 * 1000), 'yyyy-MM-dd HH:mm:ss')
+            }
+            if (this.stop_datetime.indexOf('T') != -1) {
+              this.stop_datetime = this.datePipe.transform(new Date(new Date(this.stop_datetime).getTime() - 2 * 8 * 60 * 60 * 1000), 'yyyy-MM-dd HH:mm:ss')
+            } else {
+              this.stop_datetime = this.datePipe.transform(new Date(new Date(this.stop_datetime.replace(/-/g, "/")).getTime() - 2 * 8 * 60 * 60 * 1000), 'yyyy-MM-dd HH:mm:ss')
+            }
           }
-          if(startTime > stopTime){
-            Utils.toastButtom('开始时间不能大于结束时间！', this.toastCtrl)
-            return
-          }
-          if(this.start_datetime.indexOf('T') != -1){
-            this.start_datetime = this.datePipe.transform(new Date(new Date(this.start_datetime).getTime()-2*8*60*60*1000), 'yyyy-MM-dd HH:mm:ss')
-          }else{
-            this.start_datetime = this.datePipe.transform(new Date(new Date(this.start_datetime.replace(/-/g, "/")).getTime()-2*8*60*60*1000), 'yyyy-MM-dd HH:mm:ss')
-          }
-          if(this.stop_datetime.indexOf('T') != -1){
-            this.stop_datetime = this.datePipe.transform(new Date(new Date(this.stop_datetime).getTime()-2*8*60*60*1000), 'yyyy-MM-dd HH:mm:ss')
-          }else{
-            this.stop_datetime = this.datePipe.transform(new Date(new Date(this.stop_datetime.replace(/-/g, "/")).getTime()-2*8*60*60*1000), 'yyyy-MM-dd HH:mm:ss')
+          body = {
+            'uid': this.uid,
+            'rt_is_sure_time': this.rt_is_sure_time,
+            'rt_allday': this.rt_allday,
+            'name': this.name,
+            'rt_meeting_participant': partner_ids,
+            'rt_meeting_start': this.start_datetime,
+            'rt_meeting_stop': this.stop_datetime,
+            'rt_alarm_type': this.rt_alarm_type_id,
+            'rt_location': this.rt_location,
+            'rt_description': this.rt_description,
+            'rt_project_principal': this.rt_project_principal_id,
+            'rt_type_app': this.rt_type_app,
+            'rt_type_notification': this.rt_type_notification,
+            'rt_hint': this.rt_hint,
           }
         }
-        body = {
-          'uid': this.uid,
-          'rt_is_sure_time': this.rt_is_sure_time,
-          'rt_allday': this.rt_allday,
-          'name': this.name,
-          'rt_meeting_participant': partner_ids,
-          'rt_meeting_start': this.start_datetime,
-          'rt_meeting_stop': this.stop_datetime,
-          'rt_alarm_type': this.rt_alarm_type_id,
-          'rt_location': this.rt_location,
-          'rt_description': this.rt_description,
-          'rt_project_principal': this.rt_project_principal_id,
-          'rt_type_app': this.rt_type_app,
-          'rt_type_notification': this.rt_type_notification,
-          'rt_hint':this.rt_hint,
-        }
       }
+      return body
     }
-    return body
   }
-}
 
-  addMeeting(){
-    if(this.user.partner_id==this.item.rt_project_principal.id || this.uid==this.item.create_uid){
+  addMeeting() {
+    if (this.user.partner_id == this.item.rt_project_principal.id || this.uid == this.item.create_uid) {
       this.navCtrl.push('CalendarDeatilpagePage', {
         'isEdit': true,
         'type': 1,
         'meeting_id': this.meeting_id,
         'frontPage': 'MeetingPage'
       })
-    }else{
+    } else {
       Utils.toastButtom('只有负责人和创建人可以添加任务', this.toastCtrl)
     }
   }
 
-  lookDetail(item){
-    this.navCtrl.push('CalendarDeatilpagePage',{
+  lookDetail(item) {
+    this.navCtrl.push('CalendarDeatilpagePage', {
       'item': item,
       'isEdit': false,
       'type': 1,
@@ -546,49 +636,49 @@ handleData(){
     })
   }
 
-  delete(){
-    if(this.user.partner_id==this.item.rt_project_principal.partner_id_s_id || this.uid==this.item.create_uid){
+  delete() {
+    if (this.user.partner_id == this.item.rt_project_principal.partner_id_s_id || this.uid == this.item.create_uid) {
       let body = {
         'id': this.item.id,
         'uid': this.uid
-    }
-    this.firService.delete_meeting(body).then(res => {
-      // if (res.result.res_code == 1){
+      }
+      this.firService.delete_meeting(body).then(res => {
+        // if (res.result.res_code == 1){
         this.frontPage.data.need_fresh = true;
         this.navCtrl.pop()
-      // }
-    })
-    }else{
+        // }
+      })
+    } else {
       Utils.toastButtom('只有负责人和创建人可以删除', this.toastCtrl)
     }
   }
   //点击编辑
-  edit(){
+  edit() {
     this.title_meeting_two = "会议"
     this.content.resize()
     this.rt_description = this.item.rt_description
     this.rt_hint = this.item.rt_hint
-    if(this.item.state==false){
+    if (this.item.state == false) {
       Utils.toastButtom('完成状态不可编辑', this.toastCtrl)
       return
     }
-    if(this.user.partner_id==this.item.rt_project_principal.id || this.uid==this.item.create_uid){
+    if (this.user.partner_id == this.item.rt_project_principal.id || this.uid == this.item.create_uid) {
       this.isEdit = true
       this.change = true
-    }else{
+    } else {
       Utils.toastButtom('只有负责人和创建人可以编辑', this.toastCtrl)
     }
   }
   //编辑完成
-  changeFinish(){
-    cordova.plugins.Keyboard.close()
-    if(this.search){
-      this.search=false
+  changeFinish() {
+    // cordova.plugins.Keyboard.close()
+    if (this.search) {
+      this.search = false
       return
     }
     let body = this.handleData()
     body['meeting_id'] = this.item.id
-    this.firService.write_meeting(body).then(res =>{
+    this.firService.write_meeting(body).then(res => {
       if (res.result.res_data && res.result.res_code == 1) {
         this.isEdit = false
         this.change = false
@@ -599,58 +689,58 @@ handleData(){
     })
   }
   //编辑取消
-  changeCancel(){
-    cordova.plugins.Keyboard.close()
-    if(this.search){
-      this.search=false
-      if(this.select_type==1){
-        this.selectList=this.storeList
+  changeCancel() {
+    // cordova.plugins.Keyboard.close()
+    if (this.search) {
+      this.search = false
+      if (this.select_type == 1) {
+        this.selectList = this.storeList
       }
-    }else{
+    } else {
       this.isEdit = false
       this.change = false
       this.content.resize()
     }
   }
-//标记完成
-  finish(){
-    if(this.user.partner_id==this.item.rt_project_principal.id || this.uid==this.item.create_uid){
+  //标记完成
+  finish() {
+    if (this.user.partner_id == this.item.rt_project_principal.id || this.uid == this.item.create_uid) {
       let body = {
         'meeting_id': this.item.id,
         'uid': this.uid,
         'rt_meeting_state': 'open'
       }
-      this.firService.change_meeting(body).then(res=>{
+      this.firService.change_meeting(body).then(res => {
         if (res.result.res_data && res.result.res_code == 1) {
           this.item = res.result.res_data
           this.item_change()
         }
       })
-    }else{
+    } else {
       Utils.toastButtom('只有负责人和创建人可以标记完成', this.toastCtrl)
     }
   }
   //标记为代办
-  completion_event(){
-    if(this.user.partner_id==this.item.rt_project_principal.id || this.uid==this.item.create_uid){
+  completion_event() {
+    if (this.user.partner_id == this.item.rt_project_principal.id || this.uid == this.item.create_uid) {
       let body = {
         'meeting_id': this.item.id,
         'uid': this.uid,
         'rt_meeting_state': 'draft'
       }
-      this.firService.change_meeting(body).then(res=>{
+      this.firService.change_meeting(body).then(res => {
         if (res.result.res_data && res.result.res_code == 1) {
           this.item = res.result.res_data
           this.item_change()
         }
       })
-    }else{
+    } else {
       Utils.toastButtom('只有负责人和创建人可以标记完成', this.toastCtrl)
     }
   }
 
-  assembleHTML(str){ 
-    　　return this.sanitizer.bypassSecurityTrustHtml(str)
+  assembleHTML(str) {
+    return this.sanitizer.bypassSecurityTrustHtml(str)
   }
 
   changeDate(date) {
@@ -660,31 +750,30 @@ handleData(){
     }
   }
 
-  only_reply_to(items){
-    this.navCtrl.push('CalendarChatPage',{
-        item: items,
-        res_id: this.item.id,
-        navCtrl: 'MeetingPage',
-        type: 'rt.meeting',
-        has_parent:true,
-      })
+  only_reply_to(items) {
+    this.navCtrl.push('CalendarChatPage', {
+      item: items,
+      res_id: this.item.id,
+      navCtrl: 'MeetingPage',
+      type: 'rt.meeting',
+      has_parent: true,
+    })
   }
 
-  reply_to(items){
-      if (items.create_uid_id == this.uid)
-    {
-        let actionSheet = this.actionSheetCtrl.create({
+  reply_to(items) {
+    if (items.create_uid_id == this.uid) {
+      let actionSheet = this.actionSheetCtrl.create({
         title: '是否删除此回复',
         buttons: [
           {
             text: '确定',
             handler: () => {
-              this.firService.delete_reply({'uid': this.uid,'reply_id':items.msg_id}).then(res => {
-                          if (res.result.res_code == 1) {
-                            Utils.toastButtom("删除成功", this.toastCtrl)
-                            this.get_all_data()
-                          }
-                        })
+              this.firService.delete_reply({ 'uid': this.uid, 'reply_id': items.msg_id }).then(res => {
+                if (res.result.res_code == 1) {
+                  Utils.toastButtom("删除成功", this.toastCtrl)
+                  this.get_all_data()
+                }
+              })
             }
           },
           {
@@ -698,29 +787,28 @@ handleData(){
       });
       actionSheet.present();
     }
-    else
-    {
-      this.navCtrl.push('CalendarChatPage',{
+    else {
+      this.navCtrl.push('CalendarChatPage', {
         item: items,
         res_id: this.item.id,
         navCtrl: 'MeetingPage',
         type: 'rt.meeting',
-        has_parent:true,
+        has_parent: true,
       })
     }
 
 
-      
-    }
 
-    send(){
-      this.navCtrl.push('CalendarChatPage',{
-        item: this.item,
-        res_id: this.item.id,
-        navCtrl: 'MeetingPage',
-        type: 'rt.meeting',
-        has_parent:false,
-      })
+  }
+
+  send() {
+    this.navCtrl.push('CalendarChatPage', {
+      item: this.item,
+      res_id: this.item.id,
+      navCtrl: 'MeetingPage',
+      type: 'rt.meeting',
+      has_parent: false,
+    })
     //   if (this.context_message.length == 0 || this.context_message.match(/^\s+$/g)){
     //   Utils.toastButtom("回复不可为空", this.toastCtrl)
     // }
@@ -741,15 +829,16 @@ handleData(){
     //   })
     // }
   }
-  
-  refresh_view()
-  {
-     this.firService.get_event_detail({'uid': this.uid,
-        'event_id': this.item.id}).then(res => {
-          if (res.result.res_data && res.result.res_code == 1) {
-            this.item = res.result.res_data
-          }
-        })
+
+  refresh_view() {
+    this.firService.get_event_detail({
+      'uid': this.uid,
+      'event_id': this.item.id
+    }).then(res => {
+      if (res.result.res_data && res.result.res_code == 1) {
+        this.item = res.result.res_data
+      }
+    })
   }
 
   click_more() {
@@ -762,7 +851,7 @@ handleData(){
             handler: () => {
               this.finish()
             }
-          },{
+          }, {
             text: '编辑',
             handler: () => {
               this.edit()
@@ -774,7 +863,7 @@ handleData(){
               this.delete()
             }
           },
-          
+
           {
             text: '取消',
             role: 'cancel',
@@ -816,11 +905,11 @@ handleData(){
     }
   }
 
-  cancel_zan(items){
+  cancel_zan(items) {
     let body = {
       'uid': this.uid,
       'type': 'delete',
-      'msg_id': items.msg_id, 
+      'msg_id': items.msg_id,
     }
     this.firService.update_zan(body).then(res => {
       if (res.result.res_code == 1) {
@@ -829,11 +918,11 @@ handleData(){
     })
   }
 
-  update_zan(items){
+  update_zan(items) {
     let body = {
       'uid': this.uid,
       'type': 'add',
-      'msg_id': items.msg_id, 
+      'msg_id': items.msg_id,
     }
     this.firService.update_zan(body).then(res => {
       if (res.result.res_code == 1) {
@@ -842,21 +931,20 @@ handleData(){
     })
   }
 
-  delete_reply(items){
-    if (items.create_uid_id == this.uid)
-    {
-        let actionSheet = this.actionSheetCtrl.create({
+  delete_reply(items) {
+    if (items.create_uid_id == this.uid) {
+      let actionSheet = this.actionSheetCtrl.create({
         title: '是否删除此回复',
         buttons: [
           {
             text: '确定',
             handler: () => {
-              this.firService.delete_reply({'uid': this.uid,'reply_id':items.msg_id}).then(res => {
-                          if (res.result.res_code == 1) {
-                            Utils.toastButtom("删除成功", this.toastCtrl)
-                            this.get_all_data()
-                          }
-                        })
+              this.firService.delete_reply({ 'uid': this.uid, 'reply_id': items.msg_id }).then(res => {
+                if (res.result.res_code == 1) {
+                  Utils.toastButtom("删除成功", this.toastCtrl)
+                  this.get_all_data()
+                }
+              })
             }
           },
           {
@@ -872,26 +960,34 @@ handleData(){
     }
   }
 
-  onScroll(){
+  onScroll() {
     console.log('111')
     var node = document.getElementById('mytextarea');
-    if(node.style.textShadow === '') 
-         {		            
-           node.style.textShadow = 'rgba(0,0,0,0) 0 0 0';
-         } else 
-         {		            
-           node.style.textShadow = '';		        
-          }  
+    if (node.style.textShadow === '') {
+      node.style.textShadow = 'rgba(0,0,0,0) 0 0 0';
+    } else {
+      node.style.textShadow = '';
+    }
 
 
   }
 
-  down_view(){
+  down_view() {
     this.showIcon = false
   }
 
-  up_view(){
+  up_view() {
     this.showIcon = true
+  }
+
+  fetch_is_in_arr(item) {
+    let is_has = false
+    for (let i = 0; i < this.showPeopleList.length; i++) {
+      if (this.showPeopleList[i].partner_id == item.partner_id) {
+        is_has = true
+      }
+    }
+    return !is_has
   }
 
 }

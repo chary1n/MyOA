@@ -29,7 +29,7 @@ export class AllSchedulePage {
   state_type = 'all'
   start_date
   end_date
-  show_me = false
+  show_me = true
   need_show_choose = false
   title = '我的'
   is_manager = false
@@ -54,25 +54,25 @@ export class AllSchedulePage {
     })
 
     this.setting = {
-			check: {
-				enable: true,
-				chkStyle: "checkbox",
-				chkboxType: { "Y": "s", "N": "ps" }
-			},
-			data: {
-				simpleData: {
-					enable: true
-				}
-			},
+      check: {
+        enable: true,
+        chkStyle: "checkbox",
+        chkboxType: { "Y": "s", "N": "ps" }
+      },
+      data: {
+        simpleData: {
+          enable: true
+        }
+      },
       callback: {
-				onClick: function (event, treeId, treeNode, clickFlag){
+        onClick: function (event, treeId, treeNode, clickFlag) {
           // this.tree_obj = $.fn.zTree.init($("#ztree"),this.setting,this.zNodes);
           $.fn.zTree.getZTreeObj("ztree").checkNode(treeNode, !treeNode.checked, "checkTruePS", null)
         },
-			}
-		};
+      }
+    };
     this.zNodes = [
-      
+
     ]
 
   }
@@ -82,7 +82,7 @@ export class AllSchedulePage {
   }
 
   ionViewDidEnter() {
-    
+
 
     this.event.subscribe('search_domain', (data) => {
       console.log(data)
@@ -91,12 +91,14 @@ export class AllSchedulePage {
       this.state_type = data.state_type
       this.start_date = data.start_date
       this.end_date = data.end_date
-      this.get_all_data()
+      if (this.show_me) {
+        this.get_all_data()
+      }
+
     })
 
-
-
-    this.storage.get('user').then(res => {
+    if (this.show_me){
+      this.storage.get('user').then(res => {
       this.uid = res.result.res_data.user_id;
       this.type_id = -1
       let body = {
@@ -104,6 +106,7 @@ export class AllSchedulePage {
         'me_type': this.me_type,
         'state_type': this.state_type,
       }
+      
       this.firshowService.get_all_schedule(body).then(res => {
         if (res.result.res_data && res.result.res_code == 1) {
           this.dataList = res.result.res_data.data
@@ -116,6 +119,16 @@ export class AllSchedulePage {
         }
       })
     })
+  }
+  else
+  {
+    this.firshowService.get_all_department({ 'uid': this.uid }).then(res => {
+      if (res.result.res_data && res.result.res_code == 1) {
+        this.zNodes = res.result.res_data
+        this.tree_obj = $.fn.zTree.init($("#ztree"), this.setting, this.zNodes);
+      }
+    })
+  }
   }
 
   goBack() {
@@ -169,7 +182,10 @@ export class AllSchedulePage {
         this.dataList[i].select = false
       }
     }
-    this.get_all_data()
+    if (this.show_me) {
+      this.get_all_data()
+    }
+
 
 
     // this.type_list = item.dataList
@@ -284,11 +300,11 @@ export class AllSchedulePage {
     this.need_show_choose = false
     this.title = '团队'
 
-    this.firshowService.get_all_department({'uid':this.uid}).then(res => {
+    this.firshowService.get_all_department({ 'uid': this.uid }).then(res => {
       if (res.result.res_data && res.result.res_code == 1) {
-          this.zNodes = res.result.res_data
-          this.tree_obj = $.fn.zTree.init($("#ztree"),this.setting,this.zNodes);
-        }
+        this.zNodes = res.result.res_data
+        this.tree_obj = $.fn.zTree.init($("#ztree"), this.setting, this.zNodes);
+      }
     })
   }
 
@@ -299,20 +315,31 @@ export class AllSchedulePage {
     this.get_all_data()
   }
 
-  click_watch(){
+  click_watch() {
     let line_ids = []
     let select_data = $.fn.zTree.getZTreeObj("ztree").getCheckedNodes(true)
-    for (let i =0; i < select_data.length; i++){
-      if (select_data[i].partner_id){
+    for (let i = 0; i < select_data.length; i++) {
+      if (select_data[i].partner_id) {
         line_ids.push(select_data[i].partner_id)
       }
     }
     let body = {
       'list_ids': line_ids,
+      'uid': this.uid,
+      'me_type': this.me_type,
+      'state_type': this.state_type,
+      'event_type': this.type_id,
+      'start_date': this.start_date,
+      'end_date': this.end_date,
     }
     this.firshowService.get_calendar_all(body).then(res => {
       if (res.result.res_data && res.result.res_code == 1) {
         console.log(res.result.res_data)
+        this.navCtrl.push('SearchScheduleListPage', {
+          data_list: res.result.res_data.data,
+          meeting_id: res.result.res_data.data.meeting_id,
+          uid: this.uid,
+        })
       }
     })
   }

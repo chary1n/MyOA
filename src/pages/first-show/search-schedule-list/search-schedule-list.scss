@@ -1,0 +1,54 @@
+page-search-schedule-list {
+    .notfinishState{
+        font-size: 13px;
+    padding-left: 3px;
+    border-style: none;
+    border-radius: 5px;
+    border-width: 1px;
+    padding: 1px 5px;
+    color: #5f6163
+  }
+  .finishState{
+
+    color: #c7cace;
+        font-size: 13px;
+    padding-left: 3px;
+    border-style: none;
+    border-radius: 5px;
+    border-width: 1px;
+    padding: 1px 5px;
+  }
+  .before_class{
+          color: #409eff;
+    border-style: solid;
+    border-radius: 5px;
+    border-width: 1px;
+    font-size: 12px;
+    padding: 1px 5px;
+    margin-top: 0px;
+    margin-left: 20px;
+  }
+  .after_class{
+    font-size: 13px;
+    padding-left: 3px;
+    border-style: none;
+    border-radius: 5px;
+    border-width: 1px;
+    padding: 1px 5px;
+  }
+
+  .bottom_class{
+      margin-left: 20px;
+    font-size: 13px;
+    color: #c7cace;
+    margin-top: 14px;
+  }
+
+  .div_class{
+          background: white;
+    /* background-color: white; */
+    /* border-bottom: #f0f2f5 10px solid; */
+    padding: 1px;
+    margin-top: 10px;
+  }
+}
