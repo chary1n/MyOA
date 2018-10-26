@@ -23,7 +23,7 @@
             <p>
               <span class="before_class">{{item.type_name}}</span>
               <span [ngClass]="{true:'notfinishState',false:'finishState'}[item.state]">
-                {{item.subject}}
+                {{item.subject}}一{{item.partner_id_s_name}}
               </span>
             </p>
             <p class="bottom_class">{{item.start}} 至 {{item.stop}}</p>

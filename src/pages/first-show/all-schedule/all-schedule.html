@@ -19,18 +19,13 @@
             <ion-icon name="arrow-down" *ngIf="!need_show_choose" style="display: block;font-size: 14px;"></ion-icon>
             <ion-icon name="arrow-up" *ngIf="need_show_choose" style="display: block;font-size: 14px;"></ion-icon>
         </ion-title>
-        <ion-title *ngIf='!is_manager' tappable (click)='click_search_peopkle()'>
+        <ion-title *ngIf='!is_manager'>
             待办
         </ion-title>
         <!--<ion-title>
             待办
         </ion-title>-->
     </ion-navbar>
-
-</ion-header>
-
-
-<ion-content style="background-color:#f0f2f5">
     <div class="choose_people_div" *ngIf='need_show_choose'>
         <div tappable (click)='click_me_div()'>
             <div [ngClass]="{true:'gou_class',false:'gou_class_un_choose'}[show_me == true]">
@@ -45,7 +40,7 @@
                 </span>
             </p>
         </div>
-        <div style="margin-top: -10px;" tappable (click)='click_team_div()'>
+        <div  tappable (click)='click_team_div()'>
             <div [ngClass]="{true:'gou_class',false:'gou_class_un_choose'}[show_me == false]">
                 √
             </div>
@@ -59,6 +54,11 @@
             </p>
         </div>
     </div>
+</ion-header>
+
+
+<ion-content style="background-color:#f0f2f5;">
+    
 
     <div class="header_div_class">
         <ion-auto-complete class="searchbar_class" (itemSelected)="itemSelected($event)" (itemClearSelected)="itemClearSelected($event)"
@@ -74,11 +74,13 @@
     </div>
     <div *ngIf='show_me'>
         <div class="div_class" no-lines *ngFor='let item of type_list' tappable (click)='toDetail(item)'>
-            <p *ngIf="type_id==-1" style="float: left;;color: #409eff;border-style: solid;border-radius: 5px;border-width: 1px;font-size: 12px;padding: 1px 5px;margin-top: 0px;margin-left: 5px;margin-top: 9px;margin-right: 5px">{{item.type_name}}</p>
-            <p [ngClass]="{true:'notfinishState',false:'finishState'}[item.state]">
-                {{item.subject}}
+            <p>
+              <span class="before_class">{{item.type_name}}</span>
+              <span [ngClass]="{true:'notfinishState',false:'finishState'}[item.state]">
+                {{item.subject}}一{{item.partner_id_s_name}}
+              </span>
             </p>
-            <p style="margin-left: 15px;font-size: 13px;color: #c7cace;margin-top: 17px">{{item.start}} 至 {{item.stop}}</p>
+            <p class="bottom_class">{{item.start}} 至 {{item.stop}}</p>
         </div>
         <div align="center" *ngIf="!type_list || type_list.length == 0">
             <img style="width:100px;position:absolute;left:calc(50% - 50px);top:calc(50% - 60px)" src="assets/img/nodataimg.png">

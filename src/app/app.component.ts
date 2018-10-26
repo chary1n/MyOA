@@ -29,6 +29,9 @@ export class MyApp {
      private storage: Storage, public jpush: JPush,public codePush:CodePush) {
 
     platform.ready().then(() => {
+      statusBar.overlaysWebView(false);
+      statusBar.styleDefault();
+      statusBar.backgroundColorByHexString('#f8f8f8');
       splashScreen.hide();
       this.jpush.initJpush();
       this.checkCodePush()
@@ -39,11 +42,7 @@ export class MyApp {
         });
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
-      statusBar.overlaysWebView(false);
-      statusBar.styleDefault();
-      // statusBar.backgroundColorByHexString("#2597ec");
-      // statusBar.styleLightContent();
-      statusBar.backgroundColorByHexString('#f8f8f8');
+      
       
 
       

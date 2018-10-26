@@ -9,10 +9,10 @@
 
   <ion-content>
     <div>
-      <div class="me_header">
+      <div *ngIf="is_show_me" class="me_header">
         与我相关
       </div>
-      <ion-grid class="grid_class">
+      <ion-grid *ngIf="is_show_me" class="grid_class">
         <ion-row>
           <ion-col tappable (click)="click_me_all()" col-4>
             <div [ngClass]="{true:'me_class_choose',false:'me_class'}[me_type == 'all']">

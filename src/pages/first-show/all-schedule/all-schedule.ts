@@ -139,6 +139,9 @@ export class AllSchedulePage {
   ionViewWillLeave() {
     this.menu.enable(false)
     this.event.unsubscribe('search_domain')
+    this.event.publish('initData',{
+      'data':true
+    })
   }
 
   ionViewWillEnter() {
@@ -192,6 +195,7 @@ export class AllSchedulePage {
   }
 
   toDetail(item) {
+    this.need_show_choose = false
     if (this.meeting_id == item.id) {
       this.navCtrl.push('MeetingPage', {
         'meeting_id': item.rt_meeeting_s_id,
@@ -241,7 +245,18 @@ export class AllSchedulePage {
     }
     this.firshowService.search_all_schedule(body).then(res => {
       if (res.result.res_data && res.result.res_code == 1) {
-        this.type_list = res.result.res_data
+        if (this.show_me){
+          this.type_list = res.result.res_data
+        }
+        else
+        {
+          this.navCtrl.push('SearchScheduleListPage', {
+          data_list: res.result.res_data,
+          meeting_id: this.meeting_id,
+          uid: this.uid,
+        })
+        }
+        
       }
     })
   }
@@ -299,7 +314,9 @@ export class AllSchedulePage {
     this.show_me = false
     this.need_show_choose = false
     this.title = '团队'
-
+    this.event.publish('changeTeam',{
+      'data':'team'
+    })
     this.firshowService.get_all_department({ 'uid': this.uid }).then(res => {
       if (res.result.res_data && res.result.res_code == 1) {
         this.zNodes = res.result.res_data
@@ -312,6 +329,9 @@ export class AllSchedulePage {
     this.show_me = true
     this.need_show_choose = false
     this.title = '我的'
+    this.event.publish('changeTeam',{
+      'data':'me'
+    })
     this.get_all_data()
   }
 

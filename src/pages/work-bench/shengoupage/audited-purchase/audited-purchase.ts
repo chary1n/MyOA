@@ -30,10 +30,10 @@ export class AuditedPurchasePage {
     this.frontPage = Utils.getViewController("ShengoupagePage", navCtrl)
     this.storage.get('user')
       .then(res => {
-        console.log(res)
+        // console.log(res)
         this.user_id = res.result.res_data.user_id;
       });
-    console.log(this.item.state);
+    // console.log(this.item.state);
     let to_approve_name = this.item.to_approve_id
     if (this.item.state == 'submit'||this.item.state == 'manager1_approve'||this.item.state == 'manager2_approve' || this.item.state == "manager3_approve") {
       
@@ -52,11 +52,14 @@ export class AuditedPurchasePage {
     {
       this.isShowFooter = false;
     }
-    console.log(this.item)
+    // console.log(this.item)
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ReimbursementDetailPage');
+    console.log('3333333')
+    console.log(Utils.getViewController("ShengoupagePage", this.navCtrl))
+    console.log(Utils.getViewController("ShengoupagePage", this.navCtrl) + "3123123213")
   }
   
 

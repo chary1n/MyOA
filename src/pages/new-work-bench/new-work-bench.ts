@@ -87,4 +87,12 @@ export class NewWorkBenchPage {
   toAll(){
     this.navCtrl.push('AllSchedulePage')
   }
+
+  click_baoxiao(){
+    this.navCtrl.push('ReimbursementPage')
+  }
+
+  click_shengou(){
+    this.navCtrl.push('ShengoupagePage')
+  }
 }

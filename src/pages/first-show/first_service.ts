@@ -54,7 +54,7 @@ export class FirstShowService {
     }
 
     get_schedule_list(body){
-        return this.httpService.postBody("get_schedule_list", body);
+        return this.httpService.postBodyNoLoading("get_schedule_list", body);
     }
 
 

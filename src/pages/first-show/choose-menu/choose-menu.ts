@@ -21,12 +21,27 @@ export class ChooseMenuPage {
   // start_datetime = new Date(new Date().getTime()+8*60*60*1000).toISOString();
   end_date;
   start_date;
+  is_show_me = true
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public events: Events, public storage: Storage, public menu: MenuController,
     public event: Events) {
       events.subscribe('ChooseMenuPage', (data) => {
 
     });
+    events.subscribe('changeTeam',(data) => {
+      if (data.data == 'team'){
+        this.is_show_me = false
+      }
+      else if (data.data == 'me'){
+        this.is_show_me = true
+      }
+    })
+    events.subscribe('initData', (data) => {
+      this.me_type = 'all'
+      this.state_type = 'all'
+      this.start_date = ''
+      this.end_date = ''
+    })
   }
 
   ionViewDidLoad() {

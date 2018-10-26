@@ -1,15 +1,21 @@
 page-all-schedule {
   .notfinishState{
-    margin-left: 15px;
-    margin-top: 0px;
-    padding-top: 10px;
+    font-size: 13px;
+    padding-left: 3px;
+    border-style: none;
+    border-radius: 5px;
+    border-width: 1px;
+    padding: 1px 5px;
     color: #5f6163
   }
   .finishState{
-    margin-left: 15px;
-    margin-top: 0px;
-    padding-top: 10px;
-    color: #c7cace
+   color: #c7cace;
+        font-size: 13px;
+    padding-left: 3px;
+    border-style: none;
+    border-radius: 5px;
+    border-width: 1px;
+    padding: 1px 5px;
   }
   
   .under_line_style{
@@ -70,8 +76,19 @@ page-all-schedule {
     border-bottom: 0px solid rgba(0, 0, 0, 0.05);
 }
 
+// .body_class{
+  
+//     width:100%;
+//     height:auto;
+//     position:absolute;
+   
+//     box-sizing:border-box;/*这里改变盒子模型为怪异盒模型，这样padding值不会增加main的高度*/
+//     overflow-y:scroll;
+
+// }
+
   .choose_people_div{
-    position: absolute;
+    // position: fixed;
     z-index: 99;
     background: white;
     width: 100%;
@@ -119,5 +136,31 @@ page-all-schedule {
     text-align: center;
     line-height: 44px;
     font-size: 15px;
+  }
+
+  .before_class{
+          color: #409eff;
+    border-style: solid;
+    border-radius: 5px;
+    border-width: 1px;
+    font-size: 12px;
+    padding: 1px 5px;
+    margin-top: 0px;
+    margin-left: 20px;
+  }
+  .after_class{
+    font-size: 13px;
+    padding-left: 3px;
+    border-style: none;
+    border-radius: 5px;
+    border-width: 1px;
+    padding: 1px 5px;
+  }
+
+  .bottom_class{
+      margin-left: 20px;
+    font-size: 13px;
+    color: #c7cace;
+    margin-top: 14px;
   }
 }

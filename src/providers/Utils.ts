@@ -5,8 +5,12 @@ export class Utils {
 
 
     public static getViewController(pageName: string, navController: NavController): ViewController {
+        let length = navController.getViews().length
+        let index = 0
         for (let viewController of navController.getViews()) {
-            if (viewController.name == pageName) {
+            index ++
+            if (index == length) {
+
                 return viewController
             }
         }

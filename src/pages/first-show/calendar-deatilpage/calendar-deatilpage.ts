@@ -129,7 +129,7 @@ export class CalendarDeatilpagePage {
           }
         }
       }
-    };
+    }
     this.zNodes = [
 
     ]
@@ -234,10 +234,10 @@ export class CalendarDeatilpagePage {
   }
   //滑动事件
   panEvent($event) {
-    // cordova.plugins.Keyboard.close();
+    cordova.plugins.Keyboard.close();
   }
   goBack() {
-    this.frontPage.data.need_fresh = true;
+    // this.frontPage.data.need_fresh = true;
     this.navCtrl.pop();
   }
 
@@ -265,7 +265,7 @@ export class CalendarDeatilpagePage {
           this.item_tip_name = this.navParams.get('alarm_name') + '(App提醒、网页提醒)'
         }
       } else if (this.pet == 2) {
-        this.frontPage.data.need_fresh = true;
+        // this.frontPage.data.need_fresh = true;
         this.navCtrl.pop()
       } else if (this.pet == 3) {
         this.selectList = this.navParams.get('selectList')
@@ -273,9 +273,9 @@ export class CalendarDeatilpagePage {
     }
 
 
-    if (need_fresh_reply) {
+    // if (need_fresh_reply) {
       this.refresh_view()
-    }
+    // }
   }
 
   //删除一个待办事项
@@ -288,7 +288,7 @@ export class CalendarDeatilpagePage {
       buttons: [{
         text: '取消',
         handler: function (data) {
-          // cordova.plugins.Keyboard.close();
+          cordova.plugins.Keyboard.close();
         }
       },
       {
@@ -313,7 +313,7 @@ export class CalendarDeatilpagePage {
   }
   //编辑状态下取消
   changeCancel() {
-    // cordova.plugins.Keyboard.close()
+    cordova.plugins.Keyboard.close()
     if (this.search) {
       this.search = false
       if (this.select_type == 1) {
@@ -327,7 +327,7 @@ export class CalendarDeatilpagePage {
   }
   //编辑状态下完成
   changeFinish() {
-    // cordova.plugins.Keyboard.close()
+    cordova.plugins.Keyboard.close()
     if (this.search) {
       this.search = false
       return
@@ -399,7 +399,7 @@ export class CalendarDeatilpagePage {
   }
   //取消新建待办事项
   cancel() {
-    // cordova.plugins.Keyboard.close()
+    cordova.plugins.Keyboard.close()
     if (this.search) {
       this.title_meeting = '新建'
       this.search = false
@@ -412,7 +412,7 @@ export class CalendarDeatilpagePage {
   }
   //新建待办事项完成
   stateFinish() {
-    // cordova.plugins.Keyboard.close()
+    cordova.plugins.Keyboard.close()
     if (this.search) {
       this.title_meeting = '新建'
       this.search = false
@@ -424,7 +424,7 @@ export class CalendarDeatilpagePage {
         body['rt_meeting_id'] = this.meeting_id
         this.firService.create_meeting_line(body).then(res => {
           if (res.result.res_code == 1) {
-            this.frontPage.data.need_fresh = true;
+            // this.frontPage.data.need_fresh = true;
             this.frontPage.data.pet = 4
             this.navCtrl.popTo(this.frontPage);
           }
@@ -434,7 +434,7 @@ export class CalendarDeatilpagePage {
       if (body) {
         this.firService.create_new_schedule(body).then(res => {
           if (res.result.res_code == 1) {
-            this.frontPage.data.need_fresh = true;
+            // this.frontPage.data.need_fresh = true;
             this.navCtrl.popTo(this.frontPage);
           }
         })
@@ -599,7 +599,7 @@ export class CalendarDeatilpagePage {
     //   // cordova.plugins.Keyboard.show();
     // })
     var self = this
-    this.firService.get_all_department({ 'uid': this.uid }).then(res => {
+    this.firService.get_all_department({ 'uid': this.uid,'need_total':true }).then(res => {
       if (res.result.res_data && res.result.res_code == 1) {
         self.zNodes = res.result.res_data
         for (let i = 0; i < self.selectList.length; i++) {

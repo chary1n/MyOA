@@ -22,6 +22,7 @@ declare let cordova: any;
   providers: [FirstShowService, NativeService],
 })
 export class CalendarChatPage {
+  @ViewChild('mytextarea') mytextarea;
   item;
   beizhuText;
   uid;
@@ -59,6 +60,12 @@ export class CalendarChatPage {
     }
   }
 
+  ionViewDidEnter(){
+    setTimeout(() => {
+      this.mytextarea.setFocus();//输入框获取焦点
+    })
+  }
+
   release() {
     if (this.beizhuText.length == 0 || this.beizhuText.match(/^\s+$/g)) {
       Utils.toastButtom("回复不可为空", this.toast)
@@ -86,7 +93,7 @@ export class CalendarChatPage {
         if (res.result.res_code == 1) {
           this.beizhuText = ''
           Utils.toastButtom("回复成功", this.toast)
-          this.frontPage.data.need_fresh_reply = true;
+          // this.frontPage.data.need_fresh_reply = true;
           this.navCtrl.popTo(this.frontPage);
         }
       })
@@ -147,5 +154,6 @@ export class CalendarChatPage {
   getPictureSuccess(img_url) {
     this.imgList.push(img_url)
   }
+  
 
 }

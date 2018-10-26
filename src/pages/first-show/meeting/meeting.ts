@@ -240,7 +240,7 @@ export class MeetingPage {
   }
 
   goBack() {
-    this.frontPage.data.need_fresh = true;
+    // this.frontPage.data.need_fresh = true;
     this.navCtrl.pop();
   }
 
@@ -266,7 +266,7 @@ export class MeetingPage {
           this.item_tip_name = this.navParams.get('alarm_name') + '(App提醒、网页提醒)'
         }
       } else if (this.pet == 2) {
-        this.frontPage.data.need_fresh = true;
+        // this.frontPage.data.need_fresh = true;
         this.navCtrl.pop()
       } else if (this.pet == 4) {
         this.get_all_data()
@@ -274,14 +274,14 @@ export class MeetingPage {
     }
     var need_fresh_reply = this.navParams.get('need_fresh_reply')
 
-    if (need_fresh_reply) {
+    // if (need_fresh_reply) {
       this.get_all_data()
-    }
+    // }
   }
 
   //取消新建待办事项
   cancel() {
-    // cordova.plugins.Keyboard.close()
+    cordova.plugins.Keyboard.close()
     if (this.search) {
       this.title_meeting = '新建会议'
       if (this.edit && this.search && this.change) {
@@ -297,7 +297,7 @@ export class MeetingPage {
   }
   //新建待办事项完成
   stateFinish() {
-    // cordova.plugins.Keyboard.close()
+    cordova.plugins.Keyboard.close()
     if (this.search) {
       this.title_meeting = '新建会议'
       if (this.edit && this.search && this.change) {
@@ -310,7 +310,7 @@ export class MeetingPage {
     if (body) {
       this.firService.create_meeting(body).then(res => {
         if (res.result.res_code == 1) {
-          this.frontPage.data.need_fresh = true;
+          // this.frontPage.data.need_fresh = true;
           this.navCtrl.popTo(this.frontPage);
         }
       })
@@ -377,7 +377,7 @@ export class MeetingPage {
     // })
 
     var self = this
-    this.firService.get_all_department({ 'uid': this.uid }).then(res => {
+    this.firService.get_all_department({ 'uid': this.uid,'need_total':true }).then(res => {
       if (res.result.res_data && res.result.res_code == 1) {
         self.zNodes = res.result.res_data
         for (let i = 0; i < self.selectList.length; i++) {
@@ -644,7 +644,7 @@ export class MeetingPage {
       }
       this.firService.delete_meeting(body).then(res => {
         // if (res.result.res_code == 1){
-        this.frontPage.data.need_fresh = true;
+        // this.frontPage.data.need_fresh = true;
         this.navCtrl.pop()
         // }
       })
@@ -671,7 +671,7 @@ export class MeetingPage {
   }
   //编辑完成
   changeFinish() {
-    // cordova.plugins.Keyboard.close()
+    cordova.plugins.Keyboard.close()
     if (this.search) {
       this.search = false
       return
@@ -690,7 +690,7 @@ export class MeetingPage {
   }
   //编辑取消
   changeCancel() {
-    // cordova.plugins.Keyboard.close()
+    cordova.plugins.Keyboard.close()
     if (this.search) {
       this.search = false
       if (this.select_type == 1) {
@@ -714,6 +714,7 @@ export class MeetingPage {
         if (res.result.res_data && res.result.res_code == 1) {
           this.item = res.result.res_data
           this.item_change()
+          this.navCtrl.pop()
         }
       })
     } else {
