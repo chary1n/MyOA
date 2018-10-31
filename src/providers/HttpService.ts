@@ -1,5 +1,5 @@
-import { NativeService } from './NativeService';
-import { UrlServer } from './UrlServer';
+// import { NativeService } from './NativeService';
+// import { UrlServer } from './UrlServer';
 import { LoadingController, AlertController, Platform } from 'ionic-angular';
 import * as constansts from './Constants';
 import { Injectable } from '@angular/core';

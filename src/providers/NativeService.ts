@@ -11,7 +11,7 @@ import { AppVersion } from '@ionic-native/app-version';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { Toast } from '@ionic-native/toast';
 import { File, FileEntry } from '@ionic-native/file';
-import { Transfer, TransferObject } from '@ionic-native/transfer';
+import { Transfer } from '@ionic-native/transfer';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { ImagePicker } from '@ionic-native/image-picker';
 import { Network } from '@ionic-native/network';
@@ -40,7 +40,6 @@ export class NativeService {
     private appVersion: AppVersion,
     private camera: Camera,
     private toast: Toast,
-    private transfer: Transfer,
     private file: File,
     private inAppBrowser: InAppBrowser,
     private imagePicker: ImagePicker,

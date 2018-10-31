@@ -1,8 +1,8 @@
-import { Storage } from '@ionic/storage';
+// import { Storage } from '@ionic/storage';
 // import { NativeService } from './../providers/NativeService';
-import { TabsPage } from './../pages/tabs/tabs';
+// import { TabsPage } from './../pages/tabs/tabs';
 import { Component } from '@angular/core';
-import { Platform, AlertController } from 'ionic-angular';
+import { Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 // import { AppVersion } from '@ionic-native/app-version';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -10,7 +10,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 // import { HttpService } from '../providers/HttpService'
 // import { JPush } from '../providers/JPush'
-import { CodePush, InstallMode, SyncStatus } from '@ionic-native/code-push';
+import { CodePush, InstallMode } from '@ionic-native/code-push';
 
 // import { HttpModule } from "@angular/http";
 // import { FirService } from './FirService';
@@ -25,8 +25,7 @@ export class MyApp {
   version: any;
   user_env: any;
   constructor(public platform: Platform, statusBar: StatusBar,
-    splashScreen: SplashScreen, 
-     private storage: Storage,public codePush:CodePush) {
+    splashScreen: SplashScreen, public codePush:CodePush) {
 
     platform.ready().then(() => {
       statusBar.overlaysWebView(false);

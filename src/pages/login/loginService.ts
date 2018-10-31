@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { APP_SERVER_URL, APP_SERVER_URL_T } from './../../providers/Constants';
+// import { APP_SERVER_URL, APP_SERVER_URL_T } from './../../providers/Constants';
 import { HttpService } from '../../providers/HttpService';
 
 @Injectable()
