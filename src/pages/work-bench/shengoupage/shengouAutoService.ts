@@ -1,5 +1,5 @@
 import {AutoCompleteService} from 'ionic2-auto-complete';
-import { Http } from '@angular/http';
+// import { Http } from '@angular/http';
 import {Injectable} from "@angular/core";
 import 'rxjs/add/operator/map'
 
@@ -7,7 +7,7 @@ import 'rxjs/add/operator/map'
 export class ShenGouAutoService implements AutoCompleteService {
   labelAttribute = "name";
 
-  constructor(private http:Http) {
+  constructor() {
 
   }
   getResults(keyword:string) {

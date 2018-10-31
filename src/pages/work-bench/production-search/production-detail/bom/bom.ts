@@ -1,4 +1,4 @@
-import { TreeComponent } from 'ng2-tree';
+// import { TreeComponent } from 'ng2-tree';
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { NodeEvent, TreeModel, RenamableNode, Ng2TreeSettings } from 'ng2-tree';

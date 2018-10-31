@@ -1,5 +1,5 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
-import { IonicPage, NavController, NavParams, PopoverController, ViewController, Events } from 'ionic-angular';
+import { Component } from '@angular/core';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { PaymentRequestService} from './pay-requestService';
 import { Storage } from '@ionic/storage';
 import { PaymentAutoService} from './pay-request-auto';

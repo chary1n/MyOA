@@ -1,7 +1,7 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
-import { IonicPage, NavController, NavParams, PopoverController, ViewController, Events,AlertController } from 'ionic-angular';
-import { Storage } from '@ionic/storage';
-import { Utils } from './../../../../providers/Utils';
+import { Component, } from '@angular/core';
+import { IonicPage, NavController, NavParams, } from 'ionic-angular';
+// import { Storage } from '@ionic/storage';
+// import { Utils } from './../../../../providers/Utils';
 import { PaymentRequestService} from './../pay-requestService';
 /**
  * Generated class for the BillDetailPage page.

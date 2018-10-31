@@ -1,8 +1,8 @@
 import { NavController, NavParams, IonicPage,AlertController,ToastController,Platform } from 'ionic-angular';
 import { Component } from '@angular/core';
-import { Storage } from '@ionic/storage';
+// import { Storage } from '@ionic/storage';
 import { Utils } from './../../../../../providers/Utils';
-import { Toast } from '@ionic-native/toast';
+// import { Toast } from '@ionic-native/toast';
 declare let cordova: any;
 
 /**

@@ -7,7 +7,7 @@ import 'rxjs/add/operator/map'
 export class ZanzhiAutoService implements AutoCompleteService {
     labelAttribute = "name";
 
-    constructor(private http: Http) {
+    constructor() {
 
     }
     getResults(keyword: string) {

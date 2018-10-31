@@ -1,8 +1,8 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
-import { IonicPage, NavController, NavParams,PopoverController ,ViewController,Events} from 'ionic-angular';
+import { Component } from '@angular/core';
+import { IonicPage,ViewController,Events} from 'ionic-angular';
 import { orderService } from '../order/orderService';
 import { PoContactPage } from './../po-contact/po-contact';
-import { DeliveryNotesPage } from './../delivery-notes/delivery-notes';
+// import { DeliveryNotesPage } from './../delivery-notes/delivery-notes';
 import { CallNumber } from '@ionic-native/call-number';
 
 /**
