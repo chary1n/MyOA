@@ -1,0 +1,202 @@
+page-new-zanzhi-detail {
+/*头部class*/
+    .imgHeard{
+        border-radius: 20px;
+        width: 40px;
+        height: 40px;
+    }
+
+    .bg_main{
+        background:white
+    }
+
+    .name_class{
+        font-size:80%;
+    }
+
+    .state_class{
+        margin-left:5px;
+        font-size:80%;
+        color:#E0540E
+    }
+
+    .state_class_center{
+        margin-left:5px;
+        font-size:80%;
+        color:#E0540E;
+        display: block;
+        text-align: center;
+    }
+
+    .state_class_center_block{
+        margin-left:5px;
+        font-size:80%;
+        color:#E0540E;
+        display: block;
+        text-align: center;
+    }
+
+    .order_class{
+        float:right;
+        font-size:80%;
+        width:70%;
+        line-height: 19px;
+        color: #333333;
+    }
+    
+    .left_label{
+        font-size:80%;
+        width:67px;
+        text-align: right;
+        color: gray;
+        line-height: 19px;
+    }
+
+    .item_class{
+        height: 30px;
+        min-height: 30px;
+    }
+
+    .col_header_class{
+        padding-top:17px
+    }
+    .col_header_class_1{
+        padding-top: 9px
+    }
+    .differ_class{
+        height: 5px;
+        background-color: white;
+        width: 100%;
+    }
+
+    .bx_detail_class{
+        height: 28px;
+        line-height: 28px;
+        color: gray;
+        background-color: #f0f2f5;
+        padding-left: 10px;
+        font-size: 13px;
+    }
+
+    .bx_detail_class_top{
+        height: 28px;
+        line-height: 28px;
+        color: gray;
+        background-color: #f0f2f5;
+        padding-left: 10px;
+        font-size: 13px;
+        margin-top: -30px;
+    }
+
+    /*报销明细class*/
+    .detail_div{
+        height:20px;
+        border-bottom:lightgray 1px solid;
+        overflow:hidden;
+    }
+
+    .type_class{
+        font-size:80%;
+        color:#00a7f1;
+        float:left;
+        font-weight:bold;
+        margin-top:-2px;
+        max-width: 150px;
+        text-overflow: ellipsis;
+        -o-text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+
+    .beizhu_class{
+        font-size:80%;
+        color:gray;
+        margin-top:2px;
+    }
+
+    .yongtu_class{
+        font-size:80%;
+        color:gray;
+        margin-top:5px;
+    }
+
+    .tax_class{
+        font-size:80%;
+        color:gray;
+        float:right;
+        margin-right:20px;
+        margin-top:-2px
+    }
+
+    .unit_amount_class{
+        float:right;
+        font-size:80%;
+        margin-top:-2px
+    }
+
+    /*审批记录class*/
+    .middle_item{
+        width: 85%;
+        margin-left: 10%;
+        margin-top: 6px;
+        // height:auto;
+        border-radius:5px;
+    }
+    .user_ava_class{
+        width:40px;
+        vertical-align:top;
+        float:left;
+        margin-right:10px;
+        border-radius:20px
+    }
+
+    .span_employee_class{
+        margin-top:3px;
+        color:black;
+        font-size:80%;
+        float:left
+    }
+
+    .span_time_class{
+        font-size:70%;
+        margin-top:5px;
+        margin-left:-5px;
+        float:right
+    }
+
+    .size_class{
+        font-size:80%;
+    }
+
+/*底部class*/
+    .footer_class{
+        width: 100%;
+    }
+
+    .left_btn{
+        display: inline-block;
+        line-height: 44px;
+        width: 50%;
+        text-align: center;
+        background-color: red;
+        color: white;
+        float: left;
+    }
+
+    .right_btn{
+        line-height: 44px;
+        width: 50%;
+        color: white;
+        text-align: center;
+        float: right;
+        background-color: #2597ec;
+    }
+
+    .item_empty_class{
+
+    }
+
+    .item_10px_class{
+        margin-top: 10px;
+    }
+}

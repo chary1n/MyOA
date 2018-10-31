@@ -13,7 +13,6 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
 import { ToastController } from 'ionic-angular/components/toast/toast-controller';
 
-
 import { AppVersion } from '@ionic-native/app-version';
 import { Platform } from 'ionic-angular';
 import { UrlServer } from '../../providers/UrlServer';
@@ -65,43 +64,7 @@ export class LoginPage {
     public jpush: JPush, public urlServer: UrlServer, public ctrl: AlertController, private inAppBrowser: InAppBrowser,
     public firService: FirService, private nativeService: NativeService, public toastCtrl: ToastController, public splashScreen: SplashScreen
   ) {
-    this.storage.get("login").then(res => {
-      if (res) {
-        this.autoLogin = res.autoLogin
-        this.remerberPassword = res.remerberPassword
-      }
-    })
-    this.storage.get('user_psd').then(res => {
-      this.email = res.user_email
-      this.password = res.user_psd
-      this.isDisabled = false
-    })
-    this.storage.get("loginIndex").then(res => {
-      this.defultChoose(res)
-    })
-    this.isDisabled = true
-
-    this.reset();
-
-    if (!HttpService.need_back_login) {
-      this.storage.get("login").then(res => {
-        this.storage.get("user").then(user => {
-          HttpService.need_back_login = true
-          // console.log(HttpService.need_back_login)
-          if (res) {
-            if (res.autoLogin && user) {
-              this.toAutoLogin()
-            } else if (res.remerberPassword) {
-              this.storage.get('user_psd').then(res => {
-                this.email = res.user_email
-                this.password = res.user_psd
-                this.isDisabled = false
-              })
-            }
-          }
-        })
-      })
-    }
+    
   }
 
   getVersionNumber(): Promise<string> {
@@ -147,7 +110,7 @@ export class LoginPage {
   }
 
   ionViewDidEnter() {
-    this.splashScreen.hide();
+    // this.splashScreen.hide();
     // if (this.platform.is("android")) {
     //   this.getVersionNumber();
     // }
@@ -180,7 +143,44 @@ export class LoginPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginPage');
+    this.jpush.initJpush();
+    this.storage.get("login").then(res => {
+      if (res) {
+        this.autoLogin = res.autoLogin
+        this.remerberPassword = res.remerberPassword
+      }
+    })
+    this.storage.get('user_psd').then(res => {
+      this.email = res.user_email
+      this.password = res.user_psd
+      this.isDisabled = false
+    })
+    this.storage.get("loginIndex").then(res => {
+      this.defultChoose(res)
+    })
+    this.isDisabled = true
+
+    this.reset();
+
+    if (!HttpService.need_back_login) {
+      this.storage.get("login").then(res => {
+        this.storage.get("user").then(user => {
+          HttpService.need_back_login = true
+          // console.log(HttpService.need_back_login)
+          if (res) {
+            if (res.autoLogin && user) {
+              this.toAutoLogin()
+            } else if (res.remerberPassword) {
+              this.storage.get('user_psd').then(res => {
+                this.email = res.user_email
+                this.password = res.user_psd
+                this.isDisabled = false
+              })
+            }
+          }
+        })
+      })
+    }
   }
 
   toAutoLogin() {
@@ -261,8 +261,8 @@ export class LoginPage {
     this.isSelected3 = false;
     this.isSelected4 = false;
     this.chooseIndex = 0;
-    HttpService.appUrl = "http://service.linkloving.net:8888/"
-    // HttpService.appUrl = "http://10.0.0.5:8081/"
+    // HttpService.appUrl = "http://service.linkloving.net:8888/"
+    HttpService.appUrl = "http://192.168.3.9:8081/"
     this.reset();
     this.img1 = "assets/img/jiangsuruotai_clicked.png"
     this.password_src = "assets/img/S_password.png"
@@ -423,6 +423,8 @@ export class LoginPage {
         // console.log(res);
         if (res.result && res.result.res_code == 1) {
           loading.dismiss()
+          this.jpush.setAlias(res.result.res_data.user_id);
+          
           HttpService.user_id = res.result.res_data.user_id;
           HttpService.user = res.result.res_data;
           try {

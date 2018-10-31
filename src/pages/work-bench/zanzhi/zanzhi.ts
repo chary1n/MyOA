@@ -37,7 +37,7 @@ export class ZanzhiPage {
   need_fresh ;
   already_approval_count;
   apply_count;
-department = false;
+  department = false;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public commonServices :CommonUseServices ,
     public zanzhiAutoServices :ZanzhiAutoService,

@@ -9,7 +9,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 // import { JPushPlugin } from '@ionic-native/jpush';
 
 // import { HttpService } from '../providers/HttpService'
-import { JPush } from '../providers/JPush'
+// import { JPush } from '../providers/JPush'
 import { CodePush, InstallMode, SyncStatus } from '@ionic-native/code-push';
 
 // import { HttpModule } from "@angular/http";
@@ -18,7 +18,7 @@ import { CodePush, InstallMode, SyncStatus } from '@ionic-native/code-push';
 declare let cordova: any;
 @Component({
   templateUrl: 'app.html',
-  providers: [ JPush,CodePush]
+  providers: [ CodePush]
 })
 export class MyApp {
   rootPage: any = 'LoginPage';
@@ -26,20 +26,20 @@ export class MyApp {
   user_env: any;
   constructor(public platform: Platform, statusBar: StatusBar,
     splashScreen: SplashScreen, 
-     private storage: Storage, public jpush: JPush,public codePush:CodePush) {
+     private storage: Storage,public codePush:CodePush) {
 
     platform.ready().then(() => {
       statusBar.overlaysWebView(false);
       statusBar.styleDefault();
       statusBar.backgroundColorByHexString('#f8f8f8');
       splashScreen.hide();
-      this.jpush.initJpush();
-      this.checkCodePush()
-      storage.get('user')
-        .then(res => {
-          this.user_env = res.result.res_data;
-           this.jpush.setAlias(res.result.res_data.user_id);
-        });
+      // this.jpush.initJpush();
+      // this.checkCodePush()
+      // storage.get('user')
+      //   .then(res => {
+      //     this.user_env = res.result.res_data;
+      //      this.jpush.setAlias(res.result.res_data.user_id);
+      //   });
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       

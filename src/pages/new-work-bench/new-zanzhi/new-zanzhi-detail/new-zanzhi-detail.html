@@ -1,0 +1,120 @@
+<!--
+  Generated template for the ApplyDetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header no-border>
+
+  <ion-navbar color="gongdan-color">
+    <ion-title>{{res_data.name}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content style="background:#f0f0f0">
+  <ion-item style="min-height:60px;height:60px;">
+    <ion-grid class="bg_main">
+      <ion-row>
+        <ion-col col-2>
+          <img src="{{res_data.create_person_ava}}" class="imgHeard">
+        </ion-col>
+        <ion-col col-5 class="col_header_class">
+          <span class="name_class">{{res_data.employee}}</span>
+        </ion-col>
+        <!--<ion-col col-5 class="col_header_class">
+          <span class="state_class">{{changeState(state)}}／{{res_data.to_approve_id}}</span>
+        </ion-col>-->
+
+        <ion-col *ngIf="state == 'reviewing'" col-5 class="col_header_class_1">
+          <span class="state_class_center">{{changeState(state)}}</span>
+          <span class="state_class_center_block">{{res_data.to_approve_id}}</span>
+        </ion-col>
+        <ion-col *ngIf="state != 'reviewing'" col-5 class="col_header_class">
+          <span class="state_class">{{changeState(state)}}</span>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item>
+  <div class="differ_class">
+  </div>
+  <ion-item no-lines class="item_class">
+    <div text-wrap class="order_class"> {{res_data.to_approve_id}} </div>
+    <div class="left_label"> 待审核人 </div>
+  </ion-item>
+  <ion-item no-lines class="item_class">
+    <div text-wrap class="order_class"> {{res_data.bank_account_id}} </div>
+    <div class="left_label"> 银行账户 </div>
+  </ion-item>
+  <ion-item no-lines class="item_class">
+    <div text-wrap class="order_class"> {{res_data.amount}} </div>
+    <div class="left_label"> 申请金额 </div>
+  </ion-item>
+  <ion-item no-lines class="item_class">
+    <div text-wrap class="order_class"> {{res_data.pre_payment_reminding}} </div>
+    <div class="left_label"> 可用金额 </div>
+  </ion-item>
+  <ion-item no-lines *ngIf="res_data.requisitions_id.name" class="item_class">
+    <div text-wrap class="order_class"> {{res_data.requisitions_id.name}} </div>
+    <div class="left_label"> 申购单 </div>
+  </ion-item>
+  <div class="bx_detail_class">
+    明细
+  </div>
+  <ion-item-group>
+    <div no-lines tappable (click)="changeProductItem(i)" *ngFor='let items of res_data.line_ids;let i = index'>
+      <ion-item [ngClass]="{true:'item_empty_class',false:'item_10px_class'}[i == 0]">
+        <div class="detail_div">
+          <span class="type_class">{{items.product_id.name}}</span>
+          <span class="unit_amount_class">金额：￥{{items.amount}}</span>
+        </div>
+
+        <p text-wrap class="yongtu_class">消费用途：{{items.name}}</p>
+        <p text-wrap class="beizhu_class">备注：{{items.description}} </p>
+      </ion-item>
+    </div>
+    <!--<ion-item-options *ngIf="item.state" side="right">
+          <button ion-button color="primary" (click)="changeProductItem(i)">
+              <ion-icon name="create"></ion-icon>
+              修改
+            </button>
+        </ion-item-options>-->
+  </ion-item-group>
+  <div class="bx_detail_class">审批记录</div>
+  <ion-list>
+    <ion-item no-lines *ngFor='let items of res_data.message_ids' style="overflow:hidden" class="middle_item">
+      <img class="user_ava_class" src={{items.create_person_ava}}>
+      <div style="overflow:hidden">
+        <span class="span_employee_class">{{items.create_person}}</span>
+
+        <span class="span_time_class">{{changeDate(items.create_time) | date:'yyyy-MM-dd HH:mm:ss'}}</span>
+      </div>
+      <p *ngIf="items.old_state || items.new_state" class="size_class">{{items.old_state}}=>{{items.new_state}}</p>
+      <p text-wrap class="size_class">{{items.description}}</p>
+    </ion-item>
+  </ion-list>
+
+</ion-content>
+
+<ion-footer *ngIf="type=='wait_approved'">
+  <!--<div style="display:flex ;justify-content:space-around">-->
+  <div class="footer_class">
+    <div class="left_btn" tappable (click)='cancel()'>
+      拒绝
+    </div>
+    <div class="right_btn" tappable (click)='conform()'>
+      同意
+    </div>
+  </div>
+  <!--<button *ngIf="pet=='0'&& state!='paid' && state!='cancel'" round style='background-color:#f5a623;flex :1 1 100%' ion-button (click)="callbackOrder()">
+      撤回申请
+    </button>
+    <button *ngIf="pet=='0'&& state=='cancel'" round style='background-color:#f5a623;flex :1 1 100%' ion-button (click)="editOrder()">
+      编辑
+    </button>
+    <button *ngIf="pet=='0'&& state=='draft'" round style='background-color:#f5a623;flex :1 1 100%' ion-button (click)="submitOrder()">
+      提交审核
+    </button>-->
+  <!--</div>-->
+</ion-footer>

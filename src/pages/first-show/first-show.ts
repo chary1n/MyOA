@@ -46,6 +46,10 @@ export class FirstShowPage {
   subNum;//是否显示没有添加日程
   recoup_num//补卡销卡数目
   vacation_num//休假单数目
+  bx_num//报销
+  sg_num//申购
+  yf_num//预付
+  jk_num//借款
   isShowApprovalPoint = false
   all_approval = 0//审批总和
   type_id;//会议的类型
@@ -574,7 +578,11 @@ export class FirstShowPage {
       if(res.result.res_data && res.result.res_code == 1){
          this.recoup_num = res.result.res_data.recoup_num
          this.vacation_num = res.result.res_data.vacation_num
-         this.all_approval = this.recoup_num+this.vacation_num
+         this.bx_num = res.result.res_data.bx_num
+         this.sg_num = res.result.res_data.sg_num
+         this.jk_num = res.result.res_data.jk_num
+         this.yf_num = res.result.res_data.yf_num
+         this.all_approval = this.recoup_num+this.vacation_num+this.jk_num+this.bx_num+this.yf_num+this.sg_num
          if(this.all_approval!=0){
           this.isShowApprovalPoint=true
          }else{
@@ -600,5 +608,25 @@ export class FirstShowPage {
     this.navCtrl.push('UnreadReplyPage',{
           item:this.un_read_list
         })
+  }
+
+  toBX(){
+    this.navCtrl.push('NewReimbursementPage')
+  }
+
+  toYF(){
+    this.navCtrl.push('NewZanzhiPage',{
+      zz_type:'advance'
+    })
+  }
+
+  toJK(){
+    this.navCtrl.push('NewZanzhiPage',{
+      zz_type:'temp'
+    })
+  }
+
+  toSG(){
+    this.navCtrl.push('NewShengouPage')
   }
 }

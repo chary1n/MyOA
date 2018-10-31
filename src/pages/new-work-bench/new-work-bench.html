@@ -13,11 +13,11 @@
 </ion-header>
 
 
-<ion-content >
-  <div class="row_class"  align-items-center>
-        <div class="left_div" align="center" tappable (click) = "click_normal()">
-          <p [ngClass]="{true:'under_line_style',false:'normal_style'}[inner_type == 'normal']">通用</p> 
-        </div> 
+<ion-content>
+  <div class="row_class" align-items-center>
+    <div class="left_div" align="center" tappable (click)="click_normal()">
+      <p [ngClass]="{true:'under_line_style',false:'normal_style'}[inner_type == 'normal']">通用</p>
+    </div>
   </div>
   <ion-grid class="grid_class">
     <div class="header_div_class">
@@ -34,9 +34,9 @@
       </ion-col>
 
       <ion-col class="col_class" tappable (click)="click_vacation()" col-3>
-        <div *ngIf="vacation_num > 0" align="center" [ngClass]="{true:'big_number_class',false:'number_class'}[vacation_num >= 10]" >
-            {{vacation_num}}
-          </div>
+        <div *ngIf="vacation_num > 0" align="center" [ngClass]="{true:'big_number_class',false:'number_class'}[vacation_num >= 10]">
+          {{vacation_num}}
+        </div>
         <div class="body_class" align="center">
           <img class="body_img_class" src="assets/img/work_bench/vacation_fang.png">
           <div class="text_class">
@@ -47,8 +47,8 @@
 
       <ion-col class="col_class" tappable (click)="click_recoup()" col-3>
         <div *ngIf="recoup_num > 0" align="center" [ngClass]="{true:'big_number_class',false:'number_class'}[recoup_num >= 10]">
-            {{recoup_num}}
-          </div>
+          {{recoup_num}}
+        </div>
         <div class="body_class" align="center">
           <img class="body_img_class" src="assets/img/work_bench/recoup_fang.png">
           <div class="text_class">
@@ -71,21 +71,21 @@
       工作汇报
     </div>
     <ion-row class="body_row_class" align-items-center>
-        <ion-col class="col_class" tappable (click)="toAll()" col-3>
-            <div class="body_class" align="center">
-              
-              <img class="body_img_class" src="assets/img/waitthing.png">
-              <div class="text_class">
-              待办
-              </div>
-            </div>
-          </ion-col>
+      <ion-col class="col_class" tappable (click)="toAll()" col-3>
+        <div class="body_class" align="center">
+
+          <img class="body_img_class" src="assets/img/waitthing.png">
+          <div class="text_class">
+            待办
+          </div>
+        </div>
+      </ion-col>
       <ion-col class="col_class" tappable (click)="click_jixiao()" col-3>
         <div *ngIf="performance > 0" align="center" [ngClass]="{true:'big_number_class',false:'number_class'}[performance >= 10]">
-            {{performance}}
-          </div>
+          {{performance}}
+        </div>
         <div class="body_class" align="center">
-          
+
           <img class="body_img_class" src="assets/img/work_bench/performance_fang.png">
           <div class="text_class">
             绩效
@@ -94,32 +94,61 @@
       </ion-col>
     </ion-row>
 
-    <!--<div class="sub_header_div_class">
+    <div class="sub_header_div_class">
       财务
     </div>
     <ion-row class="body_row_class" align-items-center>
-        <ion-col class="col_class" tappable (click)="click_baoxiao()" col-3>
-            <div class="body_class" align="center">
-              
-              <img class="body_img_class" src="assets/img/waitthing.png">
-              <div class="text_class">
-              报销
-              </div>
-            </div>
-          </ion-col>
-      <ion-col class="col_class" tappable (click)="click_shengou()" col-3>
-        <div *ngIf="performance > 0" align="center" [ngClass]="{true:'big_number_class',false:'number_class'}[performance >= 10]">
-            {{performance}}
-          </div>
+      <ion-col class="col_class" tappable (click)="click_baoxiao()" col-3>
+        <div *ngIf="bx_num > 0" align="center" [ngClass]="{true:'big_number_class',false:'number_class'}[vacation_num >= 10]">
+          {{bx_num}}
+        </div>
         <div class="body_class" align="center">
-          
-          <img class="body_img_class" src="assets/img/work_bench/performance_fang.png">
+
+          <img class="body_img_class" src="assets/img/bx_img.png">
+          <div class="text_class">
+            报销
+          </div>
+        </div>
+      </ion-col>
+      <ion-col class="col_class" tappable (click)="click_shengou()" col-3>
+        <div *ngIf="shengou_num > 0" align="center" [ngClass]="{true:'big_number_class',false:'number_class'}[performance >= 10]">
+          {{shengou_num}}
+        </div>
+        <div class="body_class" align="center">
+
+          <img class="body_img_class" src="assets/img/sg_img.png">
           <div class="text_class">
             申购
           </div>
         </div>
       </ion-col>
-    </ion-row>-->
+
+      <ion-col class="col_class" tappable (click)="click_jie()" col-3>
+        <div *ngIf="jiekuan_num > 0" align="center" [ngClass]="{true:'big_number_class',false:'number_class'}[performance >= 10]">
+          {{jiekuan_num}}
+        </div>
+        <div class="body_class" align="center">
+
+          <img class="body_img_class" src="assets/img/jk_img.png">
+          <div class="text_class">
+            借款
+          </div>
+        </div>
+      </ion-col>
+
+      <ion-col class="col_class" tappable (click)="click_yufu()" col-3>
+        <div *ngIf="yufu_num > 0" align="center" [ngClass]="{true:'big_number_class',false:'number_class'}[performance >= 10]">
+          {{yufu_num}}
+        </div>
+        <div class="body_class" align="center">
+
+          <img class="body_img_class" src="assets/img/yz_img.png">
+          <div class="text_class">
+            预支
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
   </ion-grid>
 
 </ion-content>

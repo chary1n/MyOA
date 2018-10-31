@@ -23,6 +23,10 @@ export class NewWorkBenchPage {
   performance = 0
   vacation_num = 0
   recoup_num = 0
+  shengou_num = 0
+  bx_num = 0
+  yufu_num = 0
+  jiekuan_num = 0
   constructor(public navCtrl: NavController, public navParams: NavParams,public statusbar:StatusBar,public services:CommonUseServices,
               public storage: Storage) {
       
@@ -58,6 +62,10 @@ export class NewWorkBenchPage {
                 this.performance = res.result.res_data.performance
                 this.vacation_num = res.result.res_data.vacation_num
                 this.recoup_num = res.result.res_data.recoup_num
+                this.shengou_num = res.result.res_data.sg_num
+                this.bx_num = res.result.res_data.bx_num
+                this.yufu_num = res.result.res_data.yufu_num
+                this.jiekuan_num = res.result.res_data.jiekuan_num
               }
             })
           })
@@ -89,10 +97,22 @@ export class NewWorkBenchPage {
   }
 
   click_baoxiao(){
-    this.navCtrl.push('ReimbursementPage')
+    this.navCtrl.push('NewReimbursementPage')
   }
 
   click_shengou(){
-    this.navCtrl.push('ShengoupagePage')
+    this.navCtrl.push('NewShengouPage')
+  }
+
+  click_jie(){
+    this.navCtrl.push('NewZanzhiPage',{
+      zz_type:'temp'
+    })
+  }
+
+  click_yufu(){
+    this.navCtrl.push('NewZanzhiPage',{
+      zz_type:'advance'
+    })
   }
 }
