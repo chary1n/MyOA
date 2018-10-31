@@ -2,9 +2,10 @@ import { NavController, NavParams, IonicPage, Platform ,AlertController} from 'i
 import { Component } from '@angular/core';
 import { NewShenGouService } from './new-shengouService';
 import { Storage } from '@ionic/storage';
-import { NewShenGouAutoService } from './new-shengouAutoService'
+import { NewShenGouAutoService } from './new-shengouautoService'
 import { HttpService } from '../../../providers/HttpService';
 import { NewShenGouMeAutoService } from './new-shengouMeautoService'
+
 /**
  * Generated class for the NewShengouPage page.
  *
