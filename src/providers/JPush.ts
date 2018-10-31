@@ -86,4 +86,12 @@ export class JPush {
     window['plugins'].jPushPlugin.setAlias('' + userId);
   }
 
+  public setAliasAndTags(userId,tag,success,error) {
+    if (!this.nativeService.isMobile()) {
+      return;
+    }
+    console.log('设置setAlias:' + userId + ",设置setTags:" + tag);
+    window['plugins'].jPushPlugin.setTagsWithAlias(tag,userId,success,error)
+  }
+
 }
