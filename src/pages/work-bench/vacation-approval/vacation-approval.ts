@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ActionSheetController,AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { VacationAutoService } from './vacation-approval-autoService';
 import { VacationService } from './vacationService';

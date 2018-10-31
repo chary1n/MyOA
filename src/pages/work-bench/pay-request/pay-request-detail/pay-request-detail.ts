@@ -1,5 +1,5 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
-import { IonicPage, NavController, NavParams, PopoverController, ViewController, Events,AlertController,Platform } from 'ionic-angular';
+import { Component,  } from '@angular/core';
+import { IonicPage, NavController, NavParams,AlertController,Platform } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { PaymentRequestService} from './../pay-requestService';
 import { Utils } from './../../../../providers/Utils';

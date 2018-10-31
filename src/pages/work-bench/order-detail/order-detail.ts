@@ -1,8 +1,8 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { IonicPage, NavController, NavParams, PopoverController, ViewController, Events,ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, PopoverController, Events,ToastController } from 'ionic-angular';
 import { orderService } from '../order/orderService';
-import { PoContactPage } from './../po-contact/po-contact';
-import { DeliveryNotesPage } from './../delivery-notes/delivery-notes';
+// import { PoContactPage } from './../po-contact/po-contact';
+// import { DeliveryNotesPage } from './../delivery-notes/delivery-notes';
 import { Storage } from '@ionic/storage';
 import { Utils } from './../../../providers/Utils';
 

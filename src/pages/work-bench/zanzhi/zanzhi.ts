@@ -1,9 +1,9 @@
-import { IMAGE_SIZE } from './../../../providers/Constants';
+// import { IMAGE_SIZE } from './../../../providers/Constants';
 import { Storage } from '@ionic/storage';
 import { CommonUseServices } from './../commonUseServices';
 import { IonicPage, NavController, NavParams ,AlertController} from 'ionic-angular';
 import { Component } from '@angular/core';
-import { getType } from '@angular/core/src/errors';
+// import { getType } from '@angular/core/src/errors';
 import { ZanzhiAutoService } from './zanzhi-auto';
 
 /**
@@ -168,7 +168,7 @@ export class ZanzhiPage {
   }
 
   itemSelected(event) {
-    let type;
+    // let type;
     let search_text;
     let data ;
     if (event.id == 1) {

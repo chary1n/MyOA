@@ -7,7 +7,7 @@ import 'rxjs/add/operator/map'
 export class VacationAutoService implements AutoCompleteService {
   labelAttribute = "name";
 
-  constructor(private http:Http) {
+  constructor() {
 
   }
   getResults(keyword:string) {

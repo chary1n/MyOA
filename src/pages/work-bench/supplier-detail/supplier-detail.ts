@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams ,AlertController} from 'ionic-angular';
 import { SupplierlistService } from '../supplier-list/supplierlistService';
-import { LoadingController } from 'ionic-angular';
+// import { LoadingController } from 'ionic-angular';
 // import { ContactListPage} from './../contact-list/contact-list'
 import { CallNumber } from '@ionic-native/call-number';
 /**
