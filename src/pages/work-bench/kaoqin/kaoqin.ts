@@ -796,10 +796,11 @@ export class KaoqinPage {
                 if (res.result.res_data && res.result.res_code == 1) {
                   that.fail_times = 0;
                   //  Utils.toastButtom(, that.toastCtrl)
-                    let timestamp_cal = Date.parse(that.datePipe.transform(new Date(), 'yyyy-MM-dd HH:mm:ss').replace(/-/g, '/'));
-                    let timestamp_cal_now = timestamp_cal / 1000
-                    let date_cal = new Date(timestamp_cal_now * 1000)
-                    that.show_date_str = [that.formatO(date_cal.getHours()), that.formatO(date_cal.getMinutes())].join(':')
+                    // let timestamp_cal = Date.parse(that.datePipe.transform(new Date(), 'yyyy-MM-dd HH:mm:ss').replace(/-/g, '/'));
+                    // let timestamp_cal_now = timestamp_cal / 1000
+                    // let date_cal = new Date(timestamp_cal_now * 1000)
+                    // that.show_date_str = [that.formatO(date_cal.getHours()), that.formatO(date_cal.getMinutes())].join(':')
+                    that.show_date_str = res.result.erp_time
 
                     that.isShowOnAlert = true
                     let count = 0
@@ -839,7 +840,7 @@ export class KaoqinPage {
           // else
           // {
               that.isShowFail = true
-              that.fail_str = "不在签到范围"
+              that.fail_str = "不在签到范围,请至前台打卡"
           // }
         }
         
@@ -912,11 +913,11 @@ export class KaoqinPage {
                    that.fail_times = 0;
                    
                   // Utils.toastButtom("签退成功", that.toastCtrl)
-                    let timestamp_cal = Date.parse(that.datePipe.transform(new Date(), 'yyyy-MM-dd HH:mm:ss').replace(/-/g, '/'));
-                    let timestamp_cal_now = timestamp_cal / 1000
-                    let date_cal = new Date(timestamp_cal_now * 1000)
-                    that.show_date_str = [that.formatO(date_cal.getHours()), that.formatO(date_cal.getMinutes())].join(':')
-
+                    // let timestamp_cal = Date.parse(that.datePipe.transform(new Date(), 'yyyy-MM-dd HH:mm:ss').replace(/-/g, '/'));
+                    // let timestamp_cal_now = timestamp_cal / 1000
+                    // let date_cal = new Date(timestamp_cal_now * 1000)
+                    // that.show_date_str = [that.formatO(date_cal.getHours()), that.formatO(date_cal.getMinutes())].join(':')
+                    that.show_date_str = res.result.erp_time
                     that.isShowOffAlert = true
                     let count = 0
                     that.items = res.result.res_data
@@ -954,7 +955,7 @@ export class KaoqinPage {
           // else
           // {
               that.isShowFail = true
-              that.fail_str = "不在签到范围"
+              that.fail_str = "不在签到范围,请至前台打卡"
           // }
         }
         

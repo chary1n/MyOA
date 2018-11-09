@@ -64,7 +64,7 @@ export class LoginPage {
     public jpush: JPush, public urlServer: UrlServer, public ctrl: AlertController, private inAppBrowser: InAppBrowser,
     public firService: FirService, private nativeService: NativeService, public toastCtrl: ToastController, public splashScreen: SplashScreen
   ) {
-    
+
   }
 
   getVersionNumber(): Promise<string> {
@@ -143,7 +143,7 @@ export class LoginPage {
   }
 
   ionViewDidLoad() {
-    // this.jpush.initJpush();
+    this.jpush.initJpush();
     this.storage.get("login").then(res => {
       if (res) {
         this.autoLogin = res.autoLogin
@@ -205,12 +205,26 @@ export class LoginPage {
                 enableBackdropDismiss: true
               });
               loading.present();
+              let db_name = res.db_name
               this.loginservice.toLogin(res.user_email, res.user_psd, res.db_name, value)
                 .then(res => {
                   loading.dismiss()
                   // console.log(res);
                   if (res.result && res.result.res_code == 1) {
                     loading.dismiss()
+                    this.jpush.setTags([db_name], function (result) {
+                      console.log('Tags success:' + result)
+                    },
+                      function (error) {
+                        console.log('Tags error:' + error)
+                      });
+                    this.jpush.setAlias(res.result.res_data.user_id, function (result) {
+                      console.log('Alias result:' + result)
+                    },
+                      function (error) {
+                        console.log('Alias error:' + error)
+                      })
+                    
                     HttpService.user_id = res.result.res_data.user_id;
                     HttpService.user = res.result.res_data;
                     this.storage.set('loginIndex', this.chooseIndex)
@@ -262,7 +276,7 @@ export class LoginPage {
     this.isSelected4 = false;
     this.chooseIndex = 0;
     HttpService.appUrl = "http://service.linkloving.net:8888/"
-    // HttpService.appUrl = "http://10.0.0.5:8081/"
+    // HttpService.appUrl = "http://192.168.3.9:8081/"
     this.reset();
     this.img1 = "assets/img/jiangsuruotai_clicked.png"
     this.password_src = "assets/img/S_password.png"
@@ -324,7 +338,7 @@ export class LoginPage {
     this.isSelected1 = false;
     this.isSelected3 = false;
     this.chooseIndex = 4;
-    HttpService.appUrl = "http://ber.robotime.com/"
+    HttpService.appUrl = "http://121.43.196.231:8888/"
     // HttpService.appUrl = "http://192.168.1.244:8111/"
     this.reset();
     this.img4 = "assets/img/banchang_clicked.png"
@@ -423,14 +437,19 @@ export class LoginPage {
         // console.log(res);
         if (res.result && res.result.res_code == 1) {
           loading.dismiss()
-          // this.jpush.setAlias(res.result.res_data.user_id);
-          // this.jpush.setAliasAndTags(res.result.res_data.user_id,[this.employee],function(result){
-          //   console.log('result:' + result)
-          // },
-          // function(error){
-          //   console.log('error:' + error)
-          // })
-          
+          this.jpush.setTags([this.employee], function (result) {
+            console.log('Tags success:' + result)
+          },
+            function (error) {
+              console.log('Tags error:' + error)
+            });
+          this.jpush.setAlias(res.result.res_data.user_id, function (result) {
+            console.log('Alias result:' + result)
+          },
+            function (error) {
+              console.log('Alias error:' + error)
+            })
+
           HttpService.user_id = res.result.res_data.user_id;
           HttpService.user = res.result.res_data;
           try {

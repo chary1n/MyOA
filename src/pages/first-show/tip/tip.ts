@@ -25,7 +25,7 @@ export class TipPage {
   alarm_name='不提醒'
   ischeck=false
   type_app = false
-  type_notification = false
+  type_notification = true
   page = 'CalendarDeatilpagePage'
   constructor(public navCtrl: NavController, public navParams: NavParams,
               public firService: FirstShowService,public storage:Storage,public toastCtrl: ToastController) {
@@ -34,7 +34,7 @@ export class TipPage {
     this.alarm_id = this.navParams.get('alarm_id') 
     this.alarm_name = this.navParams.get('alarm_name') 
     this.type_app = this.navParams.get('type_app')
-    this.type_notification = this.navParams.get('type_notification')
+    // this.type_notification = this.navParams.get('type_notification')
     if(this.alarm_id=='-1'){
       this.ischeck = true
     }
@@ -97,7 +97,7 @@ export class TipPage {
   }
 
   selectNo(){
-      this.type_notification = false
+      // this.type_notification = false
       this.type_app = false
       this.ischeck = true
       this.alarm_id = '-1'

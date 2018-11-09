@@ -8,7 +8,8 @@ import { FirstShowService } from './../first_service';
 import { ToastController } from 'ionic-angular/components/toast/toast-controller';
 import { DomSanitizer } from '@angular/platform-browser';
 declare let cordova: any;
-
+import 'jquery'
+declare var $: any;
 /**
  * Generated class for the MeetingPage page.
  *
@@ -34,10 +35,14 @@ export class MeetingPage {
   rt_project_principal_id;
   uid;
   selectList = []
+  selectOtherList = []
   start_datetime = new Date(new Date().getTime() + 8 * 60 * 60 * 1000).toISOString();
   stop_datetime = new Date(new Date().getTime() + 8 * 60 * 60 * 1000).toISOString();
   start_date = this.datePipe.transform(new Date(), 'yyyy-MM-dd')
   stop_date = this.datePipe.transform(new Date(), 'yyyy-MM-dd')
+  default_start_datetime = this.datePipe.transform(new Date(), 'yyyy-MM-dd HH:mm')
+  default_stop_datetime = this.datePipe.transform(new Date(), 'yyyy-MM-dd HH:mm')
+
   need_fresh = false
   pet = 0;
   rt_alarm_type = '不提醒';
@@ -52,6 +57,7 @@ export class MeetingPage {
   employeeList = []
   storeList = []
   linshiString = ''
+  linshiStringOther = ''
   name = ''
   rt_location = ''
   rt_description = ''
@@ -144,6 +150,8 @@ export class MeetingPage {
         })
         this.start_datetime = new Date(current_day.getTime() + 8 * 60 * 60 * 1000).toISOString();
         this.stop_datetime = new Date(current_day.getTime() + 8 * 60 * 60 * 1000).toISOString();
+        this.default_start_datetime = this.datePipe.transform(new Date(current_day.getTime() + 8 * 60 * 60 * 1000), 'yyyy-MM-dd HH:mm')
+        this.default_stop_datetime = this.datePipe.transform(new Date(current_day.getTime() + 8 * 60 * 60 * 1000), 'yyyy-MM-dd HH:mm')
         this.start_date = this.datePipe.transform(current_day, 'yyyy-MM-dd')
         this.stop_date = this.datePipe.transform(current_day, 'yyyy-MM-dd')
       } else {
@@ -161,6 +169,12 @@ export class MeetingPage {
 
   ionViewDidEnter() {
     this.tree_obj = $.fn.zTree.init($("#ztree"), this.setting, this.zNodes);
+    this.click_start_datetime()
+    this.click_start_date()
+    this.click_end_date()
+    this.click_end_datetime()
+    // $(".calendar").flatpickr()
+    // $(".flatpickr").flatpickr();
   }
 
   //获取页面数据
@@ -197,6 +211,7 @@ export class MeetingPage {
     this.create_user_name = this.item.create_user_name
     this.rt_meeting_ids = this.item.rt_meeting_ids
     this.selectList = this.item.rt_meeting_participant
+    this.selectOtherList = this.item.rt_meeting_participant_other
     this.rt_alarm_type_id = this.item.rt_alarm_type
     this.rt_alarm_type = this.item.rt_alarm_type_name
 
@@ -229,6 +244,16 @@ export class MeetingPage {
       this.stop_date = this.datePipe.transform(new Date(this.item.rt_meeting_stop.replace(/-/g, "/")), 'yyyy-MM-dd')
       this.start_datetime = this.datePipe.transform(new Date(this.item.rt_meeting_start.replace(/-/g, "/")), 'yyyy-MM-dd HH:mm').replace(' ', 'T') + 'Z'
       this.stop_datetime = this.datePipe.transform(new Date(this.item.rt_meeting_stop.replace(/-/g, "/")), 'yyyy-MM-dd HH:mm').replace(' ', 'T') + 'Z'
+      this.default_start_datetime = this.datePipe.transform(new Date(this.item.rt_meeting_start.replace(/-/g, "/")), 'yyyy-MM-dd HH:mm')
+      this.default_stop_datetime = this.datePipe.transform(new Date(this.item.rt_meeting_stop.replace(/-/g, "/")), 'yyyy-MM-dd HH:mm')
+    }
+    if (this.rt_allday) {
+      this.click_end_date()
+      this.click_start_date()
+    }
+    else {
+      this.click_end_datetime()
+      this.click_start_datetime()
     }
 
 
@@ -275,7 +300,7 @@ export class MeetingPage {
     var need_fresh_reply = this.navParams.get('need_fresh_reply')
 
     // if (need_fresh_reply) {
-      this.get_all_data()
+    this.get_all_data()
     // }
   }
 
@@ -290,6 +315,10 @@ export class MeetingPage {
       this.search = false
       if (this.select_type == 1) {
         this.selectList = this.storeList
+      }
+      else if (this.select_type == 3) {
+        this.selectOtherList = this.storeList
+
       }
     } else {
       this.navCtrl.pop();
@@ -306,6 +335,7 @@ export class MeetingPage {
       this.search = false
       return
     }
+
     let body = this.handleData()
     if (body) {
       this.firService.create_meeting(body).then(res => {
@@ -321,6 +351,16 @@ export class MeetingPage {
     if (this.rt_is_sure_time && this.rt_allday) {
       this.rt_allday = false
     }
+    setTimeout(() => {
+      if (this.rt_allday) {
+        this.click_end_date()
+        this.click_start_date()
+      }
+      else {
+        this.click_end_datetime()
+        this.click_start_datetime()
+      }
+    }, 100)
   }
 
   //全天的按钮
@@ -328,6 +368,16 @@ export class MeetingPage {
     if (this.rt_is_sure_time && this.rt_allday) {
       this.rt_is_sure_time = false
     }
+    setTimeout(() => {
+      if (this.rt_allday) {
+        this.click_end_date()
+        this.click_start_date()
+      }
+      else {
+        this.click_end_datetime()
+        this.click_start_datetime()
+      }
+    }, 100)
   }
 
   //删除一个人员
@@ -335,14 +385,17 @@ export class MeetingPage {
     for (var i = 0; i < this.showPeopleList.length; i++) {
       if (item.partner_id == this.showPeopleList[i].partner_id) {
         this.showPeopleList.splice(i, 1)
-        var select_datas = $.fn.zTree.getZTreeObj("ztree").getCheckedNodes(true)
-        for (var j = 0; j < select_datas.length; j++) {
-          if (select_datas[j].partner_id) {
-            if (select_datas[j].partner_id == item.partner_id) {
-              this.tree_obj.checkNode(select_datas[j], false, "checkTruePS", null)
+        if (this.select_type == 1) {
+          var select_datas = $.fn.zTree.getZTreeObj("ztree").getCheckedNodes(true)
+          for (var j = 0; j < select_datas.length; j++) {
+            if (select_datas[j].partner_id) {
+              if (select_datas[j].partner_id == item.partner_id) {
+                this.tree_obj.checkNode(select_datas[j], false, "checkTruePS", null)
+              }
             }
           }
         }
+
         break
       }
     }
@@ -359,6 +412,8 @@ export class MeetingPage {
     })
     this.search = true
     this.select_type = 2
+    this.employeeList = []
+    this.linshiString = ''
     setTimeout(() => {
       this.nameInput.setFocus();//输入框获取焦点
     })
@@ -372,12 +427,14 @@ export class MeetingPage {
     this.storeList = this.storeList.concat(this.selectList)
     this.search = true
     this.select_type = 1
+    this.employeeList = []
+    this.linshiString = ''
     // setTimeout(() => {
     //   this.nameInput.setFocus();//输入框获取焦点
     // })
 
     var self = this
-    this.firService.get_all_department({ 'uid': this.uid,'need_total':true }).then(res => {
+    this.firService.get_all_department({ 'uid': this.uid, 'need_total': true }).then(res => {
       if (res.result.res_data && res.result.res_code == 1) {
         self.zNodes = res.result.res_data
         for (let i = 0; i < self.selectList.length; i++) {
@@ -404,17 +461,51 @@ export class MeetingPage {
         'uid': this.uid,
         'name': $event
       }
-      this.firService.search_one_partner(body).then(res => {
-        if (res.result.res_data && res.result.res_code == 1) {
-          this.employeeList = res.result.res_data;
-          if (this.select_type == 1) {
-            this.setCheck()
-          } else if (this.select_type == 2) {
-            for (let j = 0; j < this.employeeList.length; j++) {
-              if (this.employeeList[j].partner_id == this.rt_project_principal) {
-                this.employeeList[j].ischeck = true
+      this.employeeList = []
+      if (this.select_type != 3) {
+        this.firService.search_one_partner(body).then(res => {
+          if (res.result.res_data && res.result.res_code == 1) {
+            this.employeeList = res.result.res_data;
+            if (this.select_type == 1) {
+              this.setCheck()
+            } else if (this.select_type == 2) {
+              for (let j = 0; j < this.employeeList.length; j++) {
+                if (this.employeeList[j].partner_id == this.rt_project_principal) {
+                  this.employeeList[j].ischeck = true
+                }
               }
             }
+          }
+        })
+      }
+      else {
+        this.firService.search_one_other_partner(body).then(res => {
+          if (res.result.res_data && res.result.res_code == 1) {
+            this.employeeList = res.result.res_data;
+            if (this.select_type == 3) {
+              this.setOtherCheck()
+            }
+          }
+        })
+      }
+
+    }
+  }
+
+  searchOtherInput($event) {
+    if ($event == '') {
+      this.employeeList = []
+    } else {
+      let body = {
+        'uid': this.uid,
+        'name': $event
+      }
+      this.employeeList = []
+      this.firService.search_one_other_partner(body).then(res => {
+        if (res.result.res_data && res.result.res_code == 1) {
+          this.employeeList = res.result.res_data;
+          if (this.select_type == 3) {
+            this.setOtherCheck()
           }
         }
       })
@@ -433,8 +524,21 @@ export class MeetingPage {
     }
   }
 
+  //比较选中的外部
+  setOtherCheck() {
+    for (let i = 0; i < this.selectOtherList.length; i++) {
+      for (let j = 0; j < this.employeeList.length; j++) {
+        if (this.selectOtherList[i].partner_id == this.employeeList[j].partner_id) {
+          this.employeeList[j].ischeck = true
+          break
+        }
+      }
+    }
+  }
+
   choosePeople(item) {
     this.linshiString = ''
+    this.linshiStringOther = ''
     this.employeeList = []
     if (this.select_type == 1) {
       item.ischeck = !item.ischeck
@@ -486,6 +590,20 @@ export class MeetingPage {
         }
       }
     }
+    else if (this.select_type == 3) {
+      item.ischeck = !item.ischeck
+      if (item.ischeck) {
+        if (this.fetch_is_in_arr(item)) {
+          this.showPeopleList.push(item)
+        }
+      } else {
+        for (var i = 0; i < this.showPeopleList.length; i++) {
+          if (item.partner_id == this.showPeopleList[i].partner_id) {
+            break
+          }
+        }
+      }
+    }
   }
 
   //选择提醒
@@ -501,6 +619,15 @@ export class MeetingPage {
 
   //处理所有数据
   handleData() {
+    if (this.rt_allday) {
+      this.start_date = (<HTMLInputElement>document.getElementById('input_start_date')).value
+      this.stop_date = (<HTMLInputElement>document.getElementById('input_end_date')).value
+    }
+    else {
+      this.start_datetime = (<HTMLInputElement>document.getElementById('input_start_datetime')).value
+      this.stop_datetime = (<HTMLInputElement>document.getElementById('input_end_datetime')).value
+    }
+
     let myString = ""
     if (!this.name) {
       myString = "    请输入主题"
@@ -515,6 +642,12 @@ export class MeetingPage {
       if (this.selectList && this.selectList.length > 0) {
         for (var i = 0; i < this.selectList.length; i++) {
           partner_ids[i] = this.selectList[i].partner_id
+        }
+      }
+      let other_partner_ids = []
+      if (this.selectOtherList && this.selectOtherList.length > 0) {
+        for (var i = 0; i < this.selectOtherList.length; i++) {
+          other_partner_ids[i] = this.selectOtherList[i].partner_id
         }
       }
       if (!this.rt_alarm_type_id) {
@@ -533,6 +666,7 @@ export class MeetingPage {
           'rt_allday': this.rt_allday,
           'name': this.name,
           'rt_meeting_participant': partner_ids,
+          'rt_meeting_participant_other': other_partner_ids,
           'rt_meeting_start': this.datePipe.transform(this.start_date, 'yyyy-MM-dd HH:mm:ss'),
           'rt_meeting_stop': this.datePipe.transform(this.stop_date, 'yyyy-MM-dd HH:mm:ss'),
           'rt_alarm_type': this.rt_alarm_type_id,
@@ -553,6 +687,7 @@ export class MeetingPage {
             'rt_allday': this.rt_allday,
             'name': this.name,
             'rt_meeting_participant': partner_ids,
+            'rt_meeting_participant_other': other_partner_ids,
             'rt_alarm_type': this.rt_alarm_type_id,
             'rt_location': this.rt_location,
             'rt_description': this.rt_description,
@@ -582,14 +717,14 @@ export class MeetingPage {
               return
             }
             if (this.start_datetime.indexOf('T') != -1) {
-              this.start_datetime = this.datePipe.transform(new Date(new Date(this.start_datetime).getTime() - 2 * 8 * 60 * 60 * 1000), 'yyyy-MM-dd HH:mm:ss')
+              this.start_datetime = this.datePipe.transform(new Date(new Date(this.start_datetime).getTime() - 1 * 8 * 60 * 60 * 1000), 'yyyy-MM-dd HH:mm:ss')
             } else {
-              this.start_datetime = this.datePipe.transform(new Date(new Date(this.start_datetime.replace(/-/g, "/")).getTime() - 2 * 8 * 60 * 60 * 1000), 'yyyy-MM-dd HH:mm:ss')
+              this.start_datetime = this.datePipe.transform(new Date(new Date(this.start_datetime.replace(/-/g, "/")).getTime() - 1 * 8 * 60 * 60 * 1000), 'yyyy-MM-dd HH:mm:ss')
             }
             if (this.stop_datetime.indexOf('T') != -1) {
-              this.stop_datetime = this.datePipe.transform(new Date(new Date(this.stop_datetime).getTime() - 2 * 8 * 60 * 60 * 1000), 'yyyy-MM-dd HH:mm:ss')
+              this.stop_datetime = this.datePipe.transform(new Date(new Date(this.stop_datetime).getTime() - 1 * 8 * 60 * 60 * 1000), 'yyyy-MM-dd HH:mm:ss')
             } else {
-              this.stop_datetime = this.datePipe.transform(new Date(new Date(this.stop_datetime.replace(/-/g, "/")).getTime() - 2 * 8 * 60 * 60 * 1000), 'yyyy-MM-dd HH:mm:ss')
+              this.stop_datetime = this.datePipe.transform(new Date(new Date(this.stop_datetime.replace(/-/g, "/")).getTime() - 1 * 8 * 60 * 60 * 1000), 'yyyy-MM-dd HH:mm:ss')
             }
           }
           body = {
@@ -598,6 +733,7 @@ export class MeetingPage {
             'rt_allday': this.rt_allday,
             'name': this.name,
             'rt_meeting_participant': partner_ids,
+            'rt_meeting_participant_other': other_partner_ids,
             'rt_meeting_start': this.start_datetime,
             'rt_meeting_stop': this.stop_datetime,
             'rt_alarm_type': this.rt_alarm_type_id,
@@ -668,6 +804,16 @@ export class MeetingPage {
     } else {
       Utils.toastButtom('只有负责人和创建人可以编辑', this.toastCtrl)
     }
+    setTimeout(() => {
+      if (this.rt_allday) {
+        this.click_end_date()
+        this.click_start_date()
+      }
+      else {
+        this.click_end_datetime()
+        this.click_start_datetime()
+      }
+    }, 100)
   }
   //编辑完成
   changeFinish() {
@@ -695,6 +841,9 @@ export class MeetingPage {
       this.search = false
       if (this.select_type == 1) {
         this.selectList = this.storeList
+      }
+      else if (this.select_type == 3) {
+        this.selectOtherList = this.storeList
       }
     } else {
       this.isEdit = false
@@ -989,6 +1138,56 @@ export class MeetingPage {
       }
     }
     return !is_has
+  }
+
+  click_start_datetime() {
+    $('#input_start_datetime').mobiscroll().datetime({
+      theme: 'ios',
+      lang: 'zh',
+      display: 'bottom',
+      dateWheels: '|M d D|',
+      timeWheels: 'HH ii',
+    });
+  }
+
+  click_start_date() {
+    $('#input_start_date').mobiscroll().date({
+      theme: 'ios',
+      lang: 'zh',
+      display: 'bottom',
+      dateWheels: '|M d D|',
+    });
+  }
+
+  click_end_datetime() {
+    $('#input_end_datetime').mobiscroll().datetime({
+      theme: 'ios',
+      lang: 'zh',
+      display: 'bottom',
+      dateWheels: '|M d D|',
+      timeWheels: 'HH ii',
+    });
+  }
+
+  click_end_date() {
+    $('#input_end_date').mobiscroll().date({
+      theme: 'ios',
+      lang: 'zh',
+      display: 'bottom',
+      dateWheels: '|M d D|',
+    });
+  }
+
+  selectExternalPartner() {
+    this.title_meeting = '外部人员'
+    this.title_meeting_two = '外部人员'
+    this.showPeopleList = this.selectOtherList
+    this.storeList = []
+    this.storeList = this.storeList.concat(this.selectOtherList)
+    this.search = true
+    this.select_type = 3
+    this.employeeList = []
+    this.linshiStringOther = ''
   }
 
 }

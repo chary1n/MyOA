@@ -6,28 +6,41 @@
 -->
 <ion-header no-border>
 
-    <ion-navbar color="gongdan-color" hideBackButton="true">
-        <ion-buttons left>
-            <button ion-button icon-only (click)="goBack()">
+  <ion-navbar color="gongdan-color" hideBackButton="true">
+    <ion-buttons left>
+      <button ion-button icon-only (click)="goBack()">
               <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
             </button>
-          </ion-buttons>
-      <ion-title>逾期待办</ion-title>
+    </ion-buttons>
+    <ion-title>逾期待办</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content>
-  <ion-item-group>
-      <div *ngFor="let subItem of item" style="border-bottom:#f0f2f5 10px solid;padding: 1px">
-          <p style="padding-bottom: 10px;padding-left: 10px;font-size: 13px;color: #666666;border-bottom:#f0f2f5 1px solid;">
-            {{subItem.start}}
-          </p>
-          <div *ngFor="let sub of subItem.subList" style="height: 40px;margin-top: 15px;padding: 1px;border-bottom:#f0f2f5 1px solid;margin-bottom: -1px;cursor :pointer" tappable (click)="toDetail(sub)">
-              <p style="float: left;font-size: 12px;color: #666666;padding-left: 20px;margin-top: 3px">{{sub.event_time}}</p>
-              <p style="font-size: 12px;color: #666666;margin-left: 105px;margin-top: 0px">[{{sub.type_name}}] {{sub.subject}}</p>
-          </div>
+  <div *ngFor="let subItem of item" style="border-bottom:#f0f2f5 10px solid;">
+    <div class="time_class">
+      {{subItem.time}}
+    </div>
+    <div *ngFor="let sub of subItem.data" class="body_class">
+      <div *ngFor="let one_sub of sub.subList;let i = index" tappable (click)="toDetail(one_sub)">
+        <!--<div style="font-size: 12px;color: #666666;margin-top: 0px;height: 40px">[{{one_sub.type_name}}] {{one_sub.subject}}</div>-->
+        <div [ngClass]="{true:'div_not_final',false:'div_empty'}[i < sub.subList.length - 1]">
+          <ion-label style="color: #666666;font-size: 12px;">
+            <div style="float: left;height: 20px;">
+              <span class="subject_class">
+              [{{one_sub.type_name}}]:{{one_sub.subject}}
+              </span>
+            </div>
+            <div>
+              <span>
+              一{{one_sub.rt_project_principal.partner_id_s_name}}
+            </span>
+            </div>
+          </ion-label>
         </div>
-  </ion-item-group>
+      </div>
+    </div>
+  </div>
 </ion-content>

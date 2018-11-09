@@ -92,6 +92,14 @@
     </div>
 
   </ion-content>
+  <ion-footer>
+    <div class="left_btn" tappable (click)='reset()'>
+      重置
+    </div>
+    <div class="right_btn" tappable (click)='confirm()'>
+      确定
+    </div>
+  </ion-footer>
 </ion-menu>
 
 <ion-nav [root]="root" #content swipeBackEnabled="false"></ion-nav>

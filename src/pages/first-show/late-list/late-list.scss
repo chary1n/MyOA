@@ -1,3 +1,33 @@
 page-late-list {
+    .time_class{
+        padding-left:10px;
+        font-size: 13px;
+        color: #666666;
+        border-bottom:#f0f2f5 1px solid;height: 30px;
+        line-height: 30px;
+    }
+
+    .body_class{
+        padding: 1px;
+        border-bottom: #f0f2f5 1px solid;
+    }
+
+    .subject_class{
+        overflow: hidden;
+        text-overflow: ellipsis;
+        -o-text-overflow: ellipsis;
+        white-space: nowrap;
+        max-width: 240px;
+        display: block;margin-left:10px;
+    }
+
+    .div_empty{
+
+    }
+
+    .div_not_final{
+        height: 30px;
+        border-bottom: solid 1px #f0f2f5;
+    }
 
 }

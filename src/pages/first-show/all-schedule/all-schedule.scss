@@ -40,7 +40,8 @@ page-all-schedule {
   background-color: white;
   padding: 2px 8px;
   height: 40px;
-  float: left;
+      display: inline-block;
+  // float: left;
 }
       .header_div_class{
         width: 100%;
@@ -162,5 +163,15 @@ page-all-schedule {
     font-size: 13px;
     color: #c7cace;
     margin-top: 14px;
+  }
+
+  .scroll_class{
+    border-bottom: solid 1px #f0f2f5;
+    background-color: white;
+    height: 44px;
+    width: 100%;
+    margin-top: -9px;
+    white-space: nowrap;
+    overflow-x: hidden;
   }
 }

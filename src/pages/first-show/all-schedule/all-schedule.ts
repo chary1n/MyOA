@@ -37,9 +37,12 @@ export class AllSchedulePage {
   setting
   zNodes = []
   tree_obj
+
+  from_work_bench = false
   constructor(public navCtrl: NavController, public navParams: NavParams, private firshowService: FirstShowService,
     public storage: Storage, public statusBar: StatusBar, public allScheduleService: AllScheduleService,
     public menu: MenuController, public event: Events) {
+      this.from_work_bench = this.navParams.get('is_work_bench')
     this.me_type = 'all'
     this.state_type = 'all'
     this.show_me = true
@@ -132,8 +135,14 @@ export class AllSchedulePage {
   }
 
   goBack() {
-    this.navCtrl.setRoot('NewTabsPage')
+    if (this.from_work_bench){
+this.navCtrl.pop()
+    }
+    else
+    {
+      this.navCtrl.setRoot('NewTabsPage')
     this.navCtrl.pop()
+    }
   }
 
   ionViewWillLeave() {

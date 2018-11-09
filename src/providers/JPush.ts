@@ -67,23 +67,23 @@ export class JPush {
   }
 
   //设置标签
-  public setTags() {
+  public setTags(tags,suc,err) {
     if (!this.nativeService.isMobile()) {
       return;
     }
-    let tags = this.nativeService.isAndroid() ? ['android'] : ['ios'];
+    // let tags = this.nativeService.isAndroid() ? ['android'] : ['ios'];
     console.log('设置setTags:' + tags);
-    window['plugins'].jPushPlugin.setTags(tags);
+    window['plugins'].jPushPlugin.setTags({sequence:1,tags:tags},suc,err);
   }
 
   //设置别名,一个用户只有一个别名
-  public setAlias(userId) {
+  public setAlias(userId,suc,err) {
     if (!this.nativeService.isMobile()) {
       return;
     }
     console.log('设置setAlias:' + userId);
     //ios设置setAlias有bug,值必须为string类型,不能是number类型
-    window['plugins'].jPushPlugin.setAlias('' + userId);
+    window['plugins'].jPushPlugin.setAlias({sequence:1,alias:('' + userId)},suc,err);
   }
 
   public setAliasAndTags(userId,tag,success,error) {
