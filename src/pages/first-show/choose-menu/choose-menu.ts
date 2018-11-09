@@ -61,95 +61,50 @@ export class ChooseMenuPage {
 
   click_me_all(){
     this.me_type = 'all'
-    this.menu.close()
-    this.event.publish('search_domain',{
-        me_type:this.me_type,
-        state_type:this.state_type,
-        start_date:this.start_date,
-        end_date:this.end_date,
-    })
-
   }
 
   click_me_create(){
     this.me_type = 'create'
-    this.menu.close()
-    this.event.publish('search_domain',{
-        me_type:this.me_type,
-        state_type:this.state_type,
-        start_date:this.start_date,
-        end_date:this.end_date,
-    })
   }
 
   click_me_fuze(){
     this.me_type = 'fuze'
-    this.menu.close()
-    this.event.publish('search_domain',{
-        me_type:this.me_type,
-        state_type:this.state_type,
-        start_date:this.start_date,
-        end_date:this.end_date,
-    })
   }
 
   click_me_canyu(){
     this.me_type = 'canyu'
-    this.menu.close()
-    this.event.publish('search_domain',{
-        me_type:this.me_type,
-        state_type:this.state_type,
-        start_date:this.start_date,
-        end_date:this.end_date,
-    })
   }
   
   click_state_all(){
     this.state_type = 'all'
-    this.menu.close()
-    this.event.publish('search_domain',{
-        me_type:this.me_type,
-        state_type:this.state_type,
-        start_date:this.start_date,
-        end_date:this.end_date,
-    })
+    // this.menu.close()
   }
 
   click_state_unfinish(){
     this.state_type = 'unfinish'
-    this.menu.close()
-    this.event.publish('search_domain',{
-        me_type:this.me_type,
-        state_type:this.state_type,
-        start_date:this.start_date,
-        end_date:this.end_date,
-    })
   }
 
   click_state_finish(){
     this.state_type = 'finish'
-    this.menu.close()
-    this.event.publish('search_domain',{
-        me_type:this.me_type,
-        state_type:this.state_type,
-        start_date:this.start_date,
-        end_date:this.end_date,
-    })
   }
 
   changeStartDate(event){
     this.start_date = event
-    this.event.publish('search_domain',{
-        me_type:this.me_type,
-        state_type:this.state_type,
-        start_date:this.start_date,
-        end_date:this.end_date,
-    })
-
   }
 
   changeEndDate(event){
     this.end_date = event
+  }
+
+  reset(){
+    this.me_type = 'all'
+    this.state_type = 'all'
+    this.end_date = ''
+    this.start_date = ''
+  }
+
+  confirm(){
+    this.menu.close()
     this.event.publish('search_domain',{
         me_type:this.me_type,
         state_type:this.state_type,

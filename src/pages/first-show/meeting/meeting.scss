@@ -12,7 +12,7 @@ page-meeting {
 
     .differ_div_class{
             margin-top: 5px;
-    margin-left: 20px;
+    // margin-left: 20px;
     color: gray;
     text-align: center;
     }
@@ -385,5 +385,16 @@ page-meeting {
     text-align: center;
     line-height: 44px;
     font-size: 15px;
+  }
+
+  .class_start_date{
+          height: 36px;
+    line-height: 36px;
+    text-align: center;
+    font-size: 13px;
+    color:gray;
+    border-width: 0px;
+    border-color: white;
+    width: 100%;
   }
 }

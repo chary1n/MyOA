@@ -102,6 +102,10 @@ export class FirstShowService {
         return this.httpService.postBodyNoLoading("search_one_partner", body);
     }
 
+    search_one_other_partner(body){
+        return this.httpService.postBodyNoLoading("search_one_other_partner", body);
+    }
+
     get_late_list(body){
         return this.httpService.postBody("get_late_list", body);
     }

@@ -12,6 +12,9 @@
             <img src={{user_heard}} class="image1" tappable (click)="mePage()">
         </button> -->
     <!--<ion-title>首页</ion-title>-->
+    <button ion-button class="icon_class" tappable (click)="kaoqin()">
+            <ion-icon name='pin' style="color: white;font-size: 23px"></ion-icon>
+        </button>
     <div align="center" style="height:30px;margin-left:10px">
       <div style="width:33%;float:right;text-align:left" [ngClass]="{true:'test_choose',false:'test_one'}[isMessage]" align="center"
         tappable (click)="message()">
@@ -20,16 +23,14 @@
       <div style="width:33%;float:right" [ngClass]="{true:'test_choose',false:'test_one'}[isShen]" align="center" tappable (click)="consider()">
         <p [ngClass]="{true:'p_shenhe_line_height_select',false:'p_shenhe_line_height'}[isShen]">审核</p>
         <span *ngIf="isShowApprovalPoint" [ngClass]="{true:'big_span_bac',false:'normal_span_bac'}[all_approval>=10]">
-            {{all_approval}}
+            {{show_approve}}
           </span>
       </div>
       <div style="width:33%;float:left;text-align:right" [ngClass]="{true:'test_choose',false:'test_one'}[isDay]" align="center"
         tappable (click)="daything()">
         <p [ngClass]="{true:'p_daiban_line_height_select',false:'p_daiban_line_height'}[isDay]">待办</p>
       </div>
-      <button ion-button class="icon_class" tappable (click)="kaoqin()">
-            <ion-icon name='pin' style="color: white;font-size: 23px"></ion-icon>
-        </button>
+      
 
     </div>
   </ion-navbar>
@@ -146,12 +147,8 @@
             <div style="position: absolute;width: 1px;border-left:#f0f2f5 1px solid;height: 70%;margin-left: 4px;margin-top: -5px"></div>
           </div>
           <div [ngClass]="{true:'notFinish',false:'finish'}[item.state]">
-            <div style="float: left;
-    height: 20px;">
-              <span style="    overflow: hidden;
-    text-overflow: ellipsis;
-    -o-text-overflow: ellipsis;
-    white-space: nowrap;
+            <div style="float: left;height: 20px;">
+              <span style="    overflow: hidden;text-overflow: ellipsis;-o-text-overflow: ellipsis;white-space: nowrap;
     max-width: 190px;
     display: block;">
               [{{item.type_name}}]:{{item.subject}}
@@ -225,23 +222,19 @@
         <p style="font-size: 13px;color: #409eff;">财务</p>
       </div>
       <ion-item-group>
-        <div *ngIf="bx_num!=0" style="min-height: 45px;border-bottom:#f0f2f5 1px solid;margin-left: 20px;padding: 1px" tappable
-          (click)='toBX()'>
+        <div *ngIf="bx_num!=0" style="min-height: 45px;border-bottom:#f0f2f5 1px solid;margin-left: 20px;padding: 1px" tappable (click)='toBX()'>
           <p style="margin-right: 15px;float: right;">{{bx_num}}</p>
           <p style="font-size: 13px;">报销</p>
         </div>
-        <div *ngIf="sg_num!=0" style="min-height: 45px;border-bottom:#f0f2f5 1px solid;margin-left: 20px;padding: 1px" tappable
-          (click)='toSG()'>
+        <div *ngIf="sg_num!=0" style="min-height: 45px;border-bottom:#f0f2f5 1px solid;margin-left: 20px;padding: 1px" tappable (click)='toSG()'>
           <p style="margin-right: 15px;float: right;">{{sg_num}}</p>
           <p style="font-size: 13px;">申购</p>
         </div>
-        <div *ngIf="yf_num!=0" style="min-height: 45px;border-bottom:#f0f2f5 1px solid;margin-left: 20px;padding: 1px" tappable
-          (click)='toYF()'>
+        <div *ngIf="yf_num!=0" style="min-height: 45px;border-bottom:#f0f2f5 1px solid;margin-left: 20px;padding: 1px" tappable (click)='toYF()'>
           <p style="margin-right: 15px;float: right;">{{yf_num}}</p>
           <p style="font-size: 13px;">预支</p>
         </div>
-        <div *ngIf="jk_num!=0" style="min-height: 45px;border-bottom:#f0f2f5 1px solid;margin-left: 20px;padding: 1px" tappable
-          (click)='toJK()'>
+        <div *ngIf="jk_num!=0" style="min-height: 45px;border-bottom:#f0f2f5 1px solid;margin-left: 20px;padding: 1px" tappable (click)='toJK()'>
           <p style="margin-right: 15px;float: right;">{{jk_num}}</p>
           <p style="font-size: 13px;">借款</p>
         </div>

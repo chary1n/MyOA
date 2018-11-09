@@ -93,7 +93,9 @@ export class NewWorkBenchPage {
   }
 
   toAll(){
-    this.navCtrl.push('AllSchedulePage')
+    this.navCtrl.push('AllSchedulePage',{
+      is_work_bench:true
+    })
   }
 
   click_baoxiao(){

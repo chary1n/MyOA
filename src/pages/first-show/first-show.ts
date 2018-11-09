@@ -52,6 +52,7 @@ export class FirstShowPage {
   jk_num//借款
   isShowApprovalPoint = false
   all_approval = 0//审批总和
+  show_approve
   type_id;//会议的类型
   event_list
   isShowBac = false
@@ -96,14 +97,14 @@ export class FirstShowPage {
         this.get_approval_num()
         this.firshowService.get_un_read_reply({'uid':this.uid}).then(res => {
       if (res.result.res_data && res.result.res_code == 1) {
+        console.log(res.result.res_data)
         this.un_read_list = res.result.res_data
       }
     })
-    this.need_fresh =this.navParams.get('need_fresh')
-    if(this.need_fresh){
+    
       this.getDayData(this.datePipe.transform((this.currentYear+'-'+this.currentMonth+'-'+this.currentDay), 'yyyy-MM-dd'))
       this.get_backlog_identify(this.currentYear, this.currentMonth)
-    }
+    
      })
   }
 
@@ -583,10 +584,18 @@ export class FirstShowPage {
          this.jk_num = res.result.res_data.jk_num
          this.yf_num = res.result.res_data.yf_num
          this.all_approval = this.recoup_num+this.vacation_num+this.jk_num+this.bx_num+this.yf_num+this.sg_num
-         if(this.all_approval!=0){
+         
+        if(this.all_approval!=0){
           this.isShowApprovalPoint=true
          }else{
            this.isShowApprovalPoint = false
+         }
+         if (this.all_approval > 99){
+           this.show_approve = "99+"
+         }
+         else
+         {
+           this.show_approve = this.all_approval
          }
       }
     })
