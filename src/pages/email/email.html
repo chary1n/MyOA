@@ -56,12 +56,12 @@
               <ion-icon *ngIf="item.is_flag" class='email_flag' name="ios-tuding"></ion-icon>
               {{item.date_time}}
             </div>
-            <div [ngClass]="{true:'email_title_bold',false:'email_title'}[item.state=='received'&&item.rt_is_unseen]">
-              <span class="red-point" *ngIf="item.state=='received'&&item.rt_is_unseen"></span>
+            <div [ngClass]="{true:'email_title_bold',false:'email_title'}[item.rt_is_unseen]">
+              <span class="red-point" *ngIf="item.rt_is_unseen"></span>
               {{ item.state=="sent" ?item.email_to :item.email_from }}
             </div>
           </div>
-          <div [ngClass]="{true:'email_summary_bold',false:'email_summary'}[item.state=='received'&&item.rt_is_unseen]">
+          <div [ngClass]="{true:'email_summary_bold',false:'email_summary'}[item.rt_is_unseen]">
             {{item.subject}}
           </div>
           <div class="email_content">

@@ -4,7 +4,7 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-menu [content]="content" type="overlay" (ionDrag)="dragMenu()" (ionClose)="closeMenu()" (ionOpen)="openMenu()" id="menu1">
+<ion-menu side="left" [content]="content1" type="overlay" (ionDrag)="dragMenu()" (ionClose)="closeMenu()" (ionOpen)="openMenu()" id="menu1">
 
   <ion-content >
     <div class="top_div"></div>
@@ -83,4 +83,4 @@
   </ion-content>
 </ion-menu>
 
-<ion-nav [root]="root" #content swipeBackEnabled="false"></ion-nav>
+<ion-nav [root]="root" #content1 swipeBackEnabled="false"></ion-nav>

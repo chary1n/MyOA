@@ -90,7 +90,7 @@ export class EmailPage {
 
 
   ionViewWillEnter() {
-    this.menu.enable(true)
+    this.menu.enable(true,'menu1')
     if (this.navPrarams.get('movePageInfo')) {
       this.movePageInfo = this.navPrarams.data.movePageInfo
       var ids = this.getSelectIds()
@@ -133,6 +133,7 @@ export class EmailPage {
   showMenu() {
     var bar = document.getElementsByClassName('tabbar').item(0);
     bar['style'].display = 'none';
+    this.menu.toggle('left');
   }
 
   get_folder_label() {
