@@ -2,8 +2,7 @@ import { Storage } from '@ionic/storage';
 import { TabsPage } from './../tabs/tabs';
 import { IonicPage } from 'ionic-angular/navigation/ionic-page';
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform, MenuController, AlertController } from 'ionic-angular';
-import { NavController } from 'ionic-angular/navigation/nav-controller';
+import { Nav, Platform, MenuController, AlertController, NavParams, NavController } from 'ionic-angular';
 
 
 import { Events } from 'ionic-angular';
@@ -19,7 +18,7 @@ export class EmailPage {
   limit = 20;
   offset = 0;
   user_id;
-  email_list;
+  email_list = [];
   isMoreData = true;
   account_id;
   email_type;
@@ -29,7 +28,12 @@ export class EmailPage {
   unseenChoose;
   frontPageIsUnseen = false;
   accounts_list;
-  constructor(public menu: MenuController, public alertCtrl: AlertController,
+  isEdit = false;
+  isChooseAll = true;
+  movePageInfo: any = '';
+  buttonFlag = false;
+  buttonOpen = false;
+  constructor(public menu: MenuController, public alertCtrl: AlertController, public navPrarams: NavParams,
     public navCtrl: NavController, public event: Events, public emailService: EmailService, public storage: Storage) {
     storage.get('user')
       .then(res => {
@@ -70,6 +74,12 @@ export class EmailPage {
         }
       })
     });
+    this.event.subscribe('closeMenu', () => {
+      if (this.isEdit) {
+        var tolbar = document.getElementsByClassName('tabbar').item(0);
+        tolbar['style'].display = 'none';
+      }
+    })
   }
 
 
@@ -81,14 +91,34 @@ export class EmailPage {
 
   ionViewWillEnter() {
     this.menu.enable(true)
-    var bar = document.getElementsByClassName('tabbar').item(0);
-    bar['style'].display = 'flex';
-    if (this.title.indexOf('收件') != -1 && this.frontPageIsUnseen) {
-      this.get_email_list(this.account_id, this.email_type, this.state_type, this.data_id, this.limit + this.offset, 0).then(res => {
-        if (res.result && res.result.res_data) {
-          this.email_list = res.result.res_data.email_list
+    if (this.navPrarams.get('movePageInfo')) {
+      this.movePageInfo = this.navPrarams.data.movePageInfo
+      var ids = this.getSelectIds()
+      this.emailService.move(ids, this.movePageInfo.state, this.movePageInfo.email_state).then(res => {
+        if (res.result && res.result.res_code == 1) {
+          this.toEdit()
+          this.get_email_list(this.account_id, this.email_type, this.state_type, this.data_id, this.limit + this.offset, 0).then(res => {
+            if (res.result && res.result.res_data) {
+              this.email_list = res.result.res_data.email_list
+            }
+          })
         }
       })
+      this.navPrarams.data.movePageInfo = ''
+    } else {
+      var bar = document.getElementsByClassName('tabbar').item(0);
+      bar['style'].display = 'flex';
+      if (this.title.indexOf('收件') != -1 && this.frontPageIsUnseen) {
+        this.get_email_list(this.account_id, this.email_type, this.state_type, this.data_id, this.limit + this.offset, 0).then(res => {
+          if (res.result && res.result.res_data) {
+            this.email_list = res.result.res_data.email_list
+          }
+        })
+      }
+    }
+    if (this.isEdit) {
+      var tolbar = document.getElementsByClassName('tabbar').item(0);
+      tolbar['style'].display = 'none';
     }
   }
 
@@ -116,7 +146,6 @@ export class EmailPage {
   get_email_list(account_id, email_type, state_type, data_id, limit, offset) {
     this.get_folder_label()
     return this.emailService.getEmailList(this.user_id, account_id, email_type, state_type, data_id, limit, offset)
-
   }
 
   doRefresh(event) {
@@ -160,9 +189,14 @@ export class EmailPage {
   }
 
 
-  email_detail(id, rt_is_unseen) {
-    this.frontPageIsUnseen = rt_is_unseen
-    this.navCtrl.push('EmailDetailPage', { 'id': id })
+  email_detail(index, id, rt_is_unseen) {
+    if (this.isEdit) {
+      this.email_list[index].ischecked = !this.email_list[index].ischecked
+      this.changeButtonState()
+    } else {
+      this.frontPageIsUnseen = rt_is_unseen
+      this.navCtrl.push('EmailDetailPage', { 'id': id })
+    }
   }
 
 
@@ -206,6 +240,57 @@ export class EmailPage {
     }
   }
 
+  toEdit() {
+    if (this.email_list.length == 0) {
+      return
+    }
+    this.isEdit = !this.isEdit
+    var bar = document.getElementsByClassName('tabbar').item(0);
+    if (this.isEdit) {
+      bar['style'].display = 'none';
+    } else {
+      bar['style'].display = 'flex';
+      this.chooseAllNo()
+    }
+  }
+
+  changeClick(index) {
+    this.email_list[index].ischecked = !this.email_list[index].ischecked
+    this.changeButtonState()
+  }
+
+  changeButtonState() {
+    this.buttonFlag = false
+    this.buttonOpen = false
+    for (let i = 0; i < this.email_list.length; i++) {
+      if (this.email_list[i].ischecked == true) {
+        if (!this.email_list[i].is_flag) {
+          this.buttonFlag = true
+        }
+        if (this.email_list[i].rt_is_unseen) {
+          this.buttonOpen = true
+        }
+      }
+    }
+  }
+
+
+  chooseAll() {
+    for (let i = 0; i < this.email_list.length; i++) {
+      this.email_list[i].ischecked = true
+    }
+    this.isChooseAll = false
+    this.changeButtonState()
+  }
+
+  chooseAllNo() {
+    for (let i = 0; i < this.email_list.length; i++) {
+      this.email_list[i].ischecked = false
+    }
+    this.isChooseAll = true
+    this.changeButtonState()
+  }
+
   edit() {
     this.navCtrl.push('WriteEmailPage', {
       id: this.account_id,
@@ -214,5 +299,76 @@ export class EmailPage {
     })
   }
 
+  getSelectIds() {
+    var ids = []
+    for (let i = 0; i < this.email_list.length; i++) {
+      if (this.email_list[i].ischecked == true) {
+        ids.push(this.email_list[i].id)
+      }
+    }
+    return ids
+  }
+
+  flag(state) {
+    var ids = this.getSelectIds()
+    if (ids.length == 0) {
+      return
+    }
+    this.emailService.flag(ids,state).then(res => {
+      if (res.result && res.result.res_code == 1) {
+        this.toEdit()
+        this.get_email_list(this.account_id, this.email_type, this.state_type, this.data_id, this.limit + this.offset, 0).then(res => {
+          if (res.result && res.result.res_data) {
+            this.email_list = res.result.res_data.email_list
+          }
+        })
+      }
+    })
+  }
+
+  unseen(state) {
+    var ids = this.getSelectIds()
+    if (ids.length == 0) {
+      return
+    }
+    this.emailService.unseen(ids,state).then(res => {
+      if (res.result && res.result.res_code == 1) {
+        this.toEdit()
+        this.get_email_list(this.account_id, this.email_type, this.state_type, this.data_id, this.limit + this.offset, 0).then(res => {
+          if (res.result && res.result.res_data) {
+            this.email_list = res.result.res_data.email_list
+          }
+        })
+      }
+    })
+  }
+
+  move() {
+    var ids = this.getSelectIds()
+    if (ids.length == 0) {
+      return
+    }
+    this.navCtrl.push('EmailMovePage', {
+      'account_id': this.account_id,
+      'user_id': this.user_id
+    })
+  }
+
+  delete() {
+    var ids = this.getSelectIds()
+    if (ids.length == 0) {
+      return
+    }
+    this.emailService.delete(ids).then(res => {
+      if (res.result && res.result.res_code == 1) {
+        this.toEdit()
+        this.get_email_list(this.account_id, this.email_type, this.state_type, this.data_id, this.limit + this.offset, 0).then(res => {
+          if (res.result && res.result.res_data) {
+            this.email_list = res.result.res_data.email_list
+          }
+        })
+      }
+    })
+  }
 
 }

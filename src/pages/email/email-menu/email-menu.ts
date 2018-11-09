@@ -165,6 +165,7 @@ export class EmailMenuPage {
   closeMenu() {
     console.log('closeMenu')
     this.tabs['style'].display = 'flex';
+    this.events.publish('closeMenu')
   }
 
   openMenu() {

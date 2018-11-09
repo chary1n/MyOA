@@ -222,6 +222,7 @@ export class MePage {
                 }
                 console.log('注销事件传递')
                 this.event.unsubscribe('click_envnt')
+                this.event.unsubscribe('closeMenu')
               });
           }
         }

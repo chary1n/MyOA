@@ -1,0 +1,58 @@
+<!--
+  Generated template for the EmailMovePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="gongdan-color" hideBackButton="true">
+    <ion-buttons left>
+      <button ion-button icon-only (click)="goBack()">
+        <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>移动至</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list>
+    <ion-item class="box_item" no-lines tappable (click)="click_box('state','received',$event)">
+      <ion-icon class="box_icon" item-start name="ios-archive-outline"></ion-icon>
+      <ion-label class="box_name">收件箱</ion-label>
+      <ion-label class="box_numebr">{{unseen_count}}</ion-label>
+    </ion-item>
+
+    <!-- <ion-item class="box_item" no-lines  tappable (click)="click_box('flag','',$event)">
+           <ion-icon class="box_icon"item-start name="ios-attach-outline"></ion-icon>
+          <ion-label class="box_name">已固定</ion-label>
+        </ion-item> -->
+
+    <!-- <ion-item class="box_item" no-lines  tappable (click)="click_box('state','draft',$event)">
+           <ion-icon class="box_icon"item-start name="ios-paper-outline"></ion-icon>
+          <ion-label class="box_name">草稿箱</ion-label>
+        </ion-item>
+     -->
+    <ion-item class="box_item" no-lines tappable (click)="click_box('state','sent',$event)">
+      <ion-icon class="box_icon" item-start name="ios-navigate-outline"></ion-icon>
+      <ion-label class="box_name">发件箱</ion-label>
+    </ion-item>
+
+    <ion-item class="box_item" no-lines tappable (click)="click_box('state','junk',$event)">
+      <ion-icon class="box_icon" item-start name="ios-trash-outline"></ion-icon>
+      <ion-label class="box_name">垃圾箱</ion-label>
+    </ion-item>
+
+    <ion-item class="box_item" no-lines tappable (click)="click_box('state','deleted',$event)">
+      <ion-icon class="box_icon" item-start name="ios-cut-outline"></ion-icon>
+      <ion-label class="box_name">已删除</ion-label>
+    </ion-item>
+  </ion-list>
+  <div class="tree_div">
+    <tree [tree]="tree" (nodeSelected)="handleSelected($event)"></tree>
+  </div>
+
+</ion-content>

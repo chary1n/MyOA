@@ -194,8 +194,8 @@ export class LoginPage {
               this.navCtrl.setRoot('NewTabsPage');
             }
             else {
-              this.navCtrl.setRoot('TabsPage');
               // this.navCtrl.setRoot('TabsPage');
+              this.navCtrl.setRoot('NewTabsPage');
             }
 
             // console.log(res)
@@ -261,8 +261,8 @@ export class LoginPage {
     this.isSelected3 = false;
     this.isSelected4 = false;
     this.chooseIndex = 0;
-    HttpService.appUrl = "http://service.linkloving.net:8888/"
-    // HttpService.appUrl = "http://10.0.0.5:8081/"
+    HttpService.appUrl = "http://10.0.0.21:8111/"
+    // HttpService.appUrl = "http://service.linkloving.net:8888/"
     this.reset();
     this.img1 = "assets/img/jiangsuruotai_clicked.png"
     this.password_src = "assets/img/S_password.png"

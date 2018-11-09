@@ -14,6 +14,39 @@ export class EmailService {
         return this.httpService.postBody('get_account_detail', body);
     }
 
+
+    flag(ids,state) {
+        let body = JSON.stringify({
+            'ids': ids,
+            'state':state
+        });
+        return this.httpService.postBody('rt_mail/OA_flag', body, 2);
+    }
+
+    unseen(ids,state) {
+        let body = JSON.stringify({
+            'ids': ids,
+            'state':state
+        });
+        return this.httpService.postBody('rt_mail/OA_unseen', body, 2);
+    }
+
+    move(ids,state,email_state) {
+        let body = JSON.stringify({
+            'ids': ids,
+            'state':state,
+            'email_state':email_state
+        });
+        return this.httpService.postBody('rt_mail/OA_move', body, 2);
+    }
+
+    delete(ids){
+        let body = JSON.stringify({
+            'ids': ids,
+        });
+        return this.httpService.postBody('rt_mail/OA_delete', body, 2);
+    }
+
     uploadAttachment(user_id,filename,data) {
         let body = JSON.stringify({
             'uid': user_id,
@@ -73,7 +106,7 @@ export class EmailService {
             'attachment_ids':attach_list,
             'draft':draft
         });
-        return this.httpService.postBodyNoLoading('rt_mail/email_sent', send_body, 2);
+        return this.httpService.postBody('rt_mail/email_sent', send_body, 2);
 
     }
 

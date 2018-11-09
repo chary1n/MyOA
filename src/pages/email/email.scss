@@ -28,7 +28,7 @@ page-email {
   }
 
 
-  .email_summary_bold{
+  .email_summary_bold {
     font-size: 12px;
     font-weight: bold;
   }
@@ -52,6 +52,11 @@ page-email {
     margin-top: 3px
   }
 
+  .email_flag {
+    font-size: 14px;
+    color: red;
+  }
+
   .title_alert {}
 
   .no_account {
@@ -71,5 +76,68 @@ page-email {
     margin-top: 4px;
     margin-right: 6px;
   }
+
+  .div_checkbox {
+    height: 40px;
+    margin-right: 6px;
+    float: left;
+    padding-top: 13px;
+  }
+
+  .div_checkbox_normal {
+    height: 40px;
+    float: left;
+    padding-top: 13px;
+  }
+
+
+
+  .toolbar_c {
+    padding: 0px;
+  }
+
+  .toolbar_button {
+    width: 22%;
+    background-color: #2597ec;
+  }
+
+  .flag_red {
+    color: red
+  }
+
+  input[type="checkbox"] {
+    -webkit-appearance: none;
+    vertical-align: middle;
+    margin-top: 0;
+    background: #fff;
+    border: #999 solid 1px;
+    border-radius: 8px;
+    min-height: 16px;
+    min-width: 16px;
+  }
+
+  input[type="checkbox"]:checked {
+    background:#2597ec;
+    border:0px;
+  }
+
+  input[type=checkbox]:checked::after {
+    content: '';
+    top: 30px;
+    left: 19px;
+    position: absolute;
+    background: transparent;
+    border: #fff solid 1px;
+    border-top: none;
+    border-right: none;
+    height: 5px;
+    width: 9px;
+    -moz-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+
+  }
+
 
 }
