@@ -148,6 +148,19 @@
           </div>
         </div>
       </ion-col>
+
+      <ion-col *ngIf='showBaoBiao' class="col_class" tappable (click)="click_baobiao()" col-3>
+        <!--<div *ngIf="yufu_num > 0" align="center" [ngClass]="{true:'big_number_class',false:'number_class'}[performance >= 10]">
+          {{yufu_num}}
+        </div>-->
+        <div class="body_class" align="center">
+
+          <img class="body_img_class" src="assets/img/yz_img.png">
+          <div class="text_class">
+            报表
+          </div>
+        </div>
+      </ion-col>
     </ion-row>
   </ion-grid>
 
