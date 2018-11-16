@@ -27,6 +27,7 @@ export class NewWorkBenchPage {
   bx_num = 0
   yufu_num = 0
   jiekuan_num = 0
+  showBaoBiao = false;
   constructor(public navCtrl: NavController, public navParams: NavParams,public statusbar:StatusBar,public services:CommonUseServices,
               public storage: Storage) {
       
@@ -49,6 +50,12 @@ export class NewWorkBenchPage {
       .then(res => {
         console.log(res);
         let uid = res.result.res_data.user_id
+        
+        for (let product of res.result.res_data.groups) {
+          if(product.name == 'group_account_manager'){
+            this.showBaoBiao = true;
+          }
+        }
 
         this.storage.get("loginIndex").then(res => {
           this.loginIndex = res
@@ -116,5 +123,9 @@ export class NewWorkBenchPage {
     this.navCtrl.push('NewZanzhiPage',{
       zz_type:'advance'
     })
+  }
+
+  click_baobiao(){
+    this.navCtrl.push('BaobiaoPage')
   }
 }

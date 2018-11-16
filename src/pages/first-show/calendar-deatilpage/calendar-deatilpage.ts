@@ -361,7 +361,7 @@ export class CalendarDeatilpagePage {
       this.search = false
       return
     }
-    let body = this.handleData()
+    let body = this.handleData(true)
     body['wait_id'] = this.item.id
     this.firService.write_wait_thing(body).then(res => {
       if (res.result.res_data && res.result.res_code == 1) {
@@ -462,7 +462,7 @@ export class CalendarDeatilpagePage {
       this.search = false
       return
     }
-    let body = this.handleData()
+    let body = this.handleData(true)
     if (this.isMeeting) {
       if (body) {
         body['rt_meeting_id'] = this.meeting_id
@@ -509,7 +509,7 @@ export class CalendarDeatilpagePage {
     this.location = this.item.location
     this.description = this.item.description
     if (this.user.partner_id == this.item.rt_project_principal.partner_id_s_id || this.uid == this.item.create_uid) {
-      let body = this.handleData()
+      let body = this.handleData(false)
       body['wait_id'] = this.item.id
       body['state'] = 'draft'
       this.firService.cancel_wait_thing(body).then(res => {
@@ -546,7 +546,7 @@ export class CalendarDeatilpagePage {
     this.location = this.item.location
     this.description = this.item.description
     if (this.user.partner_id == this.item.rt_project_principal.partner_id_s_id || this.uid == this.item.create_uid) {
-      let body = this.handleData()
+      let body = this.handleData(false)
       body['wait_id'] = this.item.id
       this.navCtrl.push('FinishScheulePage', {
         'body': body
@@ -857,8 +857,9 @@ export class CalendarDeatilpagePage {
     })
   }
   //处理所有数据
-  handleData() {
-    if (this.allday) {
+  handleData(is_edit) {
+    if (is_edit){
+        if (this.allday) {
       this.start_date = (<HTMLInputElement>document.getElementById('input_start_date')).value
       this.stop_date = (<HTMLInputElement>document.getElementById('input_end_date')).value
     }
@@ -866,6 +867,7 @@ export class CalendarDeatilpagePage {
       this.start_datetime = (<HTMLInputElement>document.getElementById('input_start_datetime')).value
       this.stop_datetime = (<HTMLInputElement>document.getElementById('input_end_datetime')).value
     }
+  }
     let myString = ""
     if (!this.type_id) {
       myString = "    请选择类型"

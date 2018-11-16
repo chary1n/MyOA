@@ -117,6 +117,7 @@ export class LoginPage {
     // else if (this.platform.is('ios')) {
     //   this.getiOSVersionNumber();
     // }
+    this.jpush.initJpush()
   }
 
   defultChoose(index) {
@@ -139,23 +140,27 @@ export class LoginPage {
     } else if (this.platform.is('ios')) {
       this.getiOSVersionNumber();
     }
-    this.splashScreen.hide()
+    // console.log('1')
+    // this.splashScreen.hide()
   }
 
   ionViewDidLoad() {
-    this.jpush.initJpush();
+   
     this.storage.get("login").then(res => {
+      console.log('login:' + res.autoLogin)
       if (res) {
         this.autoLogin = res.autoLogin
         this.remerberPassword = res.remerberPassword
       }
     })
     this.storage.get('user_psd').then(res => {
+      console.log('login:' + res.user_email)
       this.email = res.user_email
       this.password = res.user_psd
       this.isDisabled = false
     })
     this.storage.get("loginIndex").then(res => {
+      console.log('login:' + res)
       this.defultChoose(res)
     })
     this.isDisabled = true
@@ -209,10 +214,13 @@ export class LoginPage {
               this.loginservice.toLogin(res.user_email, res.user_psd, res.db_name, value)
                 .then(res => {
                   loading.dismiss()
-                  // console.log(res);
+                  
+                  var tag_arr = []
+                  tag_arr.push(db_name)
+                  console.log(tag_arr);
                   if (res.result && res.result.res_code == 1) {
                     loading.dismiss()
-                    this.jpush.setTags([db_name], function (result) {
+                    this.jpush.setTags(tag_arr, function (result) {
                       console.log('Tags success:' + result)
                     },
                       function (error) {
@@ -438,7 +446,10 @@ export class LoginPage {
         // console.log(res);
         if (res.result && res.result.res_code == 1) {
           loading.dismiss()
-          this.jpush.setTags([this.employee], function (result) {
+          var tag_arr = []
+          tag_arr.push(this.employee)
+          console.log(tag_arr);
+          this.jpush.setTags(tag_arr, function (result) {
             console.log('Tags success:' + result)
           },
             function (error) {
