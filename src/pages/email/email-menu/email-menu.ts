@@ -169,6 +169,7 @@ export class EmailMenuPage {
   }
 
   openMenu() {
+    console.log('openMenu')
     this.tabs['style'].display = 'none';
   }
 

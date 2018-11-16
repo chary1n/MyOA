@@ -90,7 +90,8 @@ export class EmailPage {
 
 
   ionViewWillEnter() {
-    this.menu.enable(true,'menu1')
+    this.menu.enable(true, 'menu1')
+    this.menu.enable(false, 'menu2')
     if (this.navPrarams.get('movePageInfo')) {
       this.movePageInfo = this.navPrarams.data.movePageInfo
       var ids = this.getSelectIds()
@@ -105,15 +106,16 @@ export class EmailPage {
         }
       })
       this.navPrarams.data.movePageInfo = ''
-    } else {
+    }else {
       var bar = document.getElementsByClassName('tabbar').item(0);
       bar['style'].display = 'flex';
-      if (this.title.indexOf('收件') != -1 && this.frontPageIsUnseen) {
+      if ((this.title.indexOf('收件') != -1 && this.frontPageIsUnseen )|| this.navPrarams.get('needRefresh')) {
         this.get_email_list(this.account_id, this.email_type, this.state_type, this.data_id, this.limit + this.offset, 0).then(res => {
           if (res.result && res.result.res_data) {
             this.email_list = res.result.res_data.email_list
           }
         })
+        this.navPrarams.data.needRefresh = false
       }
     }
     if (this.isEdit) {
@@ -131,9 +133,13 @@ export class EmailPage {
 
 
   showMenu() {
-    var bar = document.getElementsByClassName('tabbar').item(0);
-    bar['style'].display = 'none';
-    this.menu.toggle('left');
+    setTimeout(() => {
+      var bar = document.getElementsByClassName('tabbar').item(0);
+      bar['style'].display = 'none';
+      this.menu.toggle('left');
+      this.menu.get('menu1').enabled = true
+    }, 10);
+
   }
 
   get_folder_label() {
@@ -196,7 +202,11 @@ export class EmailPage {
       this.changeButtonState()
     } else {
       this.frontPageIsUnseen = rt_is_unseen
-      this.navCtrl.push('EmailDetailPage', { 'id': id })
+      this.navCtrl.push('EmailDetailPage', {
+        'id': id,
+        'uid': this.user_id,
+        'account_id': this.account_id
+      })
     }
   }
 
@@ -315,7 +325,7 @@ export class EmailPage {
     if (ids.length == 0) {
       return
     }
-    this.emailService.flag(ids,state).then(res => {
+    this.emailService.flag(ids, state).then(res => {
       if (res.result && res.result.res_code == 1) {
         this.toEdit()
         this.get_email_list(this.account_id, this.email_type, this.state_type, this.data_id, this.limit + this.offset, 0).then(res => {
@@ -332,7 +342,7 @@ export class EmailPage {
     if (ids.length == 0) {
       return
     }
-    this.emailService.unseen(ids,state).then(res => {
+    this.emailService.unseen(ids, state).then(res => {
       if (res.result && res.result.res_code == 1) {
         this.toEdit()
         this.get_email_list(this.account_id, this.email_type, this.state_type, this.data_id, this.limit + this.offset, 0).then(res => {

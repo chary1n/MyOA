@@ -9,8 +9,8 @@ page-email-detail {
 
   .email_content_ul {
     list-style-type: none;
-    padding-left: 10px!important;
-    margin-top: 10px!important;
+    padding-left: 10px !important;
+    margin-top: 10px !important;
   }
 
   .html_div {
@@ -19,19 +19,19 @@ page-email-detail {
     overflow: auto;
   }
 
-  .span_c{
+  .span_c {
     font-size: 12px;
     color: gray;
   }
 
-  .li_c{
-    margin-top: 10px!important;
+  .li_c {
+    margin-top: 10px !important;
   }
 
   .line {
     height: 0.5px;
     background: #e4e4e4;
- 
+
   }
 
   .ion-list-account {
@@ -44,12 +44,10 @@ page-email-detail {
     height: 53px;
     padding-top: 2px;
     padding-bottom: 2px;
-  }    
-
-
-  .attach_img {
-
   }
+
+
+  .attach_img {}
 
 
   .account_name {
@@ -62,21 +60,74 @@ page-email-detail {
     font-size: 12px
   }
 
-  .content_footer{
-      height: 30px;
+  .content_footer {
+    height: 30px;
   }
 
 
-  .attach_size{
-      font-size: 12px;
-      color:gray;
-      margin-top: 2px;
-      padding-left: 50px;
+  .attach_size {
+    font-size: 12px;
+    color: gray;
+    margin-top: 2px;
+    padding-left: 50px;
   }
 
-  .div_email_to{
-      display: flex;
+  .div_email_to {
+    display: flex;
   }
+
+
+  .choose_people_div {
+    // position: fixed;
+    z-index: 99;
+    background: white;
+    width: 100%;
+    box-shadow: 1px 10px 30px lightgrey;
+  }
+
+  .me_p_class {
+    display: inline-block;
+    width: calc(100% - 60px);
+    height: 38px;
+    border-bottom: solid 1px #f0f2f5;
+    line-height: 26px;
+  }
+
+  .red_flag {
+    color: red
+  }
+
+  .toolbar_c {
+    padding: 0px;
+  }
+
+  .toolbar_button {
+    width: 22%;
+    background-color: #2597ec;
+  }
+
+  .mail-plus-tag-list .tag-wrapper {
+    display: inline-block;
+    position: relative;
+    margin-right: 8px
+  }
+
+  .mailDetail-tag-list{
+    padding-left: 5px;
+    padding-top: 5px;
+  }
+
+  .mail-plus-tag-list .tag-wrapper a {
+    display: inline-block;
+    padding: 0 10px;
+    max-width: 105px;
+    border-radius: 10px;
+    height: 18px;
+    line-height: 18px;
+    color: #fff
+  }
+
+
 
 
 }
