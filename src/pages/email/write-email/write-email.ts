@@ -55,6 +55,7 @@ export class WriteEmailPage {
   chooseEmailTo = [];
   chooseEmailcc = [];
   chooseEmailbcc = [];
+  email_detail;
 
   @ViewChild('input_email_to') input_email_to;
   constructor(public navCtrl: NavController,
@@ -75,8 +76,28 @@ export class WriteEmailPage {
         this.account_email = this.account_list[i].email
       }
     }
+    this.email_detail = this.navParams.get('email_detail')
+    if (this.email_detail) {
+      this.fromEmailDetail()
+    }
+  }
+
+  fromEmailDetail() {
+    var type = this.navParams.get('type')
+    if(type=='reply'){
+      this.chooseEmailTo = this.email_detail.email_from
+      this.email_to = this.email_detail.email_from
+    }else if(type=='replayAll'){
+      
+    }else if(type=='transfer'){
+
+    }
+
 
   }
+
+
+
 
   ionViewDidLoad() {
     let self = this
@@ -199,7 +220,7 @@ export class WriteEmailPage {
   chooseAttach() {
     console.log('chooseAttach')
     if (this.platform.is('ios')) {
-    // if (this.platform.is('android')) {
+      // if (this.platform.is('android')) {
       this.changeHeardImg()
     }
     else if (this.platform.is('android')) {

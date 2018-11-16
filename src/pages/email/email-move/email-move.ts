@@ -21,7 +21,11 @@ export class EmailMovePage {
   tree: TreeModel
   frontPage:any;
   constructor(public navCtrl: NavController, public navParams: NavParams,public emailService: EmailService) {
-    this.frontPage = Utils.getViewController("EmailPage", navCtrl)
+    if(this.navParams.get('emailDetail')){
+      this.frontPage = Utils.getViewController("EmailDetailPage", navCtrl)
+    }else{
+      this.frontPage = Utils.getViewController("EmailPage", navCtrl)
+    }
     this.emailService.get_email_label_folder(this.navParams.get('account_id'), this.navParams.get('user_id')).then(res => {
       if (res.result.res_data) {
         this.tree = {

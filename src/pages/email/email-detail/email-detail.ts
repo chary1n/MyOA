@@ -1,13 +1,14 @@
+import { AlertController } from 'ionic-angular/components/alert/alert-controller';
 import { Utils } from './../../../providers/Utils';
 import { HttpService } from './../../../providers/HttpService';
 import { DomSanitizer } from '@angular/platform-browser';
 import { EmailService } from './../emailService';
-import { NavParams } from 'ionic-angular/navigation/nav-params';
-import { NavController, IonicPage } from 'ionic-angular';
+import { NavController, IonicPage, NavParams, ToastController } from 'ionic-angular';
 import { Component } from '@angular/core';
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
 import { File } from '@ionic-native/file';
 import { FileOpener } from '@ionic-native/file-opener';
+import { stat } from 'fs';
 
 /**
  * Generated class for the EmailDetailPage page.
@@ -19,7 +20,7 @@ import { FileOpener } from '@ionic-native/file-opener';
 @Component({
   selector: 'page-email-detail',
   templateUrl: 'email-detail.html',
-  providers: [EmailService,File,FileTransfer,FileOpener]
+  providers: [EmailService, File, FileTransfer, FileOpener]
 })
 export class EmailDetailPage {
   id;
@@ -27,15 +28,25 @@ export class EmailDetailPage {
   body_html;
   subject;
   email_from;
-  EmailPage;
-  email_to; date; attachment_list = [];email_cc;email_bcc
+  frontPage;
+  need_show_choose = false;
+  email_to; date; attachment_list = []; email_cc; email_bcc;
+  movePageInfo;
+  email_flag;
+  uid; account_id;
+  label_list;
+  front_page_refresh = false;
   constructor(private sanitizer: DomSanitizer,
     public transfer: FileTransfer,
     public file: File,
     public fileOpener: FileOpener,
+    public toastCtrl: ToastController,
+    public alertCtrl: AlertController,
     public navCtrl: NavController, public navParams: NavParams, public emailService: EmailService) {
     this.id = this.navParams.get('id')
-    this.EmailPage = Utils.getViewController("EmailPage", this.navCtrl)
+    this.uid = this.navParams.get('uid')
+    this.account_id = this.navParams.get('account_id')
+    this.frontPage = Utils.getViewController("EmailPage", this.navCtrl)
     this.emailService.get_email_detail(this.id).then(res => {
       console.log(res.result.res_data)
       this.email_detail = res.result.res_data
@@ -46,10 +57,16 @@ export class EmailDetailPage {
       this.email_cc = this.email_detail.email_cc
       this.email_bcc = this.email_detail.email_bcc
       this.date = this.email_detail.date
+      this.email_flag = this.email_detail.is_flag
+      this.label_list = this.email_detail.label_list
       this.attachment_list = this.transAttachUrl(this.email_detail.attachment_list)
       console.log(this.attachment_list)
     })
   }
+
+
+
+
 
 
   transAttachUrl(attachment_list) {
@@ -74,7 +91,25 @@ export class EmailDetailPage {
     return attachment_list
   }
 
-
+  ionViewWillEnter() {
+    if (this.navParams.get('movePageInfo')) {
+      this.movePageInfo = this.navParams.data.movePageInfo
+      var ids = [this.id]
+      this.emailService.move(ids, this.movePageInfo.state, this.movePageInfo.email_state).then(res => {
+        if (res.result && res.result.res_code == 1) {
+          Utils.toastButtom('移动成功', this.toastCtrl)
+        }
+      })
+      this.navParams.data.movePageInfo = ''
+    } else if (this.navParams.get('signPageInfo')) {
+      var sign_id = this.navParams.data.signPageInfo.sign_id
+      this.emailService.label(this.id, sign_id).then(res => {
+        if (res.result && res.result.res_code == 1) {
+          this.label_list = res.result.res_data
+        }
+      })
+    }
+  }
 
   assembleHTML(strHTML) {
     return this.sanitizer.bypassSecurityTrustHtml(strHTML);
@@ -85,9 +120,19 @@ export class EmailDetailPage {
   }
 
 
+  toSignPage() {
+    this.navCtrl.push('SignPage', {
+      'account_id': this.account_id,
+      'user_id': this.uid
+    })
+    this.changeShowTop()
+    this.front_page_refresh = true
+  }
+
+
   clickAttach(id, mimeType) {
     const fileTransfer: FileTransferObject = this.transfer.create();
-    const url = HttpService.appUrl+"web/content/"+id+"?download=true";
+    const url = HttpService.appUrl + "web/content/" + id + "?download=true";
     fileTransfer.download(url, this.file.dataDirectory + id).then((entry) => {
       console.log('download complete: ' + entry.toURL());
       this.fileOpener.open(entry.nativeURL, mimeType)
@@ -102,9 +147,85 @@ export class EmailDetailPage {
     });
   }
 
-  goBack(){
-    this.navCtrl.pop()
+  goBack() {
+    this.frontPage.data.needRefresh = true
+    this.navCtrl.popTo(this.frontPage)
   }
 
 
+  changeShowTop() {
+    this.need_show_choose = !this.need_show_choose
+  }
+
+
+
+  move() {
+    this.navCtrl.push('EmailMovePage', {
+      'emailDetail': true,
+      'account_id': this.account_id,
+      'user_id': this.uid
+    })
+    this.changeShowTop()
+    this.front_page_refresh = true
+  }
+
+  flag(state) {
+    this.emailService.flag([this.id], state).then(res => {
+      if (res.result && res.result && res.result.res_code == 1) {
+        this.email_detail.is_flag = state
+        this.email_flag = state
+        this.changeShowTop()
+        if (state) {
+          Utils.toastButtom('已固定', this.toastCtrl)
+        } else {
+          Utils.toastButtom('已取消固定', this.toastCtrl)
+        }
+      }
+    })
+    this.front_page_refresh = true
+  }
+
+
+  reply() {
+    this.navCtrl.push('WriteEmailPage', {
+      'email_detail': this.email_detail,
+      'type': 'reply'
+    })
+  }
+
+  replyAll() {
+    this.navCtrl.push('WriteEmailPage', {
+      'email_detail': this.email_detail,
+      'type': 'replyAll'
+    })
+  }
+
+  transfer_mail() {
+    this.navCtrl.push('WriteEmailPage', {
+      'email_detail': this.email_detail,
+      'type': 'transfer'
+    })
+  }
+
+
+  delete() {
+    this.alertCtrl.create({
+      title: '提示',
+      subTitle: '确定删除要此邮件？',
+      buttons: [{ text: '取消' },
+      {
+        text: '确定',
+        handler: () => {
+          this.emailService.delete([this.id]).then(res => {
+            if (res.result && res.result.res_code == 1) {
+              this.navCtrl.pop()
+            }
+          })
+        }
+      }
+      ]
+    }).present();
+
+  }
 }
+

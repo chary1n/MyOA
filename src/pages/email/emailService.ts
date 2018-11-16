@@ -15,48 +15,57 @@ export class EmailService {
     }
 
 
-    flag(ids,state) {
+    flag(ids, state) {
         let body = JSON.stringify({
             'ids': ids,
-            'state':state
+            'state': state
         });
         return this.httpService.postBody('rt_mail/OA_flag', body, 2);
     }
 
-    unseen(ids,state) {
+    label(email_id, label_id) {
+        let body = JSON.stringify({
+            'email_id': email_id,
+            'label_id': label_id
+        });
+        return this.httpService.postBody('rt_mail/OA_label', body, 2);
+    }
+
+
+    unseen(ids, state) {
         let body = JSON.stringify({
             'ids': ids,
-            'state':state
+            'state': state
         });
         return this.httpService.postBody('rt_mail/OA_unseen', body, 2);
     }
 
-    move(ids,state,email_state) {
+    move(ids, state, email_state) {
         let body = JSON.stringify({
             'ids': ids,
-            'state':state,
-            'email_state':email_state
+            'state': state,
+            'email_state': email_state
         });
         return this.httpService.postBody('rt_mail/OA_move', body, 2);
     }
 
-    delete(ids){
+    delete(ids) {
         let body = JSON.stringify({
             'ids': ids,
         });
         return this.httpService.postBody('rt_mail/OA_delete', body, 2);
     }
 
-    uploadAttachment(user_id,filename,data) {
+    uploadAttachment(user_id, filename, data) {
         let body = JSON.stringify({
             'uid': user_id,
-            'name':filename,
-            'datas':data,
+            'name': filename,
+            'datas': data,
         });
         return this.httpService.postBody('rt_mail/upload_attachment', body, 2);
     }
 
-    delete_attachment(id){
+    delete_attachment(id) {
         let body = JSON.stringify({
             'id': id,
         });
@@ -64,13 +73,13 @@ export class EmailService {
     }
 
 
-    getEmailList(user_id, account_id, email_type, state_type,data_id, limit, offset) {
+    getEmailList(user_id, account_id, email_type, state_type, data_id, limit, offset) {
         let body = JSON.stringify({
             'uid': user_id,
             'account_id': account_id,
             'email_type': email_type,
             'state_type': state_type,
-            'data_id':data_id,
+            'data_id': data_id,
             'limit': limit,
             'offset': offset
         });
@@ -85,35 +94,35 @@ export class EmailService {
     }
 
 
-    get_email_label_folder(account_id,user_id){
+    get_email_label_folder(account_id, user_id) {
         let body = JSON.stringify({
             'account_id': account_id,
-            'uid':user_id
+            'uid': user_id
         });
         return this.httpService.postBodyNoLoading('rt_mail/get_email_label_folder', body, 2);
     }
 
 
-    send_mail(user_id,account_id,email_to,email_cc,email_bcc,subject,body,attach_list,draft){
+    send_mail(user_id, account_id, email_to, email_cc, email_bcc, subject, body, attach_list, draft) {
         let send_body = JSON.stringify({
-            'uid':user_id,
-            'account_id':account_id,
+            'uid': user_id,
+            'account_id': account_id,
             'email_to': email_to,
-            'email_cc':email_cc,
-            'email_bcc':email_bcc,
-            'subject':subject,
-            "body_html":body,
-            'attachment_ids':attach_list,
-            'draft':draft
+            'email_cc': email_cc,
+            'email_bcc': email_bcc,
+            'subject': subject,
+            "body_html": body,
+            'attachment_ids': attach_list,
+            'draft': draft
         });
         return this.httpService.postBody('rt_mail/email_sent', send_body, 2);
 
     }
 
 
-    get_contact_list(uid){
+    get_contact_list(uid) {
         let body = JSON.stringify({
-            'uid':uid,
+            'uid': uid,
         });
         return this.httpService.postBodyNoLoading('rt_mail/get_contact_list', body, 2);
     }

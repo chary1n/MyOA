@@ -21,7 +21,7 @@ export class Utils {
 
         const toast = toastCtrl.create({
             message: toastString,
-            duration: 2000,
+            duration: 1000,
             position: 'buttom'
         });
         toast.onDidDismiss(() => {
