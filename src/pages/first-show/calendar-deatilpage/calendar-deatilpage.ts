@@ -457,6 +457,16 @@ export class CalendarDeatilpagePage {
   //新建待办事项完成
   stateFinish() {
     cordova.plugins.Keyboard.close()
+    setTimeout(() => {
+        if (this.allday) {
+          this.click_end_date()
+          this.click_start_date()
+        }
+        else {
+          this.click_end_datetime()
+          this.click_start_datetime()
+        }
+      }, 100)
     if (this.search) {
       this.title_meeting = '新建'
       this.search = false

@@ -46,7 +46,7 @@ export class WorkBenchPage {
   py_count = 0;
   kc_count = 0;
   isShowPayment = false;
-  isShowKaoqin = true;
+  isShowKaoqin = false;
   user_id;
   company_type;
   isShowSG = true;
@@ -71,11 +71,11 @@ export class WorkBenchPage {
   }
 
   ionViewDidEnter() {
-    this.isShowKaoqin = true
-    this.isShowBX = false
-    this.isShowZZ = false
-    this.isShowKN = false
-    this.isShowSG = false
+    // this.isShowKaoqin = true
+    // this.isShowBX = false
+    // this.isShowZZ = false
+    // this.isShowKN = false
+    // this.isShowSG = false
             
     this.storage.get('user')
       .then(res => {
