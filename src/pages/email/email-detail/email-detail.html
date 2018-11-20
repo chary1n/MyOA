@@ -53,9 +53,9 @@
   <div class="email_subject">
     {{subject}}
   </div>
-  <div class="mailDetail-tag-list"  *ngIf="label_list" >
+  <div class="mailDetail-tag-list" *ngIf="label_list">
     <div class="mail-plus-tag-list mail-plus-tag-list-in-email">
-      <span class="tag-wrapper" *ngFor="let item of label_list" >
+      <span class="tag-wrapper" *ngFor="let item of label_list">
         <a class="ellipsis" style="background-color: rgb(87, 192, 120) "> {{item.name}}
         </a>
       </span>
@@ -121,7 +121,7 @@
 
   <div class="content_footer"></div>
 </ion-content>
-<!-- 
+
 <ion-footer>
   <ion-toolbar color="gongdan-color" class='toolbar_c'>
     <button ion-button icon-only (click)="reply()" class="toolbar_button">
@@ -137,4 +137,4 @@
       <ion-icon name="ios-trash"></ion-icon>
     </button>
   </ion-toolbar>
-</ion-footer> -->
+</ion-footer>
