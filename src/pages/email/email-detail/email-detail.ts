@@ -8,7 +8,6 @@ import { Component } from '@angular/core';
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
 import { File } from '@ionic-native/file';
 import { FileOpener } from '@ionic-native/file-opener';
-import { stat } from 'fs';
 
 /**
  * Generated class for the EmailDetailPage page.

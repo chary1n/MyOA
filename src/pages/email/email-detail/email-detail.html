@@ -24,22 +24,22 @@
       <ion-icon name='ios-bookmark-outline' item-start></ion-icon>
       <ion-label>标记</ion-label>
     </ion-item> -->
-    <ion-item (click)="move()">
+    <ion-item tappable (click)="move()">
       <ion-icon name="ios-log-in" item-start></ion-icon>
       <ion-label>移动到</ion-label>
     </ion-item>
 
-    <ion-item (click)="toSignPage()">
+    <ion-item tappable (click)="toSignPage()">
       <ion-icon name="ios-bookmark-outline" item-start></ion-icon>
       <ion-label>标记为</ion-label>
     </ion-item>
 
-    <ion-item no-lines *ngIf="!email_flag" (click)="flag(true)">
+    <ion-item tappable no-lines *ngIf="!email_flag" (click)="flag(true)">
       <ion-icon name='ios-tuding' class='red_flag' item-start></ion-icon>
       <ion-label>固定邮件</ion-label>
     </ion-item>
 
-    <ion-item no-lines *ngIf="email_flag" (click)="flag(false)">
+    <ion-item tappable no-lines *ngIf="email_flag" (click)="flag(false)">
       <ion-icon name='ios-tuding' item-start></ion-icon>
       <ion-label>取消固定</ion-label>
     </ion-item>

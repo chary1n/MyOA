@@ -456,17 +456,17 @@ export class CalendarDeatilpagePage {
   }
   //新建待办事项完成
   stateFinish() {
-    cordova.plugins.Keyboard.close()
+    // cordova.plugins.Keyboard.close()
     setTimeout(() => {
-        if (this.allday) {
-          this.click_end_date()
-          this.click_start_date()
-        }
-        else {
-          this.click_end_datetime()
-          this.click_start_datetime()
-        }
-      }, 100)
+      if (this.allday) {
+        this.click_end_date()
+        this.click_start_date()
+      }
+      else {
+        this.click_end_datetime()
+        this.click_start_datetime()
+      }
+    }, 100)
     if (this.search) {
       this.title_meeting = '新建'
       this.search = false
@@ -868,16 +868,18 @@ export class CalendarDeatilpagePage {
   }
   //处理所有数据
   handleData(is_edit) {
-    if (is_edit){
+    if (is_edit) {
+      if (!this.rt_is_sure_time) {
         if (this.allday) {
-      this.start_date = (<HTMLInputElement>document.getElementById('input_start_date')).value
-      this.stop_date = (<HTMLInputElement>document.getElementById('input_end_date')).value
+          this.start_date = (<HTMLInputElement>document.getElementById('input_start_date')).value
+          this.stop_date = (<HTMLInputElement>document.getElementById('input_end_date')).value
+        }
+        else {
+          this.start_datetime = (<HTMLInputElement>document.getElementById('input_start_datetime')).value
+          this.stop_datetime = (<HTMLInputElement>document.getElementById('input_end_datetime')).value
+        }
+      }
     }
-    else {
-      this.start_datetime = (<HTMLInputElement>document.getElementById('input_start_datetime')).value
-      this.stop_datetime = (<HTMLInputElement>document.getElementById('input_end_datetime')).value
-    }
-  }
     let myString = ""
     if (!this.type_id) {
       myString = "    请选择类型"
