@@ -306,7 +306,7 @@ export class MeetingPage {
 
   //取消新建待办事项
   cancel() {
-    cordova.plugins.Keyboard.close()
+    // cordova.plugins.Keyboard.close()
     if (this.search) {
       this.title_meeting = '新建会议'
       if (this.edit && this.search && this.change) {
@@ -326,7 +326,7 @@ export class MeetingPage {
   }
   //新建待办事项完成
   stateFinish() {
-    cordova.plugins.Keyboard.close()
+    // cordova.plugins.Keyboard.close()
     if (this.search) {
       this.title_meeting = '新建会议'
       if (this.edit && this.search && this.change) {
@@ -619,14 +619,17 @@ export class MeetingPage {
 
   //处理所有数据
   handleData() {
-    if (this.rt_allday) {
-      this.start_date = (<HTMLInputElement>document.getElementById('input_start_date')).value
-      this.stop_date = (<HTMLInputElement>document.getElementById('input_end_date')).value
+    if (!this.rt_is_sure_time) {
+      if (this.rt_allday) {
+        this.start_date = (<HTMLInputElement>document.getElementById('input_start_date')).value
+        this.stop_date = (<HTMLInputElement>document.getElementById('input_end_date')).value
+      }
+      else {
+        this.start_datetime = (<HTMLInputElement>document.getElementById('input_start_datetime')).value
+        this.stop_datetime = (<HTMLInputElement>document.getElementById('input_end_datetime')).value
+      }
     }
-    else {
-      this.start_datetime = (<HTMLInputElement>document.getElementById('input_start_datetime')).value
-      this.stop_datetime = (<HTMLInputElement>document.getElementById('input_end_datetime')).value
-    }
+
 
     let myString = ""
     if (!this.name) {
@@ -817,7 +820,7 @@ export class MeetingPage {
   }
   //编辑完成
   changeFinish() {
-    cordova.plugins.Keyboard.close()
+    // cordova.plugins.Keyboard.close()
     if (this.search) {
       this.search = false
       return
@@ -836,7 +839,7 @@ export class MeetingPage {
   }
   //编辑取消
   changeCancel() {
-    cordova.plugins.Keyboard.close()
+    // cordova.plugins.Keyboard.close()
     if (this.search) {
       this.search = false
       if (this.select_type == 1) {
