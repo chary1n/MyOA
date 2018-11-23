@@ -17,44 +17,68 @@
 // @import "../../node_modules/ionic2-auto-complete/auto-complete";
 
 .alert-ios .alert-radio-label {
-    white-space: normal;
+  white-space: normal;
 }
 
 .alert-md .alert-radio-label {
-    white-space: normal;
+  white-space: normal;
 }
 
 .alert-wp .alert-radio-label {
-    white-space: normal;
+  white-space: normal;
 }
 
-*{
-    font-family: 'arial';
+* {
+  font-family: 'arial';
 }
 
 
-.normal-select .select-text{
-    // white-space: normal;
+.normal-select .select-text {
+  // white-space: normal;
 }
 
-@font-face {font-family: "Ionicons";
-    src: url('../assets/myFont/iconfont.eot?t=1541743575886'); /* IE9*/
-    src: url('../assets/myFont/iconfont.eot?t=1541743575886#iefix') format('embedded-opentype'), /* IE6-IE8 */
+@font-face {
+  font-family: "Ionicons";
+  src: url('../assets/myFont/iconfont.eot?t=1542878112924');
+  /* IE9*/
+  src: url('../assets/myFont/iconfont.eot?t=1542878112924#iefix') format('embedded-opentype'),
+    /* IE6-IE8 */
     url('data:application/x-font-woff;charset=utf-8;base64,d09GRgABAAAAAAUAAAsAAAAACDQAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAABHU1VCAAABCAAAADMAAABCsP6z7U9TLzIAAAE8AAAARAAAAFY8gEmHY21hcAAAAYAAAABWAAABhmqv0OBnbHlmAAAB2AAAATQAAAIUMs6Lc2hlYWQAAAMMAAAALwAAADYTNc2qaGhlYQAAAzwAAAAcAAAAJAfeA4RobXR4AAADWAAAAAwAAAAMDAAAAGxvY2EAAANkAAAACAAAAAgAyAEKbWF4cAAAA2wAAAAfAAAAIAEVAIxuYW1lAAADjAAAAUUAAAJtPlT+fXBvc3QAAATUAAAALAAAAD1O2yG3eJxjYGRgYOBikGPQYWB0cfMJYeBgYGGAAJAMY05meiJQDMoDyrGAaQ4gZoOIAgCKIwNPAHicY2BkYWCcwMDKwMHUyXSGgYGhH0IzvmYwYuRgYGBiYGVmwAoC0lxTGByecT6fytzwv4EhhrmBoREozAiSAwDpDgyDeJztkMENgDAMAy9pqQRiEB4MxIutWJGOUdwUtsDSxYqTl4EJSGIXGezE6DqUWuSJJfIcP0Vu+D3XqzX4XDLdSrhrFH6tMbd3897WoDdbrwH+ABaUD8IAAHicpZE9TsNAEIVnvLDejbNALNuRExHk9U+DFAvjJAVS6JCLSBwhN4ADAEoa7pSGhgNQ5whQ0aVcGMcUIFAapNVKs997M6s3IAA+FsywJRzCCeRwCdcwh1tYAGB0gHZngN1oipNOmTEqoyGOOuX4PCoCn/3mcaSzmk+iAfo//UNkHm/8U/zDv+WNn8qt/9GsehoxDrHqa4z3sC3MSjptgVXL6e6CVmpW/Zr2sKpVmte05WCNpePtpGxJXRtFQt3D2NxLB78gKYGevw83D9uxV43IuvuPGyzaxzvz2RFoGNIOPH6KNgV7pnOMKRzKfqSzZgOUl18E6ajMND9GLyjGzHfVS4iCKyt9Vu4sDxP6RFnf+cw8SSXp4L5yX7lQb666mG+SIk2LZDO/WXMp+doW4hOH/VXBeJxjYGRgYADiO+ydofH8Nl8ZuFkYQOAGt8t1BP2/noWBuQHI5WBgAokCABD/CX0AeJxjYGRgYG7438AQw8IAAkCSkQEVMAMARwkCbAQAAAAEAAAABAAAAAAAAAAAyAEKeJxjYGRgYGBmaGDgYAABJiDmAkIGhv9gPgMAFdMBogB4nGWPTU7DMBCFX/oHpBKqqGCH5AViASj9EatuWFRq911036ZOmyqJI8et1ANwHo7ACTgC3IA78EgnmzaWx9+8eWNPANzgBx6O3y33kT1cMjtyDRe4F65TfxBukF+Em2jjVbhF/U3YxzOmwm10YXmD17hi9oR3YQ8dfAjXcI1P4Tr1L+EG+Vu4iTv8CrfQ8erCPuZeV7iNRy/2x1YvnF6p5UHFockikzm/gple75KFrdLqnGtbxCZTg6BfSVOdaVvdU+zXQ+ciFVmTqgmrOkmMyq3Z6tAFG+fyUa8XiR6EJuVYY/62xgKOcQWFJQ6MMUIYZIjK6Og7VWb0r7FDwl57Vj3N53RbFNT/c4UBAvTPXFO6stJ5Ok+BPV8bUnV0K27LnpQ0kV7NSRKyQl7WtlRC6gE2ZVeOEXpc0Yk/KGdI/wAJWm7IAAAAeJxjYGKAAC4G7ICZkYmRmZGFgSs9Py+9qjS/JDGTraQ0JTMvnYEBAFFoBv4=') format('woff'),
-    url('../assets/myFont/iconfont.ttf?t=1541743575886') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
-    url('../assets/myFont/iconfont.svg?t=1541743575886#iconfont') format('svg'); /* iOS 4.1- */
-  }
-  
-  .icon {
-    font-family:"Ionicons" !important;
-    font-size:16px;
-    font-style:normal;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-  
-  .ion-md-tuding:before,
-  .ion-ios-tuding:before,
-  .ion-ios-tuding-outline:before,
-  .icon-tuding:before { content: "\e795"; }
+    url('../assets/myFont/iconfont.ttf?t=1542878112924') format('truetype'),
+    /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+    url('../assets/myFont/iconfont.svg?t=1542878112924#iconfont') format('svg');
+  /* iOS 4.1- */
+}
 
+.icon {
+  font-family: "Ionicons" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+
+.ion-md-reply:before,
+.ion-ios-reply:before,
+.ion-ios-reply-outline:before,
+.icon-reply:before {
+  content: "\e705";
+}
+
+.ion-md-replyall:before,
+.ion-ios-replyall:before,
+.ion-ios-replyall-outline:before,
+.icon-replyall:before {
+  content: "\e741";
+}
+
+
+
+.ion-md-tuding:before,
+.ion-ios-tuding:before,
+.ion-ios-tuding-outline:before,
+.icon-tuding:before {
+  content: "\e795";
+}

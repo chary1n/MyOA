@@ -106,10 +106,10 @@ export class EmailPage {
         }
       })
       this.navPrarams.data.movePageInfo = ''
-    }else {
+    } else {
       var bar = document.getElementsByClassName('tabbar').item(0);
       bar['style'].display = 'flex';
-      if ((this.title.indexOf('收件') != -1 && this.frontPageIsUnseen )|| this.navPrarams.get('needRefresh')) {
+      if ((this.title.indexOf('收件') != -1 && this.frontPageIsUnseen) || this.navPrarams.get('needRefresh')) {
         this.get_email_list(this.account_id, this.email_type, this.state_type, this.data_id, this.limit + this.offset, 0).then(res => {
           if (res.result && res.result.res_data) {
             this.email_list = res.result.res_data.email_list
@@ -201,14 +201,35 @@ export class EmailPage {
       this.email_list[index].ischecked = !this.email_list[index].ischecked
       this.changeButtonState()
     } else {
-      this.frontPageIsUnseen = rt_is_unseen
-      this.navCtrl.push('EmailDetailPage', {
-        'id': id,
-        'uid': this.user_id,
-        'account_id': this.account_id
-      })
+      if (this.state_type == 'draft') {
+        this.emailService.get_email_detail(id).then(res=>{
+          this.navCtrl.push('WriteEmailPage', {
+            'email_detail': res.result.res_data,
+            'id': this.account_id,
+            'uid': this.user_id,
+            'account_list': this.accounts_list,
+            'type': 'draft'
+          })
+        })
+      } else {
+        this.frontPageIsUnseen = rt_is_unseen
+        this.navCtrl.push('EmailDetailPage', {
+          'id': id,
+          'uid': this.user_id,
+          'account_id': this.account_id,
+          'account_list': this.accounts_list,
+        })
+      }
     }
   }
+
+  on_hold(i) {
+    if (!this.isEdit) {
+      this.toEdit()
+      this.changeClick(i)
+    }
+  }
+
 
 
   showUnseenSelect() {

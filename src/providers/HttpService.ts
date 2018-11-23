@@ -15,7 +15,7 @@ export class HttpService {
   static appUrl;
   static user_id;
   static user;
-
+  static is_alert = false;
   static need_back_login;
   constructor(private http: Http, private loading: LoadingController,
     private platform: Platform,
@@ -26,9 +26,9 @@ export class HttpService {
   getAppPath(url: string, type: number = 0) {
     if (type == 1) {
       return HttpService.appUrl + constansts.APPSUBPATH + url;
-    } else if(type==2){
+    } else if (type == 2) {
       return HttpService.appUrl + url;
-    }else {
+    } else {
       return HttpService.appUrl + constansts.OAUBPATH + url;
     }
   }
@@ -196,17 +196,25 @@ export class HttpService {
         }).present();
       }
       else {
-        this.ctrl.create({
+       var ctrl =  this.ctrl.create({
           title: "提示",
           subTitle: result.error.data.message,
           buttons: [{
             text: '确定',
             handler: () => {
-
+              HttpService.is_alert = false
             }
           }
           ]
-        }).present();
+        })
+        ctrl.onDidDismiss(res=>{
+          HttpService.is_alert = false
+        })
+        if(!HttpService.is_alert){
+          console.log('弹框弹出来了')
+          ctrl.present()
+          HttpService.is_alert = true
+        }
       }
 
       return result;
@@ -234,9 +242,27 @@ export class HttpService {
     }
     console.log(error);
 
-    alert(msg);//这里使用ToastController
+    // alert(msg);//这里使用ToastController
 
-
+    var ctrl =  this.ctrl.create({
+      title: "提示",
+      subTitle: msg,
+      buttons: [{
+        text: '确定',
+        handler: () => {
+          HttpService.is_alert = false
+        }
+      }
+      ]
+    })
+    ctrl.onDidDismiss(res=>{
+      HttpService.is_alert = false
+    })
+    if(!HttpService.is_alert){
+      ctrl.present()
+      console.log('弹框弹出来了')
+      HttpService.is_alert = true
+    }
     return { success: false, msg: msg };
   }
 

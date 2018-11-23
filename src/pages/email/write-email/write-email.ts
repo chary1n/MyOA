@@ -1,3 +1,5 @@
+import { Contact } from '@ionic-native/contacts';
+import { DomSanitizer } from '@angular/platform-browser';
 import { NativeService } from './../../../providers/NativeService';
 import { HttpService } from './../../../providers/HttpService';
 import { FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
@@ -46,7 +48,7 @@ export class WriteEmailPage {
   email_cc;
   email_bcc;
   subject;
-  body;
+  body = '';
   user_id;
   contact_list = [];
   contact_email_to_list = []
@@ -56,9 +58,15 @@ export class WriteEmailPage {
   chooseEmailcc = [];
   chooseEmailbcc = [];
   email_detail;
+  body_html;
+  edit_origin_html = true;
+  isFromEmailDetail = false;
+  isFromDraft = false;
+  tar_title = '新建邮件';
 
   @ViewChild('input_email_to') input_email_to;
   constructor(public navCtrl: NavController,
+    private sanitizer: DomSanitizer,
     public emailService: EmailService,
     public alert: AlertController,
     public fileChooser: FileChooser,
@@ -78,25 +86,126 @@ export class WriteEmailPage {
     }
     this.email_detail = this.navParams.get('email_detail')
     if (this.email_detail) {
+      this.isFromEmailDetail = true
       this.fromEmailDetail()
     }
   }
 
   fromEmailDetail() {
     var type = this.navParams.get('type')
-    if(type=='reply'){
-      this.chooseEmailTo = this.email_detail.email_from
-      this.email_to = this.email_detail.email_from
-    }else if(type=='replayAll'){
-      
-    }else if(type=='transfer'){
-
+    var title = this.email_detail.subject ? this.email_detail.subject : ''
+    if (type == 'reply') {
+      this.subject = '回复 :' + title
+      this.tar_title = '回复邮件'
+      this.chooseEmailTo = this.transferOrigin(this.email_detail.email_from_orgin, this.email_detail.email_from)
+      // this.email_to = this.email_detail.email_from_orgin
+    } else if (type == 'replyAll') {
+      this.subject = '回复 :' + title
+      this.tar_title = '回复邮件'
+      this.chooseEmailTo = this.transferOrigin(this.email_detail.email_from_orgin, this.email_detail.email_from)
+        .concat(this.transferOrigin(this.email_detail.email_to_orgin, this.email_detail.email_to))
+        for (let i = 0; i < this.chooseEmailTo.length; i++) {
+          for (let j = 0; i < this.chooseEmailTo.length; i++) {
+            if(this.chooseEmailTo[i].email ==this.chooseEmailTo[j].email ){
+              this.chooseEmailTo.splice(j,1)
+            }
+          }
+        }
+      this.chooseEmailcc = this.transferOrigin(this.email_detail.email_cc_orgin, this.email_detail.email_cc)
+      if (this.chooseEmailcc.length > 0) {
+        this.showEmailCC()
+      }
+    } else if (type == 'transfer') {
+      this.subject = '转发 :' + title
+      this.tar_title = '转发邮件'
+      if (this.email_detail.attachment_list) {
+        for (let i = 0; i < this.email_detail.attachment_list.length; i++) {
+          this.attachment_list.push({
+            name: this.email_detail.attachment_list[i].fname,
+            file_size: this.email_detail.attachment_list[i].size,
+            id: this.email_detail.attachment_list[i].id,
+            mimetype: this.email_detail.attachment_list[i].mimetpye,
+          })
+        }
+      }
+    } else if (type == 'draft') {
+      this.subject = title
+      this.isFromDraft = true
+      this.chooseEmailTo = this.transferOrigin(this.email_detail.email_to_orgin, this.email_detail.email_to)
+      this.chooseEmailcc = this.transferOrigin(this.email_detail.email_cc_orgin, this.email_detail.email_cc)
+      this.chooseEmailbcc = this.transferOrigin(this.email_detail.email_bcc_orgin, this.email_detail.email_bcc)
+      if (this.chooseEmailcc.length > 0 || this.chooseEmailbcc.length > 0) {
+        this.showEmailCC()
+      }
+      if (this.email_detail.body_html) {
+        this.body = this.email_detail.body_html.replace(/<\/?.+?>/g, "").replace(/ /g, "")
+      }
+      this.isFromEmailDetail = false
+      if (this.email_detail.attachment_list) {
+        for (let i = 0; i < this.email_detail.attachment_list.length; i++) {
+          this.attachment_list.push({
+            name: this.email_detail.attachment_list[i].fname,
+            file_size: this.email_detail.attachment_list[i].size,
+            id: this.email_detail.attachment_list[i].id,
+            mimetype: this.email_detail.attachment_list[i].mimetpye,
+          })
+        }
+      }
     }
-
+    if (type != 'draft') {
+      this.body_html = this.email_detail.body_html
+    }
 
   }
 
+  transferOrigin(email_list, name_list, is_filter = false) {
+    var chooseList = []
+    for (let i = 0; i < email_list.length; i++) {
+      if (is_filter && email_list[i] == this.account_email) {
+        continue
+      }
+      chooseList.push({
+        name: name_list[i],
+        email: email_list[i]
+      })
+    }
+    return chooseList
+  }
 
+  assembleHTML(strHTML) {
+    return this.sanitizer.bypassSecurityTrustHtml(strHTML);
+  }
+
+
+  changeEdit() {
+    this.edit_origin_html = !this.edit_origin_html
+  }
+
+  edit_html_button() {
+    this.alert.create({
+      title: '编辑引文和富文本签名',
+      subTitle: '编辑引文会丢失引文和签名格式',
+      buttons: [
+        {
+          text: '取消',
+          handler: () => {
+          }
+        },
+        {
+          text: '确定',
+          handler: () => {
+            var add_body = ''
+            if (this.email_detail.body_html) {
+              add_body = this.email_detail.body_html.replace(/<\/?.+?>/g, "").replace(/ /g, "")
+            }
+            this.body = this.body + add_body
+            this.isFromEmailDetail = false
+            this.edit_origin_html = false
+          }
+        }
+      ]
+    }).present();
+  }
 
 
   ionViewDidLoad() {
@@ -298,7 +407,7 @@ export class WriteEmailPage {
 
   delete_attachment(index, id) {
     this.attachment_list.splice(index, 1)
-    this.emailService.delete_attachment(id)
+    // this.emailService.delete_attachment(id)
   }
 
   uploadAttachment(path) {
@@ -356,7 +465,7 @@ export class WriteEmailPage {
             }
           },
           {
-            text: '删除草稿',
+            text: !this.isFromDraft ? '删除草稿' : '放弃更改',
             handler: () => {
               this.navCtrl.pop()
             }
@@ -513,8 +622,12 @@ export class WriteEmailPage {
     for (let i = 0; i < this.attachment_list.length; i++) {
       attach_list.push(this.attachment_list[i].id)
     }
+    var email_body = this.body ? this.body : ''
+    if (this.isFromEmailDetail && this.edit_origin_html) {
+      email_body = this.body + '</br></br>' + this.body_html
+    }
     this.emailService.send_mail(this.user_id, this.account_id, this.email_list_to_string(this.chooseEmailTo),
-      this.email_list_to_string(this.chooseEmailcc), this.email_list_to_string(this.chooseEmailbcc), this.subject, this.body, attach_list, draft)
+      this.email_list_to_string(this.chooseEmailcc), this.email_list_to_string(this.chooseEmailbcc), this.subject, email_body, attach_list, draft)
       .then(res => {
         console.log(res)
         if (res.result == '发送成功' || res.result == "保存成功") {
@@ -533,6 +646,9 @@ export class WriteEmailPage {
 
         }
       })
+    if (this.isFromDraft) {
+      this.emailService.delete([this.email_detail.id])
+    }
   }
 
 }
