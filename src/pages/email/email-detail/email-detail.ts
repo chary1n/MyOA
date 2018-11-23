@@ -156,8 +156,17 @@ export class EmailDetailPage {
 
   changeShowTop() {
     this.need_show_choose = !this.need_show_choose
+    if (this.need_show_choose) {
+      setTimeout(() => {
+        var bac_div = document.getElementById('email_backdrop')
+        bac_div.style.height = document.getElementsByClassName('scroll-content')[document.getElementsByClassName('scroll-content').length-1].scrollHeight + "px"
+      }, 1)
+    }
   }
 
+  hide_email_backdrop() {
+    this.changeShowTop()
+  }
 
 
   move() {
@@ -190,9 +199,9 @@ export class EmailDetailPage {
   reply() {
     this.navCtrl.push('WriteEmailPage', {
       'email_detail': this.email_detail,
-      'id':this.account_id,
-      'uid':this.uid,
-      'account_list':this.navParams.get('account_list'),
+      'id': this.account_id,
+      'uid': this.uid,
+      'account_list': this.navParams.get('account_list'),
       'type': 'reply'
     })
   }
@@ -200,9 +209,9 @@ export class EmailDetailPage {
   replyAll() {
     this.navCtrl.push('WriteEmailPage', {
       'email_detail': this.email_detail,
-      'id':this.account_id,
-      'uid':this.uid,
-      'account_list':this.navParams.get('account_list'),
+      'id': this.account_id,
+      'uid': this.uid,
+      'account_list': this.navParams.get('account_list'),
       'type': 'replyAll'
     })
   }
@@ -210,9 +219,9 @@ export class EmailDetailPage {
   transfer_mail() {
     this.navCtrl.push('WriteEmailPage', {
       'email_detail': this.email_detail,
-      'id':this.account_id,
-      'uid':this.uid,
-      'account_list':this.navParams.get('account_list'),
+      'id': this.account_id,
+      'uid': this.uid,
+      'account_list': this.navParams.get('account_list'),
       'type': 'transfer'
     })
   }

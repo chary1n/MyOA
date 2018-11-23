@@ -50,6 +50,8 @@
 
 
 <ion-content>
+  <ion-backdrop id="email_backdrop" *ngIf="need_show_choose" (click)='hide_email_backdrop()' class="gray_backdrop">
+  </ion-backdrop>
   <div class="email_subject">
     {{subject}}
   </div>
