@@ -11,7 +11,7 @@
         <ion-icon name="md-close"></ion-icon>
       </button>
     </ion-buttons>
-    <ion-title style="text-align: center">新建邮件</ion-title>
+    <ion-title style="text-align: center">{{tar_title}}</ion-title>
     <ion-buttons right>
       <button ion-button icon-only tappable (click)="send()">
         <ion-icon name="ios-send"></ion-icon>
@@ -94,8 +94,21 @@
     </li>
   </ul>
 
-  <ion-textarea text-wrap rows="20" [(ngModel)]="body" placeholder="内容:" class='area_class'>
+  <ion-textarea *ngIf="isFromEmailDetail"  text-wrap rows="15" [(ngModel)]="body" placeholder="内容:" class='area_class'>
   </ion-textarea>
+  <ion-textarea *ngIf="!isFromEmailDetail"  text-wrap rows="20" [(ngModel)]="body" placeholder="内容:" class='area_class'>
+    </ion-textarea>
+  <div *ngIf="isFromEmailDetail" >
+  <div class="edit_div">
+    <button class="edit_button"  *ngIf="edit_origin_html"  (click)='edit_html_button()'> 编辑</button>
+    <input class="edit_checkbox" type="checkbox" [checked]='edit_origin_html' (click)="changeEdit()">
+    <div class='edit_span'>  包含引用文字</div>
+  </div>
+  <div class="line_div"></div>
+  <div class="body_html" *ngIf="edit_origin_html" >
+    <div class="html_div" [innerHTML]="assembleHTML(body_html)"> </div>
+  </div>
+</div>
 
 
 </ion-content>
