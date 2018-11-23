@@ -308,7 +308,7 @@ export class NextMeetingPage {
 
   //取消新建待办事项
   cancel() {
-    // cordova.plugins.Keyboard.close()
+    cordova.plugins.Keyboard.close()
     if (this.search) {
       this.title_meeting = '新建会议'
       if (this.edit && this.search && this.change) {
@@ -338,7 +338,7 @@ export class NextMeetingPage {
   }
   //新建待办事项完成
   stateFinish() {
-    // cordova.plugins.Keyboard.close()
+    cordova.plugins.Keyboard.close()
     if (this.search) {
       this.title_meeting = '新建会议'
       if (this.edit && this.search && this.change) {
@@ -843,7 +843,7 @@ export class NextMeetingPage {
   }
   //编辑完成
   changeFinish() {
-    // cordova.plugins.Keyboard.close()
+    cordova.plugins.Keyboard.close()
     if (this.search) {
       this.search = false
       return
@@ -862,7 +862,7 @@ export class NextMeetingPage {
   }
   //编辑取消
   changeCancel() {
-    // cordova.plugins.Keyboard.close()
+    cordova.plugins.Keyboard.close()
     if (this.search) {
       this.search = false
       if (this.select_type == 1) {

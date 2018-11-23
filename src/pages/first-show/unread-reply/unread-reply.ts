@@ -23,9 +23,9 @@ export class UnreadReplyPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public showService: FirstShowService, public toast: ToastController,
     public storage: Storage) {
-      this.storage.get('user').then(res => {
-        this.uid = res.result.res_data.user_id;
-      })
+    this.storage.get('user').then(res => {
+      this.uid = res.result.res_data.user_id;
+    })
     this.item = []
     var item_need = this.navParams.get('item')
     var data_arr = []
@@ -34,7 +34,7 @@ export class UnreadReplyPage {
       data_arr.push(item_one.msg_id)
       this.item.push(item_one)
     }
-    this.showService.read_total_reply({'list':data_arr}).then(res => {
+    this.showService.read_total_reply({ 'list': data_arr }).then(res => {
 
     })
   }
@@ -50,51 +50,75 @@ export class UnreadReplyPage {
     }
   }
 
-  gotoDeatil(item){
-    if(item.res_model_s=='rt.performance.appraisal.detail' && item.res_id!=false){
-      let body = {
-        'res_model_s': 'rt.performance.appraisal.detail',
-        'uid': this.uid,
-        'id': item.res_id
-      }
-      this.showService.get_res_model(body).then(res => {
-        if (res.result.res_data && res.result.res_code == 1) {
-          this.navCtrl.push('PerformanceStartPage',{
-            'item': res.result.res_data
+  gotoDeatil(item) {
+    if (item.subject_type == '项目') {
+      this.showService.get_event_detail({
+            'uid': this.uid,
+            'event_id': item.event_id
+          }).then(res => {
+            if (res.result.res_data && res.result.res_code == 1) {
+              item = res.result.res_data
+              this.navCtrl.push('MeetingProjectPage', {
+                'meeting_id': item.rt_meeeting_s_id,
+                'isEdit': false,
+                'uid': this.uid,
+                'frontPage': 'FirstShowPage'
+              })
+            }
           })
-        }
-      })
-    }else{
-      if(item.is_meeting==false){
-        this.showService.get_event_detail({'uid': this.uid,
-        'event_id': item.event_id}).then(res => {
-          if (res.result.res_data && res.result.res_code == 1) {
-            item = res.result.res_data
-            this.navCtrl.push('MeetingPage',{
-          'meeting_id': item.rt_meeeting_s_id,
-          'isEdit': false,
+    }
+    else {
+      if (item.res_model_s == 'rt.performance.appraisal.detail' && item.res_id != false) {
+        let body = {
+          'res_model_s': 'rt.performance.appraisal.detail',
           'uid': this.uid,
-          'frontPage': 'FirstShowPage'
-        })
+          'id': item.res_id
+        }
+        this.showService.get_res_model(body).then(res => {
+          if (res.result.res_data && res.result.res_code == 1) {
+            this.navCtrl.push('PerformanceStartPage', {
+              'item': res.result.res_data
+            })
           }
         })
+      } else {
+        if (item.is_meeting == false) {
+          this.showService.get_event_detail({
+            'uid': this.uid,
+            'event_id': item.event_id
+          }).then(res => {
+            if (res.result.res_data && res.result.res_code == 1) {
+              item = res.result.res_data
+              this.navCtrl.push('MeetingPage', {
+                'meeting_id': item.rt_meeeting_s_id,
+                'isEdit': false,
+                'uid': this.uid,
+                'frontPage': 'FirstShowPage'
+              })
+            }
+          })
 
 
-        
-      }else{
-        this.showService.get_event_detail({'uid': this.uid,
-        'event_id': item.event_id}).then(res => {
-          if (res.result.res_data && res.result.res_code == 1) {
-            item = res.result.res_data
-            this.navCtrl.push('CalendarDeatilpagePage',{
-          'item': item,
-          'isEdit': false,
-          'frontPage': 'FirstShowPage'
-        })
-          }})
-        
+
+        } else {
+          this.showService.get_event_detail({
+            'uid': this.uid,
+            'event_id': item.event_id
+          }).then(res => {
+            if (res.result.res_data && res.result.res_code == 1) {
+              item = res.result.res_data
+              this.navCtrl.push('CalendarDeatilpagePage', {
+                'item': item,
+                'isEdit': false,
+                'frontPage': 'FirstShowPage'
+              })
+            }
+          })
+
+        }
       }
     }
+
   }
 
 }
