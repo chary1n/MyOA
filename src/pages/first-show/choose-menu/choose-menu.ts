@@ -25,6 +25,7 @@ export class ChooseMenuPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public events: Events, public storage: Storage, public menu: MenuController,
     public event: Events) {
+      
       events.subscribe('ChooseMenuPage', (data) => {
 
     });

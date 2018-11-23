@@ -7,6 +7,9 @@ export class EmployeeService {
     constructor(private httpservice: HttpService) {
 
     }
+    get_all_department_tree(body){
+        return this.httpservice.postBodyNoLoading("get_all_department_tree", body);
+    }
 
     get_all_department(){
 

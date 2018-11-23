@@ -8,7 +8,6 @@ export class ContactService {
 
     }
 
-
     get_department_employees(departments){
         let body = JSON.stringify({
             department_ids :departments

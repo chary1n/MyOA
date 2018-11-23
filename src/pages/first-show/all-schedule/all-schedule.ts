@@ -42,7 +42,7 @@ export class AllSchedulePage {
   constructor(public navCtrl: NavController, public navParams: NavParams, private firshowService: FirstShowService,
     public storage: Storage, public statusBar: StatusBar, public allScheduleService: AllScheduleService,
     public menu: MenuController, public event: Events) {
-      this.from_work_bench = this.navParams.get('is_work_bench')
+    this.from_work_bench = this.navParams.get('is_work_bench')
     this.me_type = 'all'
     this.state_type = 'all'
     this.show_me = true
@@ -100,56 +100,58 @@ export class AllSchedulePage {
 
     })
 
-    if (this.show_me){
+    if (this.show_me) {
       this.storage.get('user').then(res => {
-      this.uid = res.result.res_data.user_id;
-      this.type_id = -1
-      let body = {
-        'uid': this.uid,
-        'me_type': this.me_type,
-        'state_type': this.state_type,
-      }
-      
-      this.firshowService.get_all_schedule(body).then(res => {
-        if (res.result.res_data && res.result.res_code == 1) {
-          this.dataList = res.result.res_data.data
-          this.meeting_id = res.result.res_data.meeting_id
-          for (let i = 0; i < this.dataList.length; i++) {
-            if (this.dataList[i].id == -1) {
-              this.type_list = this.dataList[i].dataList
+        this.uid = res.result.res_data.user_id;
+        this.type_id = -1
+        let body = {
+          'uid': this.uid,
+          'me_type': this.me_type,
+          'state_type': this.state_type,
+        }
+
+        this.firshowService.get_all_schedule(body).then(res => {
+          if (res.result.res_data && res.result.res_code == 1) {
+            this.dataList = res.result.res_data.data
+            this.meeting_id = res.result.res_data.meeting_id
+            for (let i = 0; i < this.dataList.length; i++) {
+              if (this.dataList[i].id == -1) {
+                this.type_list = this.dataList[i].dataList
+              }
             }
           }
+        })
+      })
+    }
+    else {
+      this.firshowService.get_all_department({ 'uid': this.uid }).then(res => {
+        if (res.result.res_data && res.result.res_code == 1) {
+          this.zNodes = res.result.res_data
+          this.tree_obj = $.fn.zTree.init($("#ztree"), this.setting, this.zNodes);
         }
       })
-    })
-  }
-  else
-  {
-    this.firshowService.get_all_department({ 'uid': this.uid }).then(res => {
-      if (res.result.res_data && res.result.res_code == 1) {
-        this.zNodes = res.result.res_data
-        this.tree_obj = $.fn.zTree.init($("#ztree"), this.setting, this.zNodes);
-      }
-    })
-  }
+    }
   }
 
   goBack() {
-    if (this.from_work_bench){
-this.navCtrl.pop()
+    if (this.from_work_bench) {
+      this.navCtrl.pop()
     }
-    else
-    {
+    else {
+      var element=document.getElementById("contact_body");
+      if (element && element.parentNode){
+        element.parentNode.removeChild(element);
+      }
       this.navCtrl.setRoot('NewTabsPage')
-    this.navCtrl.pop()
+      // this.navCtrl.pop()
     }
   }
 
   ionViewWillLeave() {
     this.menu.enable(false)
     this.event.unsubscribe('search_domain')
-    this.event.publish('initData',{
-      'data':true
+    this.event.publish('initData', {
+      'data': true
     })
   }
 
@@ -254,18 +256,17 @@ this.navCtrl.pop()
     }
     this.firshowService.search_all_schedule(body).then(res => {
       if (res.result.res_data && res.result.res_code == 1) {
-        if (this.show_me){
+        if (this.show_me) {
           this.type_list = res.result.res_data
         }
-        else
-        {
+        else {
           this.navCtrl.push('SearchScheduleListPage', {
-          data_list: res.result.res_data,
-          meeting_id: this.meeting_id,
-          uid: this.uid,
-        })
+            data_list: res.result.res_data,
+            meeting_id: this.meeting_id,
+            uid: this.uid,
+          })
         }
-        
+
       }
     })
   }
@@ -323,8 +324,8 @@ this.navCtrl.pop()
     this.show_me = false
     this.need_show_choose = false
     this.title = '团队'
-    this.event.publish('changeTeam',{
-      'data':'team'
+    this.event.publish('changeTeam', {
+      'data': 'team'
     })
     this.firshowService.get_all_department({ 'uid': this.uid }).then(res => {
       if (res.result.res_data && res.result.res_code == 1) {
@@ -338,8 +339,8 @@ this.navCtrl.pop()
     this.show_me = true
     this.need_show_choose = false
     this.title = '我的'
-    this.event.publish('changeTeam',{
-      'data':'me'
+    this.event.publish('changeTeam', {
+      'data': 'me'
     })
     this.get_all_data()
   }

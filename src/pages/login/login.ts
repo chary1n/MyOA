@@ -64,7 +64,7 @@ export class LoginPage {
     public jpush: JPush, public urlServer: UrlServer, public ctrl: AlertController, private inAppBrowser: InAppBrowser,
     public firService: FirService, private nativeService: NativeService, public toastCtrl: ToastController, public splashScreen: SplashScreen
   ) {
-
+    
   }
 
   getVersionNumber(): Promise<string> {
@@ -117,7 +117,7 @@ export class LoginPage {
     // else if (this.platform.is('ios')) {
     //   this.getiOSVersionNumber();
     // }
-    this.jpush.initJpush()
+    
   }
 
   defultChoose(index) {
@@ -284,8 +284,8 @@ export class LoginPage {
     this.isSelected4 = false;
     this.chooseIndex = 0;
     // HttpService.appUrl = "http://service.linkloving.net:8888/"
-    HttpService.appUrl = "http://192.168.3.117:8081/"
-    //  HttpService.appUrl = "http://10.0.0.5:8081/"
+    HttpService.appUrl = "http://192.168.3.9:8081/"
+    //  HttpService.appUrl = "http://10.0.0.16:8081/"
     this.reset();
     this.img1 = "assets/img/jiangsuruotai_clicked.png"
     this.password_src = "assets/img/S_password.png"

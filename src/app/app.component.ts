@@ -9,7 +9,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 // import { JPushPlugin } from '@ionic-native/jpush';
 
 // import { HttpService } from '../providers/HttpService'
-// import { JPush } from '../providers/JPush'
+import { JPush } from '../providers/JPush'
 import { CodePush, InstallMode } from '@ionic-native/code-push';
 
 // import { HttpModule } from "@angular/http";
@@ -18,22 +18,22 @@ import { CodePush, InstallMode } from '@ionic-native/code-push';
 declare let cordova: any;
 @Component({
   templateUrl: 'app.html',
-  providers: [ CodePush]
+  providers: [ CodePush,JPush]
 })
 export class MyApp {
   rootPage: any = 'LoginPage';
   version: any;
   user_env: any;
   constructor(public platform: Platform, statusBar: StatusBar,
-    splashScreen: SplashScreen, public codePush:CodePush) {
+    splashScreen: SplashScreen, public codePush:CodePush,public jpush:JPush) {
 
     platform.ready().then(() => {
       statusBar.overlaysWebView(false);
       statusBar.styleDefault();
       statusBar.backgroundColorByHexString('#f8f8f8');
       splashScreen.hide();
-      this.checkCodePush()
-      // this.jpush.initJpush();
+      // this.checkCodePush()
+      this.jpush.initJpush();
       // storage.get('user')
       //   .then(res => {
       //     this.user_env = res.result.res_data;

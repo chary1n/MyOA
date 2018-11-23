@@ -30,7 +30,7 @@
         tappable (click)="daything()">
         <p [ngClass]="{true:'p_daiban_line_height_select',false:'p_daiban_line_height'}[isDay]">待办</p>
       </div>
-      
+
 
     </div>
   </ion-navbar>
@@ -40,163 +40,7 @@
 
 </ion-header>
 
-<ion-content>
-  <!--<ion-grid style="border-bottom:#f0f2f5 1px solid">
-        <ion-row style="max-height:50px;margin-top: -15px">
-          <ion-col tappable  (click)="daything()" style="text-align: center">
-            <p style="padding-bottom:5px;width:35px;margin-left:auto;margin-right:auto"
-            [ngClass]="{true:'selected',false:'normal'}[isDay]">日程</p>
-          </ion-col>
-          <ion-col tappable  (click)="consider()" style="text-align: center">
-            <p style="padding-bottom:5px;width:35px;margin-left:auto;margin-right:auto"
-            [ngClass]="{true:'selected',false:'normal'}[isShen]">审核</p>
-            <span  *ngIf="isShowApprovalPoint" [ngClass]="{true:'big_span_bac',false:'normal_span_bac'}[all_approval>=10]">
-            {{all_approval}}
-            </span>
-          </ion-col>
-          <ion-col tappable  (click)="message()" style="text-align: center">
-              <p style="padding-bottom:5px;width:35px;margin-left:auto;margin-right:auto"
-              [ngClass]="{true:'selected',false:'normal'}[isMessage]">消息
-              <!-- <span  *ngIf="isShowBuyPoint" style="margin-top:6px;position:absolute;width:8px;height:8px;border-radius:8px;background-color:red;display:inline-block;color:white;text-align:center;margin-left:5px"></span> -->
-  <!--</p>
-            </ion-col>
-        </ion-row>
-    </ion-grid>-->
-  <div align="center" tappable (click)="click_un_read_reply()" *ngIf="un_read_list.length > 0 && isDay">
-    <div class="un_read_class">
-      {{un_read_list.length}}条新回复
-    </div>
-  </div>
-  <div *ngIf='isDay'>
-    <div style="padding: 1px;text-align: center;height: 37px;">
-      <p style="font-size: 13px;color: #2597ec;float: right;margin-right: 15px;margin-top: 10px" tappable (click)="toAll()">全部待办</p>
-      <p class="month_message">
-        <span tappable (click)="delete_month()">{{"<"}}</span><span style="margin-left:10px">{{currentDate}}</span>
-        <span style="margin-left:10px" tappable (click)="add_month()">{{">"}}</span>
-      </p>
-    </div>
-    <ion-backdrop *ngIf="isShowBac" tappable (click)="closeFab()" disable-activated role="presentation" style="opacity: 0.9; background-color: white;transition-delay: initial;filter: blur(0px);">
-    </ion-backdrop>
-    <ion-fab style="margin-bottom:90px;position:fixed;opacity: 1.0;" bottom right edge #fab>
-      <button (click)="showback()" style="box-shadow:1px 2px 10px #888888;width: 50px;height: 50px;line-height: 50px;background-color: #2597ec"
-        ion-fab mini><ion-icon name="add" style="color: white;line-height: 50px"></ion-icon></button>
-      <ion-fab-list side="top" style="float: right;text-align: right">
-        <!-- <button ion-fab (click)="createMetting(fab)" style="border-radius: 25px;width: 70px;background-color: #E98553;color: white">会议</button> -->
-        <button *ngFor="let item of event_list" [ngClass]="{'fabBcOne':event_list.indexOf(item)%3==0,'fabBcTwo':event_list.indexOf(item)%3==1,'fabBcThree':event_list.indexOf(item)%3==2}"
-          ion-fab (click)="createWait(item, fab)">{{item.display_name}}</button>
-      </ion-fab-list>
-    </ion-fab>
-    <div class="box-flex" style="margin-left: 10px;margin-right: 10px;margin-top: 10px">
-      <div class="flex-item">
-        <div class="item-content-header">一</div>
-      </div>
-      <div class="flex-item">
-        <div class="item-content-header">二</div>
-      </div>
-      <div class="flex-item">
-        <div class="item-content-header">三</div>
-      </div>
-      <div class="flex-item">
-        <div class="item-content-header">四</div>
-      </div>
-      <div class="flex-item">
-        <div class="item-content-header">五</div>
-      </div>
-      <div class="flex-item">
-        <div class="item-content-header">六</div>
-      </div>
-      <div class="flex-item">
-        <div class="item-content-header">日</div>
-      </div>
-    </div>
-    <div class="box-flex" style='margin-top:-10px;margin-left: 10px;margin-right: 10px' id='box-flex'>
-      <div id="flex-item" class="flex-item" *ngFor="let vo of currentDayList" tappable (click)="choose_day(vo)" [ngClass]="{true:'item-content bk-color-day',false:'item-content'}[currentDay == vo.d && currentMonth == vo.m && currentYear == vo.y]"
-        style="line-height: 44px;">
-        <p style="height: 16px;margin-top: -3px" [ngClass]="{'pBac':currentMonth == vo.m && currentYear == vo.y,'pBacNormal':currentMonth != vo.m,'pNormal':currentDay == vo.d && currentMonth == vo.m && currentYear == vo.y}">{{vo.d}}</p>
-        <p *ngIf="vo.s==true" [ngClass]="{true:'circleB',false:'circleA'}[currentDay == vo.d && currentMonth == vo.m && currentYear == vo.y]"></p>
-      </div>
-
-      <ion-icon *ngIf="showIcon" name="arrow-down" tappable (click)="changeCalendar()" style="color: #999999;width: 100%;margin-top: 15px;text-align: center"></ion-icon>
-      <ion-icon *ngIf="!showIcon" name="arrow-up" tappable (click)="changeCalendarAll()" style="color: #999999;width: 100%;margin-top: 15px;text-align: center"></ion-icon>
-      <ion-item no-lines style="margin-top: 5px;padding: 1px;border-bottom:#f0f2f5 1px solid;border-top:#f0f2f5 1px solid;min-height: 25px">
-        <ion-label style="font-size: 13px;margin-left: 15px;color: black;font-weight:bold;">{{dateNow}}</ion-label>
-        <div style="padding: 1px;" item-end class="divBac" *ngIf="showLate" tappable (click)="latePage()">
-          <p style="font-size: 12px;color: #E98553;margin-top: auto;margin-bottom: auto;line-height: 25px;">
-            <span>逾期({{lateNum}}) ></span>
-            <!--<span>            
-              <ion-icon name="arrow-forward" style="color: #E98553;margin-top: auto;margin-bottom: auto"></ion-icon>
-            </span>-->
-          </p>
-        </div>
-      </ion-item>
-    </div>
-    <div>
-      <ion-item no-lines *ngIf="itemList.length == 0" style="min-height: 20px;padding-left: 0px;">
-        <ion-label style="font-size: 13px;padding-left: 15px;text-align:center;width:100%;color:#999999;">没有添加待办</ion-label>
-      </ion-item>
-      <ion-list style="width: 100%;border-top:#f0f2f5 1px solid;">
-        <ion-item no-lines style="height: 50px;;min-height: 25px;" *ngFor="let item of itemList" tappable (click)="gotoDeatil(item)">
-          <p item-start style="font-size: 12px;width: 40px">{{item.event_time}}
-          </p>
-          <!--<p item-start *ngIf="item.allday" style="font-size: 12px;width: 40px;opacity: 0;">{{item.event_time}}
-          </p>-->
-          <div item-start style="height: 105%;;width: 10px">
-            <div style="position: absolute;width: 1px;border-left:#f0f2f5 1px solid;height: 40%;margin-left: 4px;"></div>
-            <img *ngIf="item.state" src="assets/img/circle.png" style="padding-top: 20px">
-            <img *ngIf="!item.state" src="assets/img/finish_circle.png" style="padding-top: 20px">
-            <div style="position: absolute;width: 1px;border-left:#f0f2f5 1px solid;height: 70%;margin-left: 4px;margin-top: -5px"></div>
-          </div>
-          <div [ngClass]="{true:'notFinish',false:'finish'}[item.state]">
-            <div style="float: left;height: 20px;">
-              <span style="    overflow: hidden;text-overflow: ellipsis;-o-text-overflow: ellipsis;white-space: nowrap;
-    max-width: 190px;
-    display: block;">
-              [{{item.type_name}}]:{{item.subject}}
-              </span>
-            </div>
-            <div>
-              <span>
-              一{{item.rt_project_principal_display_name}}
-            </span>
-            </div>
-
-          </div>
-        </ion-item>
-        <ion-item no-lines style="margin-top: 5px;padding: 1px;border-bottom:#f0f2f5 1px solid;border-top:#f0f2f5 1px solid;min-height: 25px"
-          *ngIf="notSureList.length > 0">
-          <ion-label style="font-size: 13px;margin-left: 15px;color: black;font-weight:bold;">时间待定</ion-label>
-        </ion-item>
-        <ion-item no-lines style="height: 50px;;min-height: 25px;" *ngFor="let item of notSureList" tappable (click)="gotoDeatil(item)">
-          <p item-start style="font-size: 13px;width: 40px;">待定
-          </p>
-          <div item-start style="height: 105%;;width: 10px">
-            <div style="position: absolute;width: 1px;border-left:#f0f2f5 1px solid;height: 40%;margin-left: 4px;"></div>
-            <img *ngIf="item.state" src="assets/img/circle.png" style="padding-top: 20px">
-            <img *ngIf="!item.state" src="assets/img/finish_circle.png" style="padding-top: 20px">
-            <div style="position: absolute;width: 1px;border-left:#f0f2f5 1px solid;height: 70%;margin-left: 4px;margin-top: -5px"></div>
-          </div>
-          <div [ngClass]="{true:'notFinish',false:'finish'}[item.state]">
-            <div style="float: left;
-    height: 20px;">
-              <span style="    overflow: hidden;
-    text-overflow: ellipsis;
-    -o-text-overflow: ellipsis;
-    white-space: nowrap;
-    max-width: 190px;
-    display: block;">
-              [{{item.type_name}}]:{{item.subject}}
-              </span>
-            </div>
-            <div>
-              <span>
-              一{{item.rt_project_principal_display_name}}
-            </span>
-            </div>
-          </div>
-        </ion-item>
-      </ion-list>
-    </div>
-  </div>
+<ion-content *ngIf='!isDay'>
   <div *ngIf='isShen'>
     <div *ngIf="vacation_num!=0 || recoup_num!=0">
       <div style="padding: 1px;border-bottom:#f0f2f5 1px solid;margin-left: 20px">
@@ -251,4 +95,131 @@
       <p style="width:120px;position:absolute;left:calc(50% - 50px);top:calc(50% + 30px);color:#c2c8cc;font-size:15px">暂时没有消息～</p>
     </div>
   </div>
+</ion-content>
+
+<ion-content id='day_body' *ngIf='isDay'>
+  <div align="center" tappable (click)="click_un_read_reply()" *ngIf="un_read_list.length > 0 && isDay">
+    <div class="un_read_class">
+      {{un_read_list.length}}条新回复
+    </div>
+  </div>
+  <div style="padding: 1px;text-align: center;height: 37px;">
+    <p style="font-size: 13px;color: #2597ec;float: right;margin-right: 15px;margin-top: 10px" tappable (click)="toAll()">全部待办</p>
+    <p class="month_message">
+      <span tappable (click)="delete_month()">{{"<"}}</span><span style="margin-left:10px">{{currentDate}}</span>
+      <span style="margin-left:10px" tappable (click)="add_month()">{{">"}}</span>
+    </p>
+  </div>
+  <ion-backdrop id="bac_div" *ngIf="isShowBac" tappable (click)="closeFab()" disable-activated role="presentation" style="opacity: 0.9; background-color: white;transition-delay: initial;filter: blur(0px);">
+  </ion-backdrop>
+  <div class="box-flex" style="margin-left: 10px;margin-right: 10px;margin-top: 10px">
+    <div class="flex-item">
+      <div class="item-content-header">一</div>
+    </div>
+    <div class="flex-item">
+      <div class="item-content-header">二</div>
+    </div>
+    <div class="flex-item">
+      <div class="item-content-header">三</div>
+    </div>
+    <div class="flex-item">
+      <div class="item-content-header">四</div>
+    </div>
+    <div class="flex-item">
+      <div class="item-content-header">五</div>
+    </div>
+    <div class="flex-item">
+      <div class="item-content-header">六</div>
+    </div>
+    <div class="flex-item">
+      <div class="item-content-header">日</div>
+    </div>
+  </div>
+  <div class="box-flex" style='margin-top:-10px;margin-left: 10px;margin-right: 10px' id='box-flex'>
+    <div id="flex-item" class="flex-item" *ngFor="let vo of currentDayList" tappable (click)="choose_day(vo)" [ngClass]="{true:'item-content bk-color-day',false:'item-content'}[currentDay == vo.d && currentMonth == vo.m && currentYear == vo.y]"
+      style="line-height: 44px;">
+      <p style="height: 16px;margin-top: -3px" [ngClass]="{'pBac':currentMonth == vo.m && currentYear == vo.y,'pBacNormal':currentMonth != vo.m,'pNormal':currentDay == vo.d && currentMonth == vo.m && currentYear == vo.y}">{{vo.d}}</p>
+      <p *ngIf="vo.s==true" [ngClass]="{true:'circleB',false:'circleA'}[currentDay == vo.d && currentMonth == vo.m && currentYear == vo.y]"></p>
+    </div>
+
+    <ion-icon *ngIf="showIcon" name="arrow-down" tappable (click)="changeCalendar()" style="color: #999999;width: 100%;margin-top: 15px;text-align: center"></ion-icon>
+    <ion-icon *ngIf="!showIcon" name="arrow-up" tappable (click)="changeCalendarAll()" style="color: #999999;width: 100%;margin-top: 15px;text-align: center"></ion-icon>
+    <ion-item no-lines style="margin-top: 5px;padding: 1px;border-bottom:#f0f2f5 1px solid;border-top:#f0f2f5 1px solid;min-height: 25px">
+      <ion-label style="font-size: 13px;margin-left: 15px;color: black;font-weight:bold;">{{dateNow}}</ion-label>
+      <div style="padding: 1px;" item-end class="divBac" *ngIf="showLate" tappable (click)="latePage()">
+        <p style="font-size: 12px;color: #E98553;margin-top: auto;margin-bottom: auto;line-height: 25px;">
+          <span>逾期({{lateNum}}) ></span>
+          <!--<span>            
+              <ion-icon name="arrow-forward" style="color: #E98553;margin-top: auto;margin-bottom: auto"></ion-icon>
+            </span>-->
+        </p>
+      </div>
+    </ion-item>
+  </div>
+  <div>
+    <ion-item no-lines *ngIf="itemList.length == 0" style="min-height: 20px;padding-left: 0px;">
+      <ion-label style="font-size: 13px;padding-left: 15px;text-align:center;width:100%;color:#999999;">没有添加待办</ion-label>
+    </ion-item>
+    <ion-list style="width: 100%;border-top:#f0f2f5 1px solid;">
+      <ion-item no-lines style="height: 50px;;min-height: 25px;" *ngFor="let item of itemList" tappable (click)="gotoDeatil(item)">
+        <p item-start style="font-size: 12px;width: 40px">{{item.event_time}}
+        </p>
+        <!--<p item-start *ngIf="item.allday" style="font-size: 12px;width: 40px;opacity: 0;">{{item.event_time}}
+          </p>-->
+        <div item-start style="height: 105%;;width: 10px">
+          <div style="position: absolute;width: 1px;border-left:#f0f2f5 1px solid;height: 40%;margin-left: 4px;"></div>
+          <img *ngIf="item.state" src="assets/img/circle.png" style="padding-top: 20px">
+          <img *ngIf="!item.state" src="assets/img/finish_circle.png" style="padding-top: 20px">
+          <div style="position: absolute;width: 1px;border-left:#f0f2f5 1px solid;height: 70%;margin-left: 4px;margin-top: -5px"></div>
+        </div>
+        <div [ngClass]="{true:'notFinish',false:'finish'}[item.state]">
+          <div style="float: left;height: 20px;">
+            <span>
+              [{{item.type_name}}]{{item.rt_project_principal_display_name}}
+              </span>
+          </div>
+          <div>
+            <span style="overflow:hidden;text-overflow: ellipsis;-o-text-overflow: ellipsis;white-space: nowrap;max-width: 230px;display: block;">
+              一{{item.subject}}
+            </span>
+          </div>
+
+        </div>
+      </ion-item>
+      <ion-item no-lines style="margin-top: 5px;padding: 1px;border-bottom:#f0f2f5 1px solid;border-top:#f0f2f5 1px solid;min-height: 25px"
+        *ngIf="notSureList.length > 0">
+        <ion-label style="font-size: 13px;margin-left: 15px;color: black;font-weight:bold;">时间待定</ion-label>
+      </ion-item>
+      <ion-item no-lines style="height: 50px;;min-height: 25px;" *ngFor="let item of notSureList" tappable (click)="gotoDeatil(item)">
+        <p item-start style="font-size: 13px;width: 40px;">待定
+        </p>
+        <div item-start style="height: 105%;;width: 10px">
+          <div style="position: absolute;width: 1px;border-left:#f0f2f5 1px solid;height: 40%;margin-left: 4px;"></div>
+          <img *ngIf="item.state" src="assets/img/circle.png" style="padding-top: 20px">
+          <img *ngIf="!item.state" src="assets/img/finish_circle.png" style="padding-top: 20px">
+          <div style="position: absolute;width: 1px;border-left:#f0f2f5 1px solid;height: 70%;margin-left: 4px;margin-top: -5px"></div>
+        </div>
+        <div [ngClass]="{true:'notFinish',false:'finish'}[item.state]">
+          <div style="float: left;height: 20px;">
+            <span>
+              [{{item.type_name}}]{{item.rt_project_principal_display_name}}
+              </span>
+          </div>
+          <div>
+            <span style="overflow: hidden;text-overflow: ellipsis;-o-text-overflow: ellipsis;white-space: nowrap;max-width: 230px;display: block;">
+              一{{item.subject}}
+            </span>
+          </div>
+        </div>
+      </ion-item>
+    </ion-list>
+  </div>
+  <ion-fab style="margin-bottom:90px;position:fixed;opacity: 1.0;" bottom right edge #fab>
+    <button (click)="showback()" style="box-shadow:1px 2px 10px #888888;width: 50px;height: 50px;line-height: 50px;background-color: #2597ec"
+      ion-fab mini><ion-icon name="add" style="color: white;line-height: 50px"></ion-icon></button>
+    <ion-fab-list side="top" style="text-align: right">
+      <button *ngFor="let item of event_list" [ngClass]="{'fabBcOne':event_list.indexOf(item)%3==0,'fabBcTwo':event_list.indexOf(item)%3==1,'fabBcThree':event_list.indexOf(item)%3==2}"
+        ion-fab (click)="createWait(item, fab)">{{item.display_name}}</button>
+    </ion-fab-list>
+  </ion-fab>
 </ion-content>

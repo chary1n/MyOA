@@ -24,7 +24,7 @@ export class TipPage {
   alarm_id='-1'
   alarm_name='不提醒'
   ischeck=false
-  type_app = false
+  type_app = true
   type_notification = true
   page = 'CalendarDeatilpagePage'
   constructor(public navCtrl: NavController, public navParams: NavParams,

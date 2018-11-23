@@ -4,7 +4,7 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-menu side="right" [content]="content" type="overlay" (ionDrag)="dragMenu()" (ionClose)="closeMenu()" (ionOpen)="openMenu()"
+<ion-menu side="right" persistent="true" [content]="content" type="overlay" (ionDrag)="dragMenu()" (ionClose)="closeMenu()" (ionOpen)="openMenu()"
   id="menu2">
 
   <ion-content>
@@ -70,7 +70,7 @@
       <ion-grid class="grid_class">
         <ion-row>
           <ion-col tappable (click)="click_start_time()" col-4>
-            <div class="time_class">
+            <div class="time_class_choose">
                <ion-datetime text-wrap placeholder="开始时间" cancelText="取消" doneText="确定" [(ngModel)]="start_date" (ngModelChange)="changeStartDate($event)" min="2017-01" max="2100-12"
                             style="color:#5C6166;font-size:12px;word-wrap:break-word;padding-left: 0px;padding-right: 0px;"
                             displayFormat="MM月DD日" pickerFormat="YYYY年MM月DD日"></ion-datetime>
@@ -80,7 +80,7 @@
             一
           </div>
           <ion-col tappable (click)="click_end_time()" col-4>
-            <div class="time_class">
+            <div class="time_class_choose">
               <ion-datetime text-wrap placeholder="结束时间" cancelText="取消" doneText="确定" [(ngModel)]="end_date" (ngModelChange)="changeEndDate($event)" min="2017-01" max="2100-12"
                             style="color:#5C6166;font-size:12px;word-wrap:break-word;overflow:hidden;padding-left: 0px;padding-right: 0px;"
                             displayFormat="MM月DD日" pickerFormat="YYYY年MM月DD日"></ion-datetime>
