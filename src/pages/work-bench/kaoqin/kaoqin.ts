@@ -833,14 +833,14 @@ export class KaoqinPage {
           
           // if(that.fail_times >= 3)
           // {
-          //     that.isShowFail_Three = true
-          //     that.fail_str = "失败次数过多？试试位置签到"
-          //     that.attendance_off = false
+              that.isShowFail_Three = true
+              that.fail_str = "不在签到范围,请至前台打卡(失败次数过多？试试位置签到)"
+              that.attendance_off = false
           // }
           // else
           // {
-              that.isShowFail = true
-              that.fail_str = "不在签到范围,请至前台打卡"
+              // that.isShowFail = true
+              // that.fail_str = "不在签到范围,请至前台打卡"
           // }
         }
         
@@ -948,14 +948,14 @@ export class KaoqinPage {
           that.fail_times = that.fail_times + 1
           // if(that.fail_times >= 3)
           // {
-          //     that.isShowFail_Three = true
-          //     that.fail_str = "失败次数过多？试试位置签到"
-          //     that.attendance_off = true
+              that.isShowFail_Three = true
+              that.fail_str = "不在签到范围,请至前台打卡(失败次数过多？试试位置签到)"
+              that.attendance_off = true
           // }
           // else
           // {
-              that.isShowFail = true
-              that.fail_str = "不在签到范围,请至前台打卡"
+              // that.isShowFail = true
+              // that.fail_str = "不在签到范围,请至前台打卡"
           // }
         }
         
@@ -983,4 +983,9 @@ export class KaoqinPage {
         month_time: month_time,
       })
   }
+
+  goBack(){
+    this.navCtrl.pop()
+  }
+
 }

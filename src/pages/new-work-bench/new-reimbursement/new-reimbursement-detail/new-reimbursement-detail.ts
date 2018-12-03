@@ -276,5 +276,9 @@ export class NewReimbursementDetailPage {
     return body
   }
 
+  goBack(){
+    this.navCtrl.pop()
+  }
+
 
 }

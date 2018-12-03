@@ -185,4 +185,8 @@ export class NewZanzhiDetailPage {
     }).present();
   }
 
+  goBack(){
+    this.navCtrl.pop()
+  }
+
 }

@@ -112,4 +112,8 @@ export class VacationApprovalPage {
     })
   }
 
+  goBack(){
+    this.navCtrl.pop()
+  }
+
 }

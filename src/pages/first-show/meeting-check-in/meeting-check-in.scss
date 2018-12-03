@@ -1,0 +1,60 @@
+page-meeting-check-in {
+    .check_btn_class{
+        margin-left: 10%;
+    width: 80%;
+    margin-top: 20px;
+    height: 40px;
+    border-radius: 25px;
+    background-color: #2597ec;
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    }
+
+    .un_check_btn_class{
+        margin-left: 10%;
+    width: 80%;
+    margin-top: 20px;
+    height: 40px;
+    border-radius: 25px;
+    background-color: lightgray;
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    }
+
+    .list_item_class{
+        // border-bottom: #f0f2f5 1px solid;
+        min-height: 30px;
+        border-bottom: 1px solid #f0f2f5;
+    }
+
+    .list_class{
+        background-color:white;
+        margin-top:20px;
+    }
+
+    .list_final_item_class{
+        // border-bottom: #f0f2f5 1px solid;
+        min-height: 30px
+    }
+
+    .differ_div_class{
+        height: 1px;
+        width: 100%;
+        background-color: #f0f2f5;
+    }
+
+    .item-ios.item-block .item-inner{
+        padding-right: 8px;
+        border-bottom: 0px solid #f0f2f5;
+    }
+    .alreay_check_in_class{
+        font-size: 15px;
+    }
+
+    .un_check_in_class{
+        font-size: 15px;
+        color: gray;
+    }
+}

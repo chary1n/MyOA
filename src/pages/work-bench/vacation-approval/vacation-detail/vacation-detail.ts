@@ -128,4 +128,8 @@ export class VacationDetailPage {
         }]}).present()
   }
 
+  goBack(){
+    this.navCtrl.pop()
+  }
+
 }

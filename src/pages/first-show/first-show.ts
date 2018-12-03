@@ -76,7 +76,13 @@ export class FirstShowPage {
       this.isShowBac = true
       setTimeout(() => {
         var bac_div = document.getElementById('bac_div')
-        bac_div.style.height = document.getElementsByClassName('scroll-content')[0].scrollHeight + "px"
+        var scroll_content
+        for (var i = 0; i < document.getElementsByClassName('scroll-content').length; i ++){
+          if (document.getElementsByClassName('scroll-content')[i]['outerText'][0] == '全'){
+            scroll_content = document.getElementsByClassName('scroll-content')[i]
+          }
+        }
+        bac_div.style.height = scroll_content.scrollHeight + "px"
       },1)
       
     }

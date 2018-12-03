@@ -6,7 +6,12 @@
 -->
 <ion-header no-border>
 
-  <ion-navbar color="gongdan-color">
+    <ion-navbar color="gongdan-color" hideBackButton="true">
+        <ion-buttons left>
+            <button ion-button icon-only (click)="goBack()">
+              <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+            </button>
+        </ion-buttons>
     <ion-title>{{title}}</ion-title>
   </ion-navbar>
 
@@ -69,8 +74,8 @@
       <ion-item [ngClass]="{true:'item_empty_class',false:'item_10px_class'}[i == 0]">
         <div class="detail_div">
           <span class="type_class">● {{items.product_id}}</span>
-          <span class="unit_amount_class">金额：￥{{items.unit_amount}}</span>
-          <span *ngIf="items.tax_ids.length > 0" class="tax_class">税金：{{getTax(items)}}</span>
+          <span class="unit_amount_class">￥{{items.unit_amount}}</span>
+          <span *ngIf="items.tax_ids.length > 0" class="tax_class">{{getTax(items)}}</span>
         </div>
 
         <p text-wrap class="yongtu_class">消费用途：{{items.name}}</p>

@@ -6,7 +6,12 @@
 -->
 <ion-header id="header" no-border>
 
-  <ion-navbar color="gongdan-color">
+    <ion-navbar color="gongdan-color" hideBackButton="true">
+        <ion-buttons left>
+            <button ion-button icon-only (click)="goBack()">
+              <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+            </button>
+        </ion-buttons>
     <ion-title *ngIf="isWrite">考勤</ion-title>
     <ion-title *ngIf="isLook && !is_show_tongji">我的</ion-title>
     <div align="center" style="height:30px;" *ngIf="isLook && is_show_tongji">
@@ -65,7 +70,7 @@
     <p style="color:black;font-size:20px">签到失败</p>
     <p style="color:gray;font-size:14px;margin-top:-16px">{{fail_str}}</p>
     <div tappable (click)="clickCancel()" class="alert_btn_fail">
-      我知道了
+      继续尝试
     </div>    
   </div>
   <div *ngIf="isShowFail_Three" class="alert_div_fail_three" style="opacity: 1.0;">
@@ -74,7 +79,7 @@
     <p style="color:gray;font-size:14px;margin-top:-16px">{{fail_str}}</p>   
     <div class="alert_btn_fail">
       <!--<span style="text-align:center">我知道了</span><span style="text-align:center;color:#409eff">位置签到</span>-->
-      <div tappable (click)="clickCancel()" style="width:50%;float:left;text-align:center;color:lightgray">我知道了</div><div tappable (click)="click_location()" style="width:50%;float:right;text-align:center;color:#409eff">位置签到</div>
+      <div tappable (click)="clickCancel()" style="width:50%;float:left;text-align:center;color:lightgray">继续尝试</div><div tappable (click)="click_location()" style="width:50%;float:right;text-align:center;color:#409eff">位置签到</div>
     </div>    
   </div>
   <div *ngIf="isWrite">

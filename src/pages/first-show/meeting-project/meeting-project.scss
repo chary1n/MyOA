@@ -397,4 +397,16 @@ page-meeting-project {
     border-color: white;
     width: 100%;
   }
+
+  .un_read_class{
+      background-color:#f0f2f5;
+      flex :1 1 100%;
+      color: #999999
+  }
+    
+  .already_read_class{
+        background-color:#edf7ff;
+      flex :1 1 100%;
+      color: #2597ec
+  }
 }

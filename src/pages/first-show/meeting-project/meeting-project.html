@@ -98,7 +98,7 @@
           <div style="justify-content:space-around;white-space: pre-line;width: 80%;display: inline-block;
                     position: relative;top: -12px;
                     left: 22%;">
-            <span round style='background-color:#f0f2f5;flex :1 1 100%;color: #999999' *ngFor="let item of selectList" ion-button>
+            <span round *ngFor="let item of selectList" [ngClass]="{true:'already_read_class',false:'un_read_class'}[item.is_read]" ion-button>
                               {{item.partner_name}}
                       </span>
           </div>
@@ -157,12 +157,12 @@
         <p item-start style="font-size: 12px;width: 40px">{{item.event_time}}</p>
         <!--<ion-label item-end [ngClass]="{true:'notFinish',false:'finish'}[item.state]">[{{item.type_name}}]:{{item.subject}}——{{item.rt_project_principal.partner_id_s_name}}</ion-label>-->
         <div [ngClass]="{true:'notFinish',false:'finish'}[item.state]">
-          <div style="float: left;height: 20px;">
+          <div style="float: left;height: 20px;line-height: 20px;">
             <span style="overflow: hidden;text-overflow: ellipsis;-o-text-overflow: ellipsis;white-space: nowrap;max-width: 190px;display: block;">
               [{{item.type_name}}]:{{item.subject}}
               </span>
           </div>
-          <div>
+          <div style="line-height:20px">
             <span>
               一{{item.rt_project_principal.partner_id_s_name}}
             </span>
@@ -186,12 +186,12 @@
         <p item-start style="font-size: 12px;width: 40px">{{item.event_time}}</p>
         <!--<ion-label item-end [ngClass]="{true:'notFinish',false:'finish'}[item.state]">[{{item.type_name}}]:{{item.subject}}——{{item.rt_project_principal.partner_id_s_name}}</ion-label>-->
         <div [ngClass]="{true:'notFinish',false:'finish'}[item.state]">
-          <div style="float: left;height: 20px;">
+          <div style="float: left;height: 20px;line-height: 20px;">
             <span style="overflow: hidden;text-overflow: ellipsis;-o-text-overflow: ellipsis;white-space: nowrap;max-width: 190px;display: block;">
               [项目]:{{item.name}}
               </span>
           </div>
-          <div>
+          <div style="line-height:20px">
             <span>
               一{{item.rt_project_principal.name}}
             </span>

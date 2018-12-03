@@ -175,6 +175,9 @@ export class MeetingProjectPage {
       } else {
         this.meeting_id = this.navParams.get('meeting_id');
         this.uid = this.navParams.get('uid');
+        this.firService.read_event({'meeting_id':this.meeting_id,'uid':this.uid}).then(res=> {
+                    
+                })
         this.get_all_data()
       }
     })
@@ -227,6 +230,7 @@ export class MeetingProjectPage {
     this.rt_meeting_ids = this.item.rt_meeting_ids
     this.rt_meeting_project = this.item.rt_meeting_project
     this.selectList = this.item.rt_meeting_participant
+    this.user_is_read(this.selectList,this.item.read_msg_ids)
     this.selectOtherList = this.item.rt_meeting_participant_other
     this.rt_alarm_type_id = this.item.rt_alarm_type
     this.rt_alarm_type = this.item.rt_alarm_type_name
@@ -1295,6 +1299,18 @@ export class MeetingProjectPage {
     this.select_type = 3
     this.employeeList = []
     this.linshiStringOther = ''
+  }
+
+  user_is_read(canyu_arr, read_arr){
+    for (var i = 0; i < canyu_arr.length; i++){
+      if(read_arr.indexOf(canyu_arr[i].user_id) > -1){
+        canyu_arr[i]['is_read'] = true
+      }
+      else
+      {
+        canyu_arr[i]['is_read'] = false
+      }
+    }
   }
 
 }

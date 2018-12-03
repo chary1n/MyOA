@@ -259,4 +259,8 @@ export class AttendanceRecoupDetailPage {
     this.delete_arr.push(item)
   }
 
+  goBack(){
+    this.navCtrl.pop()
+  }
+
 }

@@ -96,7 +96,7 @@ export class MeetingPage {
                 }
             },
             callback: {
-                onClick: function(event, treeId, treeNode, clickFlag) {
+                onClick: function (event, treeId, treeNode, clickFlag) {
                     self.showPeopleList = []
                     self.selectList = []
                     // this.tree_obj = $.fn.zTree.init($("#ztree"),this.setting,this.zNodes);
@@ -112,7 +112,7 @@ export class MeetingPage {
                         }
                     }
                 },
-                onCheck: function(e, treeId, treeNode) {
+                onCheck: function (e, treeId, treeNode) {
                     self.showPeopleList = []
                     self.selectList = []
                     var select_data = $.fn.zTree.getZTreeObj("ztree").getCheckedNodes(true)
@@ -157,6 +157,9 @@ export class MeetingPage {
             } else {
                 this.meeting_id = this.navParams.get('meeting_id');
                 this.uid = this.navParams.get('uid');
+                this.firService.read_event({ 'meeting_id': this.meeting_id, 'uid': this.uid }).then(res => {
+
+                })
                 this.get_all_data()
             }
         })
@@ -211,6 +214,7 @@ export class MeetingPage {
         this.create_user_name = this.item.create_user_name
         this.rt_meeting_ids = this.item.rt_meeting_ids
         this.selectList = this.item.rt_meeting_participant
+        this.user_is_read(this.selectList, this.item.read_msg_ids)
         this.selectOtherList = this.item.rt_meeting_participant_other
         this.rt_alarm_type_id = this.item.rt_alarm_type
         this.rt_alarm_type = this.item.rt_alarm_type_name
@@ -1067,32 +1071,37 @@ export class MeetingPage {
         if (this.rt_meeting_state) {
             let actionSheet = this.actionSheetCtrl.create({
                 title: '',
-                buttons: [
-                    {
-                        text: '标记完成',
-                        handler: () => {
-                            this.finish()
-                        }
-                    }, {
-                        text: '编辑',
-                        handler: () => {
-                            this.edit()
-                        }
-                    },
-                    {
-                        text: '删除',
-                        handler: () => {
-                            this.delete()
-                        }
-                    },
-
-                    {
-                        text: '取消',
-                        role: 'cancel',
-                        handler: () => {
-                            console.log('Cancel clicked');
-                        }
+                buttons: [{
+                    text: '开始情况',
+                    handler: () => {
+                        this.click_check_in()
                     }
+                },
+                {
+                    text: '标记完成',
+                    handler: () => {
+                        this.finish()
+                    }
+                }, {
+                    text: '编辑',
+                    handler: () => {
+                        this.edit()
+                    }
+                },
+                {
+                    text: '删除',
+                    handler: () => {
+                        this.delete()
+                    }
+                },
+
+                {
+                    text: '取消',
+                    role: 'cancel',
+                    handler: () => {
+                        console.log('Cancel clicked');
+                    }
+                }
                 ]
             });
             actionSheet.present();
@@ -1100,27 +1109,32 @@ export class MeetingPage {
         else {
             let actionSheet = this.actionSheetCtrl.create({
                 title: '',
-                buttons: [
-                    {
-                        text: '标记为待办',
-                        //  role: 'destructive',
-                        handler: () => {
-                            this.completion_event()
-                        }
-                    },
-                    {
-                        text: '删除',
-                        handler: () => {
-                            this.delete()
-                        }
-                    },
-                    {
-                        text: '取消',
-                        role: 'cancel',
-                        handler: () => {
-                            console.log('Cancel clicked');
-                        }
+                buttons: [{
+                    text: '开始情况',
+                    handler: () => {
+                        this.click_check_in()
                     }
+                },
+                {
+                    text: '标记为待办',
+                    //  role: 'destructive',
+                    handler: () => {
+                        this.completion_event()
+                    }
+                },
+                {
+                    text: '删除',
+                    handler: () => {
+                        this.delete()
+                    }
+                },
+                {
+                    text: '取消',
+                    role: 'cancel',
+                    handler: () => {
+                        console.log('Cancel clicked');
+                    }
+                }
                     // ,
                     // {
                     //   text: '发起下一个',
@@ -1272,6 +1286,24 @@ export class MeetingPage {
         this.select_type = 3
         this.employeeList = []
         this.linshiStringOther = ''
+    }
+
+    user_is_read(canyu_arr, read_arr) {
+        for (var i = 0; i < canyu_arr.length; i++) {
+            if (read_arr.indexOf(canyu_arr[i].user_id) > -1) {
+                canyu_arr[i]['is_read'] = true
+            }
+            else {
+                canyu_arr[i]['is_read'] = false
+            }
+        }
+    }
+
+    click_check_in() {
+        this.navCtrl.push('MeetingCheckInPage', {
+            'meeting_id': this.meeting_id,
+            'uid': this.uid,
+        })
     }
 
 }

@@ -178,6 +178,9 @@ export class CalendarDeatilpagePage {
         })
       } else {
         this.item = this.navParams.get('item');
+        this.firService.read_event({ 'event_id': this.item.id, 'uid': this.uid }).then(res => {
+
+        })
         this.item_change()
       }
 
@@ -234,6 +237,7 @@ export class CalendarDeatilpagePage {
     this.type_name = this.item.type_name
     this.wait_id = this.item.id
     this.selectList = this.item.partner_ids
+    this.user_is_read(this.selectList, this.item.read_msg_ids)
     this.selectOtherList = this.item.external_partner_ids
     this.alarm_id = this.item.rt_alarm_type
     this.alarm_name = this.item.rt_alarm_type_name
@@ -445,15 +449,15 @@ export class CalendarDeatilpagePage {
       this.title_meeting = '新建'
       this.search = false
       setTimeout(() => {
-                if (this.allday) {
-                    this.click_end_date()
-                    this.click_start_date()
-                }
-                else {
-                    this.click_end_datetime()
-                    this.click_start_datetime()
-                }
-            }, 1)
+        if (this.allday) {
+          this.click_end_date()
+          this.click_start_date()
+        }
+        else {
+          this.click_end_datetime()
+          this.click_start_datetime()
+        }
+      }, 1)
       if (this.select_type == 1) {
         this.selectList = this.storeList
       }
@@ -471,17 +475,16 @@ export class CalendarDeatilpagePage {
       this.title_meeting = '新建'
       this.search = false
       setTimeout(() => {
-                if (this.allday) {
-                    this.click_end_date()
-                    this.click_start_date()
-                }
-                else {
-                    this.click_end_datetime()
-                    this.click_start_datetime()
-                }
-                return
-            }, 10)
-      
+        if (this.allday) {
+          this.click_end_date()
+          this.click_start_date()
+        }
+        else {
+          this.click_end_datetime()
+          this.click_start_datetime()
+        }
+        return
+      }, 10)
     }
     let body = this.handleData(true)
     if (this.isMeeting) {
@@ -1138,9 +1141,40 @@ export class CalendarDeatilpagePage {
 
   click_more() {
     if (this.state) {
-      let actionSheet = this.actionSheetCtrl.create({
-        title: '',
-        buttons: [
+      let button_arr = [
+        {
+          text: '标记完成',
+          handler: () => {
+            this.finish()
+          }
+        }, {
+          text: '编辑',
+          handler: () => {
+            this.edit()
+          }
+        },
+        {
+          text: '删除',
+          handler: () => {
+            this.delete()
+          }
+        },
+
+        {
+          text: '取消',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }
+      ]
+      if (this.type_name == '任务') {
+        button_arr = [{
+            text: '开始情况',
+            handler: () => {
+              this.click_check_in()
+            }
+          },
           {
             text: '标记完成',
             handler: () => {
@@ -1150,6 +1184,74 @@ export class CalendarDeatilpagePage {
             text: '编辑',
             handler: () => {
               this.edit()
+            }
+          }, 
+          {
+            text: '删除',
+            handler: () => {
+              this.delete()
+            }
+          },
+
+          {
+            text: '取消',
+            role: 'cancel',
+            handler: () => {
+              console.log('Cancel clicked');
+            }
+          }
+        ]
+      }
+      let actionSheet = this.actionSheetCtrl.create({
+        title: '',
+        buttons: button_arr
+      });
+      actionSheet.present();
+    }
+    else {
+      let button_arr = [
+        {
+          text: '标记完成',
+          handler: () => {
+            this.finish()
+          }
+        }, {
+          text: '编辑',
+          handler: () => {
+            this.edit()
+          }
+        },
+        {
+          text: '删除',
+          handler: () => {
+            this.delete()
+          }
+        },
+
+        {
+          text: '取消',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }
+      ]
+      if (this.type_name == '任务') {
+        button_arr = [
+          {
+            text: '标记完成',
+            handler: () => {
+              this.finish()
+            }
+          }, {
+            text: '编辑',
+            handler: () => {
+              this.edit()
+            }
+          }, {
+            text: '开始',
+            handler: () => {
+              this.click_check_in()
             }
           },
           {
@@ -1167,34 +1269,10 @@ export class CalendarDeatilpagePage {
             }
           }
         ]
-      });
-      actionSheet.present();
-    }
-    else {
+      }
       let actionSheet = this.actionSheetCtrl.create({
         title: '',
-        buttons: [
-          {
-            text: '标记为待办',
-            //  role: 'destructive',
-            handler: () => {
-              this.completion_event()
-            }
-          },
-          {
-            text: '删除',
-            handler: () => {
-              this.delete()
-            }
-          },
-          {
-            text: '取消',
-            role: 'cancel',
-            handler: () => {
-              console.log('Cancel clicked');
-            }
-          }
-        ]
+        buttons: button_arr
       });
       actionSheet.present();
     }
@@ -1333,6 +1411,28 @@ export class CalendarDeatilpagePage {
     this.employeeList = []
     this.linshiString = ''
   }
+
+  user_is_read(canyu_arr, read_arr) {
+    for (var i = 0; i < canyu_arr.length; i++) {
+      if (read_arr.indexOf(canyu_arr[i].user_id) > -1) {
+        canyu_arr[i]['is_read'] = true
+      }
+      else {
+        canyu_arr[i]['is_read'] = false
+      }
+    }
+  }
+
+  click_check_in() {
+    this.navCtrl.push('MeetingCheckInPage', {
+      'meeting_line_id': this.item.id,
+      'uid': this.uid,
+    })
+  }
+
+  // showback(){
+
+  // }
 
 
 

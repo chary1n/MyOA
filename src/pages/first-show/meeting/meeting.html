@@ -98,7 +98,7 @@
                     <div style="justify-content:space-around;white-space: pre-line;width: 80%;display: inline-block;
                     position: relative;top: -12px;
                     left: 22%;">
-                        <span round style='background-color:#f0f2f5;flex :1 1 100%;color: #999999' *ngFor="let item of selectList" ion-button>
+                        <span round *ngFor="let item of selectList" [ngClass]="{true:'already_read_class',false:'un_read_class'}[item.is_read]" ion-button>
                               {{item.partner_name}}
                       </span>
                     </div>
@@ -146,7 +146,14 @@
             <p style="margin-left: 15px;font-size: 13px">提示</p>
             <div [innerHTML]="assembleHTML(rt_hint)" style="word-wrap:break-word;color:#8d9296;margin: 5px;padding: 10px;width:90%"></div>
         </div>
-        <div style="background-color: white">
+        <div style="background-color: white;border-bottom:#f0f2f5 1px solid;" tappable (click)="click_check_in()">
+            <div style="padding: 1px;margin-left: 20px;background-color: white">
+                <span style="background-color: #409eff;width: 3px;border-radius: 3px;height: 13px;float: left;margin-top: 18px;margin-left: -12px"></span>
+                <p style="font-size: 14px;color: #2e3133">开始情况</p>
+            </div>
+            
+        </div>
+        <div style="background-color: white;">
             <div style="padding: 1px;border-bottom:#f0f2f5 1px solid;margin-left: 20px;background-color: white">
                 <span style="background-color: #409eff;width: 3px;border-radius: 3px;height: 13px;float: left;margin-top: 18px;margin-left: -12px"></span>
                 <p style="font-size: 14px;color: #2e3133">会议任务</p>
@@ -157,14 +164,12 @@
                 <p item-start style="font-size: 12px;width: 40px">{{item.event_time}}</p>
                 <!--<ion-label item-end [ngClass]="{true:'notFinish',false:'finish'}[item.state]">[{{item.type_name}}]:{{item.subject}}——{{item.rt_project_principal.partner_id_s_name}}</ion-label>-->
                 <div [ngClass]="{true:'notFinish',false:'finish'}[item.state]">
-                    <div style="float: left;height: 20px;">
-                        <span style="    overflow: hidden;text-overflow: ellipsis;-o-text-overflow: ellipsis;white-space: nowrap;
-    max-width: 190px;
-    display: block;">
+                    <div style="float: left;height: 20px;line-height: 20px;">
+                        <span style="    overflow: hidden;text-overflow: ellipsis;-o-text-overflow: ellipsis;white-space: nowrap;max-width: 190px;display: block;">
               [{{item.type_name}}]:{{item.subject}}
               </span>
                     </div>
-                    <div>
+                    <div style="line-height:20px">
                         <span>
               一{{item.rt_project_principal.partner_id_s_name}}
             </span>
