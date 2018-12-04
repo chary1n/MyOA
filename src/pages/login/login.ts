@@ -283,16 +283,10 @@ export class LoginPage {
     this.isSelected3 = false;
     this.isSelected4 = false;
     this.chooseIndex = 0;
-<<<<<<< HEAD
     // HttpService.appUrl = "http://service.linkloving.net:8888/"
     // HttpService.appUrl = "http://192.168.3.118:8081/"
      HttpService.appUrl = "http://10.0.0.10:8111/"
       // HttpService.appUrl = "http://192.168.3.9:8081/"
-=======
-    HttpService.appUrl = "http://service.linkloving.net:8888/"
-    // HttpService.appUrl = "http://192.168.3.9:8081/"
-    //  HttpService.appUrl = "http://10.0.0.16:8081/"
->>>>>>> 3a329825261e114694482ceb7f02c5c02c530bf1
     this.reset();
     this.img1 = "assets/img/jiangsuruotai_clicked.png"
     this.password_src = "assets/img/S_password.png"
