@@ -988,4 +988,10 @@ export class KaoqinPage {
     this.navCtrl.pop()
   }
 
+  location(){
+    this.navCtrl.push('ChooseLocationPage',{
+              "attendance_off":true,
+            })
+  }
+
 }

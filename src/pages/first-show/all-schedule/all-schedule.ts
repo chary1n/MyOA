@@ -68,7 +68,7 @@ export class AllSchedulePage {
                 }
             },
             callback: {
-                onClick: function(event, treeId, treeNode, clickFlag) {
+                onClick: function (event, treeId, treeNode, clickFlag) {
                     // this.tree_obj = $.fn.zTree.init($("#ztree"),this.setting,this.zNodes);
                     $.fn.zTree.getZTreeObj("ztree").checkNode(treeNode, !treeNode.checked, "checkTruePS", null)
                 },
@@ -138,12 +138,14 @@ export class AllSchedulePage {
             this.navCtrl.pop()
         }
         else {
-            var element = document.getElementById("contact_body");
-            if (element && element.parentNode) {
-                element.parentNode.removeChild(element);
-            }
-            this.navCtrl.setRoot('NewTabsPage')
-            // this.navCtrl.pop()
+            // var element = document.getElementById("contact_body");
+            // if (element && element.parentNode) {
+            //     element.parentNode.removeChild(element);
+            // }
+            // this.navCtrl.setRoot('NewTabsPage')
+            this.event.publish('popNavCtrl', {
+            'data': true
+        })
         }
     }
 

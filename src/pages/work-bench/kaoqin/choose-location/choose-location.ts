@@ -29,58 +29,77 @@ export class ChooseLocationPage {
   user
   constructor(public navCtrl: NavController,
     public platform: Platform, public navParams: NavParams, public geolocation: Geolocation,
-    public kaoQinService: KaoQinService, private device: Device, private datePipe: DatePipe,public storage:Storage) {
+    public kaoQinService: KaoQinService, private device: Device, private datePipe: DatePipe, public storage: Storage) {
+    this.frontPage = Utils.getViewController("KaoqinPage", navCtrl)
+    this.attendance_off = this.navParams.get('attendance_off')
     this.storage.get('user')
       .then(res => {
         // console.log(res)
         this.user = res.result.res_data
+        this.kaoQinService.get_user_regular({'uid':res.result.res_data.user_id}).then(reg => {
+          if (res.result.res_data && res.result.res_code == 1) {
+            if (this.platform.is("android")) {
+              GaoDe.getCurrentPosition((success) => {
+                var that = this
+                console.log('gaode', success);
+                this.kaoQinService.trans_location(success.latitude, success.longitude).then(res => {
+                  this.kaoQinService.get_location_now(res.result[0].y, res.result[0].x,reg.result.res_data.distance).then(res_location => {
+                    // console.log(res_location.result.pois[0].addr)
+                    // that.location_str = res_location.result.pois[0].addr
+                    // that.pois_list = res_location.result.pois
+                    for (let item_new of res_location.result.pois) {
+                        if (new RegExp(reg.result.res_data.name).test(item_new.name)) {
+                          that.pois_list.push(item_new)
+                        }
+                      }
+                    for (let item of that.pois_list) {
+                      that.select_list.push("0")
+                    }
+                    that.select_list[0] = "1"
+                    that.select_index = 0
+                  })
+                })
+              }, (error) => {
+                console.log('Error getting location', error);
+              });
+            } else {
+              this.geolocation.getCurrentPosition()
+                .then((resp) => {
+                  console.log(resp.coords.latitude)
+                  console.log(resp.coords.longitude)
+                  this.kaoQinService.trans_location(resp.coords.latitude, resp.coords.longitude).then(res => {
+                    // console.log(res)
+                    var that = this
+                    this.kaoQinService.get_location_now(res.result[0].y, res.result[0].x,reg.result.res_data.distance).then(res_location => {
+                      // console.log(res_location.result.pois[0].addr)
+                      // that.location_str = res_location.result.pois[0].addr
 
-      })
-    this.frontPage = Utils.getViewController("KaoqinPage", navCtrl)
-    this.attendance_off = this.navParams.get('attendance_off')
-    if (this.platform.is("android")) {
-      GaoDe.getCurrentPosition((success) => {
-        var that = this
-        console.log('gaode', success);
-        this.kaoQinService.trans_location(success.latitude, success.longitude).then(res => {
-          this.kaoQinService.get_location_now(res.result[0].y, res.result[0].x).then(res_location => {
-            // console.log(res_location.result.pois[0].addr)
-            // that.location_str = res_location.result.pois[0].addr
-            that.pois_list = res_location.result.pois
-            for (let item of that.pois_list) {
-              that.select_list.push("0")
+                      for (let item_new of res_location.result.pois) {
+                        if (new RegExp(reg.result.res_data.name).test(item_new.name)) {
+                          that.pois_list.push(item_new)
+                        }
+                      }
+                      // that.pois_list = res_location.result.pois
+                      for (let item of that.pois_list) {
+                        that.select_list.push("0")
+                      }
+                      that.select_list[0] = "1"
+                      that.select_index = 0
+                    })
+                  })
+                }).catch((error) => {
+                  console.log('Error getting location', error);
+                })
+
             }
-            that.select_list[0] = "1"
-            that.select_index = 0
-          })
+          }
         })
-      }, (error) => {
-        console.log('Error getting location', error);
-      });
-    } else {
-      this.geolocation.getCurrentPosition()
-        .then((resp) => {
-          console.log(resp.coords.latitude)
-          console.log(resp.coords.longitude)
-          this.kaoQinService.trans_location(resp.coords.latitude, resp.coords.longitude).then(res => {
-            // console.log(res)
-            var that = this
-            this.kaoQinService.get_location_now(res.result[0].y, res.result[0].x).then(res_location => {
-              // console.log(res_location.result.pois[0].addr)
-              // that.location_str = res_location.result.pois[0].addr
-              that.pois_list = res_location.result.pois
-              for (let item of that.pois_list) {
-                that.select_list.push("0")
-              }
-              that.select_list[0] = "1"
-              that.select_index = 0
-            })
-          })
-        }).catch((error) => {
-          console.log('Error getting location', error);
-        })
+      })
 
-    }
+
+
+
+
   }
 
   ionViewDidLoad() {
@@ -101,9 +120,9 @@ export class ChooseLocationPage {
     // })
   }
 
-  goBack() {
-    this.navCtrl.popTo('KaoqinPage')
-  }
+  // goBack() {
+  //   this.navCtrl.popTo('KaoqinPage')
+  // }
 
   release() {
     if (!this.attendance_off) {
@@ -166,8 +185,8 @@ export class ChooseLocationPage {
     }
   }
 
-  formatTime_day_start(date){
-    
+  formatTime_day_start(date) {
+
     let timestamp = Date.parse(this.datePipe.transform(date, 'yyyy-MM-dd HH:mm:ss').replace(/-/g, '/'));
     let timestamp_now = timestamp / 1000 - 24 * 60 * 60
     let date_now = new Date(timestamp_now * 1000)
@@ -180,7 +199,7 @@ export class ChooseLocationPage {
     return [year, month, day].join('-') + ' ' + [hour, minute, second].join(':')
   }
 
-  formatTime_day_end(date){
+  formatTime_day_end(date) {
     let year = date.getFullYear()
     let month = date.getMonth() + 1
     let day = date.getDate()
@@ -190,7 +209,7 @@ export class ChooseLocationPage {
     return [year, month, day].join('-') + ' ' + [hour, minute, second].join(':')
   }
 
-  formatTime_odoo(date){
+  formatTime_odoo(date) {
     let year = date.getFullYear()
     let month = date.getMonth() + 1
     let day = date.getDate()
@@ -200,8 +219,12 @@ export class ChooseLocationPage {
     return [year, this.formatO(month), this.formatO(day)].join('-') + ' ' + [this.formatO(hour), this.formatO(minute), this.formatO(second)].join(':')
   }
 
-  formatO(date){
+  formatO(date) {
     return String(date).length == 2 ? date : '0' + date
+  }
+
+  goBack(){
+    this.navCtrl.pop()
   }
 
 }

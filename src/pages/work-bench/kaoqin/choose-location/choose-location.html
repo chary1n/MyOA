@@ -7,7 +7,11 @@
 <ion-header no-border>
 
   <ion-navbar color="gongdan-color">
-    
+    <ion-buttons left>
+            <button ion-button icon-only (click)="goBack()">
+              <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+            </button>
+        </ion-buttons>
     <ion-title>选择位置</ion-title>
     <ion-buttons end>
       <button ion-button (click)='release()'>
@@ -27,4 +31,8 @@
       <p style="color:gray;margin-left:10px;font-size:12px">{{item.addr}}</p>
     </div>
   </ion-list>
+  <div align="center" *ngIf="!pois_list || pois_list.length == 0">
+      <img style="width:100px;position:absolute;left:calc(50% - 50px);top:calc(50% - 60px)" src="assets/img/nodataimg.png">
+      <p style="width:100px;position:absolute;left:calc(50% - 50px);top:calc(50% + 30px);color:#c2c8cc;font-size:15px">附近没有可用的打卡定位</p>
+    </div>
 </ion-content>

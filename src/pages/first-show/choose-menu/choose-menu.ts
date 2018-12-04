@@ -43,6 +43,12 @@ export class ChooseMenuPage {
       this.start_date = ''
       this.end_date = ''
     })
+
+    events.subscribe('popNavCtrl',(data) => {
+      if (data.data == true){
+        this.navCtrl.pop()
+      }
+    })
   }
 
   ionViewDidLoad() {
