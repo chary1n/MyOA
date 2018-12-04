@@ -7,6 +7,11 @@ export class KaoQinService {
     constructor(private httpservice: HttpService) {
 
     }
+
+    get_user_regular(body){
+        return this.httpservice.postBodyNoLoading("get_user_regular",body);
+    }
+
     get_today_attendance(day_start,day_end,user_id)
     {
         let body = JSON.stringify({
@@ -54,12 +59,13 @@ export class KaoQinService {
     }
 
     trans_location(latitude,longti){
-       let url_str = "http://api.map.baidu.com/geoconv/v1/?coords=" + longti + "," + latitude + "&from=1&to=5&ak=cVef1ROo1IR5OkZ5Fly78vDuOoGmLmD7" 
+       let url_str = "http://api.map.baidu.com/geoconv/v1/?coords=" + longti + "," + latitude + "&from=3&to=5&ak=cVef1ROo1IR5OkZ5Fly78vDuOoGmLmD7" 
        return this.httpservice.getWithUrl(url_str);
     }
 
-    get_location_now(latitude,longti){
-        let url_str = "http://api.map.baidu.com/geocoder/v2/?callback=renderReverse&location=" + latitude + "," + longti + "&output=json&pois=1&ak=cVef1ROo1IR5OkZ5Fly78vDuOoGmLmD7"
+    get_location_now(latitude,longti,distance){
+        // let url_str = "http://api.map.baidu.com/geocoder/v2/?callback=renderReverse&location=" + latitude + "," + longti + "&output=json&pois=1&ak=cVef1ROo1IR5OkZ5Fly78vDuOoGmLmD7"
+        let url_str = "http://api.map.baidu.com/geocoder/v2/?callback=renderReverse&location=" + latitude + "," + longti + "&output=json&radius=" + distance + "&pois=1&ak=cVef1ROo1IR5OkZ5Fly78vDuOoGmLmD7"
         return this.httpservice.getLocationWithUrl(url_str);
     }
 

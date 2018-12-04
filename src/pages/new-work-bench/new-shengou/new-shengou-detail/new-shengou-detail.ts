@@ -203,4 +203,8 @@ export class NewShengouDetailPage {
     }).present();
   }
 
+  goBack(){
+    this.navCtrl.pop()
+  }
+
 }

@@ -6,6 +6,17 @@ export class FirstShowService {
     constructor(private httpService: HttpService) {
 
     }
+    check_in(body){
+        return this.httpService.postBody("check_in", body);
+    }
+
+    meeting_check_in(body){
+        return this.httpService.postBody("meeting_check_in", body);
+    }
+
+    read_event(body){
+        return this.httpService.postBodyNoLoading("read_event", body);
+    }
 
     get_calendar_all(body){
         return this.httpService.postBody("get_calendar_all", body);

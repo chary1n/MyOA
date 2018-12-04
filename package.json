@@ -190,6 +190,9 @@
       "cordova-plugin-jcore": {},
       "jpush-phonegap-plugin": {
         "APP_KEY": "f2ae889d6e4c3400fef49696"
+      },
+      "com.zhaoying.GaoDeLocation": {
+        "API_KEY": "2846ff12cd5ed2d3a60244ea61315f15"
       }
     },
     "dependencies": {

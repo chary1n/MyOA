@@ -168,17 +168,17 @@
           </p>-->
         <div item-start style="height: 105%;;width: 10px">
           <div style="position: absolute;width: 1px;border-left:#f0f2f5 1px solid;height: 40%;margin-left: 4px;"></div>
-          <img *ngIf="item.state" src="assets/img/circle.png" style="padding-top: 20px">
-          <img *ngIf="!item.state" src="assets/img/finish_circle.png" style="padding-top: 20px">
+          <img *ngIf="item.is_me_read" src="assets/img/circle_gray.png" style="padding-top: 20px">
+          <img *ngIf="!item.is_me_read" src="assets/img/circle_red.png" style="padding-top: 20px">
           <div style="position: absolute;width: 1px;border-left:#f0f2f5 1px solid;height: 70%;margin-left: 4px;margin-top: -5px"></div>
         </div>
         <div [ngClass]="{true:'notFinish',false:'finish'}[item.state]">
-          <div style="float: left;height: 20px;">
+          <div style="float: left;height: 20px;line-height: 20px;">
             <span>
               [{{item.type_name}}]{{item.rt_project_principal_display_name}}
               </span>
           </div>
-          <div>
+          <div style="line-height: 20px;">
             <span style="overflow:hidden;text-overflow: ellipsis;-o-text-overflow: ellipsis;white-space: nowrap;max-width: 230px;display: block;">
               一{{item.subject}}
             </span>
@@ -195,17 +195,17 @@
         </p>
         <div item-start style="height: 105%;;width: 10px">
           <div style="position: absolute;width: 1px;border-left:#f0f2f5 1px solid;height: 40%;margin-left: 4px;"></div>
-          <img *ngIf="item.state" src="assets/img/circle.png" style="padding-top: 20px">
-          <img *ngIf="!item.state" src="assets/img/finish_circle.png" style="padding-top: 20px">
+          <img *ngIf="item.is_me_read" src="assets/img/circle_gray.png" style="padding-top: 20px">
+          <img *ngIf="!item.is_me_read" src="assets/img/circle_red.png" style="padding-top: 20px">
           <div style="position: absolute;width: 1px;border-left:#f0f2f5 1px solid;height: 70%;margin-left: 4px;margin-top: -5px"></div>
         </div>
         <div [ngClass]="{true:'notFinish',false:'finish'}[item.state]">
-          <div style="float: left;height: 20px;">
+          <div style="float: left;height: 20px;line-height: 20px;">
             <span>
               [{{item.type_name}}]{{item.rt_project_principal_display_name}}
               </span>
           </div>
-          <div>
+          <div style="line-height: 20px;">
             <span style="overflow: hidden;text-overflow: ellipsis;-o-text-overflow: ellipsis;white-space: nowrap;max-width: 230px;display: block;">
               一{{item.subject}}
             </span>

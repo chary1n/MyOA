@@ -132,4 +132,8 @@ export class AttendaceRecoupPage {
     this.navCtrl.push('AttendanceRecoupCreatePage')
   }
 
+  goBack(){
+    this.navCtrl.pop()
+  }
+
 }

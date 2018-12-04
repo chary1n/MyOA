@@ -1,0 +1,37 @@
+<!--
+  Generated template for the MeetingCheckInPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header no-border>
+
+  <ion-navbar color="gongdan-color" hideBackButton="true">
+    <ion-buttons left>
+      <button ion-button icon-only (click)="goBack()">
+              <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+            </button>
+    </ion-buttons>
+    <ion-title>开始情况</ion-title>
+    <ion-buttons right>
+      <button ion-button icon-only tappable (click)="refresh()" style="font-size:14px;color: white;margin-right: 10px">
+                刷新
+            </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content style="background-color:#f0f2f5">
+  <button *ngIf="!is_check_in" tappable (click)="click_check()" class="check_btn_class">开始</button>
+  <button *ngIf="is_check_in" class="un_check_btn_class">已开始</button>
+
+  <div no-lines class="list_class">
+    <ion-item *ngFor='let item of check_in_list;let i = index;' [ngClass]="{true:'list_final_item_class',false:'list_item_class'}[i == check_in_list.length - 1]">
+      <ion-label [ngClass]="{true:'alreay_check_in_class',false:'un_check_in_class'}[item.time.length > 0]">{{item.name}}</ion-label>
+      <ion-label style="font-size: 15px;text-align:right;">{{changeDate(item.time) | date:'yyyy-MM-dd HH:mm'}}</ion-label>
+    </ion-item>
+
+  </div>
+</ion-content>

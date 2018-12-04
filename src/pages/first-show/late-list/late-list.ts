@@ -20,6 +20,7 @@ import { Storage } from '@ionic/storage';
 export class LateListPage {
   item;
   frontPage:any;
+  uid
   constructor(public navCtrl: NavController, public navParams: NavParams,public statusBar:StatusBar,
               public firService: FirstShowService, public storage:Storage) {
       this.frontPage = Utils.getViewController("FirstShowPage", navCtrl)
@@ -38,6 +39,7 @@ export class LateListPage {
     this.statusBar.backgroundColorByHexString("#2597ec");
     this.statusBar.styleLightContent();
     this.storage.get('user').then(res => {
+      this.uid = res.result.res_data.user_id
       let body = {
         'uid': res.result.res_data.user_id
       }
@@ -53,10 +55,29 @@ export class LateListPage {
   }
 
   toDetail(sub){
-    this.navCtrl.push('CalendarDeatilpagePage',{
-      'isEdit': false,
-      'item': sub,
-      'frontPage': 'LateListPage'
-    })
+    if (sub.type_name == '项目') {
+            this.navCtrl.push('MeetingProjectPage', {
+                'meeting_id': sub.rt_meeeting_s_id,
+                'isEdit': false,
+                'uid': this.uid,
+                'frontPage': 'AllSchedulePage'
+            })
+        }
+        else {
+            if (sub.type_name == '会议') {
+                this.navCtrl.push('MeetingPage', {
+                    'meeting_id': sub.rt_meeeting_s_id,
+                    'isEdit': false,
+                    'uid': this.uid,
+                    'frontPage': 'AllSchedulePage',
+                })
+            } else {
+                this.navCtrl.push('CalendarDeatilpagePage', {
+                    'item': sub,
+                    'isEdit': false,
+                    'frontPage': 'AllSchedulePage',
+                })
+            }
+        }
   }
 }
