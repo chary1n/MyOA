@@ -87,7 +87,7 @@ export class EmailPage {
     // console.log('注销事件传递')
     // this.event.unsubscribe('click_envnt')
   }
-
+  
 
   ionViewWillEnter() {
     this.menu.enable(true, 'menu1')
@@ -124,13 +124,18 @@ export class EmailPage {
     }
   }
 
+
+  ionViewDidEnter(){
+   console.log('进入了')
+  }
+
   ionViewWillLeave() {
     this.menu.enable(false)
     var bar = document.getElementsByClassName('tabbar').item(0);
     bar['style'].display = 'none';
   }
 
-
+  
 
   showMenu() {
     setTimeout(() => {
