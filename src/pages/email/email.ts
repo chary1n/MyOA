@@ -87,7 +87,7 @@ export class EmailPage {
     // console.log('注销事件传递')
     // this.event.unsubscribe('click_envnt')
   }
-
+  
 
   ionViewWillEnter() {
     this.menu.enable(true, 'menu1')
@@ -109,7 +109,8 @@ export class EmailPage {
     } else {
       var bar = document.getElementsByClassName('tabbar').item(0);
       bar['style'].display = 'flex';
-      if ((this.title.indexOf('收件') != -1 && this.frontPageIsUnseen) || this.navPrarams.get('needRefresh')) {
+      if ((this.title.indexOf('收件') != -1 && this.frontPageIsUnseen) || this.navPrarams.get('needRefresh')||
+      this.title.indexOf('草稿箱')!=-1) {
         this.get_email_list(this.account_id, this.email_type, this.state_type, this.data_id, this.limit + this.offset, 0).then(res => {
           if (res.result && res.result.res_data) {
             this.email_list = res.result.res_data.email_list
@@ -124,13 +125,18 @@ export class EmailPage {
     }
   }
 
+
+  ionViewDidEnter(){
+   console.log('进入了')
+  }
+
   ionViewWillLeave() {
     this.menu.enable(false)
     var bar = document.getElementsByClassName('tabbar').item(0);
     bar['style'].display = 'none';
   }
 
-
+  
 
   showMenu() {
     setTimeout(() => {

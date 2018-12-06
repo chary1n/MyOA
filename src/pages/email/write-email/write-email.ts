@@ -465,7 +465,7 @@ export class WriteEmailPage {
             }
           },
           {
-            text: !this.isFromDraft ? '删除草稿' : '放弃更改',
+            text: !this.isFromDraft ? '不保存' : '放弃更改',
             handler: () => {
               this.navCtrl.pop()
             }
@@ -647,7 +647,7 @@ export class WriteEmailPage {
         }
       })
     if (this.isFromDraft) {
-      this.emailService.delete([this.email_detail.id])
+      this.emailService.OA_delete_draft([this.email_detail.id])
     }
   }
 

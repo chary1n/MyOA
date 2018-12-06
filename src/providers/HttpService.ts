@@ -201,6 +201,7 @@ export class HttpService {
           subTitle: result.error.data.message,
           buttons: [{
             text: '确定',
+            cssClass:'alertCss',
             handler: () => {
               HttpService.is_alert = false
             }
@@ -213,6 +214,7 @@ export class HttpService {
         if(!HttpService.is_alert){
           console.log('弹框弹出来了')
           ctrl.present()
+          // ctrl._setZIndex(1,undefined)
           HttpService.is_alert = true
         }
       }

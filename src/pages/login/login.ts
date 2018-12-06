@@ -542,8 +542,8 @@ export class LoginPage {
                 this.navCtrl.setRoot('NewTabsPage');
               }
               else {
-                this.navCtrl.setRoot('TabsPage');
-                //  this.navCtrl.setRoot('NewTabsPage');
+                // this.navCtrl.setRoot('TabsPage');
+                 this.navCtrl.setRoot('NewTabsPage');
               }
               
               // this.jpush.setAlias(res.result.res_data.user_id);

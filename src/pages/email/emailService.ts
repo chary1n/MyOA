@@ -56,6 +56,15 @@ export class EmailService {
         return this.httpService.postBody('rt_mail/OA_delete', body, 2);
     }
 
+    OA_delete_draft(ids) {
+        let body = JSON.stringify({
+            'ids': ids,
+        });
+        return this.httpService.postBody('rt_mail/OA_delete_draft', body, 2);
+    }
+
+    
+
     uploadAttachment(user_id, filename, data) {
         let body = JSON.stringify({
             'uid': user_id,
