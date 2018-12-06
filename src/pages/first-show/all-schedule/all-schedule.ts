@@ -144,8 +144,8 @@ export class AllSchedulePage {
             // }
             // this.navCtrl.setRoot('NewTabsPage')
             this.event.publish('popNavCtrl', {
-            'data': true
-        })
+                'data': true
+            })
         }
     }
 

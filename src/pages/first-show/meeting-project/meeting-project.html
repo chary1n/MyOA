@@ -79,7 +79,7 @@
     <div style="background-color: white">
       <div style="padding: 1px;border-bottom:#f0f2f5 1px solid;margin-left: 20px;background-color: white">
         <span style="background-color: #409eff;width: 3px;border-radius: 3px;height: 13px;float: left;margin-top: 18px;margin-left: -12px"></span>
-        <p style="font-size: 14px;color: #2e3133">主题：{{name}}</p>
+        <p style="font-size: 14px;color: #2e3133">主题：{{name}}<img *ngIf="rt_meeting_state" class="finish_img_class" src="assets/img/un_finish_img.png"/><img *ngIf="!rt_meeting_state" class="finish_img_class" src="assets/img/finish_img.png"/></p>
       </div>
     </div>
     <ion-item-group>
@@ -171,7 +171,7 @@
         </div>
       </ion-item>
     </ion-item-group>
-    <div style="padding: 1px;text-align: center;background-color: white">
+    <div *ngIf="isShowTip" style="padding: 1px;text-align: center;background-color: white">
       <button (click)="addMeeting()" ion-button style="border-radius: 34px;height: 2.5em;font-size: 13px" outline>+ 任务</button>
     </div>
 
@@ -201,7 +201,7 @@
       </ion-item>
     </ion-item-group>
 
-    <div style="padding: 1px;text-align: center;background-color: white">
+    <div *ngIf="isShowTip" style="padding: 1px;text-align: center;background-color: white">
       <button (click)="addProject()" ion-button style="border-radius: 34px;height: 2.5em;font-size: 13px" outline>+ 项目</button>
     </div>
   </div>

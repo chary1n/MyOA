@@ -85,7 +85,7 @@
     <div style="background-color: white">
       <div style="padding: 1px;border-bottom:#f0f2f5 1px solid;margin-left: 20px;background-color: white">
         <span style="background-color: #409eff;width: 3px;border-radius: 3px;height: 13px;float: left;margin-top: 18px;margin-left: -12px"></span>
-        <p style="font-size: 14px;color: #2e3133">主题：{{subject}}</p>
+        <p style="font-size: 14px;color: #2e3133">主题：{{subject}}<img *ngIf="state" class="finish_img_class" src="assets/img/un_finish_img.png"/><img *ngIf="!state" class="finish_img_class" src="assets/img/finish_img.png"/></p>
       </div>
     </div>
     <ion-item-group>
@@ -155,7 +155,8 @@
     <div *ngIf="type_name == '任务'" style="background-color: white;border-bottom:#f0f2f5 1px solid;" tappable (click)="click_check_in()">
       <div style="padding: 1px;margin-left: 20px;background-color: white">
         <span style="background-color: #409eff;width: 3px;border-radius: 3px;height: 13px;float: left;margin-top: 18px;margin-left: -12px"></span>
-        <p style="font-size: 14px;color: #2e3133">开始情况</p>
+        <p style="font-size: 14px;color: #2e3133">开始情况<ion-icon style="float: right;padding-right: 10px;color: gray;font-size: 18px;" ios="ios-arrow-forward" md="ios-arrow-forward"></ion-icon></p>
+        
       </div>
     </div>
   </div>

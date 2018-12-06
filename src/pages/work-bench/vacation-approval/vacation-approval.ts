@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, } from 'ionic-angular';
+import { IonicPage, NavController, NavParams,Platform } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { VacationAutoService } from './vacation-approval-autoService';
+import { VacationMeAutoService} from './vacation-approval-MeautoService'
 import { VacationService } from './vacationService';
 declare let cordova: any;
 /**
@@ -14,7 +15,7 @@ declare let cordova: any;
 @Component({
   selector: 'page-vacation-approval',
   templateUrl: 'vacation-approval.html',
-  providers: [VacationAutoService,VacationService],
+  providers: [VacationAutoService,VacationService,VacationMeAutoService],
 })
 export class VacationApprovalPage {
   inner_type = 'wait_me'
@@ -22,9 +23,13 @@ export class VacationApprovalPage {
   wait_me_list = []
   is_manager = false
   user_id;
+  is_ios = false
   constructor(public navCtrl: NavController, public navParams: NavParams,public vacationAutoService: VacationAutoService,
-              public vacationService: VacationService,public storage: Storage) {
-  }
+                public vacationService: VacationService,public storage: Storage,public platform:Platform, public vacationMeAutoService:VacationMeAutoService) {
+                  if (this.platform.is('ios')) {
+      this.is_ios = true
+    }
+ }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad VacationApprovalPage');
@@ -46,7 +51,7 @@ export class VacationApprovalPage {
             }
             else
             {
-              // this.click_me()
+              this.click_me()
             }
           }
         )
@@ -57,13 +62,11 @@ export class VacationApprovalPage {
   click_me(){
     this.inner_type = 'me'
     this.me_list = []
-    // this.vacationService.get_all_edit_card(this.user_id,false).then(res => {
-    //   console.log(res)
-    //             if (res.result.res_data && res.result.res_code == 1) {
-    //                 console.log(res.result.res_data)
-    //                 this.me_list = res.result.res_data
-    //             }
-    //           })
+    this.vacationService.get_total_vacation(this.user_id,false).then(my_data => {
+                if (my_data.result.res_data && my_data.result.res_code == 1) {
+                    this.me_list = my_data.result.res_data
+                }
+              })   
   }
 
   click_wait_me(){
@@ -88,7 +91,7 @@ export class VacationApprovalPage {
       search_text = event.name.replace("搜 申请人：", "")
     }
     this.wait_me_list = []
-    this.vacationService.search_vacation(type,search_text,this.user_id).then(res => {
+    this.vacationService.search_vacation(type,search_text,this.user_id,false).then(res => {
       if (res.result.res_data && res.result.res_code == 1) {
         this.wait_me_list = res.result.res_data
       }
@@ -106,14 +109,54 @@ export class VacationApprovalPage {
             }
   }
 
+  itemMeSelected(event) {
+    let type;
+    let search_text;
+    if (event.id == 1) {
+      type = "rt_name";
+      search_text = event.name.replace("搜 单号：", "")
+    }
+    else if (event.id == 2){
+      type = 'rt_to_approval_user_id'
+      search_text = event.name.replace('搜 待审核人：','')
+    }
+    this.me_list = []
+    this.vacationService.search_vacation(type,search_text,this.user_id,true).then(res => {
+      if (res.result.res_data && res.result.res_code == 1) {
+        this.me_list = res.result.res_data
+      }
+    })
+  }
+
+  itemClearMeSelected(event){
+    this.click_me()
+  }
+
   approval_detail(item){
     this.navCtrl.push('VacationDetailPage',{
       data_item:item,
+      is_me:false,
+      is_create:false,
     })
   }
 
   goBack(){
     this.navCtrl.pop()
+  }
+
+  click_approve_vacation(){
+    this.navCtrl.push('VacationDetailPage',{
+      is_me:true,
+      is_create:true,
+    })
+  }
+
+  approval_detail_no_approve(item){
+    this.navCtrl.push('VacationDetailPage',{
+      data_item:item,
+      is_me:true,
+      is_create:false,
+    })
   }
 
 }

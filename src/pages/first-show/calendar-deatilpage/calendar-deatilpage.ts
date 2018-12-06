@@ -237,7 +237,7 @@ export class CalendarDeatilpagePage {
     this.type_name = this.item.type_name
     this.wait_id = this.item.id
     this.selectList = this.item.partner_ids
-    this.user_is_read(this.selectList, this.item.read_msg_ids)
+    
     this.selectOtherList = this.item.external_partner_ids
     this.alarm_id = this.item.rt_alarm_type
     this.alarm_name = this.item.rt_alarm_type_name
@@ -259,7 +259,7 @@ export class CalendarDeatilpagePage {
       this.item_tip_name = this.item.rt_alarm_type_name + '(App提醒、网页提醒)'
     }
     this.description = this.item.description.replace(/\n/g, "<br>")
-
+    this.user_is_read(this.selectList, this.item.read_msg_ids)
 
   }
   //滑动事件
