@@ -112,6 +112,12 @@ export class EmailDetailPage {
     }
   }
 
+  ionViewWillLeave(){
+   if(this.need_show_choose){
+    this.changeShowTop()
+   }
+  }
+
   assembleHTML(strHTML) {
     return this.sanitizer.bypassSecurityTrustHtml(strHTML);
   }
@@ -126,7 +132,6 @@ export class EmailDetailPage {
       'account_id': this.account_id,
       'user_id': this.uid
     })
-    this.changeShowTop()
     this.front_page_refresh = true
   }
 
@@ -175,7 +180,6 @@ export class EmailDetailPage {
       'account_id': this.account_id,
       'user_id': this.uid
     })
-    this.changeShowTop()
     this.front_page_refresh = true
   }
 
@@ -184,7 +188,6 @@ export class EmailDetailPage {
       if (res.result && res.result && res.result.res_code == 1) {
         this.email_detail.is_flag = state
         this.email_flag = state
-        this.changeShowTop()
         if (state) {
           Utils.toastButtom('已固定', this.toastCtrl)
         } else {

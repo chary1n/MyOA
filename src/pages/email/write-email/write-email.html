@@ -100,11 +100,13 @@
     </ion-textarea>
   <div *ngIf="isFromEmailDetail" >
   <div class="edit_div">
-    <button class="edit_button"  *ngIf="edit_origin_html"  (click)='edit_html_button()'> 编辑</button>
-    <input class="edit_checkbox" type="checkbox" [checked]='edit_origin_html' (click)="changeEdit()">
-    <div class='edit_span'>  包含引用文字</div>
+    <!-- <button class="edit_button"  *ngIf="edit_origin_html"  (click)='edit_html_button()'> 编辑</button> -->
+    <!-- <input class="edit_checkbox" type="checkbox" [checked]='edit_origin_html' (click)="changeEdit()"> -->
+    <div > 
+      <span class='edit_span'>--------------------------原始邮件-------------------------- </span>
+      </div>
   </div>
-  <div class="line_div"></div>
+  <!-- <div class="line_div"></div> -->
   <div class="body_html" *ngIf="edit_origin_html" >
     <div class="html_div" [innerHTML]="assembleHTML(body_html)"> </div>
   </div>
