@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, Content, ActionSheetController, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Content, ActionSheetController, AlertController, Platform } from 'ionic-angular';
 import { Utils } from './../../../providers/Utils';
 import { Storage } from '@ionic/storage';
 import { DatePipe } from '@angular/common';
@@ -81,7 +81,7 @@ export class MeetingPage {
     tree_obj
     constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage,
         private datePipe: DatePipe, public statusBar: StatusBar, public firService: FirstShowService
-        , public toastCtrl: ToastController, private sanitizer: DomSanitizer, public actionSheetCtrl: ActionSheetController, public alert: AlertController) {
+        , public toastCtrl: ToastController, private sanitizer: DomSanitizer, public actionSheetCtrl: ActionSheetController, public alert: AlertController, public platform: Platform) {
 
         var self = this
         this.setting = {
@@ -163,6 +163,24 @@ export class MeetingPage {
                 this.get_all_data()
             }
         })
+        // var that = this
+        // this.platform.registerBackButtonAction(function () {
+        //     if (that.isEdit) {
+        //         var ctrl = that.alert
+        //         ctrl.create({
+        //             title: '提示',
+        //             subTitle: '数据未保存，是否确认返回？',
+        //             buttons: [{ text: '取消' },
+        //             {
+        //                 text: '确定',
+        //                 handler: () => {
+        //                     that.navCtrl.pop();
+        //                 }
+        //             }
+        //             ]
+        //         }).present();
+        //     }
+        // }, 0)
 
     }
 
@@ -202,6 +220,18 @@ export class MeetingPage {
         })
     }
     item_change() {
+        var data_arr = []
+        for (let i = 0; i < this.item.message_ids.length; i++) {
+            var item_one = this.item.message_ids[i]
+            data_arr.push(item_one.msg_id)
+            for (let j = 0; j < item_one.child_ids.length; j++){
+                var item_child = item_one.child_ids[j]
+                data_arr.push(item_child.msg_id)
+            }
+        }
+        this.firService.read_total_reply({ 'list': data_arr, 'uid': this.uid }).then(res => {
+            
+        })
         if (this.user.partner_id == this.item.rt_project_principal.id || this.uid == this.item.create_uid) {
             this.isShowTip = true
         }
@@ -335,7 +365,19 @@ export class MeetingPage {
 
             }
         } else {
-            this.navCtrl.pop();
+            var ctrl = this.alert
+            ctrl.create({
+                title: '提示',
+                subTitle: '数据未保存，是否确认返回？',
+                buttons: [{ text: '取消' },
+                {
+                    text: '确定',
+                    handler: () => {
+                        this.navCtrl.pop();
+                    }
+                }
+                ]
+            }).present();
         }
 
     }

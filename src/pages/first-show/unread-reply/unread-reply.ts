@@ -20,23 +20,24 @@ import { Storage } from '@ionic/storage';
 export class UnreadReplyPage {
   item = [];
   uid;
+  item_need
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public showService: FirstShowService, public toast: ToastController,
     public storage: Storage) {
     this.storage.get('user').then(res => {
       this.uid = res.result.res_data.user_id;
-    })
-    this.item = []
-    var item_need = this.navParams.get('item')
-    var data_arr = []
-    for (let i = 0; i < item_need.length; i++) {
-      var item_one = item_need[i][0]
-      data_arr.push(item_one.msg_id)
-      this.item.push(item_one)
-    }
-    this.showService.read_total_reply({ 'list': data_arr }).then(res => {
+      this.item = []
+      this.item_need = this.navParams.get('item')
+      var data_arr = []
+      for (let i = 0; i < this.item_need.length; i++) {
+        var item_one = this.item_need[i][0]
+        data_arr.push(item_one.msg_id)
+        this.item.push(item_one)
+      }
 
     })
+
+
   }
 
   ionViewDidLoad() {
@@ -53,19 +54,19 @@ export class UnreadReplyPage {
   gotoDeatil(item) {
     if (item.subject_type == '项目') {
       this.showService.get_event_detail({
+        'uid': this.uid,
+        'event_id': item.event_id
+      }).then(res => {
+        if (res.result.res_data && res.result.res_code == 1) {
+          item = res.result.res_data
+          this.navCtrl.push('MeetingProjectPage', {
+            'meeting_id': item.rt_meeeting_s_id,
+            'isEdit': false,
             'uid': this.uid,
-            'event_id': item.event_id
-          }).then(res => {
-            if (res.result.res_data && res.result.res_code == 1) {
-              item = res.result.res_data
-              this.navCtrl.push('MeetingProjectPage', {
-                'meeting_id': item.rt_meeeting_s_id,
-                'isEdit': false,
-                'uid': this.uid,
-                'frontPage': 'FirstShowPage'
-              })
-            }
+            'frontPage': 'FirstShowPage'
           })
+        }
+      })
     }
     else {
       if (item.res_model_s == 'rt.performance.appraisal.detail' && item.res_id != false) {
@@ -119,6 +120,21 @@ export class UnreadReplyPage {
       }
     }
 
+  }
+
+  readAll() {
+    var data_arr = []
+    for (let i = 0; i < this.item_need.length; i++) {
+      var item_one = this.item_need[i][0]
+      data_arr.push(item_one.msg_id)
+    }
+    this.showService.read_total_reply({ 'list': data_arr, 'uid': this.uid }).then(res => {
+
+    })
+  }
+
+  goBack(){
+    this.navCtrl.pop()
   }
 
 }

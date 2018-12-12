@@ -1,6 +1,6 @@
 import { Storage } from '@ionic/storage';
 import { FirstShowService } from './first_service';
-import { IonicPage, NavController, NavParams, FabContainer } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, FabContainer ,MenuController,Events} from 'ionic-angular';
 import { Component, ViewChild } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -57,9 +57,14 @@ export class FirstShowPage {
   event_list
   isShowBac = false
   un_read_list = []
+  need_calendar
+  me_type = ''
+  state_type = ''
+  event_type_id = -1
+  event_type = ''
   constructor(public navCtrl: NavController, public navParams: NavParams, private datePipe: DatePipe,
     private firshowService: FirstShowService, public storage: Storage,
-    public statusBar: StatusBar) {
+    public statusBar: StatusBar, public menu: MenuController,public event: Events) {
     this.storage.get('user').then(res => {
       this.user_heard = res.result.res_data.user_ava;
       this.uid = res.result.res_data.user_id;
@@ -67,6 +72,12 @@ export class FirstShowPage {
       this.get_backlog_identify(this.currentYear, this.currentMonth)
       this.get_approval_num()
       this.getType()
+      this.storage.get('user_schedule_domain').then(res => {
+        this.me_type = res.me_type
+        this.state_type = res.state_type
+        this.event_type_id = res.event_type_id
+        this.event_type = res.event_type
+      })
     })
   }
   showback() {
@@ -99,7 +110,16 @@ export class FirstShowPage {
     })
   }
 
+  ionViewWillLeave() {
+    this.menu.enable(false)
+    var bar = document.getElementsByClassName('tabbar').item(0);
+    bar['style'].display = 'none';
+    this.event.unsubscribe('search_domain_first')
+  }
+
   ionViewWillEnter() {
+    
+    this.menu.enable(true, 'menu5')
     this.un_read_list = []
     this.statusBar.backgroundColorByHexString("#2597ec");
     this.statusBar.styleLightContent();
@@ -108,8 +128,8 @@ export class FirstShowPage {
       this.get_approval_num()
       this.firshowService.get_un_read_reply({ 'uid': this.uid }).then(res => {
         if (res.result.res_data && res.result.res_code == 1) {
-          console.log(res.result.res_data)
-          this.un_read_list = res.result.res_data
+          this.un_read_list = res.result.res_data.read_data
+          this.need_calendar = res.result.res_data.need_calendar
         }
       })
 
@@ -126,7 +146,12 @@ export class FirstShowPage {
       'uid': this.uid,
       'date': date
     }
-    this.firshowService.get_schedule_list(body).then(res => {
+    let domain = {
+      'me_type': this.me_type,
+      'state_type': this.state_type,
+      'event_type_id': this.event_type_id,
+    }
+    this.firshowService.get_schedule_list_with_domain(body,domain).then(res => {
       if (res.result.res_data && res.result.res_code == 1) {
         this.subNum = res.result.res_data.subNum
         this.itemList = res.result.res_data.wait
@@ -142,6 +167,37 @@ export class FirstShowPage {
       }
     })
   }
+
+  ionViewDidEnter(){
+    var tolbar = document.getElementsByClassName('tabbar').item(0);
+    tolbar['style'].display = 'flex';
+    this.event.subscribe('search_domain_first', (data) => {
+            console.log(data)
+            this.me_type = data.me_type
+            this.state_type = data.state_type
+            this.event_type_id = data.event_type_id
+            this.event_type = data.event_type
+            this.storage.set('user_schedule_domain', {
+              'me_type': this.me_type,
+              'state_type': this.state_type,
+              'event_type_id': this.event_type_id,
+              'event_type': this.event_type
+            })
+            this.getDayData(this.currentDate_date.getFullYear() + '-' + (this.currentDate_date.getMonth() + 1) + '-' + this.currentDate_date.getDate())
+
+            // this.event.unsubscribe('search_domain')
+            // this.me_type = data.me_type
+            // this.state_type = data.state_type
+            // this.start_date = data.start_date
+            // this.end_date = data.end_date
+            // if (this.show_me) {
+            //     this.get_all_data()
+            // }
+
+        })
+  }
+
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad FirstShowPage');
     var Y = new Date().getFullYear();
@@ -677,5 +733,13 @@ export class FirstShowPage {
 
   toSG() {
     this.navCtrl.push('NewShengouPage')
+  }
+
+  showMenu() {
+    setTimeout(() => {
+      this.menu.toggle('right');
+      this.menu.get('menu5').enabled = true
+    }, 10);
+
   }
 }

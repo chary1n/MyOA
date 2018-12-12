@@ -7,6 +7,9 @@ export class VacationService {
     constructor(private httpservice: HttpService) {
         
     }
+    delete_vacation(body){
+        return this.httpservice.postBodyNoLoading("delete_vacation",body);
+    }
 
     create_submit_vacation(body){
         return this.httpservice.postBodyNoLoading("create_submit_vacation",body);

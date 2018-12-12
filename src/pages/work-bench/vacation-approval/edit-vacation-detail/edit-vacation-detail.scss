@@ -37,7 +37,9 @@ page-edit-vacation-detail {
 
     .right_input_class{
         display: inline-block;
-        float: right;
+        // float: right;
+        text-align: right;
+        width:80%
     }
 
     .right_input_class_xiaoji{

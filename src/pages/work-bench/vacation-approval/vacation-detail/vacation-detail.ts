@@ -25,6 +25,7 @@ export class VacationDetailPage {
   is_me
   uid
   is_create
+  edit = false
   constructor(public navCtrl: NavController, public navParams: NavParams, public vacationService: VacationService, public storage: Storage,
     public alertCtrl: AlertController, public toastCtrl: ToastController) {
     this.is_create = this.navParams.get('is_create')
@@ -33,6 +34,7 @@ export class VacationDetailPage {
       this.data = this.navParams.get('data_item')
       this.data_arr = this.data.detail_lines
     } else {
+      this.edit = true
       let body = {
         'employee_avatar': '',
         'state': '草稿',
@@ -177,7 +179,7 @@ export class VacationDetailPage {
   }
 
   click_edit(item, i) {
-    if (this.data.state == '草稿' || this.data.state == '被拒') {
+    if ((this.data.state == '草稿' || this.data.state == '被拒') && this.edit) {
       this.navCtrl.push('EditVacationDetailPage', {
         'uid': this.uid,
         'frontPage': 'VacationDetailPage',
@@ -211,7 +213,7 @@ export class VacationDetailPage {
 
   click_submit() {
     if (!this.is_create) {
-      this.vacationService.submit_vacation({ 'vacation_id': this.data.vacation_id, 'uid': this.uid }).then(res => {
+      this.vacationService.submit_vacation({ 'vacation_id': this.data.vacation_id, 'uid': this.uid, 'data_arr': this.data_arr }).then(res => {
         if (res.result.res_code == 1) {
           Utils.toastButtom("提交成功", this.toastCtrl)
           this.navCtrl.pop()
@@ -278,6 +280,35 @@ export class VacationDetailPage {
 
   deleteItem(item,i){
     this.data_arr.splice(i,1)
+  }
+
+  click_edit_vacation(){
+    this.edit = true
+  }
+
+  click_delete(){
+    let ctrl = this.alertCtrl
+    ctrl.create({
+      title: '提示',
+      message: "是否确定删除？",
+      buttons: [{
+        text: '取消',
+        handler: data => {
+          // cordova.plugins.Keyboard.close();
+        }
+      },
+      {
+        text: '确定',
+        handler: data => {          
+          this.vacationService.delete_vacation({'uid':this.user.user_id, 'vacation_id':this.data.vacation_id}).then(res => {
+              if (res.result && res.result.res_code == 1) {
+                Utils.toastButtom("删除成功", this.toastCtrl)
+                this.navCtrl.pop()
+              }
+            })
+        }
+      }]
+    }).present()
   }
 
 }

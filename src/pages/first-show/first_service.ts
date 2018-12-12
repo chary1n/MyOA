@@ -68,6 +68,9 @@ export class FirstShowService {
         return this.httpService.postBodyNoLoading("get_schedule_list", body);
     }
 
+    get_schedule_list_with_domain(body,domain){
+        return this.httpService.postBodyNoLoading("get_schedule_list_with_domain", {'body':body,'domain':domain});
+    }
 
     get_backlog_identify(body){
         return this.httpService.postBodyNoLoading("get_backlog_identify", body);
@@ -160,7 +163,7 @@ export class FirstShowService {
     }
     
     get_all_schedule(body){
-        return this.httpService.postBody("get_all_schedule", body);
+        return this.httpService.postBody("get_all_schedule_new", body);
     }
     
 

@@ -1,0 +1,71 @@
+page-firstshow-menu {
+    .me_class{
+        width: 80px;
+        height: 35px;
+        background: #f0f2f5;
+        line-height: 35px;
+        text-align: center;
+        border-radius: 5px;
+        color: #333333;
+        font-size: 13px;
+    }
+
+    .me_class_choose{
+        width: 80px;
+        height: 35px;
+        background: #eef6ff;
+        line-height: 35px;
+        text-align: center;
+        border-radius: 5px;
+        color: #2597ec;
+        font-size: 13px;
+    }
+
+    .me_header{
+        margin-left: 15px;
+        margin-top: 25px;
+        color: gray;
+    }
+
+    .grid_class{
+        margin-left: 6px;
+        border-bottom: solid 1px #f0f2f5;
+    }
+
+    .time_class_choose{
+        width: 80px;
+        height: 35px;
+        background: #f0f2f5;
+        line-height: 35px;
+        text-align: center;
+        border-radius: 25px;
+        color: #333333;
+        font-size: 13px; 
+    }
+
+    .differ_class{
+        width: 21px;
+        height: 42px;
+        line-height: 42px;
+        color: gray;
+    }
+
+    .left_btn{
+        display: inline-block;
+        line-height: 44px;
+        width: 50%;
+        text-align: center;
+        background-color: lightgray;
+        color: white;
+        float: left;
+    }
+
+    .right_btn{
+        line-height: 44px;
+        width: 50%;
+        color: white;
+        text-align: center;
+        float: right;
+        background-color: #2597ec;
+    }
+}

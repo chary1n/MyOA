@@ -4,6 +4,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, MenuController, Events } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { StatusBar } from '@ionic-native/status-bar';
+import { FirstshowMenuPage} from '../firstshow-menu/firstshow-menu'
+
 import 'jquery'
 declare var $: any;
 /**
@@ -26,7 +28,7 @@ export class AllSchedulePage {
     type_id = -1
     need_fresh = false;
     me_type = 'all'
-    state_type = 'all'
+    state_type = 'unfinish'
     start_date
     end_date
     show_me = true
@@ -39,12 +41,14 @@ export class AllSchedulePage {
     tree_obj
 
     from_work_bench = false
+
+    type = []
     constructor(public navCtrl: NavController, public navParams: NavParams, private firshowService: FirstShowService,
         public storage: Storage, public statusBar: StatusBar, public allScheduleService: AllScheduleService,
         public menu: MenuController, public event: Events) {
         this.from_work_bench = this.navParams.get('is_work_bench')
         this.me_type = 'all'
-        this.state_type = 'all'
+        this.state_type = 'unfinish'
         this.show_me = true
         this.title = '我的'
         this.event.publish('ChooseMenuPage')
@@ -108,15 +112,18 @@ export class AllSchedulePage {
                     'uid': this.uid,
                     'me_type': this.me_type,
                     'state_type': this.state_type,
+                    'event_type': this.type_id,
                 }
 
                 this.firshowService.get_all_schedule(body).then(res => {
                     if (res.result.res_data && res.result.res_code == 1) {
                         this.dataList = res.result.res_data.data
+                        
                         this.meeting_id = res.result.res_data.meeting_id
                         for (let i = 0; i < this.dataList.length; i++) {
                             if (this.dataList[i].id == -1) {
                                 this.type_list = this.dataList[i].dataList
+                                this.type = this.dataList[i].type
                             }
                         }
                     }
@@ -143,15 +150,20 @@ export class AllSchedulePage {
             //     element.parentNode.removeChild(element);
             // }
             // this.navCtrl.setRoot('NewTabsPage')
-            this.event.publish('popNavCtrl', {
-                'data': true
-            })
+            // console.log(this.event)
+            // this.event.publish('popNavCtrl', {
+            //     'data': true
+            // })
+            this.navCtrl.setPages([{page:FirstshowMenuPage}])
+            this.navCtrl.popTo('FirstshowMenuPage')
+            
         }
     }
 
     ionViewWillLeave() {
         this.menu.enable(false)
         this.event.unsubscribe('search_domain')
+        this.event.unsubscribe('popNavCtrl')
         this.event.publish('initData', {
             'data': true
         })
@@ -193,9 +205,9 @@ export class AllSchedulePage {
     selectType(item) {
         this.type_id = item.id
         item.select = true
-        for (let i = 0; i < this.dataList.length; i++) {
-            if (this.dataList[i].id != item.id) {
-                this.dataList[i].select = false
+        for (let i = 0; i < this.type.length; i++) {
+            if (this.type[i].id != item.id) {
+                this.type[i].select = false
             }
         }
         if (this.show_me) {

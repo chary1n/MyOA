@@ -30,8 +30,8 @@
     <preference name="FadeSplashScreen" value="true" />
     <preference name="SplashScreen" value="screen" />
     <preference name="SplashScreenDelay" value="3000" />
-    <preference name="loadUrlTimeoutValue" value="700000" />
-    <preference name="AutoHideSplashScreen" value="false" />
+    <preference name="loadUrlTimeoutValue" value="3000" />
+    <preference name="AutoHideSplashScreen" value="true" />
     <preference name="Fullscreen" value="False" />
     <preference name="android-windowSoftInputMode" value="adjustPan" />
     <platform name="android">

@@ -37,6 +37,7 @@ export class ChooseLocationPage {
         // console.log(res)
         this.user = res.result.res_data
         this.kaoQinService.get_user_regular({'uid':res.result.res_data.user_id}).then(reg => {
+          console.log(reg.result.res_data.distance)
           if (res.result.res_data && res.result.res_code == 1) {
             if (this.platform.is("android")) {
               GaoDe.getCurrentPosition((success) => {
@@ -44,6 +45,7 @@ export class ChooseLocationPage {
                 console.log('gaode', success);
                 this.kaoQinService.trans_location(success.latitude, success.longitude).then(res => {
                   this.kaoQinService.get_location_now(res.result[0].y, res.result[0].x,reg.result.res_data.distance).then(res_location => {
+                    console.log(reg.result.res_data.distance)
                     // console.log(res_location.result.pois[0].addr)
                     // that.location_str = res_location.result.pois[0].addr
                     // that.pois_list = res_location.result.pois
