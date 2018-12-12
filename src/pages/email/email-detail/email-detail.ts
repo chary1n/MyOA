@@ -3,11 +3,12 @@ import { Utils } from './../../../providers/Utils';
 import { HttpService } from './../../../providers/HttpService';
 import { DomSanitizer } from '@angular/platform-browser';
 import { EmailService } from './../emailService';
-import { NavController, IonicPage, NavParams, ToastController } from 'ionic-angular';
+import { NavController, IonicPage, NavParams, ToastController, Events, Gesture } from 'ionic-angular';
 import { Component } from '@angular/core';
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
 import { File } from '@ionic-native/file';
 import { FileOpener } from '@ionic-native/file-opener';
+///<reference path="../../../services/jquery.d.ts"/>  
 
 /**
  * Generated class for the EmailDetailPage page.
@@ -63,9 +64,8 @@ export class EmailDetailPage {
       this.attachment_list = this.transAttachUrl(this.email_detail.attachment_list)
       console.log(this.attachment_list)
     })
+
   }
-
-
 
 
 
@@ -112,10 +112,10 @@ export class EmailDetailPage {
     }
   }
 
-  ionViewWillLeave(){
-   if(this.need_show_choose){
-    this.changeShowTop()
-   }
+  ionViewWillLeave() {
+    if (this.need_show_choose) {
+      this.changeShowTop()
+    }
   }
 
   assembleHTML(strHTML) {
@@ -153,6 +153,11 @@ export class EmailDetailPage {
     });
   }
 
+
+  pinchEvent(events) {
+    console.log(events)
+  }
+
   goBack() {
     this.frontPage.data.needRefresh = true
     this.navCtrl.popTo(this.frontPage)
@@ -164,7 +169,7 @@ export class EmailDetailPage {
     if (this.need_show_choose) {
       setTimeout(() => {
         var bac_div = document.getElementById('email_backdrop')
-        bac_div.style.height = document.getElementsByClassName('scroll-content')[document.getElementsByClassName('scroll-content').length-1].scrollHeight + "px"
+        bac_div.style.height = document.getElementsByClassName('scroll-content')[document.getElementsByClassName('scroll-content').length - 1].scrollHeight + "px"
       }, 1)
     }
   }

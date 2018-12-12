@@ -52,7 +52,7 @@
 <ion-content>
   <ion-backdrop id="email_backdrop" *ngIf="need_show_choose" (click)='hide_email_backdrop()' class="gray_backdrop">
   </ion-backdrop>
-  <div class="email_subject">
+  <div class="email_subject" (pinch)='pinchEvent(event)'>
     {{subject}}
   </div>
   <div class="mailDetail-tag-list" *ngIf="label_list">
@@ -100,8 +100,8 @@
       <span class="span_c">{{date}}</span>
     </li>
   </ul>
-  <div style="width:100%">
-    <div class="html_div" [innerHTML]="assembleHTML(body_html)"> </div>
+  <div style="width:100%" >
+    <div class="html_div" id="html_id" [innerHTML]="assembleHTML(body_html)" > </div>
   </div>
   <ion-list *ngIf="attachment_list.length!=0" no-lines class="ion-list-account" style="border-top: 0.55px solid #c8c7cce0">
     <ion-item nolines class="attach_item" style="border-bottom: 0.55px solid #c8c7cce0" *ngFor='let item of attachment_list'
@@ -127,7 +127,7 @@
 <ion-footer>
   <ion-toolbar color="gongdan-color" class='toolbar_c'>
     <button ion-button icon-only (click)="reply()" class="toolbar_button">
-       <ion-avatar item-start>
+      <ion-avatar item-start>
         <img src='assets/img/reply.png' style="margin-left:-4px;width: 34px">
       </ion-avatar>
     </button>
