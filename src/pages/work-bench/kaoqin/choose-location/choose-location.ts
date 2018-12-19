@@ -69,7 +69,7 @@ export class ChooseLocationPage {
                 .then((resp) => {
                   console.log(resp.coords.latitude)
                   console.log(resp.coords.longitude)
-                  this.kaoQinService.trans_location(resp.coords.latitude, resp.coords.longitude).then(res => {
+                  this.kaoQinService.trans_location_ios(resp.coords.latitude, resp.coords.longitude).then(res => {
                     // console.log(res)
                     var that = this
                     this.kaoQinService.get_location_now(res.result[0].y, res.result[0].x,reg.result.res_data.distance).then(res_location => {

@@ -5,7 +5,7 @@ import { IonicPage, NavController, NavParams, MenuController, Events } from 'ion
 import { Storage } from '@ionic/storage';
 import { StatusBar } from '@ionic-native/status-bar';
 import { FirstshowMenuPage} from '../firstshow-menu/firstshow-menu'
-
+import { FirstShowPage} from '../first-show'
 import 'jquery'
 declare var $: any;
 /**
@@ -28,7 +28,7 @@ export class AllSchedulePage {
     type_id = -1
     need_fresh = false;
     me_type = 'all'
-    state_type = 'unfinish'
+    state_type = 'all'
     start_date
     end_date
     show_me = true
@@ -48,7 +48,7 @@ export class AllSchedulePage {
         public menu: MenuController, public event: Events) {
         this.from_work_bench = this.navParams.get('is_work_bench')
         this.me_type = 'all'
-        this.state_type = 'unfinish'
+        this.state_type = 'all'
         this.show_me = true
         this.title = '我的'
         this.event.publish('ChooseMenuPage')
@@ -151,19 +151,21 @@ export class AllSchedulePage {
             // }
             // this.navCtrl.setRoot('NewTabsPage')
             // console.log(this.event)
-            // this.event.publish('popNavCtrl', {
-            //     'data': true
-            // })
-            this.navCtrl.setPages([{page:FirstshowMenuPage}])
-            this.navCtrl.popTo('FirstshowMenuPage')
+            this.event.publish('popNavCtrl', {
+                'data': true
+            })
+            // this.navCtrl.setPages([{page:FirstShowPage}])
             
+            // var tolbar = document.getElementsByClassName('tabbar').item(0);
+            // tolbar['style'].display = 'flex';
+            // this.navCtrl.popTo('FirstShowPage')
         }
     }
 
     ionViewWillLeave() {
         this.menu.enable(false)
         this.event.unsubscribe('search_domain')
-        this.event.unsubscribe('popNavCtrl')
+        // this.event.unsubscribe('popNavCtrl')
         this.event.publish('initData', {
             'data': true
         })

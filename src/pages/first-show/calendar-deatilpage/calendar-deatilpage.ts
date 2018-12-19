@@ -84,6 +84,10 @@ export class CalendarDeatilpagePage {
   setting
   zNodes = []
   tree_obj
+
+  is_create_server = false
+
+  hide_btn = false
   constructor(public navCtrl: NavController, public navParams: NavParams, public statusBar: StatusBar,
     public firService: FirstShowService, public storage: Storage, public toastCtrl: ToastController,
     private datePipe: DatePipe, private sanitizer: DomSanitizer, public alertCtrl: AlertController,
@@ -240,18 +244,7 @@ export class CalendarDeatilpagePage {
   }
   //根据item赋值
   item_change() {
-    var data_arr = []
-        for (let i = 0; i < this.item.message_ids.length; i++) {
-            var item_one = this.item.message_ids[i]
-            data_arr.push(item_one.msg_id)
-            for (let j = 0; j < item_one.child_ids.length; j++){
-                var item_child = item_one.child_ids[j]
-                data_arr.push(item_child.msg_id)
-            }
-        }
-        this.firService.read_total_reply({ 'list': data_arr, 'uid': this.uid }).then(res => {
-            
-        })
+
     this.state = this.item.state
     this.location = this.item.location
     this.rt_project_principal_name = this.item.rt_project_principal.partner_id_s_name
@@ -292,8 +285,19 @@ export class CalendarDeatilpagePage {
       this.item_tip_name = this.item.rt_alarm_type_name + '(App提醒、网页提醒)'
     }
     this.description = this.item.description.replace(/\n/g, "<br>")
-    this.user_is_read(this.selectList, this.item.read_msg_ids)
+    this.user_is_read(this.selectList, this.item.check_in_ids)
+    var data_arr = []
+    for (let i = 0; i < this.item.message_ids.length; i++) {
+      var item_one = this.item.message_ids[i]
+      data_arr.push(item_one.msg_id)
+      for (let j = 0; j < item_one.child_ids.length; j++) {
+        var item_child = item_one.child_ids[j]
+        data_arr.push(item_child.msg_id)
+      }
+    }
+    this.firService.read_total_reply({ 'list': data_arr, 'uid': this.uid }).then(res => {
 
+    })
   }
   //滑动事件
   panEvent($event) {
@@ -515,7 +519,7 @@ export class CalendarDeatilpagePage {
   }
   //新建待办事项完成
   stateFinish() {
-    cordova.plugins.Keyboard.close()
+    // cordova.plugins.Keyboard.close()
     if (this.search) {
       this.title_meeting = '新建'
       this.search = false
@@ -531,28 +535,38 @@ export class CalendarDeatilpagePage {
         return
       }, 10)
     }
-    let body = this.handleData(true)
-    if (this.isMeeting) {
-      if (body) {
-        body['rt_meeting_id'] = this.meeting_id
-        this.firService.create_meeting_line(body).then(res => {
-          if (res.result.res_code == 1) {
-            // this.frontPage.data.need_fresh = true;
-            this.frontPage.data.pet = 4
-            this.navCtrl.popTo(this.frontPage);
+    else {
+      if (!this.is_create_server) {
+        let body = this.handleData(true)
+        
+        if (this.isMeeting) {
+          if (body) {
+            this.is_create_server = true
+            body['rt_meeting_id'] = this.meeting_id
+            this.firService.create_meeting_line(body).then(res => {
+              this.is_create_server = false
+              if (res.result.res_code == 1) {
+                // this.frontPage.data.need_fresh = true;
+                this.frontPage.data.pet = 4
+                this.navCtrl.popTo(this.frontPage);
+              }
+            })
           }
-        })
-      }
-    } else {
-      if (body) {
-        this.firService.create_new_schedule(body).then(res => {
-          if (res.result.res_code == 1) {
-            // this.frontPage.data.need_fresh = true;
-            this.navCtrl.popTo(this.frontPage);
+        } else {
+          if (body) {
+            this.is_create_server = false
+            this.firService.create_new_schedule(body).then(res => {
+              this.is_create_server = false
+              if (res.result.res_code == 1) {
+                // this.frontPage.data.need_fresh = true;
+                this.navCtrl.popTo(this.frontPage);
+              }
+            })
           }
-        })
+        }
       }
     }
+
   }
   //标记为待办
   completion_event() {
@@ -1284,11 +1298,11 @@ export class CalendarDeatilpagePage {
       if (this.type_name == '任务') {
         button_arr = [
           {
-          text: '标记为待办',
-          handler: () => {
-            this.completion_event()
-          }
-        }, {
+            text: '标记为待办',
+            handler: () => {
+              this.completion_event()
+            }
+          }, {
             text: '编辑',
             handler: () => {
               this.edit()
@@ -1409,40 +1423,70 @@ export class CalendarDeatilpagePage {
   }
 
   click_start_datetime() {
+    var that = this
     $('#input_start_datetime').mobiscroll().datetime({
       theme: 'ios',
       lang: 'zh',
       display: 'bottom',
       dateWheels: '|M d D|',
       timeWheels: 'HH ii',
+      onSet: function (event, inst) {
+        // console.log(event)
+        that.default_start_datetime = event.valueText
+        if (that.default_start_datetime > that.default_stop_datetime) {
+          that.default_stop_datetime = event.valueText
+          setTimeout(() => {
+            that.click_end_datetime()
+          }, 10)
+        }
+      },
     });
   }
 
   click_start_date() {
+    var that = this
     $('#input_start_date').mobiscroll().date({
       theme: 'ios',
       lang: 'zh',
       display: 'bottom',
       dateWheels: '|M d D|',
+      onSet: function (event, inst) {
+        // console.log(event)
+        that.start_date = event.valueText
+        if (that.start_date > that.stop_date) {
+          that.stop_date = event.valueText
+          setTimeout(() => {
+            that.click_end_date()
+          }, 10)
+        }
+      },
     });
   }
 
   click_end_datetime() {
+    var that = this
     $('#input_end_datetime').mobiscroll().datetime({
       theme: 'ios',
       lang: 'zh',
       display: 'bottom',
       dateWheels: '|M d D|',
       timeWheels: 'HH ii',
+      onSet: function (event, inst) {
+        that.default_stop_datetime = event.valueText
+      }
     });
   }
 
   click_end_date() {
+    var that = this
     $('#input_end_date').mobiscroll().date({
       theme: 'ios',
       lang: 'zh',
       display: 'bottom',
       dateWheels: '|M d D|',
+      onSet: function (event, inst) {
+        that.stop_date = event.valueText
+      }
     });
   }
 
@@ -1478,6 +1522,14 @@ export class CalendarDeatilpagePage {
   // showback(){
 
   // }
+
+  hide_click() {
+    this.hide_btn = true
+  }
+
+  show_click() {
+    this.hide_btn = false
+  }
 
 
 

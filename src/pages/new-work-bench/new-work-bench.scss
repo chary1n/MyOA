@@ -1,13 +1,13 @@
 page-new-work-bench {
     .under_line_style{
-        color:#2597ec;
-        width:44px;
-        height: 37px;
-        line-height: 37px;
-        border-bottom:#2597ec 3px solid;
-        font-size: 14px;
-        margin-left: 8px;
-    }
+    color:#2597ec;
+    width:100%;
+    height: 40px;
+    line-height: 40px;
+    border-bottom:#2597ec 3px solid;
+    font-size: 14px;
+    padding-bottom: 5px;
+}
 
     .normal_style{
         width:60px;
@@ -19,8 +19,13 @@ page-new-work-bench {
 
     .left_div{
         width: 20%;
-        height: 40px;
-        margin-top: -14px;
+        // height: 40px;
+        // margin-top: -14px;
+        background-color: white;
+//   padding: 2px 8px;
+  height: 40px;
+      display: inline-block;
+      margin-top: 5px;
     }
 
     .header_div_class{
@@ -37,7 +42,15 @@ page-new-work-bench {
     font-weight: bold;
     color: #333333;
     font-size: 15px;
-    margin-top: 13px;
+    // margin-top: 13px;
+    }
+
+    .sub_header_div_class_more{
+        margin-left: 15px;
+    font-weight: bold;
+    color: #333333;
+    font-size: 15px;
+    margin-top: 61px;
     }
 
     .body_img_class{
@@ -99,4 +112,14 @@ page-new-work-bench {
     .body_class{
         margin-left: -15px;
     }
+
+    .scroll_class{
+    border-bottom: solid 1px #f0f2f5;
+    background-color: white;
+    height: 44px;
+    width: 100%;
+    margin-top: -9px;
+    white-space: nowrap;
+    overflow-x: hidden;
+  }
 }

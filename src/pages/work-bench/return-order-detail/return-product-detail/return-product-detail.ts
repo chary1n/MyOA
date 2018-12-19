@@ -35,4 +35,8 @@ export class ReturnProductDetailPage {
     })
   }
 
+  goBack(){
+    this.navCtrl.pop()
+  }
+
 }

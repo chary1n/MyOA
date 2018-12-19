@@ -6,6 +6,15 @@ export class FirstShowService {
     constructor(private httpService: HttpService) {
 
     }
+
+    delete_sub_project(body){
+        return this.httpService.postBody("delete_sub_project", body);
+    }
+
+    delete_meeting_line(body){
+        return this.httpService.postBody("delete_meeting_line", body);
+    }
+
     check_in(body){
         return this.httpService.postBody("check_in", body);
     }

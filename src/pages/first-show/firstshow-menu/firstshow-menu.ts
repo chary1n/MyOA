@@ -27,8 +27,8 @@ export class FirstshowMenuPage {
   is_show_me = true
   event_list = []
   uid
-  select_event
-  select_event_id = -1
+  select_event = []
+  select_event_id = []
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public events: Events, public storage: Storage, public menu: MenuController,
     public event: Events, public firService: FirstShowService) {
@@ -130,8 +130,8 @@ export class FirstshowMenuPage {
     this.state_type = 'all'
     this.end_date = ''
     this.start_date = ''
-    this.select_event_id = -1
-    this.select_event = ''
+    this.select_event_id = []
+    this.select_event = []
   }
 
   confirm() {
@@ -147,7 +147,29 @@ export class FirstshowMenuPage {
   }
 
   click_event(item){
-    this.select_event = item.display_name
-    this.select_event_id = item.id
+    if (!(this.select_event instanceof Array)){
+      this.select_event = []
+    }
+    if (!(this.select_event_id instanceof Array)){
+      this.select_event_id = []
+    }
+    this.select_event.push(item.display_name)
+    this.select_event_id.push(item.id)
+  }
+
+  isSelect(item){
+    if (this.select_event_id.length){
+      if (this.select_event_id.indexOf(item.id) > -1) {
+        return true
+      }
+      else
+      {
+        return false
+      }
+    }
+    else
+    {
+      return false
+    }
   }
 }

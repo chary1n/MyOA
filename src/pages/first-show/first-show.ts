@@ -50,6 +50,7 @@ export class FirstShowPage {
   sg_num//申购
   yf_num//预付
   jk_num//借款
+  caigou_num = 0//采购
   isShowApprovalPoint = false
   all_approval = 0//审批总和
   show_approve
@@ -60,23 +61,25 @@ export class FirstShowPage {
   need_calendar
   me_type = ''
   state_type = ''
-  event_type_id = -1
-  event_type = ''
+  event_type_id = []
+  event_type = []
   constructor(public navCtrl: NavController, public navParams: NavParams, private datePipe: DatePipe,
     private firshowService: FirstShowService, public storage: Storage,
     public statusBar: StatusBar, public menu: MenuController,public event: Events) {
     this.storage.get('user').then(res => {
       this.user_heard = res.result.res_data.user_ava;
       this.uid = res.result.res_data.user_id;
-      this.getDayData(this.datePipe.transform(new Date(), 'yyyy-MM-dd'))
+      
       this.get_backlog_identify(this.currentYear, this.currentMonth)
       this.get_approval_num()
       this.getType()
       this.storage.get('user_schedule_domain').then(res => {
+        console.log(res)
         this.me_type = res.me_type
         this.state_type = res.state_type
         this.event_type_id = res.event_type_id
         this.event_type = res.event_type
+        this.getDayData(this.datePipe.transform(new Date(), 'yyyy-MM-dd'))
       })
     })
   }
@@ -112,13 +115,14 @@ export class FirstShowPage {
 
   ionViewWillLeave() {
     this.menu.enable(false)
-    var bar = document.getElementsByClassName('tabbar').item(0);
-    bar['style'].display = 'none';
+    // var bar = document.getElementsByClassName('tabbar').item(0);
+    // bar['style'].display = 'none';
     this.event.unsubscribe('search_domain_first')
   }
 
   ionViewWillEnter() {
-    
+    var tolbar = document.getElementsByClassName('tabbar').item(0);
+      tolbar['style'].display = 'flex';
     this.menu.enable(true, 'menu5')
     this.un_read_list = []
     this.statusBar.backgroundColorByHexString("#2597ec");
@@ -133,7 +137,15 @@ export class FirstShowPage {
         }
       })
 
-      this.getDayData(this.datePipe.transform((this.currentYear + '-' + this.currentMonth + '-' + this.currentDay), 'yyyy-MM-dd'))
+      this.storage.get('user_schedule_domain').then(res => {
+        console.log(res)
+        this.me_type = res.me_type
+        this.state_type = res.state_type
+        this.event_type_id = res.event_type_id
+        this.event_type = res.event_type
+        this.getDayData(this.datePipe.transform(new Date(), 'yyyy-MM-dd'))
+      })
+
       this.get_backlog_identify(this.currentYear, this.currentMonth)
 
     })
@@ -146,10 +158,15 @@ export class FirstShowPage {
       'uid': this.uid,
       'date': date
     }
+    // let domain = {
+    //   'me_type': this.me_type,
+    //   'state_type': this.state_type,
+    //   'event_type_id': this.event_type_id,
+    // }
     let domain = {
-      'me_type': this.me_type,
-      'state_type': this.state_type,
-      'event_type_id': this.event_type_id,
+      'me_type': 'all',
+      'state_type': 'all',
+      'event_type_id': -1,
     }
     this.firshowService.get_schedule_list_with_domain(body,domain).then(res => {
       if (res.result.res_data && res.result.res_code == 1) {
@@ -181,7 +198,7 @@ export class FirstShowPage {
               'me_type': this.me_type,
               'state_type': this.state_type,
               'event_type_id': this.event_type_id,
-              'event_type': this.event_type
+              'event_type': this.event_type,
             })
             this.getDayData(this.currentDate_date.getFullYear() + '-' + (this.currentDate_date.getMonth() + 1) + '-' + this.currentDate_date.getDate())
 
@@ -680,8 +697,9 @@ export class FirstShowPage {
         this.sg_num = res.result.res_data.sg_num
         this.jk_num = res.result.res_data.jk_num
         this.yf_num = res.result.res_data.yf_num
-        this.all_approval = this.recoup_num + this.vacation_num + this.jk_num + this.bx_num + this.yf_num + this.sg_num
-
+        // this.caigou_num = res.result.res_data.caigou_num
+        this.all_approval = this.recoup_num + this.vacation_num + this.jk_num + this.bx_num + this.yf_num + this.sg_num 
+        
         if (this.all_approval != 0) {
           this.isShowApprovalPoint = true
         } else {
@@ -741,5 +759,9 @@ export class FirstShowPage {
       this.menu.get('menu5').enabled = true
     }, 10);
 
+  }
+
+  toCG(){
+    this.navCtrl.push('NewPurchaseOrderPage')
   }
 }

@@ -63,4 +63,8 @@ export class ReturnOrderDetailPage {
     });
   }
 
+  goBack(){
+    this.navCtrl.pop()
+  }
+
 }

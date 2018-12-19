@@ -17,7 +17,7 @@ import { Storage } from '@ionic/storage';
 export class ChooseMenuPage {
   root = 'AllSchedulePage';
   me_type = 'all'
-  state_type = 'unfinish'
+  state_type = 'all'
   // start_datetime = new Date(new Date().getTime()+8*60*60*1000).toISOString();
   end_date;
   start_date;
@@ -39,20 +39,26 @@ export class ChooseMenuPage {
     })
     events.subscribe('initData', (data) => {
       this.me_type = 'all'
-      this.state_type = 'unfinish'
+      this.state_type = 'all'
       this.start_date = ''
       this.end_date = ''
     })
 
-    events.subscribe('popNavCtrl',(data) => {
-      if (data.data == true){
-        this.navCtrl.pop()
-      }
-    })
+    
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ChooseMenuPage');
+    this.events.subscribe('popNavCtrl',(data) => {
+      if (data.data == true){
+        this.navCtrl.pop()
+        this.event.unsubscribe('popNavCtrl')
+      }
+    })
+  }
+
+  ionViewWillEnter() {
+
   }
 
   closeMenu() {
@@ -105,7 +111,7 @@ export class ChooseMenuPage {
 
   reset(){
     this.me_type = 'all'
-    this.state_type = 'unfinish'
+    this.state_type = 'all'
     this.end_date = ''
     this.start_date = ''
   }

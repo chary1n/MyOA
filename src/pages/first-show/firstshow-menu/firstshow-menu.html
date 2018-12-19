@@ -71,7 +71,7 @@
       <ion-grid class="grid_class">
         <ion-row>
           <ion-col *ngFor="let item of event_list" tappable (click)="click_event(item)" col-4>
-            <div [ngClass]="{true:'me_class_choose',false:'me_class'}[select_event == item.display_name]">
+            <div [ngClass]="{true:'me_class_choose',false:'me_class'}[isSelect(item)]">
                {{item.display_name}} 
             </div>
           </ion-col>

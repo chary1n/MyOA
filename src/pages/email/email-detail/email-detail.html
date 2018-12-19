@@ -100,9 +100,10 @@
       <span class="span_c">{{date}}</span>
     </li>
   </ul>
-  <div style="width:100%" >
-    <div class="html_div" id="html_id" [innerHTML]="assembleHTML(body_html)" > </div>
-  </div>
+ <ion-scroll zooming="true" direction="xy" style="width: 100%;height: 100%; ">
+
+    <div class="html_div" id="html_id" [innerHTML]="assembleHTML(body_html)"> </div>
+  </ion-scroll>
   <ion-list *ngIf="attachment_list.length!=0" no-lines class="ion-list-account" style="border-top: 0.55px solid #c8c7cce0">
     <ion-item nolines class="attach_item" style="border-bottom: 0.55px solid #c8c7cce0" *ngFor='let item of attachment_list'
       (click)='clickAttach(item.id,item.mimetype)'>

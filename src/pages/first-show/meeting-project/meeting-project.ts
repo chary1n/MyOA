@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, Content, ActionSheetController, AlertController,Platform } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Content, ActionSheetController, AlertController, Platform } from 'ionic-angular';
 import { Utils } from './../../../providers/Utils';
 import { Storage } from '@ionic/storage';
 import { DatePipe } from '@angular/common';
@@ -84,6 +84,8 @@ export class MeetingProjectPage {
   tree_obj
 
   parent_project_id = 0
+  is_create_serve = false
+  hide_btn = false
   constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage,
     private datePipe: DatePipe, public statusBar: StatusBar, public firService: FirstShowService
     , public toastCtrl: ToastController, private sanitizer: DomSanitizer, public actionSheetCtrl: ActionSheetController, public alert: AlertController, public platform: Platform) {
@@ -194,9 +196,9 @@ export class MeetingProjectPage {
       } else {
         this.meeting_id = this.navParams.get('meeting_id');
         this.uid = this.navParams.get('uid');
-        this.firService.read_event({'meeting_id':this.meeting_id,'uid':this.uid}).then(res=> {
-                    
-                })
+        this.firService.read_event({ 'meeting_id': this.meeting_id, 'uid': this.uid }).then(res => {
+
+        })
         this.get_all_data()
       }
     })
@@ -237,17 +239,17 @@ export class MeetingProjectPage {
   }
   item_change() {
     var data_arr = []
-        for (let i = 0; i < this.item.message_ids.length; i++) {
-            var item_one = this.item.message_ids[i]
-            data_arr.push(item_one.msg_id)
-            for (let j = 0; j < item_one.child_ids.length; j++){
-                var item_child = item_one.child_ids[j]
-                data_arr.push(item_child.msg_id)
-            }
-        }
-        this.firService.read_total_reply({ 'list': data_arr, 'uid': this.uid }).then(res => {
-            
-        })
+    for (let i = 0; i < this.item.message_ids.length; i++) {
+      var item_one = this.item.message_ids[i]
+      data_arr.push(item_one.msg_id)
+      for (let j = 0; j < item_one.child_ids.length; j++) {
+        var item_child = item_one.child_ids[j]
+        data_arr.push(item_child.msg_id)
+      }
+    }
+    this.firService.read_total_reply({ 'list': data_arr, 'uid': this.uid }).then(res => {
+
+    })
     if (this.user.partner_id == this.item.rt_project_principal.id || this.uid == this.item.create_uid) {
       this.isShowTip = true
     }
@@ -261,7 +263,7 @@ export class MeetingProjectPage {
     this.rt_meeting_ids = this.item.rt_meeting_ids
     this.rt_meeting_project = this.item.rt_meeting_project
     this.selectList = this.item.rt_meeting_participant
-    this.user_is_read(this.selectList,this.item.read_msg_ids)
+    this.user_is_read(this.selectList, this.item.read_msg_ids)
     this.selectOtherList = this.item.rt_meeting_participant_other
     this.rt_alarm_type_id = this.item.rt_alarm_type
     this.rt_alarm_type = this.item.rt_alarm_type_name
@@ -365,15 +367,15 @@ export class MeetingProjectPage {
       }
       this.search = false
       setTimeout(() => {
-                if (this.rt_allday) {
-                    this.click_end_date()
-                    this.click_start_date()
-                }
-                else {
-                    this.click_end_datetime()
-                    this.click_start_datetime()
-                }
-            }, 1)
+        if (this.rt_allday) {
+          this.click_end_date()
+          this.click_start_date()
+        }
+        else {
+          this.click_end_datetime()
+          this.click_start_datetime()
+        }
+      }, 1)
       if (this.select_type == 1) {
         this.selectList = this.storeList
       }
@@ -383,23 +385,23 @@ export class MeetingProjectPage {
       }
     } else {
       var ctrl = this.alert
-            ctrl.create({
-                title: '提示',
-                subTitle: '数据未保存，是否确认返回？',
-                buttons: [{ text: '取消' },
-                {
-                    text: '确定',
-                    handler: () => {
-                        this.navCtrl.pop();
-                    }
-                }
-                ]
-            }).present();
+      ctrl.create({
+        title: '提示',
+        subTitle: '数据未保存，是否确认返回？',
+        buttons: [{ text: '取消' },
+        {
+          text: '确定',
+          handler: () => {
+            this.navCtrl.pop();
+          }
+        }
+        ]
+      }).present();
     }
   }
   //新建待办事项完成
   stateFinish() {
-    cordova.plugins.Keyboard.close()
+    // cordova.plugins.Keyboard.close()
     if (this.search) {
       this.title_meeting = '新建项目'
       if (this.edit && this.search && this.change) {
@@ -407,31 +409,41 @@ export class MeetingProjectPage {
       }
       this.search = false
       setTimeout(() => {
-                if (this.rt_allday) {
-                    this.click_end_date()
-                    this.click_start_date()
-                }
-                else {
-                    this.click_end_datetime()
-                    this.click_start_datetime()
-                }
-                return
-            }, 1)
+        if (this.rt_allday) {
+          this.click_end_date()
+          this.click_start_date()
+        }
+        else {
+          this.click_end_datetime()
+          this.click_start_datetime()
+        }
+        return
+      }, 1)
+
+    }
+    else
+    {
+      if (!this.is_create_serve) {
       
+      let body = this.handleData()
+      
+      body['rt_meeting_type'] = 3
+      if (this.parent_project_id > 0) {
+        body['parent_project_id'] = this.parent_project_id
+      }
+      
+      if (body) {
+        this.is_create_serve = true
+        this.firService.create_meeting(body).then(res => {
+          this.is_create_serve = false
+          if (res.result.res_code == 1) {
+            this.navCtrl.pop();
+          }
+        })
+      }
+    }
     }
 
-    let body = this.handleData()
-    body['rt_meeting_type'] = 3
-    if (this.parent_project_id > 0) {
-      body['parent_project_id'] = this.parent_project_id
-    }
-    if (body) {
-      this.firService.create_meeting(body).then(res => {
-        if (res.result.res_code == 1) {
-          this.navCtrl.pop();
-        }
-      })
-    }
   }
   //时间待定的按钮
   notSureClick() {
@@ -1295,40 +1307,70 @@ export class MeetingProjectPage {
   }
 
   click_start_datetime() {
+    var that = this
     $('#input_start_datetime').mobiscroll().datetime({
       theme: 'ios',
       lang: 'zh',
       display: 'bottom',
       dateWheels: '|M d D|',
       timeWheels: 'HH ii',
+      onSet: function (event, inst) {
+        // console.log(event)
+        that.default_start_datetime = event.valueText
+        if (that.default_start_datetime > that.default_stop_datetime) {
+          that.default_stop_datetime = event.valueText
+          setTimeout(() => {
+            that.click_end_datetime()
+          }, 10)
+        }
+      },
     });
   }
 
   click_start_date() {
+    var that = this
     $('#input_start_date').mobiscroll().date({
       theme: 'ios',
       lang: 'zh',
       display: 'bottom',
       dateWheels: '|M d D|',
+      onSet: function (event, inst) {
+        // console.log(event)
+        that.start_date = event.valueText
+        if (that.start_date > that.stop_date) {
+          that.stop_date = event.valueText
+          setTimeout(() => {
+            that.click_end_date()
+          }, 10)
+        }
+      },
     });
   }
 
   click_end_datetime() {
+    var that = this
     $('#input_end_datetime').mobiscroll().datetime({
       theme: 'ios',
       lang: 'zh',
       display: 'bottom',
       dateWheels: '|M d D|',
       timeWheels: 'HH ii',
+      onSet: function (event, inst) {
+        that.default_stop_datetime = event.valueText
+      }
     });
   }
 
   click_end_date() {
+    var that = this
     $('#input_end_date').mobiscroll().date({
       theme: 'ios',
       lang: 'zh',
       display: 'bottom',
       dateWheels: '|M d D|',
+      onSet: function (event, inst) {
+        that.stop_date = event.valueText
+      }
     });
   }
 
@@ -1344,16 +1386,41 @@ export class MeetingProjectPage {
     this.linshiStringOther = ''
   }
 
-  user_is_read(canyu_arr, read_arr){
-    for (var i = 0; i < canyu_arr.length; i++){
-      if(read_arr.indexOf(canyu_arr[i].user_id) > -1){
+  user_is_read(canyu_arr, read_arr) {
+    for (var i = 0; i < canyu_arr.length; i++) {
+      if (read_arr.indexOf(canyu_arr[i].user_id) > -1) {
         canyu_arr[i]['is_read'] = true
       }
-      else
-      {
+      else {
         canyu_arr[i]['is_read'] = false
       }
     }
+  }
+
+  hide_click(){
+    this.hide_btn = true
+  }
+
+  show_click(){
+    this.hide_btn = false
+  }
+
+  deleteItem(item){
+    this.firService.delete_meeting_line({'meeting_id': this.item.id,'line_id': item.res_id,'uid':this.uid}).then(res => {
+            if (res.result.res_code == 1) {
+                Utils.toastButtom('删除成功', this.toastCtrl)
+                this.get_all_data()
+            }
+        })
+  }
+
+  delete_sub_project(item){
+    this.firService.delete_sub_project({'meeting_id': this.item.id,'line_id': item.id,'uid':this.uid}).then(res => {
+            if (res.result.res_code == 1) {
+                Utils.toastButtom('删除成功', this.toastCtrl)
+                this.get_all_data()
+            }
+        })
   }
 
 }

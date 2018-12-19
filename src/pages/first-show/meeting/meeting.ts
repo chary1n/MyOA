@@ -70,7 +70,7 @@ export class MeetingPage {
     rt_meeting_state;
     context_message;
     need_show_more_icon = true;
-    isShowTip = false
+    isShowTip = true
     title_meeting = '新建会议'
     title_meeting_two = '会议'
     showIcon = false
@@ -79,6 +79,9 @@ export class MeetingPage {
     setting
     zNodes = []
     tree_obj
+
+    is_create_server = false
+    hide_btn = false
     constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage,
         private datePipe: DatePipe, public statusBar: StatusBar, public firService: FirstShowService
         , public toastCtrl: ToastController, private sanitizer: DomSanitizer, public actionSheetCtrl: ActionSheetController, public alert: AlertController, public platform: Platform) {
@@ -224,31 +227,31 @@ export class MeetingPage {
         for (let i = 0; i < this.item.message_ids.length; i++) {
             var item_one = this.item.message_ids[i]
             data_arr.push(item_one.msg_id)
-            for (let j = 0; j < item_one.child_ids.length; j++){
+            for (let j = 0; j < item_one.child_ids.length; j++) {
                 var item_child = item_one.child_ids[j]
                 data_arr.push(item_child.msg_id)
             }
         }
         this.firService.read_total_reply({ 'list': data_arr, 'uid': this.uid }).then(res => {
-            
+
         })
-        if (this.user.partner_id == this.item.rt_project_principal.id || this.uid == this.item.create_uid) {
-            this.isShowTip = true
-        }
-        else {
-            this.isShowTip = false
-        }
+        // if (this.user.partner_id == this.item.rt_project_principal.id || this.uid == this.item.create_uid) {
+        //     this.isShowTip = true
+        // }
+        // else {
+        //     this.isShowTip = false
+        // }
         this.rt_is_sure_time = this.item.rt_is_sure_time
         this.name = this.item.name
-        this.rt_project_principal = this.item.rt_project_principal.name
+       
         this.create_user_name = this.item.create_user_name
         this.rt_meeting_ids = this.item.rt_meeting_ids
         this.selectList = this.item.rt_meeting_participant
-        this.user_is_read(this.selectList, this.item.read_msg_ids)
+        this.user_is_read(this.selectList, this.item.check_in_ids)
         this.selectOtherList = this.item.rt_meeting_participant_other
         this.rt_alarm_type_id = this.item.rt_alarm_type
         this.rt_alarm_type = this.item.rt_alarm_type_name
-
+        this.rt_project_principal = this.item.rt_project_principal.name
         this.item_tip_name = ''
         if (this.item.rt_alarm_type == '-1') {
             this.item_tip_name = this.item.rt_alarm_type_name
@@ -383,6 +386,7 @@ export class MeetingPage {
     }
     //新建待办事项完成
     stateFinish() {
+
         cordova.plugins.Keyboard.close()
         if (this.search) {
             this.title_meeting = '新建会议'
@@ -403,16 +407,25 @@ export class MeetingPage {
             }, 1)
 
         }
-
-        let body = this.handleData()
-        if (body) {
-            this.firService.create_meeting(body).then(res => {
-                if (res.result.res_code == 1) {
-                    // this.frontPage.data.need_fresh = true;
-                    this.navCtrl.popTo(this.frontPage);
+        else {
+            if (!this.is_create_server) {
+                
+                let body = this.handleData()
+                
+                if (body) {
+                    this.is_create_server = true
+                    this.firService.create_meeting(body).then(res => {
+                        this.is_create_server = false
+                        if (res.result.res_code == 1) {
+                            // this.frontPage.data.need_fresh = true;
+                            this.navCtrl.popTo(this.frontPage);
+                        }
+                    })
                 }
-            })
+            }
         }
+
+
 
     }
     //时间待定的按钮
@@ -823,16 +836,12 @@ export class MeetingPage {
     }
 
     addMeeting() {
-        if (this.user.partner_id == this.item.rt_project_principal.id || this.uid == this.item.create_uid) {
-            this.navCtrl.push('CalendarDeatilpagePage', {
+        this.navCtrl.push('CalendarDeatilpagePage', {
                 'isEdit': true,
                 'type': 1,
                 'meeting_id': this.meeting_id,
                 'frontPage': 'MeetingPage'
             })
-        } else {
-            Utils.toastButtom('只有负责人和创建人可以添加任务', this.toastCtrl)
-        }
     }
 
     lookDetail(item) {
@@ -963,7 +972,7 @@ export class MeetingPage {
 
 
                     this.alert.create({
-                        title: '是否在此单据基础上 创建一张新的单据',
+                        title: '是否为该会议发起下一次会议？',
                         buttons: [{
                             text: '取消',
                             handler: () => {
@@ -1281,42 +1290,72 @@ export class MeetingPage {
     }
 
     click_start_datetime() {
-        $('#input_start_datetime').mobiscroll().datetime({
-            theme: 'ios',
-            lang: 'zh',
-            display: 'bottom',
-            dateWheels: '|M d D|',
-            timeWheels: 'HH ii',
-        });
-    }
+    var that = this
+    $('#input_start_datetime').mobiscroll().datetime({
+      theme: 'ios',
+      lang: 'zh',
+      display: 'bottom',
+      dateWheels: '|M d D|',
+      timeWheels: 'HH ii',
+      onSet: function (event, inst) {
+        // console.log(event)
+        that.default_start_datetime = event.valueText
+        if (that.default_start_datetime > that.default_stop_datetime) {
+          that.default_stop_datetime = event.valueText
+          setTimeout(() => {
+            that.click_end_datetime()
+          }, 10)
+        }
+      },
+    });
+  }
 
-    click_start_date() {
-        $('#input_start_date').mobiscroll().date({
-            theme: 'ios',
-            lang: 'zh',
-            display: 'bottom',
-            dateWheels: '|M d D|',
-        });
-    }
+  click_start_date() {
+    var that = this
+    $('#input_start_date').mobiscroll().date({
+      theme: 'ios',
+      lang: 'zh',
+      display: 'bottom',
+      dateWheels: '|M d D|',
+      onSet: function (event, inst) {
+        // console.log(event)
+        that.start_date = event.valueText
+        if (that.start_date > that.stop_date) {
+          that.stop_date = event.valueText
+          setTimeout(() => {
+            that.click_end_date()
+          }, 10)
+        }
+      },
+    });
+  }
 
-    click_end_datetime() {
-        $('#input_end_datetime').mobiscroll().datetime({
-            theme: 'ios',
-            lang: 'zh',
-            display: 'bottom',
-            dateWheels: '|M d D|',
-            timeWheels: 'HH ii',
-        });
-    }
+  click_end_datetime() {
+    var that = this
+    $('#input_end_datetime').mobiscroll().datetime({
+      theme: 'ios',
+      lang: 'zh',
+      display: 'bottom',
+      dateWheels: '|M d D|',
+      timeWheels: 'HH ii',
+      onSet: function (event, inst) {
+        that.default_stop_datetime = event.valueText
+      }
+    });
+  }
 
-    click_end_date() {
-        $('#input_end_date').mobiscroll().date({
-            theme: 'ios',
-            lang: 'zh',
-            display: 'bottom',
-            dateWheels: '|M d D|',
-        });
-    }
+  click_end_date() {
+    var that = this
+    $('#input_end_date').mobiscroll().date({
+      theme: 'ios',
+      lang: 'zh',
+      display: 'bottom',
+      dateWheels: '|M d D|',
+      onSet: function (event, inst) {
+        that.stop_date = event.valueText
+      }
+    });
+  }
 
     selectExternalPartner() {
         this.title_meeting = '外部人员'
@@ -1345,6 +1384,23 @@ export class MeetingPage {
         this.navCtrl.push('MeetingCheckInPage', {
             'meeting_id': this.meeting_id,
             'uid': this.uid,
+        })
+    }
+
+    hide_click() {
+        this.hide_btn = true
+    }
+
+    show_click() {
+        this.hide_btn = false
+    }
+
+    deleteItem(item){
+        this.firService.delete_meeting_line({'meeting_id': this.item.id,'line_id': item.res_id,'uid':this.uid}).then(res => {
+            if (res.result.res_code == 1) {
+                Utils.toastButtom('删除成功', this.toastCtrl)
+                this.get_all_data()
+            }
         })
     }
 
