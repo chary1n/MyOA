@@ -18,7 +18,7 @@ import { Storage } from '@ionic/storage';
 })
 export class NewTabsPage {
   @ViewChild('mainTabs') tabs: Tabs;
-  firstRoot: any = 'FirstShowPage';
+  firstRoot: any = 'FirstshowMenuPage';
   workRoot: any = 'NewWorkBenchPage';
   contactRoot: any = 'ContactPersonPage';
   meRoot: any = 'MePage';

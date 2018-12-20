@@ -243,7 +243,7 @@ export class MeetingPage {
         // }
         this.rt_is_sure_time = this.item.rt_is_sure_time
         this.name = this.item.name
-       
+
         this.create_user_name = this.item.create_user_name
         this.rt_meeting_ids = this.item.rt_meeting_ids
         this.selectList = this.item.rt_meeting_participant
@@ -409,9 +409,9 @@ export class MeetingPage {
         }
         else {
             if (!this.is_create_server) {
-                
+
                 let body = this.handleData()
-                
+
                 if (body) {
                     this.is_create_server = true
                     this.firService.create_meeting(body).then(res => {
@@ -837,11 +837,11 @@ export class MeetingPage {
 
     addMeeting() {
         this.navCtrl.push('CalendarDeatilpagePage', {
-                'isEdit': true,
-                'type': 1,
-                'meeting_id': this.meeting_id,
-                'frontPage': 'MeetingPage'
-            })
+            'isEdit': true,
+            'type': 1,
+            'meeting_id': this.meeting_id,
+            'frontPage': 'MeetingPage'
+        })
     }
 
     lookDetail(item) {
@@ -1290,72 +1290,72 @@ export class MeetingPage {
     }
 
     click_start_datetime() {
-    var that = this
-    $('#input_start_datetime').mobiscroll().datetime({
-      theme: 'ios',
-      lang: 'zh',
-      display: 'bottom',
-      dateWheels: '|M d D|',
-      timeWheels: 'HH ii',
-      onSet: function (event, inst) {
-        // console.log(event)
-        that.default_start_datetime = event.valueText
-        if (that.default_start_datetime > that.default_stop_datetime) {
-          that.default_stop_datetime = event.valueText
-          setTimeout(() => {
-            that.click_end_datetime()
-          }, 10)
-        }
-      },
-    });
-  }
+        var that = this
+        $('#input_start_datetime').mobiscroll().datetime({
+            theme: 'ios',
+            lang: 'zh',
+            display: 'bottom',
+            dateWheels: '|M d D|',
+            timeWheels: 'HH ii',
+            onSet: function (event, inst) {
+                // console.log(event)
+                that.default_start_datetime = event.valueText
+                if (that.default_start_datetime > that.default_stop_datetime) {
+                    that.default_stop_datetime = event.valueText
+                    setTimeout(() => {
+                        that.click_end_datetime()
+                    }, 10)
+                }
+            },
+        });
+    }
 
-  click_start_date() {
-    var that = this
-    $('#input_start_date').mobiscroll().date({
-      theme: 'ios',
-      lang: 'zh',
-      display: 'bottom',
-      dateWheels: '|M d D|',
-      onSet: function (event, inst) {
-        // console.log(event)
-        that.start_date = event.valueText
-        if (that.start_date > that.stop_date) {
-          that.stop_date = event.valueText
-          setTimeout(() => {
-            that.click_end_date()
-          }, 10)
-        }
-      },
-    });
-  }
+    click_start_date() {
+        var that = this
+        $('#input_start_date').mobiscroll().date({
+            theme: 'ios',
+            lang: 'zh',
+            display: 'bottom',
+            dateWheels: '|M d D|',
+            onSet: function (event, inst) {
+                // console.log(event)
+                that.start_date = event.valueText
+                if (that.start_date > that.stop_date) {
+                    that.stop_date = event.valueText
+                    setTimeout(() => {
+                        that.click_end_date()
+                    }, 10)
+                }
+            },
+        });
+    }
 
-  click_end_datetime() {
-    var that = this
-    $('#input_end_datetime').mobiscroll().datetime({
-      theme: 'ios',
-      lang: 'zh',
-      display: 'bottom',
-      dateWheels: '|M d D|',
-      timeWheels: 'HH ii',
-      onSet: function (event, inst) {
-        that.default_stop_datetime = event.valueText
-      }
-    });
-  }
+    click_end_datetime() {
+        var that = this
+        $('#input_end_datetime').mobiscroll().datetime({
+            theme: 'ios',
+            lang: 'zh',
+            display: 'bottom',
+            dateWheels: '|M d D|',
+            timeWheels: 'HH ii',
+            onSet: function (event, inst) {
+                that.default_stop_datetime = event.valueText
+            }
+        });
+    }
 
-  click_end_date() {
-    var that = this
-    $('#input_end_date').mobiscroll().date({
-      theme: 'ios',
-      lang: 'zh',
-      display: 'bottom',
-      dateWheels: '|M d D|',
-      onSet: function (event, inst) {
-        that.stop_date = event.valueText
-      }
-    });
-  }
+    click_end_date() {
+        var that = this
+        $('#input_end_date').mobiscroll().date({
+            theme: 'ios',
+            lang: 'zh',
+            display: 'bottom',
+            dateWheels: '|M d D|',
+            onSet: function (event, inst) {
+                that.stop_date = event.valueText
+            }
+        });
+    }
 
     selectExternalPartner() {
         this.title_meeting = '外部人员'
@@ -1395,13 +1395,25 @@ export class MeetingPage {
         this.hide_btn = false
     }
 
-    deleteItem(item){
-        this.firService.delete_meeting_line({'meeting_id': this.item.id,'line_id': item.res_id,'uid':this.uid}).then(res => {
-            if (res.result.res_code == 1) {
-                Utils.toastButtom('删除成功', this.toastCtrl)
-                this.get_all_data()
+    deleteItem(item) {
+        var ctrl = this.alert
+        ctrl.create({
+            title: '提示',
+            subTitle: '是否确定去除该会议下的任务？',
+            buttons: [{ text: '取消' },
+            {
+                text: '确定',
+                handler: () => {
+                    this.firService.delete_meeting_line({ 'meeting_id': this.item.id, 'line_id': item.res_id, 'uid': this.uid }).then(res => {
+                        if (res.result.res_code == 1) {
+                            Utils.toastButtom('删除成功', this.toastCtrl)
+                            this.get_all_data()
+                        }
+                    })
+                }
             }
-        })
+            ]
+        }).present();
     }
 
 }

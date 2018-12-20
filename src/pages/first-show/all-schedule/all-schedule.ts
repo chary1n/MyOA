@@ -27,7 +27,7 @@ export class AllSchedulePage {
     meeting_id
     type_id = -1
     need_fresh = false;
-    me_type = 'all'
+    me_type = []
     state_type = 'all'
     start_date
     end_date
@@ -47,7 +47,7 @@ export class AllSchedulePage {
         public storage: Storage, public statusBar: StatusBar, public allScheduleService: AllScheduleService,
         public menu: MenuController, public event: Events) {
         this.from_work_bench = this.navParams.get('is_work_bench')
-        this.me_type = 'all'
+        this.me_type = []
         this.state_type = 'all'
         this.show_me = true
         this.title = '我的'
@@ -115,7 +115,7 @@ export class AllSchedulePage {
                     'event_type': this.type_id,
                 }
 
-                this.firshowService.get_all_schedule(body).then(res => {
+                this.firshowService.get_all_schedule_new_test(body).then(res => {
                     if (res.result.res_data && res.result.res_code == 1) {
                         this.dataList = res.result.res_data.data
                         
@@ -325,7 +325,7 @@ export class AllSchedulePage {
                 'start_date': this.start_date,
                 'end_date': this.end_date,
             }
-            this.firshowService.get_all_schedule(body).then(res => {
+            this.firshowService.get_all_schedule_new_test(body).then(res => {
                 if (res.result.res_data && res.result.res_code == 1) {
                     this.dataList = res.result.res_data.data
                     this.meeting_id = res.result.res_data.meeting_id

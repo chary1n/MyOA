@@ -26,7 +26,7 @@
         <div class="left_div" align="center" tappable (click)="click_normal()" >
             <span [ngClass]="{true:'under_line_style',false:'normal_style'}[inner_type == 'normal']">通用</span>
         </div>
-        <div class="left_div" align="center" tappable (click)="click_caigou()" >
+        <div class="left_div" align="center" tappable (click)="click_caigou()" *ngIf="isShowCG">
             <span [ngClass]="{true:'under_line_style',false:'normal_style'}[inner_type == 'caigou']">采购</span>
         </div>
     </ion-scroll>

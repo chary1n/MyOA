@@ -91,7 +91,6 @@ export class EmailPage {
 
   ionViewWillEnter() {
     this.menu.enable(true, 'menu1')
-    this.menu.enable(false, 'menu2')
     if (this.navPrarams.get('movePageInfo')) {
       this.movePageInfo = this.navPrarams.data.movePageInfo
       var ids = this.getSelectIds()
@@ -131,7 +130,7 @@ export class EmailPage {
   }
 
   ionViewWillLeave() {
-    this.menu.enable(false)
+    // this.menu.enable(false)
     var bar = document.getElementsByClassName('tabbar').item(0);
     bar['style'].display = 'none';
   }

@@ -195,7 +195,7 @@ export class LoginPage {
           window.localStorage.setItem("id", res.result.res_data.user_id)
           this.storage.get('user_psd').then(res => {
             HttpService.appUrl = res.url
-            if (res.db_name == 'odoo10') {  // 
+            if (res.db_name == 'odoo10' || res.db_name == 'odoo1210_c') {  // 
               this.navCtrl.setRoot('NewTabsPage');
             }
             else {
@@ -403,6 +403,15 @@ export class LoginPage {
         autoLogin: this.autoLogin,
         remerberPassword: this.remerberPassword,
       })
+    } catch (error) {
+      Utils.toastButtom('手机内存不足，请清理之后重试！', this.toastCtrl)
+    }
+    try {
+      this.storage.set('user_schedule_domain_new', {
+              'me_type': [],
+              'state_type': 'all',
+              'event_type_id': [],
+            })  
     } catch (error) {
       Utils.toastButtom('手机内存不足，请清理之后重试！', this.toastCtrl)
     }

@@ -199,10 +199,10 @@ export class MePage {
 
             // })
 
-            this.storage.set('user_schedule_domain', {
-              'me_type': '',
-              'state_type': '',
-              'event_type_id': -1,
+            this.storage.set('user_schedule_domain_new', {
+              'me_type': [],
+              'state_type': 'all',
+              'event_type_id': [],
             })  
 
             this.storage.set('user', null)

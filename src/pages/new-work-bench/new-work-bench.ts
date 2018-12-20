@@ -79,7 +79,7 @@ export class NewWorkBenchPage {
                 this.bx_num = res.result.res_data.bx_num
                 this.yufu_num = res.result.res_data.yufu_num
                 this.jiekuan_num = res.result.res_data.jiekuan_num
-                // this.po_num = res.result.res_data.po_num
+                this.po_num = res.result.res_data.po_num
               }
             })
           })

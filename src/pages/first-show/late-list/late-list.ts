@@ -21,9 +21,13 @@ export class LateListPage {
   item;
   frontPage:any;
   uid
+  me_type
+  event_type_id
   constructor(public navCtrl: NavController, public navParams: NavParams,public statusBar:StatusBar,
               public firService: FirstShowService, public storage:Storage) {
       this.frontPage = Utils.getViewController("FirstShowPage", navCtrl)
+      this.me_type = this.navParams.get('me_type')
+      this.event_type_id = this.navParams.get('event_type_id')
   }
 
   ionViewDidLoad() {
@@ -41,7 +45,9 @@ export class LateListPage {
     this.storage.get('user').then(res => {
       this.uid = res.result.res_data.user_id
       let body = {
-        'uid': res.result.res_data.user_id
+        'uid': res.result.res_data.user_id,
+        'me_type': this.me_type,
+        'event_type_id': this.event_type_id,
       }
       this.firService.get_late_list(body).then(res =>{
         if (res.result.res_data && res.result.res_code == 1) {

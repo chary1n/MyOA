@@ -16,7 +16,7 @@ import { Storage } from '@ionic/storage';
 })
 export class ChooseMenuPage {
   root = 'AllSchedulePage';
-  me_type = 'all'
+  me_type = []
   state_type = 'all'
   // start_datetime = new Date(new Date().getTime()+8*60*60*1000).toISOString();
   end_date;
@@ -38,7 +38,7 @@ export class ChooseMenuPage {
       }
     })
     events.subscribe('initData', (data) => {
-      this.me_type = 'all'
+      this.me_type = []
       this.state_type = 'all'
       this.start_date = ''
       this.end_date = ''
@@ -73,19 +73,52 @@ export class ChooseMenuPage {
   }
 
   click_me_all(){
-    this.me_type = 'all'
+    this.me_type = []
   }
 
-  click_me_create(){
-    this.me_type = 'create'
+  click_me_create() {
+    if (this.me_type.indexOf('create') > -1) {
+        let index = 0
+        for (let i = 0; i < this.me_type.length; i++){
+          if (this.me_type[i] == 'create'){
+            index = i
+          }
+        }
+        this.me_type.splice(index,1)
+    }
+    else{
+      this.me_type.push('create')
+    }
   }
 
-  click_me_fuze(){
-    this.me_type = 'fuze'
+  click_me_fuze() {
+    if (this.me_type.indexOf('fuze') > -1) {
+        let index = 0
+        for (let i = 0; i < this.me_type.length; i++){
+          if (this.me_type[i] == 'fuze'){
+            index = i
+          }
+        }
+        this.me_type.splice(index,1)
+    }
+    else{
+      this.me_type.push('fuze')
+    }
   }
 
-  click_me_canyu(){
-    this.me_type = 'canyu'
+  click_me_canyu() {
+    if (this.me_type.indexOf('canyu') > -1) {
+        let index = 0
+        for (let i = 0; i < this.me_type.length; i++){
+          if (this.me_type[i] == 'canyu'){
+            index = i
+          }
+        }
+        this.me_type.splice(index,1)
+    }
+    else{
+      this.me_type.push('canyu')
+    }
   }
   
   click_state_all(){
@@ -93,12 +126,25 @@ export class ChooseMenuPage {
     // this.menu.close()
   }
 
-  click_state_unfinish(){
-    this.state_type = 'unfinish'
+  click_state_unfinish() {
+    if (this.state_type == 'unfinish'){
+      this.state_type = 'all'
+    }
+    else
+    {
+      this.state_type = 'unfinish'
+    }
+    
   }
 
-  click_state_finish(){
-    this.state_type = 'finish'
+  click_state_finish() {
+    if (this.state_type == 'finish'){
+      this.state_type = 'all'
+    }
+    else
+    {
+      this.state_type = 'finish'
+    }
   }
 
   changeStartDate(event){
@@ -110,7 +156,7 @@ export class ChooseMenuPage {
   }
 
   reset(){
-    this.me_type = 'all'
+    this.me_type = []
     this.state_type = 'all'
     this.end_date = ''
     this.start_date = ''
@@ -128,5 +174,21 @@ export class ChooseMenuPage {
 
   goBack(){
     this.navCtrl.pop()
+  }
+
+  isSelectMe(item){
+    if (this.me_type.length){
+      if (this.me_type.indexOf(item) > -1) {
+        return true
+      }
+      else
+      {
+        return false
+      }
+    }
+    else
+    {
+      return false
+    }
   }
 }

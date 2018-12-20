@@ -421,27 +421,26 @@ export class MeetingProjectPage {
       }, 1)
 
     }
-    else
-    {
+    else {
       if (!this.is_create_serve) {
-      
-      let body = this.handleData()
-      
-      body['rt_meeting_type'] = 3
-      if (this.parent_project_id > 0) {
-        body['parent_project_id'] = this.parent_project_id
+
+        let body = this.handleData()
+
+        body['rt_meeting_type'] = 3
+        if (this.parent_project_id > 0) {
+          body['parent_project_id'] = this.parent_project_id
+        }
+
+        if (body) {
+          this.is_create_serve = true
+          this.firService.create_meeting(body).then(res => {
+            this.is_create_serve = false
+            if (res.result.res_code == 1) {
+              this.navCtrl.pop();
+            }
+          })
+        }
       }
-      
-      if (body) {
-        this.is_create_serve = true
-        this.firService.create_meeting(body).then(res => {
-          this.is_create_serve = false
-          if (res.result.res_code == 1) {
-            this.navCtrl.pop();
-          }
-        })
-      }
-    }
     }
 
   }
@@ -853,30 +852,31 @@ export class MeetingProjectPage {
   }
 
   addMeeting() {
-    if (this.user.partner_id == this.item.rt_project_principal.id || this.uid == this.item.create_uid) {
-      this.navCtrl.push('CalendarDeatilpagePage', {
-        'isEdit': true,
-        'type': 1,
-        'meeting_id': this.meeting_id,
-        'frontPage': 'MeetingProjectPage',
+    // if (this.user.partner_id == this.item.rt_project_principal.id || this.uid == this.item.create_uid) {
+    this.navCtrl.push('CalendarDeatilpagePage', {
+      'isEdit': true,
+      'type': 1,
+      'meeting_id': this.meeting_id,
+      'frontPage': 'MeetingProjectPage',
 
-      })
-    } else {
-      Utils.toastButtom('只有负责人和创建人可以添加任务', this.toastCtrl)
-    }
+    })
+    // } 
+    // else {
+    //   Utils.toastButtom('只有负责人和创建人可以添加任务', this.toastCtrl)
+    // }
   }
 
   addProject() {
-    if (this.user.partner_id == this.item.rt_project_principal.id || this.uid == this.item.create_uid) {
-      this.navCtrl.push('MeetingProjectPage', {
-        'isEdit': true,
-        'parent_project_id': this.meeting_id,
-        'frontPage': 'MeetingProjectPage',
-        'create_new': true,
-      })
-    } else {
-      Utils.toastButtom('只有负责人和创建人可以添加任务', this.toastCtrl)
-    }
+    // if (this.user.partner_id == this.item.rt_project_principal.id || this.uid == this.item.create_uid) {
+    this.navCtrl.push('MeetingProjectPage', {
+      'isEdit': true,
+      'parent_project_id': this.meeting_id,
+      'frontPage': 'MeetingProjectPage',
+      'create_new': true,
+    })
+    // } else {
+    //   Utils.toastButtom('只有负责人和创建人可以添加任务', this.toastCtrl)
+    // }
   }
 
   lookDetail(item) {
@@ -1397,30 +1397,59 @@ export class MeetingProjectPage {
     }
   }
 
-  hide_click(){
+  hide_click() {
     this.hide_btn = true
   }
 
-  show_click(){
+  show_click() {
     this.hide_btn = false
   }
 
-  deleteItem(item){
-    this.firService.delete_meeting_line({'meeting_id': this.item.id,'line_id': item.res_id,'uid':this.uid}).then(res => {
+  deleteItem(item) {
+
+    var ctrl = this.alert
+    ctrl.create({
+      title: '提示',
+      subTitle: '是否确定去除该项目下的任务？',
+      buttons: [{ text: '取消' },
+      {
+        text: '确定',
+        handler: () => {
+          this.firService.delete_meeting_line({ 'meeting_id': this.item.id, 'line_id': item.res_id, 'uid': this.uid }).then(res => {
             if (res.result.res_code == 1) {
-                Utils.toastButtom('删除成功', this.toastCtrl)
-                this.get_all_data()
+              Utils.toastButtom('删除成功', this.toastCtrl)
+              this.get_all_data()
             }
-        })
+          })
+        }
+      }
+      ]
+    }).present();
+
+
   }
 
-  delete_sub_project(item){
-    this.firService.delete_sub_project({'meeting_id': this.item.id,'line_id': item.id,'uid':this.uid}).then(res => {
+  delete_sub_project(item) {
+    var ctrl = this.alert
+    ctrl.create({
+      title: '提示',
+      subTitle: '是否确定去除该项目下的项目？',
+      buttons: [{ text: '取消' },
+      {
+        text: '确定',
+        handler: () => {
+          this.firService.delete_sub_project({ 'meeting_id': this.item.id, 'line_id': item.id, 'uid': this.uid }).then(res => {
             if (res.result.res_code == 1) {
-                Utils.toastButtom('删除成功', this.toastCtrl)
-                this.get_all_data()
+              Utils.toastButtom('删除成功', this.toastCtrl)
+              this.get_all_data()
             }
-        })
+          })
+        }
+      }
+      ]
+    }).present();
+
+
   }
 
 }

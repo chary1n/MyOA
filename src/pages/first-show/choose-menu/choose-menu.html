@@ -14,23 +14,23 @@
       </div>
       <ion-grid *ngIf="is_show_me" class="grid_class">
         <ion-row>
-          <ion-col tappable (click)="click_me_all()" col-4>
+          <!--<ion-col tappable (click)="click_me_all()" col-4>
             <div [ngClass]="{true:'me_class_choose',false:'me_class'}[me_type == 'all']">
                全部 
             </div>
-          </ion-col>
+          </ion-col>-->
           <ion-col tappable (click)="click_me_create()" col-4>
-            <div [ngClass]="{true:'me_class_choose',false:'me_class'}[me_type == 'create']">
+            <div [ngClass]="{true:'me_class_choose',false:'me_class'}[isSelectMe('create')]">
               我的创建
             </div>
           </ion-col>
           <ion-col tappable (click)="click_me_fuze()" col-4>
-            <div [ngClass]="{true:'me_class_choose',false:'me_class'}[me_type == 'fuze']">
+            <div [ngClass]="{true:'me_class_choose',false:'me_class'}[isSelectMe('fuze')]">
               我负责的
             </div>
           </ion-col>
           <ion-col tappable (click)="click_me_canyu()" col-4>
-            <div [ngClass]="{true:'me_class_choose',false:'me_class'}[me_type == 'canyu']">
+            <div [ngClass]="{true:'me_class_choose',false:'me_class'}[isSelectMe('canyu')]">
               我参与的
             </div>
           </ion-col>
@@ -44,11 +44,11 @@
       </div>
       <ion-grid class="grid_class">
         <ion-row>
-          <ion-col tappable (click)="click_state_all()" col-4>
+          <!--<ion-col tappable (click)="click_state_all()" col-4>
             <div [ngClass]="{true:'me_class_choose',false:'me_class'}[state_type == 'all']">
                全部 
             </div>
-          </ion-col>
+          </ion-col>-->
           <ion-col tappable (click)="click_state_unfinish()" col-4>
             <div [ngClass]="{true:'me_class_choose',false:'me_class'}[state_type == 'unfinish']">
               未完成

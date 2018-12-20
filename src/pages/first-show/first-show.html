@@ -124,8 +124,8 @@
       <p style="font-size: 13px;color: #2597ec;float: right;margin-right: 15px;margin-top: 10px">
         <span *ngIf="need_calendar" style="color: red">●</span>
         <span style="font-size:14px" tappable (click)="toAll()"> 全部</span>
-        <!--<span style="margin-left:3px;margin-right:3px;font-size:14px"> | </span> 
-      <span style="font-size:14px" tappable (click)="showMenu()"> 筛选</span>-->
+        <span style="margin-left:3px;margin-right:3px;font-size:14px"> | </span> 
+        <span style="font-size:14px" tappable (click)="showMenu()"> 筛选</span>
       </p>
       <p class="month_message">
         <span tappable (click)="delete_month()">{{"<"}}</span><span style="margin-left:10px">{{currentDate}}</span>
@@ -170,7 +170,7 @@
         <ion-label style="font-size: 13px;margin-left: 15px;color: black;font-weight:bold;">{{dateNow}}</ion-label>
         <div style="padding: 1px;" item-end class="divBac" *ngIf="showLate" tappable (click)="latePage()">
           <p style="font-size: 12px;color: #E98553;margin-top: auto;margin-bottom: auto;line-height: 25px;">
-            <span>逾期({{lateNum}}) ></span>
+            <span >逾期({{lateNum}}) ></span>
             <!--<span>            
               <ion-icon name="arrow-forward" style="color: #E98553;margin-top: auto;margin-bottom: auto"></ion-icon>
             </span>-->

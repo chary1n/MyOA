@@ -81,6 +81,10 @@ export class FirstShowService {
         return this.httpService.postBodyNoLoading("get_schedule_list_with_domain", {'body':body,'domain':domain});
     }
 
+    get_schedule_list_with_domain_new(body,domain){
+        return this.httpService.postBodyNoLoading("get_schedule_list_with_domain_new", {'body':body,'domain':domain});
+    }
+
     get_backlog_identify(body){
         return this.httpService.postBodyNoLoading("get_backlog_identify", body);
     }
@@ -130,7 +134,7 @@ export class FirstShowService {
     }
 
     get_late_list(body){
-        return this.httpService.postBody("get_late_list", body);
+        return this.httpService.postBody("get_late_list_new", body);
     }
 
     //获取审批页面的数目
@@ -173,6 +177,10 @@ export class FirstShowService {
     
     get_all_schedule(body){
         return this.httpService.postBody("get_all_schedule_new", body);
+    }
+
+    get_all_schedule_new_test(body){
+        return this.httpService.postBody("get_all_schedule_new_test", body);
     }
     
 

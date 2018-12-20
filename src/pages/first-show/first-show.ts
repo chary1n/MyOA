@@ -59,7 +59,7 @@ export class FirstShowPage {
   isShowBac = false
   un_read_list = []
   need_calendar
-  me_type = ''
+  me_type = []
   state_type = ''
   event_type_id = []
   event_type = []
@@ -73,12 +73,11 @@ export class FirstShowPage {
       this.get_backlog_identify(this.currentYear, this.currentMonth)
       this.get_approval_num()
       this.getType()
-      this.storage.get('user_schedule_domain').then(res => {
+      this.storage.get('user_schedule_domain_new').then(res => {
         console.log(res)
         this.me_type = res.me_type
         this.state_type = res.state_type
         this.event_type_id = res.event_type_id
-        this.event_type = res.event_type
         this.getDayData(this.datePipe.transform(new Date(), 'yyyy-MM-dd'))
       })
     })
@@ -114,9 +113,9 @@ export class FirstShowPage {
   }
 
   ionViewWillLeave() {
-    this.menu.enable(false)
-    // var bar = document.getElementsByClassName('tabbar').item(0);
-    // bar['style'].display = 'none';
+    // this.menu.enable(false)
+    var bar = document.getElementsByClassName('tabbar').item(0);
+    bar['style'].display = 'none';
     this.event.unsubscribe('search_domain_first')
   }
 
@@ -137,12 +136,11 @@ export class FirstShowPage {
         }
       })
 
-      this.storage.get('user_schedule_domain').then(res => {
+      this.storage.get('user_schedule_domain_new').then(res => {
         console.log(res)
         this.me_type = res.me_type
         this.state_type = res.state_type
         this.event_type_id = res.event_type_id
-        this.event_type = res.event_type
         this.getDayData(this.datePipe.transform(new Date(), 'yyyy-MM-dd'))
       })
 
@@ -158,17 +156,17 @@ export class FirstShowPage {
       'uid': this.uid,
       'date': date
     }
-    // let domain = {
-    //   'me_type': this.me_type,
-    //   'state_type': this.state_type,
-    //   'event_type_id': this.event_type_id,
-    // }
     let domain = {
-      'me_type': 'all',
-      'state_type': 'all',
-      'event_type_id': -1,
+      'me_type': this.me_type,
+      'state_type': this.state_type,
+      'event_type_id': this.event_type_id,
     }
-    this.firshowService.get_schedule_list_with_domain(body,domain).then(res => {
+    // let domain = {
+    //   'me_type': [],
+    //   'state_type': 'all',
+    //   'event_type_id': [],
+    // }
+    this.firshowService.get_schedule_list_with_domain_new(body,domain).then(res => {
       if (res.result.res_data && res.result.res_code == 1) {
         this.subNum = res.result.res_data.subNum
         this.itemList = res.result.res_data.wait
@@ -194,11 +192,10 @@ export class FirstShowPage {
             this.state_type = data.state_type
             this.event_type_id = data.event_type_id
             this.event_type = data.event_type
-            this.storage.set('user_schedule_domain', {
+            this.storage.set('user_schedule_domain_new', {
               'me_type': this.me_type,
               'state_type': this.state_type,
               'event_type_id': this.event_type_id,
-              'event_type': this.event_type,
             })
             this.getDayData(this.currentDate_date.getFullYear() + '-' + (this.currentDate_date.getMonth() + 1) + '-' + this.currentDate_date.getDate())
 
@@ -572,7 +569,10 @@ export class FirstShowPage {
   }
 
   latePage() {
-    this.navCtrl.push('LateListPage')
+    this.navCtrl.push('LateListPage',{
+      'me_type': this.me_type,
+      'event_type_id': this.event_type_id
+    })
   }
 
   //获取有事件的日期
@@ -697,8 +697,8 @@ export class FirstShowPage {
         this.sg_num = res.result.res_data.sg_num
         this.jk_num = res.result.res_data.jk_num
         this.yf_num = res.result.res_data.yf_num
-        // this.caigou_num = res.result.res_data.caigou_num
-        this.all_approval = this.recoup_num + this.vacation_num + this.jk_num + this.bx_num + this.yf_num + this.sg_num 
+        this.caigou_num = res.result.res_data.caigou_num
+        this.all_approval = this.recoup_num + this.vacation_num + this.jk_num + this.bx_num + this.yf_num + this.sg_num + this.caigou_num 
         
         if (this.all_approval != 0) {
           this.isShowApprovalPoint = true
