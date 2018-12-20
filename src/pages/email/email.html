@@ -13,7 +13,7 @@
       </button>
     </ion-buttons>
 
-    <ion-title (click)="showUnseenSelect()">
+    <ion-title (click)="showUnseenSelect()" tappable>
       {{title}}
       <ion-icon *ngIf="title.indexOf('收件')!=-1" name="arrow-down"></ion-icon>
     </ion-title>

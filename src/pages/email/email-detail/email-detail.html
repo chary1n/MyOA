@@ -49,7 +49,7 @@
 </ion-header>
 
 
-<ion-content>
+<ion-content id='test_content' overflow-scroll="true">
   <ion-backdrop id="email_backdrop" *ngIf="need_show_choose" (click)='hide_email_backdrop()' class="gray_backdrop">
   </ion-backdrop>
   <div class="email_subject" (pinch)='pinchEvent(event)'>
@@ -100,9 +100,20 @@
       <span class="span_c">{{date}}</span>
     </li>
   </ul>
-  <div style="width:100%" >
-    <div class="html_div" id="html_id" [innerHTML]="assembleHTML(body_html)" > </div>
-  </div>
+
+
+  <ion-scroll scrollY="true" scrollX="true" 
+  min-zoom="1" max-zoom="3" direction="xy" 
+  zooming="true" overflow-scroll="false" class="scroll_C">
+    <!-- <div class="pinch-zoom-container">
+      <div class="pinch-zoom" id="test" data-scale="1"> -->
+    <div class="html_div" id="testimg" [innerHTML]="assembleHTML(body_html)"> </div>
+    <!-- </div>
+    </div> -->
+  </ion-scroll>
+
+
+
   <ion-list *ngIf="attachment_list.length!=0" no-lines class="ion-list-account" style="border-top: 0.55px solid #c8c7cce0">
     <ion-item nolines class="attach_item" style="border-bottom: 0.55px solid #c8c7cce0" *ngFor='let item of attachment_list'
       (click)='clickAttach(item.id,item.mimetype)'>
@@ -124,7 +135,7 @@
   <div class="content_footer"></div>
 </ion-content>
 
-<ion-footer>
+<ion-footer class="footer_c">
   <ion-toolbar color="gongdan-color" class='toolbar_c'>
     <button ion-button icon-only (click)="reply()" class="toolbar_button">
       <ion-avatar item-start>
@@ -138,10 +149,14 @@
       </ion-avatar>
     </button>
     <button ion-button icon-only (click)="transfer_mail()" class="toolbar_button">
-      <ion-icon name="md-return-right"></ion-icon>
+      <ion-avatar item-start>
+        <img src='assets/img/right_email.png' style="margin-left:-4px;width: 34px">
+      </ion-avatar>
     </button>
     <button ion-button icon-only (click)="delete()" class="toolbar_button">
-      <ion-icon name="ios-trash"></ion-icon>
+      <ion-avatar item-start>
+        <img src='assets/img/trash_email.png' style="margin-left:-4px;width: 34px">
+      </ion-avatar>
     </button>
   </ion-toolbar>
 </ion-footer>
