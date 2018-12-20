@@ -99,6 +99,7 @@ page-email-detail {
 
   .toolbar_c {
     padding: 0px;
+    height: 45px;
   }
 
   .toolbar_button {
@@ -112,7 +113,7 @@ page-email-detail {
     margin-right: 8px
   }
 
-  .mailDetail-tag-list{
+  .mailDetail-tag-list {
     padding-left: 5px;
     padding-top: 5px;
   }
@@ -128,14 +129,43 @@ page-email-detail {
   }
 
 
-  .gray_backdrop{
+  .gray_backdrop {
     opacity: 0.6;
     background-color: white;
     height: 100%;
   }
 
+  .pinch-zoom-container {
+    overflow: hidden;
+    position: relative;
+  }
+
+  .pinch-zoom,
+  .pinch-zoom-container {
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  .pinch-zoom {
+    position: absolute;
+  }
+
+  .pinch-zoom img {
+    position: absolute;
+    width: 100%;
+    left: 50%;
+    top: 50%;
+  }
+
+  .scroll_C {
+    width: 100%;
+    height: 100%
+  }
 
 
+  .footer_c{
+    height: 45px;
+  }
 
 
 }

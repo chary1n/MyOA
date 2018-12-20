@@ -9,6 +9,9 @@ import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
 import { File } from '@ionic-native/file';
 import { FileOpener } from '@ionic-native/file-opener';
 ///<reference path="../../../services/jquery.d.ts"/>  
+import Hammer from 'hammerjs';
+
+
 
 /**
  * Generated class for the EmailDetailPage page.
@@ -37,6 +40,7 @@ export class EmailDetailPage {
   label_list;
   front_page_refresh = false;
   account_list;
+  originW; originH;
   constructor(private sanitizer: DomSanitizer,
     public transfer: FileTransfer,
     public file: File,
@@ -119,11 +123,81 @@ export class EmailDetailPage {
   }
 
   assembleHTML(strHTML) {
+    console.log("assembleHtml() 方法执行了")
     return this.sanitizer.bypassSecurityTrustHtml(strHTML);
   }
 
   ionViewDidLoad() {
+    this.originW = $("#testimg").width();
+    let element2 = document.getElementById('testimg');
+    var hammertime = new Hammer(element2);
+    this.initPinch(hammertime)
+  }
+  initPinch(hammertime) {
     console.log('ionViewDidLoad EmailDetailPage');
+   
+    hammertime.on("pinchin pinchout", function (ev) {
+      console.log(ev.type + " gesture detected.");
+    });
+    hammertime.get('pinch').set({ enable: true });
+    hammertime.add(new Hammer.Pinch());
+    var self = this
+    //捏开
+    hammertime.on("pinchout", function (e) {
+      console.log(">>>>>>>>>>>>>>>>");
+      var H = $("#testimg").height();
+      var W = $("#testimg").width();
+      $('#testimg').height(H + e.distance);
+      $('#testimg').width(W + e.distance * (W / H));
+      // var scale = 2;
+      // //var mouseX=e.pageX;//鼠标
+      // //var mouseY=e.pageY;
+      // var mouseX = e.center.x;//捏开点
+      // var mouseY = e.center.y;
+
+      // if ($("#test").attr("data-scale") == 1) {
+      //   var translateX = 0;
+      //   var translateY = 0;
+      //   //计算当前点击点相对于图片的偏移比例
+      //   var posX = mouseX / W;
+      //   var posY = mouseY / H;
+      //   translateX = (W * posX / scale) * -1;
+      //   translateY = (H * posY / scale) * -1;
+
+      //   console.log("###[" + translateX + "]###");
+      //   $("#test").css("transformOrigin", "0% 0%");
+      //   $("#test").css("transform", "scale(2,2) translate(" + translateX + "px, " + translateY + "px)");
+      //   $("#test").attr("data-x", translateX);
+      //   $("#test").attr("data-y", translateY);
+      console.log(e.distance)
+      // console.log("点击点的百分比>>>   " + posX + "," + posY + "                  ");
+      // console.log("偏移>>>   " + translateX + "," + translateY + "                  ");
+      //console.log("鼠标："+mouseX+","+mouseY+"                  ");
+      //console.log("捏开开开开>>>>  " + e.center.x + "," + e.center.y+"                  ");
+      //console.log("x————————"+ $("#test").attr("data-x") );
+      //onsole.log("y————————"+ $("#test").attr("data-y") );
+      // }
+
+    });
+    //捏合
+    hammertime.on("pinchin", function (e) {
+      // $("#test").css("transformOrigin", "scale(1,1)");
+      // $("#test").css("transform", "scale(1,1) translate(0px,0px)");
+      // $("#test").attr("data-x", 0);
+      // $("#test").attr("data-y", 0);
+      var H = $("#testimg").height();
+      var W = $("#testimg").width();
+      console.log(H)
+      console.log(e.distance)
+      console.log(self.originW)
+      if (W - e.distance < self.originW) {
+        return
+      }
+      $('#testimg').height(H - e.distance);
+      $('#testimg').width(W - e.distance * (W / H));
+      // console.log("捏合合合合>>              ");
+    });
+   
   }
 
 
@@ -154,9 +228,7 @@ export class EmailDetailPage {
   }
 
 
-  pinchEvent(events) {
-    console.log(events)
-  }
+
 
   goBack() {
     this.frontPage.data.needRefresh = true
@@ -254,5 +326,8 @@ export class EmailDetailPage {
     }).present();
 
   }
+
+
 }
+
 

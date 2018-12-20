@@ -51,6 +51,20 @@ import { NFC, Ndef } from '@ionic-native/nfc';
 import { PhotoLibrary } from '@ionic-native/photo-library';
 import { FileOpener } from '@ionic-native/file-opener';
 import { CodePush } from '@ionic-native/code-push';
+import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
+import 'hammerjs';
+export class MyHammerConfig extends HammerGestureConfig  {
+//   overrides = <any>{
+//      // override hammerjs default configuration
+//      'pan': {threshold: 5},
+//      'swipe': {
+//         velocity: 0.4,
+//         threshold: 20,
+//         direction: 31 
+//      },
+//     'press':{}
+//  }
+}
 
 @NgModule({
   declarations: [
@@ -105,7 +119,15 @@ import { CodePush } from '@ionic-native/code-push';
     NFC,Ndef,
     PhotoLibrary,
     CodePush,
+  //   { 
+  //     provide: HAMMER_GESTURE_CONFIG, 
+  //     useClass: MyHammerConfig 
+  //  }
     // BLE,
   ]
 })
 export class AppModule { }
+
+
+
+
