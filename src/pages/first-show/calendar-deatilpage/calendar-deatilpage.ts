@@ -2,7 +2,7 @@ import { Utils } from './../../../providers/Utils';
 import { Storage } from '@ionic/storage';
 import { FirstShowService } from './../first_service';
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, Content, AlertController, Keyboard, ActionSheetController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Content, AlertController, Keyboard, ActionSheetController, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { ToastController } from 'ionic-angular/components/toast/toast-controller';
 import { DatePipe } from '@angular/common';
@@ -84,10 +84,14 @@ export class CalendarDeatilpagePage {
   setting
   zNodes = []
   tree_obj
+
+  is_create_server = false
+
+  hide_btn = false
   constructor(public navCtrl: NavController, public navParams: NavParams, public statusBar: StatusBar,
     public firService: FirstShowService, public storage: Storage, public toastCtrl: ToastController,
     private datePipe: DatePipe, private sanitizer: DomSanitizer, public alertCtrl: AlertController,
-    public keyboard: Keyboard, public actionSheetCtrl: ActionSheetController) {
+    public keyboard: Keyboard, public actionSheetCtrl: ActionSheetController, public platform: Platform) {
     var self = this
     this.setting = {
       check: {
@@ -137,6 +141,7 @@ export class CalendarDeatilpagePage {
     this.zNodes = [
 
     ]
+
 
 
     // cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
@@ -199,6 +204,26 @@ export class CalendarDeatilpagePage {
         this.click_start_datetime()
       }
     })
+
+
+    // var that = this
+    // this.platform.registerBackButtonAction(function () {
+    //   if (that.isEdit) {
+    //     var ctrl = that.alertCtrl
+    //     ctrl.create({
+    //       title: '提示',
+    //       subTitle: '数据未保存，是否确认返回？',
+    //       buttons: [{ text: '取消' },
+    //       {
+    //         text: '确定',
+    //         handler: () => {
+    //           that.navCtrl.pop();
+    //         }
+    //       }
+    //       ]
+    //     }).present();
+    //   }
+    // }, 0)
   }
 
   assembleHTML(str) {
@@ -219,6 +244,7 @@ export class CalendarDeatilpagePage {
   }
   //根据item赋值
   item_change() {
+
     this.state = this.item.state
     this.location = this.item.location
     this.rt_project_principal_name = this.item.rt_project_principal.partner_id_s_name
@@ -237,7 +263,7 @@ export class CalendarDeatilpagePage {
     this.type_name = this.item.type_name
     this.wait_id = this.item.id
     this.selectList = this.item.partner_ids
-    
+
     this.selectOtherList = this.item.external_partner_ids
     this.alarm_id = this.item.rt_alarm_type
     this.alarm_name = this.item.rt_alarm_type_name
@@ -259,8 +285,19 @@ export class CalendarDeatilpagePage {
       this.item_tip_name = this.item.rt_alarm_type_name + '(App提醒、网页提醒)'
     }
     this.description = this.item.description.replace(/\n/g, "<br>")
-    this.user_is_read(this.selectList, this.item.read_msg_ids)
+    this.user_is_read(this.selectList, this.item.check_in_ids)
+    var data_arr = []
+    for (let i = 0; i < this.item.message_ids.length; i++) {
+      var item_one = this.item.message_ids[i]
+      data_arr.push(item_one.msg_id)
+      for (let j = 0; j < item_one.child_ids.length; j++) {
+        var item_child = item_one.child_ids[j]
+        data_arr.push(item_child.msg_id)
+      }
+    }
+    this.firService.read_total_reply({ 'list': data_arr, 'uid': this.uid }).then(res => {
 
+    })
   }
   //滑动事件
   panEvent($event) {
@@ -465,12 +502,24 @@ export class CalendarDeatilpagePage {
         this.selectOtherList = this.storeList
       }
     } else {
-      this.navCtrl.pop();
+      var ctrl = this.alertCtrl
+      ctrl.create({
+        title: '提示',
+        subTitle: '数据未保存，是否确认返回？',
+        buttons: [{ text: '取消' },
+        {
+          text: '确定',
+          handler: () => {
+            this.navCtrl.pop();
+          }
+        }
+        ]
+      }).present();
     }
   }
   //新建待办事项完成
   stateFinish() {
-    cordova.plugins.Keyboard.close()
+    // cordova.plugins.Keyboard.close()
     if (this.search) {
       this.title_meeting = '新建'
       this.search = false
@@ -486,28 +535,38 @@ export class CalendarDeatilpagePage {
         return
       }, 10)
     }
-    let body = this.handleData(true)
-    if (this.isMeeting) {
-      if (body) {
-        body['rt_meeting_id'] = this.meeting_id
-        this.firService.create_meeting_line(body).then(res => {
-          if (res.result.res_code == 1) {
-            // this.frontPage.data.need_fresh = true;
-            this.frontPage.data.pet = 4
-            this.navCtrl.popTo(this.frontPage);
+    else {
+      if (!this.is_create_server) {
+        let body = this.handleData(true)
+        
+        if (this.isMeeting) {
+          if (body) {
+            this.is_create_server = true
+            body['rt_meeting_id'] = this.meeting_id
+            this.firService.create_meeting_line(body).then(res => {
+              this.is_create_server = false
+              if (res.result.res_code == 1) {
+                // this.frontPage.data.need_fresh = true;
+                this.frontPage.data.pet = 4
+                this.navCtrl.popTo(this.frontPage);
+              }
+            })
           }
-        })
-      }
-    } else {
-      if (body) {
-        this.firService.create_new_schedule(body).then(res => {
-          if (res.result.res_code == 1) {
-            // this.frontPage.data.need_fresh = true;
-            this.navCtrl.popTo(this.frontPage);
+        } else {
+          if (body) {
+            this.is_create_server = false
+            this.firService.create_new_schedule(body).then(res => {
+              this.is_create_server = false
+              if (res.result.res_code == 1) {
+                // this.frontPage.data.need_fresh = true;
+                this.navCtrl.popTo(this.frontPage);
+              }
+            })
           }
-        })
+        }
       }
     }
+
   }
   //标记为待办
   completion_event() {
@@ -1170,46 +1229,11 @@ export class CalendarDeatilpagePage {
       ]
       if (this.type_name == '任务') {
         button_arr = [{
-            text: '开始情况',
-            handler: () => {
-              this.click_check_in()
-            }
-          },
-          {
-            text: '标记完成',
-            handler: () => {
-              this.finish()
-            }
-          }, {
-            text: '编辑',
-            handler: () => {
-              this.edit()
-            }
-          }, 
-          {
-            text: '删除',
-            handler: () => {
-              this.delete()
-            }
-          },
-
-          {
-            text: '取消',
-            role: 'cancel',
-            handler: () => {
-              console.log('Cancel clicked');
-            }
+          text: '开始情况',
+          handler: () => {
+            this.click_check_in()
           }
-        ]
-      }
-      let actionSheet = this.actionSheetCtrl.create({
-        title: '',
-        buttons: button_arr
-      });
-      actionSheet.present();
-    }
-    else {
-      let button_arr = [
+        },
         {
           text: '标记完成',
           handler: () => {
@@ -1235,13 +1259,48 @@ export class CalendarDeatilpagePage {
             console.log('Cancel clicked');
           }
         }
+        ]
+      }
+      let actionSheet = this.actionSheetCtrl.create({
+        title: '',
+        buttons: button_arr
+      });
+      actionSheet.present();
+    }
+    else {
+      let button_arr = [
+        {
+          text: '标记为待办',
+          handler: () => {
+            this.completion_event()
+          }
+        }, {
+          text: '编辑',
+          handler: () => {
+            this.edit()
+          }
+        },
+        {
+          text: '删除',
+          handler: () => {
+            this.delete()
+          }
+        },
+
+        {
+          text: '取消',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }
       ]
       if (this.type_name == '任务') {
         button_arr = [
           {
-            text: '标记完成',
+            text: '标记为待办',
             handler: () => {
-              this.finish()
+              this.completion_event()
             }
           }, {
             text: '编辑',
@@ -1364,40 +1423,70 @@ export class CalendarDeatilpagePage {
   }
 
   click_start_datetime() {
+    var that = this
     $('#input_start_datetime').mobiscroll().datetime({
       theme: 'ios',
       lang: 'zh',
       display: 'bottom',
       dateWheels: '|M d D|',
       timeWheels: 'HH ii',
+      onSet: function (event, inst) {
+        // console.log(event)
+        that.default_start_datetime = event.valueText
+        if (that.default_start_datetime > that.default_stop_datetime) {
+          that.default_stop_datetime = event.valueText
+          setTimeout(() => {
+            that.click_end_datetime()
+          }, 10)
+        }
+      },
     });
   }
 
   click_start_date() {
+    var that = this
     $('#input_start_date').mobiscroll().date({
       theme: 'ios',
       lang: 'zh',
       display: 'bottom',
       dateWheels: '|M d D|',
+      onSet: function (event, inst) {
+        // console.log(event)
+        that.start_date = event.valueText
+        if (that.start_date > that.stop_date) {
+          that.stop_date = event.valueText
+          setTimeout(() => {
+            that.click_end_date()
+          }, 10)
+        }
+      },
     });
   }
 
   click_end_datetime() {
+    var that = this
     $('#input_end_datetime').mobiscroll().datetime({
       theme: 'ios',
       lang: 'zh',
       display: 'bottom',
       dateWheels: '|M d D|',
       timeWheels: 'HH ii',
+      onSet: function (event, inst) {
+        that.default_stop_datetime = event.valueText
+      }
     });
   }
 
   click_end_date() {
+    var that = this
     $('#input_end_date').mobiscroll().date({
       theme: 'ios',
       lang: 'zh',
       display: 'bottom',
       dateWheels: '|M d D|',
+      onSet: function (event, inst) {
+        that.stop_date = event.valueText
+      }
     });
   }
 
@@ -1433,6 +1522,14 @@ export class CalendarDeatilpagePage {
   // showback(){
 
   // }
+
+  hide_click() {
+    this.hide_btn = true
+  }
+
+  show_click() {
+    this.hide_btn = false
+  }
 
 
 

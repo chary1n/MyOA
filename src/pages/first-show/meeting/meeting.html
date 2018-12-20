@@ -79,7 +79,8 @@
         <div style="background-color: white">
             <div style="padding: 1px;border-bottom:#f0f2f5 1px solid;margin-left: 20px;background-color: white">
                 <span style="background-color: #409eff;width: 3px;border-radius: 3px;height: 13px;float: left;margin-top: 18px;margin-left: -12px"></span>
-                <p style="font-size: 14px;color: #2e3133">主题：{{name}}<img *ngIf="rt_meeting_state" class="finish_img_class" src="assets/img/un_finish_img.png"/><img *ngIf="!rt_meeting_state" class="finish_img_class" src="assets/img/finish_img.png"/></p>
+                <p style="font-size: 14px;color: #2e3133;width:80%;line-height:20px">主题：{{name}}<img *ngIf="rt_meeting_state" class="finish_img_class" src="assets/img/un_finish_img.png" /><img
+                        *ngIf="!rt_meeting_state" class="finish_img_class" src="assets/img/finish_img.png" /></p>
             </div>
         </div>
         <ion-item-group>
@@ -87,14 +88,16 @@
                 <p item-start style="color: #2e3133;font-size: 13px">负责人</p>
                 <p item-start style="margin-left: 7%;color: #8d9296;font-size: 13px">{{rt_project_principal}}</p>
             </ion-item>
-            <ion-item no-lines style="min-height: 25px;height: 30px;">
+            <ion-icon *ngIf="hide_btn" name="arrow-down" tappable (click)="show_click()" style="color: #999999;width: 100%;text-align: center;background-color:white;border-width:0px;    padding-bottom: 1px;"></ion-icon>
+            <ion-icon *ngIf="!hide_btn" name="arrow-up" tappable (click)="hide_click()" style="color: #999999;width: 100%;text-align: center;background-color:white;border-width:0px;    padding-bottom: 1px;"></ion-icon>
+            <ion-item *ngIf="!hide_btn" no-lines style="min-height: 25px;height: 30px;">
                 <p item-start style="color: #2e3133;font-size: 13px">创建人</p>
                 <p item-start style="margin-left: 7%;color: #8d9296;font-size: 13px">{{create_user_name}}</p>
             </ion-item>
-            <ion-item no-lines>
+            <ion-item *ngIf="!hide_btn" no-lines>
                 <div style="position: relative;margin-bottom: -11px;margin-top: -11px">
-                    <span style="    display: inline-block;position: absolute;
-                      top: calc(50% - 11px);display: inline-block;font-size: 13px"> 参与人员</span>
+                    <span tappable (click)="click_check_in()" style="display: inline-block;position: absolute;top: calc(50% - 11px);display: inline-block;font-size: 13px"><ion-icon name='pin' style="color: #2597ec;"></ion-icon> <span style="color:#2597ec">参与人员</span></span>
+
                     <div style="justify-content:space-around;white-space: pre-line;width: 80%;display: inline-block;
                     position: relative;top: -12px;
                     left: 22%;">
@@ -104,7 +107,7 @@
                     </div>
                 </div>
             </ion-item>
-            <ion-item no-lines>
+            <ion-item *ngIf="!hide_btn" no-lines>
                 <div style="position: relative;margin-bottom: -11px;margin-top: -11px">
                     <span style="    display: inline-block;position: absolute;
                       top: calc(50% - 11px);display: inline-block;font-size: 13px"> 外部人员</span>
@@ -117,11 +120,11 @@
                     </div>
                 </div>
             </ion-item>
-            <ion-item no-lines style="min-height: 25px;height: 30px;" *ngIf='rt_is_sure_time'>
+            <ion-item no-lines style="min-height: 25px;height: 30px;" *ngIf='rt_is_sure_time && !hide_btn'>
                 <p item-start style="color: #2e3133;font-size: 13px">时间</p>
                 <p item-start style="margin-left: 10%;color: #8d9296;font-size: 13px">时间待定</p>
             </ion-item>
-            <ion-item no-lines style="min-height: 25px;height: 30px;" *ngIf="!rt_is_sure_time">
+            <ion-item no-lines style="min-height: 25px;height: 30px;" *ngIf="!rt_is_sure_time && !hide_btn">
                 <p item-start style="color: #2e3133;font-size: 13px">时间</p>
                 <div style="background-color: white;padding: 1px;text-align: left;margin-left: 10%">
                     <span style="margin-left: 5px;font-size:12px;color:#999999;width:40%;">{{item_start}}</span>
@@ -129,11 +132,11 @@
                     <span style="font-size:12px;color:#999999;width:40%;">{{item_stop}}</span>
                 </div>
             </ion-item>
-            <ion-item no-lines style="min-height: 25px;height: 30px;">
+            <ion-item *ngIf="!hide_btn" no-lines style="min-height: 25px;height: 30px;">
                 <p item-start style="color: #2e3133;font-size: 13px">提醒</p>
                 <p item-start style="margin-left: 10%;color: #8d9296;font-size: 13px">{{item_tip_name}}</p>
             </ion-item>
-            <ion-item no-lines style="min-height: 25px;height: 30px;">
+            <ion-item *ngIf="!hide_btn" no-lines style="min-height: 25px;height: 30px;">
                 <p item-start style="color: #2e3133;font-size: 13px">地点</p>
                 <p item-start style="margin-left: 10%;color: #8d9296;font-size: 13px">{{rt_location}}</p>
             </ion-item>
@@ -146,39 +149,51 @@
             <p style="margin-left: 15px;font-size: 13px">提示</p>
             <div [innerHTML]="assembleHTML(rt_hint)" style="word-wrap:break-word;color:#8d9296;margin: 5px;padding: 10px;width:90%"></div>
         </div>
-        <div style="background-color: white;border-bottom:#f0f2f5 1px solid;" tappable (click)="click_check_in()">
+        <!--<div style="background-color: white;border-bottom:#f0f2f5 1px solid;" tappable (click)="click_check_in()">
             <div style="padding: 1px;margin-left: 20px;background-color: white">
                 <span style="background-color: #409eff;width: 3px;border-radius: 3px;height: 13px;float: left;margin-top: 18px;margin-left: -12px"></span>
-                <p style="font-size: 14px;color: #2e3133">开始情况<ion-icon style="float: right;padding-right: 10px;color: gray;font-size: 18px;" ios="ios-arrow-forward" md="ios-arrow-forward"></ion-icon></p>
+                <p style="font-size: 14px;color: #2e3133">开始情况
+                    <ion-icon style="float: right;padding-right: 10px;color: gray;font-size: 18px;" ios="ios-arrow-forward"
+                        md="ios-arrow-forward"></ion-icon>
+                </p>
             </div>
-            
-        </div>
+
+        </div>-->
         <div style="background-color: white;">
             <div style="padding: 1px;border-bottom:#f0f2f5 1px solid;margin-left: 20px;background-color: white">
                 <span style="background-color: #409eff;width: 3px;border-radius: 3px;height: 13px;float: left;margin-top: 18px;margin-left: -12px"></span>
                 <p style="font-size: 14px;color: #2e3133">会议任务</p>
             </div>
         </div>
-        <ion-item-group no-lines style="background-color: white" *ngIf="rt_meeting_ids && rt_meeting_ids.length>0">
-            <ion-item no-lines tappable (click)="lookDetail(item)" *ngFor="let item of rt_meeting_ids" style="background-color: white;border-bottom:#f0f2f5 1px solid;">
-                <p item-start style="font-size: 12px;width: 40px">{{item.event_time}}</p>
-                <!--<ion-label item-end [ngClass]="{true:'notFinish',false:'finish'}[item.state]">[{{item.type_name}}]:{{item.subject}}——{{item.rt_project_principal.partner_id_s_name}}</ion-label>-->
-                <div [ngClass]="{true:'notFinish',false:'finish'}[item.state]">
-                    <div style="float: left;height: 20px;line-height: 20px;">
-                        <span style="    overflow: hidden;text-overflow: ellipsis;-o-text-overflow: ellipsis;white-space: nowrap;max-width: 190px;display: block;">
-              [{{item.type_name}}]:{{item.subject}}
-              </span>
-                    </div>
-                    <div style="line-height:20px">
-                        <span>
-              一{{item.rt_project_principal.partner_id_s_name}}
-            </span>
-                    </div>
+        <ion-list no-lines style="background-color: white" *ngIf="rt_meeting_ids && rt_meeting_ids.length>0">
+            <ion-item-sliding no-lines *ngFor="let item of rt_meeting_ids">
 
-                </div>
-            </ion-item>
-        </ion-item-group>
-        <div *ngIf="isShowTip" style="padding: 1px;text-align: center;background-color: white">
+                <ion-item no-lines tappable (click)="lookDetail(item)" style="background-color: white;border-bottom:#f0f2f5 1px solid;">
+                    <p item-start style="font-size: 12px;width: 40px">{{item.event_time}}</p>
+                    <!--<ion-label item-end [ngClass]="{true:'notFinish',false:'finish'}[item.state]">[{{item.type_name}}]:{{item.subject}}——{{item.rt_project_principal.partner_id_s_name}}</ion-label>-->
+                    <div [ngClass]="{true:'notFinish',false:'finish'}[item.state]">
+                        <div style="float: left;height: 20px;line-height: 20px;">
+                            <span style="    overflow: hidden;text-overflow: ellipsis;-o-text-overflow: ellipsis;white-space: nowrap;max-width: 190px;display: block;">
+              [{{item.type_name}}]:{{item.rt_project_principal.partner_id_s_name}}
+              </span>
+                        </div>
+                        <div style="line-height:20px">
+                            <span style="    overflow: hidden;text-overflow: ellipsis;-o-text-overflow: ellipsis;white-space: nowrap;max-width: 190px;display: block;">
+              一{{item.subject}}
+            </span>
+                        </div>
+
+                    </div>
+                </ion-item>
+                <ion-item-options>
+                    <button ion-button color="danger" (click)="deleteItem(item)">
+          <ion-icon name="trash"></ion-icon>
+          删除
+        </button>
+                </ion-item-options>
+            </ion-item-sliding>
+        </ion-list>
+        <div *ngIf="isShowTip" [ngClass]="{true:'list_class',false:'empty_list_class'}[rt_meeting_ids && rt_meeting_ids.length>0]">
             <button (click)="addMeeting()" ion-button style="border-radius: 34px;height: 2.5em;font-size: 13px" outline>+ 会议任务</button>
         </div>
     </div>
@@ -241,8 +256,8 @@
             <ion-row style="height:45px;text-align:center;">
                 <ion-col col-5>
                     <div style="padding:1px;margin-left: 15dp;overflow:hidden;text-align:left">
-                        <input type="text" *ngIf="!rt_allday" id="input_start_datetime" placeholder="开始时间" class="class_start_date" value='{{default_start_datetime}}'>
-                        <input type="text" *ngIf="rt_allday" id="input_start_date" placeholder="开始时间" class="class_start_date" value='{{start_date}}'>
+                        <input type="text" *ngIf="!rt_allday" id="input_start_datetime" placeholder="开始时间" class="class_start_date" [(ngModel)]="default_start_datetime">
+                        <input type="text" *ngIf="rt_allday" id="input_start_date" placeholder="开始时间" class="class_start_date" [(ngModel)]="start_date">
                         <!--<ion-datetime *ngIf="!rt_allday" text-wrap cancelText="取消" doneText="确定" [(ngModel)]="start_datetime" min="2017-01" max="2100-12"
                             style="width: 170px;color:#5C6166;font-size:12px;word-wrap:break-word;padding-left: 0px;padding-right: 0px;margin-left: 5px"
                             displayFormat="YYYY年MM月DD日 HH:mm" pickerFormat="YYYY年 MM月 DD日 HH:mm"></ion-datetime>
@@ -254,8 +269,8 @@
                 <span style="color:#c2c7cc;float: left;height: 48px;line-height: 48px;font-size: 13px;margin-right: 16px;margin-left: 22px;">至</span>
                 <ion-col col-5>
                     <div style="padding:1px;margin-left: 15dp;overflow:hidden;text-align:left">
-                        <input type="text" *ngIf="!rt_allday" id="input_end_datetime" placeholder="结束时间" class="class_start_date" value='{{default_stop_datetime}}'>
-                        <input type="text" *ngIf="rt_allday" id="input_end_date" placeholder="结束时间" class="class_start_date" value="{{stop_date}}">
+                        <input type="text" *ngIf="!rt_allday" id="input_end_datetime" placeholder="结束时间" class="class_start_date" [(ngModel)]="default_stop_datetime">
+                        <input type="text" *ngIf="rt_allday" id="input_end_date" placeholder="结束时间" class="class_start_date" [(ngModel)]="stop_date">
                         <!--<ion-datetime *ngIf="!rt_allday" text-wrap cancelText="取消" doneText="确定" [(ngModel)]="stop_datetime" min="2017-01" max="2100-12"
                             style="width: 170px;color:#5C6166;font-size:12px;word-wrap:break-word;overflow:hidden;padding-left: 0px;padding-right: 0px;margin-left: 5px"
                             displayFormat="YYYY年MM月DD日 HH:mm" pickerFormat="YYYY MM DD,DDDD HH:mm" ></ion-datetime>

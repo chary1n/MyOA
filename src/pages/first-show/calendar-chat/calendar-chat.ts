@@ -154,6 +154,10 @@ export class CalendarChatPage {
   getPictureSuccess(img_url) {
     this.imgList.push(img_url)
   }
+
+  goBack(){
+    this.navCtrl.pop()
+  }
   
 
 }

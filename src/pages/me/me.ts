@@ -199,7 +199,12 @@ export class MePage {
 
             // })
 
-              
+            this.storage.set('user_schedule_domain', {
+              'me_type': '',
+              'state_type': '',
+              'event_type_id': -1,
+            })  
+
             this.storage.set('user', null)
               .then(() => {
                 this.storage.get("login").then(res => {

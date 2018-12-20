@@ -6,10 +6,20 @@
 -->
 <ion-header no-border >
 
-  <ion-navbar color="gongdan-color">
+  <ion-navbar color="gongdan-color" hideBackButton="true">
+    <ion-buttons left>
+      <button ion-button icon-only (click)="goBack()">
+              <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+            </button>
+    </ion-buttons>
     <ion-title>未读回复</ion-title>
+    <ion-buttons right>
+      <button ion-button icon-only tappable (click)="readAll()" style="font-size:14px;color: white;margin-right: 10px">
+                全部已读
+            </button>
+    </ion-buttons>
   </ion-navbar>
-
+  
 </ion-header>
 
 

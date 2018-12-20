@@ -28,6 +28,9 @@ export class NewWorkBenchPage {
   yufu_num = 0
   jiekuan_num = 0
   showBaoBiao = false;
+  po_num = 0
+
+  isShowCG = false
   constructor(public navCtrl: NavController, public navParams: NavParams,public statusbar:StatusBar,public services:CommonUseServices,
               public storage: Storage) {
       
@@ -55,6 +58,9 @@ export class NewWorkBenchPage {
           if(product.name == 'group_account_manager'){
             this.showBaoBiao = true;
           }
+          if(product.name == 'group_purchase_user' || product.name == 'group_purchase_manager'){
+            this.isShowCG = true;
+          }
         }
 
         this.storage.get("loginIndex").then(res => {
@@ -73,10 +79,19 @@ export class NewWorkBenchPage {
                 this.bx_num = res.result.res_data.bx_num
                 this.yufu_num = res.result.res_data.yufu_num
                 this.jiekuan_num = res.result.res_data.jiekuan_num
+                // this.po_num = res.result.res_data.po_num
               }
             })
           })
         })
+  }
+
+  click_caigou(){
+    this.inner_type = 'caigou'
+  }
+
+  click_normal(){
+    this.inner_type = 'normal'
   }
 
   click_attendance(){
@@ -127,5 +142,9 @@ export class NewWorkBenchPage {
 
   click_baobiao(){
     this.navCtrl.push('BaobiaoPage')
+  }
+
+  click_PO(){
+    this.navCtrl.push('NewPurchaseOrderPage')
   }
 }

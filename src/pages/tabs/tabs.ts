@@ -22,7 +22,7 @@ export class TabsPage {
   msgRoot: any = 'GongdanPage';
   workRoot: any = 'WorkBenchPage';
   new_workRoot: any = 'NewWorkBenchPage'
-  contactRoot = 'ContactPersonPage';
+  contactRoot = 'OldContactPersonPage';
  
   need_show_gongdan = false
   need_show_all = false;

@@ -1,0 +1,133 @@
+<!--
+  Generated template for the NewPurchaseOrderPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+
+
+
+<ion-content style="background-color:#f0f2f5">
+  <div ion-fixed class="div_header">
+    <div class="div_header_back">
+
+      <ion-auto-complete *ngIf="type != 'return'" class="search_class" (itemSelected)="itemPOSelected($event)" (itemClearSelected)="itemClearPOSelected($event)"
+        [dataProvider]="newPoAutoService"></ion-auto-complete>
+        <ion-auto-complete *ngIf="type == 'return'" class="search_class" (itemSelected)="itemSelected($event)" (itemClearSelected)="itemClearSelected($event)"
+        [dataProvider]="newReturnAutoService"></ion-auto-complete>
+
+      <!--<ion-auto-complete *ngIf="type != 'me'" class="search_class" (itemSelected)="itemSelected($event)" (itemClearSelected)="itemClearSelected($event)"
+        [dataProvider]="shenGouAutoService"></ion-auto-complete>-->
+      <button class="btn_class" ion-button icon-only (click)="goBack()">
+        <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+      </button>
+    </div>
+    <div align="center" class="main_header_div">
+      <div class="div_me" align="center" tappable (click)="clickReturn()">
+        <p [ngClass]="{true:'p_message_line_height_select',false:'p_message_line_height'}[type=='return']">退货单</p>
+      </div>
+      <div class="div_wait" align="center" tappable (click)="clickPO()">
+        <p [ngClass]="{true:'p_shenhe_line_height_select',false:'p_shenhe_line_height'}[type=='po']">采购订单</p>
+      </div>
+      <div [ngClass]="{true:'div_approve_ios',false:'div_approve'}[is_ios]" align="center" tappable (click)="clickXun()">
+        <p [ngClass]="{true:'p_daiban_line_height_select',false:'p_daiban_line_height'}[type=='xun']">询价单</p>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="type == 'po'" style="margin-top: 100px;background-color:#f0f2f5">
+    <div class="differ_div_class">
+
+    </div>
+    <div class="div_approval_class" tappable (click)="clickApproval()">
+      <p class="div_approval_num_class">
+        {{approve_arr_length}}
+      </p>
+      <p class="div_approval_div_class">
+        待批准
+      </p>
+    </div>
+    <ion-refresher (ionRefresh)="doRefresh1($event)">
+      <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+    <ion-list>
+      <ion-item no-lines style="margin-top:10px" *ngFor='let item of po_arr' tappable (click)='orderDetail(item)'>
+        <div style="overflow:hidden">
+          <p text-wrap class="state_class_po">{{changeState(item.state)}}</p>
+          <meter value={{item.shipping_rate}} max="100" class="progress_x"></meter>
+          <!-- <progress value={{item.shipping_rate}} max="100" class="progress_x"></progress> -->
+          <h2 text-wrap>{{item.name}}</h2>
+        </div>
+
+        <div style="overflow:hidden">
+          <p class="p_class_po" style="float:right">{{changeDuizhang(item.invoice_status)}}</p>
+          <p class="p_class_po">交期 : {{changeDate(item.handle_date) | date:"yyyy-MM-dd"}}</p>
+        </div>
+
+
+        <div class="totalStyleRight" style="overflow:hidden">
+          <p class="p_class_po" text-wrap text-right>汇总数量：{{item.amount_total}}</p>
+          <p class="p_class_po" text-wrap text-right>汇总金额(元):{{toFix(item.product_count)}}</p>
+        </div>
+        <p class="p_class_po" text-wrap>采购团队：{{item.team_name}}</p>
+        <p class="p_class_po" text-wrap>负责人：{{item.creater}}</p>
+        <p class="p_class_po" text-wrap style="width:180px">供应商 ：{{item.supplier}}</p>
+      </ion-item>
+    </ion-list>
+
+    <ion-infinite-scroll *ngIf="can_load_more" (ionInfinite)="doInfinite1($event)">
+      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </div>
+  <div *ngIf="type == 'xun'" style="margin-top: 100px;background-color:#f0f2f5">
+    <ion-refresher (ionRefresh)="doRefresh1($event)">
+      <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+    <ion-list>
+      <ion-item no-lines style="margin-top:10px" *ngFor='let item of xun_arr' tappable (click)='orderDetail(item)'>
+        <div style="overflow:hidden">
+          <p text-wrap class="state_class_po">{{changeState(item.state)}}</p>
+          <meter value={{item.shipping_rate}} max="100" class="progress_x"></meter>
+          <!-- <progress value={{item.shipping_rate}} max="100" class="progress_x"></progress> -->
+          <h2 text-wrap>{{item.name}}</h2>
+        </div>
+
+        <div style="overflow:hidden">
+          <p class="p_class_po" style="float:right">{{changeDuizhang(item.invoice_status)}}</p>
+          <p class="p_class_po">交期 : {{changeDate(item.handle_date) | date:"yyyy-MM-dd"}}</p>
+        </div>
+
+
+        <div class="totalStyleRight" style="overflow:hidden">
+          <p class="p_class_po" text-wrap text-right>汇总数量：{{item.amount_total}}</p>
+          <p class="p_class_po" text-wrap text-right>汇总金额(元):{{toFix(item.product_count)}}</p>
+        </div>
+        <p class="p_class_po" text-wrap>采购团队：{{item.team_name}}</p>
+        <p class="p_class_po" text-wrap>负责人：{{item.creater}}</p>
+        <p class="p_class_po" text-wrap style="width:180px">供应商 ：{{item.supplier}}</p>
+      </ion-item>
+    </ion-list>
+
+    <ion-infinite-scroll *ngIf="can_load_more" (ionInfinite)="doInfinite1($event)">
+      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </div>
+  <div *ngIf="type == 'return'" style="margin-top: 100px;background-color:#f0f2f5">
+    <ion-refresher (ionRefresh)="doRefresh4($event)">
+      <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+    <ion-list>
+      <ion-item style="margin-top:10px" no-lines *ngFor='let item of return_arr' tappable (click)='returnOrderDetail(item)'>
+        <p text-wrap class="rightStateFont">退货单</p>
+        <h2 text-wrap>{{item.name}}</h2>
+        <h4 text-wrap>{{item.order_line}}</h4>
+        <p text-wrap>退货日期：{{item.date}}</p>
+        <p text-wrap class="totalStyleRight">退货金额：{{item.amount_total}}</p>
+        <p text-wrap>供应商 ：{{item.supplier}}</p>
+        <p text-wrap>退货原因 :{{item.remark}}</p>
+      </ion-item>
+    </ion-list>
+    <ion-infinite-scroll *ngIf="can_load_more" immediate-check="false" (ionInfinite)="doInfinite4($event)">
+      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </div>
+</ion-content>

@@ -6,6 +6,15 @@ export class FirstShowService {
     constructor(private httpService: HttpService) {
 
     }
+
+    delete_sub_project(body){
+        return this.httpService.postBody("delete_sub_project", body);
+    }
+
+    delete_meeting_line(body){
+        return this.httpService.postBody("delete_meeting_line", body);
+    }
+
     check_in(body){
         return this.httpService.postBody("check_in", body);
     }
@@ -68,6 +77,9 @@ export class FirstShowService {
         return this.httpService.postBodyNoLoading("get_schedule_list", body);
     }
 
+    get_schedule_list_with_domain(body,domain){
+        return this.httpService.postBodyNoLoading("get_schedule_list_with_domain", {'body':body,'domain':domain});
+    }
 
     get_backlog_identify(body){
         return this.httpService.postBodyNoLoading("get_backlog_identify", body);
@@ -160,7 +172,7 @@ export class FirstShowService {
     }
     
     get_all_schedule(body){
-        return this.httpService.postBody("get_all_schedule", body);
+        return this.httpService.postBody("get_all_schedule_new", body);
     }
     
 

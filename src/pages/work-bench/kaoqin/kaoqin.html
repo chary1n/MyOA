@@ -14,11 +14,11 @@
         </ion-buttons>
     <ion-title *ngIf="isWrite">考勤</ion-title>
     <ion-title *ngIf="isLook && !is_show_tongji">我的</ion-title>
-    <ion-buttons right>
+    <!--<ion-buttons right>
             <button ion-button icon-only (click)="location()">
               <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
             </button>
-        </ion-buttons>
+        </ion-buttons>-->
     <div align="center" style="height:30px;" *ngIf="isLook && is_show_tongji">
         <div style="width:33%;float:right;text-align:left" [ngClass]="{true:'test_choose',false:'test_one'}[show_type == 'month']" align="center" tappable (click)="click_month()">
         月统计

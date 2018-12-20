@@ -1,0 +1,121 @@
+<!--
+  Generated template for the FirstshowMenuPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-menu side="right" persistent="true" [content]="content" type="overlay" (ionDrag)="dragMenu()" (ionClose)="closeMenu()" (ionOpen)="openMenu()"
+  id="menu5">
+
+  <ion-content>
+    <div>
+      <div *ngIf="is_show_me" class="me_header">
+        与我相关
+      </div>
+      <ion-grid *ngIf="is_show_me" class="grid_class">
+        <ion-row>
+          <ion-col tappable (click)="click_me_all()" col-4>
+            <div [ngClass]="{true:'me_class_choose',false:'me_class'}[me_type == 'all']">
+               全部 
+            </div>
+          </ion-col>
+          <ion-col tappable (click)="click_me_create()" col-4>
+            <div [ngClass]="{true:'me_class_choose',false:'me_class'}[me_type == 'create']">
+              我的创建
+            </div>
+          </ion-col>
+          <ion-col tappable (click)="click_me_fuze()" col-4>
+            <div [ngClass]="{true:'me_class_choose',false:'me_class'}[me_type == 'fuze']">
+              我负责的
+            </div>
+          </ion-col>
+          <ion-col tappable (click)="click_me_canyu()" col-4>
+            <div [ngClass]="{true:'me_class_choose',false:'me_class'}[me_type == 'canyu']">
+              我参与的
+            </div>
+          </ion-col>
+        </ion-row>
+
+      </ion-grid>
+    </div>
+    <div>
+      <div class="me_header">
+        状态
+      </div>
+      <ion-grid class="grid_class">
+        <ion-row>
+          <ion-col tappable (click)="click_state_all()" col-4>
+            <div [ngClass]="{true:'me_class_choose',false:'me_class'}[state_type == 'all']">
+               全部 
+            </div>
+          </ion-col>
+          <ion-col tappable (click)="click_state_unfinish()" col-4>
+            <div [ngClass]="{true:'me_class_choose',false:'me_class'}[state_type == 'unfinish']">
+              未完成
+            </div>
+          </ion-col>
+          <ion-col tappable (click)="click_state_finish()" col-4>
+            <div [ngClass]="{true:'me_class_choose',false:'me_class'}[state_type == 'finish']">
+              已完成
+            </div>
+          </ion-col>
+        </ion-row>
+
+      </ion-grid>
+    </div>
+
+    <div>
+      <div class="me_header">
+        类型
+      </div>
+      <ion-grid class="grid_class">
+        <ion-row>
+          <ion-col *ngFor="let item of event_list" tappable (click)="click_event(item)" col-4>
+            <div [ngClass]="{true:'me_class_choose',false:'me_class'}[isSelect(item)]">
+               {{item.display_name}} 
+            </div>
+          </ion-col>
+        </ion-row>
+
+      </ion-grid>
+    </div>
+    <!--<div>
+      <div class="me_header">
+        时间区间
+      </div>
+      <ion-grid class="grid_class">
+        <ion-row>
+          <ion-col tappable (click)="click_start_time()" col-4>
+            <div class="time_class_choose">
+               <ion-datetime text-wrap placeholder="开始时间" cancelText="取消" doneText="确定" [(ngModel)]="start_date" (ngModelChange)="changeStartDate($event)" min="2017-01" max="2100-12"
+                            style="color:#5C6166;font-size:12px;word-wrap:break-word;padding-left: 0px;padding-right: 0px;"
+                            displayFormat="MM月DD日" pickerFormat="YYYY年MM月DD日"></ion-datetime>
+            </div>
+          </ion-col>
+          <div class="differ_class">
+            一
+          </div>
+          <ion-col tappable (click)="click_end_time()" col-4>
+            <div class="time_class_choose">
+              <ion-datetime text-wrap placeholder="结束时间" cancelText="取消" doneText="确定" [(ngModel)]="end_date" (ngModelChange)="changeEndDate($event)" min="2017-01" max="2100-12"
+                            style="color:#5C6166;font-size:12px;word-wrap:break-word;overflow:hidden;padding-left: 0px;padding-right: 0px;"
+                            displayFormat="MM月DD日" pickerFormat="YYYY年MM月DD日"></ion-datetime>
+            </div>
+          </ion-col>
+        </ion-row>
+
+      </ion-grid>
+    </div>-->
+
+  </ion-content>
+  <ion-footer>
+    <div class="left_btn" tappable (click)='reset()'>
+      重置
+    </div>
+    <div class="right_btn" tappable (click)='confirm()'>
+      确定
+    </div>
+  </ion-footer>
+</ion-menu>
+
+<ion-nav [root]="root" #content swipeBackEnabled="false"></ion-nav>

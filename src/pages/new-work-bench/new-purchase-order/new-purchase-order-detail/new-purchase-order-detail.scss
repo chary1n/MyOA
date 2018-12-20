@@ -1,0 +1,76 @@
+page-new-purchase-order-detail {
+    .first_label {
+    font-size: 85%;
+    font-weight: bold;
+  }
+  .right_label {
+    font-size: 70%;
+    text-align: right;
+  }
+  .div_all {
+    padding-left: 16px;
+    padding-top: 10px;
+    overflow: hidden
+  }
+  .div_right {
+    float: right;
+    // font-size: 80%;
+    width: 70%;
+    color: #8b8b8b;
+    margin-top: 2px;
+    margin-left: 20px;
+    padding-right: 10px;
+    line-height: 17px;
+  }
+  .div_left {
+    font-size: 80%;
+    width: 30%;
+  }
+  .span_x {
+    color: #8b8b8b;
+    font-size: 80%;
+    width: 30%
+  }
+  .div_label {
+    background: #f2f2f2;
+    padding-left: 16px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    margin-bottom: 0px;
+    margin-right: 0px
+  }
+
+  .approve_btn_class{
+    //   display: inline-block;
+        line-height: 44px;
+        width: 100%;
+        text-align: center;
+        background-color: #2597ec;
+        color: white;
+        // float: left;
+  }
+
+  /*底部class*/
+    .footer_class{
+        width: 100%;
+    }
+
+    .left_btn{
+        display: inline-block;
+        line-height: 44px;
+        width: 50%;
+        text-align: center;
+        background-color: red;
+        color: white;
+        float: left;
+    }
+
+    .right_btn{
+        line-height: 44px;
+        width: 50%;
+        color: white;
+        text-align: center;
+        float: right;
+        background-color: #2597ec;
+    }
+}

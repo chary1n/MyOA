@@ -54,6 +54,7 @@
     "@ionic-native/web-intent": "^4.5.2",
     "@ionic/storage": "^2.1.3",
     "@types/hammerjs": "^2.0.36",
+    "@jiguang-ionic/jpush": "^1.0.2",
     "add": "^2.0.6",
     "android-versions": "^1.3.0",
     "angular-cookies": "^1.6.8",
@@ -103,12 +104,13 @@
     "figures": "^2.0.0",
     "hammerjs": "^2.0.8",
     "imports-loader": "^0.7.1",
+    "iod": "1.1.1",
     "ionic-angular": "^3.9.2",
     "ionic-img-viewer": "^2.9.0",
     "ionic-native": "^2.9.0",
     "ionic2-auto-complete": "^1.5.2-release",
     "ionicons": "3.0.0",
-    "jpush-phonegap-plugin": "3.3.4",
+    "jpush-phonegap-plugin": "^3.3.4",
     "jquery": "^3.3.1",
     "moment": "^2.21.0",
     "mute-stream": "0.0.7",
@@ -189,13 +191,13 @@
       "cordova-plugin-compat": {},
       "cordova-plugin-zip": {},
       "cordova-plugin-jcore": {},
+      "cordova-plugin-statusbar": {},
       "jpush-phonegap-plugin": {
         "APP_KEY": "f2ae889d6e4c3400fef49696"
       },
       "com.zhaoying.GaoDeLocation": {
         "API_KEY": "2846ff12cd5ed2d3a60244ea61315f15"
-      },
-      "cordova-plugin-statusbar": {}
+      }
     },
     "dependencies": {
       "@angular/common": "4.1.3",

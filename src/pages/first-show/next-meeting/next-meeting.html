@@ -236,8 +236,8 @@
             <ion-row style="height:45px;text-align:center;">
                 <ion-col col-5>
                     <div style="padding:1px;margin-left: 15dp;overflow:hidden;text-align:left">
-                        <input type="text" *ngIf="!rt_allday" id="input_start_datetime" placeholder="开始时间" class="class_start_date" value='{{default_start_datetime}}'>
-                        <input type="text" *ngIf="rt_allday" id="input_start_date" placeholder="开始时间" class="class_start_date" value='{{start_date}}'>
+                        <input type="text" *ngIf="!rt_allday" id="input_start_datetime" placeholder="开始时间" class="class_start_date" [(ngModel)]="default_start_datetime">
+                        <input type="text" *ngIf="rt_allday" id="input_start_date" placeholder="开始时间" class="class_start_date" [(ngModel)]="start_date">
                         <!--<ion-datetime *ngIf="!rt_allday" text-wrap cancelText="取消" doneText="确定" [(ngModel)]="start_datetime" min="2017-01" max="2100-12"
                             style="width: 170px;color:#5C6166;font-size:12px;word-wrap:break-word;padding-left: 0px;padding-right: 0px;margin-left: 5px"
                             displayFormat="YYYY年MM月DD日 HH:mm" pickerFormat="YYYY年 MM月 DD日 HH:mm"></ion-datetime>
@@ -249,8 +249,8 @@
                 <span style="color:#c2c7cc;float: left;height: 48px;line-height: 48px;font-size: 13px;margin-right: 16px;margin-left: 22px;">至</span>
                 <ion-col col-5>
                     <div style="padding:1px;margin-left: 15dp;overflow:hidden;text-align:left">
-                        <input type="text" *ngIf="!rt_allday" id="input_end_datetime" placeholder="结束时间" class="class_start_date" value='{{default_stop_datetime}}'>
-                        <input type="text" *ngIf="rt_allday" id="input_end_date" placeholder="结束时间" class="class_start_date" value="{{stop_date}}">
+                        <input type="text" *ngIf="!rt_allday" id="input_end_datetime" placeholder="结束时间" class="class_start_date" [(ngModel)]="default_stop_datetime">
+                        <input type="text" *ngIf="rt_allday" id="input_end_date" placeholder="结束时间" class="class_start_date" [(ngModel)]="stop_date">
                         <!--<ion-datetime *ngIf="!rt_allday" text-wrap cancelText="取消" doneText="确定" [(ngModel)]="stop_datetime" min="2017-01" max="2100-12"
                             style="width: 170px;color:#5C6166;font-size:12px;word-wrap:break-word;overflow:hidden;padding-left: 0px;padding-right: 0px;margin-left: 5px"
                             displayFormat="YYYY年MM月DD日 HH:mm" pickerFormat="YYYY MM DD,DDDD HH:mm" ></ion-datetime>

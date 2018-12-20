@@ -28,15 +28,16 @@
         <!--<div style="font-size: 12px;color: #666666;margin-top: 0px;height: 40px">[{{one_sub.type_name}}] {{one_sub.subject}}</div>-->
         <div [ngClass]="{true:'div_not_final',false:'div_empty'}[i < sub.subList.length - 1]">
           <ion-label style="color: #666666;font-size: 12px;">
-            <div style="float: left;height: 20px;">
-              <span class="subject_class">
-              [{{one_sub.type_name}}]:{{one_sub.subject}}
-              </span>
-            </div>
-            <div>
-              <span>
-              一{{one_sub.rt_project_principal.partner_id_s_name}}
+            <div style="float: left;height: 20px;line-height: 20px;">
+             
+              <span >
+              [{{one_sub.type_name}}]{{one_sub.rt_project_principal.partner_id_s_name}}
             </span>
+            </div>
+            <div style="line-height: 20px;">
+               <span class="subject_class">
+              一{{one_sub.subject}}
+              </span>
             </div>
           </ion-label>
         </div>

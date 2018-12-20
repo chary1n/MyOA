@@ -12,7 +12,7 @@
               <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
             </button>
     </ion-buttons>
-    <ion-title>休假明细</ion-title>
+    <ion-title>{{data.rt_name}}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -33,10 +33,6 @@
         </ion-col>
       </ion-row>
     </ion-grid>
-  </ion-item>
-  <ion-item *ngIf="!is_create" no-lines>
-    <div text-wrap class="order_class"> {{data.rt_name}}</div>
-    <div class="left_label"> 单号 </div>
   </ion-item>
   <ion-item no-lines>
     <div text-wrap class="order_class"> {{data.department_name}} </div>
@@ -60,6 +56,11 @@
             <div class="title_class">
               {{item.type}}：{{item.sub_total}}h
             </div>
+            <div *ngIf="(data.state == '草稿' || data.state == '被拒') && edit" style="display: inline-block;
+    text-align: right;
+    width: 210px;">
+              <ion-icon style="color:gray" ios="md-create" md="md-create"></ion-icon>
+            </div>
           </div>
           <div class="body_time_class">
             时间：{{item.start}} - {{item.end}}
@@ -69,7 +70,7 @@
           </div>
         </div>
       </ion-item>
-      <ion-item-options *ngIf="data.state == '草稿' || data.state == '被拒'">
+      <ion-item-options *ngIf="(data.state == '草稿' || data.state == '被拒') && edit">
         <button ion-button color="danger" (click)="deleteItem(item,i)">
           <ion-icon name="trash"></ion-icon>
           删除
@@ -77,9 +78,12 @@
       </ion-item-options>
     </ion-item-sliding>
   </ion-list>
-  <button class="btn_class" *ngIf="data.state == '草稿' || data.state == '被拒'" ion-button full (click)="add_detail()">
+  <!--<button class="btn_class" *ngIf="data.state == '草稿' || data.state == '被拒'" ion-button full (click)="add_detail()">
     + 休假明细
-  </button>
+  </button>-->
+  <div *ngIf="(data.state == '草稿' || data.state == '被拒') && edit" style="padding: 1px;margin-top: -20px;text-align: center;background-color: #f0f2f5">
+            <button (click)="add_detail()" ion-button style="border-radius: 34px;height: 2.5em;font-size: 13px" outline>+ 休假明细</button>
+        </div>
   <div *ngIf="!is_create" class="shenpi_class">审批记录</div>
   <ion-list>
     <ion-item no-lines *ngFor='let item of data.message_ids' class="middle_item">
@@ -107,12 +111,18 @@
     </div>
     <div *ngIf="is_me">
       <div *ngIf="data.state == '草稿' || data.state == '被拒'" class="footer_class">
-        <div class="save_btn" tappable (click)='click_save()'>
+        <div *ngIf="edit" class="save_btn" tappable (click)='click_save()'>
           保存
         </div>
-        <div class="right_btn" tappable (click)='click_submit()'>
+        <div *ngIf="edit" class="right_btn" tappable (click)='click_submit()'>
           提交
         </div>
+        <div *ngIf="!edit" class="left_btn" tappable (click)='click_delete()'>
+        删除
+      </div>
+      <div *ngIf="!edit" class="right_btn" tappable (click)='click_edit_vacation()'>
+        编辑
+      </div>
       </div>
 
       <div class="full_btn" *ngIf="data.state != '草稿' && data.state != '被拒'" tappable (click)='click_back()'>
@@ -122,11 +132,17 @@
   </div>
   <div *ngIf='!is_manager' class="footer_class">
     <div *ngIf="data.state == '草稿' || data.state == '被拒'" class="footer_class">
-      <div class="save_btn" tappable (click)='click_save()'>
+      <div *ngIf="edit" class="save_btn" tappable (click)='click_save()'>
         保存
       </div>
-      <div class="right_btn" tappable (click)='click_submit()'>
+      <div *ngIf="edit" class="right_btn" tappable (click)='click_submit()'>
         提交
+      </div>
+      <div *ngIf="!edit" class="left_btn" tappable (click)='click_delete()'>
+        删除
+      </div>
+      <div *ngIf="!edit" class="right_btn" tappable (click)='click_edit_vacation()'>
+        编辑
       </div>
     </div>
 

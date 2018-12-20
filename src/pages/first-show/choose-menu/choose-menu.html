@@ -102,4 +102,10 @@
   </ion-footer>
 </ion-menu>
 
-<ion-nav [root]="root" #content swipeBackEnabled="false"></ion-nav>
+<ion-nav [root]="root" #content swipeBackEnabled="false">
+  <ion-buttons left>
+            <button ion-button icon-only (click)="goBack()">
+              <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+            </button>
+        </ion-buttons>
+</ion-nav>

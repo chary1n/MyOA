@@ -79,6 +79,8 @@ export class NextMeetingPage {
   setting
   zNodes = []
   tree_obj
+
+  is_create_serve = false
   constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage,
     private datePipe: DatePipe, public statusBar: StatusBar, public firService: FirstShowService
     , public toastCtrl: ToastController, private sanitizer: DomSanitizer, public actionSheetCtrl: ActionSheetController, public alert: AlertController) {
@@ -316,15 +318,15 @@ export class NextMeetingPage {
       }
       this.search = false
       setTimeout(() => {
-                if (this.rt_allday) {
-                    this.click_end_date()
-                    this.click_start_date()
-                }
-                else {
-                    this.click_end_datetime()
-                    this.click_start_datetime()
-                }
-            }, 1)
+        if (this.rt_allday) {
+          this.click_end_date()
+          this.click_start_date()
+        }
+        else {
+          this.click_end_datetime()
+          this.click_start_datetime()
+        }
+      }, 1)
       if (this.select_type == 1) {
         this.selectList = this.storeList
       }
@@ -346,28 +348,33 @@ export class NextMeetingPage {
       }
       this.search = false
       setTimeout(() => {
-                if (this.rt_allday) {
-                    this.click_end_date()
-                    this.click_start_date()
-                }
-                else {
-                    this.click_end_datetime()
-                    this.click_start_datetime()
-                }
-                return
-            }, 10)
-      
-    }
-
-    let body = this.handleData()
-    if (body) {
-      this.firService.create_meeting(body).then(res => {
-        if (res.result.res_code == 1) {
-          // this.frontPage.data.need_fresh = true;
-          this.navCtrl.popTo(this.frontPage);
+        if (this.rt_allday) {
+          this.click_end_date()
+          this.click_start_date()
         }
-      })
+        else {
+          this.click_end_datetime()
+          this.click_start_datetime()
+        }
+        return
+      }, 10)
+
     }
+    // else {
+      if (!this.is_create_serve) {
+        this.is_create_serve = true
+        let body = this.handleData()
+        if (body) {
+          this.firService.create_meeting(body).then(res => {
+            if (res.result.res_code == 1) {
+              // this.frontPage.data.need_fresh = true;
+              this.navCtrl.popTo(this.frontPage);
+            }
+          })
+        }
+      }
+    // }
+
   }
   //时间待定的按钮
   notSureClick() {
@@ -1184,40 +1191,70 @@ export class NextMeetingPage {
   }
 
   click_start_datetime() {
+    var that = this
     $('#input_start_datetime').mobiscroll().datetime({
       theme: 'ios',
       lang: 'zh',
       display: 'bottom',
       dateWheels: '|M d D|',
       timeWheels: 'HH ii',
+      onSet: function (event, inst) {
+        // console.log(event)
+        that.default_start_datetime = event.valueText
+        if (that.default_start_datetime > that.default_stop_datetime) {
+          that.default_stop_datetime = event.valueText
+          setTimeout(() => {
+            that.click_end_datetime()
+          }, 10)
+        }
+      },
     });
   }
 
   click_start_date() {
+    var that = this
     $('#input_start_date').mobiscroll().date({
       theme: 'ios',
       lang: 'zh',
       display: 'bottom',
       dateWheels: '|M d D|',
+      onSet: function (event, inst) {
+        // console.log(event)
+        that.start_date = event.valueText
+        if (that.start_date > that.stop_date) {
+          that.stop_date = event.valueText
+          setTimeout(() => {
+            that.click_end_date()
+          }, 10)
+        }
+      },
     });
   }
 
   click_end_datetime() {
+    var that = this
     $('#input_end_datetime').mobiscroll().datetime({
       theme: 'ios',
       lang: 'zh',
       display: 'bottom',
       dateWheels: '|M d D|',
       timeWheels: 'HH ii',
+      onSet: function (event, inst) {
+        that.default_stop_datetime = event.valueText
+      }
     });
   }
 
   click_end_date() {
+    var that = this
     $('#input_end_date').mobiscroll().date({
       theme: 'ios',
       lang: 'zh',
       display: 'bottom',
       dateWheels: '|M d D|',
+      onSet: function (event, inst) {
+        that.stop_date = event.valueText
+      }
     });
   }
 

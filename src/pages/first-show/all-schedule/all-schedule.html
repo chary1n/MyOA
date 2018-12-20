@@ -68,7 +68,7 @@
         <span tappable (click)="clickMenu()" style="float:right;margin-top:14px;color:gray;margin-right:5px;border-left:#f0f2f5 1px solid;width:40px;text-align:right">筛选</span>
     </div>
     <ion-scroll class="scroll_class" zooming="true" scrollX="true" align-items-center>
-        <div class="left_div" align="center" tappable (click)="selectType(item)" *ngFor="let item of dataList">
+        <div class="left_div" align="center" tappable (click)="selectType(item)" *ngFor="let item of type">
             <span [ngClass]="{true:'under_line_style',false:'normal_style'}[item.select]">{{item.display_name}}</span>
         </div>
     </ion-scroll>
@@ -77,10 +77,10 @@
             <p>
               <span class="before_class">{{item.type_name}}</span>
               <span [ngClass]="{true:'notfinishState',false:'finishState'}[item.state]">
-                {{item.subject}}一{{item.partner_id_s_name}}
+                {{item.partner_id_s_name}}一{{item.subject}}
               </span>
             </p>
-            <p class="bottom_class">{{item.start}} 至 {{item.stop}}</p>
+            <p class="bottom_class">{{item.show_start}} 至 {{item.show_end}}</p>
         </div>
         <div align="center" *ngIf="!type_list || type_list.length == 0">
             <img style="width:100px;position:absolute;left:calc(50% - 50px);top:calc(50% - 60px)" src="assets/img/nodataimg.png">

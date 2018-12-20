@@ -44,15 +44,21 @@ export class ChooseMenuPage {
       this.end_date = ''
     })
 
-    events.subscribe('popNavCtrl',(data) => {
-      if (data.data == true){
-        this.navCtrl.pop()
-      }
-    })
+    
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ChooseMenuPage');
+    this.events.subscribe('popNavCtrl',(data) => {
+      if (data.data == true){
+        this.navCtrl.pop()
+        this.event.unsubscribe('popNavCtrl')
+      }
+    })
+  }
+
+  ionViewWillEnter() {
+
   }
 
   closeMenu() {
@@ -118,5 +124,9 @@ export class ChooseMenuPage {
         start_date:this.start_date,
         end_date:this.end_date,
     })
+  }
+
+  goBack(){
+    this.navCtrl.pop()
   }
 }
