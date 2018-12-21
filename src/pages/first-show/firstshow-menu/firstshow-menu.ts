@@ -52,9 +52,17 @@ export class FirstshowMenuPage {
     // })
 
     this.storage.get('user_schedule_domain_new').then(res => {
-        this.me_type = res.me_type
-        this.state_type = res.state_type
-        this.select_event_id = res.event_type_id
+        if (res){
+          this.me_type = res.me_type
+          this.state_type = res.state_type
+          this.select_event_id = res.event_type_id
+        }
+        else
+        {
+          this.me_type = []
+          this.state_type = 'all'
+          this.select_event_id = []
+        }
       })
 
     this.storage.get('user').then(res => {

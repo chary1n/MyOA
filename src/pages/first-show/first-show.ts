@@ -74,12 +74,21 @@ export class FirstShowPage {
       this.get_approval_num()
       this.getType()
       this.storage.get('user_schedule_domain_new').then(res => {
-        console.log(res)
-        this.me_type = res.me_type
-        this.state_type = res.state_type
-        this.event_type_id = res.event_type_id
+        // console.log(res)
+        if (res){
+          this.me_type = res.me_type
+          this.state_type = res.state_type
+          this.event_type_id = res.event_type_id
+        }
+        else
+        {
+          this.me_type = []
+          this.state_type = 'all'
+          this.event_type_id = []
+        }
         this.getDayData(this.datePipe.transform(new Date(), 'yyyy-MM-dd'))
       })
+      
     })
   }
   showback() {
@@ -138,9 +147,17 @@ export class FirstShowPage {
 
       this.storage.get('user_schedule_domain_new').then(res => {
         console.log(res)
-        this.me_type = res.me_type
-        this.state_type = res.state_type
-        this.event_type_id = res.event_type_id
+        if (res){
+          this.me_type = res.me_type
+          this.state_type = res.state_type
+          this.event_type_id = res.event_type_id
+        }
+        else
+        {
+          this.me_type = []
+          this.state_type = 'all'
+          this.event_type_id = []
+        }
         this.getDayData(this.datePipe.transform(new Date(), 'yyyy-MM-dd'))
       })
 
@@ -755,8 +772,9 @@ export class FirstShowPage {
 
   showMenu() {
     setTimeout(() => {
-      this.menu.toggle('right');
-      this.menu.get('menu5').enabled = true
+      var menu = this.menu.get('menu5')
+      menu.enable(true)
+      menu.toggle()
     }, 10);
 
   }

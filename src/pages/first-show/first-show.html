@@ -113,8 +113,9 @@
   </div>
 </ion-content>-->
 
-<ion-content>
-  <div *ngIf='isDay'>
+<div style="margin-top: 44px;
+    height: calc(100% - 88px);background-color:white">
+  <ion-content *ngIf='isDay' style="height: calc(100% + 44px);">
     <div align="center" tappable (click)="click_un_read_reply()" *ngIf="un_read_list.length > 0 && isDay">
       <div class="un_read_class">
         {{un_read_list.length}}条新回复
@@ -244,7 +245,7 @@
           ion-fab (click)="createWait(item, fab)">{{item.display_name}}</button>
       </ion-fab-list>
     </ion-fab>
-  </div>
+  </ion-content>
   <div *ngIf='isShen'>
     <div *ngIf="vacation_num!=0 || recoup_num!=0">
       <div style="padding: 1px;border-bottom:#f0f2f5 1px solid;margin-left: 20px">
@@ -312,4 +313,4 @@
       <p style="width:120px;position:absolute;left:calc(50% - 50px);top:calc(50% + 30px);color:#c2c8cc;font-size:15px">暂时没有消息～</p>
     </div>
   </div>
-</ion-content>
+</div>
