@@ -130,7 +130,7 @@ export class EmailPage {
   }
 
   ionViewWillLeave() {
-    // this.menu.enable(false)
+    this.menu.enable(false)
     var bar = document.getElementsByClassName('tabbar').item(0);
     bar['style'].display = 'none';
   }
@@ -141,8 +141,10 @@ export class EmailPage {
     setTimeout(() => {
       var bar = document.getElementsByClassName('tabbar').item(0);
       bar['style'].display = 'none';
-      this.menu.toggle('left');
-      this.menu.get('menu1').enabled = true
+      var menu = this.menu.get('menu1')
+      menu.enable(true)
+      menu.toggle()
+      
     }, 10);
 
   }

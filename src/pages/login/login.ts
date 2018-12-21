@@ -195,7 +195,7 @@ export class LoginPage {
           window.localStorage.setItem("id", res.result.res_data.user_id)
           this.storage.get('user_psd').then(res => {
             HttpService.appUrl = res.url
-            if (res.db_name == 'odoo10' || res.db_name == 'odoo1210_c') {  // 
+            if (res.db_name == 'odoo10') {  // 
               this.navCtrl.setRoot('NewTabsPage');
             }
             else {

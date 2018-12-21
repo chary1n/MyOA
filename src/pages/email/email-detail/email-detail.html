@@ -49,7 +49,7 @@
 </ion-header>
 
 
-<ion-content id='test_content' overflow-scroll="true">
+<ion-content id='test_content'>
   <ion-backdrop id="email_backdrop" *ngIf="need_show_choose" (click)='hide_email_backdrop()' class="gray_backdrop">
   </ion-backdrop>
   <div class="email_subject" (pinch)='pinchEvent(event)'>
@@ -100,10 +100,10 @@
       <span class="span_c">{{date}}</span>
     </li>
   </ul>
-  <ion-scroll zooming="true" direction="xy" style="width: 100%;height: 100%; ">
+  <!-- <ion-scroll zooming="true" direction="xy" style="width: 100%;height: 100%; "> -->
 
     <div class="html_div" id="html_id" [innerHTML]="assembleHTML(body_html)"> </div>
-  </ion-scroll>
+  <!-- </ion-scroll> -->
   <ion-list *ngIf="attachment_list.length!=0" no-lines class="ion-list-account" style="border-top: 0.55px solid #c8c7cce0">
     <ion-item nolines class="attach_item" style="border-bottom: 0.55px solid #c8c7cce0" *ngFor='let item of attachment_list'
       (click)='clickAttach(item.id,item.mimetype)'>
