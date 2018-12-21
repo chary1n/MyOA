@@ -2,7 +2,7 @@
 
   <ion-navbar color="gongdan-color">
     <ion-buttons>
-      <button ion-button *ngIf="!isEdit" [menuToggle]="activeMenu" (click)="showMenu()">
+      <button ion-button *ngIf="!isEdit"  (click)="showMenu()">
         <ion-icon name="menu"></ion-icon>
       </button>
       <button *ngIf="isEdit&&isChooseAll" ion-button icon-only tappable (click)="chooseAll()" style="font-size:14px;color: white;margin-left: 10px">
