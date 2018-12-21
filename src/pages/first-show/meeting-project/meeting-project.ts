@@ -1452,4 +1452,52 @@ export class MeetingProjectPage {
 
   }
 
+  quit_meeting() {
+        var ctrl = this.alert
+        ctrl.create({
+            title: '提示',
+            subTitle: '是否确认退出？',
+            buttons: [{ text: '取消' },
+            {
+                text: '确定',
+                handler: () => {
+                    var body = {
+                        'uid': this.uid,
+                        'meeting_id': this.meeting_id,
+                    }
+                    this.firService.quit_all(body).then(res => {
+                        if (res.result.res_code == 1) {
+                            Utils.toastButtom('退出成功', this.toastCtrl)
+                            this.navCtrl.pop()
+                        }
+                    })
+                }
+            }
+            ]
+        }).present();
+
+
+    }
+
+    click_more_quit() {
+        let actionSheet = this.actionSheetCtrl.create({
+            title: '',
+            buttons: [{
+                text: '退出',
+                handler: () => {
+                    this.quit_meeting()
+                }
+            },
+            {
+                text: '取消',
+                role: 'cancel',
+                handler: () => {
+                    console.log('Cancel clicked');
+                }
+            }
+            ]
+        });
+        actionSheet.present();
+    }
+
 }

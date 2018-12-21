@@ -81,6 +81,8 @@ export class NextMeetingPage {
   tree_obj
 
   is_create_serve = false
+
+  origin_meeting_id
   constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage,
     private datePipe: DatePipe, public statusBar: StatusBar, public firService: FirstShowService
     , public toastCtrl: ToastController, private sanitizer: DomSanitizer, public actionSheetCtrl: ActionSheetController, public alert: AlertController) {
@@ -137,6 +139,7 @@ export class NextMeetingPage {
 
     this.frontPage = Utils.getViewController(this.navParams.get('frontPage'), navCtrl)
     this.isEdit = this.navParams.get('isEdit')
+    this.origin_meeting_id = this.navParams.get('origin_meeting_id')
     this.storage.get('user').then(res => {
       this.user = res.result.res_data
       this.uid = res.result.res_data.user_id;
@@ -265,7 +268,7 @@ export class NextMeetingPage {
   }
   //滑动事件
   panEvent($event) {
-    cordova.plugins.Keyboard.close();
+    // cordova.plugins.Keyboard.close();
   }
 
   goBack() {
@@ -310,7 +313,7 @@ export class NextMeetingPage {
 
   //取消新建待办事项
   cancel() {
-    cordova.plugins.Keyboard.close()
+    // cordova.plugins.Keyboard.close()
     if (this.search) {
       this.title_meeting = '新建会议'
       if (this.edit && this.search && this.change) {
@@ -340,7 +343,7 @@ export class NextMeetingPage {
   }
   //新建待办事项完成
   stateFinish() {
-    cordova.plugins.Keyboard.close()
+    // cordova.plugins.Keyboard.close()
     if (this.search) {
       this.title_meeting = '新建会议'
       if (this.edit && this.search && this.change) {
@@ -361,10 +364,11 @@ export class NextMeetingPage {
 
     }
     // else {
-      if (!this.is_create_serve) {
-        this.is_create_serve = true
+      // if (!this.is_create_serve) {
+      //   this.is_create_serve = true
         let body = this.handleData()
         if (body) {
+          body['rt_origin_meeting_id'] = this.origin_meeting_id
           this.firService.create_meeting(body).then(res => {
             if (res.result.res_code == 1) {
               // this.frontPage.data.need_fresh = true;
@@ -372,7 +376,7 @@ export class NextMeetingPage {
             }
           })
         }
-      }
+      // }
     // }
 
   }
@@ -850,7 +854,7 @@ export class NextMeetingPage {
   }
   //编辑完成
   changeFinish() {
-    cordova.plugins.Keyboard.close()
+    // cordova.plugins.Keyboard.close()
     if (this.search) {
       this.search = false
       return
@@ -869,7 +873,7 @@ export class NextMeetingPage {
   }
   //编辑取消
   changeCancel() {
-    cordova.plugins.Keyboard.close()
+    // cordova.plugins.Keyboard.close()
     if (this.search) {
       this.search = false
       if (this.select_type == 1) {
@@ -1269,6 +1273,54 @@ export class NextMeetingPage {
     this.employeeList = []
     this.linshiStringOther = ''
   }
+
+  quit_meeting() {
+        var ctrl = this.alert
+        ctrl.create({
+            title: '提示',
+            subTitle: '是否确认退出？',
+            buttons: [{ text: '取消' },
+            {
+                text: '确定',
+                handler: () => {
+                    var body = {
+                        'uid': this.uid,
+                        'meeting_id': this.meeting_id,
+                    }
+                    this.firService.quit_all(body).then(res => {
+                        if (res.result.res_code == 1) {
+                            Utils.toastButtom('退出成功', this.toastCtrl)
+                            this.navCtrl.pop()
+                        }
+                    })
+                }
+            }
+            ]
+        }).present();
+
+
+    }
+
+    click_more_quit() {
+        let actionSheet = this.actionSheetCtrl.create({
+            title: '',
+            buttons: [{
+                text: '退出',
+                handler: () => {
+                    this.quit_meeting()
+                }
+            },
+            {
+                text: '取消',
+                role: 'cancel',
+                handler: () => {
+                    console.log('Cancel clicked');
+                }
+            }
+            ]
+        });
+        actionSheet.present();
+    }
 
 }
 

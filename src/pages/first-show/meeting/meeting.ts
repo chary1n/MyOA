@@ -836,12 +836,21 @@ export class MeetingPage {
     }
 
     addMeeting() {
-        this.navCtrl.push('CalendarDeatilpagePage', {
-            'isEdit': true,
-            'type': 1,
+        var body = {
+            'uid': this.uid,
             'meeting_id': this.meeting_id,
-            'frontPage': 'MeetingPage'
+        }
+        this.firService.meeting_fuze_is_check_in(body).then(res => {
+            if (res.result.res_code == 1) {
+                this.navCtrl.push('CalendarDeatilpagePage', {
+                    'isEdit': true,
+                    'type': 1,
+                    'meeting_id': this.meeting_id,
+                    'frontPage': 'MeetingPage'
+                })
+            }
         })
+
     }
 
     lookDetail(item) {
@@ -986,6 +995,7 @@ export class MeetingPage {
                                     'isEdit': true,
                                     'frontPage': 'MeetingPage',
                                     'item': this.item,
+                                    'origin_meeting_id': this.item.id,
                                 })
                             }
                         }
@@ -1120,52 +1130,44 @@ export class MeetingPage {
 
     click_more() {
         if (this.rt_meeting_state) {
+            var btn_arr = [
+            {
+                text: '标记完成',
+                handler: () => {
+                    this.finish()
+                }
+            }, {
+                text: '编辑',
+                handler: () => {
+                    this.edit()
+                }
+            },
+            {
+                text: '删除',
+                handler: () => {
+                    this.delete()
+                }
+            },
+
+            {
+                text: '取消',
+                role: 'cancel',
+                handler: () => {
+                    console.log('Cancel clicked');
+                }
+            }
+            ]
+
             let actionSheet = this.actionSheetCtrl.create({
                 title: '',
-                buttons: [{
-                    text: '开始情况',
-                    handler: () => {
-                        this.click_check_in()
-                    }
-                },
-                {
-                    text: '标记完成',
-                    handler: () => {
-                        this.finish()
-                    }
-                }, {
-                    text: '编辑',
-                    handler: () => {
-                        this.edit()
-                    }
-                },
-                {
-                    text: '删除',
-                    handler: () => {
-                        this.delete()
-                    }
-                },
-
-                {
-                    text: '取消',
-                    role: 'cancel',
-                    handler: () => {
-                        console.log('Cancel clicked');
-                    }
-                }
-                ]
+                buttons: btn_arr
             });
             actionSheet.present();
         }
         else {
             let actionSheet = this.actionSheetCtrl.create({
                 title: '',
-                buttons: [{
-                    text: '开始情况',
-                    handler: () => {
-                        this.click_check_in()
-                    }
-                },
+                buttons: [
                 {
                     text: '标记为待办',
                     //  role: 'destructive',
@@ -1186,18 +1188,6 @@ export class MeetingPage {
                         console.log('Cancel clicked');
                     }
                 }
-                    // ,
-                    // {
-                    //   text: '发起下一个',
-                    //   handler: () => {
-                    //     this.navCtrl.push('NextMeetingPage', {
-                    //         'isEdit': true,
-                    //         'frontPage': 'MeetingPage',
-                    //         'item': this.item,
-                    //       })
-
-                    //   }
-                    // }
                 ]
             });
             actionSheet.present();
@@ -1414,6 +1404,54 @@ export class MeetingPage {
             }
             ]
         }).present();
+    }
+
+    quit_meeting() {
+        var ctrl = this.alert
+        ctrl.create({
+            title: '提示',
+            subTitle: '是否确认退出？',
+            buttons: [{ text: '取消' },
+            {
+                text: '确定',
+                handler: () => {
+                    var body = {
+                        'uid': this.uid,
+                        'meeting_id': this.meeting_id,
+                    }
+                    this.firService.quit_all(body).then(res => {
+                        if (res.result.res_code == 1) {
+                            Utils.toastButtom('退出成功', this.toastCtrl)
+                            this.navCtrl.pop()
+                        }
+                    })
+                }
+            }
+            ]
+        }).present();
+
+
+    }
+
+    click_more_quit() {
+        let actionSheet = this.actionSheetCtrl.create({
+            title: '',
+            buttons: [{
+                text: '退出',
+                handler: () => {
+                    this.quit_meeting()
+                }
+            },
+            {
+                text: '取消',
+                role: 'cancel',
+                handler: () => {
+                    console.log('Cancel clicked');
+                }
+            }
+            ]
+        });
+        actionSheet.present();
     }
 
 }
