@@ -31,6 +31,8 @@
         <ion-title>会议</ion-title>
         <img *ngIf='need_show_more_icon' tappable (click)='click_more()' style="float: right;
     margin-right: 5px;width: 30px;" src="assets/img/more_btn_white.png" />
+    <img *ngIf='!need_show_more_icon' tappable (click)='click_more_quit()' style="float: right;
+    margin-right: 5px;width: 30px;" src="assets/img/more_btn_white.png" />
     </ion-navbar>
 </ion-header>
 

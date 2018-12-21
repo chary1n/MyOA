@@ -31,6 +31,8 @@
     <ion-title>项目</ion-title>
     <img *ngIf='need_show_more_icon' tappable (click)='click_more()' style="float: right;
     margin-right: 5px;width: 30px;" src="assets/img/more_btn_white.png" />
+    <img *ngIf='!need_show_more_icon' tappable (click)='click_more_quit()' style="float: right;
+    margin-right: 5px;width: 30px;" src="assets/img/more_btn_white.png" />
   </ion-navbar>
 </ion-header>
 
@@ -162,7 +164,8 @@
       <ion-item-sliding no-lines *ngFor="let item of rt_meeting_ids">
 
         <ion-item no-lines tappable (click)="lookDetail(item)" style="background-color: white;border-bottom:#f0f2f5 1px solid;">
-          <p item-start style="font-size: 12px;width: 40px">{{item.event_time}}</p>
+          <p *ngIf="!item.rt_is_sure_time" item-start style="font-size: 12px;width: 40px">{{item.event_time}}</p>
+          <p *ngIf="item.rt_is_sure_time" item-start style="font-size: 12px;width: 40px">待定</p>
           <!--<ion-label item-end [ngClass]="{true:'notFinish',false:'finish'}[item.state]">[{{item.type_name}}]:{{item.subject}}——{{item.rt_project_principal.partner_id_s_name}}</ion-label>-->
           <div [ngClass]="{true:'notFinish',false:'finish'}[item.state]">
             <div style="float: left;height: 20px;line-height: 20px;">

@@ -7,6 +7,15 @@ export class FirstShowService {
 
     }
 
+    quit_all(body){
+        return this.httpService.postBody("quit_all", body);
+    }
+
+    meeting_fuze_is_check_in(body)
+    {
+        return this.httpService.postBody("meeting_fuze_is_check_in", body);
+    }
+
     delete_sub_project(body){
         return this.httpService.postBody("delete_sub_project", body);
     }

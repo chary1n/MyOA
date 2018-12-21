@@ -1,6 +1,6 @@
 // import { NativeService } from './NativeService';
 // import { UrlServer } from './UrlServer';
-import { LoadingController, AlertController, Platform } from 'ionic-angular';
+import { LoadingController, AlertController, Platform ,ToastController} from 'ionic-angular';
 import * as constansts from './Constants';
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
@@ -20,6 +20,7 @@ export class HttpService {
   constructor(private http: Http, private loading: LoadingController,
     private platform: Platform,
     public storage: Storage, public ctrl: AlertController, private inAppBrowser: InAppBrowser,
+    public toastCtrl: ToastController
   ) {
   }
 
@@ -196,27 +197,41 @@ export class HttpService {
         }).present();
       }
       else {
-       var ctrl =  this.ctrl.create({
-          title: "提示",
-          subTitle: result.error.data.message,
-          buttons: [{
-            text: '确定',
-            cssClass:'alertCss',
-            handler: () => {
-              HttpService.is_alert = false
-            }
-          }
-          ]
-        })
-        ctrl.onDidDismiss(res=>{
-          HttpService.is_alert = false
-        })
+        var toast = this.toastCtrl.create({
+            message: result.error.data.message,
+            duration: 1000,
+            position: 'buttom'
+        });
+        toast.onDidDismiss(() => {
+            HttpService.is_alert = false
+        });
         if(!HttpService.is_alert){
           console.log('弹框弹出来了')
-          ctrl.present()
+          toast.present()
           // ctrl._setZIndex(1,undefined)
           HttpService.is_alert = true
         }
+      //  var ctrl =  this.ctrl.create({
+      //     title: "提示",
+      //     subTitle: result.error.data.message,
+      //     buttons: [{
+      //       text: '确定',
+      //       cssClass:'alertCss',
+      //       handler: () => {
+      //         HttpService.is_alert = false
+      //       }
+      //     }
+      //     ]
+      //   })
+      //   ctrl.onDidDismiss(res=>{
+      //     HttpService.is_alert = false
+      //   })
+      //   if(!HttpService.is_alert){
+      //     console.log('弹框弹出来了')
+      //     ctrl.present()
+      //     // ctrl._setZIndex(1,undefined)
+      //     HttpService.is_alert = true
+      //   }
       }
 
       return result;
