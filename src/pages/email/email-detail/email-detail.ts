@@ -91,6 +91,9 @@ export class EmailDetailPage {
       } else if (attachment_list[i].mimetype.indexOf('gif') > 0) {
         icon_src = "assets/img/attach_icon/gif.png"
       }
+      if(attachment_list[i].mimetype=='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'){
+        icon_src = "assets/img/attach_icon/xls.png"
+      }
       attachment_list[i].icon_src = icon_src
     }
     return attachment_list
