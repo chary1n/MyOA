@@ -93,6 +93,8 @@ export class EmailDetailPage {
       }
       if(attachment_list[i].mimetype=='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'){
         icon_src = "assets/img/attach_icon/xls.png"
+      }else if(attachment_list[i].mimetype=='application/vnd.openxmlformats-officedocument.wordprocessingml.document'){
+        icon_src = "assets/img/attach_icon/word.png"
       }
       attachment_list[i].icon_src = icon_src
     }
