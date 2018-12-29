@@ -277,7 +277,7 @@ export class NewPurchaseOrderPage {
               }
             }
             for (let item of item_data) {
-              this.po_arr.push(item);
+              // this.po_arr.push(item);
               if (this.type == 'po') {
                 this.po_arr.push(item);
               }
