@@ -1,0 +1,34 @@
+<!--
+  Generated template for the TaxDeductPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+    <ion-navbar color="gongdan-color" hideBackButton="true">
+        <ion-buttons left>
+          <button ion-button icon-only (click)="goBack()">
+            <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+          </button>
+        </ion-buttons>
+    <ion-title>个税专项扣除</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content style="background: #F0F2F5;">
+
+      <ion-list  class='ion_list_c' no-lines>
+          <ion-item *ngFor='let item of applyList' tappable (click)='detail(item.id)'>
+          <p text-wrap style="float:right;font-size:12px;color: #999999;">{{item.create_date}}</p>
+          <p text-wrap style="font-size:13px;font-weight:bold;color:black;">{{item.rt_show_year}}个税专项扣除</p>
+          <p text-wrap style="float:right;color:#E0540E;font-weight:bold;font-size:12px;margin-top: 2px"> {{item.rt_state=='draft'?'草稿':'已验证'}} </p>
+          <p text-wrap style="font-size:13px;color: #999999;margin-top: 5px;">合计: &nbsp;{{item.rt_total}} </p>
+        </ion-item>
+      </ion-list>
+</ion-content>
+
+<ion-footer>
+  <button ion-button full tappable (click)='apply()' style="margin:0px"> 我要申请 </button>
+</ion-footer>

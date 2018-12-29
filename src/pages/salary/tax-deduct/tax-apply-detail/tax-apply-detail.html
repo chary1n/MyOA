@@ -1,0 +1,89 @@
+<!--
+  Generated template for the TaxApplyDetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+    <ion-navbar color="gongdan-color" hideBackButton="true">
+        <ion-buttons left>
+          <button ion-button icon-only (click)="goBack()">
+            <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+          </button>
+        </ion-buttons>
+    <ion-title></ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content style="background: #F0F2F5;">
+  <ion-item no-lines style="min-height:60px;height:60px;">
+    <ion-grid class="bg_main">
+      <ion-row>
+        <ion-col col-2>
+          <img src={{user_ava}} class="imgHeard">
+        </ion-col>
+        <ion-col col-7 style="padding-top:17px">
+          <span class="name_class">{{name}}</span>
+        </ion-col>
+        <ion-col col-3 style="padding-top:17px">
+          <span class="state_class">{{state=='draft'? '草稿':'已验证'}}</span>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item>
+  <div class='div_line' style="margin-top: 12px;"></div>
+  <div class="div_x">
+    <ion-grid class="bg_main grid_detail">
+      <ion-row>
+        <ion-col col-3 class="col_left">
+          生效年份
+        </ion-col>
+        <ion-col col-9 class="col_right">
+          {{year}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <div class="div_x">
+    <ion-grid class="bg_main grid_detail">
+      <ion-row>
+        <ion-col col-3 class="col_left">
+          部门
+        </ion-col>
+        <ion-col col-9 class="col_right">
+          {{department}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <div class="div_x">
+    <ion-grid class="bg_main grid_detail">
+      <ion-row>
+        <ion-col col-3 class="col_left">
+          合计
+        </ion-col>
+        <ion-col col-9 class="col_right" style="font-size: 17px;color: red;">
+         {{total}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <ion-item class='item_only label_item_c' no-lines>
+    个税专项附加扣除
+  </ion-item>
+  <div *ngFor="let item of extras" >
+      <div class='div_line'></div>
+      <div class="div_input">
+        <span class='small_span'></span>
+        <p class='input_p'>{{item.name}}
+          <span class='p_input'> {{item.detail}}</span>
+        </p>
+      </div>
+  </div>
+</ion-content>
+
+<ion-footer *ngIf="state=='draft'" >
+  <button ion-button full tappable (click)='edit()' style="margin:0px"> 编辑 </button>
+</ion-footer>

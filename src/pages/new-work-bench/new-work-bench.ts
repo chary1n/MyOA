@@ -114,6 +114,10 @@ export class NewWorkBenchPage {
     this.navCtrl.push('PerformancePage')
   }
 
+  click_salary(){
+    this.navCtrl.push('SalaryPage')
+  }
+
   toAll(){
     this.navCtrl.push('AllSchedulePage',{
       is_work_bench:true
