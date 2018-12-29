@@ -73,21 +73,21 @@ export class FirstShowPage {
       this.get_backlog_identify(this.currentYear, this.currentMonth)
       this.get_approval_num()
       this.getType()
-      this.storage.get('user_schedule_domain_new').then(res => {
-        // console.log(res)
-        if (res){
-          this.me_type = res.me_type
-          this.state_type = res.state_type
-          this.event_type_id = res.event_type_id
-        }
-        else
-        {
-          this.me_type = []
-          this.state_type = 'all'
-          this.event_type_id = []
-        }
-        this.getDayData(this.datePipe.transform(new Date(), 'yyyy-MM-dd'))
-      })
+      // this.storage.get('user_schedule_domain_new').then(res => {
+      //   // console.log(res)
+      //   if (res){
+      //     this.me_type = res.me_type
+      //     this.state_type = res.state_type
+      //     this.event_type_id = res.event_type_id
+      //   }
+      //   else
+      //   {
+      //     this.me_type = []
+      //     this.state_type = 'all'
+      //     this.event_type_id = []
+      //   }
+      //   this.getDayData(this.datePipe.transform(new Date(), 'yyyy-MM-dd'))
+      // })
       
     })
   }
