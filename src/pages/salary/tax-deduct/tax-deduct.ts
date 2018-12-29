@@ -37,6 +37,13 @@ export class TaxDeductPage {
     this.navCtrl.push('ApplyNewPage')
   }
 
+  changeDate(date) {
+    if (date) {
+      let new_date = new Date(date.replace(' ', 'T') + 'Z').getTime();
+      return new_date;
+    }
+  }
+
   detail(id){
     this.navCtrl.push('TaxApplyDetailPage',{id:id})
   }
