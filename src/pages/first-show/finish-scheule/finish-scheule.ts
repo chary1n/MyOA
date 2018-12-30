@@ -28,6 +28,9 @@ export class FinishScheulePage {
   relly_stop_time
   frontPage
   item
+  selectList = []
+
+  remark
   constructor(public navCtrl: NavController, public navParams: NavParams, public statusBar: StatusBar
              ,private datePipe: DatePipe,public firService: FirstShowService,public toastCtrl: ToastController,) {
       this.frontPage = Utils.getViewController("CalendarDeatilpagePage", navCtrl)
@@ -36,6 +39,11 @@ export class FinishScheulePage {
       this.stop = this.datePipe.transform(new Date(new Date(this.body['stop'].replace(/-/g, "/")).getTime()+2*8*60*60*1000), 'yyyy-MM-dd HH:mm')
       this.relly_start_time = this.datePipe.transform(new Date(this.start.replace(/-/g, "/")), 'yyyy-MM-dd HH:mm').replace(' ','T')+'Z';
       this.relly_stop_time = this.datePipe.transform(new Date(this.stop.replace(/-/g, "/")), 'yyyy-MM-dd HH:mm').replace(' ','T')+'Z';
+      this.selectList = this.navParams.get('selectList')
+      for (let i = 0; i < this.selectList.length; i++) {
+        this.selectList[i]['score'] = 0
+        this.selectList[i]['remark'] = ''
+      }
   }
 
   ionViewDidLoad() {
@@ -87,7 +95,10 @@ export class FinishScheulePage {
     this.body['relly_stop_time'] = this.relly_stop_time
     this.body['start'] = this.datePipe.transform(new Date(new Date(this.body['start'].replace(/-/g, "/")).getTime()+8*60*60*1000), 'yyyy-MM-dd HH:mm:ss')
     this.body['stop'] = this.datePipe.transform(new Date(new Date(this.body['stop'].replace(/-/g, "/")).getTime()+8*60*60*1000), 'yyyy-MM-dd HH:mm:ss')
-    this.firService.finish_wait_thing(this.body).then(res =>{
+    this.firService.write_wait_thing_new({'body':this.body,'data':{
+      'selectList': this.selectList,
+      'remark': this.remark
+    }}).then(res =>{
       if (res.result.res_data && res.result.res_code == 1) {
         this.item = res.result.res_data
         this.frontPage.data.need_fresh = true;

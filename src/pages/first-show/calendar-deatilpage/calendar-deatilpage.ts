@@ -34,6 +34,7 @@ export class CalendarDeatilpagePage {
   isEdit = false//是否是编辑状态
   search = false//是否显示搜索
   rt_is_sure_time = false
+  rt_task_need_charge = true
   allday = true
   type_name = ''//类型名字
   type_id//类型id
@@ -88,6 +89,14 @@ export class CalendarDeatilpagePage {
   is_create_server = false
 
   hide_btn = false
+
+  level_name
+  level_list = []
+  level_id
+  total_score
+  my_score
+  my_proportion
+  manyi
   constructor(public navCtrl: NavController, public navParams: NavParams, public statusBar: StatusBar,
     public firService: FirstShowService, public storage: Storage, public toastCtrl: ToastController,
     private datePipe: DatePipe, private sanitizer: DomSanitizer, public alertCtrl: AlertController,
@@ -151,6 +160,7 @@ export class CalendarDeatilpagePage {
       this.user = res.result.res_data
       this.uid = res.result.res_data.user_id;
       this.getType()
+      this.getTask()
       if (this.isEdit == true) {
         let current_day
         if (this.navParams.get('type_id')) {
@@ -244,7 +254,28 @@ export class CalendarDeatilpagePage {
   }
   //根据item赋值
   item_change() {
-
+    this.type_name = this.item.type_name
+    if (this.type_name == '任务'){
+      this.level_id = this.item.levelDic.id
+      this.level_name = this.item.levelDic.name
+      this.total_score = this.item.levelDic.level_integral
+      if (this.item.scoreDic){
+        this.my_score = this.item.scoreDic.final_score
+        this.my_proportion = this.item.scoreDic.proportion + '%'
+      }else
+      {
+        this.my_score = '暂无'
+        this.my_proportion = '暂无'
+      }
+      if (this.item.manyi){
+        this.manyi = this.item.manyi + '%'
+      }
+      else
+      {
+        this.manyi = '暂无'
+      }
+      
+    }
     this.state = this.item.state
     this.location = this.item.location
     this.rt_project_principal_name = this.item.rt_project_principal.partner_id_s_name
@@ -260,7 +291,7 @@ export class CalendarDeatilpagePage {
       this.click_end_datetime()
       this.click_start_datetime()
     }
-    this.type_name = this.item.type_name
+    
     this.wait_id = this.item.id
     this.selectList = this.item.partner_ids
 
@@ -632,7 +663,8 @@ export class CalendarDeatilpagePage {
       let body = this.handleData(false)
       body['wait_id'] = this.item.id
       this.navCtrl.push('FinishScheulePage', {
-        'body': body
+        'body': body,
+        'selectList': this.selectList,
       })
     } else {
       Utils.toastButtom('只有负责人和创建人可以标记完成', this.toastCtrl)
@@ -681,6 +713,15 @@ export class CalendarDeatilpagePage {
       }
     }
   }
+  levelChange(option2:any){
+    for (let i = 0; i < this.level_list.length; i++) {
+      if (this.level_list[i].display_name == this.level_name) {
+        this.level_id = this.level_list[i].id
+        break
+      }
+    }
+  }
+
   //获取所有的待办类型
   getType() {
     let body = {
@@ -701,6 +742,24 @@ export class CalendarDeatilpagePage {
       }
     })
   }
+
+  getTask(){
+    let body = {
+      'uid': this.uid
+    }
+    this.firService.get_total_task(body).then(res => {
+      if (res.result.res_data && res.result.res_code == 1) {
+        this.level_list = res.result.res_data
+         for (let i = 0; i < this.level_list.length; i++) {
+           if (this.level_list[i].default){
+             this.level_name = this.level_list[i].display_name
+             this.level_id = this.level_list[i].id
+           }
+         }
+      }
+    })
+  }
+
   //删除一个人员
   closePartner(item) {
     for (var i = 0; i < this.showPeopleList.length; i++) {
@@ -1009,6 +1068,8 @@ export class CalendarDeatilpagePage {
           'type_app': this.type_app,
           'type_notification': this.type_notification,
           'rt_recurrency_type': '0',
+          'rt_task_need_charge': !this.rt_task_need_charge,
+          'rt_task_level_id': this.level_id,
         }
       } else {
         if (this.rt_is_sure_time == true) {
@@ -1029,6 +1090,8 @@ export class CalendarDeatilpagePage {
             'rt_recurrency_type': '0',
             'start': this.datePipe.transform(this.start_date, 'yyyy-MM-dd HH:mm:ss'),
             'stop': this.datePipe.transform(this.stop_date, 'yyyy-MM-dd HH:mm:ss'),
+            'rt_task_need_charge': !this.rt_task_need_charge,
+            'rt_task_level_id': this.level_id,
           }
         } else {
           if (this.start_datetime != '' && this.stop_datetime != '' && this.start_datetime && this.stop_datetime) {
@@ -1078,6 +1141,8 @@ export class CalendarDeatilpagePage {
             'type_app': this.type_app,
             'type_notification': this.type_notification,
             'rt_recurrency_type': '0',
+            'rt_task_need_charge': !this.rt_task_need_charge,
+            'rt_task_level_id': this.level_id,
           }
         }
       }

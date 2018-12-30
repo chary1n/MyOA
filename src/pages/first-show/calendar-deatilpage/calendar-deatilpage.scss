@@ -405,7 +405,36 @@ page-calendar-deatilpage {
     float: right;
     position: absolute;
     right: 10px;
-    top: 5px;
+    top: 65px;
+  }
+  .jifen_class{
+      margin-bottom: 5px;
+      margin-top: 5px;
+  }
+
+  .small_font_size{
+      font-size: 8px;
+      color: gray;
+  }
+  .small_font_size_empty{
+      font-size: 8px;
+      color: #f0f2f5;
+  }
+  .ft_size{
+      font-size: 11px;
+      color:#2597ec;
+  }
+  .bg_ft_size_num{
+      font-size: 16px;
+      color:#2597ec;
+      margin-left: 5px;
+      line-height: 20px;
+  }
+
+  .bg_ft_size{
+      font-size: 16px;
+      color:#2597ec;
+      margin-left: 5px;
   }
 
   image-viewer.ion-page .image 

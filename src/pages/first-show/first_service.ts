@@ -7,6 +7,10 @@ export class FirstShowService {
 
     }
 
+    get_total_task(body){
+        return this.httpService.postBody("get_total_task", body)
+    }
+
     quit_all(body){
         return this.httpService.postBody("quit_all", body);
     }
@@ -124,6 +128,10 @@ export class FirstShowService {
 
     write_wait_thing(body){
         return this.httpService.postBody("write_wait_thing", body);
+    }
+
+    write_wait_thing_new(body){
+        return this.httpService.postBody("write_wait_thing_new", body);
     }
 
     finish_wait_thing(body){
