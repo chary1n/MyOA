@@ -84,6 +84,23 @@
   </div>
 
   <div *ngIf="!isEdit && !search && !showIcon">
+    <div *ngIf="type_name == '任务'" class="jifen_class">
+      <div style="display: inline-block;margin-left: 15px;">
+        <div class="small_font_size_empty">1</div>
+        <div><span class="ft_size">任务等级</span><span class="bg_ft_size">{{level_name}}</span></div>
+        <div class="small_font_size_empty">2</div>
+      </div>
+      <div style="display: inline-block;margin-left: 15px;">
+        <div class="small_font_size_empty">1</div>
+        <div><span class="ft_size">我的积分</span><span class="bg_ft_size_num">{{my_score}}</span></div>
+        <div class="small_font_size_empty">1</div>
+      </div>
+      <div style="display: inline-block;margin-left: 15px;">
+        <div class="small_font_size">总积分：{{total_score}}</div>
+        <div class="small_font_size">我的权占比：{{my_proportion}}</div>
+        <div class="small_font_size">满意度：{{manyi}}</div>
+      </div>
+    </div>
     <div style="background-color: white">
       <div style="padding: 1px;border-bottom:#f0f2f5 1px solid;margin-left: 20px;background-color: white">
         <span style="background-color: #409eff;width: 3px;border-radius: 3px;height: 13px;float: left;margin-top: 18px;margin-left: -12px"></span>
@@ -179,6 +196,21 @@
       </ion-label>
       <ion-input type="text" text-right style="font-size: 13px;color: #8d9296" [(ngModel)]="subject" placeholder="请输入"></ion-input>
     </ion-item>
+
+    <!-- andy NMSL新增功能-->
+    <ion-item *ngIf="type_name == '任务'"  no-lines style="min-height: 20px;padding-left: 0px;border-bottom:#f0f2f5 1px solid;">
+      <ion-label style="font-size: 13px;padding-left: 15px">等级
+        <span style="color: red">*</span>
+      </ion-label>
+      <ion-select interface="popover" [(ngModel)]="level_name" (ionChange)="levelChange($event)" style="font-size: 13px;color: #8d9296">
+        <ion-option no-lines *ngFor="let item of level_list" style="font-size: 13px">{{item.display_name}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item *ngIf="type_name == '任务'" no-lines style="min-height: 20px;padding-left: 0px;border-bottom:#f0f2f5 1px solid;">
+      <ion-label style="font-size: 13px;padding-left: 15px">验收 <span style="color:gray;margin-left:10px;">(默认需要主管验收,如果不需要请关闭)</span></ion-label>
+      <ion-toggle [(ngModel)]="rt_task_need_charge"></ion-toggle>
+    </ion-item>
+
     <ion-item no-lines style="min-height: 20px;border-bottom: #f0f2f5 1px solid;" tappable (click)="selectPartnerId()">
       <ion-label style="color:#2e3133;font-size:13px;">负责人</ion-label>
       <p item-end style="font-size: 12px;margin-right: -5px">{{rt_project_principal_name}}</p>

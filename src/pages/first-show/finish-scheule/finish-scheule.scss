@@ -1,3 +1,45 @@
 page-finish-scheule {
+    .shu_class{
+        background-color: #409eff;
+    width: 3px;
+    border-radius: 3px;
+    height: 13px;
+    float: left;
+    margin-top: 4px;
+    margin-left: -12px;
+    }
 
+    .f_div{
+            background-color: white;
+    border-bottom: solid 1px #f0f2f5;
+    padding-bottom: 8px;
+    padding-top: 8px;
+    text-align: center;
+    }
+
+    .fs_div{
+            font-weight: bold;
+    font-size: 16px;
+    }
+
+    .fs_div_bottom{
+            font-weight: bold;
+    font-size: 16px;
+    padding-bottom: 5px;
+    border-bottom: solid 1px #f0f2f5;
+    }
+
+    .se_div{
+            color: gray;
+    font-size: 13px;
+    }
+
+    .bottom_div{
+        margin-top: 10px;
+        background-color: white;
+    border-bottom: solid 1px #f0f2f5;
+    padding-bottom: 8px;
+    padding-top: 8px;
+    text-align: center;
+    }
 }

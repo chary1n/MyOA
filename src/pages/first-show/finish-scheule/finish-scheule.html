@@ -6,13 +6,13 @@
 -->
 <ion-header no-border>
 
-    <ion-navbar color="gongdan-color" hideBackButton="true">
-        <ion-buttons left>
-            <button ion-button icon-only (click)="goBack()">
+  <ion-navbar color="gongdan-color" hideBackButton="true">
+    <ion-buttons left>
+      <button ion-button icon-only (click)="goBack()">
               <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
             </button>
-          </ion-buttons>
-      <ion-title>确认完成信息</ion-title>
+    </ion-buttons>
+    <ion-title>确认完成信息</ion-title>
   </ion-navbar>
 
 
@@ -21,44 +21,74 @@
 
 
 
-<ion-content>
+<ion-content style="background-color:#f0f2f5">
 
   <ion-item no-lines style="min-height: 20px;border-bottom: #f0f2f5 1px solid;">
     <ion-label style="font-size: 13px">实际</ion-label>
   </ion-item>
-  <ion-grid  *ngIf="!not_sure_time" style="border-bottom: #f0f2f5 10px solid;background-color: white;">
-        <ion-row style="height:40px;text-align:center;">
-            <ion-col col-5>
-            <div style="padding:1px;margin-left: 15dp;overflow:hidden;text-align:left">
-                <ion-datetime *ngIf="!allDay" text-wrap cancelText="取消" doneText="确定"  [(ngModel)]="relly_start_time"  min="2017-01" max="2100-12"
-                   style="width: 170px;color:#5C6166;font-size:12px;word-wrap:break-word;padding-left: 0px;padding-right: 0px;margin-left: 5px" displayFormat="YYYY-MM-DD HH:mm" pickerFormat="YYYY年 MM月 DD日 HH:mm"></ion-datetime>
-            </div>
-            </ion-col>
-            <span style="color:#666666;float: left;height: 48px;line-height: 48px;font-size: 12px;margin-right: 18px">至</span>
-            <ion-col col-5>
-            <div style="padding:1px;margin-left: 15dp;overflow:hidden;text-align:left">
-                <ion-datetime *ngIf="!allDay" text-wrap cancelText="取消" doneText="确定"  [(ngModel)]="relly_stop_time"  min="2017-01" max="2100-12"
-                   style="width: 170px;color:#5C6166;font-size:12px;word-wrap:break-word;overflow:hidden;padding-left: 0px;padding-right: 0px;margin-left: 5px" displayFormat="YYYY-MM-DD HH:mm" pickerFormat="YYYY年 MM月 DD日 HH:mm"></ion-datetime>
-            </div>
-            </ion-col>
-          </ion-row>
-    </ion-grid>
+  <ion-grid *ngIf="!not_sure_time" style="border-bottom: #f0f2f5 10px solid;background-color: white;">
+    <ion-row style="height:40px;text-align:center;">
+      <ion-col col-5>
+        <div style="padding:1px;margin-left: 15dp;overflow:hidden;text-align:left">
+          <ion-datetime *ngIf="!allDay" text-wrap cancelText="取消" doneText="确定" [(ngModel)]="relly_start_time" min="2017-01" max="2100-12"
+            style="width: 170px;color:#5C6166;font-size:12px;word-wrap:break-word;padding-left: 0px;padding-right: 0px;margin-left: 5px"
+            displayFormat="YYYY-MM-DD HH:mm" pickerFormat="YYYY年 MM月 DD日 HH:mm"></ion-datetime>
+        </div>
+      </ion-col>
+      <span style="color:#666666;float: left;height: 48px;line-height: 48px;font-size: 12px;margin-right: 18px">至</span>
+      <ion-col col-5>
+        <div style="padding:1px;margin-left: 15dp;overflow:hidden;text-align:left">
+          <ion-datetime *ngIf="!allDay" text-wrap cancelText="取消" doneText="确定" [(ngModel)]="relly_stop_time" min="2017-01" max="2100-12"
+            style="width: 170px;color:#5C6166;font-size:12px;word-wrap:break-word;overflow:hidden;padding-left: 0px;padding-right: 0px;margin-left: 5px"
+            displayFormat="YYYY-MM-DD HH:mm" pickerFormat="YYYY年 MM月 DD日 HH:mm"></ion-datetime>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
   <ion-item no-lines style="min-height: 20px;border-bottom: #dbdddf 1px solid;background-color: #f0f2f5">
-      <ion-label style="font-size: 13px;color:#999999;">计划</ion-label>
+    <ion-label style="font-size: 13px;color:#999999;">计划</ion-label>
+  </ion-item>
+  <div style="background-color: #f0f2f5;padding: 1px;text-align: left;height: 40px;">
+    <span style="margin-left: 15px;font-size:12px;color:#999999;height: 40px;line-height:40px;width:40%;">{{start}}</span>
+    <span style="color:#999999;font-size: 12px;margin-left: 10px;margin-right: 10px">至</span>
+    <span style="font-size:12px;color:#999999;height: 40px;line-height:40px;width:40%;">{{stop}}</span>
+  </div>
+  <div class="f_div">
+    <div class="fs_div">
+      任务占比
+    </div>
+    <div class="se_div">
+      填写百分比,合计100%
+    </div>
+  </div>
+  <div *ngFor="let one_data of selectList">
+    <ion-item no-lines style="min-height: 20px;padding-left: 0px;border-bottom:#f0f2f5 1px solid;">
+      <ion-label style="font-size: 13px;padding-left: 15px"> <span class="shu_class"></span>
+        <span>{{one_data.partner_name}}</span>
+      </ion-label>
+      <ion-input type="text" text-right style="font-size: 13px;color: #8d9296" [(ngModel)]="one_data.score" placeholder="请输入占比"></ion-input>
+
     </ion-item>
-    <div  style="background-color: #f0f2f5;padding: 1px;text-align: left;height: 40px;">
-            <span style="margin-left: 15px;font-size:12px;color:#999999;height: 40px;line-height:40px;width:40%;">{{start}}</span>
-            <span style="color:#999999;font-size: 12px;margin-left: 10px;margin-right: 10px">至</span>
-            <span style="font-size:12px;color:#999999;height: 40px;line-height:40px;width:40%;">{{stop}}</span>
-       </div>
+    <ion-input type="text" text-left style="font-size: 13px;color: #8d9296;padding-left:15px;background-color:white" [(ngModel)]="one_data.remark"
+      placeholder="请输入备注"></ion-input>
+  </div>
+
+  <div class="bottom_div">
+    <div class="fs_div_bottom">
+      任务分析总结
+    </div>
+   <ion-input type="text" text-left style="font-size: 13px;color: #8d9296;padding-left:15px;background-color:white" [(ngModel)]="remark"
+      placeholder="选填,此内容仅对部门主管、创建人、负责人可见"></ion-input>
+  </div>
 
 </ion-content>
 
 <ion-footer>
-        <div style="background:white" >
-            <span align="center"  style='width:100%;float:right;background-color:#1897f2;height:44px;line-height:44px;font-size:15px;color:white' tappable (click)="finish()">
+  <div style="background:white">
+    <span align="center" style='width:100%;float:right;background-color:#1897f2;height:44px;line-height:44px;font-size:15px;color:white'
+      tappable (click)="finish()">
             完成
             </span>
-        </div>
+  </div>
 </ion-footer>
