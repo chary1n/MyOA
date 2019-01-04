@@ -78,8 +78,9 @@
     <div class="fs_div_bottom">
       任务分析总结
     </div>
-   <ion-input type="text" text-left style="font-size: 13px;color: #8d9296;padding-left:15px;background-color:white" [(ngModel)]="remark"
-      placeholder="选填,此内容仅对部门主管、创建人、负责人可见"></ion-input>
+    <ion-textarea id="area_id" rows="15" placeholder="选填,此内容仅对部门主管、创建人、负责人可见" [(ngModel)]="remark" style="margin-top:10px;height:200px;margin-left:4.5%;width:91%;overflow:hidden;border-radius:1px;padding-left:5px;color:gray"></ion-textarea>
+   <!--<textarea type="text" text-left style="font-size: 13px;color: #8d9296;padding-left:15px;background-color:white" [(ngModel)]="remark"
+      placeholder="选填,此内容仅对部门主管、创建人、负责人可见"></textarea>-->
   </div>
 
 </ion-content>
