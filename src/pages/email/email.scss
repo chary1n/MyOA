@@ -51,10 +51,18 @@ page-email {
     color: #919294;
     margin-top: 3px
   }
-
+ 
   .email_flag {
     font-size: 14px;
-    color: red;
+    color: #0097e8;
+  }
+
+  .email_attach{
+    font-size: 14px;
+    transform: rotate(90deg);
+    padding-top: 0px;
+    margin-left: 2px;
+    margin-right: 2px;
   }
 
   .title_alert {}

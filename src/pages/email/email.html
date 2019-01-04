@@ -19,6 +19,10 @@
     </ion-title>
 
     <ion-buttons right>
+
+      <button class="search_button" style="font-size:14px" ion-button icon-only tappable (click)="clickSearch()">
+        <ion-icon  name='ios-search'></ion-icon>
+      </button>
       <button *ngIf="!isEdit" ion-button icon-only tappable (click)="toEdit()" style="font-size:14px;color: white;margin-left: 10px;margin-right: 10px;">
         编辑
       </button>
@@ -60,6 +64,7 @@
           <div>
             <div class="email_date">
               <ion-icon *ngIf="item.is_flag" class='email_flag' name="ios-tuding"></ion-icon>
+              <ion-icon *ngIf="item.attachment_ids.length>0" class='email_attach' name="md-attach"></ion-icon>
               {{item.date_time}}
             </div>
             <div [ngClass]="{true:'email_title_bold',false:'email_title'}[item.rt_is_unseen]">

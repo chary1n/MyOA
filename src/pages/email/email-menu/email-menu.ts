@@ -5,7 +5,7 @@ import { EmailPage } from './../email';
 import { NavParams } from 'ionic-angular/navigation/nav-params';
 import { NavController, Events, MenuController } from 'ionic-angular';
 import { IonicPage } from 'ionic-angular';
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 
 /**
  * Generated class for the EmailMenuPage page.
@@ -30,6 +30,7 @@ export class EmailMenuPage {
   label_list;
   tree: TreeModel
   showLabel = false;
+  @ViewChild('treeComponent') treeComponent;
   constructor(public navCtrl: NavController, public navParams: NavParams, public emailService: EmailService,
     public events: Events, public storage: Storage, public menu: MenuController) {
     this.tabs = document.getElementsByClassName('tabbar').item(0);
@@ -72,11 +73,13 @@ export class EmailMenuPage {
     let folders = this.getFolderListByPid(folders_list, id)
     let child = []
     for (let i = 0; i < folders.length; i++) {
-      let bomItem: TreeModel = { value: "", children: [], id: '' };
+      let bomItem: TreeModel = { value: "", children: [], id: '' ,
+      settings:{
+        isCollapsedOnInit:true
+      }};
       bomItem.value = folders[i].name
       bomItem.id = folders[i].id
       if (this.tranFolderToTree(folders_list, folders[i].id).length > 0) {
-
         bomItem.children = this.tranFolderToTree(folders_list, folders[i].id)
       } else {
         bomItem.children = undefined

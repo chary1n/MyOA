@@ -1166,7 +1166,6 @@ export class CalendarDeatilpagePage {
     //     console.log('11112312')
     //   }
     // }
-
   }
 
   blurInput() {
