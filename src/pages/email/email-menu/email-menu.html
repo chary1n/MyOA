@@ -83,7 +83,7 @@
     <div class="line" style="padding:0.5px"></div>
     <span class="folder_span"> 智能文件夹</span>
     <div *ngIf="tree" class="tree_div">
-      <tree [tree]="tree" (nodeSelected)="handleSelected($event)"></tree>
+      <tree [tree]="tree"   #treeComponent  (nodeSelected)="handleSelected($event)"></tree>
     </div>
 
 

@@ -410,4 +410,10 @@ export class EmailPage {
     })
   }
 
+  clickSearch(){
+    this.navCtrl.push('EmailSearchPage',{
+      'account_id':this.account_id
+    })
+  }
+
 }

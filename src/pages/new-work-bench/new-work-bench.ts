@@ -46,7 +46,7 @@ export class NewWorkBenchPage {
     this.statusbar.styleLightContent();
 
     
-  }
+  } 
 
   ionViewDidEnter() {
     this.storage.get('user')

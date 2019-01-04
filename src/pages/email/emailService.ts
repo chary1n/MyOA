@@ -63,7 +63,7 @@ export class EmailService {
         return this.httpService.postBody('rt_mail/OA_delete_draft', body, 2);
     }
 
-    
+
 
     uploadAttachment(user_id, filename, data) {
         let body = JSON.stringify({
@@ -134,6 +134,17 @@ export class EmailService {
             'uid': uid,
         });
         return this.httpService.postBodyNoLoading('rt_mail/get_contact_list', body, 2);
+    }
+
+    search_email(type, text ,offset , account_id) {
+        let body = JSON.stringify({
+            'uid': HttpService.user_id,
+            'type': type,
+            'text': text,
+            'offset':offset,
+            'account_id':account_id
+        });
+        return this.httpService.postBody('rt_mail/oa_mail_search', body, 2);
     }
 
 }

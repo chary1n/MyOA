@@ -19,6 +19,10 @@
     </ion-title>
 
     <ion-buttons right>
+
+      <button class="search_button" style="font-size:14px" ion-button icon-only tappable (click)="clickSearch()">
+        <ion-icon  name='ios-search'></ion-icon>
+      </button>
       <button *ngIf="!isEdit" ion-button icon-only tappable (click)="toEdit()" style="font-size:14px;color: white;margin-left: 10px;margin-right: 10px;">
         编辑
       </button>
@@ -38,23 +42,29 @@
   <ng-container *ngIf="!accounts_list">
     <p class="no_account">你还没有添加账号</p>
   </ng-container>
-  <ng-container *ngIf="accounts_list">
+  <ng-container *ngIf="accounts_list && email_list.length==0">
+    <div align="center">
+      <img style="width:100px;position:absolute;left:calc(50% - 50px);top:calc(50% - 100px)" src="assets/img/nodataimg.png">
+      <p style="width:100px;position:absolute;left:calc(50% - 50px);top:calc(50% - 10px);color:#c2c8cc;font-size:15px">空空如也～</p>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="accounts_list && email_list.length>0">
     <ion-refresher (ionRefresh)="doRefresh($event)">
       <ion-refresher-content></ion-refresher-content>
     </ion-refresher>
     <ion-list style="padding-right:5px">
       <ion-item tappable *ngFor="let item of email_list;let i = index" (click)="email_detail(i,item.id,item.rt_is_unseen)"
-      (press)='on_hold(i)'
-        no-lines style=" border-bottom:1px solid #F0F2F5">
+        (press)='on_hold(i)' no-lines style=" border-bottom:1px solid #F0F2F5">
         <div *ngIf="isEdit" class="div_checkbox">
           <input type="checkbox" [checked]='item.ischecked' (click)="changeClick(i);$event.stopPropagation()">
         </div>
         <div *ngIf="!isEdit" class="div_checkbox_normal">
-          </div>
+        </div>
         <div>
           <div>
             <div class="email_date">
               <ion-icon *ngIf="item.is_flag" class='email_flag' name="ios-tuding"></ion-icon>
+              <ion-icon *ngIf="item.attachment_ids.length>0" class='email_attach' name="md-attach"></ion-icon>
               {{item.date_time}}
             </div>
             <div [ngClass]="{true:'email_title_bold',false:'email_title'}[item.rt_is_unseen]">
@@ -76,24 +86,27 @@
     </ion-infinite-scroll>
   </ng-container>
   <ion-fab style="margin-bottom:90px;position:fixed;" bottom right edge>
-      <button style="box-shadow:1px 2px 10px #888888;width: 50px;height: 50px;line-height: 50px;background-color: #2597ec" (click)="edit()" ion-fab mini><ion-icon name="ios-create"></ion-icon></button>
-    </ion-fab>
+    <button style="box-shadow:1px 2px 10px #888888;width: 50px;height: 50px;line-height: 50px;background-color: #2597ec"
+      (click)="edit()" ion-fab mini>
+      <ion-icon name="ios-create"></ion-icon>
+    </button>
+  </ion-fab>
 </ion-content>
 
 <ion-footer *ngIf="isEdit">
   <ion-toolbar color="gongdan-color" class='toolbar_c'>
-    <button *ngIf="buttonFlag"  ion-button icon-only (click)="flag(true)" class="toolbar_button">
+    <button *ngIf="buttonFlag" ion-button icon-only (click)="flag(true)" class="toolbar_button">
       <ion-icon name="ios-tuding" class='flag_red'></ion-icon>
     </button>
-    <button *ngIf="!buttonFlag"  ion-button icon-only (click)="flag(false)" class="toolbar_button">
-      <ion-icon name="ios-tuding" ></ion-icon>
+    <button *ngIf="!buttonFlag" ion-button icon-only (click)="flag(false)" class="toolbar_button">
+      <ion-icon name="ios-tuding"></ion-icon>
     </button>
-    <button *ngIf="buttonOpen"  ion-button icon-only (click)="unseen(false)" class="toolbar_button">
+    <button *ngIf="buttonOpen" ion-button icon-only (click)="unseen(false)" class="toolbar_button">
       <ion-icon name="ios-mail-open"></ion-icon>
     </button>
-    <button *ngIf="!buttonOpen"  ion-button icon-only (click)="unseen(true)" class="toolbar_button">
-        <ion-icon name="ios-mail"></ion-icon>
-      </button>
+    <button *ngIf="!buttonOpen" ion-button icon-only (click)="unseen(true)" class="toolbar_button">
+      <ion-icon name="ios-mail"></ion-icon>
+    </button>
     <button ion-button icon-only (click)="move()" class="toolbar_button">
       <ion-icon name="ios-log-in"></ion-icon>
     </button>

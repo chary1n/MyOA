@@ -136,13 +136,12 @@
       
     </ion-row>
     
-    <ion-row *ngIf='showBaoBiao' class="body_row_class">
-      <ion-col  class="col_class" tappable (click)="click_baobiao()" col-3>
+    <ion-row  class="body_row_class">
+      <ion-col  *ngIf='showBaoBiao' class="col_class" tappable (click)="click_baobiao()" col-3>
         <!--<div *ngIf="yufu_num > 0" align="center" [ngClass]="{true:'big_number_class',false:'number_class'}[performance >= 10]">
           {{yufu_num}}
         </div>-->
         <div class="body_class" align="center">
-
           <img class="body_img_class" src="assets/img/yz_img.png">
           <div class="text_class">
             报表
@@ -159,7 +158,7 @@
       </ion-col>
     </ion-row>
 
-    <div class="sub_header_div_class_more">
+    <div class="sub_header_div_class">
       工作汇报
     </div>
     <ion-row class="body_row_class" align-items-center>
