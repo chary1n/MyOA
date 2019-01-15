@@ -402,10 +402,11 @@ page-calendar-deatilpage {
   .finish_img_class{
       width: 40px;
     height: 40px;
-    float: right;
-    position: absolute;
-    right: 10px;
-    top: 65px;
+    margin-top: -2px;
+    // float: right;
+    // position: absolute;
+    // right: 10px;
+    // top: 65px;
   }
   .jifen_class{
       margin-bottom: 5px;
@@ -436,6 +437,157 @@ page-calendar-deatilpage {
       color:#2597ec;
       margin-left: 5px;
   }
+
+  .jifen_img_class{
+      display: inline-block;
+    float: right;
+    padding-right: 11px;
+    padding-top: 5px;
+  }
+
+  .div_me{
+        width:33%;
+        float:right;
+        text-align:left;
+        height: 40px;
+    }
+
+    .div_wait{
+        width:33%;
+        float:right;
+        height: 40px;
+    }
+
+    .div_approve{
+        width:33%;
+        float:left;
+        text-align:right;
+        height: 40px;
+        // margin-top: -2px
+    }
+
+    .p_daiban_line_height_select{
+        line-height: 38px;
+    border-bottom: solid 3px #2597ec;
+    width: 40px;
+    text-align: center;
+    float: right;
+    color: #2597ec;
+    font-weight: bold;
+    height: 38px;
+    margin-top: 1px;
+    }
+
+    .p_daiban_line_height{
+        line-height: 38px;
+        margin-top: 1px;
+        // border-bottom: solid 2px white;
+        width: 38px;
+        text-align: center;
+        float: right;
+        color: #333333;
+    }
+
+    .p_shenhe_line_height_select{
+        line-height: 38px;
+    border-bottom: solid 3px #2597ec;
+    width: 40px;
+    text-align: center;
+    color: #2597ec;
+    font-weight: bold;
+    height: 38px;
+    margin-top: 1px;
+    }
+
+    .p_shenhe_line_height{
+        line-height: 38px;
+        margin-top: 1px;
+        // border-bottom: solid 2px white;
+        width: 38px;
+        text-align: center;
+        color: #333333;
+    }
+
+    .p_message_line_height_select{
+        line-height: 38px;
+    border-bottom: solid 3px #2597ec;
+    width: 40px;
+    text-align: center;
+    float: left;
+    color: #2597ec;
+    font-weight: bold;
+    height: 38px;
+    margin-top: 1px;
+    }
+
+    .p_message_line_height{
+        line-height: 38px;
+        margin-top: 1px;
+        // border-bottom: solid 2px white;
+        width: 38px;
+        text-align: center;
+        float: left;
+        color: #333333;
+    }
+
+    .main_header_div{
+        margin-top: 10px;
+        height: 38px;
+    background-color: white;
+    }
+
+    .arrow_img_class{
+        color: #999999;width: 100%;text-align: center;background-color:white;border-width:0px;    padding-bottom: 1px;margin-top:-1px;
+    }
+
+    .f_div{
+            background-color: white;
+    border-bottom: solid 1px #f0f2f5;
+    padding-bottom: 8px;
+    padding-top: 8px;
+    text-align: center;
+    margin-top: 1px;
+    }
+
+    .fs_div{
+            font-weight: bold;
+    font-size: 16px;
+    }
+
+    .jifen_bz_class{
+            padding-left: 15px;
+    background-color: white;
+    line-height: 23px;
+    color: gray;
+    font-size: 13px;
+    padding-bottom: 10px;
+    }
+
+    .bottom_div{
+        margin-top: 10px;
+        background-color: white;
+    border-bottom: solid 1px #f0f2f5;
+    padding-bottom: 8px;
+    padding-top: 8px;
+    text-align: center;
+    }
+
+    .fs_div_bottom{
+            font-weight: bold;
+    font-size: 16px;
+    padding-bottom: 5px;
+    border-bottom: solid 1px #f0f2f5;
+    }
+
+    .total_remark{
+        font-size: 13px;
+    color: #8d9296;
+    padding-left: 15px;
+    padding-right: 15px;
+    background-color: white;
+    padding-top: 10px;
+    line-height: 20px;
+    }
 
   image-viewer.ion-page .image 
   { 

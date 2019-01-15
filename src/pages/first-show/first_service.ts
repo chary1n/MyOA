@@ -7,6 +7,14 @@ export class FirstShowService {
 
     }
 
+    get_total_need_pcc_list(body){
+        return this.httpService.postBody("get_total_need_pcc_list", body)
+    }
+
+    get_pcc_list(body){
+        return this.httpService.postBody("get_pcc_list", body)
+    }
+
     get_total_task(body){
         return this.httpService.postBody("get_total_task", body)
     }

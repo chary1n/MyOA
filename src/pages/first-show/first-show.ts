@@ -51,6 +51,7 @@ export class FirstShowPage {
   yf_num//预付
   jk_num//借款
   caigou_num = 0//采购
+  sch_num = 0
   isShowApprovalPoint = false
   all_approval = 0//审批总和
   show_approve
@@ -63,6 +64,8 @@ export class FirstShowPage {
   state_type = ''
   event_type_id = []
   event_type = []
+  head_type = 'date'
+  late_arr = []
   constructor(public navCtrl: NavController, public navParams: NavParams, private datePipe: DatePipe,
     private firshowService: FirstShowService, public storage: Storage,
     public statusBar: StatusBar, public menu: MenuController,public event: Events) {
@@ -73,21 +76,21 @@ export class FirstShowPage {
       this.get_backlog_identify(this.currentYear, this.currentMonth)
       this.get_approval_num()
       this.getType()
-      // this.storage.get('user_schedule_domain_new').then(res => {
-      //   // console.log(res)
-      //   if (res){
-      //     this.me_type = res.me_type
-      //     this.state_type = res.state_type
-      //     this.event_type_id = res.event_type_id
-      //   }
-      //   else
-      //   {
-      //     this.me_type = []
-      //     this.state_type = 'all'
-      //     this.event_type_id = []
-      //   }
-      //   this.getDayData(this.datePipe.transform(new Date(), 'yyyy-MM-dd'))
-      // })
+      this.storage.get('user_schedule_domain_new').then(res => {
+        // console.log(res)
+        if (res){
+          this.me_type = res.me_type
+          this.state_type = res.state_type
+          this.event_type_id = res.event_type_id
+        }
+        else
+        {
+          this.me_type = []
+          this.state_type = 'all'
+          this.event_type_id = []
+        }
+        // this.getDayData(this.datePipe.transform(new Date(), 'yyyy-MM-dd'))
+      })
       
     })
   }
@@ -132,38 +135,10 @@ export class FirstShowPage {
     var tolbar = document.getElementsByClassName('tabbar').item(0);
       tolbar['style'].display = 'flex';
     this.menu.enable(true, 'menu5')
-    this.un_read_list = []
+    
     this.statusBar.backgroundColorByHexString("#2597ec");
     this.statusBar.styleLightContent();
-    this.storage.get('user').then(res => {
-      this.uid = res.result.res_data.user_id
-      this.get_approval_num()
-      this.firshowService.get_un_read_reply({ 'uid': this.uid }).then(res => {
-        if (res.result.res_data && res.result.res_code == 1) {
-          this.un_read_list = res.result.res_data.read_data
-          this.need_calendar = res.result.res_data.need_calendar
-        }
-      })
-
-      this.storage.get('user_schedule_domain_new').then(res => {
-        console.log(res)
-        if (res){
-          this.me_type = res.me_type
-          this.state_type = res.state_type
-          this.event_type_id = res.event_type_id
-        }
-        else
-        {
-          this.me_type = []
-          this.state_type = 'all'
-          this.event_type_id = []
-        }
-        this.getDayData(this.datePipe.transform(new Date(), 'yyyy-MM-dd'))
-      })
-
-      this.get_backlog_identify(this.currentYear, this.currentMonth)
-
-    })
+    
   }
 
 
@@ -226,6 +201,36 @@ export class FirstShowPage {
             // }
 
         })
+       this.un_read_list = []
+    this.storage.get('user').then(res => {
+      this.uid = res.result.res_data.user_id
+      this.get_approval_num()
+      this.firshowService.get_un_read_reply({ 'uid': this.uid }).then(res => {
+        if (res.result.res_data && res.result.res_code == 1) {
+          this.un_read_list = res.result.res_data.read_data
+          this.need_calendar = res.result.res_data.need_calendar
+        }
+      })
+
+      this.storage.get('user_schedule_domain_new').then(res => {
+        console.log(res)
+        if (res){
+          this.me_type = res.me_type
+          this.state_type = res.state_type
+          this.event_type_id = res.event_type_id
+        }
+        else
+        {
+          this.me_type = []
+          this.state_type = 'all'
+          this.event_type_id = []
+        }
+        this.getDayData(this.currentDate_date.getFullYear() + '-' + (this.currentDate_date.getMonth() + 1) + '-' + this.currentDate_date.getDate())
+      })
+
+      this.get_backlog_identify(this.currentYear, this.currentMonth)
+
+    })
   }
 
 
@@ -368,6 +373,7 @@ export class FirstShowPage {
   }
 
   choose_day(date) {
+    this.head_type = 'date'
     if (date.m <= 0) {
       date.y = date.y - 1
       date.m = 12
@@ -586,10 +592,23 @@ export class FirstShowPage {
   }
 
   latePage() {
-    this.navCtrl.push('LateListPage',{
-      'me_type': this.me_type,
-      'event_type_id': this.event_type_id
-    })
+    // this.navCtrl.push('LateListPage',{
+    //   'me_type': this.me_type,
+    //   'event_type_id': this.event_type_id
+    // })
+    this.late_arr = []
+    let body = {
+        'uid': this.uid,
+        'me_type': this.me_type,
+        'event_type_id': this.event_type_id,
+      }
+    this.firshowService.get_late_list(body).then(res =>{
+        if (res.result.res_data && res.result.res_code == 1) {
+          this.late_arr = res.result.res_data.late
+        }
+      })
+
+    this.head_type = 'late'
   }
 
   //获取有事件的日期
@@ -715,7 +734,8 @@ export class FirstShowPage {
         this.jk_num = res.result.res_data.jk_num
         this.yf_num = res.result.res_data.yf_num
         this.caigou_num = res.result.res_data.caigou_num
-        this.all_approval = this.recoup_num + this.vacation_num + this.jk_num + this.bx_num + this.yf_num + this.sg_num + this.caigou_num 
+        this.sch_num = res.result.res_data.sch_num
+        this.all_approval = this.recoup_num + this.vacation_num + this.jk_num + this.bx_num + this.yf_num + this.sg_num + this.caigou_num + this.sch_num 
         
         if (this.all_approval != 0) {
           this.isShowApprovalPoint = true
@@ -781,5 +801,44 @@ export class FirstShowPage {
 
   toCG(){
     this.navCtrl.push('NewPurchaseOrderPage')
+  }
+
+  click_head_date(){
+    this.head_type = 'date'
+  }
+
+  click_head_wait(){
+    this.head_type = 'wait'
+  }
+
+  toDetail_Late(sub){
+    if (sub.type_name == '项目') {
+            this.navCtrl.push('MeetingProjectPage', {
+                'meeting_id': sub.rt_meeeting_s_id,
+                'isEdit': false,
+                'uid': this.uid,
+                'frontPage': 'AllSchedulePage'
+            })
+        }
+        else {
+            if (sub.type_name == '会议') {
+                this.navCtrl.push('MeetingPage', {
+                    'meeting_id': sub.rt_meeeting_s_id,
+                    'isEdit': false,
+                    'uid': this.uid,
+                    'frontPage': 'AllSchedulePage',
+                })
+            } else {
+                this.navCtrl.push('CalendarDeatilpagePage', {
+                    'item': sub,
+                    'isEdit': false,
+                    'frontPage': 'AllSchedulePage',
+                })
+            }
+        }
+  }
+
+  toDB(){
+    this.navCtrl.push('WaitPccPage')
   }
 }

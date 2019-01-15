@@ -79,6 +79,14 @@ export class FinishScheulePage {
       Utils.toastButtom('开始时间不能大于结束时间！', this.toastCtrl)
       return
     }
+    let total_proportion = 0
+    for (let i = 0; i < this.selectList.length; i++){
+      total_proportion += parseFloat(this.selectList[i].score)
+    }
+    if (total_proportion != 100){
+      Utils.toastButtom('占比总和需等于100%', this.toastCtrl)
+      return
+    }
     // console.log("过来了")
     if(this.relly_start_time.indexOf('T') != -1){
       this.relly_start_time = this.datePipe.transform(new Date(new Date(this.relly_start_time).getTime()-2*8*60*60*1000), 'yyyy-MM-dd HH:mm:ss')
