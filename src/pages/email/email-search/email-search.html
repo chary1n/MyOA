@@ -5,14 +5,16 @@
   Ionic pages and navigation.
 -->
 <ion-header color="gongdan-color" class="email_search_header">
-
-  <div>
-    <img src="assets/img/back.png" class='back_icon' tappable (click)="goBack()">
-    <ion-auto-complete class="search_class"  (itemSelected)="itemMeSelected($event)" 
+  <div ion-fixed class="div_header">
+    <div class="div_header_back">
+        <button class="btn_class" ion-button icon-only (click)="goBack()">
+            <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+          </button>
+      <ion-auto-complete class="search_class"  (itemSelected)="itemMeSelected($event)" 
        (itemClearSelected)="itemClearMeSelected($event)"
       [dataProvider]="emailSearchService"></ion-auto-complete>
+    </div>
   </div>
-
 </ion-header>
 
  

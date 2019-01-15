@@ -7,8 +7,9 @@ page-email-search {
 
   .search_class {
     background-color: #0097e8;
-    width: 87%;
-    margin-top: 2px;
+    width: 80%;
+    margin-top: 5px;
+    padding-top: 0px;
   }
 
   .search_button {
@@ -94,4 +95,15 @@ page-email-search {
     overflow: hidden;
     margin-top: 1px
   }
+
+  .btn_class{
+      float: left;
+      background-color: #2597ec;
+      color: white;
+  }
+
+  .div_header{
+    background-color: #2597ec;
+    width: 100%;
+}
 }
