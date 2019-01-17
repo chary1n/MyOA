@@ -109,6 +109,16 @@ export class CalendarDeatilpagePage {
   rt_pcc_pm_name
   pcc_list = []
   rt_task_level_temp = 0.0
+
+  can_change_pcc = true
+  can_change_jifen = true
+  can_change_partner = false
+
+  tousuList = []
+
+  tousu_count = 0
+
+  tousu_enter = false
   constructor(public navCtrl: NavController, public navParams: NavParams, public statusBar: StatusBar,
     public firService: FirstShowService, public storage: Storage, public toastCtrl: ToastController,
     private datePipe: DatePipe, private sanitizer: DomSanitizer, public alertCtrl: AlertController,
@@ -174,7 +184,7 @@ export class CalendarDeatilpagePage {
       this.now_partner_id = res.result.res_data.partner_id;
       this.now_partner_name = res.result.res_data.partner_name
       this.getType()
-      
+
       if (this.isEdit == true) {
         let current_day
         if (this.navParams.get('type_id')) {
@@ -212,30 +222,20 @@ export class CalendarDeatilpagePage {
         }
 
       } else {
+        this.tousu_enter = this.navParams.get('tousu_enter')
         this.item = this.navParams.get('item');
         this.firService.read_event({ 'event_id': this.item.id, 'uid': this.uid }).then(res => {
 
         })
         this.item_change()
-        // if (this.type_name == '任务') {
-        //   if (this.navParams.get('pcc_enter')) {
-        //     this.getTask()
-        //     this.isEdit = true
-        //     this.is_pcc = true
-        //     this.type_id = this.navParams.get('item_id')
-        //     this.rt_project_principal = this.now_partner_id
-        //     this.rt_project_principal_name = this.now_partner_name
-        //     this.selectList.push({
-        //       'partner_id': this.rt_project_principal,
-        //       'partner_name': this.rt_project_principal_name,
-        //       'ischeck': true
-        //     })
-        //   }
-        // }
+        if (this.type_name == '任务') {
+          this.getTask()
+
+        }
 
       }
 
-      if (this.user.partner_id == this.item.rt_project_principal.partner_id_s_id || this.uid == this.item.create_uid) {
+      if (this.user.partner_id == this.item.rt_project_principal.partner_id_s_id || this.uid == this.item.create_uid || this.user.partner_id == this.item.rt_pcc_pm_id.id) {
         this.need_show_more_icon = true
       }
       else {
@@ -301,6 +301,7 @@ export class CalendarDeatilpagePage {
       }
       if (this.detail_type != '1') {
         this.show_reply_footer = false
+        this.content.resize()
       }
       if (this.item.score_detail) {
         this.score_detail = this.item.score_detail
@@ -309,6 +310,18 @@ export class CalendarDeatilpagePage {
       this.rt_pcc_pm_id = this.item.rt_pcc_pm_id.id
       this.rt_pcc_pm_name = this.item.rt_pcc_pm_id.name
       this.rt_task_level_temp = this.item.rt_task_level_temp
+      this.tousuList = []
+      this.tousu_count = 0
+      if (this.item.rt_task_complain_ids) {
+        for (let i = 0; i < this.item.rt_task_complain_ids.length; i++) {
+          if ((this.item.rt_task_complain_ids[i].rt_complain_who_deal_id == this.user.partner_id) && this.item.rt_task_complain_ids[i].rt_complain_state == 1) {
+            this.tousu_count += 1
+          }
+          if (this.item.rt_task_complain_ids[i].rt_complain_who_deal_id == this.user.partner_id || this.item.rt_task_complain_ids[i].rt_complain_partner_id_id == this.user.partner_id) {
+            this.tousuList.push(this.item.rt_task_complain_ids[i])
+          }
+        }
+      }
     }
 
     this.state = this.item.state
@@ -408,10 +421,13 @@ export class CalendarDeatilpagePage {
         this.selectList = this.navParams.get('selectList')
       }
     }
+    else {
+      this.refresh_view()
+    }
 
 
     // if (need_fresh_reply) {
-    this.refresh_view()
+
     // }
   }
 
@@ -474,6 +490,38 @@ export class CalendarDeatilpagePage {
     }
     let body = this.handleData(true)
     body['wait_id'] = this.item.id
+    if (this.navParams.get('pcc_enter')) {
+      if (this.rt_pcc_pm_id == this.user.partner_id) {
+        var ctrl = this.alertCtrl
+        ctrl.create({
+          title: '提示',
+          subTitle: '是否完成指派？',
+          buttons: [{
+            text: '取消', handler: () => {
+              this.write_body(body)
+            }
+          },
+          {
+            text: '确定',
+            handler: () => {
+              body['rt_pcc_pm_state'] = 2
+              this.write_body(body)
+            }
+          }
+          ]
+        }).present();
+      }
+      else {
+        this.write_body(body)
+      }
+    }
+    else {
+      this.write_body(body)
+    }
+
+  }
+
+  write_body(body) {
     this.firService.write_wait_thing(body).then(res => {
       if (res.result.res_data && res.result.res_code == 1) {
         this.isEdit = false
@@ -501,6 +549,7 @@ export class CalendarDeatilpagePage {
       }
     })
   }
+
   //编辑
   edit() {
     this.down_view()
@@ -509,9 +558,31 @@ export class CalendarDeatilpagePage {
       Utils.toastButtom('完成状态不可编辑', this.toastCtrl)
       return
     }
-    if (this.user.partner_id == this.item.rt_project_principal.partner_id_s_id || this.uid == this.item.create_uid) {
+    if (this.user.partner_id == this.item.rt_project_principal.partner_id_s_id || this.uid == this.item.create_uid || this.user.partner_id == this.item.rt_pcc_pm_id.id) {
       this.isEdit = true
       this.change = true
+      // 创建人、pcc 在指派完后不可以修改pcc字段
+      if (this.uid == this.item.create_uid || this.user.partner_id == this.item.rt_pcc_pm_id.id) {
+        if (this.item.rt_pcc_pm_state == 2) {
+          this.can_change_pcc = false
+        }
+      }
+      else {
+        this.can_change_pcc = false
+      }
+
+      // 负责人和pcc可以修改积分 其他不行
+      if (this.user.partner_id == this.item.rt_project_principal.partner_id_s_id || this.user.partner_id == this.item.rt_pcc_pm_id.id) {
+        this.can_change_jifen = true
+      }
+      else {
+        this.can_change_jifen = false
+      }
+
+      this.can_change_partner = true
+
+
+
       this.type_name = this.item.type_name
       this.allday = this.item.allday
       setTimeout(() => {
@@ -625,19 +696,63 @@ export class CalendarDeatilpagePage {
         } else {
           if (body) {
             this.is_create_server = false
-            if (this.item){
+            if (this.item) {
               body['id'] = this.item.id
             }
-            if (this.is_pcc){
-              body['rt_pcc_pm_state'] = 2
-            }
-            this.firService.create_new_schedule(body).then(res => {
-              this.is_create_server = false
-              if (res.result.res_code == 1) {
-                // this.frontPage.data.need_fresh = true;
-                this.navCtrl.popTo(this.frontPage);
+            if (this.is_pcc) {
+              if (this.rt_pcc_pm_id == this.user.partner_id) {
+                var ctrl = this.alertCtrl
+                ctrl.create({
+                  title: '提示',
+                  subTitle: '是否完成指派？',
+                  buttons: [{
+                    text: '取消',
+                    handler: () => {
+                      this.firService.create_new_schedule(body).then(res => {
+                        this.is_create_server = false
+                        if (res.result.res_code == 1) {
+                          // this.frontPage.data.need_fresh = true;
+                          this.navCtrl.popTo(this.frontPage);
+                        }
+                      })
+                    }
+                  },
+                  {
+                    text: '确定',
+                    handler: () => {
+                      body['rt_pcc_pm_state'] = 2
+                      this.firService.create_new_schedule(body).then(res => {
+                        this.is_create_server = false
+                        if (res.result.res_code == 1) {
+                          // this.frontPage.data.need_fresh = true;
+                          this.navCtrl.popTo(this.frontPage);
+                        }
+                      })
+                    }
+                  }
+                  ]
+                }).present();
               }
-            })
+              else {
+                this.firService.create_new_schedule(body).then(res => {
+                  this.is_create_server = false
+                  if (res.result.res_code == 1) {
+                    // this.frontPage.data.need_fresh = true;
+                    this.navCtrl.popTo(this.frontPage);
+                  }
+                })
+              }
+            }
+            else {
+              this.firService.create_new_schedule(body).then(res => {
+                this.is_create_server = false
+                if (res.result.res_code == 1) {
+                  // this.frontPage.data.need_fresh = true;
+                  this.navCtrl.popTo(this.frontPage);
+                }
+              })
+            }
+
           }
         }
       }
@@ -796,19 +911,27 @@ export class CalendarDeatilpagePage {
       if (res.result.res_data && res.result.res_code == 1) {
         this.pcc_list = res.result.res_data
         for (let i = 0; i < res.result.res_data.length; i++) {
-          if (res.result.res_data[i].id == this.now_partner_id) {
+          if (res.result.res_data[i].partner_id == this.now_partner_id) {
             this.is_pcc = true
           }
         }
       }
       if (this.is_pcc) {
-        this.rt_project_principal = this.now_partner_id
-        this.rt_project_principal_name = this.now_partner_name
-        this.selectList.push({
-          'partner_id': this.rt_project_principal,
-          'partner_name': this.rt_project_principal_name,
-          'ischeck': true
-        })
+        if (this.isEdit == true) {
+          this.rt_project_principal = this.now_partner_id
+          this.rt_project_principal_name = this.now_partner_name
+          this.selectList.push({
+            'partner_id': this.rt_project_principal,
+            'partner_name': this.rt_project_principal_name,
+            'ischeck': true
+          })
+        }
+        else {
+          if (this.navParams.get('pcc_enter')) {
+            this.edit()
+          }
+        }
+
       }
     })
   }
@@ -854,7 +977,14 @@ export class CalendarDeatilpagePage {
 
   selectPCC() {
     // this.title_meeting = 'PCC'
-    // this.showPeopleList = []
+    this.showPeopleList = []
+    if (this.rt_pcc_pm_id) {
+      this.showPeopleList.push({
+        'partner_id': this.rt_pcc_pm_id,
+        'partner_name': this.rt_pcc_pm_name,
+        'ischeck': true
+      })
+    }
     this.search = true
     this.select_type = 4
     this.employeeList = this.pcc_list
@@ -899,13 +1029,16 @@ export class CalendarDeatilpagePage {
     console.log('sadfasd= ' + $event)
     if ($event == '') {
       this.employeeList = []
+      if (this.select_type == 4) {
+        this.employeeList = this.pcc_list
+      }
     } else {
       let body = {
         'uid': this.uid,
         'name': $event
       }
       this.employeeList = []
-      if (this.select_type != 3) {
+      if (this.select_type == 1 || this.select_type == 2) {
         this.firService.search_one_partner(body).then(res => {
           if (res.result.res_data && res.result.res_code == 1) {
             this.employeeList = res.result.res_data;
@@ -924,13 +1057,20 @@ export class CalendarDeatilpagePage {
           // }
         })
       }
-      else {
+      else if (this.select_type == 3) {
         this.firService.search_one_other_partner(body).then(res => {
           if (res.result.res_data && res.result.res_code == 1) {
             this.employeeList = res.result.res_data;
             if (this.select_type == 3) {
               this.setOtherCheck()
             }
+          }
+        })
+      }
+      else if (this.select_type == 4) {
+        this.firService.search_one_pcc_partner(body).then(res => {
+          if (res.result.res_data && res.result.res_code == 1) {
+            this.employeeList = res.result.res_data;
           }
         })
       }
@@ -1052,19 +1192,19 @@ export class CalendarDeatilpagePage {
       this.search = false
       this.showPeopleList = []
       //接下来的逻辑是，（前提，负责人默认是参与人）,选的负责人如果已经在选择的人里面了，就不加，不在里面，就加，避免重复
-      this.rt_pcc_pm_id = item.id
+      this.rt_pcc_pm_id = item.partner_id
       this.rt_pcc_pm_name = item.partner_name
     }
     setTimeout(() => {
-        if (this.allday) {
-          this.click_end_date()
-          this.click_start_date()
-        }
-        else {
-          this.click_end_datetime()
-          this.click_start_datetime()
-        }
-      }, 100)
+      if (this.allday) {
+        this.click_end_date()
+        this.click_start_date()
+      }
+      else {
+        this.click_end_datetime()
+        this.click_start_datetime()
+      }
+    }, 100)
   }
 
   //选择提醒
@@ -1098,9 +1238,16 @@ export class CalendarDeatilpagePage {
     if (!this.subject) {
       myString = "    请输入主题"
     }
-    // if (!this.selectList || this.selectList.length == 0) {
-    //   myString = "    请选择参与人员"
-    // }
+    if (this.navParams.get('pcc_enter')) {
+      if (!this.rt_project_principal) {
+        myString = "    请选择负责人"
+      }
+      if (!this.selectList || this.selectList.length == 0) {
+        myString = "    请选择参与人员"
+      }
+
+    }
+
     if (!this.rt_pcc_pm_name) {
       myString = "    请选择PCC"
     }
@@ -1346,6 +1493,12 @@ export class CalendarDeatilpagePage {
     }).then(res => {
       if (res.result.res_data && res.result.res_code == 1) {
         this.item = res.result.res_data
+        this.item_change()
+        if (this.tousu_enter) {
+          this.detail_type = '3'
+          this.show_reply_footer = false
+          this.content.resize()
+        }
       }
     })
   }
@@ -1358,13 +1511,13 @@ export class CalendarDeatilpagePage {
           handler: () => {
             this.finish()
           }
-        }, 
-        // {
-        //   text: '编辑',
-        //   handler: () => {
-        //     this.edit()
-        //   }
-        // },
+        },
+        {
+          text: '编辑',
+          handler: () => {
+            this.edit()
+          }
+        },
         {
           text: '删除',
           handler: () => {
@@ -1383,32 +1536,102 @@ export class CalendarDeatilpagePage {
       if (this.type_name == '任务') {
         button_arr = [
           {
-            text: '标记完成',
+            text: '编辑',
             handler: () => {
-              this.finish()
+              this.edit()
             }
-          },
-          //  {
-          //   text: '编辑',
-          //   handler: () => {
-          //     this.edit()
-          //   }
-          // },
-          {
-            text: '删除',
-            handler: () => {
-              this.delete()
+          }
+        ]
+        // 创建人、负责人看到标记完成、编辑、删除
+        if (this.user.partner_id == this.item.rt_project_principal.partner_id_s_id || this.uid == this.item.create_uid) {
+          button_arr = [
+            {
+              text: '标记完成',
+              handler: () => {
+                this.finish()
+              }
+            },
+            {
+              text: '编辑',
+              handler: () => {
+                this.edit()
+              }
+            },
+            {
+              text: '删除',
+              handler: () => {
+                this.delete()
+              }
             }
-          },
+          ]
+        }
 
+        // 是否是参与人
+        let is_in_partner_ids = false
+        if (this.item.partner_ids) {
+          for (let i = 0; i < this.item.partner_ids.length; i++) {
+            if (this.item.partner_ids[i].partner_id == this.user.partner_id) {
+              is_in_partner_ids = true
+              break
+            }
+          }
+        }
+        if (is_in_partner_ids) {
+          // 是参与人 单据未完成
+          if (this.item.state) {
+            // 负责人、创建人不能退出
+            if (this.user.partner_id != this.item.rt_project_principal.partner_id_s_id && this.uid != this.item.create_uid) {
+              button_arr.push(
+                {
+                  text: '退出',
+                  handler: () => {
+                    var body = {
+
+                    }
+                    if (this.type_name == '任务') {
+                      body = {
+                        'uid': this.uid,
+                        'meeting_line_id': this.item.id,
+                      }
+                    }
+                    else {
+                      body = {
+                        'uid': this.uid,
+                        'calendar_event_id': this.item.id,
+                      }
+                    }
+
+                    this.firService.quit_all(body).then(res => {
+                      if (res.result.res_code == 1) {
+                        Utils.toastButtom('退出成功', this.toastCtrl)
+                        this.navCtrl.pop()
+                      }
+                    })
+                  }
+                })
+            }
+          }
+          else {
+            if (this.user.partner_id != this.item.rt_project_principal.partner_id_s_id) {
+              button_arr.push({
+                text: '申请重新评估',
+                handler: () => {
+                  this.tousu()
+                }
+              })
+            }
+          }
+        }
+
+
+        button_arr.push(
           {
             text: '取消',
             role: 'cancel',
             handler: () => {
               console.log('Cancel clicked');
             }
-          }
-        ]
+          })
       }
       let actionSheet = this.actionSheetCtrl.create({
         title: '',
@@ -1423,13 +1646,13 @@ export class CalendarDeatilpagePage {
           handler: () => {
             this.completion_event()
           }
-        }, 
-        // {
-        //   text: '编辑',
-        //   handler: () => {
-        //     this.edit()
-        //   }
-        // },
+        },
+        {
+          text: '编辑',
+          handler: () => {
+            this.edit()
+          }
+        },
         {
           text: '删除',
           handler: () => {
@@ -1446,40 +1669,44 @@ export class CalendarDeatilpagePage {
         }
       ]
       if (this.type_name == '任务') {
-        button_arr = [
-          {
+        button_arr = []
+        if (this.user.partner_id != this.item.rt_project_principal.partner_id_s_id) {
+          button_arr.push({
+            text: '申请重新评估',
+            handler: () => {
+              this.tousu()
+            }
+          })
+        }
+        if (this.user.partner_id == this.item.rt_project_principal.partner_id_s_id || this.uid == this.item.create_uid) {
+          button_arr.push({
             text: '标记为待办',
             handler: () => {
               this.completion_event()
             }
-          }, 
-          // {
-          //   text: '编辑',
-          //   handler: () => {
-          //     this.edit()
-          //   }
-          // }, 
-          {
-            text: '开始',
-            handler: () => {
-              this.click_check_in()
-            }
-          },
-          {
+          })
+
+          button_arr.push({
             text: '删除',
             handler: () => {
               this.delete()
             }
-          },
+          })
+        }
 
-          {
-            text: '取消',
-            role: 'cancel',
-            handler: () => {
-              console.log('Cancel clicked');
-            }
+        button_arr.push({
+          text: '编辑',
+          handler: () => {
+            this.edit()
           }
-        ]
+        })
+        button_arr.push({
+          text: '取消',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        })
       }
       let actionSheet = this.actionSheetCtrl.create({
         title: '',
@@ -1723,12 +1950,26 @@ export class CalendarDeatilpagePage {
   }
 
   click_more_quit() {
-    let actionSheet = this.actionSheetCtrl.create({
-      title: '',
-      buttons: [{
+    let button_arr = []
+    if (this.item.state) {
+      button_arr = [{
         text: '退出',
         handler: () => {
           this.quit_meeting()
+        }
+      }, {
+        text: '取消',
+        role: 'cancel',
+        handler: () => {
+          console.log('Cancel clicked');
+        }
+      }]
+    }
+    else {
+      button_arr = [{
+        text: '申请重新评估',
+        handler: () => {
+          this.tousu()
         }
       },
       {
@@ -1739,6 +1980,11 @@ export class CalendarDeatilpagePage {
         }
       }
       ]
+    }
+
+    let actionSheet = this.actionSheetCtrl.create({
+      title: '',
+      buttons: button_arr,
     });
     actionSheet.present();
   }
@@ -1763,5 +2009,29 @@ export class CalendarDeatilpagePage {
     this.content.resize()
   }
 
+  is_need_me_reply(one_data) {
+    if (one_data.rt_complain_who_deal_id == this.user.partner_id) {
+      return true
+    }
+    else {
+      return false
+    }
+  }
+
+  reply_cg(one_data) {
+    this.navCtrl.push('TousuDetailPage', {
+      'item': one_data,
+      'uid': this.uid,
+      'submit': false,
+    })
+  }
+
+  tousu() {
+    this.navCtrl.push('TousuDetailPage', {
+      'event_id': this.item.id,
+      'uid': this.uid,
+      'submit': true
+    })
+  }
 
 }

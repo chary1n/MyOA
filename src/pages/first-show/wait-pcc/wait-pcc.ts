@@ -24,30 +24,39 @@ export class WaitPccPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public showService: FirstShowService, public toast: ToastController,
     public storage: Storage) {
-       this.storage.get('user').then(res => {
+    this.storage.get('user').then(res => {
+      this.uid = res.result.res_data.user_id;
+
+
+    })
+  }
+
+  ionViewWillEnter() {
+    this.storage.get('user').then(res => {
       this.uid = res.result.res_data.user_id;
       let body = {
-      'uid': this.uid
-    }
-    this.showService.get_event_type(body).then(res => {
-      if (res.result.res_data && res.result.res_code == 1) {
-        for (let i = 0; i < res.result.res_data.length; i ++){
-          if (res.result.res_data[0].display_name == '任务'){
-            this.item_id = res.result.res_data[0].id
+        'uid': this.uid
+      }
+      this.showService.get_event_type(body).then(res => {
+        if (res.result.res_data && res.result.res_code == 1) {
+          for (let i = 0; i < res.result.res_data.length; i++) {
+            if (res.result.res_data[0].display_name == '任务') {
+              this.item_id = res.result.res_data[0].id
+            }
           }
         }
-      }
-      this.get_total_arr()
+        this.get_total_arr()
+      })
+
     })
-      
-    })
+
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad WaitPccPage');
   }
 
-  get_total_arr(){
+  get_total_arr() {
     let body = {
       'uid': this.uid
     }
@@ -59,21 +68,22 @@ export class WaitPccPage {
   }
   gotoDeatil(item) {
     this.showService.get_event_detail({
-            'uid': this.uid,
-            'event_id': item.id
-          }).then(res => {
-            if (res.result.res_data && res.result.res_code == 1) {
-              item = res.result.res_data
-              this.navCtrl.push('CalendarDeatilpagePage', {
-                'item': item,
-                'isEdit': false,
-                'frontPage': 'FirstShowPage',
-              })
-            }
-          })
+      'uid': this.uid,
+      'event_id': item.id
+    }).then(res => {
+      if (res.result.res_data && res.result.res_code == 1) {
+        item = res.result.res_data
+        this.navCtrl.push('CalendarDeatilpagePage', {
+          'item': item,
+          'isEdit': false,
+          'frontPage': 'FirstShowPage',
+          'pcc_enter': true,
+        })
+      }
+    })
   }
 
-  goBack(){
+  goBack() {
     this.navCtrl.pop()
   }
 
