@@ -1,0 +1,36 @@
+<!--
+  Generated template for the WaitDealPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header no-border >
+
+  <ion-navbar color="gongdan-color" hideBackButton="true">
+    <ion-buttons left>
+      <button ion-button icon-only (click)="goBack()">
+              <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+            </button>
+    </ion-buttons>
+    <ion-title>待处理上诉</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content style="background-color:#f0f2f5">
+  <div *ngFor="let one_data of data_arr;let i = index" [ngClass]="{true:'wd_div_first',false:'wd_div'}[i==0]" tappable (click)="choose_tousu(one_data)">
+    <div class="wd_name_class">
+      {{one_data.name}}
+    </div>
+    <div class="wd_partner_class">
+      {{one_data.rt_complain_partner_id}}
+    </div>
+    <div class="wd_time_class">
+      {{changeDate(one_data.create_date) | date:'MM-dd HH:mm'}}
+    </div>
+    <div class="wd_cause_class">
+      上诉原因：{{one_data.rt_task_complain_cause}}
+    </div>
+  </div>
+</ion-content>

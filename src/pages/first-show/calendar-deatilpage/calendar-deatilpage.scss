@@ -402,15 +402,16 @@ page-calendar-deatilpage {
   .finish_img_class{
       width: 40px;
     height: 40px;
-    margin-top: -2px;
+    margin-top: 2.5px;
     // float: right;
     // position: absolute;
     // right: 10px;
     // top: 65px;
   }
   .jifen_class{
-      margin-bottom: 5px;
-      margin-top: 5px;
+    //   margin-bottom: 5px;
+    //   margin-top: 5px;
+    height: 45px;
   }
 
   .small_font_size{
@@ -439,10 +440,10 @@ page-calendar-deatilpage {
   }
 
   .jifen_img_class{
-      display: inline-block;
+    //   display: inline-block;
     float: right;
     padding-right: 11px;
-    padding-top: 5px;
+    // padding-top: 5px;
   }
 
   .div_me{
@@ -588,6 +589,90 @@ page-calendar-deatilpage {
     padding-top: 10px;
     line-height: 20px;
     }
+
+    .cg_bg_class{
+        background-color: white;
+    margin-top: 1px;
+    padding: 10px;
+    }
+
+    .cg_bg_class_more{
+        background-color: white;
+    margin-top: 11px;
+    padding: 10px;
+    }
+
+    .cg_name_class{
+        display: inline-block;
+    color: #333333;
+    }
+
+    .cg_date_class{
+        display: inline-block;
+    float: right;
+    color: gray;
+    }
+
+    .cg_cause_class{
+            font-size: 13px;
+    color: gray;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-bottom: solid 1px #f0f2f5;
+    }
+
+    .cg_reply_name_class_first{
+        margin-top: 5px;
+    font-size: 13px;
+    color:gray
+    }
+
+    .cg_reply_name_class{
+       margin-top: 5px;
+    font-size: 13px;
+    color:gray;
+    display: inline-block 
+    }
+
+    .cg_btn_class{
+        display: inline-block;
+    float: right;
+    background: #2597ec;
+    margin-top: 5px;
+    width: 60px;
+    text-align: center;
+    border-radius: 14px;
+    font-size: 12px;
+    height: 24px;
+    line-height: 24px;
+    color: white;
+    }
+
+    .big_span_bac{
+            width: 30px;
+    height: 17px;
+    line-height: 17px;
+    border-radius: 8.5px;
+    background-color: red;
+    display: inline-block;
+    color: white;
+    text-align: center;
+    margin-top: 5px;
+    margin-left: -5px;
+    }
+    .normal_span_bac{
+        width: 17px;
+        height: 17px;
+        line-height: 17px;
+        border-radius: 8.5px;
+        background-color: red;
+        display: inline-block;
+        color: white;
+        text-align: center;
+        margin-top: 5px;
+        margin-left: -5px;
+    }
+
 
   image-viewer.ion-page .image 
   { 

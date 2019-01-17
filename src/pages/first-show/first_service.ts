@@ -6,6 +6,25 @@ export class FirstShowService {
     constructor(private httpService: HttpService) {
 
     }
+    search_one_pcc_partner(body){
+        return this.httpService.postBodyNoLoading("search_one_pcc_partner", body)
+    }
+
+    get_all_rw_reply(body){
+        return this.httpService.postBody("get_all_rw_reply", body)
+    }
+
+    create_rw_reply(body){
+        return this.httpService.postBody("create_rw_reply", body)
+    }
+
+    get_all_manager(body){
+        return this.httpService.postBody("get_all_manager", body)
+    }
+
+    rw_reply(body){
+        return this.httpService.postBody("rw_reply", body)
+    }
 
     get_total_need_pcc_list(body){
         return this.httpService.postBody("get_total_need_pcc_list", body)
