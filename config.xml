@@ -32,7 +32,7 @@
     <preference name="SplashScreenDelay" value="3000" />
     <preference name="loadUrlTimeoutValue" value="700000" />
     <preference name="AutoHideSplashScreen" value="true" />
-    <preference name="Fullscreen" value="False" />
+    <preference name="Fullscreen" value="false" />
     <preference name="android-windowSoftInputMode" value="adjustPan" />
     <platform name="android">
         <name>OA</name>
