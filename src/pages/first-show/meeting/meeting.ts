@@ -334,10 +334,14 @@ export class MeetingPage {
                 this.get_all_data()
             }
         }
+        else
+        {
+            this.get_all_data()
+        }
         var need_fresh_reply = this.navParams.get('need_fresh_reply')
 
         // if (need_fresh_reply) {
-        this.get_all_data()
+        
         // }
     }
 

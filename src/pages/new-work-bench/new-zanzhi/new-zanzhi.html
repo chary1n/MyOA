@@ -15,7 +15,8 @@
   <div ion-fixed class="div_header">
     <div class="div_header_back">
 
-      <ion-auto-complete *ngIf="type == 'me'" class="search_class" (itemSelected)="itemMeSelected($event)" (itemClearSelected)="itemClearMeSelected($event)" [dataProvider]="zanzhiMeAutoServices"></ion-auto-complete>
+      <ion-auto-complete *ngIf="type == 'me'" class="search_class" (itemSelected)="itemMeSelected($event)" (itemClearSelected)="itemClearMeSelected($event)"
+        [dataProvider]="zanzhiMeAutoServices"></ion-auto-complete>
 
       <ion-auto-complete *ngIf="type != 'me'" class="search_class" (itemSelected)="itemSelected($event)" (itemClearSelected)="itemClearSelected($event)"
         [dataProvider]="zanzhiAutoServices"></ion-auto-complete>
@@ -43,11 +44,11 @@
     <ion-list>
       <div *ngFor='let item of wait_approval_list;let i = index'>
         <ion-item no-lines [ngClass]="{true:'item_empty_class',false:'item_class'}[i == 0]" tappable (click)='approved_detail(item)'>
-            <p text-wrap style="float:right;color:#000000;font-size:80%;color:gray;margin-top: 2px;">{{item.apply_date}}</p>
-            <h4 text-wrap style="font-size:80%;color:#000000;">{{item.name}}  <span style="margin-left:10px"> {{item.employee}}</span></h4>
-            <p text-wrap style="float:right;color:red;font-weight:bold;font-size:70%;"> {{changeState(item.state)}} </p>
-            <p text-wrap style="font-size:80%;color:gray">申请金额(元)：{{item.amount}} </p>
-          </ion-item>
+          <p text-wrap style="float:right;color:#000000;font-size:80%;color:gray;margin-top: 2px;">{{item.apply_date}}</p>
+          <h4 text-wrap style="font-size:80%;color:#000000;">{{item.name}} <span style="margin-left:10px"> {{item.employee}}</span></h4>
+          <p text-wrap style="float:right;color:red;font-weight:bold;font-size:70%;"> {{changeState(item.state)}} </p>
+          <p text-wrap style="font-size:80%;color:gray">申请金额(元)：{{item.amount}} </p>
+        </ion-item>
       </div>
     </ion-list>
     <!--<ion-infinite-scroll (ionInfinite)="doInfinite($event)">
@@ -61,11 +62,11 @@
     <ion-list>
       <div *ngFor='let item of already_approval_list;let i = index'>
         <ion-item no-lines [ngClass]="{true:'item_empty_class',false:'item_class'}[i == 0]" tappable (click)='approved_detail(item)'>
-            <p text-wrap style="float:right;color:#000000;font-size:80%;color:gray;margin-top: 2px;">{{item.apply_date}}</p>
-            <h4 text-wrap style="font-size:80%;color:#000000;">{{item.name}}  <span style="margin-left:10px"> {{item.employee}}</span></h4>
-            <p text-wrap style="float:right;color:red;font-weight:bold;font-size:70%;"> {{changeState(item.state)}} </p>
-            <p text-wrap style="font-size:80%;color:gray">申请金额(元)：{{item.amount}} </p>
-          </ion-item>
+          <p text-wrap style="float:right;color:#000000;font-size:80%;color:gray;margin-top: 2px;">{{item.apply_date}}</p>
+          <h4 text-wrap style="font-size:80%;color:#000000;">{{item.name}} <span style="margin-left:10px"> {{item.employee}}</span></h4>
+          <p text-wrap style="float:right;color:red;font-weight:bold;font-size:70%;"> {{changeState(item.state)}} </p>
+          <p text-wrap style="font-size:80%;color:gray">申请金额(元)：{{item.amount}} </p>
+        </ion-item>
       </div>
     </ion-list>
     <!--<ion-infinite-scroll (ionInfinite)="doInfinite($event)">
@@ -80,11 +81,11 @@
     <ion-list>
       <div *ngFor='let item of applyList;let i = index'>
         <ion-item no-lines [ngClass]="{true:'item_empty_class',false:'item_class'}[i == 0]" tappable (click)='approved_detail(item)'>
-            <p text-wrap style="float:right;color:#000000;font-size:80%;color:gray;margin-top: 2px;">{{item.apply_date}}</p>
-            <h4 text-wrap style="font-size:80%;color:#000000;">{{item.name}}  <span style="margin-left:10px"> {{item.employee}}</span></h4>
-            <p text-wrap style="float:right;color:red;font-weight:bold;font-size:70%;"> {{changeState(item.state)}} </p>
-            <p text-wrap style="font-size:80%;color:gray">申请金额(元)：{{item.amount}} </p>
-          </ion-item>
+          <p text-wrap style="float:right;color:#000000;font-size:80%;color:gray;margin-top: 2px;">{{item.apply_date}}</p>
+          <h4 text-wrap style="font-size:80%;color:#000000;">{{item.name}} <span style="margin-left:10px"> {{item.employee}}</span></h4>
+          <p text-wrap style="float:right;color:red;font-weight:bold;font-size:70%;"> {{changeState(item.state)}} </p>
+          <p text-wrap style="font-size:80%;color:gray">申请金额(元)：{{item.amount}} </p>
+        </ion-item>
       </div>
     </ion-list>
     <!--<ion-infinite-scroll (ionInfinite)="doInfinite($event)">
