@@ -29,6 +29,9 @@
         <div class="left_div" align="center" tappable (click)="click_caigou()" *ngIf="isShowCG">
             <span [ngClass]="{true:'under_line_style',false:'normal_style'}[inner_type == 'caigou']">采购</span>
         </div>
+        <div class="left_div" align="center" tappable (click)="click_cangku()" *ngIf="isShowCK">
+          <span [ngClass]="{true:'under_line_style',false:'normal_style'}[inner_type == 'cangku']">仓库</span>
+        </div>
     </ion-scroll>
   <ion-grid *ngIf="inner_type == 'normal'" class="grid_class">
     <div class="header_div_class">
@@ -205,6 +208,17 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-
+  <ion-grid *ngIf="inner_type=='cangku' && isShowCK" class="grid_class">
+    <ion-row class="body_row_class" align-items-center>
+      <ion-col class="col_class" col-3 tappable (click)="click_PD()">
+      <div class="body_class" align="center">
+        <img src="assets/img/cangku.png" class="body_img_class">
+        <div class="text_class">
+          盘点
+        </div>
+      </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
 </ion-content>
