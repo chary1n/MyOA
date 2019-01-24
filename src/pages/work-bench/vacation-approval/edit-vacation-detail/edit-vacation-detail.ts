@@ -69,6 +69,7 @@ export class EditVacationDetailPage {
   }
 
   goBack() {
+    cordova.plugins.Keyboard.close()
     this.navCtrl.pop()
   }
 
@@ -123,6 +124,7 @@ export class EditVacationDetailPage {
   }
 
   add_detail() {
+    cordova.plugins.Keyboard.close()
     if (!this.type_name) {
       Utils.toastButtom('休假类型必填', this.toastCtrl)
       return

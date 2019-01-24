@@ -241,7 +241,8 @@ export class NewPayRequestDetailPage {
     this.newPayService.get_bill_detail(body).then(res => {
       if (res.result && res.result.res_code == 1) {
         this.navCtrl.push('NewBillDetailPage',{
-          'item':res.result.res_data
+          'item':res.result.res_data,
+          'user_id': this.user_id,
         })
       }
     })

@@ -97,4 +97,8 @@ export class NewStockMovePage {
     return "当前库存数:" + items.quantity_adjusted_qty
   }
 
+  goBack(){
+    this.navCtrl.pop()
+  }
+
 }

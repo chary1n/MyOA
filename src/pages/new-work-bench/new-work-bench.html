@@ -215,6 +215,18 @@
           </div>
         </div>
       </ion-col>
+      <ion-col class="col_class" tappable (click)="click_Production()" col-3>
+        <!--<div *ngIf="pay_num > 0" align="center" [ngClass]="{true:'big_number_class',false:'number_class'}[pay_num >= 10]">
+          {{pay_num}}
+        </div>-->
+        <div class="body_class" align="center">
+
+          <img class="body_img_class" src="assets/img/new_product.png">
+          <div class="text_class">
+            产品
+          </div>
+        </div>
+      </ion-col>
     </ion-row>
   </ion-grid>
 

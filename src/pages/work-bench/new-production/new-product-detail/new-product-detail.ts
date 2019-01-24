@@ -14,10 +14,11 @@ import { NewProductionService} from './../new-productionService'
   templateUrl: 'new-product-detail.html',
   providers:[NewProductionService],
 })
-export class NewProductDetailPage {
+export class NewProductDetailPageN {
   item;
   constructor(public navCtrl: NavController, public navParams: NavParams,public newProductionService:NewProductionService) {
     this.item = navParams.get('item')
+    console.log(this.item)
   }
 
   ionViewDidLoad() {
@@ -41,6 +42,20 @@ export class NewProductDetailPage {
       if (res.result && res.result.res_code == 1) {
           this.navCtrl.push('NewStockMovePage',{
             item:res.result.res_data,
+          })
+        }
+    })
+  }
+
+  goBack(){
+    this.navCtrl.pop()
+  }
+
+  click_kc(){
+    this.newProductionService.search_stock_quant({'product_id': this.item.id}).then(res => {
+        if (res.result && res.result.res_code == 1) {
+          this.navCtrl.push('NewStockMovePage',{
+            'item': res.result.res_data,
           })
         }
     })
