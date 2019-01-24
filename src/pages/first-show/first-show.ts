@@ -53,6 +53,7 @@ export class FirstShowPage {
   caigou_num = 0//采购
   sch_num = 0
   tousu_num = 0
+  pay_num = 0 //付款
   isShowApprovalPoint = false
   all_approval = 0//审批总和
   show_approve
@@ -737,8 +738,8 @@ export class FirstShowPage {
         this.caigou_num = res.result.res_data.caigou_num
         this.sch_num = res.result.res_data.sch_num
         this.tousu_num = res.result.res_data.tousu_num
-        this.all_approval = this.recoup_num + this.vacation_num + this.jk_num + this.bx_num + this.yf_num + this.sg_num + this.caigou_num + this.sch_num + this.tousu_num
-
+        this.pay_num = res.result.res_data.pay_num
+        this.all_approval = this.recoup_num + this.vacation_num + this.jk_num + this.bx_num + this.yf_num + this.sg_num + this.caigou_num + this.sch_num + this.tousu_num + this.pay_num
         if (this.all_approval != 0) {
           this.isShowApprovalPoint = true
         } else {
@@ -848,5 +849,9 @@ export class FirstShowPage {
     this.navCtrl.push('WaitDealPage', {
       'uid': this.uid
     })
+  }
+
+  toPAY(){
+    this.navCtrl.push('NewPayRequestPage')
   }
 }

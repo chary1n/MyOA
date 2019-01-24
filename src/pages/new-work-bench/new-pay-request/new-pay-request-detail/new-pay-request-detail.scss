@@ -1,0 +1,258 @@
+page-new-pay-request-detail {
+    /*头部class*/
+    .imgHeard{
+        border-radius: 20px;
+        width: 40px;
+        height: 40px;
+    }
+
+    .bg_main{
+        background:white
+    }
+
+    .name_class{
+        font-size:80%;
+    }
+
+    .state_class{
+        margin-left:5px;
+        font-size:80%;
+        color:#E0540E;
+        text-align: center;
+    }
+
+    .state_class_center{
+        margin-left:5px;
+        font-size:80%;
+        color:#E0540E;
+        display: block;
+        text-align: center;
+    }
+
+    .state_class_center_block{
+        margin-left:5px;
+        font-size:80%;
+        color:#E0540E;
+        display: block;
+        text-align: center;
+    }
+
+    .col_header_class{
+        padding-top:17px
+    }
+    .col_header_class_1{
+        padding-top: 9px
+    }
+
+
+    .cg_class{
+        background-color: white;
+    padding-left: 10px;
+    height: 30px;
+    line-height: 30px;
+    }
+
+    // 头部下方class
+    .differ_class{
+        height: 5px;
+        background-color: white;
+        width: 100%;
+    }
+    .order_class{
+        float:right;
+        font-size:93%;
+        width:70%;
+        line-height: 19px;
+        color: gray;
+        padding-right: 10px;
+    }
+
+    .order_class_special{
+        float:right;
+        font-size:90%;
+        width:70%;
+        line-height: 19px;
+        color: #E0540E;
+        text-align: right;
+    }
+    
+    .left_label{
+        font-size:93%;
+        width:25%;
+        text-align: right;
+        color: #333333;
+        line-height: 19px;
+    }
+
+    .item_class{
+        height: 30px;
+        min-height: 30px;
+    }
+
+    .item_class_note{
+        // height: 30px;
+        min-height: 30px;
+    }
+    
+    .item_div_class_change{
+        background-color: white;
+        overflow: hidden;
+        min-height: 30px;
+    }
+
+
+    /*审核class*/
+    .middle_item{
+        margin-top: 5px;
+        width: 85%;
+        margin-left: 7.5%;
+        margin-top: 6px;
+        // height:auto;
+        border-radius:5px;
+    }
+
+    .bx_detail_class{
+        height: 28px;
+        line-height: 29px;
+        color: gray;
+        background-color: #f0f2f5;
+        padding-left: 10px;
+        font-size: 13px;
+    }
+
+    .user_ava_class{
+        width:40px;
+        vertical-align:top;
+        float:left;
+        margin-right:10px;
+        border-radius:20px
+    }
+
+    .span_employee_class{
+        margin-top:3px;
+        color:black;
+        font-size:80%;
+        float:left
+    }
+
+    .span_time_class{
+        font-size:70%;
+        margin-top:5px;
+        margin-left:-5px;
+        float:right
+    }
+
+    .size_class{
+        font-size:80%;
+    }
+
+
+    /*列表class*/
+    .list_item_name_class{
+        height:25px;
+        min-height:35px;
+        margin-top:3px;
+    }
+
+    .list_name_class{
+        font-size:80%;
+        width:50%;
+        margin-top:7px;
+        color: #333333;
+    }
+
+    .list_state_class{
+        float:right;
+        font-size:70%;
+        width:50%;
+        color:#fd9f89;
+        text-align:right;
+        margin-right:7px;
+        margin-top:7px
+    }
+
+    .list_item_class{
+        height:25px;
+        min-height:25px;
+        margin-top:-5px
+    }
+
+    .bill_state_class{
+        float:right;
+        font-size:70%;
+        width:50%;
+        color:gray;
+        margin-top:-2px
+    }
+
+    .date_invoice_class{
+        font-size:70%;
+        width:50%;
+        color:gray;
+        margin-top:-2px
+    }
+
+    .create_uid_class{
+        float:right;
+        font-size:70%;
+        width:50%;
+        color:gray;
+    }
+
+    .date_due_class{
+        font-size:70%;
+        width:50%;
+        color:gray;
+    }
+
+    .list_differ_class{
+        height:5px;
+        min-height:5px;
+        color:white;
+        border-bottom:1px #f0f2f5 solid
+    }
+
+    .list_right_class{
+        float: right;
+    font-size: 70%;
+    width: 50%;
+    color: gray;
+    text-align: right;
+    margin-top: 2px;
+    height: 25px;
+    }
+
+    .list_left_class{
+        font-size: 70%;
+    width: 50%;
+    text-align: left;
+    color: gray;
+    margin-top: 2px;
+    height: 25px;
+    }
+
+
+    /*底部class*/
+    .footer_class{
+        width: 100%;
+    }
+
+    .left_btn{
+        display: inline-block;
+        line-height: 44px;
+        width: 50%;
+        text-align: center;
+        background-color: red;
+        color: white;
+        float: left;
+    }
+
+    .right_btn{
+        line-height: 44px;
+        width: 50%;
+        color: white;
+        text-align: center;
+        float: right;
+        background-color: #2597ec;
+    }
+}

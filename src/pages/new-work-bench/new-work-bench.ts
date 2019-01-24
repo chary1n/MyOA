@@ -29,6 +29,7 @@ export class NewWorkBenchPage {
   jiekuan_num = 0
   showBaoBiao = false;
   po_num = 0
+  pay_num = 0
 
   isShowCG = false
   isShowCK = false
@@ -84,6 +85,7 @@ export class NewWorkBenchPage {
                 this.yufu_num = res.result.res_data.yufu_num
                 this.jiekuan_num = res.result.res_data.jiekuan_num
                 this.po_num = res.result.res_data.po_num
+                this.pay_num = res.result.res_data.pay_num
               }
             })
           })
