@@ -32,6 +32,7 @@ export class NewWorkBenchPage {
   pay_num = 0
 
   isShowCG = false
+  isShowCK = false
   constructor(public navCtrl: NavController, public navParams: NavParams,public statusbar:StatusBar,public services:CommonUseServices,
               public storage: Storage) {
       
@@ -61,6 +62,9 @@ export class NewWorkBenchPage {
           }
           if(product.name == 'group_purchase_user' || product.name == 'group_purchase_manager'){
             this.isShowCG = true;
+          }
+          if(product.name == 'group_production_stock_inventory_confirm'){
+            this.isShowCK = true;
           }
         }
 
@@ -154,8 +158,12 @@ export class NewWorkBenchPage {
     this.navCtrl.push('NewPurchaseOrderPage')
   }
 
-  click_Pay(){
-    this.navCtrl.push('NewPayRequestPage')
+  click_cangku(){
+    this.inner_type='cangku'
+  }
+
+  click_PD(){
+    this.navCtrl.push('PandianListPage')
   }
 
   click_Production() {
