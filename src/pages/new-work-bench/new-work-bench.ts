@@ -174,4 +174,7 @@ export class NewWorkBenchPage {
     this.navCtrl.push('GongchengListPage')
   }
 
+  click_Production() {
+    this.navCtrl.push('NewProductionPage');
+  }
 }

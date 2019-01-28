@@ -7,6 +7,10 @@ export class NewPayService {
 
     }
 
+    get_pay_detail(body){
+        return this.httpservice.postBody("get_pay_detail", body)
+    }
+
     search_payment(body){
         return this.httpservice.postBody("search_payment", body)
     }

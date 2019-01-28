@@ -56,4 +56,39 @@ page-new-bill-detail {
     padding: 10px;
     }
 
+    .dk_left_class{
+        display: inline-block;
+        color: #2597ec;
+        padding-left: 10px;
+    }
+
+    .dk_right_class{
+        display: inline-block;
+        float: right;
+        color: #E0540E;
+        padding-right: 10px;
+    }
+
+    .dk_bg_class{
+        background-color: white;
+    height: 35px;
+    line-height: 35px;
+    margin-top: 10px;
+    }
+
+    .dk_bg_class_empty{
+        background-color: white;
+    height: 35px;
+    line-height: 35px;
+    }
+
+    .empty_data_class{
+        height: 60px;
+        font-size: 15px;
+        color: gray;
+        text-align: center;
+        line-height: 60px;
+        background-color: white;
+    }
+
 }

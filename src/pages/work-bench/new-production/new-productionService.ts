@@ -8,6 +8,26 @@ export class NewProductionService {
     constructor(private httpservice: HttpService) {
 
     }
+    search_product_with_tag(body){
+        return this.httpservice.postBodyNoLoading("search_product_with_tag", body);
+    }
+    
+    get_product_by_tag(body){
+        return this.httpservice.postBody("get_product_by_tag", body);
+    }
+
+    get_tag_detail(body){
+        return this.httpservice.postBodyNoLoading("get_tag_detail", body);
+    }
+
+    get_tag_father(body){
+        return this.httpservice.postBodyNoLoading("get_tag_father", body);
+    }
+
+    search_stock_quant(body){
+        return this.httpservice.postBodyNoLoading("search_stock_quant", body);
+    }
+
     search_product_category_no_loading(type,parent_id){
         let body = JSON.stringify({
             type: type,
