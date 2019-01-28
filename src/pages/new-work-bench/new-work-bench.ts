@@ -32,7 +32,7 @@ export class NewWorkBenchPage {
   pay_num = 0
 
   isShowCG = false
-  isShowCK = false
+  isShowCK = true
   constructor(public navCtrl: NavController, public navParams: NavParams,public statusbar:StatusBar,public services:CommonUseServices,
               public storage: Storage) {
       
@@ -162,7 +162,16 @@ export class NewWorkBenchPage {
     this.inner_type='cangku'
   }
 
+  click_gongcheng(){
+    this.inner_type='gongcheng'
+  }
+
   click_PD(){
     this.navCtrl.push('PandianListPage')
   }
+
+  click_GC(){
+    this.navCtrl.push('GongchengListPage')
+  }
+
 }

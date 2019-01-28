@@ -30,7 +30,6 @@ export class PandianDetailPage {
       , public pandianService: PandianService) {
 
       this.item = this.navParams.get('item');
-    this.title = this.item.expense_name;
     if(this.item.state=='confirm'){
       this.isShowFooter = true
     }else{
@@ -110,4 +109,57 @@ export class PandianDetailPage {
     }).present();
   }
 
+  changeStateTwo(state) {
+    if (state == 'draft') {
+      return "草稿";
+    }
+    else if (state == 'cancel') {
+      return "已取消";
+    }
+    else if (state == 'confirm') {
+      return "进行中";
+    }
+    else if (state == 'done') {
+      return "完成";
+    }
+    else {
+      return state;
+    }
+  }
+
+  changeState(state) {
+    if (state == 'draft') {
+      return "草稿";
+    }
+    else if (state == 'cancel') {
+      return "已取消";
+    }
+    else if (state == 'waiting') {
+      return "等待其他移动";
+    }
+    else if (state == 'confirm') {
+      return "等待可用";
+    }
+    else if (state == 'assigned') {
+      return "可用";
+    }
+    else if (state == 'done') {
+      return "完成";
+    }
+    else if (state == 'none') {
+      return "所有产品";
+    }
+    else if (state == 'category') {
+      return "一个产品类别";
+    }
+    else if (state == 'product') {
+      return "仅一个产品";
+    }
+    else if (state == 'partial') {
+      return "手动选择产品";
+    }
+    else {
+      return state;
+    }
+  }
 }

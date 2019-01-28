@@ -285,7 +285,7 @@ export class LoginPage {
     this.chooseIndex = 0;
     // HttpService.appUrl = "http://service.linkloving.net:8888/"
     // HttpService.appUrl = "http://192.168.10.9:8081/"
-    HttpService.appUrl = "http://192.168.10.169:8888/"
+    HttpService.appUrl = "http://192.168.3.166:8888/"
     this.reset();
     this.img1 = "assets/img/jiangsuruotai_clicked.png"
     this.password_src = "assets/img/S_password.png"

@@ -50,6 +50,10 @@ export class PandianListPage {
 
   doInfinite(event) {
     if (this.isMoreData == true) {
+      if(this.wait_approval_list.length<30){
+        event.complete();
+        return
+      }
       this.limit = 30;
       this.offset = this.offset + 30;
       let body = {
@@ -59,7 +63,7 @@ export class PandianListPage {
       this.pandianService.get_stock_inventory(body).then(res => {
         let item_data = [];
         if (res.result.res_data) {
-          item_data = res.result.res_data.email_list;
+          item_data = res.result.res_data;
           if (item_data.length > 0) {
             this.isMoreData = true;
           }
@@ -119,5 +123,23 @@ export class PandianListPage {
 
   goBack() {
     this.navCtrl.pop()
+  }
+
+  changeState(state) {
+    if (state == 'draft') {
+      return "草稿";
+    }
+    else if (state == 'cancel') {
+      return "已取消";
+    }
+    else if (state == 'confirm') {
+      return "进行中";
+    }
+    else if (state == 'done') {
+      return "完成";
+    }
+    else {
+      return state;
+    }
   }
 }

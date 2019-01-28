@@ -1,5 +1,4 @@
-page-pandian-detail {
-
+page-gongcheng-detail {
     .col_header_class{
         padding-top:17px
     }
@@ -35,6 +34,13 @@ margin-left: 5px;
         float:right;
         color:gray;
         margin-top:6px;
+    }
+
+    .state_class_two{
+        font-size:70%;
+        color:rgb(241, 202, 28);
+        font-weight:bold;
+        margin-top: 3px;
     }
 
     .state_class{
@@ -139,11 +145,19 @@ margin-left: 5px;
         font-size:80%;
     }
 
-    .state_class{
-        margin-left:5px;
+    // .state_class{
+    //     margin-left:5px;
+    //     font-size:80%;
+    //     color:#E0540E;
+    //     text-align: center;
+    // }
+    .right_class{
         font-size:80%;
-        color:#E0540E;
-        text-align: center;
+        float:right;
+        color: gray;
+        font-weight:bold;
+        margin-top: 3px;
+        margin-right: 35px
     }
 
  
@@ -181,9 +195,39 @@ margin-left: 5px;
         width: 100%;
     }
 
+    .left_btn{
+        display: inline-block;
+        line-height: 44px;
+        width: 50%;
+        text-align: center;
+        background-color: red;
+        color: white;
+        float: left;
+    }
+
+    .bx_detail_class_two{
+        height: 28px;
+        line-height: 28px;
+        color: #2597ec;
+        background-color: white;
+        padding-left: 10px;
+        font-size: 13px;
+        border-bottom: solid 1px #f0f2f5;
+    }
+
+    .bx_detail_class{
+        height: 28px;
+        line-height: 28px;
+        color: gray;
+        background-color: #f0f2f5;
+        padding-left: 10px;
+        font-size: 13px;
+        margin-top: -20px
+    }
+
     .right_btn{
         line-height: 44px;
-        width: 100%;
+        width: 50%;
         color: white;
         text-align: center;
         float: right;
@@ -196,5 +240,32 @@ margin-left: 5px;
 
     .item_10px_class{
         margin-top: 10px;
+    }
+
+    /*审批记录class*/
+    .user_ava_class{
+        width:40px;
+        vertical-align:top;
+        float:left;
+        margin-right:10px;
+        border-radius:20px
+    }
+
+    .span_employee_class{
+        margin-top:3px;
+        color:black;
+        font-size:80%;
+        float:left
+    }
+
+    .span_time_class{
+        font-size:70%;
+        margin-top:5px;
+        margin-left:-5px;
+        float:right
+    }
+
+    .size_class{
+        font-size:80%;
     }
 }

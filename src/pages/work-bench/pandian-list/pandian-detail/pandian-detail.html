@@ -30,7 +30,7 @@
               <span class="name_class">{{item.create_uid}}</span>
             </ion-col>
             <ion-col  col-5 class="col_header_class">
-              <span class="state_class">{{item.state}}</span>
+              <span class="state_class">{{changeStateTwo(item.state)}}</span>
             </ion-col>
           </ion-row>
         </ion-grid>
@@ -44,7 +44,7 @@
           <div class="left_label"> 盘点位置 </div>
         </ion-item>
         <ion-item  no-lines class="item_class">
-          <div text-wrap class="order_class"> {{item.filter}} </div>
+          <div text-wrap class="order_class"> {{changeState(item.filter)}} </div>
           <div class="left_label"> 盘点类型 </div>
         </ion-item>
         <div class="differ_class">
@@ -66,7 +66,7 @@
                           {{item.product_id}}
                         </span>
                       </h4>
-                      <p text-wrap class="state_class"> {{item.state}} </p>
+                      <p text-wrap class="state_class"> {{changeState(item.state)}} </p>
                       <p text-wrap class="money_class">来源位置：{{item.location_id}} </p>
                       <p text-wrap class="department_class">目的位置：{{item.location_dest_id}} </p>
                       <p text-wrap class="num_class">数量：{{item.product_uom_qty}} </p>
