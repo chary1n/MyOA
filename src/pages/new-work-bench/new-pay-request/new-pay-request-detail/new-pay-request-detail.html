@@ -1,0 +1,126 @@
+<!--
+  Generated template for the NewPayRequestDetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header no-border>
+
+    <ion-navbar color="gongdan-color" hideBackButton="true">
+        <ion-buttons left>
+            <button ion-button icon-only (click)="goBack()">
+              <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+            </button>
+        </ion-buttons>
+    <ion-title>{{item.name}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content style="background-color:#f0f2f5">
+  <ion-item style="min-height:60px;height:60px;">
+    <ion-grid class="bg_main">
+      <ion-row>
+        <ion-col col-2>
+          <img src="{{item.employee_avatar}}" class="imgHeard">
+        </ion-col>
+        <ion-col col-5 class="col_header_class">
+          <span class="name_class">{{item.create_uid}}</span>
+        </ion-col>
+        <ion-col *ngIf="item.state == 'reviewing'" col-5 class="col_header_class_1">
+          <span class="state_class_center">{{changeState(item.state)}}</span>
+          <span class="state_class_center_block">{{item.approval_employee_id}}</span>
+        </ion-col>
+        <ion-col *ngIf="item.state != 'reviewing'" col-5 class="col_header_class">
+          <span class="state_class">{{changeState(item.state)}}</span>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item>
+  <div class="differ_class">
+  </div>
+  <div class="item_div_class_change">
+    <div text-wrap class="order_class"> {{item.partner_id.partner_name}}</div>
+    <div class="left_label"> 供应商 </div>
+  </div>
+  <div class="item_div_class_change">
+    <div text-wrap class="order_class"> {{item.bank_id}} </div>
+    <div class="left_label"> 银行账户 </div>
+  </div>
+  <div class="item_div_class_change">
+    <div text-wrap class="order_class"> {{changeType(item.payment_type)}} </div>
+    <div class="left_label"> 付款类型 </div>
+  </div>
+  <div class="item_div_class_change" style="border-bottom:solid 1px #f0f2f5">
+    <div text-wrap class="order_class"> {{item.note}} </div>
+    <div class="left_label"> 备注 </div>
+  </div>
+  <ion-item no-lines class="item_class">
+    <div text-wrap class="order_class_special"> 申请金额：¥{{item.show_amount}} </div>
+    <div class="left_label">  </div>
+  </ion-item>
+
+  <div class="bx_detail_class" *ngIf="item.payment_type == 'advance'">
+    原单据
+  </div>
+  <div *ngIf="item.payment_type == 'advance'" tappable (click)="click_po_detail(item.purchase_id)" class="cg_class"> 
+    <span style="color:#333333">采购单：</span><span style="color:#2597ec">{{item.purchase_name}}</span>
+  </div>
+  <div class="bx_detail_class" *ngIf="item.payment_type == 'normal'">
+    供应商对账单
+  </div>
+  <div *ngIf="item.payment_type == 'normal'">
+    <div *ngFor="let items of item.invoice_ids;let i = index;" tappable (click)="clickBillDetail(items)">
+      <ion-item class="list_item_name_class" no-lines>
+        <div text-wrap class="list_state_class">{{getState(items)}}</div>
+        <div class="list_name_class">{{i+1}}.{{items.number}} </div>
+      </ion-item> 
+      <ion-item class="list_item_class" no-lines>
+        <div text-wrap class="bill_state_class">发票状态：{{changeBillState(items.bill_state)}}</div>
+        <div class="date_invoice_class">开票日期：{{items.date_invoice}}</div>
+      </ion-item>
+      <ion-item no-lines class="list_item_class">
+        <div text-wrap class="create_uid_class">负责人：{{items.create_uid}}</div>
+        <div class="date_due_class">截止日期：{{items.date_due}}</div>
+      </ion-item>
+      <ion-item no-lines style="height:5px;min-height:5px;color:white;border-bottom:1px #f0f2f5 solid">
+
+      </ion-item>
+      <ion-item no-lines style="height:5px;min-height:5px;color:white;">
+
+      </ion-item>
+      <ion-item style="height:20px;min-height:20px" no-lines>
+        <div text-wrap class="list_right_class">待支付：¥{{fixTwo(items.residual_signed)}}</div>
+        <div class="list_left_class"> 总计：¥{{fixTwo(items.amount_total_signed)}} </div>
+      </ion-item>
+      
+    </div>
+  </div>
+
+
+  <div class="bx_detail_class">审批记录</div>
+  <ion-list>
+    <ion-item no-lines *ngFor='let items of item.message_ids' style="overflow:hidden" class="middle_item">
+      <img class="user_ava_class" src={{items.create_person_ava}}>
+      <div style="overflow:hidden">
+        <span class="span_employee_class">{{items.create_person}}</span>
+
+        <span class="span_time_class">{{changeDate(items.create_time) | date:'yyyy-MM-dd HH:mm:ss'}}</span>
+      </div>
+      <p *ngIf="items.old_state || items.new_state" class="size_class">{{items.old_state}}=>{{items.new_state}}</p>
+      <p text-wrap class="size_class">{{items.description}}</p>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+<ion-footer *ngIf='isShowFooter'>
+  <div class="footer_class">
+    <div class="left_btn" tappable (click)='cancel()'>
+      拒绝
+    </div>
+    <div class="right_btn" tappable (click)='conform()'>
+      同意
+    </div>
+  </div>
+</ion-footer>

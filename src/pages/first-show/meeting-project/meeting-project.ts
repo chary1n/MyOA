@@ -167,7 +167,6 @@ export class MeetingProjectPage {
   ionViewDidEnter() {
 
     this.frontPage = Utils.getViewController(this.navParams.get('frontPage'), this.navCtrl)
-    this.isEdit = this.navParams.get('isEdit')
     this.storage.get('user').then(res => {
       this.user = res.result.res_data
       this.uid = res.result.res_data.user_id;
@@ -350,10 +349,14 @@ export class MeetingProjectPage {
         this.get_all_data()
       }
     }
+    else
+        {
+            this.get_all_data()
+        }
     var need_fresh_reply = this.navParams.get('need_fresh_reply')
 
     // if (need_fresh_reply) {
-    this.get_all_data()
+    // this.get_all_data()
     // }
   }
 
@@ -950,7 +953,7 @@ export class MeetingProjectPage {
   }
   //编辑完成
   changeFinish() {
-    cordova.plugins.Keyboard.close()
+    // cordova.plugins.Keyboard.close()
     if (this.search) {
       this.search = false
       return

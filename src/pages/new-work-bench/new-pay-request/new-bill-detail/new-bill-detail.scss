@@ -1,0 +1,94 @@
+page-new-bill-detail {
+    .left_label{
+        font-size:80%;
+        width:100px;
+        text-align: right;
+        color: #333333;
+        line-height: 19px;
+    }
+
+    .item_class{
+        height: 30px;
+        min-height: 30px;
+    }
+
+    .order_class{
+        float:right;
+        font-size:80%;
+        width:65%;
+        line-height: 19px;
+        color: gray;
+    }
+
+    .order_class_spec{
+        float:right;
+        font-size:80%;
+        width:65%;
+        line-height: 19px;
+        color: #E0540E;
+    }
+
+    .bx_detail_class{
+        height: 28px;
+        line-height: 29px;
+        color: gray;
+        background-color: #f0f2f5;
+        padding-left: 10px;
+        font-size: 13px;
+    }
+
+    
+
+    .small_p_class{
+        color: gray;
+        font-size: 88%;
+    }
+
+    .item_class_d{
+        margin-top: 10px;
+        background-color: white;
+    padding: 10px;
+    }
+
+    .item_empty_class_d{
+        margin-top: 1px;
+        background-color: white;
+    padding: 10px;
+    }
+
+    .dk_left_class{
+        display: inline-block;
+        color: #2597ec;
+        padding-left: 10px;
+    }
+
+    .dk_right_class{
+        display: inline-block;
+        float: right;
+        color: #E0540E;
+        padding-right: 10px;
+    }
+
+    .dk_bg_class{
+        background-color: white;
+    height: 35px;
+    line-height: 35px;
+    margin-top: 10px;
+    }
+
+    .dk_bg_class_empty{
+        background-color: white;
+    height: 35px;
+    line-height: 35px;
+    }
+
+    .empty_data_class{
+        height: 60px;
+        font-size: 15px;
+        color: gray;
+        text-align: center;
+        line-height: 60px;
+        background-color: white;
+    }
+
+}

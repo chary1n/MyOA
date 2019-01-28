@@ -4,9 +4,14 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header>
+<ion-header no-border>
 
-  <ion-navbar color="gongdan-color">
+    <ion-navbar color="gongdan-color" hideBackButton="true">
+        <ion-buttons left>
+            <button ion-button icon-only (click)="goBack()">
+              <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+            </button>
+        </ion-buttons>
     <ion-title>{{item.name}}</ion-title>
   </ion-navbar>
 
@@ -19,19 +24,19 @@
   </div>
   <ion-grid>
   <ion-row class="row_class" align-items-center>
-      <ion-col tappable (click) = "createInfo()">
+      <ion-col tappable (click) = "click_kc()">
          <div align="center">
           <p style="color:#5bc5f3;font-size:25px">{{item.qty_available}}</p>
           <p style="color:gray;margin-top:-20px">库存</p>
         </div>
       </ion-col>
-      <ion-col tappable (click) = "callPhone()">
+      <ion-col>
         <div align="center">
          <p style="color:#5bc5f3;font-size:25px">{{item.virtual_qty}}</p>
           <p style="color:gray;margin-top:-20px">预测</p>
         </div>
       </ion-col>
-      <ion-col tappable (click) = "sendEmail()">
+      <ion-col >
         <div align="center" >
          <p style="color:#5bc5f3;font-size:25px">{{item.outgoing_qty}}</p>
           <p style="color:gray;margin-top:-20px">在产</p> 
@@ -41,44 +46,41 @@
 </ion-grid>
 <ion-item-divider color="light"></ion-item-divider>
 <ion-item-group class="group_bottom">
-    <ion-item>
-      <ion-label class="left_label">内部参考</ion-label>
-      <ion-label text-wrap class="right_label" item-end>{{item.categ_id}}</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label class="left_label">产品名称</ion-label>
+  <ion-item>
+      <ion-label class="left_label">名称</ion-label>
       <ion-label text-wrap class="right_label" item-end>{{item.name}}</ion-label>
     </ion-item>
     <ion-item>
-      <ion-label class="left_label">位置</ion-label>
-      <ion-label text-wrap class="right_label" item-end>{{item.location}}</ion-label>
+      <ion-label class="left_label">料号</ion-label>
+      <ion-label text-wrap class="right_label" item-end>{{item.default_code}}</ion-label>
     </ion-item>
     <ion-item>
-      <ion-label class="left_label">国内简称</ion-label>
-      <ion-label text-wrap item-end class="right_label">{{item.inner_code}}</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label class="left_label">国内类型</ion-label>
-      <ion-label text-wrap item-end class="right_label">{{item.inner_spec}}</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label class="left_label">产品规格</ion-label>
+      <ion-label class="left_label">规格</ion-label>
       <ion-label text-wrap item-end class="right_label">{{item.product_specs}}</ion-label>
     </ion-item>
     <ion-item>
-      <ion-label class="left_label">内部类别</ion-label>
-      <ion-label text-wrap item-end class="right_label">{{item.default_code}}</ion-label>
+      <ion-label class="left_label">标签</ion-label>
+      <ion-label text-wrap class="right_label" item-end>{{item.tag}}</ion-label>
     </ion-item>
+    <ion-item>
+      <ion-label class="left_label">内部类别</ion-label>
+      <ion-label text-wrap class="right_label" item-end>{{item.categ_id}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label class="left_label">重量（g）</ion-label>
+      <ion-label text-wrap class="right_label" item-end>{{item.weight}}</ion-label>
+    </ion-item>
+    
   </ion-item-group>
   <ion-item-divider color="light"></ion-item-divider>
-  <ion-item-group class="group_bottom">
-    <ion-item tappable (click)="clickBom()">
+  <ion-item-group no-lines class="group_bottom">
+    <ion-item no-lines tappable (click)="clickBom()">
       <ion-label class="left_label">BOM</ion-label>
-      <ion-label text-wrap class="right_label" item-end>></ion-label>
+      <ion-label text-wrap class="right_label" item-end><ion-icon style="font-size:13px;margin-left:5px;" ios="ios-arrow-forward" md="md-arrow-forward"></ion-icon></ion-label>
     </ion-item>
-    <ion-item tappable (click)="clickStockMove()">
+    <!--<ion-item tappable (click)="clickStockMove()">
       <ion-label class="left_label">库存移动</ion-label>
       <ion-label text-wrap class="right_label" item-end>></ion-label>
-    </ion-item>
+    </ion-item>-->
   </ion-item-group>
 </ion-content>

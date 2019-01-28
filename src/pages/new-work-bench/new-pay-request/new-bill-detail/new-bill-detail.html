@@ -1,0 +1,82 @@
+<!--
+  Generated template for the NewBillDetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header no-border>
+
+  <ion-navbar color="gongdan-color" hideBackButton="true">
+    <ion-buttons left>
+      <button ion-button icon-only (click)="goBack()">
+              <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+            </button>
+    </ion-buttons>
+    <ion-title>{{item.name}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content style="background-color:#f0f2f5">
+  <ion-item no-lines class="item_class">
+    <div text-wrap class="order_class"> ¥{{item.amount_untaxed}}</div>
+    <div class="left_label"> 未含税金额 </div>
+  </ion-item>
+  <ion-item no-lines class="item_class">
+    <div text-wrap class="order_class"> ¥{{item.amount_tax}} </div>
+    <div class="left_label"> 税金 </div>
+  </ion-item>
+  <ion-item no-lines class="item_class">
+    <div text-wrap class="order_class_spec"> ¥{{item.amount_total}} </div>
+    <div class="left_label"> 总计 </div>
+  </ion-item>
+  <ion-item no-lines class="item_class">
+    <div text-wrap class="order_class"> ¥{{item.residual}} </div>
+    <div class="left_label"> 截止金额 </div>
+  </ion-item>
+  <div class="bx_detail_class">
+    账单明细
+  </div>
+  <div *ngIf="item.invoice_line_ids.length > 0">
+    <div *ngFor='let items of item.invoice_line_ids;let i = index'>
+      <div [ngClass]="{true:'item_empty_class_d',false:'item_class_d'}[i == 0]">
+        <div>
+          {{i+1}}.{{items.product_id}}
+        </div>
+        <div class="small_p_class">
+          {{items.purchase_id}}
+        </div>
+        <div class="small_p_class">
+          已接收／订购：{{items.origin_line_qty_received}}/{{items.origin_line_product_qty}}
+        </div>
+        <div class="small_p_class">
+          <span>本次数量：{{items.quantity}}</span>
+          <span style="margin-left:10px;">单价：{{items.price_unit}}</span>
+          <span style="margin-left:10px;">税：{{items.tax_id}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="item.invoice_line_ids.length == 0" align="center" class="empty_data_class">
+    未添加数据
+  </div>
+  <div class="bx_detail_class">
+    抵扣明细
+  </div>
+  <div *ngIf="item.dikou_line_ids.length > 0">
+    <div *ngFor='let items of item.dikou_line_ids;let i = index' tappable (click)="click_dk(items)">
+      <div [ngClass]="{true:'dk_bg_class_empty',false:'dk_bg_class'}[i == 0]">
+        <div class="dk_left_class">
+          {{items.name}}
+        </div>
+        <div class="dk_right_class">
+          ¥{{items.amount}}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="item.dikou_line_ids.length == 0" align="center" class="empty_data_class">
+    无抵扣明细
+  </div>
+</ion-content>
