@@ -33,7 +33,7 @@
     </div>  
     <div *ngIf="!item">
       <img style="width:100px;position:absolute;left:calc(50% - 50px);top:calc(50% - 60px)" src="assets/img/journal_sheet/null_state.png">
-      <p style="width:120px;position:absolute;left:calc(50% - 50px);top:calc(50% + 30px);color:#c2c8cc;font-size:15px">无数据～</p>
+      <p style="width:120px;position:absolute;left:calc(50% - 50px);top:calc(50% + 30px);color:#c2c8cc;font-size:15px">暂时没有数据</p>
     </div>
   <!--</ion-list>-->
   <ion-infinite-scroll *ngIf="can_search_more && can_load_more" (ionInfinite)="doInfinite($event)">
