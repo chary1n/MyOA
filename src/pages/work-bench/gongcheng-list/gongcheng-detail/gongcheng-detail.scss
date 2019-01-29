@@ -1,12 +1,11 @@
-page-pandian-detail {
-
+page-gongcheng-detail {
     .col_header_class{
         padding-top:17px
     }
     
     .rt_name_class{
         font-size: 85%;
-    margin-top: 5px;
+    margin-top: 10px;
     margin-left: 5px;
     line-height: 15px;
     }
@@ -16,6 +15,14 @@ page-pandian-detail {
     color: gray;
     margin-left: 4px;
     margin-top: 5px;
+    width: 50%
+    }
+
+    .yifa{
+        font-size:80%;
+        float:right;
+        color: gray;
+        margin-top: 5px;
     }
 
     .department_class{
@@ -31,10 +38,18 @@ margin-left: 5px;
 }
 
     .time_class{
-        font-size:70%;
+        font-size:80%;
         float:right;
         color:gray;
-        margin-top:6px;
+        margin-top:5px;
+        margin-left: -47px
+    }
+
+    .state_class_two{
+            margin-left:25px;
+            font-size:80%;
+            color:#E0540E;
+            text-align: center;
     }
 
     .state_class{
@@ -80,6 +95,7 @@ margin-left: 5px;
         text-align: center;
         color: #2597ec;
         font-weight: bold;
+        margin-right: -50px
     }
 
     .p_message_line_height{
@@ -138,11 +154,19 @@ margin-left: 5px;
         font-size:80%;
     }
 
-    .state_class{
-        margin-left:5px;
+    // .state_class{
+    //     margin-left:5px;
+    //     font-size:80%;
+    //     color:#E0540E;
+    //     text-align: center;
+    // }
+    .right_class{
         font-size:80%;
-        color:#E0540E;
-        text-align: center;
+        float:right;
+        color: gray;
+        // font-weight:bold;
+        margin-top: 3px;
+        width: 50%
     }
 
  
@@ -150,7 +174,7 @@ margin-left: 5px;
         float:right;
         font-size:80%;
         width:70%;
-        line-height: 19px;
+        // line-height: 19px;
         color: #333333;
     }
 
@@ -180,9 +204,39 @@ margin-left: 5px;
         width: 100%;
     }
 
+    .left_btn{
+        display: inline-block;
+        line-height: 44px;
+        width: 50%;
+        text-align: center;
+        background-color: red;
+        color: white;
+        float: left;
+    }
+
+    .bx_detail_class_two{
+        height: 28px;
+        line-height: 28px;
+        color: #2597ec;
+        background-color: white;
+        padding-left: 10px;
+        font-size: 13px;
+        border-bottom: solid 1px #f0f2f5;
+    }
+
+    .bx_detail_class{
+        height: 28px;
+        line-height: 28px;
+        color: gray;
+        background-color: #f0f2f5;
+        padding-left: 10px;
+        font-size: 13px;
+        margin-top: -20px
+    }
+
     .right_btn{
         line-height: 44px;
-        width: 100%;
+        width: 50%;
         color: white;
         text-align: center;
         float: right;
@@ -195,5 +249,32 @@ margin-left: 5px;
 
     .item_10px_class{
         margin-top: 10px;
+    }
+
+    /*审批记录class*/
+    .user_ava_class{
+        width:40px;
+        vertical-align:top;
+        float:left;
+        margin-right:10px;
+        border-radius:20px
+    }
+
+    .span_employee_class{
+        margin-top:3px;
+        color:black;
+        font-size:80%;
+        float:left
+    }
+
+    .span_time_class{
+        font-size:70%;
+        margin-top:5px;
+        margin-left:-5px;
+        float:right
+    }
+
+    .size_class{
+        font-size:80%;
     }
 }

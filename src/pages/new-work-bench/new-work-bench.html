@@ -32,6 +32,9 @@
         <div class="left_div" align="center" tappable (click)="click_cangku()" *ngIf="isShowCK">
           <span [ngClass]="{true:'under_line_style',false:'normal_style'}[inner_type == 'cangku']">仓库</span>
         </div>
+        <div class="left_div" align="center" tappable (click)="click_gongcheng()">
+            <span [ngClass]="{true:'under_line_style',false:'normal_style'}[inner_type == 'gongcheng']">工程</span>
+          </div>
     </ion-scroll>
   <ion-grid *ngIf="inner_type == 'normal'" class="grid_class">
     <div class="header_div_class">
@@ -235,6 +238,9 @@
   <ion-grid *ngIf="inner_type=='cangku' && isShowCK" class="grid_class">
     <ion-row class="body_row_class" align-items-center>
       <ion-col class="col_class" col-3 tappable (click)="click_PD()">
+          <div *ngIf="pandianNum > 0" align="center" [ngClass]="{true:'big_number_class',false:'number_class'}[pandianNum >= 10]">
+              {{pandianNum}}
+            </div>
       <div class="body_class" align="center">
         <img src="assets/img/cangku.png" class="body_img_class">
         <div class="text_class">
@@ -244,5 +250,20 @@
       </ion-col>
     </ion-row>
   </ion-grid>
+  <ion-grid *ngIf="inner_type=='gongcheng'" class="grid_class">
+      <ion-row class="body_row_class" align-items-center>
+        <ion-col class="col_class" col-3 tappable (click)="click_GC()">
+            <div *ngIf="gongchengNum > 0" align="center" [ngClass]="{true:'big_number_class',false:'number_class'}[gongchengNum >= 10]">
+                {{gongchengNum}}
+              </div>
+        <div class="body_class" align="center">
+          <img src="assets/img/gongcheng.png" class="body_img_class">
+          <div class="text_class">
+            工程领料
+          </div>
+        </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
 
 </ion-content>

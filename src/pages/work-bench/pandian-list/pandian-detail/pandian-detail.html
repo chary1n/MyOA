@@ -30,13 +30,13 @@
               <span class="name_class">{{item.create_uid}}</span>
             </ion-col>
             <ion-col  col-5 class="col_header_class">
-              <span class="state_class">{{item.state}}</span>
+              <span class="state_class">{{changeStateTwo(item.state)}}</span>
             </ion-col>
           </ion-row>
         </ion-grid>
       </ion-item>
         <ion-item no-lines class="item_class">
-          <div text-wrap class="order_class"> {{item.date}}</div>
+          <div text-wrap class="order_class"> {{changeDate(item.date) | date:'yyyy-MM-dd'}}</div>
           <div class="left_label"> 盘点日期 </div>
         </ion-item>
         <ion-item no-lines class="item_class">
@@ -44,20 +44,20 @@
           <div class="left_label"> 盘点位置 </div>
         </ion-item>
         <ion-item  no-lines class="item_class">
-          <div text-wrap class="order_class"> {{item.filter}} </div>
+          <div text-wrap class="order_class"> {{changeState(item.filter)}} </div>
           <div class="left_label"> 盘点类型 </div>
         </ion-item>
         <div class="differ_class">
           </div>
         <div align="center" class="main_header_div">
-            <div class="div_me" align="center" tappable (click)="clickMove()">
+            <!-- <div class="div_me" align="center" tappable (click)="clickMove()">
               <p [ngClass]="{true:'p_message_line_height_select',false:'p_message_line_height'}[type=='kucun']">库存调整</p>
-            </div>
-            <div class="div_wait" align="center" tappable (click)="clickLine()">
-              <p [ngClass]="{true:'p_shenhe_line_height_select',false:'p_shenhe_line_height'}[type=='pandian']">盘点明细</p>
-            </div>
+            </div> -->
+            <!-- <div class="div_wait" align="center"> -->
+              <p class="p_message_line_height_select">盘点明细</p>
+            <!-- </div> -->
         </div>
-        <div *ngIf="type == 'kucun'">
+        <!-- <div *ngIf="type == 'kucun'">
             <ion-list>
                 <div *ngFor='let item of kucunList;let i = index'>
                     <ion-item no-lines [ngClass]="{true:'item_empty_class',false:'item_class_one'}[i == 0]">
@@ -66,15 +66,15 @@
                           {{item.product_id}}
                         </span>
                       </h4>
-                      <p text-wrap class="state_class"> {{item.state}} </p>
+                      <p text-wrap class="state_class"> {{changeState(item.state)}} </p>
                       <p text-wrap class="money_class">来源位置：{{item.location_id}} </p>
                       <p text-wrap class="department_class">目的位置：{{item.location_dest_id}} </p>
                       <p text-wrap class="num_class">数量：{{item.product_uom_qty}} </p>
                     </ion-item>
                   </div>
             </ion-list>
-        </div>
-        <div *ngIf="type == 'pandian'">
+        </div> -->
+        <div>
             <ion-list>
               <div *ngFor='let item of pandianList;let i = index'>
                   <ion-item no-lines [ngClass]="{true:'item_empty_class',false:'item_class_one'}[i == 0]">

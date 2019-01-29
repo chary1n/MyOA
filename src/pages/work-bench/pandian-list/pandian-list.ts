@@ -20,6 +20,7 @@ export class PandianListPage {
   wait_approval_list = [];
   limit = 30;
   offset = 0;
+  shenpiString = '待我审批'
   constructor(public navCtrl: NavController, public navParams: NavParams, public pandianAutoService: PandianAutoService
             , public pandianService: PandianService) {
               this.initData()
@@ -33,6 +34,11 @@ export class PandianListPage {
     this.pandianService.get_stock_inventory(body).then((res) => {
       if (res.result && res.result.res_code == 1) {
         this.wait_approval_list = res.result.res_data
+        if(this.wait_approval_list){
+          if(this.wait_approval_list.length>0){
+            this.shenpiString = '待我审批('+ this.wait_approval_list.length+')'
+          }
+        }
       }
     })
   }
@@ -50,6 +56,10 @@ export class PandianListPage {
 
   doInfinite(event) {
     if (this.isMoreData == true) {
+      if(this.wait_approval_list.length<30){
+        event.complete();
+        return
+      }
       this.limit = 30;
       this.offset = this.offset + 30;
       let body = {
@@ -59,7 +69,7 @@ export class PandianListPage {
       this.pandianService.get_stock_inventory(body).then(res => {
         let item_data = [];
         if (res.result.res_data) {
-          item_data = res.result.res_data.email_list;
+          item_data = res.result.res_data;
           if (item_data.length > 0) {
             this.isMoreData = true;
           }
@@ -119,5 +129,28 @@ export class PandianListPage {
 
   goBack() {
     this.navCtrl.pop()
+  }
+
+  changeState(state) {
+    if (state == 'draft') {
+      return "草稿";
+    }
+    else if (state == 'cancel') {
+      return "已取消";
+    }
+    else if (state == 'confirm') {
+      return "进行中";
+    }
+    else if (state == 'done') {
+      return "完成";
+    }
+    else {
+      return state;
+    }
+  }
+
+  changeDate(date) {
+    let new_date = new Date(date.replace(' ', 'T') + 'Z').getTime();
+    return new_date;
   }
 }

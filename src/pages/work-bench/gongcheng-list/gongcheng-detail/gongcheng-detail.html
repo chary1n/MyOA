@@ -1,0 +1,129 @@
+<!--
+  Generated template for the GongchengDetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header no-border>
+
+    <ion-navbar color="gongdan-color" hideBackButton="true">
+        <ion-buttons left>
+            <button ion-button icon-only (click)="goBack()">
+              <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+            </button>
+        </ion-buttons>
+    <ion-title>{{item.name}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content style="background:#f0f2f5">
+    <ion-item style="min-height:60px;height:60px;">
+        <ion-grid class="bg_main">
+          <ion-row>
+            <ion-col col-2>
+              <img src="{{item.employee_avatar}}" class="imgHeard">
+            </ion-col>
+            <ion-col col-5 class="col_header_class">
+              <span class="name_class">{{item.partner_id}}</span>
+            </ion-col>
+            <ion-col  col-5 class="col_header_class">
+                <span class="state_class_two">{{changeState(item.state)}}</span>
+              </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+      <ion-item no-lines class="item_class">
+          <div text-wrap class="order_class"> {{item.to_approval_user_name}}</div>
+          <div class="left_label"> 待审核人 </div>
+        </ion-item>
+        <ion-item no-lines class="item_class">
+          <div text-wrap class="order_class"> {{item.delivery_date}}</div>
+          <div class="left_label"> 交货日期 </div>
+        </ion-item>
+        <ion-item no-lines class="item_class">
+          <div text-wrap class="order_class"> {{item.warehouse_id}} </div>
+          <div class="left_label"> 仓库 </div>
+        </ion-item>
+        <ion-item  no-lines class="item_class">
+          <div text-wrap class="order_class"> {{item.src_location_id}} </div>
+          <div class="left_label"> 位置 </div>
+        </ion-item>
+        <ion-item  no-lines>
+            <div text-wrap class="order_class"> {{item.picking_cause}}</div>
+            <div class="left_label"> 领料原因 </div>
+          </ion-item>
+          <ion-item  no-lines>
+              <div text-wrap class="order_class"> {{item.partner_shipping_address}} </div>
+              <div class="left_label"> 收货地址 </div>
+            </ion-item>
+            <!-- <ion-item  no-lines class="item_class">
+                <div text-wrap class="order_class"> 
+                  <span *ngFor='let items of item.reference_product_template_ids;'>{{items.product_id}}</span>
+                 </div>
+                <div class="left_label"> 参考产品 </div>
+            </ion-item> -->
+            <ion-item no-lines>
+                <div style="position: relative;margin-bottom: -11px;margin-top: -11px">
+                  <span  style="    display: inline-block;position: absolute;
+                              top: calc(50% - 11px);display: inline-block;font-size: 13px;color: gray;margin-left: 15px"> 参考产品</span>
+                  <div style="justify-content:space-around;white-space: pre-line;width: 80%;display: inline-block;position: relative;top: -12px;left: 30%;">
+                    <p round *ngFor="let items of item.reference_product_template_ids" style="width: 230px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;color: #333333;">
+                                            {{items.product_id}} 
+                    </p>
+                  </div>
+                </div>
+            </ion-item>
+            <ion-item  no-lines class="item_class">
+                <div text-wrap class="order_class"> {{item.remark}} </div>
+                <div class="left_label"> 备注 </div>
+            </ion-item>
+        <div class="differ_class">
+          </div>
+          <div class="bx_detail_class_two">● 领料明细</div>
+        <div>
+            <ion-list>
+                <div *ngFor='let items of kucunList;let i = index'>
+                    <ion-item no-lines [ngClass]="{true:'item_empty_class',false:'item_class_one'}[i == 0]">
+                      <h4 text-wrap class="rt_name_class">
+                        <span>
+                          {{items.product_id}}
+                        </span>
+                      </h4>
+                <p text-wrap class="time_class">库存：{{items.qty_available}}</p>
+                <p text-wrap class="rt_name_class">需求：{{items.product_qty}}</p>
+                <p text-wrap class="yifa" *ngIf="item.state=='done'"> 已发：{{items.qty_return}} </p>
+                <p text-wrap class="money_class" *ngIf="item.state=='done'">已退：{{items.qty_delivered}} </p>
+                      <!-- <p text-wrap class="right_class"> 库存：{{items.qty_available}} </p>
+                      <p text-wrap class="money_class">需求：{{items.product_qty}} </p>
+                      <p text-wrap class="yifa" *ngIf="item.state=='done'"> 已发：{{items.qty_return}} </p>
+                      <p text-wrap class="right_class" *ngIf="item.state=='done'"> 已退：{{items.qty_delivered}} </p> -->
+                    </ion-item>
+                  </div>
+            </ion-list>
+        </div>
+        <div class="bx_detail_class">审批记录</div>
+        <ion-list>
+          <ion-item no-lines *ngFor='let items of item.approval_ids' style="overflow:hidden" class="middle_item">
+            <img class="user_ava_class" src={{items.employee_avatar}}>
+            <div style="overflow:hidden">
+              <span class="span_employee_class">{{items.user_id}}</span>
+              <span class="span_time_class">{{changeDate(items.create_time) | date:'yyyy-MM-dd HH:mm:ss'}}</span>
+            </div>
+            <p class="size_class">{{items.template_name}}{{items.user_id}}->{{changeStatus(items.status)}}</p>
+            <p text-wrap class="size_class">备注：{{items.remark}}</p>
+          </ion-item>
+        </ion-list>
+</ion-content>
+
+<ion-footer *ngIf='isShowFooter'>
+    <div class="footer_class">
+        <div class="left_btn" tappable (click)='cancel()'>
+          拒绝
+        </div>
+        <div class="right_btn" tappable (click)='conform()'>
+          同意
+        </div>
+      </div>
+</ion-footer>

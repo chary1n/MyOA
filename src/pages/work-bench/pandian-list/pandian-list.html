@@ -19,7 +19,7 @@
         </div>
         <div align="center" class="main_header_div">
           <div class="div_wait" align="center" tappable>
-                <p class="p_shenhe_line_height_select">待我审批</p>
+                <p class="p_shenhe_line_height_select">{{shenpiString}}</p>
           </div>
         </div>
       </div>
@@ -33,10 +33,10 @@
                   {{item.name}}
                 </span>
               </h4>
-              <p text-wrap class="state_class"> {{item.state}} </p>
+              <p text-wrap class="state_class"> {{changeState(item.state)}} </p>
               <p text-wrap class="money_class">盘点位置：{{item.location_id}} </p>
               <p text-wrap class="department_class">创建人：{{item.create_uid}} </p>
-              <p text-wrap class="department_class">盘点日期：{{item.date}} </p>
+              <p text-wrap class="department_class">盘点日期：{{changeDate(item.date) | date:'yyyy-MM-dd'}} </p>
             </ion-item>
           </div>
         </ion-list>
