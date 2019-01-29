@@ -23,7 +23,6 @@ export class GongchengListPage {
   is_ios = false;
   wait_num;
   waitString='待我审批'
-  wait_approval=[];
   constructor(public navCtrl: NavController, public navParams: NavParams, public gongchengAutoService: GongchengAutoService,
               public gongchengService: GongchengService,  public platform: Platform,public storage: Storage) {
 
@@ -115,15 +114,9 @@ export class GongchengListPage {
     }
       this.gongchengService.get_material_request(body).then((res) => {
         if (res.result && res.result.res_code == 1) {
-          this.wait_approval_list = res.result.res_data
-          if(type=='wait_approved'){
-            this.wait_approval = res.result.res_data
-            if(this.wait_approval){
-              if(this.wait_approval.length>0){
-                this.wait_num = this.wait_approval.length
-                this.waitString = '待我审批('+this.wait_num+')'
-              }
-        }
+          this.wait_approval_list = res.result.res_data.data
+          if(res.result.res_data.num>0){
+            this.wait_num = res.result.res_data.num
           }
         }
       })

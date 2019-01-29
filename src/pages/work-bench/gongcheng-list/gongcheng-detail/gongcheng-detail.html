@@ -69,9 +69,9 @@
                   <span  style="    display: inline-block;position: absolute;
                               top: calc(50% - 11px);display: inline-block;font-size: 13px;color: gray;margin-left: 15px"> 参考产品</span>
                   <div style="justify-content:space-around;white-space: pre-line;width: 80%;display: inline-block;position: relative;top: -12px;left: 30%;">
-                    <span round *ngFor="let items of item.reference_product_template_ids" style="width: 200px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis" ion-button>
+                    <p round *ngFor="let items of item.reference_product_template_ids" style="width: 230px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;color: #333333;">
                                             {{items.product_id}} 
-                    </span>
+                    </p>
                   </div>
                 </div>
             </ion-item>
