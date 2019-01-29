@@ -169,4 +169,8 @@ export class NewWorkBenchPage {
   click_Production() {
     this.navCtrl.push('NewProductionPage');
   }
+
+  click_Pay(){
+    this.navCtrl.push('NewPayRequestPage')
+  }
 }
