@@ -35,21 +35,6 @@ export class GongchengListPage {
       .then(res => {
         this.user_id = res.result.res_data.user_id;
         this.initData('me')
-        let body = {
-          'user_id': this.user_id,
-          'type': 'wait_approved'
-        }
-          this.gongchengService.get_material_request(body).then((res) => {
-            if (res.result && res.result.res_code == 1) {
-              this.wait_approval = res.result.res_data
-              if(this.wait_approval){
-                if(this.wait_approval.length>0){
-                  this.wait_num = this.wait_approval.length
-                  this.waitString = '待我审批('+this.wait_num+')'
-                }
-              }
-            }
-          })
       });
   }
 
@@ -59,20 +44,7 @@ export class GongchengListPage {
 
   ionViewDidEnter() {
     if (this.navParams.get('need_fresh') == true) {
-      this.initData(this.type)
-      let body = {
-        'user_id': this.user_id,
-        'type': 'wait_approved'
-      }
-        this.gongchengService.get_material_request(body).then((res) => {
-          if (res.result && res.result.res_code == 1) {
-            this.wait_approval = res.result.res_data
-            if(this.wait_approval.length>0){
-              this.wait_num = this.wait_approval.length
-              this.waitString = '待我审批('+this.wait_num+')'
-            }
-          }
-        })
+      this.initData(this.type)    
       this.navParams.data.need_fresh = false;
     }
   }
@@ -144,6 +116,15 @@ export class GongchengListPage {
       this.gongchengService.get_material_request(body).then((res) => {
         if (res.result && res.result.res_code == 1) {
           this.wait_approval_list = res.result.res_data
+          if(type=='wait_approved'){
+            this.wait_approval = res.result.res_data
+            if(this.wait_approval){
+              if(this.wait_approval.length>0){
+                this.wait_num = this.wait_approval.length
+                this.waitString = '待我审批('+this.wait_num+')'
+              }
+        }
+          }
         }
       })
   }

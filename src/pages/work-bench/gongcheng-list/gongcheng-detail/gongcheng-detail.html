@@ -50,8 +50,8 @@
           <div text-wrap class="order_class"> {{item.src_location_id}} </div>
           <div class="left_label"> 位置 </div>
         </ion-item>
-        <ion-item  no-lines class="item_class">
-            <div text-wrap class="order_class"> {{item.picking_cause}} </div>
+        <ion-item  no-lines>
+            <div text-wrap class="order_class"> {{item.picking_cause}}</div>
             <div class="left_label"> 领料原因 </div>
           </ion-item>
           <ion-item  no-lines class="item_class">
@@ -107,7 +107,7 @@
               <span class="span_employee_class">{{items.user_id}}</span>
               <span class="span_time_class">{{changeDate(items.create_time) | date:'yyyy-MM-dd HH:mm:ss'}}</span>
             </div>
-            <p class="size_class">【{{items.template_name}}】{{items.user_id}}->{{changeStatus(items.status)}}</p>
+            <p class="size_class">{{items.template_name}}{{items.user_id}}->{{changeStatus(items.status)}}</p>
             <p text-wrap class="size_class">备注：{{items.remark}}</p>
           </ion-item>
         </ion-list>

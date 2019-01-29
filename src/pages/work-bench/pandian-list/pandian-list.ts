@@ -20,6 +20,7 @@ export class PandianListPage {
   wait_approval_list = [];
   limit = 30;
   offset = 0;
+  shenpiString = '待我审批'
   constructor(public navCtrl: NavController, public navParams: NavParams, public pandianAutoService: PandianAutoService
             , public pandianService: PandianService) {
               this.initData()
@@ -33,6 +34,11 @@ export class PandianListPage {
     this.pandianService.get_stock_inventory(body).then((res) => {
       if (res.result && res.result.res_code == 1) {
         this.wait_approval_list = res.result.res_data
+        if(this.wait_approval_list){
+          if(this.wait_approval_list.length>0){
+            this.shenpiString = '待我审批('+ this.wait_approval_list.length+')'
+          }
+        }
       }
     })
   }
