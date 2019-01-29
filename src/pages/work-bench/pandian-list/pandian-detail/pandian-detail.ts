@@ -22,7 +22,7 @@ export class PandianDetailPage {
   isShowFooter: any;
   user_id: any;
   frontPage;
-  type='kucun'
+  // type='kucun'
   kucunList=[]
   pandianList=[]
   constructor(public navCtrl: NavController, public navParams: NavParams,
@@ -49,13 +49,13 @@ export class PandianDetailPage {
     console.log('ionViewDidLoad PandianDetailPage');
   }
 
-  clickMove(){
-    this.type = 'kucun'
-  }
+  // clickMove(){
+  //   this.type = 'kucun'
+  // }
 
-  clickLine(){
-    this.type = 'pandian'
-  }
+  // clickLine(){
+  //   this.type = 'pandian'
+  // }
 
   goBack(){
     this.navCtrl.pop()

@@ -21,7 +21,7 @@ export class GongchengDetailPage {
   type='kucun'
   fontType=''
   kucunList=[]
-  isShowFooter = true
+  isShowFooter = false
   frontPage;
   user_id;
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController,
@@ -187,7 +187,7 @@ export class GongchengDetailPage {
                 'user_id':this.user_id,
                 'remark': data.title,
                 'id': this.item.id,
-                'type': true,
+                'type': false,
               }
                 this.gongchengService.approval_material_request(body).then((res) => {
                if (res)
@@ -219,5 +219,29 @@ export class GongchengDetailPage {
         }
       ]
     }).present();
+  }
+
+  changeStatus(status){
+    if (status == 'none') {
+      return "等待审核";
+    }
+    else if (status == 'comment') {
+      return "评价";
+    }
+    else if (status == 'retract') {
+      return "撤回";
+    }
+    else if (status == 'submit') {
+      return "提交";
+    }
+    else if (status == 'approved') {
+      return "通过";
+    }
+    else if (status == 'rejected') {
+      return "拒绝";
+    }
+    else {
+      return status;
+    }
   }
 }
