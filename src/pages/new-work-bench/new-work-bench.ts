@@ -30,7 +30,8 @@ export class NewWorkBenchPage {
   showBaoBiao = false;
   po_num = 0
   pay_num = 0
-
+  pandianNum=0
+  gongchengNum=0
   isShowCG = false
   isShowCK = true
   constructor(public navCtrl: NavController, public navParams: NavParams,public statusbar:StatusBar,public services:CommonUseServices,
@@ -86,6 +87,8 @@ export class NewWorkBenchPage {
                 this.jiekuan_num = res.result.res_data.jiekuan_num
                 this.po_num = res.result.res_data.po_num
                 this.pay_num = res.result.res_data.pay_num
+                this.pandianNum = res.result.res_data.pandianNum
+                this.gongchengNum = res.result.res_data.gongchengNum
               }
             })
           })

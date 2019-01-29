@@ -238,6 +238,9 @@
   <ion-grid *ngIf="inner_type=='cangku' && isShowCK" class="grid_class">
     <ion-row class="body_row_class" align-items-center>
       <ion-col class="col_class" col-3 tappable (click)="click_PD()">
+          <div *ngIf="pandianNum > 0" align="center" [ngClass]="{true:'big_number_class',false:'number_class'}[pandianNum >= 10]">
+              {{pandianNum}}
+            </div>
       <div class="body_class" align="center">
         <img src="assets/img/cangku.png" class="body_img_class">
         <div class="text_class">
@@ -250,6 +253,9 @@
   <ion-grid *ngIf="inner_type=='gongcheng'" class="grid_class">
       <ion-row class="body_row_class" align-items-center>
         <ion-col class="col_class" col-3 tappable (click)="click_GC()">
+            <div *ngIf="gongchengNum > 0" align="center" [ngClass]="{true:'big_number_class',false:'number_class'}[gongchengNum >= 10]">
+                {{gongchengNum}}
+              </div>
         <div class="body_class" align="center">
           <img src="assets/img/gongcheng.png" class="body_img_class">
           <div class="text_class">
