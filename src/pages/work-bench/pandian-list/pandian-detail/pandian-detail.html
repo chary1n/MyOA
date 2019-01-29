@@ -36,7 +36,7 @@
         </ion-grid>
       </ion-item>
         <ion-item no-lines class="item_class">
-          <div text-wrap class="order_class"> {{item.date}}</div>
+          <div text-wrap class="order_class"> {{changeDate(item.date) | date:'yyyy-MM-dd'}}</div>
           <div class="left_label"> 盘点日期 </div>
         </ion-item>
         <ion-item no-lines class="item_class">
