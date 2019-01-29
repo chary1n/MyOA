@@ -50,14 +50,14 @@
         <div class="differ_class">
           </div>
         <div align="center" class="main_header_div">
-            <div class="div_me" align="center" tappable (click)="clickMove()">
+            <!-- <div class="div_me" align="center" tappable (click)="clickMove()">
               <p [ngClass]="{true:'p_message_line_height_select',false:'p_message_line_height'}[type=='kucun']">库存调整</p>
-            </div>
-            <div class="div_wait" align="center" tappable (click)="clickLine()">
-              <p [ngClass]="{true:'p_shenhe_line_height_select',false:'p_shenhe_line_height'}[type=='pandian']">盘点明细</p>
-            </div>
+            </div> -->
+            <!-- <div class="div_wait" align="center"> -->
+              <p class="p_message_line_height_select">盘点明细</p>
+            <!-- </div> -->
         </div>
-        <div *ngIf="type == 'kucun'">
+        <!-- <div *ngIf="type == 'kucun'">
             <ion-list>
                 <div *ngFor='let item of kucunList;let i = index'>
                     <ion-item no-lines [ngClass]="{true:'item_empty_class',false:'item_class_one'}[i == 0]">
@@ -73,8 +73,8 @@
                     </ion-item>
                   </div>
             </ion-list>
-        </div>
-        <div *ngIf="type == 'pandian'">
+        </div> -->
+        <div>
             <ion-list>
               <div *ngFor='let item of pandianList;let i = index'>
                   <ion-item no-lines [ngClass]="{true:'item_empty_class',false:'item_class_one'}[i == 0]">

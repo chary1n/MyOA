@@ -21,6 +21,9 @@ export class GongchengListPage {
   user_id
   type = 'me'
   is_ios = false;
+  wait_num;
+  waitString='待我审批'
+  wait_approval=[];
   constructor(public navCtrl: NavController, public navParams: NavParams, public gongchengAutoService: GongchengAutoService,
               public gongchengService: GongchengService,  public platform: Platform,public storage: Storage) {
 
@@ -31,12 +34,47 @@ export class GongchengListPage {
                 this.storage.get('user')
       .then(res => {
         this.user_id = res.result.res_data.user_id;
-        this.initData('mine')
+        this.initData('me')
+        let body = {
+          'user_id': this.user_id,
+          'type': 'wait_approved'
+        }
+          this.gongchengService.get_material_request(body).then((res) => {
+            if (res.result && res.result.res_code == 1) {
+              this.wait_approval = res.result.res_data
+              if(this.wait_approval){
+                if(this.wait_approval.length>0){
+                  this.wait_num = this.wait_approval.length
+                  this.waitString = '待我审批('+this.wait_num+')'
+                }
+              }
+            }
+          })
       });
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad GongchengListPage');
+  }
+
+  ionViewDidEnter() {
+    if (this.navParams.get('need_fresh') == true) {
+      this.initData(this.type)
+      let body = {
+        'user_id': this.user_id,
+        'type': 'wait_approved'
+      }
+        this.gongchengService.get_material_request(body).then((res) => {
+          if (res.result && res.result.res_code == 1) {
+            this.wait_approval = res.result.res_data
+            if(this.wait_approval.length>0){
+              this.wait_num = this.wait_approval.length
+              this.waitString = '待我审批('+this.wait_num+')'
+            }
+          }
+        })
+      this.navParams.data.need_fresh = false;
+    }
   }
 
   goBack() {
@@ -57,7 +95,8 @@ export class GongchengListPage {
     
     let body={
       'search_text': search_text,
-      'type': type
+      'type': type,
+      'searchType': this.type
     }
     this.gongchengService.search_material_request(body).then((res) => {
       if (res.result && res.result.res_code == 1) {
@@ -69,27 +108,27 @@ export class GongchengListPage {
 
   itemClearSelected(event) {
     if(this.type=='me_approved'){
-      this.initData('already')
+      this.initData('me_approved')
     }else if(this.type=='wait_approved'){
-      this.initData('waitMe')
+      this.initData('wait_approved')
     }else if(this.type=='me'){
-      this.initData('mine')
+      this.initData('me')
     }
   }
 
   clickAlreadyApply(){
     this.type = 'me_approved'
-    this.initData('already')
+    this.initData('me_approved')
   }
 
   clickWaitMeApply(){
     this.type = 'wait_approved'
-    this.initData('waitMe')
+    this.initData('wait_approved')
   }
 
   clickMeApply(){
     this.type = 'me'
-    this.initData('mine')
+    this.initData('me')
   }
 
   changeDate(date) {

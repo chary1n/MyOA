@@ -22,7 +22,7 @@
             <p [ngClass]="{true:'p_message_line_height_select',false:'p_message_line_height'}[type=='me_approved']">我已审批</p>
           </div>
           <div class="div_wait" align="center" tappable (click)="clickWaitMeApply()">
-            <p [ngClass]="{true:'p_shenhe_line_height_select',false:'p_shenhe_line_height'}[type=='wait_approved']">待我审批</p>
+            <p [ngClass]="{true:'p_shenhe_line_height_select',false:'p_shenhe_line_height'}[type=='wait_approved']">{{waitString}}</p>
           </div>
           <div [ngClass]="{true:'div_approve_ios',false:'div_approve'}[is_ios]" align="center" tappable (click)="clickMeApply()">
             <p [ngClass]="{true:'p_daiban_line_height_select',false:'p_daiban_line_height'}[type=='me']">我的申请</p>
