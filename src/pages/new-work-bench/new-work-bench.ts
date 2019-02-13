@@ -33,7 +33,7 @@ export class NewWorkBenchPage {
   pandianNum=0
   gongchengNum=0
   isShowCG = false
-  isShowCK = true
+  isShowCK = false
   constructor(public navCtrl: NavController, public navParams: NavParams,public statusbar:StatusBar,public services:CommonUseServices,
               public storage: Storage) {
       
