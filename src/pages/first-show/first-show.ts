@@ -79,7 +79,7 @@ export class FirstShowPage {
       this.user_heard = res.result.res_data.user_ava;
       this.uid = res.result.res_data.user_id;
       for (let product of res.result.res_data.groups) {
-          if(product.name == 'group_production_stock_inventory_confirm'){
+          if(product.name == 'group_stock_manager'){
             this.isShowCK = true;
           }
         }

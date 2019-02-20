@@ -64,7 +64,7 @@ export class NewWorkBenchPage {
           if(product.name == 'group_purchase_user' || product.name == 'group_purchase_manager'){
             this.isShowCG = true;
           }
-          if(product.name == 'group_production_stock_inventory_confirm'){
+          if(product.name == 'group_stock_manager'){
             this.isShowCK = true;
           }
         }
