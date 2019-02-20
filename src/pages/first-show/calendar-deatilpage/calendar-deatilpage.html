@@ -276,13 +276,13 @@
     </ion-item>
 
 
-    <ion-item *ngIf="(type_name == '任务' && is_pcc) || can_change_partner" no-lines style="min-height: 20px;border-bottom: #f0f2f5 1px solid;" tappable
+    <ion-item *ngIf="((type_name == '任务' && is_pcc) || can_change_partner) || type_name != '任务'" no-lines style="min-height: 20px;border-bottom: #f0f2f5 1px solid;" tappable
       (click)="selectPartnerId()">
       <ion-label style="color:#2e3133;font-size:13px;">负责人</ion-label>
       <p item-end style="font-size: 12px;margin-right: -5px">{{rt_project_principal_name}}</p>
       <img item-end src="assets/img/journal_sheet/right_icon.png" style="height:10px;">
     </ion-item>
-    <button *ngIf="(type_name == '任务' && is_pcc) || can_change_partner" ion-item no-lines tappable (click)="selectPartner()" style="border-bottom:#f0f2f5 1px solid;">
+    <button *ngIf="((type_name == '任务' && is_pcc) || can_change_partner) || type_name != '任务'" ion-item no-lines tappable (click)="selectPartner()" style="border-bottom:#f0f2f5 1px solid;">
                     <div style="position: relative;margin-bottom: -11px;margin-top: -11px">
                       <span style="    display: inline-block;
                         position: absolute;
@@ -299,7 +299,7 @@
                     </div>
                 
                   </button>
-    <button *ngIf="(type_name == '任务' && is_pcc) || can_change_partner" ion-item no-lines tappable (click)="selectExternalPartner()" style="border-bottom:#f0f2f5 1px solid;">
+    <button *ngIf="((type_name == '任务' && is_pcc) || can_change_partner) || type_name != '任务'" ion-item no-lines tappable (click)="selectExternalPartner()" style="border-bottom:#f0f2f5 1px solid;">
                     <div style="position: relative;margin-bottom: -11px;margin-top: -11px">
                       <span style="    display: inline-block;
                         position: absolute;

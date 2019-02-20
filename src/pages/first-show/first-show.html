@@ -171,6 +171,7 @@
         <div [ngClass]="{true:'date_title_class_select',false:'date_title_class'}[head_type == 'date']" tappable (click)="click_head_date()">{{dateNow}}</div>
         <div [ngClass]="{true:'date_title_class_select',false:'date_title_class'}[head_type == 'wait']" tappable (click)="click_head_wait()">待定</div>
         <div *ngIf="showLate" tappable (click)="latePage()" [ngClass]="{true:'date_title_class_select',false:'date_title_class'}[head_type == 'late']">逾期({{lateNum}})</div>
+        <div *ngIf="sch_num > 0" tappable (click)="toDB()" class="date_title_class">待指派({{sch_num}})</div>
         <div tappable (click)="toAll()" style="padding: 1px;text-align:right" item-end class="divBac">
           <p style="font-size: 12px;margin-top: auto;margin-bottom: auto;line-height: 25px;">
             <span *ngIf="need_calendar" style="color: red;padding-right:5px">●</span><span style="font-size:13px">全部  <ion-icon style="font-size:13px;margin-left:5px;" ios="ios-arrow-forward" md="md-arrow-forward"></ion-icon></span>
@@ -182,7 +183,7 @@
       </ion-item>
     </div>
     <div>
-      <ion-item no-lines *ngIf="itemList.length == 0 && head_type != 'late'" style="min-height: 20px;padding-left: 0px;">
+      <ion-item no-lines *ngIf="itemList.length == 0 && head_type == 'date'" style="min-height: 20px;padding-left: 0px;">
         <ion-label style="font-size: 13px;padding-left: 15px;text-align:center;width:100%;color:#999999;">没有添加待办</ion-label>
       </ion-item>
       <ion-list *ngIf='head_type =="date"' style="width: 100%;border-top:#f0f2f5 1px solid;">

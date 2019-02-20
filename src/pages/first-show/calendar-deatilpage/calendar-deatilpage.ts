@@ -218,6 +218,7 @@ export class CalendarDeatilpagePage {
             this.isMeeting = true
             this.allday = false
             this.meeting_id = this.navParams.get('meeting_id')
+            this.getTask()
           }
         }
 
@@ -384,7 +385,7 @@ export class CalendarDeatilpagePage {
   }
   //滑动事件
   panEvent($event) {
-    cordova.plugins.Keyboard.close();
+    // cordova.plugins.Keyboard.close();
   }
   goBack() {
     // this.frontPage.data.need_fresh = true;
@@ -441,7 +442,7 @@ export class CalendarDeatilpagePage {
       buttons: [{
         text: '取消',
         handler: function (data) {
-          cordova.plugins.Keyboard.close();
+          // cordova.plugins.Keyboard.close();
         }
       },
       {
@@ -466,7 +467,7 @@ export class CalendarDeatilpagePage {
   }
   //编辑状态下取消
   changeCancel() {
-    cordova.plugins.Keyboard.close()
+    // cordova.plugins.Keyboard.close()
     if (this.search) {
       this.search = false
       if (this.select_type == 1) {
@@ -483,7 +484,7 @@ export class CalendarDeatilpagePage {
   }
   //编辑状态下完成
   changeFinish() {
-    cordova.plugins.Keyboard.close()
+    // cordova.plugins.Keyboard.close()
     if (this.search) {
       this.search = false
       return
@@ -622,7 +623,7 @@ export class CalendarDeatilpagePage {
   }
   //取消新建待办事项
   cancel() {
-    cordova.plugins.Keyboard.close()
+    // cordova.plugins.Keyboard.close()
     if (this.search) {
       this.title_meeting = '新建'
       this.search = false
@@ -660,7 +661,7 @@ export class CalendarDeatilpagePage {
   }
   //新建待办事项完成
   stateFinish() {
-    cordova.plugins.Keyboard.close()
+    // cordova.plugins.Keyboard.close()
     if (this.search) {
       this.title_meeting = '新建'
       this.search = false
@@ -1248,8 +1249,10 @@ export class CalendarDeatilpagePage {
 
     }
 
-    if (!this.rt_pcc_pm_name) {
+    if (this.type_name == '任务'){
+      if (!this.rt_pcc_pm_name) {
       myString = "    请选择PCC"
+    }
     }
     if (myString != "") {
       Utils.toastButtom(myString, this.toastCtrl)
