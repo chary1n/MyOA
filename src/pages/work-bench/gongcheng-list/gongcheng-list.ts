@@ -117,6 +117,9 @@ export class GongchengListPage {
           this.wait_approval_list = res.result.res_data.data
           if(res.result.res_data.num>0){
             this.wait_num = res.result.res_data.num
+            this.waitString = '待我审批('+this.wait_num+')'
+          }else{
+            this.waitString = '待我审批'
           }
         }
       })

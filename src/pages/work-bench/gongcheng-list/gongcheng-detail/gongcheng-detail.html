@@ -54,7 +54,7 @@
             <div text-wrap class="order_class"> {{item.picking_cause}}</div>
             <div class="left_label"> 领料原因 </div>
           </ion-item>
-          <ion-item  no-lines class="item_class">
+          <ion-item  no-lines>
               <div text-wrap class="order_class"> {{item.partner_shipping_address}} </div>
               <div class="left_label"> 收货地址 </div>
             </ion-item>
@@ -91,10 +91,14 @@
                           {{items.product_id}}
                         </span>
                       </h4>
-                      <p text-wrap class="right_class" *ngIf="item.state=='done'"> 已退：{{items.qty_delivered}} </p>
-                      <p text-wrap class="right_class" *ngIf="item.state=='done'"> 已发：{{items.qty_return}} </p>
-                      <p text-wrap class="right_class"> 库存：{{items.qty_available}} </p>
+                <p text-wrap class="time_class">库存：{{items.qty_available}}</p>
+                <p text-wrap class="rt_name_class">需求：{{items.product_qty}}</p>
+                <p text-wrap class="yifa" *ngIf="item.state=='done'"> 已发：{{items.qty_return}} </p>
+                <p text-wrap class="money_class" *ngIf="item.state=='done'">已退：{{items.qty_delivered}} </p>
+                      <!-- <p text-wrap class="right_class"> 库存：{{items.qty_available}} </p>
                       <p text-wrap class="money_class">需求：{{items.product_qty}} </p>
+                      <p text-wrap class="yifa" *ngIf="item.state=='done'"> 已发：{{items.qty_return}} </p>
+                      <p text-wrap class="right_class" *ngIf="item.state=='done'"> 已退：{{items.qty_delivered}} </p> -->
                     </ion-item>
                   </div>
             </ion-list>

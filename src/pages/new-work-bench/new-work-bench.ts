@@ -33,7 +33,7 @@ export class NewWorkBenchPage {
   pandianNum=0
   gongchengNum=0
   isShowCG = false
-  isShowCK = true
+  isShowCK = false
   constructor(public navCtrl: NavController, public navParams: NavParams,public statusbar:StatusBar,public services:CommonUseServices,
               public storage: Storage) {
       
@@ -64,7 +64,7 @@ export class NewWorkBenchPage {
           if(product.name == 'group_purchase_user' || product.name == 'group_purchase_manager'){
             this.isShowCG = true;
           }
-          if(product.name == 'group_production_stock_inventory_confirm'){
+          if(product.name == 'group_stock_manager'){
             this.isShowCK = true;
           }
         }
@@ -179,5 +179,9 @@ export class NewWorkBenchPage {
 
   click_Production() {
     this.navCtrl.push('NewProductionPage');
+  }
+
+  click_Pay(){
+    this.navCtrl.push('NewPayRequestPage')
   }
 }

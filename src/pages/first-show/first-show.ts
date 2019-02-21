@@ -54,6 +54,8 @@ export class FirstShowPage {
   sch_num = 0
   tousu_num = 0
   pay_num = 0 //付款
+  pandian_num = 0 //盘点
+  gongcheng_num = 0 //工程
   isShowApprovalPoint = false
   all_approval = 0//审批总和
   show_approve
@@ -68,15 +70,21 @@ export class FirstShowPage {
   event_type = []
   head_type = 'date'
   late_arr = []
+
+  isShowCK = false //仓库权限
   constructor(public navCtrl: NavController, public navParams: NavParams, private datePipe: DatePipe,
     private firshowService: FirstShowService, public storage: Storage,
     public statusBar: StatusBar, public menu: MenuController, public event: Events) {
     this.storage.get('user').then(res => {
       this.user_heard = res.result.res_data.user_ava;
       this.uid = res.result.res_data.user_id;
-
+      for (let product of res.result.res_data.groups) {
+          if(product.name == 'group_stock_manager'){
+            this.isShowCK = true;
+          }
+        }
       this.get_backlog_identify(this.currentYear, this.currentMonth)
-      this.get_approval_num()
+      // this.get_approval_num()
       this.getType()
       this.storage.get('user_schedule_domain_new').then(res => {
         // console.log(res)
@@ -154,11 +162,7 @@ export class FirstShowPage {
       'state_type': this.state_type,
       'event_type_id': this.event_type_id,
     }
-    // let domain = {
-    //   'me_type': [],
-    //   'state_type': 'all',
-    //   'event_type_id': [],
-    // }
+
     this.firshowService.get_schedule_list_with_domain_new(body, domain).then(res => {
       if (res.result.res_data && res.result.res_code == 1) {
         this.subNum = res.result.res_data.subNum
@@ -739,7 +743,12 @@ export class FirstShowPage {
         this.sch_num = res.result.res_data.sch_num
         this.tousu_num = res.result.res_data.tousu_num
         this.pay_num = res.result.res_data.pay_num
-        this.all_approval = this.recoup_num + this.vacation_num + this.jk_num + this.bx_num + this.yf_num + this.sg_num + this.caigou_num + this.sch_num + this.tousu_num + this.pay_num
+        this.pandian_num = res.result.res_data.pandian_num
+        this.gongcheng_num = res.result.res_data.gongcheng_num
+        this.all_approval = this.recoup_num + this.vacation_num + this.jk_num + this.bx_num + this.yf_num + this.sg_num + this.caigou_num + this.sch_num + this.tousu_num + this.pay_num  + this.gongcheng_num
+        if (this.isShowCK){
+          this.all_approval += this.pandian_num
+        }
         if (this.all_approval != 0) {
           this.isShowApprovalPoint = true
         } else {
@@ -854,4 +863,13 @@ export class FirstShowPage {
   toPAY(){
     this.navCtrl.push('NewPayRequestPage')
   }
+
+  toGC(){
+    this.navCtrl.push('GongchengListPage')
+  }
+
+  toPD(){
+    this.navCtrl.push('PandianListPage')
+  }
+
 }
