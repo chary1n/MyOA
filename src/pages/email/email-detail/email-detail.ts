@@ -248,7 +248,7 @@ export class EmailDetailPage {
   delete() {
     this.alertCtrl.create({
       title: '提示',
-      subTitle: '确定删除要此邮件？',
+      subTitle: '确定删除此邮件？',
       buttons: [{ text: '取消' },
       {
         text: '确定',

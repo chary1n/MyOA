@@ -7,21 +7,20 @@
 <ion-header color="gongdan-color" class="email_search_header">
   <div ion-fixed class="div_header">
     <div class="div_header_back">
-        <button class="btn_class" ion-button icon-only (click)="goBack()">
-            <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
-          </button>
-      <ion-auto-complete class="search_class"  (itemSelected)="itemMeSelected($event)" 
-       (itemClearSelected)="itemClearMeSelected($event)"
-      [dataProvider]="emailSearchService"></ion-auto-complete>
+      <button class="btn_class" ion-button icon-only (click)="goBack()">
+        <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+      </button>
+      <ion-auto-complete class="search_class" (itemSelected)="itemMeSelected($event)" (itemClearSelected)="itemClearMeSelected($event)"
+        [dataProvider]="emailSearchService"></ion-auto-complete>
     </div>
   </div>
 </ion-header>
 
- 
-<ion-content>
-    <ion-refresher (ionRefresh)="doRefresh($event)">
-        <ion-refresher-content></ion-refresher-content>
-      </ion-refresher>
+
+<ion-content style="margin-top:53px">
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <ion-list style="padding-right:5px">
     <ion-item tappable *ngFor="let item of email_list;let i = index" (click)="email_detail(i,item.id,item.rt_is_unseen)"
       no-lines style=" border-bottom:1px solid #F0F2F5">
@@ -47,8 +46,8 @@
     </ion-item>
   </ion-list>
   <ion-infinite-scroll immediate-check="false" (ionInfinite)="doInfinite($event)">
-      <ion-infinite-scroll-content></ion-infinite-scroll-content>
-    </ion-infinite-scroll>
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 
 
 </ion-content>

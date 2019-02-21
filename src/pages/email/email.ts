@@ -157,20 +157,22 @@ export class EmailPage {
     })
   }
 
-  get_email_list(account_id, email_type, state_type, data_id, limit, offset) {
+  get_email_list(account_id, email_type, state_type, data_id, limit, offset,isrefresh = false) {
     this.get_folder_label()
-    return this.emailService.getEmailList(this.user_id, account_id, email_type, state_type, data_id, limit, offset)
+    return this.emailService.getEmailList(this.user_id, account_id, email_type, state_type, data_id, limit, offset,isrefresh)
   }
 
   doRefresh(event) {
     this.isMoreData = true;
     this.limit = 20;
     this.offset = 0;
-    this.get_email_list(this.account_id, this.email_type, this.state_type, this.data_id, this.limit, this.offset).then(res => {
-      event.complete();
-      if (res.result && res.result.res_data) {
-        this.email_list = res.result.res_data.email_list
-      }
+    this.emailService.refresh_email(this.user_id,this.account_id).then(res=>{
+      this.get_email_list(this.account_id, this.email_type, this.state_type, this.data_id, this.limit, this.offset,false).then(res => {
+        event.complete();
+        if (res.result && res.result.res_data) {
+          this.email_list = res.result.res_data.email_list
+        }
+      })
     })
   }
 

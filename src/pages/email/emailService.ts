@@ -82,7 +82,7 @@ export class EmailService {
     }
 
 
-    getEmailList(user_id, account_id, email_type, state_type, data_id, limit, offset) {
+    getEmailList(user_id, account_id, email_type, state_type, data_id, limit, offset,isrefresh) {
         let body = JSON.stringify({
             'uid': user_id,
             'account_id': account_id,
@@ -90,9 +90,18 @@ export class EmailService {
             'state_type': state_type,
             'data_id': data_id,
             'limit': limit,
-            'offset': offset
+            'offset': offset,
+            'isrefresh':isrefresh
         });
         return this.httpService.postBody('get_email_list', body);
+    }
+
+    refresh_email(user_id, account_id) {
+        let body = JSON.stringify({
+            'uid': user_id,
+            'account_id': account_id,
+        });
+        return this.httpService.postBody('refresh_email', body);
     }
 
     get_email_detail(id) {
