@@ -206,6 +206,7 @@ export class FirstShowPage {
       // }
 
     })
+    this.head_type = 'date'
     this.un_read_list = []
     this.storage.get('user').then(res => {
       this.uid = res.result.res_data.user_id
@@ -745,7 +746,7 @@ export class FirstShowPage {
         this.pay_num = res.result.res_data.pay_num
         this.pandian_num = res.result.res_data.pandian_num
         this.gongcheng_num = res.result.res_data.gongcheng_num
-        this.all_approval = this.recoup_num + this.vacation_num + this.jk_num + this.bx_num + this.yf_num + this.sg_num + this.caigou_num + this.sch_num + this.tousu_num + this.pay_num  + this.gongcheng_num
+        this.all_approval = this.recoup_num + this.vacation_num + this.jk_num + this.bx_num + this.yf_num + this.sg_num + this.caigou_num + this.tousu_num + this.pay_num  + this.gongcheng_num
         if (this.isShowCK){
           this.all_approval += this.pandian_num
         }
