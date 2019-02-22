@@ -2,7 +2,7 @@ import { Storage } from '@ionic/storage';
 import { TabsPage } from './../tabs/tabs';
 import { IonicPage } from 'ionic-angular/navigation/ionic-page';
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform, MenuController, AlertController, NavParams, NavController } from 'ionic-angular';
+import { Nav, Platform, MenuController, AlertController, NavParams, NavController, LoadingController } from 'ionic-angular';
 
 
 import { Events } from 'ionic-angular';
@@ -34,6 +34,7 @@ export class EmailPage {
   buttonFlag = false;
   buttonOpen = false;
   constructor(public menu: MenuController, public alertCtrl: AlertController, public navPrarams: NavParams,
+    private loading: LoadingController,
     public navCtrl: NavController, public event: Events, public emailService: EmailService, public storage: Storage) {
     storage.get('user')
       .then(res => {
@@ -166,9 +167,16 @@ export class EmailPage {
     this.isMoreData = true;
     this.limit = 20;
     this.offset = 0;
+    let loading = this.loading.create({
+      content: '加载中',
+      enableBackdropDismiss: true
+    });
+    loading.present()
     this.emailService.refresh_email(this.user_id,this.account_id).then(res=>{
-      this.get_email_list(this.account_id, this.email_type, this.state_type, this.data_id, this.limit, this.offset,false).then(res => {
+      this.get_folder_label()
+      this.emailService.getEmailListNoLoading(this.user_id,this.account_id, this.email_type, this.state_type, this.data_id, this.limit, this.offset,false).then(res => {
         event.complete();
+        loading.dismiss();
         if (res.result && res.result.res_data) {
           this.email_list = res.result.res_data.email_list
         }
