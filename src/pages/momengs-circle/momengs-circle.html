@@ -1,0 +1,148 @@
+<!--
+  Generated template for the MomengsCirclePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<!-- <ion-header>
+
+  <ion-navbar>
+    <ion-title>MomengsCirclePage</ion-title>
+  </ion-navbar>
+
+</ion-header> -->
+
+
+<ion-content>
+    <div ion-fixed style="background: #2597ec;width: 100%" align="center">
+        <p style="float: left;margin-left: 15px"  tappable (click)="click_All()"
+        [ngClass]="{true:'p_header_type_select',false:'p_header_type_notselected'}[selectType == 'all']">
+          全部
+        </p>
+        <p style="float: left;margin-left: 20px"  tappable (click)="click_MyPush()"
+        [ngClass]="{true:'p_header_type_select',false:'p_header_type_notselected'}[selectType == 'my_push']">
+          我发布的
+        </p>
+        <p style="float: left;margin-left: 20px"  tappable (click)="click_MyCollect()"
+        [ngClass]="{true:'p_header_type_select',false:'p_header_type_notselected'}[selectType == 'my_collect']">
+          收藏
+        </p>
+        <img style="width:20px;float: right;margin-right: 15px;margin-top: 12px" (click)="search_moments()" tappable
+        src="assets/img/work_bench/search_icon.png" />
+    </div>
+    <div style="margin-top: 60px;">
+        <div align="center" tappable (click)="click_un_read_reply()" *ngIf="un_read_list.length > 0">
+            <div class="un_read_class">
+              {{un_read_list.length}}条新回复
+            </div>
+        </div>
+      <ion-item-group no-lines>
+        <div *ngFor="let item of dataList" style="border-bottom: solid 1px #f0f2f5;">
+          <div>
+              <ion-grid style="background: white">
+                  <ion-row>
+                    <ion-col col-2>
+                      <img src="{{item.header_img}}" style="border-radius: 20px;width: 40px;height: 40px;"
+                      tappable (click)='to_employee_detai(item)' >
+                    </ion-col>
+                    <ion-col col-9 style="padding-top:17px;margin-left: -10px" tappable (click)='to_detail(item)'>
+                      <span style="font-size:95%;font-weight: bold">{{item.creater}}</span>
+                      <span style="font-size:95%;float: right;margin-right: -10px;color:#cdcdcd"
+                       *ngIf="item.is_author" tappable (click)='delete_moments(item);$event.stopPropagation()'>删除</span>
+                      <p style="font-size: 95%;margin-top: 5px;
+                      overflow: hidden;
+                      display: -webkit-box;
+                      -webkit-line-clamp: 5;
+                      -webkit-box-orient: vertical;">{{item.content}}</p>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+                <ion-grid *ngIf="item.attachments.length>0" style="padding-left: 9px;padding-top: 0px;">
+                  <ion-row *ngIf="item.attachments.length>1" tappable (click)='to_detail(item)'
+                      [ngClass]="{'row_three':item.attachments.length<4,'row_six':item.attachments.length>3,'row_nine':item.attachments.length>6}">
+                    <ion-col col-3 *ngFor="let attachment of item.attachments;let i = index" [ngClass]="{true:'col_first',false:'col_other'}[i == 0 || i==3 || i==6]">
+                        <img imageViewer src="{{attachment}}"  
+                        style="clip:rect(0px,100px,100px,0px);position: absolute;min-width: 100px;min-height: 100px;padding: 3px">
+                    </ion-col>
+                  </ion-row>
+                  <ion-row *ngIf="item.attachments.length==1" tappable (click)='to_detail(item)'>
+                      <ion-col col-4  *ngFor="let attachment of item.attachments" style="margin-left: 48px;margin-top: -20px">
+                          <img imageViewer src="{{attachment}}" style="width: auto;height: auto;">
+                      </ion-col>
+                  </ion-row>
+                </ion-grid>
+                <ion-grid style="margin-top: -5px;margin-bottom: -5px">
+                    <ion-col col-10 tappable (click)="to_link(item)" style="margin-top:5px;background: #f0f2f5;margin-left: 50px" *ngIf="item.whether_share">
+                        <img src="assets/img/share_link.png" style="width: 30px;height: 30px;margin-right: 10px;margin-top: 5px;float: left;">
+                          <p style="margin: 0px;margin-left: 15px;font-size: 13px">
+                              {{item.share_title}}
+                          </p>
+                          <p style="margin: 0px;color: #a1a2a5;font-size: 13px;margin-left: 15px">
+                            ---来自：{{item.share_source}}
+                          </p>
+                    </ion-col>
+                  <ion-row>
+                    <ion-col>
+                        <span style="color: #cdcdcd;position: absolute;font-size: 85%;margin-left: 50px;margin-top: 3px">{{item.create_date}}</span>
+                    </ion-col>
+                    <ion-col>
+                        <div>
+                            <img src="assets/img/work_bench/feedback.png" style="width: 15px;height: 15px;margin-left: 65px" tappable (click)="to_detail(item)">
+                            <span *ngIf='item.comment_count > 0' style="position: absolute;color: #cdcdcd">{{item.comment_count}}</span>                            
+                            <img *ngIf='item.whether_collect' src="assets/img/yesshoucang.png"  tappable (click)='cancel_shoucang(item)' style="width: 16px;height: 16px;margin-left: 14px">
+                            <img *ngIf='!item.whether_collect' src="assets/img/unshoucang.png"  tappable (click)='update_shoucang(item)' style="width: 16px;height: 16px;margin-left: 14px">
+                            <span *ngIf='item.count_collect > 0' style="position: absolute;color: #cdcdcd">{{item.count_collect}}</span>
+                            <img *ngIf='item.whether_like' src="assets/img/yi_zan.png"  tappable (click)='cancel_zan(item)' style="width: 16px;height: 16px;margin-left: 14px">
+                            <img *ngIf='!item.whether_like' src="assets/img/un_zan.png"  tappable (click)='update_zan(item)' style="width: 16px;height: 16px;margin-left: 14px">
+                            <span *ngIf='item.like_count > 0' style="position: absolute;color: #cdcdcd;">{{item.like_count}}</span>
+                        </div>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+                <ion-grid style="align-items: center;background: #f0f2f5;width: 75%;padding-bottom: 10px;
+                margin-left: 55px;border-radius: 3px;margin-bottom: 10px"  *ngIf='item.comment_count<=5 && item.comment_count>0'>
+                  <ion-row style="width: 100%">
+                    <ion-col col-10 *ngFor="let comment of item.comments" style="padding: 0px;height: 35px;">
+                          <p style="float: left;color: #2597ec;font-size: 90%;margin-left: 5px">
+                              {{comment.create_uid}}:
+                          </p>
+                          <p style="overflow: hidden;
+                          display: -webkit-box;
+                          -webkit-line-clamp: 2;
+                          -webkit-box-orient: vertical;font-size: 90%;padding-left:10px;">
+                              {{comment.context}}
+                          </p>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid> 
+                <ion-grid style="align-items: center;background: #f0f2f5;width: 75%;
+                margin-left: 55px;border-radius: 3px;"  *ngIf='item.comments.length>5'>
+                  <ion-row style="width: 100%">
+                    <ion-col col-10 *ngFor="let comment of item.fiveComments" style="padding: 0px;height: 35px;">
+                          <p style="float: left;color: #2597ec;font-size: 90%;margin-left: 5px">
+                              {{comment.create_uid}}:
+                          </p>
+                          <p style="overflow: hidden;
+                          display: -webkit-box;
+                          -webkit-line-clamp: 2;
+                          -webkit-box-orient: vertical;font-size: 90%;padding-left:10px;">
+                              {{comment.context}}
+                          </p>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid> 
+                <ion-item no-lines tappable (click)='to_detail(item)' style="background: #f0f2f5;width: 75%;min-height: 30px;
+                margin-left: 55px;margin-bottom: 10px;border-top:solid 1px rgb(202, 200, 200)" *ngIf='item.comments.length>5'>
+                <p style="color: #2597ec;font-size: 70%;text-align: center">查看更多</p>
+                </ion-item>
+          </div>
+        </div>
+      </ion-item-group>
+    </div>
+    <ion-fab style="margin-bottom:90px;position:fixed;opacity: 1.0;" bottom right edge #fab>
+        <button (click)="createMoments()" style="box-shadow:1px 2px 10px #888888;width: 50px;height: 50px;line-height: 50px;background-color: #2597ec"
+          ion-fab mini>
+          <ion-icon name="create" style="color: white;line-height: 50px"></ion-icon>
+        </button>
+      </ion-fab>
+</ion-content>

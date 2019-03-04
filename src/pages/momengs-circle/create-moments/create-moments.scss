@@ -1,0 +1,26 @@
+page-create-moments {
+
+    .public_p{
+        color:#2e3133;
+        font-size:13px;
+    }
+
+    .not_public_p{
+        color:#2597ec;
+        font-size:13px;
+    }
+
+    .not_public_value_p{
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        font-size: 13px;
+        margin-right: -5px;
+        color:#2597ec;
+        width: 65%;
+        margin-right: -10px;
+        text-align: right
+    }
+}
+ 

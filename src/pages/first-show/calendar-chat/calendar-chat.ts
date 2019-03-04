@@ -93,7 +93,7 @@ export class CalendarChatPage {
         if (res.result.res_code == 1) {
           this.beizhuText = ''
           Utils.toastButtom("回复成功", this.toast)
-          // this.frontPage.data.need_fresh_reply = true;
+          this.frontPage.data.need_fresh = true;
           this.navCtrl.popTo(this.frontPage);
         }
       })

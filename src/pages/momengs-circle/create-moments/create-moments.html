@@ -1,0 +1,54 @@
+<!--
+  Generated template for the GongdanNewChatPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header no-border>
+
+    <ion-navbar color="gongdan-color" hideBackButton="true">
+      <ion-buttons left>
+          <button ion-button (click)='cancel()' style="font-size: 15px">
+              取消
+            </button>
+      </ion-buttons>
+      <ion-title>新建</ion-title>
+      <ion-buttons end>
+        <button ion-button (click)='finish()' style="font-size: 15px">
+          发布
+        </button>
+      </ion-buttons>
+    </ion-navbar>
+    <ion-textarea #mytextarea id="area_id" rows="12" placeholder="说点什么..." [(ngModel)]="contentText" style="margin-top:10px;height:200px;margin-left:4.5%;width:91%;overflow:hidden;padding-left:5px;color:gray"></ion-textarea>
+  
+  </ion-header>
+  
+  
+  <ion-content id="main_class" style="position:relative;">
+   <ion-grid style="margin-left:6px;border-bottom: solid 1px #f0f2f5" >
+      <ion-row>
+        <ion-col style="position:relative;height:106px;margin-top:5px" tappable (click)="clickPicture(item)" col-4 *ngFor="let item of imgList">
+          <img src={{item}} style="position:absolute;
+                    clip:rect(0px,100px,100px,0px);"/>
+        </ion-col>
+      </ion-row>
+      <ion-col col-4 tappable (click)="addImg()" style="margin-top:5px">
+          <img src="assets/img/add.png" />
+      </ion-col>
+      <ion-col col-10 tappable (click)="cancel()" style="margin-top:5px;background: #f0f2f5" *ngIf="is_share">
+        <img src="assets/img/share_link.png" style="width: 30px;height: 30px;margin-right: 10px;margin-top: 5px;float: left;">
+          <p style="margin: 0px;margin-left: 15px">
+              {{share_title}}
+          </p>
+          <p style="margin: 0px;color: #a1a2a5;font-size: 14px;margin-left: 15px">
+            ---来自：{{share_from}}
+          </p>
+      </ion-col>
+    </ion-grid>
+    <ion-item no-lines style="min-height: 30px;" tappable (click)="selectVisible()">
+        <ion-label [ngClass]="{true:'public_p',false:'not_public_p'}[is_public]">谁可以看</ion-label>
+        <p item-end *ngIf="is_public"  style="font-size: 13px;margin-right: -5px;color:#2e3133">公开</p>
+        <p item-end *ngIf="!is_public" class="not_public_value_p">{{selectPartner}}</p>
+        <img item-end src="assets/img/journal_sheet/right_icon.png" style="height:10px;">
+    </ion-item>
+  </ion-content>

@@ -1136,6 +1136,12 @@ export class MeetingPage {
         if (this.rt_meeting_state) {
             var btn_arr = [
             {
+                text: '分享',
+                handler: () => {
+                    this.share_moments()
+                }
+            },
+            {
                 text: '标记完成',
                 handler: () => {
                     this.finish()
@@ -1173,6 +1179,12 @@ export class MeetingPage {
                 title: '',
                 buttons: [
                 {
+                    text: '分享',
+                    handler: () => {
+                        this.share_moments()
+                    }
+                },
+                {
                     text: '标记为待办',
                     //  role: 'destructive',
                     handler: () => {
@@ -1196,6 +1208,18 @@ export class MeetingPage {
             });
             actionSheet.present();
         }
+    }
+
+    //分享到圈子
+    share_moments(){
+        this.navCtrl.push('CreateMomentsPage', {
+            user_id: this.uid,
+            is_share: true,
+            share_id: this.item.id,
+            share_title: this.name,
+            share_from: '待办',
+            share_model: this.item.current_model_name
+        })
     }
 
     cancel_zan(items) {

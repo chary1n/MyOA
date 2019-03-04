@@ -20,7 +20,8 @@ export class NewTabsPage {
   @ViewChild('mainTabs') tabs: Tabs;
   firstRoot: any = 'FirstshowMenuPage';
   workRoot: any = 'NewWorkBenchPage';
-  contactRoot: any = 'ContactPersonPage';
+  contactRoot: any = 'MomengsCirclePage';
+  // contactRoot: any = 'ContactPersonPage';
   meRoot: any = 'MePage';
   emailRoot: any = 'EmailMenuPage';
   messageNum = 1
