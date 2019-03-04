@@ -298,7 +298,7 @@ export class MeetingPage {
     }
     //滑动事件
     panEvent($event) {
-        cordova.plugins.Keyboard.close();
+        // cordova.plugins.Keyboard.close();
     }
 
     goBack() {
@@ -347,7 +347,7 @@ export class MeetingPage {
 
     //取消新建待办事项
     cancel() {
-        cordova.plugins.Keyboard.close()
+        // cordova.plugins.Keyboard.close()
         if (this.search) {
             this.title_meeting = '新建会议'
             if (this.edit && this.search && this.change) {
@@ -391,7 +391,7 @@ export class MeetingPage {
     //新建待办事项完成
     stateFinish() {
 
-        cordova.plugins.Keyboard.close()
+        // cordova.plugins.Keyboard.close()
         if (this.search) {
             this.title_meeting = '新建会议'
             if (this.edit && this.search && this.change) {
@@ -911,7 +911,7 @@ export class MeetingPage {
     }
     //编辑完成
     changeFinish() {
-        cordova.plugins.Keyboard.close()
+        // cordova.plugins.Keyboard.close()
         if (this.rt_allday) {
             this.click_end_date()
             this.click_start_date()
@@ -946,7 +946,7 @@ export class MeetingPage {
     }
     //编辑取消
     changeCancel() {
-        cordova.plugins.Keyboard.close()
+        // cordova.plugins.Keyboard.close()
 
         if (this.search) {
             this.search = false
