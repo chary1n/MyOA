@@ -1507,6 +1507,12 @@ export class CalendarDeatilpagePage {
     if (this.state) {
       let button_arr = [
         {
+          text: '分享',
+          handler: () => {
+            this.share_moments()
+          }
+        },
+        {
           text: '标记完成',
           handler: () => {
             this.finish()
@@ -1641,6 +1647,12 @@ export class CalendarDeatilpagePage {
     }
     else {
       let button_arr = [
+        {
+          text: '分享',
+          handler: () => {
+            this.share_moments()
+          }
+        },
         {
           text: '标记为待办',
           handler: () => {
@@ -2034,4 +2046,15 @@ export class CalendarDeatilpagePage {
     })
   }
 
+   //分享到圈子
+   share_moments(){
+    this.navCtrl.push('CreateMomentsPage', {
+        user_id: this.uid,
+        is_share: true,
+        share_id: this.item.id,
+        share_title: this.subject,
+        share_from: '待办',
+        share_model: this.item.current_model_name
+    })
+  }
 }

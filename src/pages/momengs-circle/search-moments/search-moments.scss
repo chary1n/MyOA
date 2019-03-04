@@ -1,0 +1,48 @@
+page-search-moments {
+
+    .searchbar-ios .searchbar-input{
+        padding: 0 28px;
+border-radius: 22px;
+height: 3rem;
+font-size: 1.4rem;
+font-weight: 400;
+background-color: white;
+color: gray;
+}
+
+.searchbar-ios {
+padding: 0 8px;
+min-height: 44px;
+border-top: 0.55px solid transparent;
+background: #2597ec;
+border-bottom: 0px solid rgba(0, 0, 0, 0.05);
+}
+
+
+.col_first{
+    margin-left: 40px;
+    position:relative;
+    height:100px;
+}
+
+.col_other{
+    margin-left: 10px;
+    position:relative;
+    height:100px;
+}
+
+.row_three{
+    height: 100px;
+    margin-top: -20px;
+}
+
+.row_six{
+    height: 200px;
+    margin-top: -20px;
+}
+
+.row_nine{
+    height: 300px;
+    margin-top: -20px;
+}
+}

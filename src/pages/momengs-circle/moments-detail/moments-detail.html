@@ -1,0 +1,152 @@
+<!--
+  Generated template for the MomentsDetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+    <ion-navbar color="gongdan-color" hideBackButton="true">
+        <ion-buttons left>
+            <button ion-button icon-only (click)="goBack()">
+              <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+            </button>
+        </ion-buttons>
+    <ion-title>详情</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <div>
+    <ion-grid style="background: white">
+        <ion-row>
+          <ion-col col-2>
+            <img src="{{header_img}}" style="border-radius: 20px;width: 40px;height: 40px;">
+          </ion-col>
+          <ion-col col-9 style="padding-top:17px;margin-left: -10px">
+            <span style="font-size:90%;font-weight: bold">{{creater}}</span>
+            <!-- <span style="font-size:90%;float: right;margin-right: -10px;color:#cdcdcd" *ngIf="is_author">删除</span> -->
+            <p style="font-size: 90%;margin-top: 5px;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 5;
+            -webkit-box-orient: vertical;">{{content}}</p>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-grid *ngIf="attachments.length>0" style="padding-left: 9px;padding-top: 0px;">
+        <ion-row *ngIf="attachments.length>1" 
+            [ngClass]="{'row_three':attachments.length<4,'row_six':attachments.length>3,'row_nine':attachments.length>6}">
+          <ion-col col-3 *ngFor="let attachment of attachments;let i = index" [ngClass]="{true:'col_first',false:'col_other'}[i == 0 || i==3 || i==6]">
+              <img src="{{attachment}}"  
+              style="clip:rect(0px,100px,100px,0px);position: absolute;min-width: 100px;min-height: 100px;padding: 3px">
+          </ion-col>
+        </ion-row>
+        <ion-row *ngIf="attachments.length==1">
+            <ion-col col-4  *ngFor="let attachment of attachments" style="margin-left: 48px;margin-top: -20px">
+                <img src="{{attachment}}" style="width: auto;height: auto;">
+            </ion-col>
+          </ion-row>
+      </ion-grid>
+      <ion-grid style="margin-top: -5px;margin-bottom: -5px">
+            <ion-col col-10 tappable (click)="to_link(item)" style="margin-top:5px;background: #f0f2f5;margin-left: 50px" *ngIf="item.whether_share">
+                    <img src="assets/img/share_link.png" style="width: 30px;height: 30px;margin-right: 10px;margin-top: 5px;float: left;">
+                      <p style="margin: 0px;margin-left: 15px;font-size: 13px">
+                          {{item.share_title}}
+                      </p>
+                      <p style="margin: 0px;color: #a1a2a5;font-size: 13px;margin-left: 15px">
+                        ---来自：{{item.share_source}}
+                      </p>
+                </ion-col>
+        <ion-row>
+          <ion-col>
+              <span style="color: #cdcdcd;position: absolute;font-size: 50%;margin-left: 50px;margin-top: 3px">{{create_date}}</span>
+          </ion-col>
+          <ion-col>
+              <div>
+                  <img src="assets/img/work_bench/feedback.png" style="width: 15px;height: 15px;margin-left: 65px" tappable (click)="only_reply_to(item)">
+                  <span *ngIf='comment_count > 0' style="position: absolute;color: #cdcdcd">{{comment_count}}</span>                            
+                  <img *ngIf='whether_collect' src="assets/img/yesshoucang.png"  tappable (click)='cancel_shoucang()' style="width: 15px;height: 15px;margin-left: 15px">
+                  <img *ngIf='!whether_collect' src="assets/img/unshoucang.png"  tappable (click)='update_shoucang()' style="width: 15px;height: 15px;margin-left: 15px">
+                  <span *ngIf='count_collect > 0' style="position: absolute;color: #cdcdcd">{{count_collect}}</span>
+                  <img *ngIf='whether_like' src="assets/img/yi_zan.png"  tappable (click)='cancel_zan()' style="width: 15px;height: 15px;margin-left: 15px">
+                  <img *ngIf='!whether_like' src="assets/img/un_zan.png"  tappable (click)='update_zan()' style="width: 15px;height: 15px;margin-left: 15px">
+                  <span *ngIf='like_count > 0' style="position: absolute;color: #cdcdcd;font-size: 50%">{{like_count}}</span>
+              </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+    <div  class="differ_div_class">
+        <div *ngIf='comments.length > 0' style="font-size: 80%;line-height: 30px">
+            回复 ( {{comment_count}} )
+        </div>
+        <div *ngIf='comments.length == 0' style="font-size: 80%;line-height: 30px">
+            暂无回复
+        </div>
+    </div>
+    <ion-list *ngIf='comments.length > 0' class="message_list">
+        <div *ngFor="let items of comments" class="div_message">
+            <ion-item no-lines style="height:40px;min-height:50px">
+                <ion-grid style="background:white">
+                    <ion-row>
+                        <ion-col tappable (click)='delete_reply(items)' col-2>
+                            <img src={{items.create_user_ava}} class="img_message_ava">
+                        </ion-col>
+                        <ion-col tappable (click)='delete_reply(items)' col-7>
+                            <p class="name_message">
+                                <span>{{items.create_uid}}</span><span style="margin-left:10px">{{changeDate(items.create_date) | date:'MM-dd HH:mm'}}</span>
+                            </p>
+                        </ion-col>
+                        <ion-col col-3>
+                            <img src="assets/img/work_bench/feedback.png" class="reply_small_icon" tappable (click)="only_reply_to(items)">
+                            <img *ngIf='items.is_me_zan' src="assets/img/yi_zan.png" class="zan_small_icon" tappable (click)='cancel_zan(items)'>
+                            <img *ngIf='!items.is_me_zan' src="assets/img/un_zan.png" class="zan_small_icon" tappable (click)='update_zan(items)'>
+                            <span *ngIf='items.zan_count >= 0' class="img_span_class">{{items.zan_count}}</span>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-item>
+            <ion-item tappable (click)='delete_reply(items)' no-lines style="margin-top:-5px">
+                <p text-wrap [ngClass]="{true:'content_message',false:'content_message_no_lines'}[items.child_ids.length > 0]" class="">
+                    <span></span><span style="color:#2597ec;"></span><span>{{items.context}}</span>
+                    <ion-grid *ngIf="items.attachment_ids.length > 0" style="margin-top:-5px;margin-bottom:5px">
+                        <ion-row style="margin-right:5px;">
+                            <ion-col style="height:70px" *ngFor="let image of items.attachment_ids" col-3>
+                                <img style="position:absolute;clip:rect(0px,70px,70px,0px);background-color:#f0f2f5" src='{{image}}' imageViewer/>
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </p>
+
+            </ion-item>
+
+            <div no-lines *ngFor="let line of items.child_ids;" [ngClass]="{true:'item_class_image',false:'item_calss_one'}[false]" tappable
+                (click)='reply_to(line)'>
+                <p [ngClass]="{true:'item_class_image_p',false:'item_class_normal_p'}[false]">
+                    <span style="color:#2597ec;">{{line.create_uid + "："}} </span>
+                    <span style="color:#2597ec;">@{{line.reply_name}} </span>
+                    <span style="color:8a9299">{{line.context}}</span>
+                </p>
+                <ion-grid *ngIf="line.attachment_ids.length > 0" style="margin-top: -30px;
+    margin-bottom: 25px;">
+                    <ion-row style="margin-right:5px;">
+                        <ion-col style="height:70px;margin-top:10px;" *ngFor="let image of line.attachment_ids" col-3>
+                            <img style="position:absolute;clip:rect(0px,70px,70px,0px);background-color:#f0f2f5" src='{{image}}' imageViewer/>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </div>
+        </div>
+    </ion-list>
+</ion-content>
+
+<ion-footer>
+    <div  class="footer_class">
+        <ion-label tappable (click)="send()" class="input_class">
+            写下你的回复...
+        </ion-label>
+    </div>
+</ion-footer>

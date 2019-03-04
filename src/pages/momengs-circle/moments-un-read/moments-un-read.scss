@@ -1,0 +1,50 @@
+page-moments-un-read {
+
+    .div_message{
+        background-color:white;
+        border-bottom: solid 1px #eeeeee;
+    }
+
+    .img_message_ava{   
+        width: 30px;
+        height:30px;
+        border-radius: 15px;
+        margin-top:15px;
+        margin-left: -10px;
+    }
+
+    .name_message{
+        margin-top:12px;
+        line-height: 40px;
+        margin-left: -20px;
+        color:#8a9299;
+        font-size: 14px;
+    }
+
+    .content_message_no_lines{
+        font-size: 14px;
+        color:#2e3033;
+        line-height:30px;
+    }
+
+    .parent_class{
+        width: 92%;
+        margin-left: 4%;
+        background-color: #f0f2f5;
+        // margin-top: -15px;
+        margin-bottom: 10px;
+        padding: 0px
+    }
+
+    .context_p_class{
+        // line-height: 40px;
+        padding-left: 10px;
+        font-size: 14px;
+        color: gray;
+        padding-right: 10px;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+    }
+}
