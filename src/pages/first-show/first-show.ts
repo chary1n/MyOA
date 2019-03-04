@@ -56,6 +56,8 @@ export class FirstShowPage {
   pay_num = 0 //付款
   pandian_num = 0 //盘点
   gongcheng_num = 0 //工程
+  salary_approval_num = 0 //核薪单
+  salary_adjust_approval_num = 0 // 调薪单
   isShowApprovalPoint = false
   all_approval = 0//审批总和
   show_approve
@@ -746,7 +748,9 @@ export class FirstShowPage {
         this.pay_num = res.result.res_data.pay_num
         this.pandian_num = res.result.res_data.pandian_num
         this.gongcheng_num = res.result.res_data.gongcheng_num
-        this.all_approval = this.recoup_num + this.vacation_num + this.jk_num + this.bx_num + this.yf_num + this.sg_num + this.caigou_num + this.tousu_num + this.pay_num  + this.gongcheng_num
+        this.salary_approval_num = res.result.res_data.salary_approval_num
+        this.salary_adjust_approval_num = res.result.res_data.salary_adjust_approval_num
+        this.all_approval = this.recoup_num + this.vacation_num + this.jk_num + this.bx_num + this.yf_num + this.sg_num + this.caigou_num + this.tousu_num + this.pay_num  + this.gongcheng_num + this.salary_approval_num + this.salary_adjust_approval_num
         if (this.isShowCK){
           this.all_approval += this.pandian_num
         }
@@ -871,6 +875,14 @@ export class FirstShowPage {
 
   toPD(){
     this.navCtrl.push('PandianListPage')
+  }
+
+  toHXD(){
+    this.navCtrl.push('SalaryContractPage')
+  }
+
+  toTXD(){
+    this.navCtrl.push('SalaryAdjustPage')
   }
 
 }

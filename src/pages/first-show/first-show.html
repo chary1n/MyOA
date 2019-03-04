@@ -342,26 +342,26 @@
         </div>
       </ion-item-group>
     </div>
-    <!--<div *ngIf="sch_num!=0 || tousu_num!= 0">
+    <div *ngIf="salary_approval_num!=0 || salary_adjust_approval_num!= 0">
       <div style="padding: 1px;border-bottom:#f0f2f5 1px solid;margin-left: 20px">
         <span style="background-color: #409eff;width: 3px;border-radius: 3px;height: 13px;float: left;margin-top: 16px;margin-left: -12px"></span>
-        <p style="font-size: 13px;color: #409eff;">待办</p>
+        <p style="font-size: 13px;color: #409eff;">薪资</p>
       </div>
       <ion-item-group>
-        <div *ngIf="sch_num!=0" style="min-height: 45px;border-bottom:#f0f2f5 1px solid;margin-left: 20px;padding: 1px" tappable
-          (click)='toDB()'>
-          <p style="margin-right: 15px;float: right;">{{sch_num}}</p>
-          <p style="font-size: 13px;">待指派任务</p>
+        <div *ngIf="salary_approval_num!=0" style="min-height: 45px;border-bottom:#f0f2f5 1px solid;margin-left: 20px;padding: 1px" tappable
+          (click)='toHXD()'>
+          <p style="margin-right: 15px;float: right;">{{salary_approval_num}}</p>
+          <p style="font-size: 13px;">核薪单审核</p>
         </div>
       </ion-item-group>
       <ion-item-group>
-        <div *ngIf="tousu_num!=0" style="min-height: 45px;border-bottom:#f0f2f5 1px solid;margin-left: 20px;padding: 1px" tappable
-          (click)='toTouSu()'>
-          <p style="margin-right: 15px;float: right;">{{tousu_num}}</p>
-          <p style="font-size: 13px;">待处理上诉</p>
+        <div *ngIf="salary_adjust_approval_num!=0" style="min-height: 45px;border-bottom:#f0f2f5 1px solid;margin-left: 20px;padding: 1px" tappable
+          (click)='toTXD()'>
+          <p style="margin-right: 15px;float: right;">{{salary_adjust_approval_num}}</p>
+          <p style="font-size: 13px;">调薪单审核</p>
         </div>
       </ion-item-group>
-    </div>-->
+    </div>
     <div *ngIf="gongcheng_num != 0">
       <div style="padding: 1px;border-bottom:#f0f2f5 1px solid;margin-left: 20px">
         <span style="background-color: #409eff;width: 3px;border-radius: 3px;height: 13px;float: left;margin-top: 16px;margin-left: -12px"></span>

@@ -32,6 +32,7 @@ export class NewWorkBenchPage {
   pay_num = 0
   pandianNum=0
   gongchengNum=0
+  salary_num = 0
   isShowCG = false
   isShowCK = false
   constructor(public navCtrl: NavController, public navParams: NavParams,public statusbar:StatusBar,public services:CommonUseServices,
@@ -89,6 +90,7 @@ export class NewWorkBenchPage {
                 this.pay_num = res.result.res_data.pay_num
                 this.pandianNum = res.result.res_data.pandianNum
                 this.gongchengNum = res.result.res_data.gongchengNum
+                this.salary_num = res.result.res_data.salary_num
               }
             })
           })

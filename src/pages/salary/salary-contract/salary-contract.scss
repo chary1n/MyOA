@@ -1,0 +1,52 @@
+page-salary-contract {
+    .rt_name_class{
+        font-size: 80%;
+    margin-top: 5px;
+    margin-left: 5px;
+    line-height: 15px;
+    }
+
+    .money_class{
+        font-size: 80%;
+    color: gray;
+    margin-left: 4px;
+    margin-top: 5px;
+    }
+
+    .department_class{
+            font-size: 80%;
+    color: gray;
+    margin-left: 5px;
+    }
+
+    .time_class{
+        font-size:75%;
+        float:right;
+        color:red;
+        margin-top:6px;
+    }
+
+    .state_class{
+        font-size:70%;
+        float:right;
+        color:red;
+        font-weight:bold;
+        margin-top: 3px;
+    }
+
+    .item_class{
+        margin-top: 10px;
+    }
+
+    .item_empty_class{
+        margin-top: 1px
+    }
+
+    .scroll_class{
+        position: absolute;
+        top: 40px!important;
+        bottom: 0;
+        left: 0;
+       right: 0;
+    }
+}

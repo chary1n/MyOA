@@ -155,6 +155,9 @@
         </div>
       </ion-col>
       <ion-col class="col_class" tappable (click)="click_salary()" col-3>
+        <div *ngIf="salary_num > 0" align="center" [ngClass]="{true:'big_number_class',false:'number_class'}[salary_num >= 10]">
+          {{salary_num}}
+        </div>
         <div class="body_class" align="center">
           <img class="body_img_class" src="assets/img/salary.png">
           <div class="text_class">

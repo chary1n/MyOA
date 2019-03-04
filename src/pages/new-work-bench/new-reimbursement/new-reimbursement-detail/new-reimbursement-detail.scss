@@ -5,13 +5,7 @@ page-new-reimbursement-detail {
         text-align:right;
         font-weight:bold;
     }
-    .middle_item{
-        width: 85%;
-        margin-left: 10%;
-        margin-top: 6px;
-        // height:auto;
-        border-radius:5px;
-    }
+    
 
 
     .redFont{
@@ -182,6 +176,14 @@ page-new-reimbursement-detail {
     }
 
 /*审批记录class*/
+    .middle_item{
+        width: 85%;
+        margin-left: 10%;
+        margin-top: 6px;
+        // height:auto;
+        border-radius:5px;
+    }
+    
     .user_ava_class{
         width:40px;
         vertical-align:top;
