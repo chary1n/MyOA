@@ -7,6 +7,7 @@ import { IonicPage, NavController, NavParams, ActionSheetController } from 'ioni
 import { Storage } from '@ionic/storage';
 import { Utils } from '../../../providers/Utils';
 
+
 /**
  * Generated class for the SearchMomentsPage page.
  *
@@ -25,6 +26,7 @@ export class SearchMomentsPage {
   user_id: any
   type: any
   search_text: any
+  is_search = false
   constructor(public navCtrl: NavController, public navParams: NavParams,
      public searchMomentsAutoService: SearchMomentsAutoService,
       public momentsCircleService: MomentsCircleService, public storage: Storage, public employeeService: EmployeeService,
@@ -49,6 +51,7 @@ export class SearchMomentsPage {
         if (res) {
           if (res.result.res_code == 1) {
             this.dataList = res.result.res_data
+            this.is_search = false
           }
         }
       })
@@ -56,7 +59,7 @@ export class SearchMomentsPage {
   }
 
   itemSelected(event) {
-    
+    this.is_search = true
     if (event.id == 1) {
       this.type = "name";
       this.search_text = event.name.replace("搜 内容：", "")
@@ -74,6 +77,9 @@ export class SearchMomentsPage {
   }
 
   to_detail(item){
+    if(this.is_search){
+      return
+    }
     this.navCtrl.push('MomentsDetailPage', {
       item: item,
       user_id: this.user_id

@@ -1,7 +1,7 @@
 import { MomentsCircleService } from './../momentsCircleService';
 import { Utils } from './../../../providers/Utils';
 import { NativeService } from './../../../providers/NativeService';
-import { Component } from '@angular/core';
+import { Component, ViewChild} from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController, ActionSheetController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 
@@ -18,9 +18,13 @@ import { StatusBar } from '@ionic-native/status-bar';
   providers: [ NativeService, MomentsCircleService],
 })
 export class CreateMomentsPage {
+  @ViewChild('mytextarea') mytextarea;
 
   user_id: any
   imgList = [];
+  isDeletePicture = false
+  deletePicture
+
   contentText;
   selectList=[]
   is_public = true
@@ -44,10 +48,21 @@ export class CreateMomentsPage {
       this.share_from = this.navParams.get('share_from')
       this.share_model = this.navParams.get('share_model')
      }
+     //默认加一张显示➕的图片
+     this.imgList.push("assets/img/smalladd.png")
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CreateMomentsPage');
+  }
+
+  clickPicture(item, index){
+    if(item=="assets/img/smalladd.png"){
+      this.addImg()
+    }else{
+      this.deletePicture = item
+      this.navCtrl.push("DeleteChatPicturePage", { item: item })
+    }
   }
 
 
@@ -56,6 +71,14 @@ export class CreateMomentsPage {
   }
 
   ionViewDidEnter() {
+    setTimeout(() => {
+      this.mytextarea.setFocus();//输入框获取焦点
+    })
+    this.isDeletePicture = this.navParams.get('isDeletePicture')
+    if (this.isDeletePicture) {
+      this.navParams.data.isDeletePicture = false;
+      this.imgList.splice(this.imgList.indexOf(this.deletePicture), 1)
+    }
     this.need_fresh = this.navParams.get('need_fresh')
     if(this.need_fresh){
       this.is_public = this.navParams.get('is_public')
@@ -131,10 +154,10 @@ export class CreateMomentsPage {
   }
 
   addImg(allowEdit: boolean = true) {
-    if(this.imgList.length>=9){
-      Utils.toastButtom('最多可以选择9张图片', this.toast)
-      return
-    }
+    // if(this.imgList.length>9){
+    //   Utils.toastButtom('最多可以选择9张图片', this.toast)
+    //   return
+    // }
     let actionSheet = this.actionSheetCtrl.create({
       title: '',
       buttons: [
@@ -181,7 +204,10 @@ export class CreateMomentsPage {
   }
 
   getPictureSuccess(img_url) {
-    this.imgList.push(img_url)
+    this.imgList.unshift(img_url)
+    if(this.imgList.length==10){
+        this.imgList.pop()
+    }
   }
 
   selectVisible(){

@@ -4,6 +4,7 @@ import { IonicPage, NavController, NavParams, ActionSheetController } from 'ioni
 import { StatusBar } from '@ionic-native/status-bar';
 import { Utils } from './../../../providers/Utils';
 import { ToastController } from 'ionic-angular/components/toast/toast-controller';
+import { FirstShowService } from '../../first-show/first_service';
 
 /**
  * Generated class for the MomentsDetailPage page.
@@ -37,7 +38,7 @@ export class MomentsDetailPage {
   create_date: any
   constructor(public navCtrl: NavController, public navParams: NavParams, 
     public statusBar: StatusBar, public momentsCircleService:MomentsCircleService, 
-    public actionSheetCtrl: ActionSheetController, public toastCtrl: ToastController) {
+    public actionSheetCtrl: ActionSheetController, public toastCtrl: ToastController, public firService: FirstShowService) {
     this.item = this.navParams.get('item');
     this.id = this.navParams.get('id');
     this.user_id = this.navParams.get('user_id');
@@ -117,6 +118,26 @@ export class MomentsDetailPage {
     }
   }
 
+  only_reply(item){
+    this.navCtrl.push('CalendarChatPage', {
+      item: item,
+      res_id: item.id,
+      navCtrl: 'MomentsDetailPage',
+      type: 'rt.colleagues.circle',
+      has_parent: false,
+  })
+  }
+
+  only_reply_to(items){
+    this.navCtrl.push('CalendarChatPage', {
+      item: items,
+      res_id: items.msg_id,
+      navCtrl: 'MomentsDetailPage',
+      type: 'rt.message.reply',
+      has_parent: true,
+  })
+  }
+
     send(){
       this.navCtrl.push('CalendarChatPage', {
         item: this.item,
@@ -137,6 +158,7 @@ export class MomentsDetailPage {
         if (res.result.res_code == 1) {      
           this.count_collect = this.count_collect-1
           this.whether_collect = false
+          this.need_fresh = true
       }
       })
     }
@@ -151,6 +173,7 @@ export class MomentsDetailPage {
         if (res.result.res_code == 1) {
           this.count_collect = this.count_collect+1
           this.whether_collect = true
+          this.need_fresh = true
       }
       })
     }
@@ -165,6 +188,7 @@ export class MomentsDetailPage {
         if (res.result.res_code == 1) {
           this.whether_like = false
           this.like_count = this.like_count-1
+          this.need_fresh = true
       }
       })
     }
@@ -179,6 +203,7 @@ export class MomentsDetailPage {
         if (res.result.res_code == 1) {
           this.whether_like = true
           this.like_count = this.like_count+1
+          this.need_fresh = true
       }
       })
     }
@@ -236,5 +261,34 @@ export class MomentsDetailPage {
         }
       })
     }
+    }
+
+
+    cancel_zan_small(items){
+      let body = {
+        'uid': this.user_id,
+        'type': 'delete',
+        'msg_id': items.msg_id,
+      }
+      this.firService.update_zan(body).then(res => {
+        if (res.result.res_code == 1) {
+          items.is_me_zan = false
+          items.zan_count = items.zan_count - 1 
+        }
+      })
+    }
+  
+    update_zan_small(items){
+      let body = {
+        'uid': this.user_id,
+        'type': 'add',
+        'msg_id': items.msg_id,
+      }
+      this.firService.update_zan(body).then(res => {      
+        if (res.result.res_code == 1) {
+          items.is_me_zan = true
+          items.zan_count = items.zan_count + 1 
+        }
+      })
     }
 }

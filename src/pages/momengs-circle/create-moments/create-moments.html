@@ -27,14 +27,16 @@
   <ion-content id="main_class" style="position:relative;">
    <ion-grid style="margin-left:6px;border-bottom: solid 1px #f0f2f5" >
       <ion-row>
-        <ion-col style="position:relative;height:106px;margin-top:5px" tappable (click)="clickPicture(item)" col-4 *ngFor="let item of imgList">
+        <ion-col style="position:relative;height:106px;margin-top:5px" tappable (click)="clickPicture(item, index)" 
+        col-4 *ngFor="let item of imgList">
+        <!-- <img src="assets/img/add.png" tappable (click)="addImg()" *ngIf="i==imgList.length-1" style="float: right;"/> -->
           <img src={{item}} style="position:absolute;
                     clip:rect(0px,100px,100px,0px);"/>
         </ion-col>
       </ion-row>
-      <ion-col col-4 tappable (click)="addImg()" style="margin-top:5px">
+      <!-- <ion-col col-4 tappable (click)="addImg()" style="margin-top:5px" *ngIf="imgList.length==0">
           <img src="assets/img/add.png" />
-      </ion-col>
+      </ion-col> -->
       <ion-col col-10 tappable (click)="cancel()" style="margin-top:5px;background: #f0f2f5" *ngIf="is_share">
         <img src="assets/img/share_link.png" style="width: 30px;height: 30px;margin-right: 10px;margin-top: 5px;float: left;">
           <p style="margin: 0px;margin-left: 15px">

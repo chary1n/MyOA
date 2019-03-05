@@ -16,7 +16,7 @@
 <ion-content>
 
     <div  style="background:#2597ec;width: 100%;align-items: center">
-        <ion-auto-complete style="width: 80vw;margin-top: 5px;margin-left: 10px" (itemSelected) = "itemSelected($event)"  [dataProvider]="searchMomentsAutoService"></ion-auto-complete>
+        <ion-auto-complete style="width: 80vw;margin-top: 5px;margin-left: 10px" (itemSelected) = "itemSelected($event);"  [dataProvider]="searchMomentsAutoService"></ion-auto-complete>
         <p style="margin-right:16px;color:white;float:right;padding-top: 4px"  tappable (click)="clickback()">取消</p>
     </div>
 
