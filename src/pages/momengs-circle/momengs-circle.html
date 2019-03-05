@@ -57,12 +57,12 @@
                     </ion-col>
                   </ion-row>
                 </ion-grid>
-                <ion-grid *ngIf="item.attachments.length>0" style="padding-left: 9px;padding-top: 0px;">
-                  <ion-row *ngIf="item.attachments.length>1" tappable (click)='to_detail(item)'
-                      [ngClass]="{'row_three':item.attachments.length<4,'row_six':item.attachments.length>3,'row_nine':item.attachments.length>6}">
+                <ion-grid *ngIf="item.attachments.length>0" style="padding-top: 0px;">
+                  <ion-row *ngIf="item.attachments.length>1" tappable (click)='to_detail(item)'>
+                      <!-- [ngClass]="{'row_three':item.attachments.length<4,'row_six':item.attachments.length>3,'row_nine':item.attachments.length>6}" -->
                     <ion-col col-3 *ngFor="let attachment of item.attachments;let i = index" [ngClass]="{true:'col_first',false:'col_other'}[i == 0 || i==3 || i==6]">
                         <img imageViewer src="{{attachment}}"  
-                        style="clip:rect(0px,100px,100px,0px);position: absolute;min-width: 100px;min-height: 100px;padding: 3px">
+                        style="clip:rect(0px,83px,83px,0px);position: absolute;min-width: 83px;min-height: 83px;">
                     </ion-col>
                   </ion-row>
                   <ion-row *ngIf="item.attachments.length==1" tappable (click)='to_detail(item)'>
@@ -71,9 +71,9 @@
                       </ion-col>
                   </ion-row>
                 </ion-grid>
-                <ion-grid style="margin-top: -5px;margin-bottom: -5px">
-                    <ion-col col-10 tappable (click)="to_link(item)" style="margin-top:5px;background: #f0f2f5;margin-left: 50px" *ngIf="item.whether_share">
-                        <img src="assets/img/share_link.png" style="width: 30px;height: 30px;margin-right: 10px;margin-top: 5px;float: left;">
+                <ion-grid style="margin-top: -10px;margin-bottom: -5px">
+                    <ion-col col-10 tappable (click)="to_link(item)" style="width: 77%;margin-top:5px;background: #f0f2f5;margin-left: 50px" *ngIf="item.whether_share">
+                        <img src="assets/img/share_link.png" style="width: 30px;height: 30px;margin-right: 10px;margin-top: 4px;float: left;">
                           <p style="margin: 0px;margin-left: 15px;font-size: 13px">
                               {{item.share_title}}
                           </p>
@@ -83,18 +83,18 @@
                     </ion-col>
                   <ion-row>
                     <ion-col>
-                        <span style="color: #cdcdcd;position: absolute;font-size: 85%;margin-left: 50px;margin-top: 3px">{{item.create_date}}</span>
+                        <span style="color: #cdcdcd;position: absolute;font-size: 90%;margin-left: 50px;margin-top: 3px">{{item.create_date}}</span>
                     </ion-col>
                     <ion-col>
                         <div>
-                            <img src="assets/img/work_bench/feedback.png" style="width: 15px;height: 15px;margin-left: 65px" tappable (click)="to_detail(item)">
-                            <span *ngIf='item.comment_count > 0' style="position: absolute;color: #cdcdcd">{{item.comment_count}}</span>                            
-                            <img *ngIf='item.whether_collect' src="assets/img/yesshoucang.png"  tappable (click)='cancel_shoucang(item)' style="width: 16px;height: 16px;margin-left: 14px">
-                            <img *ngIf='!item.whether_collect' src="assets/img/unshoucang.png"  tappable (click)='update_shoucang(item)' style="width: 16px;height: 16px;margin-left: 14px">
-                            <span *ngIf='item.count_collect > 0' style="position: absolute;color: #cdcdcd">{{item.count_collect}}</span>
-                            <img *ngIf='item.whether_like' src="assets/img/yi_zan.png"  tappable (click)='cancel_zan(item)' style="width: 16px;height: 16px;margin-left: 14px">
-                            <img *ngIf='!item.whether_like' src="assets/img/un_zan.png"  tappable (click)='update_zan(item)' style="width: 16px;height: 16px;margin-left: 14px">
-                            <span *ngIf='item.like_count > 0' style="position: absolute;color: #cdcdcd;">{{item.like_count}}</span>
+                            <img src="assets/img/work_bench/feedback.png" style="width: 17px;height: 17px;margin-left: 60px" tappable (click)="to_detail(item)">
+                            <span *ngIf='item.comment_count > 0' style="position: absolute;color: #cdcdcd;margin-top: 3px">{{item.comment_count}}</span>                            
+                            <img *ngIf='item.whether_collect' src="assets/img/yesshoucang.png"  tappable (click)='cancel_shoucang(item)' style="width: 17px;height: 17px;margin-left: 14px">
+                            <img *ngIf='!item.whether_collect' src="assets/img/unshoucang.png"  tappable (click)='update_shoucang(item)' style="width: 17px;height: 17px;margin-left: 14px">
+                            <span *ngIf='item.count_collect > 0' style="position: absolute;color: #cdcdcd;margin-top: 3px">{{item.count_collect}}</span>
+                            <img *ngIf='item.whether_like' src="assets/img/yi_zan.png"  tappable (click)='cancel_zan(item)' style="width: 17px;height: 17px;margin-left: 14px">
+                            <img *ngIf='!item.whether_like' src="assets/img/un_zan.png"  tappable (click)='update_zan(item)' style="width: 17px;height: 17px;margin-left: 14px">
+                            <span *ngIf='item.like_count > 0' style="position: absolute;color: #cdcdcd;margin-top: 3px">{{item.like_count}}</span>
                         </div>
                     </ion-col>
                   </ion-row>
@@ -108,7 +108,7 @@
                           </p>
                           <p style="overflow: hidden;
                           display: -webkit-box;
-                          -webkit-line-clamp: 2;
+                          -webkit-line-clamp: 1;
                           -webkit-box-orient: vertical;font-size: 90%;padding-left:10px;">
                               {{comment.context}}
                           </p>

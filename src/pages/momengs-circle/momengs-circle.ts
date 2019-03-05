@@ -181,7 +181,7 @@ export class MomengsCirclePage {
 
   delete_moments(item){
     let actionSheet = this.actionSheetCtrl.create({
-      title: '是否删除此回复',
+      title: '是否删除此圈子',
       buttons: [
           {
               text: '确定',
