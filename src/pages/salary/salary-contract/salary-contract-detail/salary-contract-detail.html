@@ -1,0 +1,149 @@
+<!--
+  Generated template for the SalaryContractDetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header no-border>
+
+    <ion-navbar color="gongdan-color" hideBackButton="true">
+        <ion-buttons left>
+            <button ion-button icon-only (click)="goBack()">
+              <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+            </button>
+        </ion-buttons>
+    <ion-title>{{item.name}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content style="background-color:#f0f2f5">
+  <ion-item style="min-height:60px;height:60px;">
+    <ion-grid class="bg_main">
+      <ion-row>
+        <ion-col col-2>
+          <img src="{{item.employee_avatar}}" class="imgHeard">
+        </ion-col>
+        <ion-col col-5 class="col_header_class">
+          <span class="name_class">{{item.employee_name}}</span>
+        </ion-col>
+        <ion-col col-5 class="col_header_class">
+          <span class="state_class">{{changeState(item.state)}}</span>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item>
+  <div style="background-color:white">
+    <div class="div_all">
+      <div text-wrap class="div_right"> {{item.department}}</div>
+      <div class="left_label,div_left" text-right> 部门 </div>
+    </div>
+    <div class="div_all">
+      <div text-wrap class="div_right"> {{item.job}}</div>
+      <div class="left_label,div_left" text-right> 岗位 </div>
+    </div>
+    <div class="div_all">
+      <div text-wrap class="div_right"> {{item.active_time}}</div>
+      <div class="left_label,div_left" text-right> 生效时间 </div>
+    </div>
+    <div class="div_all">
+      <div text-wrap class="div_right"> {{item.self_tax}}</div>
+      <div class="left_label,div_left" text-right> 个税设置 </div>
+    </div>
+    <div class="div_all">
+      <div text-wrap class="div_right"> {{item.provident_fund}}</div>
+      <div class="left_label,div_left" text-right> 公积金设置 </div>
+    </div>
+    <div class="div_all">
+      <div text-wrap class="div_right"> {{item.provident_fund_adjust}}</div>
+      <div class="left_label,div_left" text-right> 公积金调整 </div>
+    </div>
+    <div class="div_all">
+      <div text-wrap class="div_right"> {{item.rt_remark}}</div>
+      <div class="left_label,div_left" text-right> 备注 </div>
+    </div>
+    <div class="div_all">
+      <div text-wrap class="div_right_spec"> {{toFix4(item.rt_salary_total_before)}}</div>
+      <div class="left_label,div_left" text-right> 税前工资 </div>
+    </div>
+    <div class="div_all">
+      <div text-wrap class="div_right_spec"> {{toFix4(item.rt_salary_total)}}</div>
+      <div class="left_label,div_left" text-right> 税后所得 </div>
+    </div>
+    <div class="div_all_final">
+      <div text-wrap class="div_right_spec"> {{toFix4(item.rt_company_total)}}</div>
+      <div class="left_label,div_left" text-right> 公司成本 </div>
+    </div>
+  </div>
+  <div class="zc_detail_class">
+    组成
+  </div>
+  <ion-item-group>
+    <div *ngFor='let items of item.zc_arr;let i = index'>
+      <ion-item style="border-bottom:solid 1px #f0f2f5;" [ngClass]="{true:'item_empty_class',false:'item_empty_class'}[i == 0]">
+        <div class="detail_div">
+          <span class="type_class">{{items.rt_base_salary}}</span>
+        </div>
+
+        <p text-wrap class="yongtu_class">
+          <span>是否缴纳公积金：{{items.rt_is_cal_provident_fund}}</span>
+          <span style="margin-left:10px;">是否参与个税运算：{{items.rt_is_cal_self_tax}}</span>
+        </p>
+        <p text-wrap class="beizhu_class">银行账户：{{items.rt_bank}} </p>
+      </ion-item>
+    </div>
+  </ion-item-group>
+  <div class="zc_detail_class">
+    明细
+  </div>
+  <ion-item-group>
+    <div *ngFor='let items of item.mx_arr;let i = index'>
+      <ion-item style="border-bottom:solid 1px #f0f2f5;" [ngClass]="{true:'item_empty_class',false:'item_empty_class'}[i == 0]">
+        <div class="detail_div">
+          <span class="type_class">{{items.type}}</span>
+        </div>
+        <p text-wrap class="yongtu_class">
+          <span>公司：{{items.company_cost}}</span>
+          <span style="margin-left:10px;">个人：{{items.self_cost}}</span>
+        </p>
+
+      </ion-item>
+    </div>
+    <div>
+      <ion-item style="border-bottom:solid 1px #f0f2f5;" [ngClass]="{true:'item_empty_class',false:'item_empty_class'}[i == 0]">
+        <div class="detail_div">
+          <span class="type_class">合计</span>
+        </div>
+        <p text-wrap class="yongtu_class">
+          <span>公司：{{item.company_total}}</span>
+          <span style="margin-left:10px;">个人：{{item.self_total}}</span>
+        </p>
+      </ion-item>
+    </div>
+  </ion-item-group>
+  <div class="zc_detail_class">审批记录</div>
+  <ion-list>
+    <ion-item no-lines *ngFor='let items of item.message_ids' style="overflow:hidden" class="middle_item">
+      <img class="user_ava_class" src={{items.create_person_ava}}>
+      <div style="overflow:hidden">
+        <span class="span_employee_class">{{items.create_person}}</span>
+
+        <span class="span_time_class">{{changeDate(items.create_time) | date:'yyyy-MM-dd HH:mm:ss'}}</span>
+      </div>
+      <p *ngIf="items.old_state || items.new_state" class="size_class">{{items.old_state}}=>{{items.new_state}}</p>
+      <p text-wrap class="size_class">{{items.description}}</p>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+<ion-footer>
+  <div class="footer_class">
+    <div class="left_btn" tappable (click)='cancel()'>
+      拒绝
+    </div>
+    <div class="right_btn" tappable (click)='conform()'>
+      同意
+    </div>
+  </div>
+</ion-footer>

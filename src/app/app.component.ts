@@ -32,7 +32,7 @@ export class MyApp {
       statusBar.styleDefault();
       statusBar.backgroundColorByHexString('#f8f8f8');
       splashScreen.hide();
-      this.checkCodePush()
+      // this.checkCodePush()
       this.jpush.initJpush();
       // storage.get('user')
       //   .then(res => {

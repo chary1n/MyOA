@@ -13,7 +13,7 @@
     </ion-buttons>
     <ion-buttons right>
       <button ion-button icon-only tappable (click)="changeFinish()" style="font-size:14px;color: white;margin-right: 10px">
-                完成
+                保存
             </button>
     </ion-buttons>
     <ion-title style="text-align: center">{{type_name}}</ion-title>
@@ -50,7 +50,7 @@
     </ion-buttons>
     <ion-buttons right>
       <button ion-button icon-only tappable (click)="stateFinish()" style="font-size:14px;color: white;margin-right: 10px">
-                完成
+                保存
             </button>
     </ion-buttons>
     <ion-title style="text-align: center">{{title_meeting}}</ion-title>
@@ -91,7 +91,7 @@
           <span *ngIf="state" class="bg_ft_size_num">暂无</span>
         </div>
       </div>
-      <div *ngIf="is_me_in_patrner_ids" style="float:left;height:45px;line-height:45px;margin-left: 15px;">
+      <div style="float:left;height:45px;line-height:45px;margin-left: 15px;">
         <div><span class="ft_size">总积分</span><span class="bg_ft_size">{{total_score}}</span></div>
       </div>
       <div class="jifen_img_class">
@@ -167,6 +167,17 @@
         <p item-start style="color: #2e3133;font-size: 13px">地点</p>
         <p item-start style="margin-left: 10%;color: #c3c5c9;font-size: 13px">{{location}}</p>
       </ion-item>
+      <ion-item *ngIf="origin_meeting" no-lines>
+        <p item-start style="color: #2e3133;font-size: 13px;width: 45px;">来源</p>
+        <p item-start style="margin-left: 10%;color: #c3c5c9;font-size: 13px">
+          <!--<div style="justify-content:space-around;white-space: pre-line;width: 80%;display: inline-block;position: relative;top: -12px;left: 22%;">-->
+            <span round *ngFor="let item_meeting of origin_meeting" class="un_read_class" ion-button tappable (click)="goto(item_meeting)">
+                                    {{item_meeting.name}}
+                            </span>
+          <!--</div>-->
+        </p>
+      </ion-item>
+      
     </ion-item-group>
 
     <div *ngIf="type_name == '任务' && !state " align="center" class="main_header_div">

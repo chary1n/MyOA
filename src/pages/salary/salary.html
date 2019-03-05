@@ -22,6 +22,28 @@
   <ion-grid  class="grid_class">
   
     <ion-row class="body_row_class" align-items-center>
+      <ion-col class="col_class" tappable (click)="click_contract()" col-3>
+        <div *ngIf="salary_approval_num > 0" align="center" [ngClass]="{true:'big_number_class',false:'number_class'}[salary_approval_num >= 10]">
+          {{salary_approval_num}}
+        </div>
+        <div class="body_class" align="center">
+          <img class="body_img_class" src="assets/img/salary_approval.png">
+          <div class="text_class">
+            核薪单审核
+          </div>
+        </div>
+      </ion-col>
+      <ion-col class="col_class" tappable (click)="click_adjust()" col-3>
+        <div *ngIf="salary_adjust_approval_num > 0" align="center" [ngClass]="{true:'big_number_class',false:'number_class'}[salary_adjust_approval_num >= 10]">
+          {{salary_adjust_approval_num}}
+        </div>
+        <div class="body_class" align="center">
+          <img class="body_img_class" src="assets/img/salary_adjust.png">
+          <div class="text_class">
+            调薪单审核
+          </div>
+        </div>
+      </ion-col>
       <ion-col class="col_class" tappable (click)="click_tax_deduct()" col-3>
         <div class="body_class" align="center">
           <img class="body_img_class" src="assets/img/tax_deduct.png">

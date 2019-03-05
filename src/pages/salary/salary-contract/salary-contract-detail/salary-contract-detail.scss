@@ -1,0 +1,215 @@
+page-salary-contract-detail {
+    .state_class_center{
+        margin-left:5px;
+        font-size:80%;
+        color:#E0540E;
+        text-align: center;
+    }
+
+    .col_header_class{
+        padding-top:17px
+    }
+
+    .bg_main{
+        background:white
+    }
+
+    .state_class{
+        margin-left:5px;
+        font-size:80%;
+        color:#E0540E;
+        text-align: center;
+    }
+
+    .name_class{
+        font-size:80%;
+    }
+
+    .imgHeard{
+        border-radius: 20px;
+        width: 40px;
+        height: 40px;
+    }
+
+
+    .div_all {
+    padding-left: 16px;
+    padding-top: 10px;
+    overflow: hidden
+  }
+
+  .div_all_final {
+    padding-left: 16px;
+    padding-top: 10px;
+    overflow: hidden;
+    padding-bottom: 10px;
+  }
+
+  .div_right {
+    float: right;
+    // font-size: 80%;
+    width: 70%;
+    color: #8b8b8b;
+    margin-top: 2px;
+    margin-left: 20px;
+    padding-right: 10px;
+    line-height: 17px;
+  }
+  .div_left {
+    font-size: 80%;
+    width: 30%;
+  }
+
+  .div_label {
+    background: #f2f2f2;
+    padding-left: 16px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    margin-bottom: 0px;
+    margin-right: 0px
+  }
+
+  .div_spec_label{
+      color: #E0540E;
+      font-size: 80%;
+    width: 30%;
+  }
+
+  .div_right_spec {
+    float: right;
+    // font-size: 80%;
+    width: 70%;
+    color: #E0540E;
+    margin-top: 2px;
+    margin-left: 20px;
+    padding-right: 10px;
+    line-height: 17px;
+  }
+
+  .zc_detail_class{
+        height: 28px;
+        line-height: 28px;
+        color: #333333;
+        background-color: #f0f2f5;
+        padding-left: 10px;
+        font-size: 13px;
+    }
+
+    .item_empty_class{
+
+    }
+
+    .item_10px_class{
+        margin-top: 10px;
+    }
+
+    .detail_div{
+        height:20px;
+        overflow:hidden;
+    }
+
+    .type_class{
+        font-size:80%;
+        color:#333333;
+        float:left;
+        font-weight:bold;
+        margin-top:0px;
+        max-width: 150px;
+        text-overflow: ellipsis;
+        -o-text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+
+    .beizhu_class{
+        font-size:80%;
+        color:gray;
+        margin-top:2px;
+    }
+
+    .yongtu_class{
+        font-size:80%;
+        color:gray;
+        margin-top:5px;
+    }
+
+    .yongtu_class_spec{
+        font-size:80%;
+        color:gray;
+        margin-top:5px;
+    }
+
+    .tax_class{
+        font-size:80%;
+        color:gray;
+        float:right;
+        margin-right:20px;
+        margin-top:-2px
+    }
+
+    .unit_amount_class{
+        float:right;
+        font-size:80%;
+        margin-top:-2px
+    }
+
+    /*审批记录class*/
+    .middle_item{
+        width: 85%;
+        margin-left: 10%;
+        margin-top: 6px;
+        // height:auto;
+        border-radius:5px;
+    }
+
+    .user_ava_class{
+        width:40px;
+        vertical-align:top;
+        float:left;
+        margin-right:10px;
+        border-radius:20px
+    }
+
+    .span_employee_class{
+        margin-top:3px;
+        color:black;
+        font-size:80%;
+        float:left
+    }
+
+    .span_time_class{
+        font-size:70%;
+        margin-top:5px;
+        margin-left:-5px;
+        float:right
+    }
+
+    .size_class{
+        font-size:80%;
+    }
+
+
+    /*底部class*/
+    .footer_class{
+        width: 100%;
+    }
+
+    .left_btn{
+        display: inline-block;
+        line-height: 44px;
+        width: 50%;
+        text-align: center;
+        background-color: red;
+        color: white;
+        float: left;
+    }
+
+    .right_btn{
+        line-height: 44px;
+        width: 50%;
+        color: white;
+        text-align: center;
+        float: right;
+        background-color: #2597ec;
+    }
+}

@@ -8,6 +8,42 @@ export class SalaryService {
 
     }
 
+    get_approval_num(body){
+        return this.httpService.postBodyNoLoading("get_approval_num", body);
+    }
+
+    refuse_adjust_salary(body){
+        return this.httpService.postBody("refuse_adjust_salary",body);
+    }
+
+    pass_adjust_salary(body){
+        return this.httpService.postBody("pass_adjust_salary",body);
+    }
+
+    get_adjust_salary_detail(body){
+        return this.httpService.postBody("get_adjust_salary_detail",body);
+    }
+
+    get_wait_approved_adjust_salary(body){
+        return this.httpService.postBody("get_wait_approved_adjust_salary",body);
+    }
+
+    refuse_salary(body){
+        return this.httpService.postBody("refuse_salary",body);
+    }
+
+    pass_salary(body){
+        return this.httpService.postBody("pass_salary",body);
+    }
+
+    get_salary_detail(body){
+        return this.httpService.postBody("get_salary_detail",body);
+    }
+
+    get_wait_approved_salary(body){
+        return this.httpService.postBody("get_wait_approved_salary",body);
+    }
+
     create(user_id, year, children, continues, big, house_tax, house, old_person, total,id) {
         let body = JSON.stringify({
             user_id: user_id,

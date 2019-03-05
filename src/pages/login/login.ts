@@ -348,7 +348,7 @@ export class LoginPage {
     this.isSelected3 = false;
     this.chooseIndex = 4;
     HttpService.appUrl = "http://121.43.196.231:8888/"
-    // HttpService.appUrl = "http://192.168.1.244:8111/"
+    // HttpService.appUrl = "http://192.168.2.10:8081/"
     this.reset();
     this.img4 = "assets/img/banchang_clicked.png"
     this.password_src = "assets/img/B_password.png"
