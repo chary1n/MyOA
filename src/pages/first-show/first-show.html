@@ -123,9 +123,6 @@
     </div>
     <div style="padding: 1px;text-align: center;height: 37px;">
       <p style="font-size: 13px;color: #2597ec;float: right;margin-right: 15px;margin-top: 10px">
-        <!--<span *ngIf="need_calendar" style="color: red">●</span>
-        <span style="font-size:14px" tappable (click)="toAll()"> 全部</span>
-        <span style="margin-left:3px;margin-right:3px;font-size:14px"> | </span> -->
         <span style="font-size:14px" tappable (click)="showMenu()"> 筛选</span>
       </p>
       <p class="month_message">
@@ -214,6 +211,9 @@
         </ion-item>
 
       </ion-list>
+      <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf='head_type =="date"'>
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+      </ion-infinite-scroll>
       <ion-list *ngIf='head_type =="wait"' style="width: 100%;border-top:#f0f2f5 1px solid;">
         <!--<ion-item no-lines style="margin-top: 5px;padding: 1px;border-bottom:#f0f2f5 1px solid;border-top:#f0f2f5 1px solid;min-height: 25px"
           *ngIf="notSureList.length > 0">

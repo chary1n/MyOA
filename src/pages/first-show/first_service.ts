@@ -6,6 +6,10 @@ export class FirstShowService {
     constructor(private httpService: HttpService) {
 
     }
+    get_schedule_list_with_domain_new_more_data(body,domain){
+        return this.httpService.postBodyNoLoading("get_schedule_list_with_domain_new_more_data", {'body':body,'domain':domain});
+    }
+
     search_one_pcc_partner(body){
         return this.httpService.postBodyNoLoading("search_one_pcc_partner", body)
     }
