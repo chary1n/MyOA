@@ -283,9 +283,9 @@ export class LoginPage {
     this.isSelected3 = false;
     this.isSelected4 = false;
     this.chooseIndex = 0;
-    HttpService.appUrl = "http://erp.robotime.com:8888/"
-    // HttpService.appUrl = "http://192.168.2.10:8081/"
-    // HttpService.appUrl = "http://192.168.3.183:8888/"
+    // HttpService.appUrl = "http://erp.robotime.com:8888/"
+    HttpService.appUrl = "http://192.168.2.10:8081/"
+    // HttpService.appUrl = "http://192.168.3.207:8081/"
     this.reset();
     this.img1 = "assets/img/jiangsuruotai_clicked.png"
     this.password_src = "assets/img/S_password.png"
