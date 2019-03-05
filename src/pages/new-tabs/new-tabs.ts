@@ -3,6 +3,7 @@ import { Tabs } from "ionic-angular";
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
+import { MomentsCircleService } from '../momengs-circle/momentsCircleService';
 
 /**
  * Generated class for the NewTabsPage page.
@@ -14,23 +15,26 @@ import { Storage } from '@ionic/storage';
 @Component({
   selector: 'page-new-tabs',
   templateUrl: 'new-tabs.html',
-  providers: [FirstShowService]
+  providers: [FirstShowService, MomentsCircleService]
 })
 export class NewTabsPage {
   @ViewChild('mainTabs') tabs: Tabs;
   firstRoot: any = 'FirstshowMenuPage';
   workRoot: any = 'NewWorkBenchPage';
-  // contactRoot: any = 'MomengsCirclePage';
-  contactRoot: any = 'ContactPersonPage';
+  contactRoot: any = 'MomengsCirclePage';
+  // contactRoot: any = 'ContactPersonPage';
   meRoot: any = 'MePage';
   emailRoot: any = 'EmailMenuPage';
   messageNum = 1
+  quanziNum = 0
   all_approval
   uid
-  constructor(public menu: MenuController, public navCtrl: NavController, public navParams: NavParams, private firshowService: FirstShowService, public storage: Storage, ) {
+  constructor(public menu: MenuController, public navCtrl: NavController, public navParams: NavParams, 
+    private firshowService: FirstShowService, public storage: Storage, public momentsCircleService:MomentsCircleService ) {
     this.storage.get('user').then(res => {
       this.uid = res.result.res_data.user_id;
       this.get_approval_num()
+      this.get_moments_num()
     })
   }
 
@@ -69,4 +73,25 @@ export class NewTabsPage {
       }
     })
   }
+
+  //获取圈子的回复数目
+  get_moments_num(){
+      let body = {
+        'user_id': this.uid,
+      }
+      var datalist = []
+      this.momentsCircleService.get_moments_message(body).then(res => {
+        if (res) {
+          if (res.result.res_code == 1 && res.result.res_data) {
+            datalist = res.result.res_data
+            this.quanziNum = datalist.length
+            if (this.quanziNum != 0) {
+              this.quanziNum = 1
+            } else {
+              this.quanziNum = 0
+            }
+          }
+        }
+      })
+    }
 }

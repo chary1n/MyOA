@@ -2,7 +2,7 @@
   <ion-tab [root]='firstRoot' (ionSelect)="change(1)"  tabTitle='首页' tabIcon='list-box' tabsHideOnSubPages [tabBadge]="messageNum" tabBadgeStyle="danger"></ion-tab>
   <ion-tab [root]='emailRoot' (ionSelect)="change(2)" tabTitle='邮件' tabIcon='ios-mail-outline' tabsHideOnSubPages></ion-tab>
   <ion-tab [root]='workRoot'  (ionSelect)="change(0)" tabTitle='工作台' tabIcon='apps' tabsHideOnSubPages></ion-tab>
-  <!-- <ion-tab [root]='contactRoot' (ionSelect)="change(0)" tabTitle='圈子' tabIcon='radio' tabsHideOnSubPages></ion-tab> -->
-  <ion-tab [root]='contactRoot' (ionSelect)="change(0)" tabTitle='通讯录' tabIcon='contacts' tabsHideOnSubPages></ion-tab>
+  <ion-tab [root]='contactRoot' (ionSelect)="change(0)" tabTitle='圈子' tabIcon='ionic' tabsHideOnSubPages [tabBadge]="quanziNum" tabBadgeStyle="danger"></ion-tab>
+  <!-- <ion-tab [root]='contactRoot' (ionSelect)="change(0)" tabTitle='通讯录' tabIcon='contacts' tabsHideOnSubPages></ion-tab> -->
   <ion-tab [root]='meRoot'  (ionSelect)="change(0)" tabTitle='我' tabIcon='person' tabsHideOnSubPages></ion-tab>
 </ion-tabs>

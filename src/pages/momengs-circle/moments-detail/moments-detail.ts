@@ -29,6 +29,7 @@ export class MomentsDetailPage {
   comment_count=0
   whether_like=false
   whether_collect=false
+  whether_share = false
   count_collect=0
   like_count=0
   comments=[]
@@ -49,16 +50,6 @@ export class MomentsDetailPage {
       this.set_value()
       this.id = this.item.id
     }
-    var data_arr = []
-    for (let i = 0; i < this.item.comments.length; i++) {
-      var item_one = this.item.comments[i]
-      data_arr.push(item_one.msg_id)
-    }
-    this.momentsCircleService.read_total_reply({ 'list': data_arr, 'uid': this.user_id }).then(res => {
-      // if (res.result.res_code == 1) {
-        
-      // }
-    })
   }
 
   ionViewDidLoad() {
@@ -79,6 +70,17 @@ export class MomentsDetailPage {
     this.creater = this.item.creater
     this.content = this.item.content
     this.create_date = this.item.create_date
+    this.whether_share = this.item.whether_share
+    var data_arr = []
+    for (let i = 0; i < this.item.comments.length; i++) {
+      var item_one = this.item.comments[i]
+      data_arr.push(item_one.msg_id)
+    }
+    this.momentsCircleService.read_total_reply({ 'list': data_arr, 'uid': this.user_id }).then(res => {
+      // if (res.result.res_code == 1) {
+        
+      // }
+    })
   }
 
   goBack(){

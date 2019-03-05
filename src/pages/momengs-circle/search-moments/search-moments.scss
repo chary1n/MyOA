@@ -1,5 +1,31 @@
 page-search-moments {
 
+    .icon_all{
+        width: 25px;
+        height: 25px;
+        padding: 4px;
+        margin-left: 15px
+    }
+
+    .span_icon_all{
+        position: absolute;
+        color: #b7b7b7;
+        margin-top: 5px;
+        margin-left: -5px
+    }
+
+    .col_comments_content{
+        padding: 0px;
+        height: 35px;
+        margin-right: 10px
+    }
+
+    .col_content_quanzi{
+        padding-top:17px;
+        margin-left: -10px;
+        margin-right: 10px
+    }
+
     .searchbar-ios .searchbar-input{
         padding: 0 28px;
 border-radius: 22px;

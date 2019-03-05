@@ -186,4 +186,8 @@ export class NewWorkBenchPage {
   click_Pay(){
     this.navCtrl.push('NewPayRequestPage')
   }
+
+  click_contact(){
+    this.navCtrl.push('ContactPersonPage')
+  }
 }

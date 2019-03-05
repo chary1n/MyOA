@@ -251,4 +251,9 @@ export class MomengsCirclePage {
     })
   }
   }
+
+  doRefresh(refresh){
+    this.get_dataList(this.selectType);
+    refresh.complete();
+  }
 }

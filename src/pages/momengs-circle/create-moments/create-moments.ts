@@ -115,6 +115,21 @@ export class CreateMomentsPage {
       }
     }
     let body;
+    if(this.imgList.length==1){
+      this.imgList = []
+    }else{
+      if(this.imgList.length>0){
+        var index_this = -1
+        for (let index = 0; index < this.imgList.length; index++) {
+          if(this.imgList[index]=='assets/img/smalladd.png'){
+              index_this = index
+          }
+        }
+        if(index_this!=-1){
+          this.imgList.splice(index_this, 1);
+        }
+      }
+    }
     if(this.is_share){
       body = {
         'user_id': this.user_id,
@@ -145,7 +160,7 @@ export class CreateMomentsPage {
             Utils.toastButtom('分享成功', this.toast) 
           }else{
             Utils.toastButtom('新建成功', this.toast) 
-            this.frontPage.data.need_fresh = this.need_fresh;
+            this.frontPage.data.need_fresh = true;
           }
           this.navCtrl.pop()
         }
