@@ -74,6 +74,10 @@ export class FirstShowPage {
   late_arr = []
 
   isShowCK = false //仓库权限
+
+  limit = 20
+  offset = 0
+  isMoreData = true
   constructor(public navCtrl: NavController, public navParams: NavParams, private datePipe: DatePipe,
     private firshowService: FirstShowService, public storage: Storage,
     public statusBar: StatusBar, public menu: MenuController, public event: Events) {
@@ -81,10 +85,10 @@ export class FirstShowPage {
       this.user_heard = res.result.res_data.user_ava;
       this.uid = res.result.res_data.user_id;
       for (let product of res.result.res_data.groups) {
-          if(product.name == 'group_stock_manager'){
-            this.isShowCK = true;
-          }
+        if (product.name == 'group_stock_manager') {
+          this.isShowCK = true;
         }
+      }
       this.get_backlog_identify(this.currentYear, this.currentMonth)
       // this.get_approval_num()
       this.getType()
@@ -155,6 +159,7 @@ export class FirstShowPage {
 
   //获取某一天的数据
   getDayData(date) {
+    this.isMoreData = true
     let body = {
       'uid': this.uid,
       'date': date
@@ -163,10 +168,13 @@ export class FirstShowPage {
       'me_type': this.me_type,
       'state_type': this.state_type,
       'event_type_id': this.event_type_id,
+      'limit': this.limit,
+      'offset': this.offset,
     }
 
     this.firshowService.get_schedule_list_with_domain_new(body, domain).then(res => {
       if (res.result.res_data && res.result.res_code == 1) {
+        this.isMoreData = true
         this.subNum = res.result.res_data.subNum
         this.itemList = res.result.res_data.wait
         this.notSureList = res.result.res_data.notSure
@@ -196,6 +204,7 @@ export class FirstShowPage {
         'state_type': this.state_type,
         'event_type_id': this.event_type_id,
       })
+      this.offset = 0
       this.getDayData(this.currentDate_date.getFullYear() + '-' + (this.currentDate_date.getMonth() + 1) + '-' + this.currentDate_date.getDate())
 
       // this.event.unsubscribe('search_domain')
@@ -233,6 +242,7 @@ export class FirstShowPage {
             this.state_type = 'all'
             this.event_type_id = []
           }
+          this.offset = 0
           this.getDayData(this.currentDate_date.getFullYear() + '-' + (this.currentDate_date.getMonth() + 1) + '-' + this.currentDate_date.getDate())
         })
 
@@ -404,6 +414,7 @@ export class FirstShowPage {
       }
       this.currentDate_date = new Date(str)
       this.currentDate = this.currentDate_date.getFullYear() + "年" + (this.currentDate_date.getMonth() + 1) + '月'
+      this.offset = 0
       this.getDayData(this.currentDate_date.getFullYear() + '-' + (this.currentDate_date.getMonth() + 1) + '-' + this.currentDate_date.getDate())
       this.setSchedule(new Date(str))
       this.get_backlog_identify(date.y, date.m)
@@ -419,6 +430,7 @@ export class FirstShowPage {
       }
       this.currentDate_date = new Date(str)
       this.currentDate = this.currentDate_date.getFullYear() + "年" + (this.currentDate_date.getMonth() + 1) + '月'
+      this.offset = 0
       this.getDayData(this.currentDate_date.getFullYear() + '-' + (this.currentDate_date.getMonth() + 1) + '-' + this.currentDate_date.getDate())
       this.setSchedule(new Date(str))
       this.get_backlog_identify(date.y, date.m)
@@ -445,6 +457,7 @@ export class FirstShowPage {
       this.dateNow = date.m + '月' + date.d + '日'
     }
     if (isQuest) {
+      this.offset = 0
       this.getDayData(choose_date)
     }
 
@@ -485,6 +498,7 @@ export class FirstShowPage {
     } else {
       this.dateNow = this.dateNow = (this.currentDate_date.getMonth() + 1) + '月' + this.currentDate_date.getDate() + '日'
     }
+    this.offset = 0
     this.getDayData(this.currentDate_date.getFullYear() + '-' + (this.currentDate_date.getMonth() + 1) + '-' + this.currentDate_date.getDate())
     this.setSchedule(new Date(str))
     this.get_backlog_identify(Y, m)
@@ -527,6 +541,7 @@ export class FirstShowPage {
     } else {
       this.dateNow = this.dateNow = (this.currentDate_date.getMonth() + 1) + '月' + this.currentDate_date.getDate() + '日'
     }
+    this.offset = 0
     this.getDayData(this.currentDate_date.getFullYear() + '-' + (this.currentDate_date.getMonth() + 1) + '-' + this.currentDate_date.getDate())
     this.setSchedule(new Date(str))
     this.get_backlog_identify(Y, m)
@@ -750,8 +765,8 @@ export class FirstShowPage {
         this.gongcheng_num = res.result.res_data.gongcheng_num
         this.salary_approval_num = res.result.res_data.salary_approval_num
         this.salary_adjust_approval_num = res.result.res_data.salary_adjust_approval_num
-        this.all_approval = this.recoup_num + this.vacation_num + this.jk_num + this.bx_num + this.yf_num + this.sg_num + this.caigou_num + this.tousu_num + this.pay_num  + this.gongcheng_num + this.salary_approval_num + this.salary_adjust_approval_num
-        if (this.isShowCK){
+        this.all_approval = this.recoup_num + this.vacation_num + this.jk_num + this.bx_num + this.yf_num + this.sg_num + this.caigou_num + this.tousu_num + this.pay_num + this.gongcheng_num + this.salary_approval_num + this.salary_adjust_approval_num
+        if (this.isShowCK) {
           this.all_approval += this.pandian_num
         }
         if (this.all_approval != 0) {
@@ -865,24 +880,63 @@ export class FirstShowPage {
     })
   }
 
-  toPAY(){
+  toPAY() {
     this.navCtrl.push('NewPayRequestPage')
   }
 
-  toGC(){
+  toGC() {
     this.navCtrl.push('GongchengListPage')
   }
 
-  toPD(){
+  toPD() {
     this.navCtrl.push('PandianListPage')
   }
 
-  toHXD(){
+  toHXD() {
     this.navCtrl.push('SalaryContractPage')
   }
 
-  toTXD(){
+  toTXD() {
     this.navCtrl.push('SalaryAdjustPage')
+  }
+
+  doInfinite(infiniteScroll) {
+    if (this.isMoreData) {
+      this.offset += 20
+      let body = {
+        'uid': this.uid,
+        'date': this.currentDate_date.getFullYear() + '-' + (this.currentDate_date.getMonth() + 1) + '-' + this.currentDate_date.getDate()
+      }
+      let domain = {
+        'me_type': this.me_type,
+        'state_type': this.state_type,
+        'event_type_id': this.event_type_id,
+        'limit': this.limit,
+        'offset': this.offset,
+      }
+
+      this.firshowService.get_schedule_list_with_domain_new_more_data(body, domain).then(res => {
+        infiniteScroll.complete()
+        if (res.result.res_data && res.result.res_code == 1) {
+          for (let item of res.result.res_data) {
+            this.itemList.push(item)
+          }
+          if (res.result.res_data.length == 20) {
+            this.isMoreData = true
+          }
+          else {
+            this.isMoreData = false
+          }
+        }
+        else {
+          this.isMoreData = false
+        }
+      })
+    }
+    else {
+      infiniteScroll.complete()
+    }
+
   }
 
 }
