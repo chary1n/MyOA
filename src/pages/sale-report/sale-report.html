@@ -1,0 +1,97 @@
+<!--
+  Generated template for the SaleReportPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="gongdan-color" hideBackButton="true">
+    <ion-buttons left>
+      <button ion-button icon-only (click)="goBack()">
+            <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+          </button>
+    </ion-buttons>
+    <ion-title>销售业绩</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <div class="sale_dashboard_templ_new_wrap">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th colspan="2" rowspan="2"></th>
+          <th colspan="2" *ngFor='let item of result.columns'>
+            {{item.name}}
+          </th>
+        </tr>
+        <tr>
+          <!--<div *ngFor='let item of result.columns'>-->
+          <td *ngFor='let item of adjust_arr;let i = index'>
+            <div *ngIf="i%2==0">
+              月
+            </div>
+            <div *ngIf="i%2!=0">
+              年
+            </div>
+          </td>
+          <!--<th *ngFor='let item of result.columns;let i = index' *ngIf="i/2!=0">年</th>-->
+          <!--</div>-->
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor='let team_item of result.table_data;let i = index'>
+          <ng-container *ngFor='let obj of team_item.child_team_ids;let k = index'>
+            <tr>
+              <!--<t t-set="flag" t-value="1" />-->
+              <td *ngIf="k==0" class="team_name" [attr.rowspan]="team_item.child_team_ids.length + 1">
+                {{team_item.name}}
+              </td>
+              <td>
+                {{obj.name}}
+              </td>
+              <ng-container *ngFor='let amount_item of obj.serial_ids'>
+                <td>{{amount_item.val1}}</td>
+                <td>{{amount_item.val2}}</td>
+              </ng-container>
+              <!--<div *ngFor='let amount_item of obj.serial_ids'>
+              <td>
+                <div>
+                  {{amount_item.val1}}
+                </div>
+              </td>
+              <td>
+                <div>
+                  {{amount_item.val2}}
+                </div>
+              </td>
+            </div>-->
+            </tr>
+          </ng-container>
+          <tr>
+            <td>小计</td>
+            <ng-container *ngFor='let sub_tot_obj of team_item.sub_tot'>
+              <td style="background: #F0FAFC">
+                  {{sub_tot_obj.val}}
+              </td>
+            </ng-container>
+        </tr>
+        </ng-container>
+        
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="2">合计</td>
+          <ng-container *ngFor='let tot_item of result.tot'>
+            <td style="background: #15B8D9;color: #fff">
+                {{tot_item.val}}
+            </td>
+          </ng-container>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+</ion-content>

@@ -207,6 +207,14 @@
           </div>
         </div>
       </ion-col>
+      <ion-col class="col_class" tappable (click)="click_sale_report()" col-3>
+        <div class="body_class" align="center">
+          <img class="body_img_class" src="assets/img/salary.png">
+          <div class="text_class">
+            销售业绩
+          </div>
+        </div>
+      </ion-col>
     </ion-row>
   </ion-grid>
   <ion-grid *ngIf="inner_type == 'caigou' && isShowCG" class="grid_class">
