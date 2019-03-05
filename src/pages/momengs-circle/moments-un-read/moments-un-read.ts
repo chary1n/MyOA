@@ -45,6 +45,7 @@ export class MomentsUnReadPage {
   }
 
   gotoDeatil(items){
+    this.isAllRead = true
       this.navCtrl.push('MomentsDetailPage',{
         'id': items.res_id,
         'user_id': this.user_id

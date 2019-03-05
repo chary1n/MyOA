@@ -190,4 +190,7 @@ export class NewWorkBenchPage {
   click_sale_report(){
     this.navCtrl.push('SaleReportPage')
   }
+  click_contact(){
+    this.navCtrl.push('ContactPersonPage')
+  }
 }

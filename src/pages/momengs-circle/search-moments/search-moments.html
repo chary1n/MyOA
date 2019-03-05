@@ -30,9 +30,9 @@
                       <img src="{{item.header_img}}" style="border-radius: 20px;width: 40px;height: 40px;"
                       tappable (click)='to_employee_detai(item)' >
                     </ion-col>
-                    <ion-col col-9 style="padding-top:17px;margin-left: -10px" tappable (click)='to_detail(item)'>
+                    <ion-col col-10 class="col_content_quanzi" tappable (click)='to_detail(item)'>
                       <span style="font-size:95%;font-weight: bold">{{item.creater}}</span>
-                      <span style="font-size:95%;float: right;margin-right: -10px;color:#cdcdcd"
+                      <span style="font-size:95%;float: right;margin-right: 4px;color:#cdcdcd"
                        *ngIf="item.is_author" tappable (click)='delete_moments(item);$event.stopPropagation()'>删除</span>
                       <p style="font-size: 95%;margin-top: 5px;
                       overflow: hidden;
@@ -59,55 +59,58 @@
                 <ion-grid style="margin-top: -5px;margin-bottom: -5px">
                   <ion-row>
                     <ion-col>
-                        <span style="color: #cdcdcd;position: absolute;font-size: 85%;margin-left: 50px;margin-top: 3px">{{item.create_date}}</span>
+                        <span style="color: #cdcdcd;position: absolute;font-size: 95%;margin-left: 48px;margin-top: 3px">{{item.create_date}}</span>
                     </ion-col>
                     <ion-col>
                         <div>
-                            <img src="assets/img/work_bench/feedback.png" style="width: 15px;height: 15px;margin-left: 65px" tappable (click)="to_detail(item)">
-                            <span *ngIf='item.comment_count > 0' style="position: absolute;color: #cdcdcd">{{item.comment_count}}</span>                            
-                            <img *ngIf='item.whether_collect' src="assets/img/yesshoucang.png"  tappable (click)='cancel_shoucang(item)' style="width: 15px;height: 15px;margin-left: 15px">
-                            <img *ngIf='!item.whether_collect' src="assets/img/unshoucang.png"  tappable (click)='update_shoucang(item)' style="width: 15px;height: 15px;margin-left: 15px">
-                            <span *ngIf='item.count_collect > 0' style="position: absolute;color: #cdcdcd">{{item.count_collect}}</span>
-                            <img *ngIf='item.whether_like' src="assets/img/yi_zan.png"  tappable (click)='cancel_zan(item)' style="width: 15px;height: 15px;margin-left: 15px">
-                            <img *ngIf='!item.whether_like' src="assets/img/un_zan.png"  tappable (click)='update_zan(item)' style="width: 15px;height: 15px;margin-left: 15px">
-                            <span *ngIf='item.like_count > 0' style="position: absolute;color: #cdcdcd;">{{item.like_count}}</span>
+                            <img src="assets/img/work_bench/feedback.png" style="width: 25px;height: 25px;margin-left: 25px;padding: 4px" tappable (click)="to_detail(item)">
+                            <span *ngIf='item.comment_count > 0' class="span_icon_all">{{item.comment_count}}</span> 
+                            <span *ngIf='item.comment_count <= 0' class="span_icon_all">0</span>                           
+                            <img *ngIf='item.whether_collect' src="assets/img/yesshoucang.png"  tappable (click)='cancel_shoucang(item)' class="icon_all">
+                            <img *ngIf='!item.whether_collect' src="assets/img/unshoucang.png"  tappable (click)='update_shoucang(item)' class="icon_all">
+                            <span *ngIf='item.count_collect > 0' class="span_icon_all">{{item.count_collect}}</span>
+                            <span *ngIf='item.count_collect <= 0' class="span_icon_all">0</span>  
+                            <img *ngIf='item.whether_like' src="assets/img/yi_zan.png"  tappable (click)='cancel_zan(item)' class="icon_all">
+                            <img *ngIf='!item.whether_like' src="assets/img/un_zan.png"  tappable (click)='update_zan(item)' class="icon_all">
+                            <span *ngIf='item.like_count > 0' class="span_icon_all">{{item.like_count}}</span>
+                            <span *ngIf='item.like_count <= 0' class="span_icon_all">0</span>  
                         </div>
                     </ion-col>
                   </ion-row>
                 </ion-grid>
-                <ion-grid style="align-items: center;background: #f0f2f5;width: 75%;padding-bottom: 10px;
+                <ion-grid style="align-items: center;background: #f0f2f5;width: 78%;padding-bottom: 10px;
                 margin-left: 55px;border-radius: 3px;margin-bottom: 10px"  *ngIf='item.comment_count<=5 && item.comment_count>0'>
                   <ion-row style="width: 100%">
-                    <ion-col col-10 *ngFor="let comment of item.comments" style="padding: 0px;height: 35px;">
+                    <ion-col col-11 *ngFor="let comment of item.comments" class="col_comments_content">
                           <p style="float: left;color: #2597ec;font-size: 90%;margin-left: 5px">
                               {{comment.create_uid}}:
                           </p>
                           <p style="overflow: hidden;
                           display: -webkit-box;
-                          -webkit-line-clamp: 2;
-                          -webkit-box-orient: vertical;font-size: 90%;padding-left:10px;">
+                          -webkit-line-clamp: 1;
+                          -webkit-box-orient: vertical;font-size: 90%;padding-left:10px;color: #333333">
                               {{comment.context}}
                           </p>
                     </ion-col>
                   </ion-row>
                 </ion-grid> 
-                <ion-grid style="align-items: center;background: #f0f2f5;width: 75%;
+                <ion-grid style="align-items: center;background: #f0f2f5;width: 78%;
                 margin-left: 55px;border-radius: 3px;"  *ngIf='item.comments.length>5'>
                   <ion-row style="width: 100%">
-                    <ion-col col-10 *ngFor="let comment of item.fiveComments" style="padding: 0px;height: 35px;">
+                    <ion-col col-11 *ngFor="let comment of item.fiveComments" class="col_comments_content">
                           <p style="float: left;color: #2597ec;font-size: 90%;margin-left: 5px">
                               {{comment.create_uid}}:
                           </p>
                           <p style="overflow: hidden;
                           display: -webkit-box;
-                          -webkit-line-clamp: 2;
-                          -webkit-box-orient: vertical;font-size: 90%;padding-left:10px;">
+                          -webkit-line-clamp: 1;
+                          -webkit-box-orient: vertical;font-size: 90%;padding-left:10px;color: #333333">
                               {{comment.context}}
                           </p>
                     </ion-col>
                   </ion-row>
                 </ion-grid> 
-                <ion-item no-lines tappable (click)='to_detail(item)' style="background: #f0f2f5;width: 75%;min-height: 30px;
+                <ion-item no-lines tappable (click)='to_detail(item)' style="background: #f0f2f5;width: 78%;min-height: 30px;
                 margin-left: 55px;margin-bottom: 10px;border-top:solid 1px rgb(202, 200, 200)" *ngIf='item.comments.length>5'>
                 <p style="color: #2597ec;font-size: 70%;text-align: center">查看更多</p>
                 </ion-item>

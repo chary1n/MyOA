@@ -1,5 +1,38 @@
 page-moments-detail {
 
+    .icon_all{
+        width: 25px;
+        height: 25px;
+        padding: 4px;
+        margin-left: 15px
+    }
+
+    .span_icon_all{
+        position: absolute;
+        color: #cdcdcd;
+        margin-top: 5px;
+        margin-left: -5px
+    }
+
+    .span_icon_zan{
+        position: absolute;
+        color: #b7b7b7;
+        margin-top: 5px;
+        margin-left: -2px
+    }
+
+    .col_comments_content{
+        padding: 0px;
+        height: 35px;
+        margin-right: 10px
+    }
+
+    .col_content_quanzi{
+        padding-top:17px;
+        margin-left: -10px;
+        margin-right: 10px
+    }
+    
     .col_first{
         margin-left: 40px;
         position:relative;
@@ -98,7 +131,7 @@ height: 30px;
 }
 
 .img_span_class{
-    color: #cdcdcd;
+    color: #b7b7b7;
     font-size: 100%;
     margin-top: 25px;
     position: absolute;

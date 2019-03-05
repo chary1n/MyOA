@@ -25,7 +25,7 @@
           <ion-col col-2>
             <img src="{{header_img}}" style="border-radius: 20px;width: 40px;height: 40px;">
           </ion-col>
-          <ion-col col-9 style="padding-top:17px;margin-left: -10px">
+          <ion-col col-10 class="col_content_quanzi">
             <span style="font-size:90%;font-weight: bold">{{creater}}</span>
             <!-- <span style="font-size:90%;float: right;margin-right: -10px;color:#cdcdcd" *ngIf="is_author">删除</span> -->
             <p style="font-size: 90%;margin-top: 5px;
@@ -51,7 +51,7 @@
           </ion-row>
       </ion-grid>
       <ion-grid style="margin-top: -10px;margin-bottom: -5px">
-            <ion-col col-10 tappable (click)="to_link(item)" style="width: 77%;margin-top:5px;background: #f0f2f5;margin-left: 50px" *ngIf="item.whether_share">
+            <ion-col col-10 tappable (click)="to_link(item)" style="width: 77%;margin-top:5px;background: #f0f2f5;margin-left: 50px" *ngIf="whether_share">
                     <img src="assets/img/share_link.png" style="width: 30px;height: 30px;margin-right: 10px;margin-top: 4px;float: left;">
                       <p style="margin: 0px;margin-left: 15px;font-size: 13px">
                           {{item.share_title}}
@@ -62,18 +62,21 @@
                 </ion-col>
         <ion-row>
           <ion-col>
-              <span style="color: #cdcdcd;position: absolute;font-size: 90%;margin-left: 50px;margin-top: 3px">{{create_date}}</span>
+              <span style="color: #b7b7b7;position: absolute;font-size: 95%;margin-left: 48px;margin-top: 5px">{{create_date}}</span>
           </ion-col>
           <ion-col>
               <div>
-                  <img src="assets/img/work_bench/feedback.png" style="width: 17px;height: 17px;margin-left: 65px" tappable (click)="only_reply(item)">
-                  <span *ngIf='comment_count > 0' style="position: absolute;color: #cdcdcd;margin-top: 2px">{{comment_count}}</span>                            
-                  <img *ngIf='whether_collect' src="assets/img/yesshoucang.png"  tappable (click)='cancel_shoucang()' style="width: 17px;height: 17px;margin-left: 15px">
-                  <img *ngIf='!whether_collect' src="assets/img/unshoucang.png"  tappable (click)='update_shoucang()' style="width: 17px;height: 17px;margin-left: 15px">
-                  <span *ngIf='count_collect > 0' style="position: absolute;color: #cdcdcd;margin-top: 2px">{{count_collect}}</span>
-                  <img *ngIf='whether_like' src="assets/img/yi_zan.png"  tappable (click)='cancel_zan()' style="width: 17px;height: 17px;margin-left: 15px">
-                  <img *ngIf='!whether_like' src="assets/img/un_zan.png"  tappable (click)='update_zan()' style="width: 17px;height: 17px;margin-left: 15px">
-                  <span *ngIf='like_count > 0' style="position: absolute;color: #cdcdcd;margin-top: 2px">{{like_count}}</span>
+                  <img src="assets/img/work_bench/feedback.png" style="width: 25px;height: 25px;margin-left: 25px;padding: 4px" tappable (click)="only_reply(item)">
+                  <span *ngIf='comment_count > 0' class="span_icon_all">{{comment_count}}</span>   
+                  <span *ngIf='comment_count <= 0' class="span_icon_all">0</span>                                  
+                  <img *ngIf='whether_collect' src="assets/img/yesshoucang.png"  tappable (click)='cancel_shoucang()' class="icon_all">
+                  <img *ngIf='!whether_collect' src="assets/img/unshoucang.png"  tappable (click)='update_shoucang()' class="icon_all">
+                  <span *ngIf='count_collect > 0' class="span_icon_all">{{count_collect}}</span>
+                  <span *ngIf='count_collect <= 0' class="span_icon_all">0</span>         
+                  <img *ngIf='whether_like' src="assets/img/yi_zan.png"  tappable (click)='cancel_zan()' class="icon_all">
+                  <img *ngIf='!whether_like' src="assets/img/un_zan.png"  tappable (click)='update_zan()' class="icon_all">
+                  <span *ngIf='like_count > 0' class="span_icon_zan">{{like_count}}</span>
+                  <span *ngIf='like_count <= 0' class="span_icon_zan">0</span>         
               </div>
           </ion-col>
         </ion-row>
@@ -111,7 +114,7 @@
             </ion-item>
             <ion-item tappable (click)='delete_reply(items)' no-lines style="margin-top:-5px">
                 <p text-wrap [ngClass]="{true:'content_message',false:'content_message_no_lines'}[items.child_ids.length > 0]" class="">
-                    <span></span><span style="color:#2597ec;"></span><span>{{items.context}}</span>
+                    <span style="color: #333333">{{items.context}}</span>
                     <ion-grid *ngIf="items.attachment_ids.length > 0" style="margin-top:-5px;margin-bottom:5px">
                         <ion-row style="margin-right:5px;">
                             <ion-col style="height:70px" *ngFor="let image of items.attachment_ids" col-3>
