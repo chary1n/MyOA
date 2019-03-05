@@ -254,6 +254,7 @@ export class MomengsCirclePage {
 
   doRefresh(refresh){
     this.get_dataList(this.selectType);
+    this.get_moments_message()
     refresh.complete();
   }
 }
