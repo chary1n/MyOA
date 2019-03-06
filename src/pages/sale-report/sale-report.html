@@ -18,9 +18,10 @@
 </ion-header>
 
 
-<ion-content>
+<ion-content style="overflow-x:hidden">
+  <!--<div style="width:100%;">-->
   <div class="sale_dashboard_templ_new_wrap">
-    <table class="table table-bordered">
+    <table class="table table-bordered" id="sale_dashboard_templ_new_wrap">
       <thead>
         <tr>
           <th colspan="2" rowspan="2"></th>
@@ -54,8 +55,8 @@
                 {{obj.name}}
               </td>
               <ng-container *ngFor='let amount_item of obj.serial_ids'>
-                <td>{{amount_item.val1}}</td>
-                <td>{{amount_item.val2}}</td>
+                <td>{{fix2number(amount_item.val1)}}</td>
+                <td>{{fix2number(amount_item.val2)}}</td>
               </ng-container>
               <!--<div *ngFor='let amount_item of obj.serial_ids'>
               <td>
@@ -75,7 +76,7 @@
             <td>小计</td>
             <ng-container *ngFor='let sub_tot_obj of team_item.sub_tot'>
               <td style="background: #F0FAFC">
-                  {{sub_tot_obj.val}}
+                  {{fix2number(sub_tot_obj.val)}}
               </td>
             </ng-container>
         </tr>
@@ -87,11 +88,12 @@
           <td colspan="2">合计</td>
           <ng-container *ngFor='let tot_item of result.tot'>
             <td style="background: #15B8D9;color: #fff">
-                {{tot_item.val}}
+                {{fix2number(tot_item.val)}}
             </td>
           </ng-container>
         </tr>
       </tfoot>
     </table>
   </div>
+  <!--</div>-->
 </ion-content>

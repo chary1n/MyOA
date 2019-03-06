@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget android-versionCode="78" id="com.linkloving.oa" version="0.7.8" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget android-versionCode="79" id="com.linkloving.oa" version="0.7.9" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>OA</name>
     <description>An awesome Ionic/Cordova app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
@@ -34,6 +34,7 @@
     <preference name="AutoHideSplashScreen" value="false" />
     <preference name="Fullscreen" value="false" />
     <preference name="android-windowSoftInputMode" value="adjustPan" />
+    <preference name="orientation" value="portrait" />
     <platform name="android">
         <name>OA</name>
         <allow-intent href="market:*" />
@@ -177,5 +178,6 @@
         <variable name="API_KEY" value="2846ff12cd5ed2d3a60244ea61315f15" />
     </plugin>
     <allow-navigation href="http://10.0.0.10:8100" />
+    <plugin name="cordova-plugin-screen-orientation" spec="3.0.1" />
     <engine name="ios" spec="^4.5.4" />
 </widget>

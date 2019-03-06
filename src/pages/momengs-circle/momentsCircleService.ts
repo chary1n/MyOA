@@ -27,7 +27,7 @@ export class MomentsCircleService {
     }
 
     search_moments_data(body){
-        return this.httpservice.postBodyNoLoading("search_moments_data",body);
+        return this.httpservice.postBody("search_moments_data",body);
     }
 
     get_moments_message(body){
