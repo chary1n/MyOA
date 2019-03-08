@@ -188,4 +188,15 @@ export class SearchMomentsPage {
     actionSheet.present();
   }
 
+  to_slide_img(imgList, index){
+    this.navCtrl.push('ImageSlidePage', {
+      'imgList': imgList,
+      'index': index
+    })
+  }
+
+  changeDate(date) {
+    let new_date = new Date(date.replace(' ', 'T') + 'Z').getTime();
+    return new_date;
+  }
 }

@@ -23,16 +23,11 @@
     <ion-grid style="background: white">
         <ion-row>
           <ion-col col-2>
-            <img src="{{header_img}}" style="border-radius: 20px;width: 40px;height: 40px;">
+            <img src="{{header_img}}" style="border-radius: 8px;width: 40px;height: 40px;">
           </ion-col>
           <ion-col col-10 class="col_content_quanzi">
-            <span style="font-size:90%;font-weight: bold">{{creater}}</span>
-            <!-- <span style="font-size:90%;float: right;margin-right: -10px;color:#cdcdcd" *ngIf="is_author">删除</span> -->
-            <p style="font-size: 90%;margin-top: 5px;
-            overflow: hidden;
-            display: -webkit-box;
-            -webkit-line-clamp: 5;
-            -webkit-box-orient: vertical;">{{content}}</p>
+            <span style="font-size:98%;font-weight: bold">{{creater}}</span>
+            <p style="font-size: 98%;margin-top: 5px;" text-wrap>{{content}}</p>
           </ion-col>
         </ion-row>
       </ion-grid>
@@ -40,7 +35,7 @@
         <ion-row *ngIf="attachments.length>1" >
                 <!-- [ngClass]="{'row_three':attachments.length<4,'row_six':attachments.length>3,'row_nine':attachments.length>6}" -->
           <ion-col col-3 *ngFor="let attachment of attachments;let i = index" [ngClass]="{true:'col_first',false:'col_other'}[i == 0 || i==3 || i==6]">
-              <img imageViewer src="{{attachment}}"  
+              <img tappable (click)='to_slide_img(attachments, i);$event.stopPropagation()' src="{{attachment}}"  
               style="clip:rect(0px,83px,83px,0px);position: absolute;min-width: 83px;min-height: 83px;">
           </ion-col>
         </ion-row>
@@ -62,7 +57,7 @@
                 </ion-col>
         <ion-row>
           <ion-col>
-              <span style="color: #b7b7b7;position: absolute;font-size: 95%;margin-left: 48px;margin-top: 5px">{{create_date}}</span>
+              <span style="color: #b7b7b7;position: absolute;font-size: 95%;margin-left: 48px;margin-top: 5px">{{changeDate(item.create_date) | date:'yyyy-MM-dd HH:mm:ss'}}</span>
           </ion-col>
           <ion-col>
               <div>

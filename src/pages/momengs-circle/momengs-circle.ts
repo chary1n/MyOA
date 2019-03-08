@@ -1,11 +1,12 @@
 import { Utils } from './../../providers/Utils';
 import { MomentsCircleService } from './momentsCircleService';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ActionSheetController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ActionSheetController , Events} from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { StatusBar } from '@ionic-native/status-bar';
 import { EmployeeService } from '../add-employee/EmployeeService';
 import { ToastController } from 'ionic-angular/components/toast/toast-controller';
+
 
 /**
  * Generated class for the MomengsCirclePage page.
@@ -20,7 +21,7 @@ import { ToastController } from 'ionic-angular/components/toast/toast-controller
   providers: [MomentsCircleService, EmployeeService]
 })
 export class MomengsCirclePage {
-
+  
   selectType = 'all'
   user_id: any;
   dataList = []
@@ -28,7 +29,7 @@ export class MomengsCirclePage {
   un_read_list = []
   constructor(public navCtrl: NavController, public navParams: NavParams, public momentsCircleService: MomentsCircleService
               , public storage: Storage, public statusBar: StatusBar,public employeeService: EmployeeService,
-              public toastCtrl: ToastController,public actionSheetCtrl: ActionSheetController) {
+              public toastCtrl: ToastController,public actionSheetCtrl: ActionSheetController, public events: Events) {
 
                 this.storage.get('user')
       .then(res => {
@@ -49,6 +50,9 @@ export class MomengsCirclePage {
       if (res) {
         if (res.result.res_code == 1 && res.result.res_data) {
           this.un_read_list = res.result.res_data
+          this.events.publish('change', this.un_read_list.length)
+        }else{
+          this.events.publish('change', 0)
         }
       }
     })
@@ -81,6 +85,7 @@ export class MomengsCirclePage {
     if (this.need_fresh == true) {
       this.get_dataList(this.selectType)
       this.get_moments_message()
+      this.need_fresh = false
     }
   }
 
@@ -256,5 +261,17 @@ export class MomengsCirclePage {
     this.get_dataList(this.selectType);
     this.get_moments_message()
     refresh.complete();
+  }
+
+  to_slide_img(imgList, index){
+    this.navCtrl.push('ImageSlidePage', {
+      'imgList': imgList,
+      'index': index
+    })
+  }
+
+  changeDate(date) {
+    let new_date = new Date(date.replace(' ', 'T') + 'Z').getTime();
+    return new_date;
   }
 }

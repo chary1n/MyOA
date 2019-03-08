@@ -1,7 +1,7 @@
 import { FirstShowService } from './../first-show/first_service';
 import { Tabs } from "ionic-angular";
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, MenuController, Events } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { MomentsCircleService } from '../momengs-circle/momentsCircleService';
 
@@ -30,11 +30,22 @@ export class NewTabsPage {
   all_approval
   uid
   constructor(public menu: MenuController, public navCtrl: NavController, public navParams: NavParams, 
-    private firshowService: FirstShowService, public storage: Storage, public momentsCircleService:MomentsCircleService ) {
+    private firshowService: FirstShowService, public storage: Storage, public momentsCircleService:MomentsCircleService 
+      , public events: Events) {
     this.storage.get('user').then(res => {
       this.uid = res.result.res_data.user_id;
       this.get_approval_num()
       this.get_moments_num()
+    })
+
+    this.events.subscribe('change', (number)=>{
+      console.log("------------->");
+      this.quanziNum = number;
+      if (this.quanziNum != 0) {
+        this.quanziNum = 1
+      } else {
+        this.quanziNum = 0
+      }
     })
   }
 

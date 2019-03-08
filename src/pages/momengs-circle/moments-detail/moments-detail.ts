@@ -123,7 +123,7 @@ export class MomentsDetailPage {
   only_reply(item){
     this.navCtrl.push('CalendarChatPage', {
       item: item,
-      res_id: item.id,
+      res_id: this.item.id,
       navCtrl: 'MomentsDetailPage',
       type: 'rt.colleagues.circle',
       has_parent: false,
@@ -133,9 +133,9 @@ export class MomentsDetailPage {
   only_reply_to(items){
     this.navCtrl.push('CalendarChatPage', {
       item: items,
-      res_id: items.msg_id,
+      res_id: this.item.id,
       navCtrl: 'MomentsDetailPage',
-      type: 'rt.message.reply',
+      type: 'rt.colleagues.circle',
       has_parent: true,
   })
   }
@@ -293,4 +293,12 @@ export class MomentsDetailPage {
         }
       })
     }
+
+    to_slide_img(imgList, index){
+      this.navCtrl.push('ImageSlidePage', {
+        'imgList': imgList,
+        'index': index
+      })
+    }
+
 }

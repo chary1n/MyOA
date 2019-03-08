@@ -206,6 +206,7 @@ export class CreateMomentsPage {
   getPicture(type, allowEdit: boolean = false) {//1拍照,0从图库选择
     let options = {
       allowEdit: false,
+      quality: 50
     };
     if (type == 1) {
       this.nativeService.getPictureByCamera(options).subscribe(img_url => {

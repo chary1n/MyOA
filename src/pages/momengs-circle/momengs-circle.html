@@ -11,8 +11,6 @@
   </ion-navbar>
 
 </ion-header> -->
-
-
 <ion-content>
     <div ion-fixed style="background: #2597ec;width: 100%" align="center">
         <p style="float: left;margin-left: 15px"  tappable (click)="click_All()"
@@ -45,18 +43,20 @@
               <ion-grid style="background: white">
                   <ion-row>
                     <ion-col col-2>
-                      <img src="{{item.header_img}}" style="border-radius: 20px;width: 40px;height: 40px;"
+                      <img src="{{item.header_img}}" style="border-radius: 8px;width: 40px;height: 40px;"
                       tappable (click)='to_employee_detai(item)' >
                     </ion-col>
                     <ion-col col-10 class="col_content_quanzi" tappable (click)='to_detail(item)'>
-                      <span style="font-size:95%;font-weight: bold">{{item.creater}}</span>
+                      <span style="font-size:100%;font-weight: bold">{{item.creater}}</span>
                       <span style="font-size:95%;float: right;margin-right: 4px;color:#cdcdcd"
                        *ngIf="item.is_author" tappable (click)='delete_moments(item);$event.stopPropagation()'>删除</span>
-                      <p style="font-size: 95%;margin-top: 5px;
+                      <p style="font-size: 100%;margin-top: 5px;
                       overflow: hidden;
                       display: -webkit-box;
                       -webkit-line-clamp: 5;
                       -webkit-box-orient: vertical;">{{item.content}}</p>
+                      <!-- <p style="color: #2597ec;line-height: 2px">收起</p>
+                      <p style="color: #2597ec;line-height: 2px">展开</p> -->
                     </ion-col>
                   </ion-row>
                 </ion-grid>
@@ -64,14 +64,14 @@
                   <ion-row *ngIf="item.attachments.length>1" tappable (click)='to_detail(item)'>
                       <!-- [ngClass]="{'row_three':item.attachments.length<4,'row_six':item.attachments.length>3,'row_nine':item.attachments.length>6}" -->
                     <ion-col col-3 *ngFor="let attachment of item.attachments;let i = index" [ngClass]="{true:'col_first',false:'col_other'}[i == 0 || i==3 || i==6]">
-                        <img imageViewer src="{{attachment}}"  
+                        <img tappable (click)='to_slide_img(item.attachments, i);$event.stopPropagation()' src="{{attachment}}"  
                         style="clip:rect(0px,83px,83px,0px);position: absolute;min-width: 83px;min-height: 83px;">
                     </ion-col>
                   </ion-row>
                   <ion-row *ngIf="item.attachments.length==1" tappable (click)='to_detail(item)'>
                       <ion-col col-4  *ngFor="let attachment of item.attachments" style="margin-left: 48px;margin-top: -20px">
                           <img imageViewer src="{{attachment}}" style="width: auto;height: auto;">
-                      </ion-col>
+                    </ion-col>
                   </ion-row>
                 </ion-grid>
                 <ion-grid style="margin-top: -10px;margin-bottom: -5px">
@@ -86,7 +86,7 @@
                     </ion-col>
                   <ion-row>
                     <ion-col>
-                        <span style="color: #cdcdcd;position: absolute;font-size: 95%;margin-left: 48px;margin-top: 5px">{{item.create_date}}</span>
+                        <span style="color: #cdcdcd;position: absolute;font-size: 95%;margin-left: 48px;margin-top: 5px">{{changeDate(item.create_date) | date:'yyyy-MM-dd HH:mm:ss'}}</span>
                     </ion-col>
                     <ion-col>
                         <div>
@@ -105,33 +105,33 @@
                     </ion-col>
                   </ion-row>
                 </ion-grid>
-                <ion-grid style="align-items: center;background: #f0f2f5;width: 78%;padding-bottom: 10px;
-                margin-left: 55px;border-radius: 3px;margin-bottom: 10px"  *ngIf='item.comment_count<=5 && item.comment_count>0'>
+                <ion-grid style="align-items: center;background: #f0f2f5;width: 78%;padding: 0px;
+                margin-left: 55px;border-radius: 3px;margin-bottom: 10px;padding-bottom: 7px"  *ngIf='item.comment_count<=5 && item.comment_count>0'>
                   <ion-row style="width: 100%">
                     <ion-col col-11 *ngFor="let comment of item.comments" class="col_comments_content">
-                          <p style="float: left;color: #2597ec;font-size: 90%;margin-left: 5px">
+                          <p style="float: left;color: #2597ec;font-size: 90%;margin-left: 8px;margin-top: 7px;">
                               {{comment.create_uid}}:
                           </p>
                           <p style="overflow: hidden;
                           display: -webkit-box;
                           -webkit-line-clamp: 1;
-                          -webkit-box-orient: vertical;font-size: 90%;padding-left:10px;color: #333333">
+                          -webkit-box-orient: vertical;font-size: 90%;padding-left:10px;color: #333333;margin-top: 7px;">
                               {{comment.context}}
                           </p>
                     </ion-col>
                   </ion-row>
                 </ion-grid> 
                 <ion-grid style="align-items: center;background: #f0f2f5;width: 78%;
-                margin-left: 55px;border-radius: 3px;"  *ngIf='item.comments.length>5'>
+                margin-left: 55px;border-radius: 3px;padding-bottom: 15px;padding-top: 0px"  *ngIf='item.comments.length>5'>
                   <ion-row style="width: 100%">
                     <ion-col col-11 *ngFor="let comment of item.fiveComments" class="col_comments_content">
-                          <p style="float: left;color: #2597ec;font-size: 90%;margin-left: 5px">
+                          <p style="float: left;color: #2597ec;font-size: 90%;margin-left: 5px;">
                               {{comment.create_uid}}:
                           </p>
                           <p style="overflow: hidden;
                           display: -webkit-box;
-                          -webkit-line-clamp: 2;
-                          -webkit-box-orient: vertical;font-size: 90%;padding-left:10px;color: #333333">
+                          -webkit-line-clamp: 1;
+                          -webkit-box-orient: vertical;font-size: 90%;padding-left:10px;color: #333333;">
                               {{comment.context}}
                           </p>
                     </ion-col>
