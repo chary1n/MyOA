@@ -1,9 +1,25 @@
 page-sale-report {
 
+.scroll-content{
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    position: absolute;
+    z-index: 1;
+    display: block;
+    overflow-x: scroll; 
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+    will-change: scroll-position;
+}
+
 .sale_dashboard_templ_new_wrap{
     width: 960px;
-    margin: 100px;
+    // margin: 20px;
     text-align: center;
+    overflow-x: auto; 
+    height: 100%; 
 }
 .sale_dashboard_templ_new_wrap th, .sale_dashboard_templ_new_wrap td{
     text-align: center;
