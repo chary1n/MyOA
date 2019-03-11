@@ -80,7 +80,7 @@
                 </ion-grid>
                 <ion-grid style="align-items: center;background: #f0f2f5;width: 78%;
                 margin-left: 55px;border-radius: 3px;margin-bottom: 10px;padding-bottom: 15px;padding-top: 0px"  *ngIf='item.comment_count<=5 && item.comment_count>0'>
-                  <ion-row style="width: 100%">
+                  <ion-row style="width: 100%" tappable (click)='to_detail(item)'>
                     <ion-col col-11 *ngFor="let comment of item.comments" class="col_comments_content">
                           <p style="float: left;color: #2597ec;font-size: 90%;margin-left: 5px">
                               {{comment.create_uid}}:
@@ -110,8 +110,7 @@
                     </ion-col>
                   </ion-row>
                 </ion-grid> 
-                <ion-item no-lines tappable (click)='to_detail(item)' style="background: #f0f2f5;width: 78%;min-height: 30px;
-                margin-left: 55px;margin-bottom: 10px;border-top:solid 1px rgb(202, 200, 200)" *ngIf='item.comments.length>5'>
+                <ion-item no-lines tappable (click)='to_detail(item)' class="see_more" *ngIf='item.comments.length>5'>
                 <p style="color: #2597ec;font-size: 70%;text-align: center">查看更多</p>
                 </ion-item>
           </div>

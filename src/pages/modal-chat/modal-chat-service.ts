@@ -8,6 +8,6 @@ export class ModalChatService {
     }
 
     reply_to(body){
-        return this.httpService.postBody("reply_to", body);
+        return this.httpService.postBodyNoLoading("reply_to", body);
     }
 }

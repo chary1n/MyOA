@@ -35,11 +35,11 @@ export class MomentsCircleService {
     }
 
     read_total_reply(body){
-        return this.httpservice.postBody("read_total_reply", body);
+        return this.httpservice.postBodyNoLoading("read_total_reply", body);
     }
 
     delete_reply(body){
-        return this.httpservice.postBody("delete_reply", body);
+        return this.httpservice.postBodyNoLoading("delete_reply", body);
     }
 
     create_new_moments(body){

@@ -57,7 +57,7 @@
                 </ion-col>
         <ion-row>
           <ion-col>
-              <span style="color: #b7b7b7;position: absolute;font-size: 95%;margin-left: 48px;margin-top: 5px">{{changeDate(item.create_date) | date:'yyyy-MM-dd HH:mm:ss'}}</span>
+              <span style="color: #b7b7b7;position: absolute;font-size: 95%;margin-left: 48px;margin-top: 5px">{{changeDate(create_date) | date:'yyyy-MM-dd HH:mm:ss'}}</span>
           </ion-col>
           <ion-col>
               <div>
@@ -76,6 +76,13 @@
           </ion-col>
         </ion-row>
       </ion-grid>
+      <div  *ngIf="visible_employee_ids.length>0">
+          <p style="margin-left: 10px;float: left;margin-top: 5px">可见的人：</p>
+            <span round style='background-color:#f0f2f5;flex :1 1 100%;color: #999999;font-size: 12px;padding: 0 1rem;height: 20px;'
+            *ngFor="let item of visible_employee_ids" ion-button>
+                          {{item.name}}
+            </span>
+      </div>
     </div>
     <div  class="differ_div_class">
         <div *ngIf='comments.length > 0' style="font-size: 90%;line-height: 30px">
@@ -110,12 +117,25 @@
             <ion-item tappable (click)='delete_reply(items)' no-lines style="margin-top:-5px">
                 <p text-wrap [ngClass]="{true:'content_message',false:'content_message_no_lines'}[items.child_ids.length > 0]" class="">
                     <span style="color: #333333">{{items.context}}</span>
-                    <ion-grid *ngIf="items.attachment_ids.length > 0" style="margin-top:-5px;margin-bottom:5px">
+                    <!-- <ion-grid *ngIf="items.attachment_ids.length > 0" style="margin-top:-5px;margin-bottom:5px">
                         <ion-row style="margin-right:5px;">
                             <ion-col style="height:70px" *ngFor="let image of items.attachment_ids" col-3>
                                 <img style="position:absolute;clip:rect(0px,70px,70px,0px);background-color:#f0f2f5" src='{{image}}' imageViewer/>
                             </ion-col>
                         </ion-row>
+                    </ion-grid> -->
+                    <ion-grid *ngIf="items.attachment_ids.length > 0" style="margin-top:-5px;margin-bottom:5px">
+                            <ion-row *ngIf="items.attachment_ids.length>1">
+                              <ion-col col-3 *ngFor="let attachment of items.attachment_ids;let i = index" [ngClass]="{true:'col_first_next',false:'col_other_next'}[i == 0 || i==3 || i==6]">
+                                  <img tappable (click)='to_slide_img(item.attachments, i);$event.stopPropagation()' src="{{attachment}}"  
+                                  style="clip:rect(0px,83px,83px,0px);position: absolute;min-width: 83px;min-height: 83px;">
+                              </ion-col>
+                            </ion-row>
+                            <ion-row *ngIf="items.attachment_ids.length==1">
+                                <ion-col col-4  *ngFor="let attachment of items.attachment_ids" style="margin-left: 48px;margin-top: -20px">
+                                    <img imageViewer src="{{attachment}}" style="width: auto;height: auto;">
+                              </ion-col>
+                            </ion-row>
                     </ion-grid>
                 </p>
 
@@ -128,13 +148,26 @@
                     <span style="color:#2597ec;">@{{line.reply_name}} </span>
                     <span style="color:8a9299">{{line.context}}</span>
                 </p>
-                <ion-grid *ngIf="line.attachment_ids.length > 0" style="margin-top: -30px;
+                <!-- <ion-grid *ngIf="line.attachment_ids.length > 0" style="margin-top: -30px;
     margin-bottom: 25px;">
                     <ion-row style="margin-right:5px;">
                         <ion-col style="height:70px;margin-top:10px;" *ngFor="let image of line.attachment_ids" col-3>
                             <img style="position:absolute;clip:rect(0px,70px,70px,0px);background-color:#f0f2f5" src='{{image}}' imageViewer/>
                         </ion-col>
                     </ion-row>
+                </ion-grid> -->
+                <ion-grid *ngIf="line.attachment_ids.length > 0" style="margin-top: -30px;margin-bottom: 25px;">
+                        <ion-row *ngIf="line.attachment_ids.length>1">
+                          <ion-col col-3 *ngFor="let attachment of line.attachment_ids;let i = index" [ngClass]="{true:'col_first_next',false:'col_other_next'}[i == 0 || i==3 || i==6]">
+                              <img tappable (click)='to_slide_img(line.attachment_ids, i);$event.stopPropagation()' src="{{attachment}}"  
+                              style="clip:rect(0px,83px,83px,0px);position: absolute;min-width: 83px;min-height: 83px;">
+                          </ion-col>
+                        </ion-row>
+                        <ion-row *ngIf="line.attachments.length==1">
+                            <ion-col col-4  *ngFor="let attachment of line.attachment_ids" style="margin-left: 48px;margin-top: -20px">
+                                <img imageViewer src="{{attachment}}" style="width: auto;height: auto;">
+                          </ion-col>
+                        </ion-row>
                 </ion-grid>
             </div>
         </div>

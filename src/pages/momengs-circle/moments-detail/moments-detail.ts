@@ -5,6 +5,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { Utils } from './../../../providers/Utils';
 import { ToastController } from 'ionic-angular/components/toast/toast-controller';
 import { FirstShowService } from '../../first-show/first_service';
+import { GalleryModal } from 'ionic-gallery-modal';
 
 /**
  * Generated class for the MomentsDetailPage page.
@@ -37,6 +38,7 @@ export class MomentsDetailPage {
   creater: any
   content: any
   create_date: any
+  visible_employee_ids=[]
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public statusBar: StatusBar, public momentsCircleService: MomentsCircleService,
     public actionSheetCtrl: ActionSheetController, public toastCtrl: ToastController, public firService: FirstShowService,
@@ -72,6 +74,7 @@ export class MomentsDetailPage {
     this.content = this.item.content
     this.create_date = this.item.create_date
     this.whether_share = this.item.whether_share
+    this.visible_employee_ids = this.item.visible_employee_ids
     var data_arr = []
     for (let i = 0; i < this.item.comments.length; i++) {
       var item_one = this.item.comments[i]
@@ -141,6 +144,7 @@ export class MomentsDetailPage {
     modal.onDidDismiss(data => {
       if (data.need_fresh) {
         this.get_data()
+        this.need_fresh = true
       }
     });
     modal.present();
@@ -166,6 +170,7 @@ export class MomentsDetailPage {
     modal.onDidDismiss(data => {
       if (data.need_fresh) {
         this.get_data()
+        this.need_fresh = true
       }
     });
     modal.present();
@@ -190,6 +195,7 @@ export class MomentsDetailPage {
     modal.onDidDismiss(data => {
       if (data.need_fresh) {
         this.get_data()
+        this.need_fresh = true
       }
     });
     modal.present();
@@ -340,10 +346,17 @@ export class MomentsDetailPage {
   }
 
   to_slide_img(imgList, index) {
-    this.navCtrl.push('ImageSlidePage', {
-      'imgList': imgList,
-      'index': index
-    })
+    let data = []
+    for (let index = 0; index < imgList.length; index++) {
+      data.push({
+        url: imgList[index]
+      })
+    }
+   let modal = this.modalController.create(GalleryModal, {
+       photos: data,
+       initialSlide: index
+   });
+   modal.present();
   }
 
 }

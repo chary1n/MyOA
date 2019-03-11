@@ -3,9 +3,10 @@ import { EmployeeService } from './../../add-employee/EmployeeService';
 import { MomentsCircleService } from './../momentsCircleService';
 import { SearchMomentsAutoService } from './searchAutoService';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ActionSheetController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ActionSheetController, ModalController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { Utils } from '../../../providers/Utils';
+import { GalleryModal } from 'ionic-gallery-modal';
 
 
 /**
@@ -30,7 +31,7 @@ export class SearchMomentsPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,
      public searchMomentsAutoService: SearchMomentsAutoService,
       public momentsCircleService: MomentsCircleService, public storage: Storage, public employeeService: EmployeeService,
-      public actionSheetCtrl: ActionSheetController, public toastCtrl: ToastController) {
+      public actionSheetCtrl: ActionSheetController, public toastCtrl: ToastController, public modalController: ModalController) {
   }
 
   ionViewDidLoad() {
@@ -189,10 +190,17 @@ export class SearchMomentsPage {
   }
 
   to_slide_img(imgList, index){
-    this.navCtrl.push('ImageSlidePage', {
-      'imgList': imgList,
-      'index': index
-    })
+    let data = []
+    for (let index = 0; index < imgList.length; index++) {
+      data.push({
+        url: imgList[index]
+      })
+    }
+   let modal = this.modalController.create(GalleryModal, {
+       photos: data,
+       initialSlide: index
+   });
+   modal.present();
   }
 
   changeDate(date) {
