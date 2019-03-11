@@ -7,7 +7,9 @@ import { IonicImageViewerModule } from 'ionic-img-viewer';
     CalendarDeatilpagePage,
   ],
   imports: [
-    IonicPageModule.forChild(CalendarDeatilpagePage),IonicImageViewerModule
+    IonicPageModule.forChild(CalendarDeatilpagePage),IonicImageViewerModule,
+  ],
+  entryComponents: [
   ],
 })
 export class CalendarDeatilpagePageModule {}
