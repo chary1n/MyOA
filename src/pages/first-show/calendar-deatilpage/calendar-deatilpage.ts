@@ -2,7 +2,7 @@ import { Utils } from './../../../providers/Utils';
 import { Storage } from '@ionic/storage';
 import { FirstShowService } from './../first_service';
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, Content, AlertController, Keyboard, ActionSheetController, Platform } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Content, AlertController, Keyboard, ActionSheetController, Platform ,ModalController,ViewController} from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { ToastController } from 'ionic-angular/components/toast/toast-controller';
 import { DatePipe } from '@angular/common';
@@ -124,7 +124,8 @@ export class CalendarDeatilpagePage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public statusBar: StatusBar,
     public firService: FirstShowService, public storage: Storage, public toastCtrl: ToastController,
     private datePipe: DatePipe, private sanitizer: DomSanitizer, public alertCtrl: AlertController,
-    public keyboard: Keyboard, public actionSheetCtrl: ActionSheetController, public platform: Platform) {
+    public keyboard: Keyboard, public actionSheetCtrl: ActionSheetController, public platform: Platform,
+    public modalController:ModalController) {
     var self = this
     this.setting = {
       check: {
@@ -509,7 +510,11 @@ export class CalendarDeatilpagePage {
             text: '确定',
             handler: () => {
               body['rt_pcc_pm_state'] = 2
-              this.write_body(body)
+              this.firService.write_wait_thing(body).then(res => {
+                if (res.result.res_data && res.result.res_code == 1) {
+                  this.navCtrl.pop()
+                }
+              })
             }
           }
           ]
@@ -1252,10 +1257,10 @@ export class CalendarDeatilpagePage {
 
     }
 
-    if (this.type_name == '任务'){
+    if (this.type_name == '任务') {
       if (!this.rt_pcc_pm_name) {
-      myString = "    请选择PCC"
-    }
+        myString = "    请选择PCC"
+      }
     }
     if (myString != "") {
       Utils.toastButtom(myString, this.toastCtrl)
@@ -1462,11 +1467,6 @@ export class CalendarDeatilpagePage {
   }
 
   send() {
-
-    // if (this.context_message.length == 0 || this.context_message.match(/^\s+$/g)) {
-    //   Utils.toastButtom("回复不可为空", this.toastCtrl)
-    // }
-    // else {
     this.navCtrl.push('CalendarChatPage', {
       item: this.item,
       res_id: this.item.id,
@@ -1474,22 +1474,8 @@ export class CalendarDeatilpagePage {
       type: 'calendar.event',
       has_parent: false,
     })
-
-    // let body = {
-    //   'uid': this.uid,
-    //   'res_id': this.item.id,
-    //   'context': this.context_message,
-    //   'parent_id': false,
-    //   'type': 'calendar.event',
-    // }
-    // this.firService.reply_to(body).then(res => {
-    //   if (res.result.res_code == 1) {
-    //     this.context_message = ''
-    //     Utils.toastButtom("回复成功", this.toastCtrl)
-    //     this.refresh_view()
-    //   }
-    // })
-    // }
+    // let modal =  this.modalController.create("ModalChatPage")
+    // modal.present();
   }
 
   refresh_view() {
@@ -2052,8 +2038,8 @@ export class CalendarDeatilpagePage {
     })
   }
 
-  goto(item_meeting){
-    if (item_meeting.type == 3){
+  goto(item_meeting) {
+    if (item_meeting.type == 3) {
       this.navCtrl.push('MeetingProjectPage', {
         'meeting_id': item_meeting.meeting_id,
         'isEdit': false,
@@ -2061,26 +2047,108 @@ export class CalendarDeatilpagePage {
         'frontPage': 'CalendarDeatilpagePage'
       })
     }
-    else
-    {
-       this.navCtrl.push('MeetingPage', {
-          'meeting_id': item_meeting.meeting_id,
-          'isEdit': false,
-          'uid': this.uid,
-          'frontPage': 'CalendarDeatilpagePage',
-        })
+    else {
+      this.navCtrl.push('MeetingPage', {
+        'meeting_id': item_meeting.meeting_id,
+        'isEdit': false,
+        'uid': this.uid,
+        'frontPage': 'CalendarDeatilpagePage',
+      })
     }
   }
 
-   //分享到圈子
-   share_moments(){
+  //分享到圈子
+  share_moments() {
     this.navCtrl.push('CreateMomentsPage', {
-        user_id: this.uid,
-        is_share: true,
-        share_id: this.item.id,
-        share_title: this.subject,
-        share_from: '待办',
-        share_model: this.item.current_model_name
+      user_id: this.uid,
+      is_share: true,
+      share_id: this.item.id,
+      share_title: this.subject,
+      share_from: '待办',
+      share_model: this.item.current_model_name
     })
+  }
+}
+
+
+@Component({
+  template: `
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Description
+    </ion-title>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">
+        <span ion-text color="primary" showWhen="ios">Cancel</span>
+        <ion-icon name="md-close" showWhen="android, windows"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list>
+      <ion-item>
+        <ion-avatar item-start>
+          <img src="{{character.image}}">
+        </ion-avatar>
+        <h2>{{character.name}}</h2>
+        <p>{{character.quote}}</p>
+      </ion-item>
+      <ion-item *ngFor="let item of character['items']">
+        {{item.title}}
+        <ion-note item-end>
+          {{item.note}}
+        </ion-note>
+      </ion-item>
+  </ion-list>
+</ion-content>
+`
+})
+export class ModalContentPage {
+  character;
+
+  constructor(
+    public platform: Platform,
+    public params: NavParams,
+    public viewCtrl: ViewController
+  ) {
+    var characters = [
+      {
+        name: 'Gollum',
+        quote: 'Sneaky little hobbitses!',
+        image: 'assets/img/avatar-gollum.jpg',
+        items: [
+          { title: 'Race', note: 'Hobbit' },
+          { title: 'Culture', note: 'River Folk' },
+          { title: 'Alter Ego', note: 'Smeagol' }
+        ]
+      },
+      {
+        name: 'Frodo',
+        quote: 'Go back, Sam! I\'m going to Mordor alone!',
+        image: 'assets/img/avatar-frodo.jpg',
+        items: [
+          { title: 'Race', note: 'Hobbit' },
+          { title: 'Culture', note: 'Shire Folk' },
+          { title: 'Weapon', note: 'Sting' }
+        ]
+      },
+      {
+        name: 'Samwise Gamgee',
+        quote: 'What we need is a few good taters.',
+        image: 'assets/img/avatar-samwise.jpg',
+        items: [
+          { title: 'Race', note: 'Hobbit' },
+          { title: 'Culture', note: 'Shire Folk' },
+          { title: 'Nickname', note: 'Sam' }
+        ]
+      }
+    ];
+    this.character = characters[this.params.get('charNum')];
+  }
+
+  dismiss() {
+    this.viewCtrl.dismiss();
   }
 }

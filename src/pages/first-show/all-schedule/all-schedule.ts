@@ -4,8 +4,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, MenuController, Events } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { StatusBar } from '@ionic-native/status-bar';
-import { FirstshowMenuPage} from '../firstshow-menu/firstshow-menu'
-import { FirstShowPage} from '../first-show'
+import { FirstshowMenuPage } from '../firstshow-menu/firstshow-menu'
+import { FirstShowPage } from '../first-show'
 import 'jquery'
 declare var $: any;
 /**
@@ -43,6 +43,12 @@ export class AllSchedulePage {
     from_work_bench = false
 
     type = []
+
+    limit = 15
+    offset = 0
+    search_type
+    search_text
+    isMoreData = true
     constructor(public navCtrl: NavController, public navParams: NavParams, private firshowService: FirstShowService,
         public storage: Storage, public statusBar: StatusBar, public allScheduleService: AllScheduleService,
         public menu: MenuController, public event: Events) {
@@ -99,12 +105,14 @@ export class AllSchedulePage {
             this.start_date = data.start_date
             this.end_date = data.end_date
             if (this.show_me) {
+                this.offset = 0
                 this.get_all_data()
             }
 
         })
 
         if (this.show_me) {
+            this.offset = 0
             this.storage.get('user').then(res => {
                 this.uid = res.result.res_data.user_id;
                 this.type_id = -1
@@ -113,12 +121,14 @@ export class AllSchedulePage {
                     'me_type': this.me_type,
                     'state_type': this.state_type,
                     'event_type': this.type_id,
+                    'limit': this.limit,
+                    'offset': this.offset,
                 }
 
                 this.firshowService.get_all_schedule_new_test(body).then(res => {
                     if (res.result.res_data && res.result.res_code == 1) {
                         this.dataList = res.result.res_data.data
-                        
+
                         this.meeting_id = res.result.res_data.meeting_id
                         for (let i = 0; i < this.dataList.length; i++) {
                             if (this.dataList[i].id == -1) {
@@ -155,7 +165,7 @@ export class AllSchedulePage {
                 'data': true
             })
             // this.navCtrl.setPages([{page:FirstShowPage}])
-            
+
             // var tolbar = document.getElementsByClassName('tabbar').item(0);
             // tolbar['style'].display = 'flex';
             // this.navCtrl.popTo('FirstShowPage')
@@ -205,6 +215,8 @@ export class AllSchedulePage {
     }
 
     selectType(item) {
+        this.offset = 0
+        document.getElementsByClassName('searchbar-input')[0]['value'] = ''
         this.type_id = item.id
         item.select = true
         for (let i = 0; i < this.type.length; i++) {
@@ -213,6 +225,7 @@ export class AllSchedulePage {
             }
         }
         if (this.show_me) {
+            this.offset = 0
             this.get_all_data()
         }
 
@@ -251,35 +264,37 @@ export class AllSchedulePage {
     }
 
     itemSelected(event) {
-        let type;
-        let search_text;
+        this.search_type = ''
+        this.search_text = ''
         if (event.id == 1) {
-            type = "subject";
-            search_text = event.name.replace("搜 主题：", "")
+            this.search_type = "subject";
+            this.search_text = event.name.replace("搜 主题：", "")
         }
         else if (event.id == 2) {
-            type = "create_uid";
-            search_text = event.name.replace("搜 创建人：", "")
+            this.search_type = "create_uid";
+            this.search_text = event.name.replace("搜 创建人：", "")
         }
         else if (event.id == 3) {
-            type = "rt_project_principal";
-            search_text = event.name.replace("搜 负责人：", "")
+            this.search_type = "rt_project_principal";
+            this.search_text = event.name.replace("搜 负责人：", "")
         }
         else if (event.id == 4) {
-            type = "partner_ids";
-            search_text = event.name.replace("搜 参与人：", "")
+            this.search_type = "partner_ids";
+            this.search_text = event.name.replace("搜 参与人：", "")
         }
-        if (search_text)
+        if (this.search_text)
             this.type_list = []
         let body = {
-            'type': type,
-            'search_text': search_text,
+            'type': this.search_type,
+            'search_text': this.search_text,
             'uid': this.uid,
             'event_type': this.type_id,
             'me_type': this.me_type,
             'state_type': this.state_type,
             'start_date': this.start_date,
             'end_date': this.end_date,
+            'limit': this.limit,
+            'offset': this.offset,
         }
         this.firshowService.search_all_schedule(body).then(res => {
             if (res.result.res_data && res.result.res_code == 1) {
@@ -324,6 +339,8 @@ export class AllSchedulePage {
                 'event_type': this.type_id,
                 'start_date': this.start_date,
                 'end_date': this.end_date,
+                'limit': this.limit,
+                'offset': this.offset,
             }
             this.firshowService.get_all_schedule_new_test(body).then(res => {
                 if (res.result.res_data && res.result.res_code == 1) {
@@ -369,6 +386,7 @@ export class AllSchedulePage {
         this.event.publish('changeTeam', {
             'data': 'me'
         })
+        this.offset = 0
         this.get_all_data()
     }
 
@@ -400,4 +418,44 @@ export class AllSchedulePage {
             }
         })
     }
+
+    doInfinite(infiniteScroll) {
+
+        if (this.isMoreData) {
+            this.offset += 15
+            let body = {
+                'uid': this.uid,
+                'me_type': this.me_type,
+                'state_type': this.state_type,
+                'event_type': this.type_id,
+                'start_date': this.start_date,
+                'end_date': this.end_date,
+                'limit': this.limit,
+                'offset': this.offset,
+                'type': this.search_type,
+                'search_text': this.search_text,
+            }
+            this.firshowService.get_more_schedule(body).then(res => {
+                infiniteScroll.complete()
+                if (res.result.res_data && res.result.res_code == 1) {
+                    for (let item of res.result.res_data) {
+                        this.type_list.push(item)
+                    }
+                    if (res.result.res_data.length == 15) {
+                        this.isMoreData = true
+                    }
+                    else {
+                        this.isMoreData = false
+                    }
+                }
+                else {
+                    this.isMoreData = false
+                }
+            })
+        }
+        else {
+            infiniteScroll.complete()
+        }
+    }
+
 }

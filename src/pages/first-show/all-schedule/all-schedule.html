@@ -72,7 +72,7 @@
             <span [ngClass]="{true:'under_line_style',false:'normal_style'}[item.select]">{{item.display_name}}</span>
         </div>
     </ion-scroll>
-    <div *ngIf='show_me'>
+    <ion-list *ngIf='show_me'>
         <div class="div_class" no-lines *ngFor='let item of type_list' tappable (click)='toDetail(item)'>
             <p>
               <span class="before_class">{{item.type_name}}</span>
@@ -86,8 +86,10 @@
             <img style="width:100px;position:absolute;left:calc(50% - 50px);top:calc(50% - 60px)" src="assets/img/nodataimg.png">
             <p style="width:100px;position:absolute;left:calc(50% - 50px);top:calc(50% + 30px);color:#c2c8cc;font-size:15px">空空如也～</p>
         </div>
-        
-    </div>
+        <ion-infinite-scroll (ionInfinite)="doInfinite($event)" >
+            <ion-infinite-scroll-content></ion-infinite-scroll-content>
+        </ion-infinite-scroll>
+    </ion-list>
     <div *ngIf='!show_me'>
             <ul id="ztree" class="ztree" style="padding-bottom:44px"></ul>
 

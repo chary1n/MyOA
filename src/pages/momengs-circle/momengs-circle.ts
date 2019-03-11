@@ -1,7 +1,7 @@
 import { Utils } from './../../providers/Utils';
 import { MomentsCircleService } from './momentsCircleService';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ActionSheetController , Events} from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ActionSheetController, Events, ModalController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { StatusBar } from '@ionic-native/status-bar';
 import { EmployeeService } from '../add-employee/EmployeeService';
@@ -21,17 +21,17 @@ import { ToastController } from 'ionic-angular/components/toast/toast-controller
   providers: [MomentsCircleService, EmployeeService]
 })
 export class MomengsCirclePage {
-  
+
   selectType = 'all'
   user_id: any;
   dataList = []
   need_fresh = false
   un_read_list = []
   constructor(public navCtrl: NavController, public navParams: NavParams, public momentsCircleService: MomentsCircleService
-              , public storage: Storage, public statusBar: StatusBar,public employeeService: EmployeeService,
-              public toastCtrl: ToastController,public actionSheetCtrl: ActionSheetController, public events: Events) {
+    , public storage: Storage, public statusBar: StatusBar, public employeeService: EmployeeService,
+    public toastCtrl: ToastController, public actionSheetCtrl: ActionSheetController, public events: Events, public modalController: ModalController) {
 
-                this.storage.get('user')
+    this.storage.get('user')
       .then(res => {
         console.log(res)
         this.user_id = res.result.res_data.user_id;
@@ -41,7 +41,7 @@ export class MomengsCirclePage {
   }
 
 
-  get_moments_message(){
+  get_moments_message() {
     this.un_read_list = []
     let body = {
       'user_id': this.user_id,
@@ -51,7 +51,7 @@ export class MomengsCirclePage {
         if (res.result.res_code == 1 && res.result.res_data) {
           this.un_read_list = res.result.res_data
           this.events.publish('change', this.un_read_list.length)
-        }else{
+        } else {
           this.events.publish('change', 0)
         }
       }
@@ -59,7 +59,7 @@ export class MomengsCirclePage {
   }
 
 
-  get_dataList(type){
+  get_dataList(type) {
     let body = {
       'user_id': this.user_id,
       'offset': 0,
@@ -89,150 +89,150 @@ export class MomengsCirclePage {
     }
   }
 
-  click_All(){
+  click_All() {
     this.selectType = 'all'
     this.get_dataList(this.selectType)
   }
 
-  click_MyPush(){
+  click_MyPush() {
     this.selectType = 'my_push'
     this.get_dataList(this.selectType)
   }
 
-  click_MyCollect(){
+  click_MyCollect() {
     this.selectType = 'my_collect'
     this.get_dataList(this.selectType)
   }
 
-  to_detail(item){
+  to_detail(item) {
     this.navCtrl.push('MomentsDetailPage', {
       item: item,
       user_id: this.user_id
     });
   }
 
-  cancel_shoucang(item){
+  cancel_shoucang(item) {
     let body = {
       'user_id': this.user_id,
       'id': item.id,
       'collect': false
     }
-    this.momentsCircleService.collect_moments_data(body).then(res =>{
-      if (res.result.res_code == 1) {      
-        item.count_collect = item.count_collect-1
+    this.momentsCircleService.collect_moments_data(body).then(res => {
+      if (res.result.res_code == 1) {
+        item.count_collect = item.count_collect - 1
         item.whether_collect = false
         // this.get_dataList(this.selectType)
-    }
+      }
     })
   }
 
-  update_shoucang(item){
+  update_shoucang(item) {
     let body = {
       'user_id': this.user_id,
       'id': item.id,
       'collect': true
     }
-    this.momentsCircleService.collect_moments_data(body).then(res =>{
+    this.momentsCircleService.collect_moments_data(body).then(res => {
       if (res.result.res_code == 1) {
-        item.count_collect = item.count_collect+1
+        item.count_collect = item.count_collect + 1
         item.whether_collect = true
         // this.get_dataList(this.selectType)
-    }
+      }
     })
   }
 
-  cancel_zan(item){
+  cancel_zan(item) {
     let body = {
       'user_id': this.user_id,
       'id': item.id,
       'like': false
     }
-    this.momentsCircleService.like_moments_data(body).then(res =>{
+    this.momentsCircleService.like_moments_data(body).then(res => {
       if (res.result.res_code == 1) {
         item.whether_like = false
-        item.like_count = item.like_count-1
+        item.like_count = item.like_count - 1
         // this.get_dataList(this.selectType)
-    }
+      }
     })
   }
 
-  update_zan(item){
+  update_zan(item) {
     let body = {
       'user_id': this.user_id,
       'id': item.id,
       'like': true
     }
-    this.momentsCircleService.like_moments_data(body).then(res =>{
+    this.momentsCircleService.like_moments_data(body).then(res => {
       if (res.result.res_code == 1) {
         item.whether_like = true
-        item.like_count = item.like_count+1
-    }
+        item.like_count = item.like_count + 1
+      }
     })
   }
 
-  to_employee_detai(item){
-      this.employeeService.get_employee_info([item.employee_id], false).then(res => {
-        console.log(res)
-        if (res.result && res.result.res_code == 1) {
-          this.navCtrl.push('EmployeeDetailPage', {
-            item: res.result.res_data[0],
-            origin_data: res.result.res_data[0],
-            id: item.employee_id,
-            user_id: item.id,
-          })
-        }
-      })
+  to_employee_detai(item) {
+    this.employeeService.get_employee_info([item.employee_id], false).then(res => {
+      console.log(res)
+      if (res.result && res.result.res_code == 1) {
+        this.navCtrl.push('EmployeeDetailPage', {
+          item: res.result.res_data[0],
+          origin_data: res.result.res_data[0],
+          id: item.employee_id,
+          user_id: item.id,
+        })
+      }
+    })
   }
 
-  delete_moments(item){
+  delete_moments(item) {
     let actionSheet = this.actionSheetCtrl.create({
       title: '是否删除此圈子',
       buttons: [
-          {
-              text: '确定',
-              handler: () => {
-                let body = {
-                  'user_id': this.user_id,
-                  'id': item.id
-                }
-                this.momentsCircleService.delete_moments_data(body).then(res =>{
-                  if (res.result.res_code == 1) {
-                    Utils.toastButtom("删除成功", this.toastCtrl)
-                    this.get_dataList(this.selectType)
-                }
-                })
+        {
+          text: '确定',
+          handler: () => {
+            let body = {
+              'user_id': this.user_id,
+              'id': item.id
+            }
+            this.momentsCircleService.delete_moments_data(body).then(res => {
+              if (res.result.res_code == 1) {
+                Utils.toastButtom("删除成功", this.toastCtrl)
+                this.get_dataList(this.selectType)
               }
-          },
-          {
-              text: '取消',
-              role: 'cancel',
-              handler: () => {
-                  console.log('Cancel clicked');
-              }
+            })
           }
+        },
+        {
+          text: '取消',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }
       ]
-  });
+    });
     actionSheet.present();
   }
 
-  search_moments(){
+  search_moments() {
     this.navCtrl.push('SearchMomentsPage')
   }
 
-  click_un_read_reply(){
-      this.navCtrl.push('MomentsUnReadPage', {
-        item: this.un_read_list,
-        user_id: this.user_id
-      })
-  }
-
-  createMoments(){
-    this.navCtrl.push('CreateMomentsPage', {
-        user_id: this.user_id
+  click_un_read_reply() {
+    this.navCtrl.push('MomentsUnReadPage', {
+      item: this.un_read_list,
+      user_id: this.user_id
     })
   }
 
-  to_link(items){
+  createMoments() {
+    this.navCtrl.push('CreateMomentsPage', {
+      user_id: this.user_id
+    })
+  }
+
+  to_link(items) {
     if (items.share_model == 'rt.meeting') {
       this.navCtrl.push('MeetingPage', {
         'meeting_id': items.share_id,
@@ -240,30 +240,30 @@ export class MomengsCirclePage {
         'uid': this.user_id,
         'frontPage': 'MomengsCirclePage',
       })
-  } else {
-    let body = {
-      'calendar_id': items.share_id,
-      'user_id': this.user_id
-    }
-    this.momentsCircleService.get_calendar_by_id(body).then(res => {
-      if (res.result.res_code == 1 && res.result.res_data) {
-            this.navCtrl.push('CalendarDeatilpagePage', {
-                      'item': res.result.res_data,
-                      'isEdit': false,
-                      'frontPage': 'MomengsCirclePage',
-                  })
+    } else {
+      let body = {
+        'calendar_id': items.share_id,
+        'user_id': this.user_id
       }
-    })
-  }
+      this.momentsCircleService.get_calendar_by_id(body).then(res => {
+        if (res.result.res_code == 1 && res.result.res_data) {
+          this.navCtrl.push('CalendarDeatilpagePage', {
+            'item': res.result.res_data,
+            'isEdit': false,
+            'frontPage': 'MomengsCirclePage',
+          })
+        }
+      })
+    }
   }
 
-  doRefresh(refresh){
+  doRefresh(refresh) {
     this.get_dataList(this.selectType);
     this.get_moments_message()
     refresh.complete();
   }
 
-  to_slide_img(imgList, index){
+  to_slide_img(imgList, index) {
     this.navCtrl.push('ImageSlidePage', {
       'imgList': imgList,
       'index': index
@@ -273,5 +273,23 @@ export class MomengsCirclePage {
   changeDate(date) {
     let new_date = new Date(date.replace(' ', 'T') + 'Z').getTime();
     return new_date;
+  }
+
+  reply_to(item) {
+    let modal = this.modalController.create("ModalChatPage", {
+      item: item,
+      res_id: item.id,
+      navCtrl: 'MomentsDetailPage',
+      type: 'rt.colleagues.circle',
+      has_parent: false,
+    })
+    let that = this
+    modal.onDidDismiss(data => {
+      if (data.need_fresh) {
+        this.get_dataList(this.selectType)
+        this.get_moments_message()
+      }
+    });
+    modal.present();
   }
 }

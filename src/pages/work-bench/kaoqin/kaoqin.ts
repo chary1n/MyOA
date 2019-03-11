@@ -782,12 +782,12 @@ export class KaoqinPage {
             "company_name": company_name,
             "device_version": that.device.uuid,
           }
-          let loading_start = that.loading.create({
-            enableBackdropDismiss: true
-          });
-          loading_start.present();
+          // let loading_start = that.loading.create({
+          //   enableBackdropDismiss: true
+          // });
+          // loading_start.present();
           that.kaoqinService.employee_attendance(data_obj).then(res => {
-            loading_start.dismiss()
+            // loading_start.dismiss()
             that.isShowActive = true
             if (res.result.res_data && res.result.res_code == 1) {
               that.fail_times = 0;

@@ -90,7 +90,7 @@
                     </ion-col>
                     <ion-col>
                         <div>
-                            <img src="assets/img/work_bench/feedback.png" style="width: 25px;height: 25px;margin-left: 25px;padding: 4px" tappable (click)="to_detail(item)">
+                            <img src="assets/img/work_bench/feedback.png" style="width: 25px;height: 25px;margin-left: 25px;padding: 4px" tappable (click)="reply_to(item)">
                             <span *ngIf='item.comment_count > 0' class="span_icon_all">{{item.comment_count}}</span> 
                             <span *ngIf='item.comment_count <= 0' class="span_icon_all">0</span>                           
                             <img *ngIf='item.whether_collect' src="assets/img/yesshoucang.png"  tappable (click)='cancel_shoucang(item)' class="icon_all">

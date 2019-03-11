@@ -1,0 +1,126 @@
+page-modal-chat {
+    .ion-modal{
+            left: 0;
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 30%;
+    contain: strict;
+    bottom: 0px;
+    }
+
+    .footer_chat_class{
+        height: auto;
+    background-color: white;
+    border-radius: 10px 10px 0px 0px;
+    }
+
+    .left_div{
+  background-color: white;
+  margin: 10px;
+  height: 60px;
+  width: 60px;
+      display: inline-block;
+      position: relative;
+  // float: left;
+}
+
+.scroll_class{
+    border-bottom: solid 1px white;
+    background-color: white;
+    height: 70px;
+    width: 100%;
+    margin-top: 10px;
+    white-space: nowrap;
+    overflow-x: hidden;
+    margin-left: 5px;
+  }
+
+  .send_class{
+              display: inline-block;
+    float: right;
+    width: 70px;
+    background: #f0f2f5;
+    color: gray;
+    margin-right: 10px;
+    border-radius: 25px;
+    height: 38px;
+    text-align: center;
+    line-height: 38px;
+    font-size: 14px;
+    margin-top: 14px;
+  }
+
+  .can_send_class{
+              display: inline-block;
+    float: right;
+    width: 70px;
+    background: #2597ec;
+    color: white;
+    margin-right: 10px;
+    border-radius: 25px;
+    height: 38px;
+    text-align: center;
+    line-height: 38px;
+    font-size: 14px;
+    margin-top: 14px;
+  }
+
+  .img_class{
+      width: 60px;
+      height: 60px;
+  }
+
+  .textarea_class{
+          height: 80px;
+    margin-left: 15px;
+    width: calc(100% - 30px);
+    overflow: hidden;
+    background-color: #f0f2f5;
+    padding-left: 10px;
+  }
+
+  .header_class_p{
+          color: #333333;
+    padding: 15px;
+    font-size: 15px;
+  }
+
+  .bottom_div_class{
+          margin-left: 15px;
+    display: inline-block;
+    margin-top: 15px;
+    margin-bottom: 8px;
+  }
+
+  .bottom_img_class{
+      width: 25px;
+    height: 22px;
+  }
+
+  .bottom_p_class{
+      font-size: 11px;
+    color: gray;
+    width: 25px;
+    text-align: center;
+    margin-top: -2px;
+  }
+
+  .header_icon_class{
+      display: inline-block;
+    float: right;
+    height: 13px;
+  }
+
+  .header_p_class{
+      display: inline-block
+  }
+
+  .delete_icon_class{
+          position: absolute;
+    right: -8px;
+    top: -8px;
+    width: 20px;
+    // height: 20px;
+  }
+}
