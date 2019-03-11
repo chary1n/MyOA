@@ -50,13 +50,11 @@
                       <span style="font-size:100%;font-weight: bold">{{item.creater}}</span>
                       <span style="font-size:95%;float: right;margin-right: 4px;color:#cdcdcd"
                        *ngIf="item.is_author" tappable (click)='delete_moments(item);$event.stopPropagation()'>删除</span>
-                      <p style="font-size: 100%;margin-top: 5px;
-                      overflow: hidden;
-                      display: -webkit-box;
-                      -webkit-line-clamp: 5;
-                      -webkit-box-orient: vertical;">{{item.content}}</p>
-                      <!-- <p style="color: #2597ec;line-height: 2px">收起</p>
-                      <p style="color: #2597ec;line-height: 2px">展开</p> -->
+                      <p  [ngClass]="{true:'collapse_p',false:'expand_p'}[item.is_expand && !item.is_show_expand]">{{item.content}}</p>
+                      <p style="color: #2597ec;line-height: 2px" *ngIf="item.is_expand && item.is_show_expand" 
+                      tappable (click)='expandP(item);$event.stopPropagation()'>收起</p>
+                      <p style="color: #2597ec;line-height: 2px" *ngIf="item.is_expand && !item.is_show_expand"
+                      tappable (click)='expandP(item);$event.stopPropagation()'>展开</p>
                     </ion-col>
                   </ion-row>
                 </ion-grid>
