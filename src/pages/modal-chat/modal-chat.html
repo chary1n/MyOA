@@ -19,11 +19,11 @@
      <ion-icon ios="ios-arrow-down" tappable (click)="click_dissmiss()"></ion-icon>
     </div>
   </div>
-  <ion-textarea #myContent rows="2" placeholder="我来说几句" [(ngModel)]="beizhuText" class="textarea_class" (ionChange)="onChangeText()"></ion-textarea>
+  <ion-textarea #myContent rows="2" autocorrect="on" autocomplete="on" placeholder="我来说几句" [(ngModel)]="beizhuText" class="textarea_class" (ionChange)="onChangeText()"></ion-textarea>
   <ion-scroll *ngIf="imgList.length > 0" class="scroll_class" zooming="true" scrollX="true" align-items-center>
         <div class="left_div" align="center" *ngFor="let img of imgList;let i = index">
             <img class="delete_icon_class" src="assets/img/delete_img_icon.png" tappable (click)="delete_img(i);$event.stopPropagation();" />
-            <img class="img_class" src="{{img}}" imageViewer/>
+            <img class="img_class" tappable (click)="click_img(i)" src="{{img}}"/>
         </div>
   </ion-scroll>
   <div >

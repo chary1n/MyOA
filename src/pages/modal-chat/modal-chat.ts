@@ -1,11 +1,11 @@
 import { Component ,ViewChild} from '@angular/core';
-import { NavController, NavParams, IonicPage, ActionSheetController, ToastController } from 'ionic-angular';
+import { NavController, NavParams, IonicPage, ActionSheetController, ToastController,ModalController } from 'ionic-angular';
 import { ViewController } from 'ionic-angular';
 import { NativeService } from './../../providers/NativeService';
 import { ModalChatService } from './modal-chat-service';
 import { Utils } from './../../providers/Utils';
 import { Storage } from '@ionic/storage';
-
+import { GalleryModal } from 'ionic-gallery-modal';
 /**
  * Generated class for the ModalChatPage page.
  *
@@ -29,7 +29,7 @@ export class ModalChatPage {
   item;
   constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController,
   public nativeService: NativeService, public actionSheetCtrl: ActionSheetController,public modalChatService:ModalChatService,
-  public toast: ToastController,public storage: Storage) {
+  public toast: ToastController,public storage: Storage,public modalController:ModalController) {
     this.item = this.navParams.get('item')
     this.res_id = this.navParams.get('res_id')
     this.type = this.navParams.get('type')
@@ -47,7 +47,7 @@ export class ModalChatPage {
   ionViewDidEnter() {
       setTimeout(() => {
       this.myContent.setFocus();//输入框获取焦点
-    },1)
+    },150)
   }
 
   click_dissmiss(){
@@ -147,6 +147,20 @@ export class ModalChatPage {
         }
       })
     }
+  }
+
+  click_img(i){
+    let data = []
+     for (let index = 0; index < this.imgList.length; index++) {
+       data.push({
+         url: this.imgList[index]
+       })
+     }
+    let modal = this.modalController.create(GalleryModal, {
+        photos: data,
+        initialSlide: i
+    });
+    modal.present();
   }
 
 }
