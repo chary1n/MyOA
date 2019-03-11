@@ -72,6 +72,7 @@ export class MyHammerConfig extends HammerGestureConfig  {
     MyApp,
   ],
   imports: [
+    ionicGalleryModal.GalleryModalModule,
     BrowserModule,
     IonicModule.forRoot(MyApp,{
        backButtonText: '',
@@ -97,6 +98,10 @@ export class MyHammerConfig extends HammerGestureConfig  {
     MyApp,
   ],
   providers: [
+    {
+            provide: HAMMER_GESTURE_CONFIG,
+            useClass: ionicGalleryModal.GalleryModalHammerConfig,
+        },
     StatusBar,
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },

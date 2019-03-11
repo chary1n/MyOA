@@ -6,7 +6,7 @@ import { Storage } from '@ionic/storage';
 import { StatusBar } from '@ionic-native/status-bar';
 import { EmployeeService } from '../add-employee/EmployeeService';
 import { ToastController } from 'ionic-angular/components/toast/toast-controller';
-
+import { GalleryModal } from 'ionic-gallery-modal';
 
 /**
  * Generated class for the MomengsCirclePage page.
@@ -264,10 +264,21 @@ export class MomengsCirclePage {
   }
 
   to_slide_img(imgList, index) {
-    this.navCtrl.push('ImageSlidePage', {
-      'imgList': imgList,
-      'index': index
-    })
+    // this.navCtrl.push('ImageSlidePage', {
+    //   'imgList': imgList,
+    //   'index': index
+    // })
+    let data = []
+     for (let index = 0; index < imgList.length; index++) {
+       data.push({
+         url: imgList[index]
+       })
+     }
+    let modal = this.modalController.create(GalleryModal, {
+        photos: data,
+        initialSlide: index
+    });
+    modal.present();
   }
 
   changeDate(date) {
