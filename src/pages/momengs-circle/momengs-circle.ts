@@ -286,6 +286,11 @@ export class MomengsCirclePage {
     return new_date;
   }
 
+
+  expandP(items){
+    items.is_show_expand = !items.is_show_expand
+  }
+  
   reply_to(item) {
     let modal = this.modalController.create("ModalChatPage", {
       item: item,

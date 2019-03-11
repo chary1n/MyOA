@@ -1,5 +1,19 @@
 page-momengs-circle {
 
+    .expand_p{
+        font-size: 100%;
+        margin-top: 5px;
+    }
+
+    .collapse_p{
+        font-size: 100%;
+        margin-top: 5px;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 5;
+        -webkit-box-orient: vertical;
+    }
+
     .icon_all{
         width: 25px;
         height: 25px;

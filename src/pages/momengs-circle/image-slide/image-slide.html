@@ -7,9 +7,11 @@
 
 
 <ion-content style="background: black">
-  <ion-slides #mySlide loop=true direction=horizontal zoom=true pager=true>
-    <ion-slide *ngFor="let item of imgList" zooming="true">
-      <img src="{{item}}" class="slide-image" tappable (click)="goback()">
+  <ion-slides #mySlide loop=true direction=horizontal pager=true zoom=true scrollbar=false>
+    <ion-slide *ngFor="let item of imgList">
+      <ion-scroll direction="xy"  style="height:100%;width: 100%" zooming="true" min-zoom="1" max-zoom="2" overflow-scroll="false">
+          <img src="{{item}}" class="slide-image" tappable (click)="goback();$event.stopPropagation()">
+      </ion-scroll>
     </ion-slide>
   </ion-slides>
 </ion-content>

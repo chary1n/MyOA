@@ -199,4 +199,8 @@ export class SearchMomentsPage {
     let new_date = new Date(date.replace(' ', 'T') + 'Z').getTime();
     return new_date;
   }
+
+  expandP(items){
+    items.is_show_expand = !items.is_show_expand
+  }
 }
