@@ -52,6 +52,7 @@ import { PhotoLibrary } from '@ionic-native/photo-library';
 import { FileOpener } from '@ionic-native/file-opener';
 import { CodePush } from '@ionic-native/code-push';
 import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
+import * as ionicGalleryModal from 'ionic-gallery-modal';
 import 'hammerjs';
 export class MyHammerConfig extends HammerGestureConfig  {
 //   overrides = <any>{
@@ -71,6 +72,7 @@ export class MyHammerConfig extends HammerGestureConfig  {
     MyApp,
   ],
   imports: [
+    ionicGalleryModal.GalleryModalModule,
     BrowserModule,
     IonicModule.forRoot(MyApp,{
        backButtonText: '',
@@ -96,6 +98,10 @@ export class MyHammerConfig extends HammerGestureConfig  {
     MyApp,
   ],
   providers: [
+    {
+            provide: HAMMER_GESTURE_CONFIG,
+            useClass: ionicGalleryModal.GalleryModalHammerConfig,
+        },
     StatusBar,
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
