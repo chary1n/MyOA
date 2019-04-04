@@ -4,7 +4,8 @@ import { IonicPage, NavController, NavParams, FabContainer, MenuController, Even
 import { Component, ViewChild } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { StatusBar } from '@ionic-native/status-bar';
-
+import { AppService } from '../../app/appService'
+import { HttpService } from '../../providers/HttpService'
 /**
  * Generated class for the FirstShowPage page.
  *
@@ -15,7 +16,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 @Component({
   selector: 'page-first-show',
   templateUrl: 'first-show.html',
-  providers: [DatePipe, FirstShowService]
+  providers: [DatePipe, FirstShowService, AppService]
 })
 export class FirstShowPage {
   @ViewChild('fab') fab: FabContainer;
@@ -80,7 +81,8 @@ export class FirstShowPage {
   isMoreData = true
   constructor(public navCtrl: NavController, public navParams: NavParams, private datePipe: DatePipe,
     private firshowService: FirstShowService, public storage: Storage,
-    public statusBar: StatusBar, public menu: MenuController, public event: Events) {
+    public statusBar: StatusBar, public menu: MenuController, public event: Events,
+    public appService: AppService) {
     this.storage.get('user').then(res => {
       this.user_heard = res.result.res_data.user_ava;
       this.uid = res.result.res_data.user_id;
@@ -89,23 +91,29 @@ export class FirstShowPage {
           this.isShowCK = true;
         }
       }
-      this.get_backlog_identify(this.currentYear, this.currentMonth)
-      // this.get_approval_num()
-      this.getType()
-      this.storage.get('user_schedule_domain_new').then(res => {
-        // console.log(res)
-        if (res) {
-          this.me_type = res.me_type
-          this.state_type = res.state_type
-          this.event_type_id = res.event_type_id
-        }
-        else {
-          this.me_type = []
-          this.state_type = 'all'
-          this.event_type_id = []
-        }
-        // this.getDayData(this.datePipe.transform(new Date(), 'yyyy-MM-dd'))
-      })
+      if (HttpService.need_login) {
+        this.toAutoLogin()
+      }
+      else {
+        this.get_backlog_identify(this.currentYear, this.currentMonth)
+        // this.get_approval_num()
+        this.getType()
+        this.storage.get('user_schedule_domain_new').then(res => {
+          // console.log(res)
+          if (res) {
+            this.me_type = res.me_type
+            this.state_type = res.state_type
+            this.event_type_id = res.event_type_id
+          }
+          else {
+            this.me_type = []
+            this.state_type = 'all'
+            this.event_type_id = []
+          }
+          // this.getDayData(this.datePipe.transform(new Date(), 'yyyy-MM-dd'))
+        })
+      }
+
 
     })
   }
@@ -129,6 +137,7 @@ export class FirstShowPage {
   }
   //获取所有的待办类型
   getType() {
+    console.log(HttpService.need_login)
     let body = {
       'uid': this.uid
     }
@@ -207,49 +216,102 @@ export class FirstShowPage {
       this.offset = 0
       this.getDayData(this.currentDate_date.getFullYear() + '-' + (this.currentDate_date.getMonth() + 1) + '-' + this.currentDate_date.getDate())
 
-      // this.event.unsubscribe('search_domain')
-      // this.me_type = data.me_type
-      // this.state_type = data.state_type
-      // this.start_date = data.start_date
-      // this.end_date = data.end_date
-      // if (this.show_me) {
-      //     this.get_all_data()
-      // }
-
     })
-    this.head_type = 'date'
-    this.un_read_list = []
-    this.storage.get('user').then(res => {
-      this.uid = res.result.res_data.user_id
-      this.get_approval_num()
-      this.firshowService.get_un_read_reply({ 'uid': this.uid }).then(res => {
-        if (res.result.res_data && res.result.res_code == 1) {
-          this.un_read_list = res.result.res_data.read_data
-          this.need_calendar = res.result.res_data.need_calendar
-        }
-      })
-
-      if (this.isDay) {
-        this.storage.get('user_schedule_domain_new').then(res => {
-          console.log(res)
+    if (HttpService.need_login) {
+      this.storage.get('user')
+        .then(res => {
           if (res) {
-            this.me_type = res.me_type
-            this.state_type = res.state_type
-            this.event_type_id = res.event_type_id
+            this.uid = res.result.res_data.user_id;
+            window.localStorage.setItem("id", res.result.res_data.user_id)
+            this.storage.get('user_psd').then(res_db => {
+              this.storage.get("loginIndex").then(res_index => {
+                this.defultChoose(res_index)
+
+                let db_name = res_db.db_name
+                this.appService.toLogin(res_db.user_email, res_db.user_psd, res_db.db_name, "0.8.0")
+                  .then(res => {
+                    if (res.result && res.result.res_code == 1) {
+                      HttpService.user_id = res.result.res_data.user_id;
+                      HttpService.user = res.result.res_data;
+                      HttpService.need_login = false;
+                      this.head_type = 'date'
+                      this.un_read_list = []
+                      this.storage.get('user').then(res => {
+                        this.uid = res.result.res_data.user_id
+                        this.get_approval_num()
+                        this.firshowService.get_un_read_reply({ 'uid': this.uid }).then(res => {
+                          if (res.result.res_data && res.result.res_code == 1) {
+                            this.un_read_list = res.result.res_data.read_data
+                            this.need_calendar = res.result.res_data.need_calendar
+                          }
+                        })
+
+                        if (this.isDay) {
+                          this.storage.get('user_schedule_domain_new').then(res => {
+                            console.log(res)
+                            if (res) {
+                              this.me_type = res.me_type
+                              this.state_type = res.state_type
+                              this.event_type_id = res.event_type_id
+                            }
+                            else {
+                              this.me_type = []
+                              this.state_type = 'all'
+                              this.event_type_id = []
+                            }
+                            this.offset = 0
+                            this.getDayData(this.currentDate_date.getFullYear() + '-' + (this.currentDate_date.getMonth() + 1) + '-' + this.currentDate_date.getDate())
+                          })
+
+                          this.get_backlog_identify(this.currentYear, this.currentMonth)
+                        }
+
+                      })
+                    }
+                    else {
+                    }
+                  }).catch((error) => {
+                  })
+              })
+            })
           }
-          else {
-            this.me_type = []
-            this.state_type = 'all'
-            this.event_type_id = []
+        })
+    }
+    else {
+      this.head_type = 'date'
+      this.un_read_list = []
+      this.storage.get('user').then(res => {
+        this.uid = res.result.res_data.user_id
+        this.get_approval_num()
+        this.firshowService.get_un_read_reply({ 'uid': this.uid }).then(res => {
+          if (res.result.res_data && res.result.res_code == 1) {
+            this.un_read_list = res.result.res_data.read_data
+            this.need_calendar = res.result.res_data.need_calendar
           }
-          this.offset = 0
-          this.getDayData(this.currentDate_date.getFullYear() + '-' + (this.currentDate_date.getMonth() + 1) + '-' + this.currentDate_date.getDate())
         })
 
-        this.get_backlog_identify(this.currentYear, this.currentMonth)
-      }
+        if (this.isDay) {
+          this.storage.get('user_schedule_domain_new').then(res => {
+            console.log(res)
+            if (res) {
+              this.me_type = res.me_type
+              this.state_type = res.state_type
+              this.event_type_id = res.event_type_id
+            }
+            else {
+              this.me_type = []
+              this.state_type = 'all'
+              this.event_type_id = []
+            }
+            this.offset = 0
+            this.getDayData(this.currentDate_date.getFullYear() + '-' + (this.currentDate_date.getMonth() + 1) + '-' + this.currentDate_date.getDate())
+          })
 
-    })
+          this.get_backlog_identify(this.currentYear, this.currentMonth)
+        }
+
+      })
+    }
   }
 
 
@@ -550,20 +612,26 @@ export class FirstShowPage {
 
   gotoDeatil(item) {
     if (item.type_name == '项目') {
-      this.firshowService.get_event_detail({
-        'uid': this.uid,
-        'event_id': item.id
-      }).then(res => {
-        if (res.result.res_data && res.result.res_code == 1) {
-          item = res.result.res_data
-          this.navCtrl.push('MeetingProjectPage', {
-            'meeting_id': item.rt_meeeting_s_id,
+      // this.firshowService.get_event_detail({
+      //   'uid': this.uid,
+      //   'event_id': item.id
+      // }).then(res => {
+      //   if (res.result.res_data && res.result.res_code == 1) {
+      //     item = res.result.res_data
+      //     this.navCtrl.push('MeetingProjectPage', {
+      //       'meeting_id': item.rt_meeeting_s_id,
+      //       'isEdit': false,
+      //       'uid': this.uid,
+      //       'frontPage': 'FirstShowPage'
+      //     })
+      //   }
+      // })
+      this.navCtrl.push('MeetingProjectPage', {
+            'item_id': item.id,
             'isEdit': false,
             'uid': this.uid,
             'frontPage': 'FirstShowPage'
           })
-        }
-      })
     }
     else {
       if (item.res_model_s == 'rt.performance.appraisal.detail' && item.res_id != false) {
@@ -581,34 +649,45 @@ export class FirstShowPage {
         })
       } else {
         if (this.type_id == item.type_id && item.is_meeting_sch == false) {
-          this.firshowService.get_event_detail({
-            'uid': this.uid,
-            'event_id': item.id
-          }).then(res => {
-            if (res.result.res_data && res.result.res_code == 1) {
-              item = res.result.res_data
-              this.navCtrl.push('MeetingPage', {
-                'meeting_id': item.rt_meeeting_s_id,
+          // this.firshowService.get_event_detail({
+          //   'uid': this.uid,
+          //   'event_id': item.id
+          // }).then(res => {
+          //   if (res.result.res_data && res.result.res_code == 1) {
+          //     item = res.result.res_data
+          //     this.navCtrl.push('MeetingPage', {
+          //       'meeting_id': item.rt_meeeting_s_id,
+          //       'isEdit': false,
+          //       'uid': this.uid,
+          //       'frontPage': 'FirstShowPage'
+          //     })
+          //   }
+          // })
+          this.navCtrl.push('MeetingPage', {
+                'item_id': item.id,
                 'isEdit': false,
                 'uid': this.uid,
                 'frontPage': 'FirstShowPage'
               })
-            }
-          })
         } else {
-          this.firshowService.get_event_detail({
-            'uid': this.uid,
-            'event_id': item.id
-          }).then(res => {
-            if (res.result.res_data && res.result.res_code == 1) {
-              item = res.result.res_data
-              this.navCtrl.push('CalendarDeatilpagePage', {
-                'item': item,
+          this.navCtrl.push('CalendarDeatilpagePage', {
+                'item_id': item.id,
                 'isEdit': false,
                 'frontPage': 'FirstShowPage'
               })
-            }
-          })
+          // this.firshowService.get_event_detail({
+          //   'uid': this.uid,
+          //   'event_id': item.id
+          // }).then(res => {
+          //   if (res.result.res_data && res.result.res_code == 1) {
+          //     item = res.result.res_data
+          //     this.navCtrl.push('CalendarDeatilpagePage', {
+          //       'item': item,
+          //       'isEdit': false,
+          //       'frontPage': 'FirstShowPage'
+          //     })
+          //   }
+          // })
 
         }
       }
@@ -846,7 +925,7 @@ export class FirstShowPage {
   toDetail_Late(sub) {
     if (sub.type_name == '项目') {
       this.navCtrl.push('MeetingProjectPage', {
-        'meeting_id': sub.rt_meeeting_s_id,
+        'item_id': sub.id,
         'isEdit': false,
         'uid': this.uid,
         'frontPage': 'AllSchedulePage'
@@ -855,17 +934,22 @@ export class FirstShowPage {
     else {
       if (sub.type_name == '会议') {
         this.navCtrl.push('MeetingPage', {
-          'meeting_id': sub.rt_meeeting_s_id,
+          'item_id': sub.id,
           'isEdit': false,
           'uid': this.uid,
           'frontPage': 'AllSchedulePage',
         })
       } else {
+        // this.navCtrl.push('CalendarDeatilpagePage', {
+        //   'item': sub,
+        //   'isEdit': false,
+        //   'frontPage': 'AllSchedulePage',
+        // })
         this.navCtrl.push('CalendarDeatilpagePage', {
-          'item': sub,
-          'isEdit': false,
-          'frontPage': 'AllSchedulePage',
-        })
+                'item_id': sub.id,
+                'isEdit': false,
+                'frontPage': 'FirstShowPage'
+              })
       }
     }
   }
@@ -937,6 +1021,66 @@ export class FirstShowPage {
       infiniteScroll.complete()
     }
 
+  }
+
+  toAutoLogin() {
+    this.storage.get('user')
+      .then(res => {
+        if (res) {
+          this.uid = res.result.res_data.user_id;
+          window.localStorage.setItem("id", res.result.res_data.user_id)
+          this.storage.get('user_psd').then(res_db => {
+            this.storage.get("loginIndex").then(res_index => {
+              this.defultChoose(res_index)
+
+              let db_name = res_db.db_name
+              this.appService.toLogin(res_db.user_email, res_db.user_psd, res_db.db_name, "0.8.0")
+                .then(res => {
+                  if (res.result && res.result.res_code == 1) {
+                    HttpService.user_id = res.result.res_data.user_id;
+                    HttpService.user = res.result.res_data;
+                    HttpService.need_login = false;
+                    this.get_backlog_identify(this.currentYear, this.currentMonth)
+                    // this.get_approval_num()
+                    this.getType()
+                    this.storage.get('user_schedule_domain_new').then(res => {
+                      // console.log(res)
+                      if (res) {
+                        this.me_type = res.me_type
+                        this.state_type = res.state_type
+                        this.event_type_id = res.event_type_id
+                      }
+                      else {
+                        this.me_type = []
+                        this.state_type = 'all'
+                        this.event_type_id = []
+                      }
+                      // this.getDayData(this.datePipe.transform(new Date(), 'yyyy-MM-dd'))
+                    })
+                  }
+                  else {
+                  }
+                }).catch((error) => {
+                })
+            })
+          })
+        }
+      });
+  }
+
+  defultChoose(index) {
+    if (index == 2) {
+      HttpService.appUrl = "http://dr.robotime.com/"
+    } else if (index == 3) {
+      HttpService.appUrl = "http://erp.robotime.com/"
+    } else if (index == 4) {
+      HttpService.appUrl = "http://121.43.196.231:8888/"
+    } else if (index == 1) {
+      HttpService.appUrl = "http://js.robotime.com/"
+    } else {
+      HttpService.appUrl = HttpService.now_server_url
+      // HttpService.appUrl = "http://192.168.2.10:8081/"
+    }
   }
 
 }

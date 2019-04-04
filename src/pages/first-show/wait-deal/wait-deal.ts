@@ -54,19 +54,25 @@ export class WaitDealPage {
   }
 
   choose_tousu(one_data){
-    this.showService.get_event_detail({
-            'uid': this.uid,
-            'event_id': one_data.rt_complain_task_id
-          }).then(res => {
-            if (res.result.res_data && res.result.res_code == 1) {
-              let item = res.result.res_data
-              this.navCtrl.push('CalendarDeatilpagePage', {
-                'item': item,
+    this.navCtrl.push('CalendarDeatilpagePage', {
+                'item_id': one_data.rt_complain_task_id,
                 'isEdit': false,
                 'tousu_enter': true,
               })
-            }
-          })
+
+    // this.showService.get_event_detail({
+    //         'uid': this.uid,
+    //         'event_id': one_data.rt_complain_task_id
+    //       }).then(res => {
+    //         if (res.result.res_data && res.result.res_code == 1) {
+    //           let item = res.result.res_data
+    //           this.navCtrl.push('CalendarDeatilpagePage', {
+    //             'item': item,
+    //             'isEdit': false,
+    //             'tousu_enter': true,
+    //           })
+    //         }
+    //       })
   }
 
 }

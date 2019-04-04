@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, Content, ActionSheetController, AlertController, Platform } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Content, ActionSheetController, AlertController, Platform, ModalController } from 'ionic-angular';
 import { Utils } from './../../../providers/Utils';
 import { Storage } from '@ionic/storage';
 import { DatePipe } from '@angular/common';
@@ -88,7 +88,8 @@ export class MeetingProjectPage {
   hide_btn = false
   constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage,
     private datePipe: DatePipe, public statusBar: StatusBar, public firService: FirstShowService
-    , public toastCtrl: ToastController, private sanitizer: DomSanitizer, public actionSheetCtrl: ActionSheetController, public alert: AlertController, public platform: Platform) {
+    , public toastCtrl: ToastController, private sanitizer: DomSanitizer, public actionSheetCtrl: ActionSheetController, public alert: AlertController, public platform: Platform,
+    public modalController: ModalController) {
     var self = this
     this.setting = {
       check: {
@@ -140,24 +141,6 @@ export class MeetingProjectPage {
 
     this.isEdit = this.navParams.get('isEdit')
 
-    // var that = this
-    // this.platform.registerBackButtonAction(function () {
-    //         if (that.isEdit) {
-    //             var ctrl = that.alert
-    //             ctrl.create({
-    //                 title: '提示',
-    //                 subTitle: '数据未保存，是否确认返回？',
-    //                 buttons: [{ text: '取消' },
-    //                 {
-    //                     text: '确定',
-    //                     handler: () => {
-    //                         that.navCtrl.pop();
-    //                     }
-    //                 }
-    //                 ]
-    //             }).present();
-    //         }
-    //     }, 0)
   }
 
   ionViewDidLoad() {
@@ -193,12 +176,30 @@ export class MeetingProjectPage {
           this.stop_date = this.datePipe.transform(current_day, 'yyyy-MM-dd')
         }
       } else {
-        this.meeting_id = this.navParams.get('meeting_id');
         this.uid = this.navParams.get('uid');
-        this.firService.read_event({ 'meeting_id': this.meeting_id, 'uid': this.uid }).then(res => {
+        if (this.navParams.get('meeting_id')) {
+          this.meeting_id = this.navParams.get('meeting_id')
+          this.firService.read_event({ 'meeting_id': this.meeting_id, 'uid': this.uid }).then(res => {
 
-        })
-        this.get_all_data()
+          })
+          this.get_all_data()
+        }
+        else {
+          this.firService.get_event_detail({
+            'uid': this.uid,
+            'event_id': this.navParams.get('item_id')
+          }).then(res => {
+            if (res.result.res_data && res.result.res_code == 1) {
+              var item_temp = res.result.res_data
+              this.meeting_id = item_temp.rt_meeeting_s_id
+              this.firService.read_event({ 'meeting_id': this.meeting_id, 'uid': this.uid }).then(res => {
+
+              })
+              this.get_all_data()
+            }
+          })
+        }
+
       }
     })
     this.tree_obj = $.fn.zTree.init($("#ztree"), this.setting, this.zNodes);
@@ -246,7 +247,7 @@ export class MeetingProjectPage {
         data_arr.push(item_child.msg_id)
       }
     }
-    this.firService.read_total_reply({ 'list': data_arr, 'uid': this.uid }).then(res => {
+    this.firService.read_total_reply_no_loading({ 'list': data_arr, 'uid': this.uid }).then(res => {
 
     })
     if (this.user.partner_id == this.item.rt_project_principal.id || this.uid == this.item.create_uid) {
@@ -349,10 +350,9 @@ export class MeetingProjectPage {
         this.get_all_data()
       }
     }
-    else
-        {
-            this.get_all_data()
-        }
+    else {
+      this.get_all_data()
+    }
     var need_fresh_reply = this.navParams.get('need_fresh_reply')
 
     // if (need_fresh_reply) {
@@ -884,7 +884,7 @@ export class MeetingProjectPage {
 
   lookDetail(item) {
     this.navCtrl.push('CalendarDeatilpagePage', {
-      'item': item,
+      'item_id': item.id,
       'isEdit': false,
       'type': 1,
       'frontPage': 'MeetingProjectPage'
@@ -1058,13 +1058,35 @@ export class MeetingProjectPage {
   }
 
   only_reply_to(items) {
-    this.navCtrl.push('CalendarChatPage', {
-      item: items,
-      res_id: this.item.id,
-      navCtrl: 'MeetingProjectPage',
-      type: 'rt.meeting',
-      has_parent: true,
-    })
+    // this.navCtrl.push('CalendarChatPage', {
+    //   item: items,
+    //   res_id: this.item.id,
+    //   navCtrl: 'MeetingProjectPage',
+    //   type: 'rt.meeting',
+    //   has_parent: true,
+    // })
+    let modal = this.modalController.create("ModalChatPage", {
+            item: items,
+            res_id: this.item.id,
+            navCtrl: 'MeetingProjectPage',
+            type: 'rt.meeting',
+            has_parent: true,
+        })
+        let that = this
+        modal.onDidDismiss(data => {
+            if (data.need_fresh) {
+                this.firService.get_event_detail({
+                        'uid': this.uid,
+                        'event_id': this.navParams.get('item_id')
+                    }).then(res => {
+                        if (res.result.res_data && res.result.res_code == 1) {
+                            var item_temp = res.result.res_data
+                            this.get_all_data()
+                        }
+                    })
+            }
+        });
+        modal.present();
   }
 
   reply_to(items) {
@@ -1109,32 +1131,35 @@ export class MeetingProjectPage {
   }
 
   send() {
-    this.navCtrl.push('CalendarChatPage', {
-      item: this.item,
-      res_id: this.item.id,
-      navCtrl: 'MeetingProjectPage',
-      type: 'rt.meeting',
-      has_parent: false,
-    })
-    //   if (this.context_message.length == 0 || this.context_message.match(/^\s+$/g)){
-    //   Utils.toastButtom("回复不可为空", this.toastCtrl)
-    // }
-    // else{
-    //   let body = {
-    //     'uid': this.uid,
-    //     'res_id': this.item.id,
-    //     'context': this.context_message,
-    //     'parent_id': false,
-    //     'type': 'rt.meeting',
-    //   }
-    //   this.firService.reply_to(body).then(res => {
-    //     if (res.result.res_code == 1) {
-    //       this.context_message = ''
-    //       Utils.toastButtom("回复成功", this.toastCtrl)
-    //       this.get_all_data()
-    //     }
-    //   })
-    // }
+    // this.navCtrl.push('CalendarChatPage', {
+    //   item: this.item,
+    //   res_id: this.item.id,
+    //   navCtrl: 'MeetingProjectPage',
+    //   type: 'rt.meeting',
+    //   has_parent: false,
+    // })
+    let modal = this.modalController.create("ModalChatPage", {
+            item: this.item,
+            res_id: this.item.id,
+            navCtrl: 'MeetingProjectPage',
+            type: 'rt.meeting',
+            has_parent: false,
+        })
+        let that = this
+        modal.onDidDismiss(data => {
+            if (data.need_fresh) {
+                this.firService.get_event_detail({
+                        'uid': this.uid,
+                        'event_id': this.navParams.get('item_id')
+                    }).then(res => {
+                        if (res.result.res_data && res.result.res_code == 1) {
+                            var item_temp = res.result.res_data
+                            this.get_all_data()
+                        }
+                    })
+            }
+        });
+        modal.present();
   }
 
   refresh_view() {
@@ -1456,51 +1481,51 @@ export class MeetingProjectPage {
   }
 
   quit_meeting() {
-        var ctrl = this.alert
-        ctrl.create({
-            title: '提示',
-            subTitle: '是否确认退出？',
-            buttons: [{ text: '取消' },
-            {
-                text: '确定',
-                handler: () => {
-                    var body = {
-                        'uid': this.uid,
-                        'meeting_id': this.meeting_id,
-                    }
-                    this.firService.quit_all(body).then(res => {
-                        if (res.result.res_code == 1) {
-                            Utils.toastButtom('退出成功', this.toastCtrl)
-                            this.navCtrl.pop()
-                        }
-                    })
-                }
+    var ctrl = this.alert
+    ctrl.create({
+      title: '提示',
+      subTitle: '是否确认退出？',
+      buttons: [{ text: '取消' },
+      {
+        text: '确定',
+        handler: () => {
+          var body = {
+            'uid': this.uid,
+            'meeting_id': this.meeting_id,
+          }
+          this.firService.quit_all(body).then(res => {
+            if (res.result.res_code == 1) {
+              Utils.toastButtom('退出成功', this.toastCtrl)
+              this.navCtrl.pop()
             }
-            ]
-        }).present();
+          })
+        }
+      }
+      ]
+    }).present();
 
 
-    }
+  }
 
-    click_more_quit() {
-        let actionSheet = this.actionSheetCtrl.create({
-            title: '',
-            buttons: [{
-                text: '退出',
-                handler: () => {
-                    this.quit_meeting()
-                }
-            },
-            {
-                text: '取消',
-                role: 'cancel',
-                handler: () => {
-                    console.log('Cancel clicked');
-                }
-            }
-            ]
-        });
-        actionSheet.present();
-    }
+  click_more_quit() {
+    let actionSheet = this.actionSheetCtrl.create({
+      title: '',
+      buttons: [{
+        text: '退出',
+        handler: () => {
+          this.quit_meeting()
+        }
+      },
+      {
+        text: '取消',
+        role: 'cancel',
+        handler: () => {
+          console.log('Cancel clicked');
+        }
+      }
+      ]
+    });
+    actionSheet.present();
+  }
 
 }

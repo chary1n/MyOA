@@ -125,7 +125,6 @@ export class EmailPage {
     }
   }
 
-
   ionViewDidEnter(){
    console.log('进入了')
   }

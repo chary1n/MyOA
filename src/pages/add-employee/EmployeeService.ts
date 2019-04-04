@@ -11,6 +11,10 @@ export class EmployeeService {
         return this.httpservice.postBodyNoLoading("get_all_department_tree", body);
     }
 
+    get_all_department_tree_loading(body){
+        return this.httpservice.postBody("get_all_department_tree", body);
+    }
+
     get_all_department(){
 
         let body = JSON.stringify({

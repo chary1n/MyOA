@@ -17,6 +17,9 @@ export class HttpService {
   static user;
   static is_alert = false;
   static need_back_login;
+  static need_login = false;
+  static now_server_url = 'http://erp.robotime.com:8888/'
+  // static now_server_url = 'http://192.168.2.10:8081/'
   constructor(private http: Http, private loading: LoadingController,
     private platform: Platform,
     public storage: Storage, public ctrl: AlertController, private inAppBrowser: InAppBrowser,

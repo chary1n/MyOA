@@ -310,36 +310,37 @@ export class KaoqinPage {
   start_work() {
     // console.log(this.items[0])
 
-    var has_in = false
-    for (let one_item of this.items) {
-      if (one_item.check_in) {
-        has_in = true
-      }
-    }
+    // var has_in = false
+    // for (let one_item of this.items) {
+    //   if (one_item.check_in) {
+    //     has_in = true
+    //   }
+    // }
 
-    if (!this.items || !this.items.length) {
-      this.startClick()
-    }
-    else {
-      if (has_in) {
-        let ctrl = this.alertCtrl;
-        let that = this
-        ctrl.create({
-          title: '提示',
-          subTitle: "已经打过上班卡了",
-          buttons: [{
-            text: '确定',
-            handler: () => {
-              // that.startClick()
-            }
-          }
-          ]
-        }).present();
-      }
-      else {
-        this.startClick()
-      }
-    }
+    // if (!this.items || !this.items.length) {
+    //   this.startClick()
+    // }
+    // else {
+    //   if (has_in) {
+    //     let ctrl = this.alertCtrl;
+    //     let that = this
+    //     ctrl.create({
+    //       title: '提示',
+    //       subTitle: "已经打过上班卡了",
+    //       buttons: [{
+    //         text: '确定',
+    //         handler: () => {
+    //           // that.startClick()
+    //         }
+    //       }
+    //       ]
+    //     }).present();
+    //   }
+    //   else {
+    //     this.startClick()
+    //   }
+    // }
+    this.startClick()
 
 
 
@@ -901,12 +902,12 @@ export class KaoqinPage {
             "company_name": company_name,
             "device_version": that.device.uuid,
           }
-          let loading_end = that.loading.create({
-            enableBackdropDismiss: true
-          });
-          loading_end.present();
+          // let loading_end = that.loading.create({
+          //   enableBackdropDismiss: true
+          // });
+          // loading_end.present();
           that.kaoqinService.employee_attendance(data_obj).then(res => {
-            loading_end.dismiss()
+            // loading_end.dismiss()
             that.isShowActive = true
             if (res.result.res_data && res.result.res_code == 1) {
               that.fail_times = 0;

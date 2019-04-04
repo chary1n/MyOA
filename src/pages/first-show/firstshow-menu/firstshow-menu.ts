@@ -4,7 +4,9 @@ import { IonicPage } from 'ionic-angular';
 import { Component } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { FirstShowService } from './../first_service';
-
+import { FirstShowPage } from './../first-show'
+import { AppService } from '../../../app/appService'
+import { HttpService } from '../../../providers/HttpService'
 /**
  * Generated class for the FirstshowMenuPage page.
  *
@@ -15,10 +17,10 @@ import { FirstShowService } from './../first_service';
 @Component({
   selector: 'page-firstshow-menu',
   templateUrl: 'firstshow-menu.html',
-  providers: [FirstShowService],
+  providers: [FirstShowService, AppService],
 })
 export class FirstshowMenuPage {
-  root = 'FirstShowPage';
+  root = FirstShowPage;
   me_type = []
   state_type = 'all'
   // start_datetime = new Date(new Date().getTime()+8*60*60*1000).toISOString();
@@ -31,7 +33,7 @@ export class FirstshowMenuPage {
   select_event_id = []
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public events: Events, public storage: Storage, public menu: MenuController,
-    public event: Events, public firService: FirstShowService) {
+    public event: Events, public firService: FirstShowService, public appService: AppService) {
 
     //   events.subscribe('ChooseMenuPage', (data) => {
 
@@ -52,31 +54,35 @@ export class FirstshowMenuPage {
     // })
 
     this.storage.get('user_schedule_domain_new').then(res => {
-        if (res){
-          this.me_type = res.me_type
-          this.state_type = res.state_type
-          this.select_event_id = res.event_type_id
-        }
-        else
-        {
-          this.me_type = []
-          this.state_type = 'all'
-          this.select_event_id = []
-        }
-      })
-
-    this.storage.get('user').then(res => {
-      this.uid = res.result.res_data.user_id
-      let body = {
-        'uid': this.uid
+      if (res) {
+        this.me_type = res.me_type
+        this.state_type = res.state_type
+        this.select_event_id = res.event_type_id
       }
-      this.firService.get_event_type(body).then(res => {
-        if (res.result.res_data && res.result.res_code == 1) {
-          this.event_list = res.result.res_data
-          console.log(this.event_list)
-        }
-      })
+      else {
+        this.me_type = []
+        this.state_type = 'all'
+        this.select_event_id = []
+      }
     })
+    if (HttpService.need_login) {
+      this.toAutoLogin()
+    }
+    else {
+      this.storage.get('user').then(res => {
+        this.uid = res.result.res_data.user_id
+        let body = {
+          'uid': this.uid
+        }
+        this.firService.get_event_type(body).then(res => {
+          if (res.result.res_data && res.result.res_code == 1) {
+            this.event_list = res.result.res_data
+            console.log(this.event_list)
+          }
+        })
+      })
+    }
+
 
   }
 
@@ -101,45 +107,45 @@ export class FirstshowMenuPage {
 
   click_me_create() {
     if (this.me_type.indexOf('create') > -1) {
-        let index = 0
-        for (let i = 0; i < this.me_type.length; i++){
-          if (this.me_type[i] == 'create'){
-            index = i
-          }
+      let index = 0
+      for (let i = 0; i < this.me_type.length; i++) {
+        if (this.me_type[i] == 'create') {
+          index = i
         }
-        this.me_type.splice(index,1)
+      }
+      this.me_type.splice(index, 1)
     }
-    else{
+    else {
       this.me_type.push('create')
     }
   }
 
   click_me_fuze() {
     if (this.me_type.indexOf('fuze') > -1) {
-        let index = 0
-        for (let i = 0; i < this.me_type.length; i++){
-          if (this.me_type[i] == 'fuze'){
-            index = i
-          }
+      let index = 0
+      for (let i = 0; i < this.me_type.length; i++) {
+        if (this.me_type[i] == 'fuze') {
+          index = i
         }
-        this.me_type.splice(index,1)
+      }
+      this.me_type.splice(index, 1)
     }
-    else{
+    else {
       this.me_type.push('fuze')
     }
   }
 
   click_me_canyu() {
     if (this.me_type.indexOf('canyu') > -1) {
-        let index = 0
-        for (let i = 0; i < this.me_type.length; i++){
-          if (this.me_type[i] == 'canyu'){
-            index = i
-          }
+      let index = 0
+      for (let i = 0; i < this.me_type.length; i++) {
+        if (this.me_type[i] == 'canyu') {
+          index = i
         }
-        this.me_type.splice(index,1)
+      }
+      this.me_type.splice(index, 1)
     }
-    else{
+    else {
       this.me_type.push('canyu')
     }
   }
@@ -150,22 +156,20 @@ export class FirstshowMenuPage {
   }
 
   click_state_unfinish() {
-    if (this.state_type == 'unfinish'){
+    if (this.state_type == 'unfinish') {
       this.state_type = 'all'
     }
-    else
-    {
+    else {
       this.state_type = 'unfinish'
     }
-    
+
   }
 
   click_state_finish() {
-    if (this.state_type == 'finish'){
+    if (this.state_type == 'finish') {
       this.state_type = 'all'
     }
-    else
-    {
+    else {
       this.state_type = 'finish'
     }
   }
@@ -198,57 +202,105 @@ export class FirstshowMenuPage {
     })
   }
 
-  click_event(item,i){
-    if (!(this.select_event instanceof Array)){
+  click_event(item, i) {
+    if (!(this.select_event instanceof Array)) {
       this.select_event = []
     }
-    if (!(this.select_event_id instanceof Array)){
+    if (!(this.select_event_id instanceof Array)) {
       this.select_event_id = []
     }
     if (this.select_event_id.indexOf(item.id) > -1) {
-        let index = 0
-        for (let i = 0; i < this.select_event_id.length; i++){
-          if (item.id == this.select_event_id[i]){
-            index = i
-          }
+      let index = 0
+      for (let i = 0; i < this.select_event_id.length; i++) {
+        if (item.id == this.select_event_id[i]) {
+          index = i
         }
-        this.select_event_id.splice(index,1)
+      }
+      this.select_event_id.splice(index, 1)
     }
-    else{
+    else {
       this.select_event_id.push(item.id)
     }
-    
+
   }
 
-  isSelect(item){
-    if (this.select_event_id.length){
+  isSelect(item) {
+    if (this.select_event_id.length) {
       if (this.select_event_id.indexOf(item.id) > -1) {
         return true
       }
-      else
-      {
+      else {
         return false
       }
     }
-    else
-    {
+    else {
       return false
     }
   }
 
-  isSelectMe(item){
-    if (this.me_type.length){
+  isSelectMe(item) {
+    if (this.me_type.length) {
       if (this.me_type.indexOf(item) > -1) {
         return true
       }
-      else
-      {
+      else {
         return false
       }
     }
-    else
-    {
+    else {
       return false
+    }
+  }
+
+  toAutoLogin() {
+    this.storage.get('user')
+      .then(res => {
+        if (res) {
+          this.uid = res.result.res_data.user_id;
+          window.localStorage.setItem("id", res.result.res_data.user_id)
+          this.storage.get('user_psd').then(res_db => {
+            this.storage.get("loginIndex").then(res_index => {
+              this.defultChoose(res_index)
+
+              let db_name = res_db.db_name
+              this.appService.toLogin(res_db.user_email, res_db.user_psd, res_db.db_name, "0.8.0")
+                .then(res => {
+                  if (res.result && res.result.res_code == 1) {
+                    HttpService.user_id = res.result.res_data.user_id;
+                    HttpService.user = res.result.res_data;
+                    HttpService.need_login = false;
+                    let body = {
+                      'uid': this.uid
+                    }
+                    this.firService.get_event_type(body).then(res => {
+                      if (res.result.res_data && res.result.res_code == 1) {
+                        this.event_list = res.result.res_data
+                        console.log(this.event_list)
+                      }
+                    })
+                  }
+                  else {
+                  }
+                }).catch((error) => {
+                })
+            })
+          })
+        }
+      });
+  }
+
+  defultChoose(index) {
+    if (index == 2) {
+      HttpService.appUrl = "http://dr.robotime.com/"
+    } else if (index == 3) {
+      HttpService.appUrl = "http://erp.robotime.com/"
+    } else if (index == 4) {
+      HttpService.appUrl = "http://121.43.196.231:8888/"
+    } else if (index == 1) {
+      HttpService.appUrl = "http://js.robotime.com/"
+    } else {
+      HttpService.appUrl = HttpService.now_server_url
+      // HttpService.appUrl = "http://192.168.2.10:8081/"
     }
   }
 }

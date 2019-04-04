@@ -142,7 +142,7 @@ export class ContactPersonPage {
           }
         }
 
-        this.employeeService.get_all_department_tree({ 'uid': this.uid, 'need_total': true }).then(res => {
+        this.employeeService.get_all_department_tree_loading({ 'uid': this.uid, 'need_total': true }).then(res => {
           if (res.result.res_data && res.result.res_code == 1) {
             this.zNodes = res.result.res_data
             $.fn.zTree.init($("#ztree_employee"), this.setting, this.zNodes);
@@ -331,6 +331,9 @@ export class ContactPersonPage {
     this.navCtrl.push("PromptPage")
   }
 
+  goBack(){
+    this.navCtrl.pop()
+  }
   
 
 }

@@ -13,6 +13,8 @@ import { Toast } from '@ionic-native/toast';
 import { AppVersion } from '@ionic-native/app-version';
 import { FileTransfer, FileTransferObject, FileUploadOptions } from '@ionic-native/file-transfer';
 import { LoginPageModule } from './../pages/login/login.module';
+import { NewTabsPageModule } from './../pages/new-tabs/new-tabs.module';
+import { FirstShowPageModule} from './../pages/first-show/first-show.module';
 
 import { Camera } from '@ionic-native/camera';
 import { WorkBenchPageModule } from './../pages/work-bench/work-bench.module';
@@ -42,7 +44,7 @@ import { IonicStorageModule } from '@ionic/storage';
 import { MsgPage } from './../pages/msg/msg';
 import { DatePicker } from '@ionic-native/date-picker';
 import { SupplierListPage } from '../pages/work-bench/supplier-list/supplier-list'
-import {IonicImageViewerModule} from 'ionic-img-viewer'
+import { IonicImageViewerModule} from 'ionic-img-viewer'
 import { QRCodeModule } from 'angular2-qrcode';
 import { Screenshot } from '@ionic-native/screenshot';
 import { NFC, Ndef } from '@ionic-native/nfc';
@@ -72,13 +74,16 @@ export class MyHammerConfig extends HammerGestureConfig  {
     MyApp,
   ],
   imports: [
+    FirstShowPageModule,
+    NewTabsPageModule,
+    LoginPageModule,
     ionicGalleryModal.GalleryModalModule,
     BrowserModule,
     IonicModule.forRoot(MyApp,{
        backButtonText: '',
        iconMode: 'ios',//安卓icon强制使用ios的icon以及样式
        mode: 'ios',//样式强制使用ios样式
-       statusbarPadding: false
+       statusbarPadding: false,
     }),
     HttpModule,
     IonicStorageModule.forRoot(),

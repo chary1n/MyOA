@@ -6,6 +6,10 @@ export class FirstShowService {
     constructor(private httpService: HttpService) {
 
     }
+    get_schedule_list_with_domain_new_simple(body,domain){
+        return this.httpService.postBodyNoLoading("get_schedule_list_with_domain_new_simple", {'body':body,'domain':domain});
+    }
+
     get_schedule_list_with_domain_new_more_data(body,domain){
         return this.httpService.postBodyNoLoading("get_schedule_list_with_domain_new_more_data", {'body':body,'domain':domain});
     }
@@ -35,7 +39,7 @@ export class FirstShowService {
     }
 
     get_pcc_list(body){
-        return this.httpService.postBody("get_pcc_list", body)
+        return this.httpService.postBodyNoLoading("get_pcc_list", body)
     }
 
     get_total_task(body){
@@ -94,6 +98,10 @@ export class FirstShowService {
         return this.httpService.postBody("read_total_reply", body);
     }
 
+    read_total_reply_no_loading(body){
+        return this.httpService.postBodyNoLoading("read_total_reply", body);
+    }
+
     get_un_read_reply(body){
         return this.httpService.postBodyNoLoading("get_un_read_reply", body);
     }
@@ -114,6 +122,10 @@ export class FirstShowService {
     }
 
     get_event_detail(body){
+        return this.httpService.postBody("get_event_detail", body);
+    }
+
+    get_event_detail_no_loading(body){
         return this.httpService.postBodyNoLoading("get_event_detail", body);
     }
 

@@ -125,10 +125,12 @@
       <p style="font-size: 13px;color: #2597ec;float: right;margin-right: 15px;margin-top: 10px">
         <span style="font-size:14px" tappable (click)="showMenu()"> 筛选</span>
       </p>
-      <p class="month_message">
-        <span tappable (click)="delete_month()">{{"<"}}</span><span style="margin-left:10px">{{currentDate}}</span>
-        <span style="margin-left:10px" tappable (click)="add_month()">{{">"}}</span>
-      </p>
+      <div align="center" class="month_message">
+        <div>
+          <span tappable (click)="delete_month()">{{'<'}}</span><span style="margin-left:5px">{{currentDate}}</span>
+          <span style="margin-left:0px" tappable (click)="add_month()">{{'>'}}</span>
+        </div>
+      </div>
     </div>
     <ion-backdrop id="bac_div" *ngIf="isShowBac" tappable (click)="closeFab()" disable-activated role="presentation" style="opacity: 0.9; background-color: white;transition-delay: initial;filter: blur(0px);">
     </ion-backdrop>

@@ -84,7 +84,7 @@
     <p style="color:gray;font-size:14px;margin-top:-16px">{{fail_str}}</p>   
     <div class="alert_btn_fail">
       <!--<span style="text-align:center">我知道了</span><span style="text-align:center;color:#409eff">位置签到</span>-->
-      <div tappable (click)="clickCancel()" style="width:50%;float:left;text-align:center;color:lightgray">继续尝试</div><div tappable (click)="click_location()" style="width:50%;float:right;text-align:center;color:#409eff">位置签到</div>
+      <div tappable (click)="clickCancel()" style="width:50%;float:left;text-align:center;color:#409eff">继续尝试</div><div tappable (click)="click_location()" style="width:50%;float:right;text-align:center;color:#409eff">位置签到</div>
     </div>    
   </div>
   <div *ngIf="isWrite">
@@ -155,7 +155,8 @@
   <div class='buttom_div'>
      <div class='text_class'></div> 
     <div *ngIf="isShowActive">
-      <div [ngClass]="{true:'left_circle_inactive',false:'left_circle'}[has_start]"  tappable (click)="start_work()">上班</div>
+      <!--<div [ngClass]="{true:'left_circle_inactive',false:'left_circle'}[has_start]"  tappable (click)="start_work()">上班</div>-->
+      <div class="left_circle"  tappable (click)="start_work()">上班</div>
       <div class='right_circle' tappable (click)="end_work()">下班</div>
     </div>
     <div *ngIf="!isShowActive">

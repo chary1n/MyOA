@@ -58,7 +58,7 @@
 </ion-header>
 
 
-<ion-content on-scroll="onScroll()" style="background-color: #f0f2f5;position:fixed;" (pan)="panEvent($event)">
+<ion-content style="background-color: #f0f2f5;" >
   <div style="background-color: white" *ngIf="search && !showIcon">
     <div style="justify-content:space-around;white-space: pre-line;width: 100%;display: inline-block;
             position: relative;top: -12px;">
@@ -94,6 +94,10 @@
       <div style="float:left;height:45px;line-height:45px;margin-left: 15px;">
         <div><span class="ft_size">总积分</span><span class="bg_ft_size">{{total_score}}</span></div>
       </div>
+      <div style="float:left;height:45px;line-height:45px;margin-left: 15px;">
+        <div><span class="ft_size">进度</span><span class="bg_ft_size">{{item.rt_task_progress}}%</span></div>
+      </div>
+      
       <div class="jifen_img_class">
         <img *ngIf="state" class="finish_img_class" src="assets/img/un_finish_img.png" />
         <img *ngIf="!state" class="finish_img_class" src="assets/img/finish_img.png" />
@@ -171,13 +175,13 @@
         <p item-start style="color: #2e3133;font-size: 13px;width: 45px;">来源</p>
         <p item-start style="margin-left: 10%;color: #c3c5c9;font-size: 13px">
           <!--<div style="justify-content:space-around;white-space: pre-line;width: 80%;display: inline-block;position: relative;top: -12px;left: 22%;">-->
-            <span round *ngFor="let item_meeting of origin_meeting" class="un_read_class" ion-button tappable (click)="goto(item_meeting)">
+          <span round *ngFor="let item_meeting of origin_meeting" class="un_read_class" ion-button tappable (click)="goto(item_meeting)">
                                     {{item_meeting.name}}
                             </span>
           <!--</div>-->
         </p>
       </ion-item>
-      
+
     </ion-item-group>
 
     <div *ngIf="type_name == '任务' && !state " align="center" class="main_header_div">
@@ -228,7 +232,7 @@
       <!--<div text-left class="total_remark">{{rt_task_analyze}}</div>-->
       <div [innerHTML]="assembleHTML(rt_task_analyze)" style="word-wrap:break-word;color:#c2c7cc;margin: 5px;padding: 10px;width:90%;text-align:left;"></div>
     </div>
-    <div *ngIf="detail_type == '3'" >
+    <div *ngIf="detail_type == '3'">
       <div *ngFor="let one_data of tousuList;let i = index" [ngClass]="{true:'cg_bg_class',false:'cg_bg_class_more'}[i == 0]">
         <div class="cg_name_class">
           <span *ngIf="one_data.rt_complain_state == 1" style="color: red;padding-right:5px">●</span>{{one_data.rt_complain_partner_id_name}}
@@ -240,7 +244,7 @@
           {{one_data.rt_task_complain_cause}}
         </div>
         <div *ngIf="one_data.rt_complain_state == 1">
-          <div  class="cg_reply_name_class">
+          <div class="cg_reply_name_class">
             由谁评估：{{one_data.rt_complain_who_deal_id_name}}
           </div>
           <div class="cg_btn_class" *ngIf='is_need_me_reply(one_data)' tappbale (click)="reply_cg(one_data)">
@@ -248,7 +252,7 @@
           </div>
         </div>
         <div *ngIf="one_data.rt_complain_state == 2" class="cg_reply_name_class_first">
-            {{one_data.rt_complain_who_deal_id_name}}回复：{{one_data.rt_task_complain_reject}}
+          {{one_data.rt_complain_who_deal_id_name}}回复：{{one_data.rt_task_complain_reject}}
         </div>
       </div>
     </div>
@@ -273,6 +277,11 @@
       </ion-label>
       <ion-input type="text" text-right style="font-size: 13px;color: #8d9296" [(ngModel)]="rt_task_level_temp" placeholder="请输入"></ion-input>
     </ion-item>
+    <ion-item *ngIf="type_name == '任务' && can_change_jifen" no-lines style="min-height: 20px;padding-left: 0px;border-bottom:#f0f2f5 1px solid;">
+      <ion-label style="font-size: 13px;padding-left: 15px">进度
+      </ion-label>
+      <ion-input type="text" text-right style="font-size: 13px;color: #8d9296" [(ngModel)]="rt_task_progress" placeholder="请输入"></ion-input>
+    </ion-item>
     <!-- andy NMSL新增功能-->
     <ion-item *ngIf="type_name == '任务' && can_change_pcc" no-lines style="min-height: 20px;border-bottom:#f0f2f5 1px solid;"
       tappable (click)="selectPCC()">
@@ -287,13 +296,14 @@
     </ion-item>
 
 
-    <ion-item *ngIf="((type_name == '任务' && is_pcc) || can_change_partner) || type_name != '任务'" no-lines style="min-height: 20px;border-bottom: #f0f2f5 1px solid;" tappable
-      (click)="selectPartnerId()">
+    <ion-item *ngIf="((type_name == '任务' && is_pcc) || can_change_partner) || type_name != '任务'" no-lines style="min-height: 20px;border-bottom: #f0f2f5 1px solid;"
+      tappable (click)="selectPartnerId()">
       <ion-label style="color:#2e3133;font-size:13px;">负责人</ion-label>
       <p item-end style="font-size: 12px;margin-right: -5px">{{rt_project_principal_name}}</p>
       <img item-end src="assets/img/journal_sheet/right_icon.png" style="height:10px;">
     </ion-item>
-    <button *ngIf="((type_name == '任务' && is_pcc) || can_change_partner) || type_name != '任务'" ion-item no-lines tappable (click)="selectPartner()" style="border-bottom:#f0f2f5 1px solid;">
+    <button *ngIf="((type_name == '任务' && is_pcc) || can_change_partner) || type_name != '任务'" ion-item no-lines tappable (click)="selectPartner()"
+      style="border-bottom:#f0f2f5 1px solid;">
                     <div style="position: relative;margin-bottom: -11px;margin-top: -11px">
                       <span style="    display: inline-block;
                         position: absolute;
@@ -310,7 +320,8 @@
                     </div>
                 
                   </button>
-    <button *ngIf="((type_name == '任务' && is_pcc) || can_change_partner) || type_name != '任务'" ion-item no-lines tappable (click)="selectExternalPartner()" style="border-bottom:#f0f2f5 1px solid;">
+    <button *ngIf="((type_name == '任务' && is_pcc) || can_change_partner) || type_name != '任务'" ion-item no-lines tappable (click)="selectExternalPartner()"
+      style="border-bottom:#f0f2f5 1px solid;">
                     <div style="position: relative;margin-bottom: -11px;margin-top: -11px">
                       <span style="    display: inline-block;
                         position: absolute;
@@ -460,9 +471,9 @@
     </div>
   </ion-list>
 </ion-content>
-<ion-footer>
+<ion-footer tappable (click)="new_reply_to()">
   <div *ngIf="!isEdit && !search && !change && show_reply_footer" class="footer_class">
-    <ion-label tappable (click)="send()" class="input_class">
+    <ion-label class="input_class">
       写下你的回复...
     </ion-label>
   </div>

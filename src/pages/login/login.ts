@@ -235,6 +235,7 @@ export class LoginPage {
                     
                     HttpService.user_id = res.result.res_data.user_id;
                     HttpService.user = res.result.res_data;
+                    HttpService.need_login = false;
                     this.storage.set('loginIndex', this.chooseIndex)
                     this.storage.set("user", res).then(() => {
                     });
@@ -283,9 +284,9 @@ export class LoginPage {
     this.isSelected3 = false;
     this.isSelected4 = false;
     this.chooseIndex = 0;
-    HttpService.appUrl = "http://erp.robotime.com:8888/"
+    HttpService.appUrl = HttpService.now_server_url
+    // HttpService.appUrl = "http://10.0.0.25:8081/"
     // HttpService.appUrl = "http://192.168.2.10:8081/"
-    // HttpService.appUrl = "http://10.0.0.24:8081/"
     this.reset();
     this.img1 = "assets/img/jiangsuruotai_clicked.png"
     this.password_src = "assets/img/S_password.png"

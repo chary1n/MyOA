@@ -67,20 +67,27 @@ export class WaitPccPage {
     })
   }
   gotoDeatil(item) {
-    this.showService.get_event_detail({
-      'uid': this.uid,
-      'event_id': item.id
-    }).then(res => {
-      if (res.result.res_data && res.result.res_code == 1) {
-        item = res.result.res_data
-        this.navCtrl.push('CalendarDeatilpagePage', {
-          'item': item,
-          'isEdit': false,
-          'frontPage': 'FirstShowPage',
-          'pcc_enter': true,
-        })
-      }
-    })
+    this.navCtrl.push('CalendarDeatilpagePage', {
+                'item_id': item.id,
+                'isEdit': false,
+                'frontPage': 'WaitPccPage',
+                'pcc_enter': true,
+              })
+
+    // this.showService.get_event_detail({
+    //   'uid': this.uid,
+    //   'event_id': item.id
+    // }).then(res => {
+    //   if (res.result.res_data && res.result.res_code == 1) {
+    //     item = res.result.res_data
+    //     this.navCtrl.push('CalendarDeatilpagePage', {
+    //       'item': item,
+    //       'isEdit': false,
+    //       'frontPage': 'WaitPccPage',
+    //       'pcc_enter': true,
+    //     })
+    //   }
+    // })
   }
 
   goBack() {

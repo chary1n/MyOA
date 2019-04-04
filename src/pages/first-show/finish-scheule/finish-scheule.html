@@ -23,7 +23,7 @@
 
 <ion-content style="background-color:#f0f2f5">
 
-  <ion-item no-lines style="min-height: 20px;border-bottom: #f0f2f5 1px solid;">
+  <!--<ion-item no-lines style="min-height: 20px;border-bottom: #f0f2f5 1px solid;">
     <ion-label style="font-size: 13px">实际</ion-label>
   </ion-item>
   <ion-grid *ngIf="!not_sure_time" style="border-bottom: #f0f2f5 10px solid;background-color: white;">
@@ -44,16 +44,28 @@
         </div>
       </ion-col>
     </ion-row>
-  </ion-grid>
+  </ion-grid>-->
 
-  <ion-item no-lines style="min-height: 20px;border-bottom: #dbdddf 1px solid;background-color: #f0f2f5">
+  <!--<ion-item no-lines style="min-height: 20px;border-bottom: #dbdddf 1px solid;background-color: #f0f2f5">
     <ion-label style="font-size: 13px;color:#999999;">计划</ion-label>
-  </ion-item>
-  <div style="background-color: #f0f2f5;padding: 1px;text-align: left;height: 40px;">
-    <span style="margin-left: 15px;font-size:12px;color:#999999;height: 40px;line-height:40px;width:40%;">{{start}}</span>
-    <span style="color:#999999;font-size: 12px;margin-left: 10px;margin-right: 10px">至</span>
-    <span style="font-size:12px;color:#999999;height: 40px;line-height:40px;width:40%;">{{stop}}</span>
+  </ion-item>-->
+  <div style="background-color:white;padding-left: 15px;color:#999999;height:35px;line-height:35px;border:solid 1px #f0f2f5">
+    计划
   </div>
+  <div style="background-color: white;text-align: left;height: 35px;line-height:35px;">
+    <div align="center" style="display:inline-block;width:45%;color:gray">{{start}}</div>
+    <div align="center" style="display:inline-block;width:7%;color:gray">至</div>
+    <div align="center" style="display:inline-block;width:45%;color:gray">{{stop}}</div>
+  </div>
+  <div style="background-color:white;padding-left: 15px;color:#999999;height:35px;line-height:35px;border:solid 1px #f0f2f5">
+    实际
+  </div>
+  <div style="background-color: white;text-align: left;height: 35px;line-height:35px;">
+    <div align="center" style="display:inline-block;width:45%;color:gray">{{relly_start_time}}</div>
+    <div align="center" style="display:inline-block;width:7%;color:gray">至</div>
+    <div align="center" style="display:inline-block;width:45%;color:gray">{{relly_stop_time}}</div>
+  </div>
+  
   <div class="f_div">
     <div class="fs_div">
       任务占比
@@ -74,14 +86,14 @@
       placeholder="请输入备注"></ion-input>
   </div>
 
-  <div class="bottom_div">
+  <!--<div class="bottom_div">
     <div class="fs_div_bottom">
       任务分析总结
     </div>
-    <ion-textarea id="area_id" rows="15" placeholder="选填,此内容仅对部门主管、创建人、负责人可见" [(ngModel)]="remark" style="margin-top:10px;height:200px;margin-left:4.5%;width:91%;overflow:hidden;border-radius:1px;padding-left:5px;color:gray"></ion-textarea>
+    <ion-textarea id="area_id" rows="15" placeholder="选填,此内容仅对部门主管、创建人、负责人可见" [(ngModel)]="remark" style="margin-top:10px;height:200px;margin-left:4.5%;width:91%;overflow:hidden;border-radius:1px;padding-left:5px;color:gray"></ion-textarea>-->
    <!--<textarea type="text" text-left style="font-size: 13px;color: #8d9296;padding-left:15px;background-color:white" [(ngModel)]="remark"
       placeholder="选填,此内容仅对部门主管、创建人、负责人可见"></textarea>-->
-  </div>
+  <!--</div>-->
 
 </ion-content>
 

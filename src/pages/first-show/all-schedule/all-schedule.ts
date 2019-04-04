@@ -254,7 +254,7 @@ export class AllSchedulePage {
                 })
             } else {
                 this.navCtrl.push('CalendarDeatilpagePage', {
-                    'item': item,
+                    'item_id': item.id,
                     'isEdit': false,
                     'frontPage': 'AllSchedulePage',
                 })
