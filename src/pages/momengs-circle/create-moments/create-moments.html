@@ -37,7 +37,8 @@
       <!-- <ion-col col-4 tappable (click)="addImg()" style="margin-top:5px" *ngIf="imgList.length==0">
           <img src="assets/img/add.png" />
       </ion-col> -->
-      <ion-col col-10 tappable (click)="cancel()" style="margin-top:5px;background: #f0f2f5" *ngIf="is_share">
+      <ion-row>
+        <ion-col col-10 tappable (click)="cancel()" style="margin-top:5px;background: #f0f2f5" *ngIf="is_share">
         <img src="assets/img/share_link.png" style="width: 30px;height: 30px;margin-right: 10px;margin-top: 5px;float: left;">
           <p style="margin: 0px;margin-left: 15px">
               {{share_title}}
@@ -46,6 +47,7 @@
             ---来自：{{share_from}}
           </p>
       </ion-col>
+      </ion-row>
     </ion-grid>
     <ion-item no-lines style="min-height: 30px;" tappable (click)="selectVisible()">
         <ion-label [ngClass]="{true:'public_p',false:'not_public_p'}[is_public]">谁可以看</ion-label>

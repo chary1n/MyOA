@@ -1,11 +1,16 @@
 import { Storage } from '@ionic/storage';
 import { FirstShowService } from './first_service';
-import { IonicPage, NavController, NavParams, FabContainer, MenuController, Events } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, FabContainer, MenuController, Events,AlertController } from 'ionic-angular';
 import { Component, ViewChild } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { StatusBar } from '@ionic-native/status-bar';
 import { AppService } from '../../app/appService'
 import { HttpService } from '../../providers/HttpService'
+import { Platform } from 'ionic-angular';
+import { AppVersion } from '@ionic-native/app-version';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { NativeService } from './../../providers/NativeService';
+import { FirService } from './../../app/FirService';
 /**
  * Generated class for the FirstShowPage page.
  *
@@ -16,7 +21,7 @@ import { HttpService } from '../../providers/HttpService'
 @Component({
   selector: 'page-first-show',
   templateUrl: 'first-show.html',
-  providers: [DatePipe, FirstShowService, AppService]
+  providers: [DatePipe, FirstShowService, AppService, NativeService, FirService]
 })
 export class FirstShowPage {
   @ViewChild('fab') fab: FabContainer;
@@ -79,10 +84,14 @@ export class FirstShowPage {
   limit = 20
   offset = 0
   isMoreData = true
+
+  version: any;
   constructor(public navCtrl: NavController, public navParams: NavParams, private datePipe: DatePipe,
     private firshowService: FirstShowService, public storage: Storage,
     public statusBar: StatusBar, public menu: MenuController, public event: Events,
-    public appService: AppService) {
+    public appService: AppService, public platform:Platform, public inAppBrowser:InAppBrowser,
+    public ctrl: AlertController, public appVersion:AppVersion, public nativeService:NativeService,
+    public firService:FirService) {
     this.storage.get('user').then(res => {
       this.user_heard = res.result.res_data.user_ava;
       this.uid = res.result.res_data.user_id;
@@ -163,6 +172,13 @@ export class FirstShowPage {
     this.statusBar.backgroundColorByHexString("#2597ec");
     this.statusBar.styleLightContent();
 
+    if (this.platform.is("android")) {
+      this.getVersionNumber();
+    } else if (this.platform.is('ios')) {
+      this.getiOSVersionNumber();
+    }
+
+  
   }
 
 
@@ -1081,6 +1097,48 @@ export class FirstShowPage {
       HttpService.appUrl = HttpService.now_server_url
       // HttpService.appUrl = "http://192.168.2.10:8081/"
     }
+  }
+
+  getVersionNumber(): Promise<string> {
+    return new Promise((resolve) => {
+      this.appVersion.getVersionCode().then((value: string) => {
+        resolve(value);
+        this.version = value;
+        // console.log(this.version)
+        this.nativeService.detectionUpgrade(this.version);
+      }).catch(err => {
+      });
+    });
+  }
+
+
+  getiOSVersionNumber(): Promise<string> {
+    return new Promise((resolve) => {
+      this.appVersion.getVersionNumber().then((value: string) => {
+        this.firService.get('fir_ios', 1).then(res => {
+          // console.log(res)
+          if (res.version > value) {
+            this.ctrl.create({
+              title: '发现新版本,是否立即升级？',
+              subTitle: "更新内容：" + res.changelog,
+              buttons: [
+                {
+                  text: '立即升级',
+                  handler: () => {
+                    this.openUrlByBrowser('http://fir.im/MyOa');
+                  }
+                }
+              ]
+            }).present();
+          }
+        });
+      }).catch(err => {
+      });
+    });
+  }
+
+  openUrlByBrowser(url: string): void {
+    this.inAppBrowser.create(url, '_system');
   }
 
 }
