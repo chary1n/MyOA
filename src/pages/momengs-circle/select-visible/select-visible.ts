@@ -186,11 +186,29 @@ export class SelectVisiblePage {
   finish(){
     this.frontPage.data.is_public = this.is_public;
     if(!this.is_public){
-      // var select_data = $.fn.zTree.getZTreeObj("ztree").getCheckedNodes(true)
-      var select_data = this.selectList
-      this.frontPage.data.selectList = select_data;
+      // var select_data = this.selectList
+      var select_data = $.fn.zTree.getZTreeObj("ztree").getCheckedNodes(true)
+      var push_data = []
+      for (let i = 0; i < select_data.length; i++) {
+        if (select_data[i].res_model == 'hr.employee'){
+          if (this.fetch_is_in_arr_tb(select_data[i], push_data)){
+            push_data.push(select_data[i])
+          }
+        }
+      }
+      this.frontPage.data.selectList = push_data;
       this.frontPage.data.need_fresh = true;
     }
     this.navCtrl.pop()
+  }
+
+  fetch_is_in_arr_tb(item,item_arr) {
+    let is_has = false
+    for (let i = 0; i < item_arr.length; i++) {
+      if (item_arr[i].partner_id == item.partner_id) {
+        is_has = true
+      }
+    }
+    return !is_has
   }
 }

@@ -4,87 +4,113 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header>
+<ion-header no-border>
 
   <ion-navbar color="gongdan-color" hideBackButton="true">
     <ion-buttons left>
-      <button ion-button icon-only (click)="goBack()">
+      <button ion-button icon-only (click)="goBack()" *ngIf="now_step != 4"> 
         <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
       </button>
+      <button ion-button icon-only (click)="exit()" *ngIf="now_step == 4"> 
+        <ion-icon name="close"></ion-icon>
+      </button>
     </ion-buttons>
-    <ion-title>新增员工</ion-title>
-    <ion-buttons end>
+    <ion-title>{{get_now_title()}}</ion-title>
+    <!--<ion-buttons end>
       <button ion-button (click)='next()'>
         下一步
       </button>
-    </ion-buttons>
+    </ion-buttons>-->
   </ion-navbar>
 </ion-header>
 
+<ion-content *ngIf="now_step == 1" #contentstep1>
+  <div class="header_div_class">
+    1.身份验证 → 2.录入信息 → 3.设置账号
+  </div>
+  <ion-item class="id_card_class">
+    <ion-avatar item-left>
+      <img style=" width: 30px;
+      height: 30px;
+      margin-top: 7px;" src="assets/img/id_card_img.png">
+    </ion-avatar>
+    <ion-input [(ngModel)]="id_card" placeholder="请输入新员工身份证号"  (ngModelChange)="watch_id_change($event)"></ion-input>
+  </ion-item>
+</ion-content>
 
-<ion-content (pan)="panEvent($event)">
-  <div class="biaoti">
-    基本信息
+<ion-content #contentstep2 class="content_step2" (pan)="panEvent($event)" *ngIf="now_step == 2">
+  <div class="header_div_class">
+    1.身份验证 → 2.录入信息 → 3.设置账号
   </div>
   <ion-item tappable (click)='changeHeardImg()'>
     <ion-label>头像</ion-label>
-
     <ion-avatar item-end>
-      <img *ngIf="image" src={{image}} class="imgStyle" style=" border-radius: 20px;     width: 40px;
-      height: 40px;">
-      <img *ngIf="!image" src="assets/img/heard_img.png" class="imgStyle" style=" border-radius: 20px;     width: 40px;
-      height: 40px;">
-
+      <img *ngIf="image" src={{image}} class="imgStyle" style=" border-radius: 20px;width: 40px;height: 40px;">
+      <img *ngIf="!image" src="assets/img/heard_img.png" class="imgStyle" style=" border-radius: 20px;width: 40px;height: 40px;">
     </ion-avatar>
     <img item-end src="assets/img/journal_sheet/right_icon.png" style="height:10px;margin-right:-4px">
   </ion-item>
-
-  <ion-item>
+  <ion-item class="item_now_class">
     <ion-label style="color:black">中文名
       <span style="color:red;"> *</span>
     </ion-label>
     <ion-input [(ngModel)]="name" text-right></ion-input>
   </ion-item>
 
-  <ion-item>
+  <ion-item class="item_now_class">
     <ion-label style="color:black"> 英文名 </ion-label>
     <ion-input [(ngModel)]="english_name" text-right></ion-input>
   </ion-item>
 
 
-  <ion-item>
+  <ion-item class="item_now_class">
     <ion-label style="color:black"> 性别
     </ion-label>
-    <ion-select [(ngModel)]="gender" class="normal-select">
+    <!--<ion-select [(ngModel)]="gender" class="normal-select" okText="确定" cancelText="取消">
       <ion-option *ngFor="let item of sexList;let i = index;" value={{item.id}}>{{item.name}}</ion-option>
-    </ion-select>
+    </ion-select>-->
+    <ion-label style="margin:0px 0px 0px 0px;text-align:right">
+      <ion-checkbox style="float:right" color="gongdan-color" (click)="choose_woman()" [checked]="is_man"></ion-checkbox>
+      <span class="span_sex_class">男</span>
+    </ion-label>
+    <ion-label style="margin:0px 0px 0px 0px;text-align:right">
+      <ion-checkbox style="float:right" color="gongdan-color" (click)="choose_woman()" [checked]="!is_man"></ion-checkbox>
+      <span class="span_sex_class">女</span>
+    </ion-label>
   </ion-item>
 
-  <ion-item>
+  <!--<ion-item>
     <ion-label style="color:black"> 民族
     </ion-label>
-    <ion-select [(ngModel)]="nation" class="normal-select">
+    <ion-select [(ngModel)]="nation" class="normal-select" okText="确定" cancelText="取消">
       <ion-option *ngFor="let item of minzuList;let i = index;" value={{item.id}}>{{item.name}}</ion-option>
     </ion-select>
-  </ion-item>
+  </ion-item>-->
 
-  <ion-item>
+  <!--<ion-item>
     <ion-label style="color:black">出生日期</ion-label>
     <ion-datetime cancelText="取消" doneText="确定" min="1907" max="2088" style="color:#5C6166;font-size:14px;margin-right:-6px"
       displayFormat="YYYY-MM-DD" [(ngModel)]="birthday"></ion-datetime>
     <img item-end src="assets/img/journal_sheet/right_icon.png" style="height:10px;margin-right:-4px">
-  </ion-item>
+  </ion-item>-->
 
 
-  <ion-item >
+  <ion-item class="item_now_class">
     <ion-label style="color:black"> 婚姻状况
     </ion-label>
-    <ion-select [(ngModel)]="marital" class="normal-select">
+    <ion-select [(ngModel)]="marital" class="normal-select" okText="确定" cancelText="取消">
       <ion-option *ngFor="let item of marriageList;let i = index;" value={{item.id}}>{{item.name}}</ion-option>
     </ion-select>
   </ion-item>
 
-  <ion-item>
+  <ion-item class="item_now_class">
+    <ion-label style="color:black">手机
+      <span style="color:red;"> *</span>
+    </ion-label>
+    <ion-input #mNumberCon text-wrap type="number" placeholder="请输入" text-right [(ngModel)]="mobile_phone"></ion-input>
+  </ion-item>
+
+  <ion-item class="item_now_class">
     <ion-label style="color:black">身份证号
       <span style="color:red;"> *</span>
     </ion-label>
@@ -93,12 +119,11 @@
 
 
 
-  <p style="padding-left: 14px;color: #c2c7cc;">
+  <div class="sub_title_class">
     (请拍摄有效期内身份证正反面)
-  </p>
+  </div>
 
-  <ion-grid style="    padding-left: 9px;
-  padding-top: 0px;">
+  <ion-grid style="padding-left: 9px;padding-top: 0px;">
     <ion-row>
       <ion-col col-4 *ngIf="imgPhotoPositive" style="position:relative;height:106px;margin-top:5px" (click)="clickPositivePicture(imgPhotoPositive)">
 
@@ -119,131 +144,195 @@
     </ion-row>
   </ion-grid>
 
-
-  <div class="biaoti">
-    银行账号
+  <!--紧急联系人-->
+  <div class="item_differ_class">
   </div>
-
-  <ion-item>
-    <ion-label style="color:black">银行卡号
-    </ion-label>
-    <ion-input #mNumberCon text-wrap type="number" placeholder="请输入" text-right [(ngModel)]="bank_card_num"></ion-input>
-  </ion-item>
-
-
-  <ion-item>
-    <ion-label style="color:black">开户行
-    </ion-label>
-    <ion-input placeholder="请输入" text-right [(ngModel)]="bank_card_opening_bank"></ion-input>
-  </ion-item>
-
-  <p style="padding-left: 14px;color: #c2c7cc;">
-    (请拍摄公司工资卡正面)
-  </p>
-
-  <ion-grid style="    padding-left: 9px;
-  padding-top: 0px; height:135px;">
-    <ion-col col-4 *ngIf="imgPhotoBank" style="position:relative;height:106px;margin-top:5px" (click)="clickBankPicture(imgPhotoBank)">
-
-      <img src={{imgPhotoBank}} style="position:absolute;
-            clip:rect(0px,106px,106px,0px);" />
-    </ion-col>
-    <ion-col col-4 *ngIf="!imgPhotoBank" tappable (click)="takeBankPhoto()" style="margin-top:5px">
-      <img src="assets/img/add.png" />
-    </ion-col>
-
-  </ion-grid>
-
-
-
-  <div class="biaoti">
-    紧急联系人
+  <div class="biaoti" tappable (click)='changeContact()'>
+    <div class="shu_class">
+    </div>
+    <div class="title_class">
+      紧急联系人
+    </div>
+    <ion-icon class="icon_class" item-end name="arrow-up" *ngIf="show_contact" tappable (click)='changeContact();$event.stopPropagation();'></ion-icon>
+    <ion-icon class="icon_class" item-end name="arrow-down" *ngIf="!show_contact" tappable (click)='changeContact();$event.stopPropagation();'></ion-icon>
   </div>
-
-  <ion-item>
+  <div class="line_class" *ngIf="show_contact">
+  </div>
+  <ion-item class="item_now_class" *ngIf="show_contact">
     <ion-label style="color:black">姓名
       <span style="color:red;"> *</span>
     </ion-label>
     <ion-input [(ngModel)]="emergency_contact_name" placeholder="请输入" text-right></ion-input>
   </ion-item>
-  <ion-item>
+  <ion-item class="item_now_class" *ngIf="show_contact">
     <ion-label style="color:black">关系
       <span style="color:red;"> *</span>
     </ion-label>
-    <ion-input [(ngModel)]="emergency_contact_relation" placeholder="请输入" text-right></ion-input>
+    <ion-select [(ngModel)]="emergency_contact_relation" class="normal-select" okText="确定" cancelText="取消">
+      <ion-option *ngFor="let item of relation_list;let i = index;" value={{item.id}}>{{item.name}}</ion-option>
+    </ion-select>
+    <!--<ion-input [(ngModel)]="emergency_contact_relation" placeholder="请输入" text-right></ion-input>-->
   </ion-item>
-  <ion-item no-lines>
+  <ion-item class="item_now_class" *ngIf="show_contact">
     <ion-label style="color:black">联系方式
       <span style="color:red;"> *</span>
     </ion-label>
     <ion-input #mNumberCon text-wrap type="number" placeholder="请输入" text-right [(ngModel)]="emergency_contact_way"></ion-input>
   </ion-item>
 
-
-  <div class="biaoti">
-    办公信息
+  <!--岗位-->
+  <div class="item_differ_class">
   </div>
-
-  <ion-item>
-    <ion-label style="color:black">手机
-      <span style="color:red;"> *</span>
-    </ion-label>
-    <ion-input #mNumberCon text-wrap type="number" placeholder="请输入" text-right [(ngModel)]="mobile_phone"></ion-input>
-  </ion-item>
-
-  <ion-item no-lines>
+  <div class="biaoti" tappable (click)='changeDepartment()'>
+    <div class="shu_class">
+    </div>
+    <div class="title_class">
+      岗位信息
+    </div>
+    <ion-icon class="icon_class" item-end name="arrow-up" *ngIf="show_department" tappable (click)='changeDepartment();$event.stopPropagation();'></ion-icon>
+    <ion-icon class="icon_class" item-end name="arrow-down" *ngIf="!show_department" tappable (click)='changeDepartment();$event.stopPropagation();'></ion-icon>
+  </div>
+  <div class="line_class" *ngIf="show_department">
+  </div>
+  <ion-item class="item_now_class" *ngIf="show_department" tappable (click)="choose_departments()">
     <ion-label style="color:black"> 部门
       <span style="color:red;"> *</span>
     </ion-label>
-    <ion-select [(ngModel)]="department_id" class="normal-select">
+    <ion-label item-end style="color:black;text-align:right"> 
+      {{deparment_name}}
+    </ion-label>
+    <!--<ion-select [(ngModel)]="department_id" class="normal-select" okText="确定" cancelText="取消" (ionChange)="department_value_change()">
       <ion-option *ngFor="let item of departmentList;let i = index;" value={{item.id}}>{{item.name}}</ion-option>
+    </ion-select>-->
+  </ion-item>
+  <ion-item class="item_now_class" *ngIf="show_department">
+    <ion-label style="color:black"> 岗位
+      <span style="color:red;"> *</span>
+    </ion-label>
+    <ion-select [(ngModel)]="job_id" class="normal-select" okText="确定" cancelText="取消" >
+      <ion-option *ngFor="let item of jobChooseList;let i = index;" value={{item.job_id}}>{{item.name}}</ion-option>
+    </ion-select>
+  </ion-item>
+  <ion-item class="item_now_class" *ngIf="show_department">
+    <ion-label style="color:black"> 考勤规则
+    </ion-label>
+    <ion-select [(ngModel)]="attendance_id" class="normal-select" okText="确定" cancelText="取消">
+      <ion-option *ngFor="let item of attendanceList;let i = index;" value={{item.attendance_id}}>{{item.name}}</ion-option>
     </ion-select>
   </ion-item>
 
-
-
-  <div class="biaoti">
-    合同信息
+  <!--合同信息-->
+  <div class="item_differ_class">
   </div>
-
-
-  <ion-item>
-    <ion-label style="color:black"> 用工形式
+  <div class="biaoti" tappable (click)='changeHT()'>
+    <div class="shu_class">
+    </div>
+    <div class="title_class">
+      合同信息
+    </div>
+    <ion-icon class="icon_class" item-end name="arrow-up" *ngIf="show_hetong" tappable (click)='changeHT();$event.stopPropagation();'></ion-icon>
+    <ion-icon class="icon_class" item-end name="arrow-down" *ngIf="!show_hetong" tappable (click)='changeHT();$event.stopPropagation();'></ion-icon>
+  </div>
+  <div class="line_class" *ngIf="show_hetong">
+  </div>
+  <ion-item *ngIf="show_hetong">
+    <ion-label style="color:black"> 用工性质
       <span style="color:red;"> *</span>
     </ion-label>
-    <ion-select [(ngModel)]="mining_productivity" class="normal-select">
+    <ion-select [(ngModel)]="mining_productivity" class="normal-select" okText="确定" cancelText="取消">
       <ion-option *ngFor="let item of mining_productivity_list;let i = index;" value={{item.id}}>{{item.name}}</ion-option>
     </ion-select>
   </ion-item>
-
-
-  <ion-item>
+  <ion-item *ngIf="show_hetong">
     <ion-label style="color:#2e3133;">入职日期
       <span style="color:red;"> *</span>
     </ion-label>
     <ion-datetime cancelText="取消" doneText="确定" min="2000" max="2088" style="color:#5C6166;font-size:14px;margin-right:-6px"
-      (ionChange)="watch()" displayFormat="YYYY-MM-DD" [(ngModel)]="entry_date"></ion-datetime>
+      displayFormat="YYYY-MM-DD" [(ngModel)]="entry_date"></ion-datetime>
     <img item-end src="assets/img/journal_sheet/right_icon.png" style="height:10px;margin-right:-4px">
   </ion-item>
-
-  <ion-item>
-    <ion-label style="color:black"> 试用期
-      <p style="float: right;
-      line-height: 25px;"> {{probation_date}} </p>
+  <ion-item *ngIf="show_hetong">
+    <ion-label style="color:black"> 预计转正
+      <p style="float: right;line-height: 25px;"> {{probation_date}} </p>
     </ion-label>
-    <ion-select [(ngModel)]="probation_period" (ngModelChange)="watch(0)" class="normal-select">
-      <ion-option *ngFor="let item of shiyongList;let i = index;" value={{item.id}}>{{item.name}}</ion-option>
-    </ion-select>
+    <ion-datetime cancelText="取消" doneText="确定" min="2000" max="2088" style="color:#5C6166;font-size:14px;margin-right:-6px"
+      displayFormat="YYYY-MM-DD" [(ngModel)]="ready_zhuanzheng"></ion-datetime>
+    <img item-end src="assets/img/journal_sheet/right_icon.png" style="height:10px;margin-right:-4px">
+
   </ion-item>
 
+  <!--财务-->
+  <div class="item_differ_class">
+  </div>
+  <div class="biaoti" tappable (click)='changeCW()'>
+    <div class="shu_class">
+    </div>
+    <div class="title_class">
+      财务信息
+    </div>
+    <ion-icon class="icon_class" item-end name="arrow-up" *ngIf="show_caiwu" tappable (click)='changeCW();$event.stopPropagation();'></ion-icon>
+    <ion-icon class="icon_class" item-end name="arrow-down" *ngIf="!show_caiwu" tappable (click)='changeCW();$event.stopPropagation();'></ion-icon>
+  </div>
+  <div class="line_class" *ngIf="show_caiwu">
+  </div>
+  <ion-item class="item_now_class" *ngIf="show_caiwu">
+    <ion-label style="color:black">银行卡号
+      <span style="color:red;" *ngIf="is_system_salary"> *</span>
+    </ion-label>
+    <ion-input #mNumberCon text-wrap type="number" placeholder="请输入" text-right [(ngModel)]="bank_card_num"></ion-input>
+  </ion-item>
+  <ion-item class="item_now_class" *ngIf="show_caiwu">
+    <ion-label style="color:black">开户行
+    </ion-label>
+    <!--<ion-input placeholder="请输入" text-right [(ngModel)]="bank_card_opening_bank"></ion-input>-->
+    <ion-select [(ngModel)]="bank_card_opening_bank" class="normal-select" okText="确定" cancelText="取消">
+      <ion-option *ngFor="let item of bankList;let i = index;" value={{item.bank_id}}>{{item.name}}</ion-option>
+    </ion-select>
+  </ion-item>
+  <ion-item class="item_now_class" *ngIf="show_caiwu">
+    <ion-label style="color:black">是否从系统发薪
+    </ion-label>
+    <ion-toggle color="gongdan-color" [(ngModel)]="is_system_salary"></ion-toggle>
+  </ion-item>
+  <ion-item class="item_now_class" *ngIf="show_caiwu">
+    <ion-label style="color:#2e3133;">社保起始月
+      <span style="color:red;" *ngIf="is_system_salary"> *</span>
+    </ion-label>
+    <ion-datetime cancelText="取消" doneText="确定" min="2000" max="2088" style="color:#5C6166;font-size:14px;margin-right:-6px"
+      displayFormat="YYYY-MM" [(ngModel)]="fund_start_date"></ion-datetime>
+    <img item-end src="assets/img/journal_sheet/right_icon.png" style="height:10px;margin-right:-4px">
+  </ion-item>
+  <div class="sub_title_class" *ngIf="show_caiwu">
+    (请拍摄公司工资卡正面)
+  </div>
 
+  <ion-grid style="padding-left: 9px;padding-top: 0px; height:135px;" *ngIf="show_caiwu">
+    <ion-col col-4 *ngIf="imgPhotoBank" style="position:relative;height:106px;margin-top:5px" (click)="clickBankPicture(imgPhotoBank)">
+      <img src={{imgPhotoBank}} style="position:absolute;clip:rect(0px,106px,106px,0px);" />
+    </ion-col>
+    <ion-col col-4 *ngIf="!imgPhotoBank" tappable (click)="takeBankPhoto()" style="margin-top:5px">
+      <img src="assets/img/add.png" />
+    </ion-col>
+  </ion-grid>
 
-  <p style="padding-left: 14px;color: #c2c7cc;">
+  <!--附件-->
+  <div class="item_differ_class">
+  </div>
+  <div class="biaoti" tappable (click)='changeFJ()'>
+    <div class="shu_class">
+    </div>
+    <div class="title_class">
+      附件
+    </div>
+    <ion-icon class="icon_class" item-end name="arrow-up" *ngIf="show_fujian" tappable (click)='changeFJ();$event.stopPropagation();'></ion-icon>
+    <ion-icon class="icon_class" item-end name="arrow-down" *ngIf="!show_fujian" tappable (click)='changeFJ();$event.stopPropagation();'></ion-icon>
+  </div>
+  <div class="line_class" *ngIf="show_fujian">
+  </div>
+  <div class="sub_title_class" *ngIf="show_fujian">
     证书(如学历证书、技能证书等)
-  </p>
-
-  <ion-grid style="    padding-left: 9px;
-  padding-top: 0px;">
+  </div>
+  <ion-grid style="padding-left: 9px;padding-top: 0px;" *ngIf="show_fujian">
     <ion-row>
       <ion-col col-4 style="position:relative;height:106px;margin-top:5px" *ngFor="let item of zhengshuImgList" on-hold="onHold()"
         (click)="clickZhengshuPicture(item)">
@@ -257,7 +346,58 @@
     </ion-row>
 
   </ion-grid>
-
-
-
 </ion-content>
+
+<ion-content *ngIf="now_step == 3" #contentstep3>
+  <div class="header_div_class">
+    1.身份验证 → 2.录入信息 → 3.设置账号
+  </div>
+  <p style="padding-left:20px;margin-top:20px;">
+    是否为该员工开通ERP后台账号?
+  </p>
+
+  <ion-checkbox style="margin-left:20px;border-color: #cccccc ;margin-top:10px;padding-bottom: 2px;"  [checked]='chooseOpen' (click)="checkOpen()" ></ion-checkbox>
+  <span style="vertical-align:super;padding-top:3px"> 开通</span>
+  <ion-checkbox style="margin-left:80px;padding-bottom: 3px;"   [checked]='chooseClose' (click)="checkClose()" ></ion-checkbox>
+  <span style="vertical-align:super"> 不开通</span>
+  <div *ngIf="chooseOpen"  style="margin-top:20px;padding-left: 20px;padding-right:20px;">  
+      
+        <ion-input  style="background-color:#f5f7fa;padding-left:20px" [(ngModel)]="email" placeholder="请为该员工设置系统登录邮箱" ></ion-input>
+  </div>
+</ion-content>
+
+<ion-content *ngIf="now_step == 4" #contentstep4>
+  <div style="text-align:center">
+    <img style="width:60px;height:60px;margin-top:145px;" src="assets/img/finished.png">
+    <p style="font-size: 16px;
+    color: #8a9199;
+    line-height: 0px;margin-top:30px">创建成功</p>
+    <p>
+      <button ion-button class="final_btn_class" (click)="contine_create()">继续办理入职</button>
+    </p>
+    <p>
+      <button ion-button class="final_btn_class" (click)="exit()">退出</button>
+    </p>
+    <!--<p>
+      <button ion-button style='width:30%;font-size:16px' (click)="generate_nfc()" clear>绑定工牌 </button>
+      <button ion-button clear style="    width: 5%;
+      line-height: 22px;
+      font-size: 23px;">|</button>
+      <button ion-button style='width:37%;font-size:16px' (click)="generate_qr_code()" clear> 生成员工二维码</button>
+    </p>-->
+  </div>
+</ion-content>
+
+<ion-footer style="background-color:#2597ec" *ngIf="now_step == 1 && is_id_ok"> 
+  <button style="background-color:#2597ec" ion-button (click)="step_on()" full *ngIf="now_step != 3 && is_id_ok">下一步</button>
+  
+</ion-footer>
+<ion-footer style="background-color:lightgray" *ngIf="now_step == 1 && !is_id_ok">
+  <button style="background-color:lightgray;color:white" ion-button  full *ngIf="now_step != 3 && !is_id_ok">下一步</button>
+</ion-footer>
+<ion-footer style="background-color:#2597ec" *ngIf="now_step == 2"> 
+  <button style="background-color:#2597ec" ion-button (click)="step_on()" full *ngIf="now_step != 3">下一步</button>
+</ion-footer>
+<ion-footer style="background-color:#2597ec" *ngIf="now_step == 3"> 
+  <button style="background-color:#2597ec" ion-button (click)="complete()" full *ngIf="now_step == 3">完成</button>
+</ion-footer>

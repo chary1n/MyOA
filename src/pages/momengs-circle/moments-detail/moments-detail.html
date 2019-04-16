@@ -46,7 +46,7 @@
           </ion-row>
       </ion-grid>
       <ion-grid style="margin-top: -10px;margin-bottom: -5px">
-            <ion-col col-10 tappable (click)="to_link(item)" style="width: 77%;margin-top:5px;background: #f0f2f5;margin-left: 50px" *ngIf="whether_share">
+            <ion-col col-10 tappable (click)="to_link(item)" style="width: 77%;margin-top:5px;background: #f0f2f5;margin-left: 50px;margin-bottom:5px;" *ngIf="whether_share">
                     <img src="assets/img/share_link.png" style="width: 30px;height: 30px;margin-right: 10px;margin-top: 4px;float: left;">
                       <p style="margin: 0px;margin-left: 15px;font-size: 13px">
                           {{item.share_title}}
@@ -132,7 +132,7 @@
                               </ion-col>
                             </ion-row>
                             <ion-row *ngIf="items.attachment_ids.length==1">
-                                <ion-col col-4  *ngFor="let attachment of items.attachment_ids" style="margin-left: 48px;margin-top: -20px">
+                                <ion-col col-4  *ngFor="let attachment of items.attachment_ids">
                                     <img imageViewer src="{{attachment}}" style="width: auto;height: auto;">
                               </ion-col>
                             </ion-row>

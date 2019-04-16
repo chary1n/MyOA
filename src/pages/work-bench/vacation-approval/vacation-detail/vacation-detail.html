@@ -56,9 +56,7 @@
             <div class="title_class">
               {{item.type}}：{{item.sub_total}}h
             </div>
-            <div *ngIf="(data.state == '草稿' || data.state == '被拒') && edit" style="display: inline-block;
-    text-align: right;
-    width: 210px;">
+            <div *ngIf="(data.state == '草稿' || data.state == '被拒') && edit" style="display: inline-block;text-align: right;width: 210px;">
               <ion-icon style="color:gray" ios="md-create" md="md-create"></ion-icon>
             </div>
           </div>

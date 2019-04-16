@@ -1,0 +1,132 @@
+page-manager-employee-detail {
+    .div_me{
+        width:33%;
+        float:right;
+        text-align:left;
+        height: 40px;
+    }
+
+    .div_wait{
+        width:33%;
+        float:right;
+        height: 40px;
+    }
+
+    .div_approve{
+        width:33%;
+        float:left;
+        text-align:right;
+        height: 40px;
+    }
+
+    .main_header_div{
+        margin-top: 10px;
+        height: 38px;
+        background-color: white;
+        border-bottom: solid 1px #f0f2f5;
+    }
+
+    .p_line_height_select{
+        line-height: 38px;
+    border-bottom: solid 3px #2597ec;
+    width: 60px;
+    text-align: center;
+    color: #2597ec;
+    font-weight: bold;
+    height: 38px;
+    margin-top: 1px;
+    }
+
+    .p_line_height{
+        line-height: 38px;
+        margin-top: 1px;
+        // border-bottom: solid 2px white;
+        width: 60px;
+        text-align: center;
+        color: #333333;
+    }
+
+    .new_img_class{
+        float: right;
+        width: 50px;
+        height: 50px;
+        border-radius: 23px;
+        margin-right: 35px;
+        margin-top: 15px;
+    }
+
+    .new_header_p_class{
+        line-height: 50px;
+        font-size: 20px;
+        padding-left: 18px;
+        padding-top: 15px;
+    }
+
+    .div_every_class{
+            display: inline-block;
+    width: 32%;
+    }
+
+    .list_body_class_no_bottom_line{
+        background-color: white;
+        margin-top: 10px;
+        margin-left: 10px;
+        margin-bottom: 10px;
+    }
+
+    .body_type_class{
+            display: inline-block;
+    }
+
+    .shu_class{
+        width: 10px;
+    height: 10px;
+    /* background-color: red; */
+    display: inline-block;
+    border-left: solid 3px #2597ec;
+    margin-left: 13px;
+    margin-top: 9.5px;
+    }
+
+    .title_class{
+        display: inline-block;
+        font-size: 100%;
+    }
+
+    .body_time_class{
+        margin-left: 26px;
+        margin-top: 5px;
+        color:gray;
+        font-size: 80%;
+    }
+
+    .body_remark_class{
+        margin-left: 26px;
+        margin-top: 5px;
+        // padding-bottom: 7px;
+        color:gray;
+        font-size: 80%;
+    }
+
+    .div_all {
+    padding-top: 10px;
+    overflow: hidden
+  }
+  .div_right {
+    float: right;
+    font-size: 14px;
+    width: 70%;
+    color: #333333;
+    margin-top: 1px;
+    margin-left: 20px;
+    padding-right: 10px;
+    line-height: 17px;
+  }
+  .div_left {
+    font-size: 14px;
+    width: 30%;
+    text-align: left;
+    margin-left: 27px;
+    color: #8b8b8b
+  }
+}

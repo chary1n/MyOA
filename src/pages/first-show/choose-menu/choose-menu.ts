@@ -37,12 +37,12 @@ export class ChooseMenuPage {
         this.is_show_me = true
       }
     })
-    events.subscribe('initData', (data) => {
-      this.me_type = []
-      this.state_type = 'all'
-      this.start_date = ''
-      this.end_date = ''
-    })
+    // events.subscribe('initData', (data) => {
+    //   this.me_type = []
+    //   this.state_type = 'all'
+    //   this.start_date = ''
+    //   this.end_date = ''
+    // })
 
     
   }

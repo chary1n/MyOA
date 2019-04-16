@@ -41,14 +41,19 @@ export class ContactPersonPage {
   zNodes = []
   tree_obj
 
+  is_hr_manager_enter = false; // 是否从花名册进入
+
+  title = '通讯录'
   constructor(public navCtrl: NavController, public navParams: NavParams, public contactService: ContactService,
     public employeeService: EmployeeService,
     public storage: Storage, public statusbar: StatusBar) {
     this.showAll = "YES";
     this.limit = 20;
     this.offset = 0
-
-
+    this.is_hr_manager_enter = this.navParams.get('is_hr_manager_enter')
+    if (this.is_hr_manager_enter){
+      this.title = '花名册'
+    }
 
 
 
@@ -86,9 +91,6 @@ export class ContactPersonPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ContactPersonPage');
-  }
-
-  ionViewDidEnter() {
     let self = this
     this.setting = {
       data: {
@@ -102,14 +104,30 @@ export class ContactPersonPage {
             self.employeeService.get_employee_info([treeNode.res_id], false).then(res => {
               console.log(res)
               if (res.result && res.result.res_code == 1) {
-                self.navCtrl.push('EmployeeDetailPage', {
-                  item: res.result.res_data[0],
-                  origin_data: res.result.res_data[0],
-                  id: treeNode.res_id,
-                  user_id: self.uid,
-                })
-
+                // self.navCtrl.push('EmployeeDetailPage', {
+                //   item: res.result.res_data[0],
+                //   origin_data: res.result.res_data[0],
+                //   id: treeNode.res_id,
+                //   user_id: self.uid,
+                // })
+                if (!self.is_hr_manager_enter) {
+                  self.navCtrl.push('EmployeeDetailPage', {
+                    item: res.result.res_data[0],
+                    origin_data: res.result.res_data[0],
+                    id: treeNode.res_id,
+                    user_id: self.uid,
+                  })
+                }
+                else {
+                  self.navCtrl.push('ManagerEmployeeDetailPage', {
+                    item: res.result.res_data[0],
+                    origin_data: res.result.res_data[0],
+                    id: treeNode.res_id,
+                    user_id: self.uid,
+                  })
+                }
               }
+
             })
           }
           else if (treeNode.res_model == 'hr.department') {
@@ -152,6 +170,10 @@ export class ContactPersonPage {
         })
 
       })
+  }
+
+  ionViewDidEnter() {
+    
 
   }
 
@@ -180,12 +202,23 @@ export class ContactPersonPage {
     this.employeeService.get_employee_info([item.employee_id], false).then(res => {
       console.log(res)
       if (res.result && res.result.res_code == 1) {
-        this.navCtrl.push('EmployeeDetailPage', {
-          item: res.result.res_data[0],
-          origin_data: res.result.res_data[0],
-          id: item.employee_id,
-          user_id: item.id,
-        })
+        if (!this.is_hr_manager_enter) {
+          this.navCtrl.push('EmployeeDetailPage', {
+            item: res.result.res_data[0],
+            origin_data: res.result.res_data[0],
+            id: item.employee_id,
+            user_id: item.id,
+          })
+        }
+        else {
+          this.navCtrl.push('EmployeeDetailPage', {
+            item: res.result.res_data[0],
+            origin_data: res.result.res_data[0],
+            id: item.employee_id,
+            user_id: item.id,
+          })
+        }
+
 
       }
     })
@@ -293,13 +326,13 @@ export class ContactPersonPage {
     if (event.target.value == 0) {
       final_arr = this.zNodes
       $.fn.zTree.init($("#ztree_employee"), this.setting, final_arr);
-    
+
     }
     else {
-      $.fn.tTree.fuzzySearch("ztree_employee",event.target.value,false,true)
+      $.fn.tTree.fuzzySearch("ztree_employee", event.target.value, false, true)
     }
     cordova.plugins.Keyboard.close();
-    
+
   }
 
   equeal_arr(arr) {
@@ -327,13 +360,13 @@ export class ContactPersonPage {
   }
 
   add() {
-    // this.navCtrl.push('AddEmployeePage')
-    this.navCtrl.push("PromptPage")
+    this.navCtrl.push('AddEmployeePage')
+    // this.navCtrl.push("PromptPage")
   }
 
-  goBack(){
+  goBack() {
     this.navCtrl.pop()
   }
-  
+
 
 }

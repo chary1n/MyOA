@@ -1,0 +1,159 @@
+<!--
+  Generated template for the ManagerEmployeeDetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header no-border>
+
+  <ion-navbar color="gongdan-color" hideBackButton="true">
+    <ion-buttons left>
+      <button ion-button icon-only (click)="goBack()"> 
+        <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>{{item.name}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <div class="header_class">
+    <div style="width:90%;margin-left:5%;box-shadow: 2px 4px 22px #edeeee;margin-top: 10px;height: 160px;margin-bottom: 20px;border-radius:10px;">
+      <img src={{item.image}} class="new_img_class">
+      <p class="new_header_p_class">
+        {{item.english_name}}
+        <span style="font-size: 20px;">{{item.name}}</span>
+      </p>
+      <p style="font-size: 13px;color: #2597ec;line-height: 0px;margin-left: 20px;" tappable (click)="click_phone()">
+        <ion-icon name="call" color="gongdan-color"></ion-icon> <span style="margin-left:10px;" >{{item.mobile_phone}}</span>
+      </p>
+      <p style="font-size: 13px;color: #2597ec;line-height: 11px;margin-left: 20px;" tappable (click)="click_email()">
+        <ion-icon name="mail" color="gongdan-color"></ion-icon> <span style="margin-left:10px;">{{item.work_email}}</span>
+      </p>
+    </div>
+  </div>
+  <div align="center" class="main_header_div">
+    <div class="div_every_class" align="center" tappable (click)="click_hr_info()">
+      <p [ngClass]="{true:'p_line_height_select',false:'p_line_height'}[detail_type=='hr_info']">人事信息</p>
+    </div>
+    <div class="div_every_class" align="center" tappable (click)="click_employee_info()">
+      <p [ngClass]="{true:'p_line_height_select',false:'p_line_height'}[detail_type=='employee_info']">个人简历</p>
+    </div>
+    <div class="div_every_class" align="center" tappable (click)="click_salary_info()">
+      <p [ngClass]="{true:'p_line_height_select',false:'p_line_height'}[detail_type=='salary_info']">财务信息</p>
+    </div>
+    <!--<div class="div_every_class" align="center" tappable (click)="click_attachment_info()">
+      <p [ngClass]="{true:'p_line_height_select',false:'p_line_height'}[detail_type=='attachment_info']">附件</p>
+    </div>-->
+  </div>
+  <div *ngIf="detail_type=='hr_info'">
+    <div class="list_body_class_no_bottom_line">
+      <div class="body_type_class">
+        <div class="shu_class">
+        </div>
+        <div class="title_class">
+          岗位信息
+        </div>
+      </div>
+      <div class="div_all">
+        <div text-wrap class="div_right"> {{item.department_id}}</div>
+        <div class="div_left" > 部门 </div>
+      </div>
+      <div class="div_all">
+        <div text-wrap class="div_right" >  
+          <span *ngFor="let job of item.hr_job_ids;">
+            {{job}} 
+            </span>
+            </div>
+        <div class="div_left" > 岗位 </div>
+      </div>
+      <div class="div_all">
+        <div text-wrap class="div_right"> {{item.parent_id}}</div>
+        <div class="div_left" > 直属领导 </div>
+      </div>
+      <div class="div_all">
+        <div text-wrap class="div_right"> {{item.attendance_name}}</div>
+        <div class="div_left" > 考勤规则 </div>
+      </div>
+    </div>
+    <div class="list_body_class_no_bottom_line">
+      <div class="body_type_class">
+        <div class="shu_class">
+        </div>
+        <div class="title_class">
+          合同信息
+        </div>
+      </div>
+      <div class="div_all">
+        <div text-wrap class="div_right"> {{item.productivity_data}}</div>
+        <div class="div_left" > 用工性质 </div>
+      </div>
+      <div class="div_all">
+        <div text-wrap class="div_right"> {{item.rt_date_of_entry}}</div>
+        <div class="div_left" > 入职日期 </div>
+      </div>
+      <div class="div_all">
+        <div text-wrap class="div_right"> {{item.rt_date_of_correction}}</div>
+        <div class="div_left" > 预计转正 </div>
+      </div>
+    </div>
+
+    <div class="list_body_class_no_bottom_line">
+      <div class="body_type_class">
+        <div class="shu_class">
+        </div>
+        <div class="title_class">
+          紧急联系人
+        </div>
+      </div>
+      <div class="div_all">
+        <div text-wrap class="div_right"> {{item.rt_emergency_contact_name}}</div>
+        <div class="div_left" > 姓名 </div>
+      </div>
+      <div class="div_all">
+        <div text-wrap class="div_right"> {{item.rt_emergency_contact_relation}}</div>
+        <div class="div_left" > 关系 </div>
+      </div>
+      <div class="div_all">
+        <div text-wrap class="div_right"> {{item.rt_emergency_contact_way}}</div>
+        <div class="div_left" > 联系方式 </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="detail_type=='employee_info'" style="margin-top:10px;">
+      <div class="div_all">
+        <div text-wrap class="div_right"> {{item.gender}}</div>
+        <div class="div_left" > 性别 </div>
+      </div>
+      <div class="div_all">
+        <div text-wrap class="div_right"> {{item.marital}}</div>
+        <div class="div_left" > 婚姻状况 </div>
+      </div>
+      <div class="div_all">
+        <div text-wrap class="div_right"> {{item.identification_id}}</div>
+        <div class="div_left" > 身份证号 </div>
+      </div>
+  </div>
+
+  <div *ngIf="detail_type=='salary_info'" style="margin-top:10px;">
+      <div class="div_all">
+        <div text-wrap class="div_right"> {{item.rt_acc_number}}</div>
+        <div class="div_left" > 银行卡号 </div>
+      </div>
+      <div class="div_all">
+        <div text-wrap class="div_right"> {{item.rt_bank_name}}</div>
+        <div class="div_left" > 开户行 </div>
+      </div>
+      <div class="div_all">
+        <div text-wrap class="div_right"> {{item.rt_is_system_salary}}</div>
+        <div class="div_left" > 系统发薪 </div>
+      </div>
+      <div class="div_all">
+        <div text-wrap class="div_right"> {{item.rt_social_security_welfare_start_date}}</div>
+        <div class="div_left" > 社保起始月 </div>
+      </div>
+  </div>
+</ion-content>

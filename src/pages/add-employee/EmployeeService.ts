@@ -7,6 +7,26 @@ export class EmployeeService {
     constructor(private httpservice: HttpService) {
 
     }
+    new_department_tree(body){
+        return this.httpservice.postBody("new_department_tree", body)
+    }
+
+    search_id_exist(body){
+        return this.httpservice.postBodyNoLoading("search_id_exist", body);
+    }
+
+    get_all_bank(body){
+        return this.httpservice.postBodyNoLoading("get_all_bank", body);
+    }
+
+    get_all_job(body){
+        return this.httpservice.postBodyNoLoading("get_all_job", body);
+    }
+
+    get_all_attendance(body){
+        return this.httpservice.postBodyNoLoading("get_all_attendance", body);
+    }
+
     get_all_department_tree(body){
         return this.httpservice.postBodyNoLoading("get_all_department_tree", body);
     }

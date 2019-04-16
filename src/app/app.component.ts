@@ -49,9 +49,14 @@ export class MyApp {
             this.rootPage = LoginPage
           }
         }
+        else
+        {
+          this.rootPage = LoginPage
+        }
       })
     })
     platform.ready().then(() => {
+      console.log('platform ready 111111')
       statusBar.overlaysWebView(false);
       statusBar.styleDefault();
       statusBar.backgroundColorByHexString('#f8f8f8');

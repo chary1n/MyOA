@@ -1,19 +1,19 @@
 
 <ion-header no-border>
 
-  <ion-navbar color="gongdan-color">
+  <ion-navbar color="gongdan-color" hideBackButton="true">
     <ion-buttons left>
-      <button ion-button icon-only>
-        <img style="width:30px" src={{company_type}} />
-      </button>
+      <button ion-button icon-only (click)="goBack()">
+              <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+            </button>
     </ion-buttons>
-    <ion-title>通讯录</ion-title>
-    <ion-buttons end *ngIf="isShowEdit">
+    <ion-title>{{title}}</ion-title>
+    <!--<ion-buttons end>
       <button ion-button (click)='add()'>
         <img style="width: 21px;
             margin-right: 2px;" src="assets/img/addEmployee.png">
       </button>
-    </ion-buttons>
+    </ion-buttons>-->
   </ion-navbar>
 
 </ion-header>

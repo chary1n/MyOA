@@ -245,15 +245,11 @@ export class MomengsCirclePage {
         'calendar_id': items.share_id,
         'user_id': this.user_id
       }
-      this.momentsCircleService.get_calendar_by_id(body).then(res => {
-        if (res.result.res_code == 1 && res.result.res_data) {
-          this.navCtrl.push('CalendarDeatilpagePage', {
-            'item': res.result.res_data,
+      this.navCtrl.push('CalendarDeatilpagePage', {
+            'item_id': items.share_id,
             'isEdit': false,
             'frontPage': 'MomengsCirclePage',
           })
-        }
-      })
     }
   }
 

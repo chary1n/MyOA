@@ -103,10 +103,10 @@ export class MyHammerConfig extends HammerGestureConfig  {
     MyApp,
   ],
   providers: [
-    {
-            provide: HAMMER_GESTURE_CONFIG,
-            useClass: ionicGalleryModal.GalleryModalHammerConfig,
-        },
+    // {
+    //         provide: HAMMER_GESTURE_CONFIG,
+    //         useClass: ionicGalleryModal.GalleryModalHammerConfig,
+    //     },
     StatusBar,
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },

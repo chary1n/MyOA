@@ -34,7 +34,7 @@ export class FirstshowMenuPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public events: Events, public storage: Storage, public menu: MenuController,
     public event: Events, public firService: FirstShowService, public appService: AppService) {
-
+       console.log('first show 333333')
     //   events.subscribe('ChooseMenuPage', (data) => {
 
     // });

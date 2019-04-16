@@ -35,6 +35,7 @@ export class NewWorkBenchPage {
   salary_num = 0
   isShowCG = false
   isShowCK = false
+  isShowHR = false
   constructor(public navCtrl: NavController, public navParams: NavParams,public statusbar:StatusBar,public services:CommonUseServices,
               public storage: Storage) {
       
@@ -67,6 +68,9 @@ export class NewWorkBenchPage {
           }
           if(product.name == 'group_stock_manager'){
             this.isShowCK = true;
+          }
+          if (product.name == 'group_hr_manager' || product.name == 'employee_department_manager' || product.name == 'rt_hr_employee_manager'){
+            this.isShowHR = true
           }
         }
 
@@ -171,6 +175,10 @@ export class NewWorkBenchPage {
     this.inner_type='gongcheng'
   }
 
+  click_renshi(){
+    this.inner_type = 'renshi'
+  }
+
   click_PD(){
     this.navCtrl.push('PandianListPage')
   }
@@ -192,5 +200,15 @@ export class NewWorkBenchPage {
   }
   click_contact(){
     this.navCtrl.push('ContactPersonPage')
+  }
+
+  click_HR_entry(){
+    this.navCtrl.push('AddEmployeePage')
+  }
+
+  click_employee_infos(){
+    this.navCtrl.push('ContactPersonPage',{
+      'is_hr_manager_enter': true,
+    })
   }
 }

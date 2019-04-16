@@ -13,28 +13,28 @@
 </ion-header>
 
 
-<ion-content >
+<ion-content>
   <div style="background-color:white;height:100px;margin-top:20px" align="center">
-         <img  style="width:66px;margin-top:10px;border-radius:33px;" src={{item.image}}><br>
+    <img style="width:66px;margin-top:10px;border-radius:33px;" src={{item.image}}><br>
   </div>
   <ion-grid style="width:100%;background-color:white;" class="grid_header">
-<ion-row class="row_class" align-items-center>
-      <ion-col tappable (click) = "callPhone()">
-        <div align="center" >
-         <img  style="width:44px;" src="assets/img/call_phone.png"><br>
+    <ion-row class="row_class" align-items-center>
+      <ion-col tappable (click)="callPhone()">
+        <div align="center">
+          <img style="width:44px;" src="assets/img/call_phone.png"><br>
           <p style="color:#5bc5f3">打电话</p>
         </div>
       </ion-col>
-      <ion-col tappable (click) = "sendEmail()">
-        <div align="center" >
-         <img style="width:44px;" src="assets/img/send_email.png"><br>
-          <p style="color:#5bc5f3">发邮件</p> 
+      <ion-col tappable (click)="sendEmail()">
+        <div align="center">
+          <img style="width:44px;" src="assets/img/send_email.png"><br>
+          <p style="color:#5bc5f3">发邮件</p>
         </div>
       </ion-col>
     </ion-row>
-</ion-grid>
-<ion-item-divider color="light"></ion-item-divider>
-<ion-item-group class="group_bottom">
+  </ion-grid>
+  <ion-item-divider color="light"></ion-item-divider>
+  <ion-item-group class="group_bottom">
     <ion-item>
       <ion-label class="left_label">办公手机</ion-label>
       <ion-label text-wrap class="right_label" item-end>{{item.mobile_phone}}</ion-label>

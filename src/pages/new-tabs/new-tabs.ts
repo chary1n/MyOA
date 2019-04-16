@@ -34,6 +34,7 @@ export class NewTabsPage {
   constructor(public menu: MenuController, public navCtrl: NavController, public navParams: NavParams,
     private firshowService: FirstShowService, public storage: Storage, public momentsCircleService: MomentsCircleService
     , public events: Events, public appService: AppService) {
+      console.log('new tabs 222222')
     if (HttpService.need_login) {
       this.toAutoLogin()
     }
