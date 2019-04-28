@@ -47,6 +47,7 @@ export class CreateDailyReportPage {
       this.jh_description = this.now_item.plan
     }
     else{
+      this.is_edit = false
       this.report_type = this.navParams.get('report_type')
       this.frontPage = Utils.getViewController("DailyReportPage", this.navCtrl)
       this.report_date = Utils.dateFormat(new Date(), 'yyyy-MM-dd')
