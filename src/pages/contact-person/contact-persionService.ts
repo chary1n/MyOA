@@ -7,6 +7,13 @@ export class ContactService {
     constructor(private httpservice: HttpService) {
 
     }
+    new_edit_employee(body){
+        return this.httpservice.postBody("new_edit_employee",body)
+    }
+
+    un_active_employee(body){
+        return this.httpservice.postBody("un_active_employee",body)
+    }
 
     get_department_employees(departments){
         let body = JSON.stringify({

@@ -1,5 +1,5 @@
 <!--
-  Generated template for the AddEmployeePage page.
+  Generated template for the EditEmployeeInfoPage page.
 
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
@@ -8,47 +8,23 @@
 
   <ion-navbar color="gongdan-color" hideBackButton="true">
     <ion-buttons left>
-      <button ion-button icon-only (click)="goBack()" *ngIf="now_step != 4"> 
+      <button ion-button icon-only (click)="goBack()"> 
         <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
       </button>
-      <button ion-button icon-only (click)="exit()" *ngIf="now_step == 4"> 
-        <ion-icon name="close"></ion-icon>
-      </button>
     </ion-buttons>
-    <ion-title>{{get_now_title()}}</ion-title>
-    <!--<ion-buttons end>
-      <button ion-button (click)='next()'>
-        下一步
-      </button>
-    </ion-buttons>-->
+    <ion-title>编辑</ion-title>
   </ion-navbar>
+
 </ion-header>
 
-<ion-content *ngIf="now_step == 1" #contentstep1>
-  <div class="header_div_class">
-    1.身份验证 → 2.录入信息 → 3.设置账号
-  </div>
-  <ion-item class="id_card_class">
-    <ion-avatar item-left>
-      <img style=" width: 30px;
-      height: 30px;
-      margin-top: 7px;" src="assets/img/id_card_img.png">
-    </ion-avatar>
-    <ion-input [(ngModel)]="id_card" placeholder="请输入新员工身份证号"  (ngModelChange)="watch_id_change($event)"></ion-input>
-  </ion-item>
-</ion-content>
 
-<ion-content #contentstep2 class="content_step2" (pan)="panEvent($event)" *ngIf="now_step == 2">
-  <div class="header_div_class">
-    1.身份验证 → 2.录入信息 → 3.设置账号
-  </div>
-  <ion-item tappable (click)='changeHeardImg()'>
+<ion-content (pan)="panEvent($event)">
+  <ion-item>
     <ion-label>头像</ion-label>
     <ion-avatar item-end>
       <img *ngIf="image" src={{image}} class="imgStyle" style=" border-radius: 20px;width: 40px;height: 40px;">
-      <img *ngIf="!image" src="assets/img/heard_img.png" class="imgStyle" style=" border-radius: 20px;width: 40px;height: 40px;">
     </ion-avatar>
-    <img item-end src="assets/img/journal_sheet/right_icon.png" style="height:10px;margin-right:-4px">
+    <!--<img item-end src="assets/img/journal_sheet/right_icon.png" style="height:10px;margin-right:-4px">-->
   </ion-item>
   <ion-item class="item_now_class">
     <ion-label style="color:black">中文名
@@ -66,9 +42,6 @@
   <ion-item class="item_now_class">
     <ion-label style="color:black"> 性别
     </ion-label>
-    <!--<ion-select [(ngModel)]="gender" class="normal-select" okText="确定" cancelText="取消">
-      <ion-option *ngFor="let item of sexList;let i = index;" value={{item.id}}>{{item.name}}</ion-option>
-    </ion-select>-->
     <ion-label style="margin:0px 0px 0px 0px;text-align:right">
       <ion-checkbox style="float:right" color="gongdan-color" (click)="choose_woman()" [checked]="is_man"></ion-checkbox>
       <span class="span_sex_class">男</span>
@@ -78,22 +51,6 @@
       <span class="span_sex_class">女</span>
     </ion-label>
   </ion-item>
-
-  <!--<ion-item>
-    <ion-label style="color:black"> 民族
-    </ion-label>
-    <ion-select [(ngModel)]="nation" class="normal-select" okText="确定" cancelText="取消">
-      <ion-option *ngFor="let item of minzuList;let i = index;" value={{item.id}}>{{item.name}}</ion-option>
-    </ion-select>
-  </ion-item>-->
-
-  <!--<ion-item>
-    <ion-label style="color:black">出生日期</ion-label>
-    <ion-datetime cancelText="取消" doneText="确定" min="1907" max="2088" style="color:#5C6166;font-size:14px;margin-right:-6px"
-      displayFormat="YYYY-MM-DD" [(ngModel)]="birthday"></ion-datetime>
-    <img item-end src="assets/img/journal_sheet/right_icon.png" style="height:10px;margin-right:-4px">
-  </ion-item>-->
-
 
   <ion-item class="item_now_class">
     <ion-label style="color:black"> 婚姻状况
@@ -348,56 +305,6 @@
   </ion-grid>
 </ion-content>
 
-<ion-content *ngIf="now_step == 3" #contentstep3>
-  <div class="header_div_class">
-    1.身份验证 → 2.录入信息 → 3.设置账号
-  </div>
-  <p style="padding-left:20px;margin-top:20px;">
-    是否为该员工开通ERP后台账号?
-  </p>
-
-  <ion-checkbox style="margin-left:20px;border-color: #cccccc ;margin-top:10px;padding-bottom: 2px;"  [checked]='chooseOpen' (click)="checkOpen()" ></ion-checkbox>
-  <span style="vertical-align:super;padding-top:3px"> 开通</span>
-  <ion-checkbox style="margin-left:80px;padding-bottom: 3px;"   [checked]='chooseClose' (click)="checkClose()" ></ion-checkbox>
-  <span style="vertical-align:super"> 不开通</span>
-  <div *ngIf="chooseOpen"  style="margin-top:20px;padding-left: 20px;padding-right:20px;">  
-      
-        <ion-input  style="background-color:#f5f7fa;padding-left:20px" [(ngModel)]="email" placeholder="请为该员工设置系统登录邮箱" ></ion-input>
-  </div>
-</ion-content>
-
-<ion-content *ngIf="now_step == 4" #contentstep4>
-  <div style="text-align:center">
-    <img style="width:60px;height:60px;margin-top:145px;" src="assets/img/finished.png">
-    <p style="font-size: 16px;
-    color: #8a9199;
-    line-height: 0px;margin-top:30px">创建成功</p>
-    <p>
-      <button ion-button class="final_btn_class" (click)="contine_create()">继续办理入职</button>
-    </p>
-    <p>
-      <button ion-button class="final_btn_class" (click)="exit()">退出</button>
-    </p>
-    <!--<p>
-      <button ion-button style='width:30%;font-size:16px' (click)="generate_nfc()" clear>绑定工牌 </button>
-      <button ion-button clear style="    width: 5%;
-      line-height: 22px;
-      font-size: 23px;">|</button>
-      <button ion-button style='width:37%;font-size:16px' (click)="generate_qr_code()" clear> 生成员工二维码</button>
-    </p>-->
-  </div>
-</ion-content>
-
-<ion-footer style="background-color:#2597ec" *ngIf="now_step == 1 && is_id_ok"> 
-  <button style="background-color:#2597ec" ion-button (click)="step_on()" full *ngIf="now_step != 3 && is_id_ok">下一步</button>
-  
-</ion-footer>
-<ion-footer style="background-color:lightgray" *ngIf="now_step == 1 && !is_id_ok">
-  <button style="background-color:lightgray;color:white" ion-button  full *ngIf="now_step != 3 && !is_id_ok">下一步</button>
-</ion-footer>
-<ion-footer style="background-color:#2597ec" *ngIf="now_step == 2"> 
-  <button style="background-color:#2597ec" ion-button (click)="step_on()" full *ngIf="now_step != 3">下一步</button>
-</ion-footer>
-<ion-footer style="background-color:#2597ec" *ngIf="now_step == 3"> 
-  <button style="background-color:#2597ec" ion-button (click)="complete()" full *ngIf="now_step == 3">完成</button>
+<ion-footer *ngIf="show_footer" style="background-color:#2597ec">
+  <button style="background-color:#2597ec;color:white" ion-button full tappable (click)="click_finish()">完成</button>
 </ion-footer>

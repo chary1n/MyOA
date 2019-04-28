@@ -323,25 +323,22 @@ export class AddEmployeePage {
     } else if (this.photoType == "heard") {
       this.image = img_url
     }
-
-
-
   }
 
 
   goBack() {
-    if (this.now_step == 1){
-      if (!this.id_card){
+    if (this.now_step == 1) {
+      if (!this.id_card) {
         this.navCtrl.pop()
         return;
       }
     }
-    if (this.now_step == 3){
-      if (!this.email){
+    if (this.now_step == 3) {
+      if (!this.email) {
         this.now_step -= 1
         setTimeout(() => {
           this.content_step2.resize()
-        },2)
+        }, 2)
         return;
       }
     }
@@ -542,14 +539,28 @@ export class AddEmployeePage {
         Utils.toastButtom("请输入新员工身份证号", this.toastCtrl)
         return;
       }
-      this.employeeService.search_id_exist({'id_card': this.id_card}).then(res => {
+      this.employeeService.search_id_exist({ 'id_card': this.id_card }).then(res => {
         if (res.result.res_code == 1) {
           this.now_step += 1
-      this.empty_all_data()
-      this.identification_id = this.id_card
-      setTimeout(() => {
-        this.content_step2.resize()
-      }, 2)
+          if (res.result.res_data){
+            this.mobile_phone = res.result.res_data.phone
+            if (res.result.res_data.gender == 'F'){
+              this.is_man = false
+              this.is_woman = true
+            }
+            else if (res.result.res_data.gender == 'M'){
+              this.is_man = true
+              this.is_woman = false
+            }
+          }
+          else
+          {
+            this.empty_all_data()
+          }
+          this.identification_id = this.id_card
+          setTimeout(() => {
+            this.content_step2.resize()
+          }, 2)
         }
       })
 
@@ -798,29 +809,29 @@ export class AddEmployeePage {
     this.is_man = true
   }
 
-  watch_id_change($event){
-    if(!this.isShenFenCode(this.id_card))
-    {
+  watch_id_change($event) {
+    if (!this.isShenFenCode(this.id_card)) {
       this.is_id_ok = false
     }
-    else
-    {
+    else {
       this.is_id_ok = true
     }
   }
 
-  exit(){
+  exit() {
     this.navCtrl.pop()
   }
 
-  contine_create(){
+  contine_create() {
     this.now_step = 1
     this.is_id_ok = false
     this.id_card = ''
     this.empty_all_data()
   }
 
-  choose_departments(){
-    this.navCtrl.push('SelectDepartmentPage')
+  choose_departments() {
+    this.navCtrl.push('SelectDepartmentPage', {
+      page: 'AddEmployeePage',
+    })
   }
 }

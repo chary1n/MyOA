@@ -35,7 +35,7 @@ export class SelectDepartmentPage {
   title_now = "请选择部门"
   constructor(public navCtrl: NavController, public navParams: NavParams, public employeeService: EmployeeService,
     public storage: Storage, public toastCtrl: ToastController) {
-    this.frontPage = Utils.getViewController("AddEmployeePage", navCtrl)
+    this.frontPage = Utils.getViewController(this.navParams.get('page'), navCtrl)
   }
 
   ionViewDidLoad() {

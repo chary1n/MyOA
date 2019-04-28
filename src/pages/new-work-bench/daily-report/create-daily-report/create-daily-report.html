@@ -1,0 +1,85 @@
+<!--
+  Generated template for the CreateDailyReportPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header no-border>
+
+  <ion-navbar color="gongdan-color" hideBackButton="true">
+    <ion-buttons left>
+      <button ion-button icon-only (click)="goBack()">
+              <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+            </button>
+    </ion-buttons>
+    <ion-title>{{title}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content style="background-color: #f0f2f5" (pan)="panEvent($event)">
+  <ion-item class="item_now_class">
+    <ion-label style="color:black"> 类型
+    </ion-label>
+    <ion-label item-end style="color:black;text-align:right">
+      {{get_type_str()}}
+    </ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-label style="color:#2e3133;">日期
+    </ion-label>
+    <ion-datetime cancelText="取消" doneText="确定" min="2000" max="2088" style="color:#5C6166;font-size:14px;margin-right:-6px"
+      displayFormat="YYYY-MM-DD" [(ngModel)]="report_date"></ion-datetime>
+    <img item-end src="assets/img/journal_sheet/right_icon.png" style="height:10px;margin-right:-4px">
+  </ion-item>
+
+  <div class="biaoti" tappable (click)='changeZJ()'>
+    <div class="shu_class">
+    </div>
+    <div class="title_class">
+      总结
+    </div>
+    <ion-icon class="icon_class" item-end name="arrow-up" *ngIf="show_zj" tappable (click)='changeZJ();$event.stopPropagation();'></ion-icon>
+    <ion-icon class="icon_class" item-end name="arrow-down" *ngIf="!show_zj" tappable (click)='changeZJ();$event.stopPropagation();'></ion-icon>
+  </div>
+  <div class="line_class" *ngIf="show_zj">
+  </div>
+  <quill-editor [(ngModel)]="editorContent" placeholder="请输入..." *ngIf="show_zj">
+    <div class="tool_bar_class" quill-editor-toolbar>
+      <span class="ql-formats">
+        <img src="assets/img/add_chat_img.png" class="add_img_class" tappable (click)="click_add_img()"/>
+      </span>
+    </div>
+  </quill-editor>
+
+  <div class="biaoti" tappable (click)='changeJH()'>
+    <div class="shu_class">
+    </div>
+    <div class="title_class">
+      计划 (选填)
+    </div>
+    <ion-icon class="icon_class" item-end name="arrow-up" *ngIf="show_jh" tappable (click)='changeJH();$event.stopPropagation();'></ion-icon>
+    <ion-icon class="icon_class" item-end name="arrow-down" *ngIf="!show_jh" tappable (click)='changeJH();$event.stopPropagation();'></ion-icon>
+  </div>
+  <div class="line_class" *ngIf="show_jh">
+  </div>
+  <textarea id="mytextarea" *ngIf="show_jh" [(ngModel)]="jh_description" rows="15" placeholder="请输入..." style="line-height: 20px;font-size: 13px;color: #333333;min-height: 100px; height:auto;padding-top: 10px;padding-left:20px;
+  padding-right:20px;width: 100%;
+                    border-bottom:white 1px solid;
+                    border-top:white 0px solid;
+                    border-left:white 0px solid;
+                    border-right:white 0px solid;overflow-y: visible;"></textarea>
+</ion-content>
+
+<ion-footer *ngIf="pop_hide_footer" style="background-color:#2597ec">
+  <!--<button style="background-color:#2597ec" ion-button (click)="submit_report()" full>提交</button>-->
+  <div class="footer_class">
+    <div class="left_btn" tappable (click)='save_report()'>
+      保存
+    </div>
+    <div class="right_btn" tappable (click)='submit_report()'>
+      立即提交
+    </div>
+  </div>
+</ion-footer>

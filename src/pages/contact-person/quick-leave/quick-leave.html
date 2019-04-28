@@ -1,0 +1,42 @@
+<!--
+  Generated template for the QuickLeavePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header no-border>
+
+  <ion-navbar color="gongdan-color" hideBackButton="true">
+    <ion-buttons left>
+      <button ion-button icon-only (click)="goBack()"> 
+        <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>快速离职</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content style="background-color:#f0f2f5;">
+  <ion-item >
+    <ion-label style="color:#2e3133;">实际离职日期
+      <span style="color:red;"> *</span>
+    </ion-label>
+    <ion-datetime cancelText="取消" doneText="确定" min="2000" max="2088" style="color:#5C6166;font-size:14px;margin-right:-6px"
+      displayFormat="YYYY-MM-DD" [(ngModel)]="leave_date"></ion-datetime>
+    <img item-end src="assets/img/journal_sheet/right_icon.png" style="height:10px;margin-right:-4px">
+  </ion-item>
+  <ion-item class="item_now_class">
+    <ion-label style="color:#2e3133;">社保截止月份
+      <span style="color:red;" *ngIf="is_system_salary"> *</span>
+    </ion-label>
+    <ion-datetime cancelText="取消" doneText="确定" min="2000" max="2088" style="color:#5C6166;font-size:14px;margin-right:-6px"
+      displayFormat="YYYY-MM" [(ngModel)]="fund_end_date"></ion-datetime>
+    <img item-end src="assets/img/journal_sheet/right_icon.png" style="height:10px;margin-right:-4px">
+  </ion-item>
+</ion-content>
+
+<ion-footer style="background-color:#2597ec">
+  <button style="background-color:#2597ec;color:white" ion-button full tappable (click)="click_leave()">离职并归档</button>
+</ion-footer>

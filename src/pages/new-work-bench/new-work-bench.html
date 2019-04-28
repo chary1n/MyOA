@@ -218,6 +218,14 @@
           </div>
         </div>
       </ion-col>
+      <ion-col class="col_class" tappable (click)="click_daily_report()" col-3>
+        <div class="body_class" align="center">
+          <img class="body_img_class" src="assets/img/new_daily_report.png">
+          <div class="text_class">
+            日报
+          </div>
+        </div>
+      </ion-col>
     </ion-row>
   </ion-grid>
   <ion-grid *ngIf="inner_type == 'caigou' && isShowCG" class="grid_class">

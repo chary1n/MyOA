@@ -40,6 +40,8 @@ export class DeletePicturePage {
       this.frontPage = Utils.getViewController("AddEmployeePage", navCtrl)
     } else if (this.navParams.get('EmployeeDetailPage')) {
       this.frontPage = Utils.getViewController("EmployeeDetailPage", navCtrl)
+    } else if (this.navParams.get('EditEmployeeInfoPage')){
+      this.frontPage = Utils.getViewController('EditEmployeeInfoPage', navCtrl)
     }
 
     this.item = this.navParams.get("item")

@@ -365,15 +365,12 @@ export class LoginPage {
     setTimeout(() => {
       this.loadingDB.dismiss();//显示多久消失
     }, 1000);
-    // if(this.chooseIndex==3){
-    //   this.employee = 'odoo0720'; 
-    //   this.toLogin();
-    // }else{
+
     this.loginservice.getDBInfo().then(res => {
       this.employee = res.res_data[0]; //修改
       this.toLogin();
     });
-    // }
+
   }
 
   isAutoLogin() {

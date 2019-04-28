@@ -1,0 +1,149 @@
+<!--
+  Generated template for the DailyReportDetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header no-border>
+
+  <ion-navbar color="gongdan-color" hideBackButton="true">
+    <ion-buttons left>
+      <button ion-button icon-only (click)="goBack()">
+              <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+            </button>
+    </ion-buttons>
+    <ion-title>{{item_data.name}}</ion-title>
+    <img *ngIf='can_show_more' tappable (click)='click_more()' style="float: right;
+    margin-right: 5px;width: 30px;" src="assets/img/more_btn_white.png" />
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content style="background-color: #f0f2f5" #detailcontent>
+  <div class="div_header_class">
+    <p text-wrap class="time_class">{{item_data.summit_time}}</p>
+    <span text-wrap class="span_title_class">{{item_data.name}}</span> <span style="margin-left:10px">{{item_data.employee_name}}</span>
+    <p text-wrap class="bottom_class">类型：{{changeType(item_data.type)}}</p>
+    <p text-wrap class="state_class">{{changeState(item_data.rt_state)}}</p>
+    <div class="differ_class">
+    </div>
+  </div>
+  <div class="biaoti" tappable (click)='changeZJ()'>
+    <div class="shu_class">
+    </div>
+    <div class="title_class">
+      总结
+    </div>
+    <ion-icon class="icon_class" item-end name="arrow-up" *ngIf="show_zj" tappable (click)='changeZJ();$event.stopPropagation();'></ion-icon>
+    <ion-icon class="icon_class" item-end name="arrow-down" *ngIf="!show_zj" tappable (click)='changeZJ();$event.stopPropagation();'></ion-icon>
+  </div>
+  <div class="line_class" *ngIf="show_zj">
+  </div>
+  <div *ngIf="show_zj" [innerHTML]="assembleHTML(item_data.summary)" style="word-wrap:break-word;color:#333333;padding: 10px;width:100%;background-color:white"></div>
+
+  <div class="biaoti" tappable (click)='changeZH()'>
+    <div class="shu_class">
+    </div>
+    <div class="title_class">
+      计划
+    </div>
+    <ion-icon class="icon_class" item-end name="arrow-up" *ngIf="show_jh" tappable (click)='changeZH();$event.stopPropagation();'></ion-icon>
+    <ion-icon class="icon_class" item-end name="arrow-down" *ngIf="!show_jh" tappable (click)='changeZH();$event.stopPropagation();'></ion-icon>
+  </div>
+  <div class="line_class" *ngIf="show_jh">
+  </div>
+  <div *ngIf="show_jh" class="plan_class">
+       <div [innerHTML]="assemblePlanHTML(item_data.plan)" style="word-wrap:break-word;color:#333333;padding-left:5px;padding-right:5px;width:100%;background-color:white"></div>
+  </div>
+
+  <div class="biaoti" tappable (click)='changeJL()'>
+    <div class="shu_class">
+    </div>
+    <div class="title_class">
+      工作记录
+    </div>
+    <ion-icon class="icon_class" item-end name="arrow-up" *ngIf="show_jl" tappable (click)='changeJL();$event.stopPropagation();'></ion-icon>
+    <ion-icon class="icon_class" item-end name="arrow-down" *ngIf="!show_jl" tappable (click)='changeJL();$event.stopPropagation();'></ion-icon>
+  </div>
+  <div class="line_class" *ngIf="show_jl">
+  </div>
+  <ng-container *ngIf="show_jl">
+    <div class="div_class" no-lines *ngFor='let items of item_data.log_ids' tappable (click)='team_detail(item)'>
+      <div text-wrap class="span_class">{{items.rt_operating_target}}</div>
+      <div text-wrap class="log_time_class">{{items.create_date}}</div>
+      <div text-wrap class="log_time_class" style="margin-top: 8px;">{{items.rt_context}}</div>
+    </div>
+  </ng-container>
+
+  <div class="differ_div_class">
+    <div *ngIf='item_data.message_length > 0'>
+      回复 ( {{item_data.message_length}} )
+    </div>
+    <div *ngIf='item_data.message_length == 0'>
+      暂无回复
+    </div>
+  </div>
+
+  <ion-list class="message_list">
+    <div *ngFor="let items of item_data.message_ids" class="div_message">
+      <ion-item no-lines style="height:40px;min-height:50px">
+        <ion-grid style="background:white">
+          <ion-row>
+            <ion-col tappable (click)='delete_reply(items)' col-2>
+              <img src={{items.create_user_ava}} class="img_message_ava">
+            </ion-col>
+            <ion-col tappable (click)='delete_reply(items)' col-7>
+              <p class="name_message">
+                <span>{{items.create_uid}}</span><span style="margin-left:10px">{{changeDate(items.create_date) | date:'MM-dd HH:mm'}}</span>
+              </p>
+            </ion-col>
+            <ion-col col-3>
+              <img src="assets/img/work_bench/feedback.png" class="reply_small_icon" tappable (click)="only_reply_to(items)">
+              <img *ngIf='items.is_me_zan' src="assets/img/yi_zan.png" class="zan_small_icon" tappable (click)='cancel_zan(items)'>
+              <img *ngIf='!items.is_me_zan' src="assets/img/un_zan.png" class="zan_small_icon" tappable (click)='update_zan(items)'>
+              <span *ngIf='items.zan_count >= 0' class="img_span_class">{{items.zan_count}}</span>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+      <ion-item tappable (click)='delete_reply(items)' no-lines style="margin-top:-5px">
+        <p text-wrap [ngClass]="{true:'content_message',false:'content_message_no_lines'}[items.child_ids.length > 0]" class="">
+          <span></span><span style="color:#1f6699;" tappable (click)="clickUser(items.reply_uid)"></span><span>{{items.context}}</span>
+          <ion-grid *ngIf="items.attachment_ids.length > 0" style="margin-top:-5px;margin-bottom:5px">
+            <ion-row style="margin-right:5px;">
+              <ion-col style="height:70px" *ngFor="let image of items.attachment_ids" col-3>
+                <img style="position:absolute;clip:rect(0px,70px,70px,0px);background-color:#f0f2f5" src='{{image}}' imageViewer/>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </p>
+
+      </ion-item>
+
+      <div no-lines *ngFor="let line of items.child_ids;" [ngClass]="{true:'item_class_image',false:'item_calss_one'}[false]" tappable
+        (click)='reply_to(line)'>
+        <p text-wrap [ngClass]="{true:'item_class_image_p',false:'item_class_normal_p'}[false]">
+          <span style="color:#1f6699;">{{line.create_uid + "："}} </span>
+          <span style="color:#1f6699;">@{{line.reply_name}} </span>
+          <span style="color:8a9299">{{line.context}}</span>
+        </p>
+        <ion-grid *ngIf="line.attachment_ids.length > 0" style="margin-top: -30px;
+    margin-bottom: 25px;">
+          <ion-row style="margin-right:5px;">
+            <ion-col style="height:70px;margin-top:10px;" *ngFor="let image of line.attachment_ids" col-3>
+              <img style="position:absolute;clip:rect(0px,70px,70px,0px);background-color:#f0f2f5" src='{{image}}' imageViewer/>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+    </div>
+  </ion-list>
+</ion-content>
+
+<ion-footer tappable (click)="new_reply_to()">
+  <div class="footer_class">
+    <ion-label class="input_class">
+      写下你的回复...
+    </ion-label>
+  </div>
+</ion-footer>

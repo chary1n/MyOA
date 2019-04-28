@@ -64,7 +64,7 @@ page-manager-employee-detail {
 
     .div_every_class{
             display: inline-block;
-    width: 32%;
+    width: 23%;
     }
 
     .list_body_class_no_bottom_line{
@@ -128,5 +128,22 @@ page-manager-employee-detail {
     text-align: left;
     margin-left: 27px;
     color: #8b8b8b
+  }
+
+  .small_img_pic_class{
+          margin-left: 10px;
+    float: left;
+    height: 24px;
+    line-height: 24px;
+  }
+
+  .small_p_class{
+     width: 24px;
+     float: left;
+  }
+
+  .small_div{
+          margin-left: 20px;
+    display: inline-block;
   }
 }

@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams ,AlertController,ToastController,Platform} from 'ionic-angular';
-import { ContactService} from './../contact-persionService'
+import { IonicPage, NavController, NavParams, AlertController, ToastController, Platform, ActionSheetController, LoadingController } from 'ionic-angular';
+import { ContactService } from './../contact-persionService'
 import { CallNumber } from '@ionic-native/call-number';
 import { Utils } from './../../../providers/Utils';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { AppAvailability } from '@ionic-native/app-availability';
 import { WebIntent } from "@ionic-native/web-intent";
+import { EmployeeService } from './../../add-employee/EmployeeService';
+
 declare let startApp: any;
 
 /**
@@ -18,7 +20,7 @@ declare let startApp: any;
 @Component({
   selector: 'page-manager-employee-detail',
   templateUrl: 'manager-employee-detail.html',
-  providers:[CallNumber,AppAvailability,WebIntent],
+  providers: [CallNumber, AppAvailability, WebIntent, EmployeeService],
 })
 export class ManagerEmployeeDetailPage {
   detail_type = 'hr_info'
@@ -26,9 +28,10 @@ export class ManagerEmployeeDetailPage {
   origin_data
   origin_email
   origin_identification_id
-  constructor(public navCtrl: NavController, public navParams: NavParams,public callNumber:CallNumber,
-  public alertCtrl:AlertController,public toast:ToastController,private appAvailability: AppAvailability,
-    public platform: Platform,private webintent: WebIntent) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public callNumber: CallNumber,
+    public alertCtrl: AlertController, public toast: ToastController, private appAvailability: AppAvailability,
+    public platform: Platform, private webintent: WebIntent, public actionSheetCtrl: ActionSheetController, public employeeService: EmployeeService,
+    public loading: LoadingController,) {
     this.item = this.navParams.get("item")
     this.origin_data = this.navParams.get("origin_data")
     console.log(this.item)
@@ -40,54 +43,65 @@ export class ManagerEmployeeDetailPage {
     console.log('ionViewDidLoad ManagerEmployeeDetailPage');
   }
 
-  goBack(){
+  goBack() {
     this.navCtrl.pop()
   }
 
-  click_hr_info(){
+  click_hr_info() {
     this.detail_type = "hr_info"
   }
 
-  click_employee_info(){
+  click_employee_info() {
     this.detail_type = "employee_info"
   }
 
-  click_salary_info(){
+  click_salary_info() {
     this.detail_type = "salary_info"
   }
 
-  click_attachment_info(){
+  click_attachment_info() {
     this.detail_type = "attachment_info"
   }
 
-  click_phone(){
-    //  alert(this.items.phone);
-     if(this.item.mobile_phone != 'false' && this.item.mobile_phone != '')
-     {
-        let confirm = this.alertCtrl.create({  
-      title: this.item.mobile_phone,  
-      buttons: [  
-        {  
-          text: '取消',  
-          handler: () => {  
-          }  
-        },  
-        {  
-          text: '确定',  
-          handler: () => {  
-            this.call(this.item.mobile_phone);
-          }
-        }]
-      }).present();
-     }
-     else
-     {
-        Utils.toastButtom("该员工未填写手机号", this.toast)
-     }
-  
+  ionViewDidEnter() {
+    if (this.navParams.get('need_fresh') == true) {
+      this.employeeService.get_employee_info([this.item.id], false).then(res => {
+        console.log(res)
+        if (res.result && res.result.res_code == 1) {
+          this.item = res.result.res_data[0]
+        }
+        this.navParams.data.need_fresh = false;
+      })
+    }
   }
 
-  click_email(){
+
+  click_phone() {
+    //  alert(this.items.phone);
+    if (this.item.mobile_phone != 'false' && this.item.mobile_phone != '') {
+      let confirm = this.alertCtrl.create({
+        title: this.item.mobile_phone,
+        buttons: [
+          {
+            text: '取消',
+            handler: () => {
+            }
+          },
+          {
+            text: '确定',
+            handler: () => {
+              this.call(this.item.mobile_phone);
+            }
+          }]
+      }).present();
+    }
+    else {
+      Utils.toastButtom("该员工未填写手机号", this.toast)
+    }
+
+  }
+
+  click_email() {
     this.openAppWith('alicloudmail://', 'com.alibaba.cloudmail')
   }
 
@@ -116,7 +130,7 @@ export class ManagerEmployeeDetailPage {
       }, function (error) { /* fail */
         alert("请先下载阿里邮箱");
       });
-      return ;
+      return;
     }
     let ctrl = this.alertCtrl;
 
@@ -150,5 +164,53 @@ export class ManagerEmployeeDetailPage {
         }).present();
       }
     );
+  }
+
+  click_more() {
+    let actionSheet = this.actionSheetCtrl.create({
+      title: '',
+      buttons: [{
+        text: '编辑',
+        handler: () => {
+          this.click_edit()
+        }
+      }, {
+        text: '办理离职',
+        handler: () => {
+          this.click_lizhi()
+        }
+      }, {
+        text: '取消',
+        role: 'cancel',
+        handler: () => {
+
+        }
+      }]
+    });
+    actionSheet.present();
+  }
+
+  click_edit() {
+    let loading = this.loading.create({
+      enableBackdropDismiss: true
+    });
+    loading.present()
+    setTimeout(() => {
+      loading.dismissAll()
+    },200)
+    this.navCtrl.push('EditEmployeeInfoPage', {
+      'item': this.item,
+    })
+  }
+
+  click_lizhi() {
+    var is_salary = false
+    if (this.item.rt_is_system_salary == "是") {
+      is_salary = true
+    }
+    this.navCtrl.push('QuickLeavePage', {
+      'employee_id': this.item.id,
+      'is_system_salary': is_salary
+    })
   }
 }

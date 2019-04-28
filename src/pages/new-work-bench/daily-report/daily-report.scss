@@ -1,0 +1,130 @@
+page-daily-report {
+
+    .main_header_div{
+        margin-top: 2px;
+        height: 38px;
+        background-color: #2597ec;
+        // border-bottom: solid 1px #f0f2f5;
+    }
+
+     .div_every_class{
+            display: inline-block;
+    width: 48%;
+    }
+
+    .div_only_me_class{
+        display: inline-block;
+    width: 96%;
+    }
+
+    .p_line_height_select{
+        line-height: 38px;
+    border-bottom: solid 3px white;
+    width: 60px;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    height: 38px;
+    margin-top: 1px;
+    }
+
+    .p_line_height{
+        line-height: 38px;
+        margin-top: 1px;
+        // border-bottom: solid 2px white;
+        width: 60px;
+        text-align: center;
+        color: white;
+    }
+
+    .btn_class{
+        float: left;
+        background-color: #2597ec;
+    color: white;
+    }
+
+    .searchbar-ios .searchbar-input{
+            padding: 0 28px;
+    border-radius: 22px;
+    height: 3rem;
+    font-size: 1.4rem;
+    font-weight: 400;
+    background-color: white;
+    color: gray;
+    }
+
+    .searchbar-ios {
+  padding: 0 8px;
+  min-height: 44px;
+  border-top: 0.55px solid transparent;
+  background: #2597ec;
+  border-bottom: 0px solid rgba(0, 0, 0, 0.05);
+}
+
+    .div_header{
+        background-color: #2597ec;
+        width: 100%;
+        height: 58px;
+    }
+
+    .search_class{
+        width: 80vw;
+        margin-top: 7px;
+    }
+
+    .differ_class{
+    //         height: 10px;
+    // background-color: #f0f2f5;
+    // margin-top: -1px;
+    }
+
+    .div_class{
+        height: 70px;
+    background-color: white;
+    border-bottom: solid 1px #f0f2f5;
+    // margin-top: 10px
+    }
+
+    .time_class{
+                font-size: 95%;
+    float: right;
+    color: gray;
+    margin-top: 13px;
+    margin-right: 10px;
+    }
+
+    .span_class{
+            font-size: 107%;
+    margin-left: 11px;
+    margin-top: 10px;
+    line-height: 40px;
+
+    }
+
+    .state_class{
+
+            font-size: 80%;
+    float: right;
+    color: #E0540E;
+    margin-top: -30px;
+    margin-right: 10px;
+    }
+
+    .bottom_class{
+                font-size: 90%;
+    color: gray;
+    width: 200px;
+    margin-left: 11px;
+    margin-top: 4px;
+    }
+
+    .time_late_class{
+        padding-left:11px;
+        font-size: 13px;
+        color: #333333;
+        // border-bottom:#f0f2f5 1px solid;height: 30px;
+        line-height: 30px;
+        background-color: #f0f2f5;
+    }
+}
+ 

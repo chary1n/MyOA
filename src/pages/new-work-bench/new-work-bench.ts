@@ -211,4 +211,8 @@ export class NewWorkBenchPage {
       'is_hr_manager_enter': true,
     })
   }
+
+  click_daily_report(){
+    this.navCtrl.push('DailyReportPage')
+  }
 }
