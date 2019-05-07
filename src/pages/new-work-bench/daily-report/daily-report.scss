@@ -79,7 +79,7 @@ page-daily-report {
     }
 
     .div_class{
-        height: 70px;
+        height: 50px;
     background-color: white;
     border-bottom: solid 1px #f0f2f5;
     // margin-top: 10px
@@ -88,8 +88,8 @@ page-daily-report {
     .time_class{
                 font-size: 95%;
     float: right;
-    color: gray;
-    margin-top: 13px;
+    color: #E0540E;
+    margin-top: 15px;
     margin-right: 10px;
     }
 
@@ -97,7 +97,7 @@ page-daily-report {
             font-size: 107%;
     margin-left: 11px;
     margin-top: 10px;
-    line-height: 40px;
+    line-height: 50px;
 
     }
 
@@ -125,6 +125,21 @@ page-daily-report {
         // border-bottom:#f0f2f5 1px solid;height: 30px;
         line-height: 30px;
         background-color: #f0f2f5;
+    }
+
+    .choose_class{
+            width: 13vw;
+    background-color: #2597ec;
+    color: white;
+    height: 55px;
+    float: right;
+    line-height: 62px;
+    font-weight: bold;
+    }
+
+    .search_class_team{
+        width: 70vw;
+        margin-top: 7px;
     }
 }
  

@@ -1,0 +1,83 @@
+<!--
+  Generated template for the LeaveWorkHrConfirmPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header no-border>
+
+  <ion-navbar color="gongdan-color" hideBackButton="true">
+    <ion-buttons left>
+      <button ion-button icon-only (click)="goBack()">
+              <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+            </button>
+    </ion-buttons>
+    <ion-title>人事确认</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content style="background-color: #f0f2f5">
+  <div class="header_div_class">
+    请仔细确认以下各项信息
+  </div>
+  <ion-item no-lines style="min-height:40px;border-bottom: solid 1px #f0f2f5;">
+    <ion-label style="color:#2e3133;font-size: 16px;">实际离职日期
+      <span style="color:red;"> *</span>
+    </ion-label>
+    <ion-datetime cancelText="取消" doneText="确定" min="2000" max="2088" style="color:#5C6166;font-size:14px;margin-right:-6px"
+      displayFormat="YYYY-MM-DD" [(ngModel)]="dimiss_date"></ion-datetime>
+    <img item-end src="assets/img/journal_sheet/right_icon.png" style="height:10px;margin-right:-4px">
+  </ion-item>
+
+  <!--<ion-item *ngIf="is_user_system_salary" style="min-height:40px;">
+    <ion-label style="color:#2e3133;font-size: 16px;">社保截止日期
+      <span style="color:red;"> *</span>
+    </ion-label>
+    <ion-datetime cancelText="取消" doneText="确定" min="2000" max="2088" style="color:#5C6166;font-size:14px;margin-right:-6px"
+      displayFormat="YYYY-MM-DD" [(ngModel)]="fund_end_date"></ion-datetime>
+    <img item-end src="assets/img/journal_sheet/right_icon.png" style="height:10px;margin-right:-4px">
+  </ion-item>-->
+
+  <div class="header_title_class">
+    公司资产交接
+  </div>
+  <div class="biaoti">
+    <div class="shu_class">
+    </div>
+    <div class="title_class">
+      固定资产
+    </div>
+    <ion-list>
+      <ion-item *ngFor="let entry of fix_thing_arr" no-lines>
+        <ion-label>{{entry.val}}</ion-label>
+        <ion-checkbox slot="end" [(ngModel)]="entry.isChecked"></ion-checkbox>
+      </ion-item>
+    </ion-list>
+  </div>
+  <div style="background-color: white; height:10px;width:100%">
+
+  </div>
+  <div class="biaoti_oa">
+    <div class="shu_class">
+    </div>
+    <div class="title_class">
+      软件系统
+    </div>
+    <ion-list>
+      <ion-item *ngFor="let entry of oa_thing_arr" no-lines>
+        <ion-label>{{entry.val}}</ion-label>
+        <ion-checkbox slot="end" [(ngModel)]="entry.isChecked"></ion-checkbox>
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>
+
+<ion-footer>
+    <div class="footer_class" >
+        <div class="full_btn" full tappable (click)='click_confirm_dimission()'>
+          确认离职
+        </div>
+    </div>
+</ion-footer>

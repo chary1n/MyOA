@@ -26,7 +26,7 @@
     <div class="left_div" align="center" tappable (click)="click_normal()">
       <span [ngClass]="{true:'under_line_style',false:'normal_style'}[inner_type == 'normal']">通用</span>
     </div>
-    <div class="left_div" align="center" tappable (click)="click_renshi()" *ngIf="isShowHR">
+    <div class="left_div" align="center" tappable (click)="click_renshi()" *ngIf="can_show_hr_menu">
       <span [ngClass]="{true:'under_line_style',false:'normal_style'}[inner_type == 'renshi']">人事</span>
     </div>
     <div class="left_div" align="center" tappable (click)="click_caigou()" *ngIf="isShowCG">
@@ -97,6 +97,49 @@
           <img class="body_img_class" src="assets/img/employee_infos.png">
           <div class="text_class">
             通讯录
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <div class="sub_header_div_class">
+      工作汇报
+    </div>
+    <ion-row class="body_row_class" align-items-center>
+      <ion-col class="col_class" tappable (click)="toAll()" col-3>
+        <div class="body_class" align="center">
+
+          <img class="body_img_class" src="assets/img/waitthing.png">
+          <div class="text_class">
+            待办
+          </div>
+        </div>
+      </ion-col>
+      <ion-col class="col_class" tappable (click)="click_jixiao()" col-3>
+        <div *ngIf="performance > 0" align="center" [ngClass]="{true:'big_number_class',false:'number_class'}[performance >= 10]">
+          {{performance}}
+        </div>
+        <div class="body_class" align="center">
+
+          <img class="body_img_class" src="assets/img/work_bench/performance_fang.png">
+          <div class="text_class">
+            绩效
+          </div>
+        </div>
+      </ion-col>
+      <ion-col class="col_class" tappable (click)="click_sale_report()" col-3>
+        <div class="body_class" align="center">
+          <img class="body_img_class" src="assets/img/salary.png">
+          <div class="text_class">
+            销售业绩
+          </div>
+        </div>
+      </ion-col>
+      <ion-col class="col_class" tappable (click)="click_daily_report()" col-3>
+        <div class="body_class" align="center">
+          <img class="body_img_class" src="assets/img/new_daily_report.png">
+          <div class="text_class">
+            日报
           </div>
         </div>
       </ion-col>
@@ -185,48 +228,6 @@
       </ion-col>
     </ion-row>
 
-    <div class="sub_header_div_class">
-      工作汇报
-    </div>
-    <ion-row class="body_row_class" align-items-center>
-      <ion-col class="col_class" tappable (click)="toAll()" col-3>
-        <div class="body_class" align="center">
-
-          <img class="body_img_class" src="assets/img/waitthing.png">
-          <div class="text_class">
-            待办
-          </div>
-        </div>
-      </ion-col>
-      <ion-col class="col_class" tappable (click)="click_jixiao()" col-3>
-        <div *ngIf="performance > 0" align="center" [ngClass]="{true:'big_number_class',false:'number_class'}[performance >= 10]">
-          {{performance}}
-        </div>
-        <div class="body_class" align="center">
-
-          <img class="body_img_class" src="assets/img/work_bench/performance_fang.png">
-          <div class="text_class">
-            绩效
-          </div>
-        </div>
-      </ion-col>
-      <ion-col class="col_class" tappable (click)="click_sale_report()" col-3>
-        <div class="body_class" align="center">
-          <img class="body_img_class" src="assets/img/salary.png">
-          <div class="text_class">
-            销售业绩
-          </div>
-        </div>
-      </ion-col>
-      <ion-col class="col_class" tappable (click)="click_daily_report()" col-3>
-        <div class="body_class" align="center">
-          <img class="body_img_class" src="assets/img/new_daily_report.png">
-          <div class="text_class">
-            日报
-          </div>
-        </div>
-      </ion-col>
-    </ion-row>
   </ion-grid>
   <ion-grid *ngIf="inner_type == 'caigou' && isShowCG" class="grid_class">
 
@@ -303,9 +304,9 @@
     </ion-row>
   </ion-grid>
 
-  <ion-grid *ngIf="inner_type=='renshi' && isShowHR" class="grid_class">
+  <ion-grid *ngIf="inner_type=='renshi' && can_show_hr_menu" class="grid_class">
     <ion-row class="body_row_class" align-items-center>
-      <ion-col class="col_class" col-3 tappable (click)="click_employee_infos()">
+      <ion-col *ngIf="isShowHR" class="col_class" col-3 tappable (click)="click_employee_infos()">
         <div class="body_class" align="center">
           <img src="assets/img/employee_infos.png" class="body_img_class">
           <div class="text_class">
@@ -313,11 +314,23 @@
           </div>
         </div>
       </ion-col>
-      <ion-col class="col_class" col-3 tappable (click)="click_HR_entry()">
+      <ion-col *ngIf="isShowHR" class="col_class" col-3 tappable (click)="click_HR_entry()">
         <div class="body_class" align="center">
           <img src="assets/img/new_ruzhi_img.png" class="body_img_class">
           <div class="text_class">
             入职
+          </div>
+        </div>
+      </ion-col>
+      <ion-col *ngIf="isShowManager" class="col_class" tappable (click)="click_Dimission()" col-3>
+        <div *ngIf="dimission_num > 0" align="center" [ngClass]="{true:'big_number_class',false:'number_class'}[dimission_num >= 10]">
+          {{dimission_num}}
+        </div>
+        <div class="body_class" align="center">
+
+          <img class="body_img_class" src="assets/img/dimission_pic.png">
+          <div class="text_class">
+            离职审核
           </div>
         </div>
       </ion-col>

@@ -4,7 +4,8 @@ import { ReportService } from './../reportService'
 import { DomSanitizer } from '@angular/platform-browser';
 import { HttpService } from './../../../../providers/HttpService';
 import { Utils } from './../../../../providers/Utils';
-
+import 'jquery'
+declare var $: any;
 /**
  * Generated class for the DailyReportDetailPage page.
  *

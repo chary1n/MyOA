@@ -1,0 +1,50 @@
+page-daily-report-tree-detail {
+    .time_late_class{
+        padding-left:11px;
+        font-size: 13px;
+        color: #333333;
+        // border-bottom:#f0f2f5 1px solid;height: 30px;
+        line-height: 30px;
+        background-color: #f0f2f5;
+    }
+
+    .div_class{
+        height: 50px;
+    background-color: white;
+    border-bottom: solid 1px #f0f2f5;
+    // margin-top: 10px
+    }
+
+    .time_class{
+                font-size: 95%;
+    float: right;
+    color: #E0540E;
+    margin-top: 10px;
+    margin-right: 10px;
+    }
+
+    .span_class{
+            font-size: 107%;
+    margin-left: 11px;
+    margin-top: 10px;
+    line-height: 50px;
+
+    }
+
+    .state_class{
+
+            font-size: 80%;
+    float: right;
+    color: #E0540E;
+    margin-top: -30px;
+    margin-right: 10px;
+    }
+
+    .bottom_class{
+                font-size: 90%;
+    color: gray;
+    width: 200px;
+    margin-left: 11px;
+    margin-top: 4px;
+    }
+}

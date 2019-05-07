@@ -26,6 +26,8 @@ export class DailyReportPage {
   user_id
   pop_hide_footer = true
   is_manager = false
+
+  arr_index = []
   constructor(public navCtrl: NavController, public navParams: NavParams, public actionSheetCtrl: ActionSheetController,
     public reportService: ReportService,
     public reportAutoServices: ReportAutoService,
@@ -60,6 +62,11 @@ export class DailyReportPage {
       }
       else {
         this.reload_team_data()
+      }
+    }
+    else{
+      if (this.type == 'me') {
+        this.reload_me_data()
       }
     }
   }
@@ -168,9 +175,10 @@ export class DailyReportPage {
   }
 
   reload_team_data() {
-    this.reportService.get_team_daily_report({ 'user_id': this.user_id }).then(res => {
+    this.reportService.get_team_daily_report_new({ 'user_id': this.user_id }).then(res => {
       if (res.result.res_data && res.result.res_code == 1) {
-        this.team_list = res.result.res_data
+        this.team_list = res.result.res_data.final_arr
+        this.arr_index = res.result.res_data.arr_index
       }
     })
   }
@@ -225,10 +233,25 @@ export class DailyReportPage {
     })
   }
 
-  team_detail(item) {
-    this.navCtrl.push('DailyReportDetailPage', {
-      item: item,
+  // team_detail(item) {
+  //   this.navCtrl.push('DailyReportDetailPage', {
+  //     item: item,
+  //     uid: this.user_id,
+  //   })
+  // }
+  team_detail(item,i){
+    let now_index = 0
+    for(let index=0;index<this.arr_index.length;index++){
+      if (item.report_id == this.arr_index[index]){
+        now_index = index
+      }
+    }
+
+    this.navCtrl.push('DailyReportTreeDetailDetailPage', {
+      now_report_id: item.report_id,
       uid: this.user_id,
+      arr_index: this.arr_index,
+      now_index: now_index,
     })
   }
 
@@ -258,7 +281,8 @@ export class DailyReportPage {
     this.team_list = []
     this.reportService.search_report_by_domain(body).then((res) => {
       if (res.result.res_data && res.result.res_code == 1) {
-        this.team_list = res.result.res_data
+        this.team_list = res.result.res_data.final_arr
+        this.arr_index = res.result.res_data.arr_index
       }
     })
   }
@@ -296,6 +320,12 @@ export class DailyReportPage {
 
   itemClearMeSelected(event) {
     this.reload_me_data()
+  }
+
+  choose_tree(){
+    this.navCtrl.push('DailyReportTreePage', {
+      'user_id': this.user_id,
+    })
   }
 
 }

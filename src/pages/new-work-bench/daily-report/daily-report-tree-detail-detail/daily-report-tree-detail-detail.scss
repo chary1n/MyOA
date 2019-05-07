@@ -1,4 +1,4 @@
-page-daily-report-detail {
+page-daily-report-tree-detail-detail {
     .biaoti {
     background: white;
     height: 40px;
@@ -216,6 +216,21 @@ page-daily-report-detail {
     .item_class_image{
         // height:20px;
       margin-top:-6px;
+    }
+
+    .close_icon_class{
+            width: 30px;
+    font-size: 20px;
+    font-weight: bold;
+    }
+
+    .back_page_btn_class{
+        margin-right: 10px;
+    width: 30px;
+    }
+
+    .next_page_btn_class{
+        width: 30px;
     }
 
     .imgHeard{

@@ -1,0 +1,41 @@
+<!--
+  Generated template for the LeaveWorkPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header no-border>
+
+  <ion-navbar color="gongdan-color" hideBackButton="true">
+    <ion-buttons left>
+      <button ion-button icon-only (click)="goBack()">
+              <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+            </button>
+    </ion-buttons>
+    <ion-title>离职审核</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content style="background-color: #f0f2f5">
+  <ion-list>
+      <div *ngFor='let item of wait_approval_list;let i = index'>
+        <ion-item no-lines [ngClass]="{true:'item_empty_class',false:'item_class'}[i == 0]" tappable (click)='approved_detail(item)'>
+          <p text-wrap class="time_class">{{changeState(item.state)}}</p>
+          <h4 text-wrap class="rt_name_class">
+            <span>
+              {{item.employee_name}}
+            </span>
+            <span style="margin-left:10px">
+              {{item.rt_name}}
+            </span>
+          </h4>
+          <p text-wrap class="money_class">
+            <span>部门：{{item.department_name}}</span><span style="margin-left:10px">岗位：{{item.job_name}}</span>
+          </p>
+          <p text-wrap class="department_class">预计离职日期：{{item.dimission_date}} </p>
+        </ion-item>
+      </div>
+    </ion-list>
+</ion-content>

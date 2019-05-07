@@ -35,11 +35,14 @@
       <ion-auto-complete *ngIf="type == 'me'" class="search_class" (itemSelected)="itemMeSelected($event)" (itemClearSelected)="itemClearMeSelected($event)"
         [dataProvider]="reportMeAutoServices"></ion-auto-complete>
 
-      <ion-auto-complete *ngIf="type != 'me'" class="search_class" (itemSelected)="itemSelected($event)" (itemClearSelected)="itemClearSelected($event)"
+      <ion-auto-complete *ngIf="type != 'me'" class="search_class_team" (itemSelected)="itemSelected($event)" (itemClearSelected)="itemClearSelected($event)"
         [dataProvider]="reportAutoServices"></ion-auto-complete>
-      <button class="btn_class" ion-button icon-only (click)="goBack()">
+      <button class="btn_class" tappable ion-button icon-only (click)="goBack()">
         <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
       </button>
+      <div *ngIf="type != 'me'" tappable (click)="choose_tree()" class="choose_class"> 
+        筛选
+      </div>
     </div>
     <div align="center" class="main_header_div" *ngIf="is_manager">
       <div class="div_every_class" align="center" tappable (click)="click_me()">
@@ -58,32 +61,24 @@
   </div>
   <div no-lines *ngIf="type == 'me'" style="margin-top:95px">
     <div class="div_class" no-lines *ngFor='let item of me_list' tappable (click)='me_detail(item)'>
-      <p text-wrap class="time_class">{{item.summit_time}}</p>
+      <span class="time_class">{{changeState(item.rt_state)}}</span>
       <span text-wrap class="span_class">{{item.name}}</span> <span style="margin-left:10px">{{item.employee_name}}</span>
-      <p text-wrap class="bottom_class">类型：{{changeType(item.type)}}</p>
-      <p text-wrap class="state_class">{{changeState(item.rt_state)}}</p>
+      <!--<p text-wrap class="bottom_class">类型：{{changeType(item.type)}}</p>
+      <p text-wrap class="state_class">{{changeState(item.rt_state)}}</p>-->
       <div class="differ_class">
       </div>
     </div>
   </div>
   <div no-lines *ngIf="type == 'team'" style="margin-top:95px">
-    <!--<div class="div_class" no-lines *ngFor='let item of team_list' tappable (click)='team_detail(item)'>
-      <p text-wrap class="time_class">{{item.summit_time}}</p>
-      <span text-wrap class="span_class">{{item.name}}</span> <span style="margin-left:10px">{{item.employee_name}}</span>
-      <p text-wrap class="bottom_class">类型：{{changeType(item.type)}}</p>
-      <p text-wrap class="state_class">{{changeState(item.rt_state)}}</p>
-      <div class="differ_class">
-      </div>
-    </div>-->
     <div *ngFor="let subItem of team_list">
       <div class="time_late_class">
         {{subItem.time}}
       </div>
-      <div class="div_class" no-lines *ngFor='let item of subItem.data' tappable (click)='team_detail(item)'>
-        <p text-wrap class="time_class">{{item.summit_time}}</p>
+      <div class="div_class" no-lines *ngFor='let item of subItem.data;let i=index' tappable (click)='team_detail(item,i)'>
+        <!--<span  class="time_class">{{changeState(item.rt_state)}}</span>-->
         <span text-wrap class="span_class">{{item.name}}</span> <span style="margin-left:10px">{{item.employee_name}}</span>
-        <p text-wrap class="bottom_class">类型：{{changeType(item.type)}}</p>
-        <p text-wrap class="state_class">{{changeState(item.rt_state)}}</p>
+        <!--<p text-wrap class="bottom_class">类型：{{changeType(item.type)}}</p>
+        <p text-wrap class="state_class">{{changeState(item.rt_state)}}</p>-->
         <div class="differ_class">
         </div>
       </div>

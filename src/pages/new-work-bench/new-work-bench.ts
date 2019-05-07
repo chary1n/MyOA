@@ -36,6 +36,9 @@ export class NewWorkBenchPage {
   isShowCG = false
   isShowCK = false
   isShowHR = false
+  isShowManager = false
+  can_show_hr_menu = false
+  dimission_num=0 // 离职审核
   constructor(public navCtrl: NavController, public navParams: NavParams,public statusbar:StatusBar,public services:CommonUseServices,
               public storage: Storage) {
       
@@ -71,6 +74,11 @@ export class NewWorkBenchPage {
           }
           if (product.name == 'group_hr_manager' || product.name == 'employee_department_manager' || product.name == 'rt_hr_employee_manager'){
             this.isShowHR = true
+            this.can_show_hr_menu = true
+          }
+          if (product.name == 'manger_for_sub_current_employee_department'){
+            this.isShowManager = true
+            this.can_show_hr_menu = true
           }
         }
 
@@ -95,6 +103,7 @@ export class NewWorkBenchPage {
                 this.pandianNum = res.result.res_data.pandianNum
                 this.gongchengNum = res.result.res_data.gongchengNum
                 this.salary_num = res.result.res_data.salary_num
+                this.dimission_num = res.result.res_data.dimission_num
               }
             })
           })
@@ -214,5 +223,9 @@ export class NewWorkBenchPage {
 
   click_daily_report(){
     this.navCtrl.push('DailyReportPage')
+  }
+
+  click_Dimission(){
+    this.navCtrl.push('LeaveWorkPage')
   }
 }

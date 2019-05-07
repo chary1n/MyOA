@@ -1,0 +1,122 @@
+<!--
+  Generated template for the LeaveWorkDetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header no-border>
+
+  <ion-navbar color="gongdan-color" hideBackButton="true">
+    <ion-buttons left>
+      <button ion-button icon-only (click)="goBack()">
+              <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+            </button>
+    </ion-buttons>
+    <ion-title>{{data.rt_name}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content style="background-color:#f0f2f5">
+  <ion-item style="min-height:60px;height:60px;">
+    <ion-grid class="bg_main">
+      <ion-row>
+        <ion-col col-2>
+          <img src="{{data.employee_avatar}}" class="imgHeard">
+        </ion-col>
+        <ion-col col-7 style="padding-top:17px">
+          <span class="name_class">{{data.employee_name}}</span>
+        </ion-col>
+        <ion-col col-3 style="padding-top:17px;text-align: right;">
+          <span class="state_class">{{changeState(data.state)}}</span>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item>
+  <ion-item no-lines class="item_class">
+    <div text-wrap class="order_class"> {{data.department_name}} </div>
+    <div class="left_label"> 部门 </div>
+  </ion-item>
+  <ion-item no-lines class="item_class">
+    <div text-wrap class="order_class"> {{data.job_name}} </div>
+    <div class="left_label"> 岗位 </div>
+  </ion-item>
+  <ion-item no-lines class="item_class">
+    <div text-wrap class="order_class"> {{data.entry_date}} </div>
+    <div class="left_label"> 入职日期 </div>
+  </ion-item>
+  <ion-item no-lines class="item_class">
+    <div text-wrap class="order_class"> {{data.work_type}} </div>
+    <div class="left_label"> 用工性质 </div>
+  </ion-item>
+  <ion-item no-lines class="item_class">
+    <div text-wrap class="order_class"> {{data.handover_name}} </div>
+    <div class="left_label"> 工作交接人 </div>
+  </ion-item>
+  <div class="biaoti">
+    <div class="shu_class">
+    </div>
+    <div class="title_class">
+      离职信息
+    </div>
+  </div>
+  <div class="line_class">
+  </div>
+  <ion-item no-lines class="item_class">
+    <div text-wrap class="order_class"> {{data.dimission_category}} </div>
+    <div class="left_label"> 离职类别 </div>
+  </ion-item>
+  <ion-item no-lines class="item_class">
+    <div text-wrap class="order_class"> {{data.dimission_description}} </div>
+    <div class="left_label"> 离职说明 </div>
+  </ion-item>
+  <ion-item no-lines class="item_class">
+    <div text-wrap class="order_class"> {{data.dimission_date}} </div>
+    <div class="left_label" text-wrap> 预计离职 </div>
+  </ion-item>
+
+  <div class="biaoti">
+    <div class="shu_class">
+    </div>
+    <div class="title_class">
+      注意事项
+    </div>
+  </div>
+  <div class="line_class">
+  </div>
+  <div class="plan_class">
+      <div [innerHTML]="assembleHTML(data.announcement)" style="word-wrap:break-word;color:#333333;padding:5px;width:100%;background-color:white;"></div>
+  </div>
+
+
+  <div class="shenpi_class">审批记录</div>
+  <ion-list *ngIf="data.message_ids">
+    <ion-item no-lines *ngFor='let item of data.message_ids' class="middle_item">
+      <img style="width:40px;vertical-align:top;float:left;margin-right:10px;border-radius:20px" src={{item.create_person_ava}}>
+      <div style="overflow:hidden">
+        <span style="margin-top:3px;color:black;font-size:80%;float:left">{{item.create_person}}</span>
+
+        <span style="font-size:70%;margin-top:4px;margin-left:-5px;float:right">{{item.create_time}}</span>
+      </div>
+      <p *ngIf="item.old_state || item.new_state" style="font-size:80%;">{{item.old_state}}=>{{item.new_state}}</p>
+      <p text-wrap style="font-size:80%;">{{item.description}}</p>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+<ion-footer>
+  <div class="footer_class" *ngIf="data.state == 1">
+        <div class="left_btn" tappable (click)='click_refuse()'>
+          拒绝
+        </div>
+        <div class="right_btn" tappable (click)='click_confirm()'>
+          同意
+        </div>
+    </div>
+    <div class="footer_class" *ngIf="data.state == 2">
+        <div class="full_btn" full tappable (click)='click_hr_confirm()'>
+          人事确认
+        </div>
+    </div>
+</ion-footer>

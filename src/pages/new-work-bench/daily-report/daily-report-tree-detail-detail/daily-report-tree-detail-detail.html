@@ -9,12 +9,21 @@
   <ion-navbar color="gongdan-color" hideBackButton="true">
     <ion-buttons left>
       <button tappable ion-button icon-only (click)="goBack()">
-              <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+              <ion-icon class="close_icon_class" name="close"></ion-icon>
             </button>
+      
     </ion-buttons>
     <ion-title>{{item_data.name}}</ion-title>
-    <img *ngIf='can_show_more' tappable (click)='click_more()' style="float: right;
-    margin-right: 5px;width: 30px;height:30px;" src="assets/img/more_btn_white.png" />
+    <ion-buttons right>
+      <button *ngIf="can_show_back()" tappable ion-button icon-only (click)="back_page()">
+              <ion-icon class="back_page_btn_class" ios="ios-arrow-up" md="md-arrow-up"></ion-icon>
+            </button>
+      <button *ngIf="can_show_forward()" tappable ion-button icon-only (click)="next_page()">
+              <ion-icon class="next_page_btn_class" ios="ios-arrow-down" md="md-arrow-down" ></ion-icon>
+            </button>
+    </ion-buttons>
+    <!--<img *ngIf='can_show_more' tappable (click)='click_more()' style="float: right;
+    margin-right: 5px;width: 30px;" src="assets/img/more_btn_white.png" />-->
   </ion-navbar>
 </ion-header>
 
@@ -70,25 +79,6 @@
   <div *ngIf="show_jh" class="plan_class">
     <div [innerHTML]="assemblePlanHTML(item_data.plan)" style="word-wrap:break-word;color:#333333;padding-left:5px;padding-right:5px;width:100%;background-color:white"></div>
   </div>
-
-  <!--<div class="biaoti" tappable (click)='changeJL()'>
-    <div class="shu_class">
-    </div>
-    <div class="title_class">
-      工作记录
-    </div>
-    <ion-icon class="icon_class" item-end name="arrow-up" *ngIf="show_jl" tappable (click)='changeJL();$event.stopPropagation();'></ion-icon>
-    <ion-icon class="icon_class" item-end name="arrow-down" *ngIf="!show_jl" tappable (click)='changeJL();$event.stopPropagation();'></ion-icon>
-  </div>
-  <div class="line_class" *ngIf="show_jl">
-  </div>
-  <ng-container *ngIf="show_jl">
-    <div class="div_class" no-lines *ngFor='let items of item_data.log_ids' tappable (click)='team_detail(item)'>
-      <div text-wrap class="span_class">{{items.rt_operating_target}}</div>
-      <div text-wrap class="log_time_class">{{items.create_date}}</div>
-      <div text-wrap class="log_time_class" style="margin-top: 8px;">{{items.rt_context}}</div>
-    </div>
-  </ng-container>-->
 
   <div class="differ_div_class">
     <div *ngIf='item_data.message_length > 0'>

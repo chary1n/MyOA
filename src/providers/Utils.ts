@@ -3,6 +3,18 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class Utils {
 
+    public static getLastSecondViewController(pageName: string, navController: NavController): ViewController {
+        let length = navController.getViews().length
+        let index = 0
+        for (let viewController of navController.getViews()) {
+            index ++
+            if (index == length - 1) {
+
+                return viewController
+            }
+        }
+        return null;
+    }
 
     public static getViewController(pageName: string, navController: NavController): ViewController {
         let length = navController.getViews().length

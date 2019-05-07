@@ -8,6 +8,18 @@ export class ReportService {
 
     }
 
+    get_team_daily_report_new(body){
+        return this.httpservice.postBody("get_team_daily_report_new",body)
+    }
+
+    get_employees_reports(body){
+        return this.httpservice.postBody("get_employees_reports",body)
+    }
+
+    get_all_department(body){
+        return this.httpservice.postBody("get_all_department_tree",body)
+    }
+
     get_is_department(employee_id){
         let body = JSON.stringify({
             employee_id:employee_id,
@@ -16,8 +28,12 @@ export class ReportService {
     }
 
     send_submit_report(body){
-        return this.httpservice.postBody("send_submit_report",body)
+        return this.httpservice.postBodyNoLoading("send_submit_report",body)
     }
+
+    // send_submit_report_no_l(body){
+    //     return this.httpservice.postBody("send_submit_report",body)
+    // }
 
     delete_report(body){
         return this.httpservice.postBody("delete_report",body)
