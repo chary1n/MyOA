@@ -66,9 +66,6 @@
   <ion-item class="item_now_class">
     <ion-label style="color:black"> 性别
     </ion-label>
-    <!--<ion-select [(ngModel)]="gender" class="normal-select" okText="确定" cancelText="取消">
-      <ion-option *ngFor="let item of sexList;let i = index;" value={{item.id}}>{{item.name}}</ion-option>
-    </ion-select>-->
     <ion-label style="margin:0px 0px 0px 0px;text-align:right">
       <ion-checkbox style="float:right" color="gongdan-color" (click)="choose_woman()" [checked]="is_man"></ion-checkbox>
       <span class="span_sex_class">男</span>
@@ -78,22 +75,6 @@
       <span class="span_sex_class">女</span>
     </ion-label>
   </ion-item>
-
-  <!--<ion-item>
-    <ion-label style="color:black"> 民族
-    </ion-label>
-    <ion-select [(ngModel)]="nation" class="normal-select" okText="确定" cancelText="取消">
-      <ion-option *ngFor="let item of minzuList;let i = index;" value={{item.id}}>{{item.name}}</ion-option>
-    </ion-select>
-  </ion-item>-->
-
-  <!--<ion-item>
-    <ion-label style="color:black">出生日期</ion-label>
-    <ion-datetime cancelText="取消" doneText="确定" min="1907" max="2088" style="color:#5C6166;font-size:14px;margin-right:-6px"
-      displayFormat="YYYY-MM-DD" [(ngModel)]="birthday"></ion-datetime>
-    <img item-end src="assets/img/journal_sheet/right_icon.png" style="height:10px;margin-right:-4px">
-  </ion-item>-->
-
 
   <ion-item class="item_now_class">
     <ion-label style="color:black"> 婚姻状况

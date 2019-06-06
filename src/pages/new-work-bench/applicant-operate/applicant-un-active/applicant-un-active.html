@@ -1,0 +1,29 @@
+<!--
+  Generated template for the ApplicantUnActivePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header no-border>
+
+  <ion-navbar color="gongdan-color" hideBackButton="true">
+    <ion-buttons left>
+      <button ion-button icon-only (click)="goBack()">
+              <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+            </button>
+    </ion-buttons>
+    <ion-title>归档原因</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)='submit()'>
+        确认
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+    <ion-textarea #mytextarea id="area_id" rows="15" placeholder="输入归档原因" [(ngModel)]="beizhuText" style="margin-top:10px;height:200px;margin-left:4.5%;width:91%;border: 1px solid #e2e2e4;overflow:hidden;border-radius:1px;padding-left:5px;color:gray"></ion-textarea>
+
+</ion-header>
+
+
+<ion-content id="main_class" style="position:relative;">
+
+</ion-content>

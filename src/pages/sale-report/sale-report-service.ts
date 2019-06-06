@@ -7,6 +7,10 @@ export class SaleReportService {
 
     }
 
+    get_team_dashboard(body){
+        return this.httpservice.postBody("get_team_dashboard", body);
+    }
+
     sale_data_for_sale_man(body){
         return this.httpservice.postBody("sale_data_for_sale_man", body);
     }

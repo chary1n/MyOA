@@ -37,8 +37,19 @@ export class NewWorkBenchPage {
   isShowCK = false
   isShowHR = false
   isShowManager = false
+  isShowPDM = false
+  isShowSale = false
+
   can_show_hr_menu = false
   dimission_num=0 // 离职审核
+  offer_num=0 //offer 审核
+  intp_num=0
+
+  cust_num=0
+  can_show_hmc=false //花名册
+  can_show_rz=false //入职
+  can_show_rc=false //人才库
+  can_show_lz=false //离职
   constructor(public navCtrl: NavController, public navParams: NavParams,public statusbar:StatusBar,public services:CommonUseServices,
               public storage: Storage) {
       
@@ -72,13 +83,34 @@ export class NewWorkBenchPage {
           if(product.name == 'group_stock_manager'){
             this.isShowCK = true;
           }
-          if (product.name == 'group_hr_manager' || product.name == 'employee_department_manager' || product.name == 'rt_hr_employee_manager'){
+          if (product.name == 'group_hr_manager' || product.name == 'employee_department_manager' || product.name == 'rt_hr_employee_manager' || product.name == 'recruitment_manager' || product.name == 'employee_manage_manager'){
             this.isShowHR = true
             this.can_show_hr_menu = true
+            // 人力资源管理员、员工部门管理员、人事管理管理员（只能看到自己的部门）==> 花名册、入职
+            if (product.name == 'group_hr_manager' || product.name == 'employee_department_manager' || product.name == 'rt_hr_employee_manager'){
+              this.can_show_hmc = true
+              this.can_show_rz = true
+            }
+            // 人力资源管理员、招聘管理管理员、部门负责人 ==> 人才库
+            if (product.name == 'group_hr_manager' || product.name == 'recruitment_manager'){
+              this.can_show_rc = true
+            }
+            // 部门负责人（自己待审核的单据）、员工管理管理员、人力资源管理员 ==> 离职
+            if (product.name == 'group_hr_manager' || product.name == 'employee_manage_manager'){
+              this.can_show_lz = true
+            } 
           }
           if (product.name == 'manger_for_sub_current_employee_department'){
             this.isShowManager = true
             this.can_show_hr_menu = true
+            this.can_show_rc = true
+            this.can_show_lz = true
+          }
+          if (product.name == 'group_production_planning_user'){
+            this.isShowPDM = true
+          }
+          if (product.name == 'group_sale_salesman' || product.name == 'group_sale_manager' || product.name == 'group_sale_salesman_all_leads'){
+            this.isShowSale = true
           }
         }
 
@@ -104,10 +136,22 @@ export class NewWorkBenchPage {
                 this.gongchengNum = res.result.res_data.gongchengNum
                 this.salary_num = res.result.res_data.salary_num
                 this.dimission_num = res.result.res_data.dimission_num
+                this.offer_num = res.result.res_data.offer_num
+                this.intp_num = res.result.res_data.intp_num
+                this.cust_num = res.result.res_data.cust_num
               }
             })
           })
         })
+  }
+
+  cal_num(cust_num){
+    if (cust_num <= 99){
+      return 99
+    }
+    else{
+      return '99+'
+    }
   }
 
   click_caigou(){
@@ -116,6 +160,10 @@ export class NewWorkBenchPage {
 
   click_normal(){
     this.inner_type = 'normal'
+  }
+
+  click_sale(){
+    this.inner_type = 'sale'
   }
 
   click_attendance(){
@@ -184,6 +232,10 @@ export class NewWorkBenchPage {
     this.inner_type='gongcheng'
   }
 
+  click_production_manager(){
+    this.inner_type = 'pdmanager'
+  }
+
   click_renshi(){
     this.inner_type = 'renshi'
   }
@@ -227,5 +279,25 @@ export class NewWorkBenchPage {
 
   click_Dimission(){
     this.navCtrl.push('LeaveWorkPage')
+  }
+
+  click_offer_approve(){
+    this.navCtrl.push('ApplicantOfferApprovePage')
+  }
+
+  click_applicant_infos(){
+    this.navCtrl.push('ApplicantOperatePage')
+  }
+
+  click_intp(){
+    this.navCtrl.push('IntpPage')
+  }
+
+  click_map(){
+    this.navCtrl.push('ShopManagerPage')
+  }
+
+  click_cust_in(){
+    this.navCtrl.push('CustInPage')
   }
 }

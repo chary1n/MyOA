@@ -1,0 +1,72 @@
+<!--
+  Generated template for the ApplicantOperatePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<!--<ion-header>
+
+  <ion-navbar>
+    <ion-title>人才库</ion-title>
+  </ion-navbar>
+
+</ion-header>-->
+
+
+<ion-content style="background-color:#f0f2f5">
+  <div ion-fixed class="div_header">
+    <div class="div_header_back">
+
+      <ion-auto-complete class="search_class" (itemSelected)="itemSelected($event)" (itemClearSelected)="itemClearSelected($event)"
+        [dataProvider]="applicantAutoService"></ion-auto-complete>
+
+      <!--<ion-auto-complete *ngIf="type != 'me'" class="search_class_team" (itemSelected)="itemSelected($event)" (itemClearSelected)="itemClearSelected($event)"
+        [dataProvider]="reportAutoServices"></ion-auto-complete>-->
+      <button class="btn_class" tappable ion-button icon-only (click)="goBack()">
+        <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+      </button>
+    </div>
+    <div class="scroll_class" zooming="true" scrollX="true" align-items-center>
+      <div class="left_div" align="center" tappable (click)="click_total()">
+        <span [ngClass]="{true:'under_line_style',false:'normal_style'}[type == 'total']">全部</span>
+      </div>
+      <div class="left_div" align="center" tappable (click)="click_interview()">
+        <span [ngClass]="{true:'under_line_style',false:'normal_style'}[type == 'interview']">面试阶段</span>
+      </div>
+      <div class="left_div" align="center" tappable (click)="click_offer()">
+        <span [ngClass]="{true:'under_line_style',false:'normal_style'}[type == 'offer']">offer阶段</span>
+      </div>
+      <div class="left_div" align="center" tappable (click)="click_entry()">
+        <span [ngClass]="{true:'under_line_style',false:'normal_style'}[type == 'entry']">待入职</span>
+      </div>
+    </div>
+  </div>
+
+  <ion-list *ngIf="type == 'total'" style="margin-top:100px">
+    <ng-container *ngFor='let item of total_list;let i = index'>
+      <ion-item [ngClass]="{true:'item_normal_class',false:'item_margin_top_class'}[i == 0]" tappable (click)='applicant_detail(item)' no-lines>
+        <p text-wrap style="font-size:70%;float:right;color:#E0540E;line-height: 20px;">{{changeState(item.state)}}</p>
+        <h3 text-wrap>{{item.applicant_name}}</h3>
+
+        <h4 text-wrap style="font-size:80%;"> </h4>
+        <p text-wrap style="font-size:70%;float:right;color:white;font-weight:bold">  </p>
+        <p text-wrap style="font-size:80%;color:gray">身份证：{{item.identification_id}} </p>
+        <p text-wrap style="font-size:80%;color:gray" *ngIf="item.department">{{item.department}} | {{item.job}} </p>
+      </ion-item>
+    </ng-container>
+  </ion-list>
+
+  <ion-list *ngIf="type != 'total'" style="margin-top:100px">
+    <ng-container *ngFor='let item of other_list;let i = index'>
+      <ion-item [ngClass]="{true:'item_normal_class',false:'item_margin_top_class'}[i == 0]" tappable (click)='applicant_detail(item)' no-lines>
+        <p text-wrap style="font-size:70%;float:right;color:white;line-height: 20px;"> </p>
+        <h3 text-wrap>{{item.applicant_name}}</h3>
+
+        <h4 text-wrap style="font-size:80%;"> </h4>
+        <p text-wrap style="font-size:70%;float:right;color:white;font-weight:bold"> </p>
+        <p text-wrap style="font-size:80%;color:gray">身份证：{{item.identification_id}} </p>
+        <p text-wrap style="font-size:80%;color:gray" *ngIf="item.department">{{item.department}} | {{item.job}} </p>
+      </ion-item>
+    </ng-container>
+  </ion-list>
+</ion-content>

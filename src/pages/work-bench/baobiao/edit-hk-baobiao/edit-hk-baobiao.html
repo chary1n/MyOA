@@ -1,0 +1,67 @@
+<!--
+  Generated template for the EditHkBaobiaoPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header no-border>
+
+  <ion-navbar color="gongdan-color" hideBackButton="true">
+    <ion-buttons left>
+      <button ion-button icon-only (click)="goBack()">
+        <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>编辑</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content style="background-color: #f0f2f5">
+  <div class="header_div_class">
+    请填写当前金额和汇率
+  </div>
+  <div *ngFor="let item of show_ids; let i = index">
+    <div [ngClass]="{true:'biaoti_no_margin_top',false:'biaoti'}[i == 0]">
+      <div class="shu_class">
+      </div>
+      <div class="title_class">
+        {{item.name}}
+      </div>
+    </div>
+    <ion-item class="item_now_class">
+      <ion-label class="item_label_class">金额
+      </ion-label>
+      <ion-input class="item_input_class" (ionChange)="onChangeNum()" text-wrap type="number" text-right [(ngModel)]="item.amount"></ion-input>
+    </ion-item>
+    <ion-item class="item_now_class">
+      <ion-label class="item_label_class">汇率
+      </ion-label>
+      <ion-input class="item_input_class" (ionChange)="onChangeNum()" text-wrap type="number" text-right [(ngModel)]="item.rate"></ion-input>
+    </ion-item>
+    <ion-item class="item_now_class_label" no-lines>
+      <!--<ion-label class="item_label_class">
+      </ion-label>-->
+      <ion-label class="subtotal_class">
+        RMB：{{toFix(item.sub_total)}}
+      </ion-label>
+    </ion-item>
+  </div>
+</ion-content>
+
+<ion-footer style="height:44px; background-color: #f0f2f5">
+  <div>
+    <div class="footer_left_class">
+      <div class="footer_left_left_class">
+        折合人民币总计
+      </div>
+      <div class="footer_left_right_class">
+        {{toFix(total_amount)}}
+      </div>
+    </div>
+    <div tappable (click)="click_save()" class="footer_right_class">
+      保存
+    </div>
+  </div>
+</ion-footer>

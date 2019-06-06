@@ -51,7 +51,7 @@ export class DailyReportTreePage {
 
   ionViewDidEnter() {
     let self = this
-    this.reportService.get_all_department({ 'uid': this.uid, 'need_total': false }).then(res => {
+    this.reportService.get_team_department_tree({ 'uid': this.uid, 'need_total': false }).then(res => {
       if (res.result.res_data && res.result.res_code == 1) {
         self.zNodes = res.result.res_data
         self.tree_obj = $.fn.zTree.init($("#ztree"), self.setting, self.zNodes);

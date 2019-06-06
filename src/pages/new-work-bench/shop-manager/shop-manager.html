@@ -1,0 +1,106 @@
+<!--
+  Generated template for the ShopManagerPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header no-border>
+
+  <ion-navbar color="gongdan-color" hideBackButton="true">
+    <ion-buttons left>
+      <button ion-button icon-only (click)="goBack()">
+              <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+            </button>
+    </ion-buttons>
+    <ion-title>门店</ion-title>
+    <!--<ion-buttons right>
+      <button ion-button icon-only tappable (click)="click_GPS()" style="font-size:14px;color: white;margin-right: 10px">
+                GPS
+            </button>
+    </ion-buttons>-->
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <!--<div class="align-bottom" #map id='map_container'  style="height: 100%;">
+  </div>-->
+  <div>
+    <ion-auto-complete class="search_class" (itemSelected)="itemSelected($event)" (itemClearSelected)="itemClearSelected($event)"
+    [dataProvider]="shopAutoService"></ion-auto-complete>
+    <div class="locate_div_class" tappable (click)="click_GPS()">
+      GPS
+    </div>
+  </div>
+  <div class="header_div_class">
+    <div class="header_div_div_class" align="center" tappable (click)="add_visit_record()">
+      <img src="assets/img/add_shop_visit.png" class="header_img_class" />
+      <div class="header_text_class">
+        添加拜访
+      </div>
+    </div>
+    <div class="header_div_div_class" align="center" tappable (click)="add_shop()">
+      <img src="assets/img/add_shop.png" class="header_img_class" />
+      <div class="header_text_class">
+        添加门店
+      </div>
+    </div>
+    <div class="header_div_div_class" align="center" tappable (click)="search_visit()">
+      <img src="assets/img/search_shop_visit.png" class="header_img_class" />
+      <div class="header_text_class">
+        访店查询
+      </div>
+    </div>
+    <!--<div class="header_div_div_class" align="center">
+      <img src="assets/img/yz_img.png" class="header_img_class" />
+      <div class="header_text_class">
+        门店分布
+      </div>
+    </div>-->
+  </div>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+  <ion-list no-lines>
+    
+    <ng-container *ngFor="let item of shop_arr">
+
+      <div class="div_differ_class">
+      </div>
+      <ion-item no-lines tappable (click)="click_shop_detail(item)">
+        <div class="shop_name_class">
+          <!--<span class="name_class">{{item.name}}</span><span class="record_class">(访店记录：12)</span>-->
+          <span class="name_class">{{item.name}} / {{item.rt_partner_top_id}}</span>
+        </div>
+        <!--<div class="company_class">
+          {{item.rt_partner_top_id}}
+        </div>-->
+        <div class="div_bottom_class" *ngIf="item.detailed_address">
+          <div class="shop_detail_div_class">
+            <div>
+              <img src="assets/img/shop_gps.png" class="location_img_class" />
+              <div class="location_class" text-wrap>
+                {{item.country_name}}{{item.state_name}}{{item.street}}
+              </div>
+
+            </div>
+          </div>
+          <!--<div class="shop_detail_div_class_right" style="margin-left: 20px;">
+            <img src="assets/img/yz_img.png" class="location_img_class" />
+            <div class="location_class" text-wrap>
+              {{item.phone}}
+            </div>
+          </div>-->
+        </div>
+      </ion-item>
+
+    </ng-container>
+    
+  </ion-list>
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  <div style="background-color: #f0f2f5;width: 100%;">
+  </div>
+</ion-content>

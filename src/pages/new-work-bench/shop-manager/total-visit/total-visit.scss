@@ -1,0 +1,61 @@
+page-total-visit {
+    .col_other{
+        position:relative;
+        height:87px;
+        // margin-top:3px
+    }
+
+    .div_share_class{
+            width: 80%;
+    background: #f0f2f5;
+    margin-left: 59px;
+    height: 40px;
+    padding: 5px;
+    }
+
+    .div_img_share_class{
+        width: 30px;
+    height: 30px;
+    margin-right: 10px;
+    float: left;
+    }
+
+    .div_share_title_class{
+            margin: -3px;
+    // margin-left: 15px;
+    font-size: 14px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+        line-height: 40px;
+        float: left;
+        width: 80%;
+    }
+
+    .div_share_address_class{
+            margin: 0px;
+    color: #a1a2a5;
+    font-size: 13px;
+    margin-left: 15px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+        margin-top: 2px;
+    }
+
+    .search_class{
+        width: 80%;
+        margin-top: 5px;
+        margin-left: 10%;
+    }
+
+    .description_class{
+            word-wrap: break-word;
+    color: gray;
+    width: 90%;
+    white-space: pre-wrap;
+    margin-left: 50px;
+    font-size: 13px;
+    margin-top: 4px;
+    }
+}

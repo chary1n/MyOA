@@ -155,6 +155,24 @@ export class AddEmployeePage {
       }
     })
 
+    if (this.navParams.get('is_applicant_enter')) {
+      this.now_step = 2
+      this.mobile_phone = this.navParams.get('applicant_mobile_phone')
+      this.name = this.navParams.get('applicant_name')
+      if (this.navParams.get('applicant_gender') == 'F') {
+        this.is_man = false
+        this.is_woman = true
+      }
+      else if (this.navParams.get('applicant_gender') == 'M') {
+        this.is_man = true
+        this.is_woman = false
+      }
+      this.department_id = this.navParams.get('applicant_department_id')
+      this.deparment_name = this.navParams.get('applicant_department_name')
+      this.job_id = this.navParams.get('applicant_job_id')
+      this.identification_id = this.navParams.get('applicant_identification_id')
+    }
+
   }
 
   ionViewWillEnter() {
@@ -329,6 +347,7 @@ export class AddEmployeePage {
   goBack() {
     if (this.now_step == 1) {
       if (!this.id_card) {
+        this.now_step = 0
         this.navCtrl.pop()
         return;
       }
@@ -542,19 +561,18 @@ export class AddEmployeePage {
       this.employeeService.search_id_exist({ 'id_card': this.id_card }).then(res => {
         if (res.result.res_code == 1) {
           this.now_step += 1
-          if (res.result.res_data){
+          if (res.result.res_data) {
             this.mobile_phone = res.result.res_data.phone
-            if (res.result.res_data.gender == 'F'){
+            if (res.result.res_data.gender == 'F') {
               this.is_man = false
               this.is_woman = true
             }
-            else if (res.result.res_data.gender == 'M'){
+            else if (res.result.res_data.gender == 'M') {
               this.is_man = true
               this.is_woman = false
             }
           }
-          else
-          {
+          else {
             this.empty_all_data()
           }
           this.identification_id = this.id_card

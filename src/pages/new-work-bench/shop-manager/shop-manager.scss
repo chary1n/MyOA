@@ -1,0 +1,139 @@
+page-shop-manager {
+    .btn_class{
+        float: left;
+        background-color: #2597ec;
+    color: white;
+    z-index: 999;
+    }
+
+    .search_class{
+        width: calc(100% - 80px);
+        margin-top: 5px;
+        margin-left: 20px;
+    }
+
+    .searchbar-ios .searchbar-input{
+            padding: 0 28px;
+    border-radius: 22px;
+    height: 3rem;
+    font-size: 1.4rem;
+    font-weight: 400;
+    background-color: #f0f2f5;
+    color: gray;
+    }
+
+    .searchbar-ios {
+  padding: 0 8px;
+  min-height: 44px;
+  border-top: 0.55px solid transparent;
+  background: white;
+  border-bottom: 0px solid rgba(0, 0, 0, 0.05);
+}
+
+    .header_div_class{
+        width:90%;
+        margin-left:5%;
+        box-shadow: 2px 4px 22px #edeeee;
+        margin-top: 10px;
+        height: 80px;
+        margin-bottom: 25px;
+        border-radius:10px;
+    }
+
+    .header_div_div_class{
+        float: left;
+    height: 80px;
+    width: 33%;
+    text-align: center;
+    }
+
+    .header_img_class{
+            border-radius: 20px;
+    width: 40px;
+    margin-top: 12px;
+    }
+
+    .header_text_class{
+        font-size: 12px;
+    color: gray;
+    }
+
+    .div_differ_class{
+        height: 10px;
+        background-color: #f0f2f5;
+    }
+
+    .shop_detail_div_class{
+        float: left;
+        // display: inline;
+    // width: 50%;
+    text-align: left;
+    // margin-left: 20px;
+    }
+
+    .shop_detail_div_class_right{
+        float: left;
+        // display: inline;
+    width: 20%;
+    text-align: left;
+    // margin-left: 20px;
+    }
+
+    .shop_detail_div_class_right{
+        float: right;
+        // display: inline;
+    width: 40%;
+    text-align: left;
+    // margin-left: 20px;
+    }
+
+    .shop_name_class{
+    //         margin-top: 13px;
+    // margin-left: 20px;
+        text-overflow: ellipsis;
+    overflow: hidden;
+    }
+
+    .name_class{
+            font-weight: bold;
+    font-size: 15px;
+    }
+
+    .record_class{
+        margin-left: 5px;
+    color: gray;
+    font-size: 12px;
+    }
+
+    .company_class{
+            // margin-left: 20px;
+    font-size: 12px;
+    color: gray;
+        margin-top: 2px;
+    }
+
+    .div_bottom_class{
+        margin-top: 5px;
+    // min-height: 30px;
+    }
+
+    .location_class{
+        font-size: 13px;
+    color: gray;
+    padding-left: 25px;
+    }
+
+    .location_img_class{
+        height:17px;
+        float: left;
+        vertical-align:middle
+    }
+
+    .locate_div_class{
+            float: right;
+    height: 44px;
+    line-height: 44px;
+    margin-top: 5px;
+    margin-right: 15px;
+    }
+}

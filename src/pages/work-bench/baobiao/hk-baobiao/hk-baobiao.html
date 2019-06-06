@@ -4,7 +4,7 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header>
+<ion-header no-border>
 
   <ion-navbar color="gongdan-color" hideBackButton="true">
     <ion-buttons left>
@@ -13,13 +13,14 @@
       </button>
     </ion-buttons>
     <ion-title>{{items.name}}</ion-title>
+    <img tappable (click)='click_more()' style="float:right;margin-right:5px;width:30px;" src="assets/img/more_btn_white.png" />
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content style="background:#f7f7f7">
-  <div align="center" style="width:100%;height:120px;background:#1eabf1">
+  <div align="center" style="width:100%;height:120px;background:#2597ec">
     <p text-wrap style="width:65px;float:left;color:white;margin-left:30px;margin-top:40px">
       余额合计人民币
     </p>

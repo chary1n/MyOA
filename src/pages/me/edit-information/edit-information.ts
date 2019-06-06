@@ -145,4 +145,8 @@ export class EditInformationPage {
       })
   }
 
+  goBack(){
+    this.navCtrl.pop()
+  }
+
 }

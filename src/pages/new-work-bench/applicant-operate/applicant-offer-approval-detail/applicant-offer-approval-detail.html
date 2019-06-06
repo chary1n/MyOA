@@ -1,0 +1,111 @@
+<!--
+  Generated template for the ApplicantOfferApprovalDetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header no-border>
+
+  <ion-navbar color="gongdan-color" hideBackButton="true">
+    <ion-buttons left>
+      <button tappable ion-button icon-only (click)="goBack()">
+              <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+            </button>
+    </ion-buttons>
+    <ion-title>详情</ion-title>
+    <img tappable (click)='click_more()' style="float: right;
+    margin-right: 5px;width: 30px;" src="assets/img/more_btn_white.png" />
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content style="background-color:#f0f2f5">
+  <ion-item style="min-height:60px;height:60px;">
+    <ion-grid class="bg_main">
+      <ion-row>
+        <!--<ion-col col-2>
+          <img src="{{item.employee_avatar}}" class="imgHeard">
+        </ion-col>-->
+        <ion-col col-5 class="col_header_class">
+          <span class="name_class">{{item.applicant_name}}</span>
+        </ion-col>
+        <!--<ion-col  col-5 class="col_header_class_1">
+          <span class="state_class_center">{{item.state}}</span>
+          <span class="state_class_center_block">{{item.to_approve_id}}</span>
+        </ion-col>-->
+      </ion-row>
+    </ion-grid>
+  </ion-item>
+  <div class="differ_class">
+  </div>
+  <ion-item no-lines class="item_class">
+    <div text-wrap class="order_class"> {{item.department}}</div>
+    <div class="left_label"> 部门 </div>
+  </ion-item>
+  <ion-item no-lines class="item_class">
+    <div text-wrap class="order_class"> {{item.job}} </div>
+    <div class="left_label"> 岗位 </div>
+  </ion-item>
+  <ion-item no-lines class="item_class">
+    <div text-wrap class="order_class"> {{item.rt_time}} </div>
+    <div class="left_label"> 入职日期 </div>
+  </ion-item>
+  <ion-item no-lines class="item_class">
+    <div text-wrap class="order_class"> {{changeSyq(item.rt_shiyong_date)}} </div>
+    <div class="left_label"> 试用期 </div>
+  </ion-item>
+  <!--<ion-item no-lines class="item_class">
+    <div text-wrap class="order_class"> {{item.rt_salary_instruction}} </div>
+    <div class="left_label"> 薪资说明 </div>
+  </ion-item>
+   <ion-item no-lines class="item_class" style="margin-bottom: 5px;">
+    <div text-wrap class="order_class"> {{item.rt_remark}} </div>
+    <div class="left_label"> 备注 </div>
+  </ion-item>-->
+  <div class="div_all">
+    <div text-wrap class="order_class"> {{item.rt_salary_instruction}}</div>
+    <div class="left_label" text-right> 薪资说明 </div>
+  </div>
+  <div class="div_all_spec">
+    <div text-wrap class="order_class"> {{item.rt_remark}}</div>
+    <div class="left_label" text-right> 备注 </div>
+  </div>
+  <div style="background-color:white;height:5px;width:100%;">
+  </div>
+
+  <div class="bx_detail_class">审批记录</div>
+  <ion-list>
+    <ion-item no-lines *ngFor='let items of item.message_ids' style="overflow:hidden" class="middle_item">
+      <img class="user_ava_class" src={{items.create_person_ava}}>
+      <div style="overflow:hidden">
+        <span class="span_employee_class">{{items.create_person}}</span>
+
+        <span class="span_time_class">{{changeDate(items.create_time) | date:'yyyy-MM-dd HH:mm:ss'}}</span>
+      </div>
+      <p *ngIf="items.old_state || items.new_state" class="size_class">{{items.old_state}}=>{{items.new_state}}</p>
+      <p text-wrap class="size_class">{{items.description}}</p>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+<ion-footer *ngIf="is_approve_enter">
+  <div class="footer_class" >
+    <div class="left_btn" tappable (click)='cancel()'>
+      拒绝
+    </div>
+    <div class="right_btn" tappable (click)='conform()'>
+      同意
+    </div>
+  </div>
+  <!--<div class="footer_class" *ngIf="is_applicant_enter && can_show_back" style="background-color: #2597ec">
+    <button style="background-color:#2597ec" ion-button (click)="click_back_offer()" full>撤回</button>
+  </div>-->
+</ion-footer>
+
+
+<ion-footer style="background-color:#2597ec" *ngIf="is_applicant_enter && can_show_back">
+  <div class="footer_class" style="background-color: #2597ec">
+    <button style="background-color:#2597ec" ion-button (click)="click_back_offer()" full>撤回</button>
+  </div>
+</ion-footer>

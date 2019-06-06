@@ -1,0 +1,123 @@
+page-edit-hk-baobiao {
+    .header_div_class{
+    text-align: center;
+    color: #E0540E;
+    background-color: #fef6f2;
+    height: 30px;
+    line-height: 30px;
+  }
+
+  .shu_class{
+        width: 10px;
+    height: 15px;
+    display: inline;
+    border-left: solid 3px #2597ec;
+    margin-left: 8px;
+    margin-top: 12.5px;
+    }
+
+    .title_class{
+            display: inline-block;
+    margin-top: 0px;
+    width: calc(100% - 65px);
+    margin-left: 10px;
+    text-align: left;
+    border-bottom: solid 1px #f0f2f5;
+    color: #2597ec;
+    }
+
+    .biaoti {
+    background: white;
+    height: 40px;
+    color: #8a9199;
+    line-height: 40px;
+    margin-top: 10px;
+    border-bottom: solid 1px #f0f2f5;
+  }
+
+  .biaoti_no_margin_top{
+    background: white;
+    height: 40px;
+    color: #8a9199;
+    line-height: 40px;
+    border-bottom: solid 1px #f0f2f5;
+  }
+
+  .body_header_class{
+        margin-top: 10px;
+    } 
+
+  .body_header_class>:first-child{
+        margin-top: 0px;
+    } 
+
+  .item_now_class{
+      min-height: 40px;
+      height: 40px;
+      border-bottom: solid 1px #f0f2f5;
+  }
+
+  .item-ios.item-block .item-inner{
+        padding-right: 8px;
+        border-bottom: 1px solid #f0f2f5;
+    }
+
+    .item_label_class{
+        color:#333333;
+        font-size: 14px;
+        padding-left: 5px;
+    }
+
+    .item_input_class{
+        color:#333333;
+        font-size: 14px;
+    }
+
+    .subtotal_class{
+        height: 30px;
+        line-height: 30px;
+        color: #E0540E;
+        text-align: right;
+        font-size: 13px;
+    }
+
+    .item_now_class_label{
+      min-height: 30px;
+      height: 30px;
+      border-bottom: solid 1px #f0f2f5;
+  }
+
+  .footer_left_class{
+      height: 44px;
+    line-height: 44px;
+    width: 60%;
+    float: left;
+  }
+
+  .footer_right_class{
+      height: 44px;
+    line-height: 44px;
+    width: 35%;
+    float: right;
+    background-color: #2597ec;
+    text-align: center;
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+  }
+
+  .footer_left_left_class{
+          height: 22px;
+    line-height: 27px;
+    font-size: 13px;
+    padding-left: 20px;
+    color: #E0540E;
+  }
+
+  .footer_left_right_class{
+      height: 22px;
+    line-height: 22px;
+    padding-left: 20px;
+    color: #E0540E;
+  }
+}

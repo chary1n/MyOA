@@ -1,0 +1,29 @@
+<!--
+  Generated template for the ChoooseGpsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header no-border>
+
+  <ion-navbar color="gongdan-color" hideBackButton="true">
+    <ion-buttons left>
+      <button ion-button icon-only (click)="goBack()">
+              <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+            </button>
+    </ion-buttons>
+    <ion-title>选择地址</ion-title>
+    <ion-buttons right *ngIf="now_lng">
+      <button ion-button icon-only tappable (click)="save_gps()" style="font-size:14px;color: white;margin-right: 10px">
+                保存
+            </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <div class="align-bottom" #map id='map_container'  style="height: 100%;">
+  </div>
+</ion-content>

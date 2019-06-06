@@ -281,7 +281,7 @@
       </ion-fab-list>
     </ion-fab>
   </ion-content>
-  <div *ngIf='isShen'>
+  <ion-content *ngIf='isShen' style="height: calc(100% - 10px);">
     <div *ngIf="vacation_num!=0 || recoup_num!=0">
       <div style="padding: 1px;border-bottom:#f0f2f5 1px solid;margin-left: 20px">
         <span style="background-color: #409eff;width: 3px;border-radius: 3px;height: 13px;float: left;margin-top: 16px;margin-left: -12px"></span>
@@ -378,7 +378,7 @@
       </ion-item-group>
     </div>
 
-    <div *ngIf="dimission_num!=0">
+    <div *ngIf="dimission_num!=0 || offer_num!=0">
       <div style="padding: 1px;border-bottom:#f0f2f5 1px solid;margin-left: 20px">
         <span style="background-color: #409eff;width: 3px;border-radius: 3px;height: 13px;float: left;margin-top: 16px;margin-left: -12px"></span>
         <p style="font-size: 13px;color: #409eff;">人事关系</p>
@@ -388,6 +388,14 @@
           (click)='toLiZhi()'>
           <p style="margin-right: 15px;float: right;">{{dimission_num}}</p>
           <p style="font-size: 13px;">离职待审核</p>
+        </div>
+      </ion-item-group>
+
+      <ion-item-group>
+        <div *ngIf="offer_num!=0" style="min-height: 45px;border-bottom:#f0f2f5 1px solid;margin-left: 20px;padding: 1px" tappable
+          (click)='toOffer()'>
+          <p style="margin-right: 15px;float: right;">{{offer_num}}</p>
+          <p style="font-size: 13px;">offer待审核</p>
         </div>
       </ion-item-group>
     </div>
@@ -405,6 +413,21 @@
         </div>
       </ion-item-group>
     </div>
+
+    <div *ngIf="intp_num != 0">
+      <div style="padding: 1px;border-bottom:#f0f2f5 1px solid;margin-left: 20px">
+        <span style="background-color: #409eff;width: 3px;border-radius: 3px;height: 13px;float: left;margin-top: 16px;margin-left: -12px"></span>
+        <p style="font-size: 13px;color: #409eff;">生管</p>
+      </div>
+      <ion-item-group>
+        <div *ngIf="intp_num!=0" style="min-height: 45px;border-bottom:#f0f2f5 1px solid;margin-left: 20px;padding: 1px" tappable
+          (click)='toINTP()'>
+          <p style="margin-right: 15px;float: right;">{{intp_num}}</p>
+          <p style="font-size: 13px;">待审核电商中转单</p>
+        </div>
+      </ion-item-group>
+    </div>
+
     <div *ngIf="tousu_num!=0">
       <div style="padding: 1px;border-bottom:#f0f2f5 1px solid;margin-left: 20px">
         <span style="background-color: #409eff;width: 3px;border-radius: 3px;height: 13px;float: left;margin-top: 16px;margin-left: -12px"></span>
@@ -420,11 +443,11 @@
       
     </div>
   
-    <div align="center" *ngIf="vacation_num==0 && recoup_num==0 && bx_num==0 && sg_num==0 && yf_num==0 && jk_num==0 && caigou_num==0 && tousu_num==0 && pay_num==0 && pandian_num==0 && gongcheng_num==0 && dimission_num==0">
+    <div align="center" *ngIf="vacation_num==0 && recoup_num==0 && bx_num==0 && sg_num==0 && yf_num==0 && jk_num==0 && caigou_num==0 && tousu_num==0 && pay_num==0 && pandian_num==0 && gongcheng_num==0 && dimission_num==0 && offer_num==0 && intp_num==0">
       <img style="width:100px;position:absolute;left:calc(50% - 50px);top:calc(50% - 60px)" src="assets/img/journal_sheet/null_state.png">
       <p style="width:120px;position:absolute;left:calc(50% - 50px);top:calc(50% + 30px);color:#c2c8cc;font-size:15px">没有待审批的～</p>
     </div>
-  </div>
+  </ion-content>
   <div *ngIf='isMessage'>
     <div align="center">
       <img style="width:100px;position:absolute;left:calc(50% - 50px);top:calc(50% - 60px)" src="assets/img/journal_sheet/null_state.png">

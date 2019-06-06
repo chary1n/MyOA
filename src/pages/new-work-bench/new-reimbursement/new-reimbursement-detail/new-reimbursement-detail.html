@@ -79,6 +79,7 @@
         </div>
 
         <p text-wrap class="yongtu_class">消费用途：{{items.name}}</p>
+        <p text-wrap class="yongtu_class" *ngIf="items.sale_id">订单：{{items.sale_id}}</p>
         <p text-wrap class="beizhu_class">备注：{{items.description}} </p>
       </ion-item>
     </div>

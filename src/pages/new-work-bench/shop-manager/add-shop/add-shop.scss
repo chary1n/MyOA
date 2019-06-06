@@ -1,0 +1,133 @@
+page-add-shop {
+    .bg_class{
+            margin-top: 10px;
+    background-color: white;
+    }
+
+    .record_class{
+           margin-left: 16px;
+    padding-top: 15px;
+    font-size: 15px; 
+    }
+
+    .item_now_class{
+      min-height: 45px;
+      height: 45px;
+    }
+
+
+    .label_class{
+        color:#333333;font-size: 15px;
+    }
+
+    .p_class{
+        float: right;
+        line-height: 25px;
+        font-size: 15px;
+        color: #333333;
+        width: 70%;
+        text-align: right;
+    }
+
+    .item_differ_class{
+      height:10px;
+      background-color: #f0f2f5;
+    }
+
+    .biaoti {
+    background: white;
+    height: 40px;
+    color: #8a9199;
+    line-height: 40px;
+  }
+  .sub_title_class{
+    padding-left: 14px;
+    color: #c2c7cc;
+    margin-top:10px;
+  }
+
+  .header_div_class{
+    text-align: center;
+    color: #2597ec;
+    background-color: #f0f2f5;
+    height: 30px;
+    line-height: 30px;
+  }
+
+  .shu_class{
+        width: 10px;
+    height: 15px;
+    display: inline;
+    border-left: solid 3px #2597ec;
+    margin-left: 8px;
+    margin-top: 12.5px;
+    }
+
+    .title_class{
+            display: inline-block;
+    margin-top: 0px;
+    width: calc(100% - 26px);
+    margin-left: 12px;
+    text-align: left;
+    border-bottom: solid 1px #f0f2f5;
+    color: #2597ec;
+    }
+
+    .line_class{
+      // width: 100%;
+      height: 1px;
+      // background-color: red;
+    }
+
+    .icon_class{
+          font-family: "Ionicons" !important;
+    font-size: 24px;
+    font-style: normal;
+    float: right;
+    margin-top: -31px;
+    padding-right: 15px;
+    }
+
+    .item-ios.item-block .item-inner{
+        padding-right: 8px;
+        border-bottom: 1px solid #f0f2f5;
+    }
+
+    .add_shop_input_class{
+        font-size: 15px;color: #333333
+    }
+
+    .icon_select_class{
+        color:#fdc03b;font-size:30px;margin-left:10px;
+    }
+
+    .icon_unselect_class{
+        color:gray;font-size:30px;margin-left:10px;
+    }
+
+    .star_p_class{
+            float: left;
+    height: 45px;
+    font-size: 15px;
+    line-height: 45px;
+    margin-left: 15px;
+    }
+
+    .star_div_class{
+        float: right;
+    margin-top: 5.5px;
+    margin-right: 15px;
+    }
+
+    .many2many_class{
+        justify-content: space-around;
+    white-space: pre-line;
+    width: calc(100% - 55px);
+    display: inline-block;
+    position: relative;
+    top: -12px;
+    left: 35px;
+    text-align: right;
+    }
+}   
+

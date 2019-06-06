@@ -1,0 +1,185 @@
+<!--
+  Generated template for the ShopDetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header no-border>
+
+  <ion-navbar color="gongdan-color" hideBackButton="true">
+    <ion-buttons left>
+      <button ion-button icon-only (click)="goBack()">
+              <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+            </button>
+    </ion-buttons>
+    <ion-title>详情</ion-title>
+    <ion-buttons right>
+      <button ion-button icon-only tappable (click)="click_edit()" style="font-size:14px;color: white;margin-right: 10px">
+                编辑
+            </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <div class="header_class">
+    <div class="top_header_class">
+      <p class="new_header_p_class">
+        <span style="font-size: 18px;">{{item.name}}</span>
+        <span class="star_div_class">
+          <ion-icon *ngFor='let item of starArr | slice:(5 - item.priority) ; let i = index' name="star" class="icon_select_class"></ion-icon>
+          <ng-container *ngFor='let item of starArr | slice:(item.priority) ;let i = index'>
+            <ion-icon name="star" [ngClass]="{true:'icon_unselect_class_first',false:'icon_unselect_class'}[i==0]" ></ion-icon>
+          </ng-container>
+          
+        </span>
+      </p>
+      <div class="div_all" style="margin-top: -10px;">
+        <div text-wrap class="div_right_header"> {{item.rt_partner_top_id}}</div>
+        <div class="div_left_header"> 所属客户 </div>
+      </div>
+      <div class="div_all">
+        <div text-wrap class="div_right_header"> {{item.customer_alias}}</div>
+        <div class="div_left_header"> 简称 </div>
+      </div>
+      <div class="div_all">
+        <div text-wrap class="div_right_header"> {{item.user_id}} / {{item.team_id}}</div>
+        <div class="div_left_header"> 销售员 </div>
+      </div>
+      <div class="div_all" tappable (click)="click_contact()">
+        <div text-wrap class="div_right_header"> {{item.contacts_partner_id}}</div>
+        <div class="div_left_header"> 主要联系人 </div>
+      </div>
+      <!--<div class="small_div">
+        <img class="small_p_class" src="assets/img/edit_phone.png" />
+        <div class="small_img_pic_class">{{item.phone}}</div>
+      </div>
+      <div class="small_div">
+        <img class="small_p_class" src="assets/img/edit_email.png" />
+        <div class="small_img_pic_class">{{item.email}}</div>
+      </div>-->
+    </div>
+  </div>
+
+  <div align="center" class="main_header_div">
+    <div class="div_every_class" align="center" tappable (click)="click_dongtai()">
+      <p [ngClass]="{true:'p_line_height_select',false:'p_line_height'}[detail_type=='dongtai']">动态</p>
+    </div>
+    <div class="div_every_class" align="center" tappable (click)="click_info()">
+      <p [ngClass]="{true:'p_line_height_select',false:'p_line_height'}[detail_type=='info']">资料</p>
+    </div>
+    <div class="div_every_class" align="center" tappable (click)="click_contact()">
+      <p [ngClass]="{true:'p_line_height_select',false:'p_line_height'}[detail_type=='contact']">联系人</p>
+    </div>
+    <div class="div_every_class" align="center" tappable (click)="click_attachments()">
+      <p [ngClass]="{true:'p_line_height_select',false:'p_line_height'}[detail_type=='attachment']">附件</p>
+    </div>
+  </div>
+  <div *ngIf="detail_type=='dongtai'">
+    <ion-list style="margin-top: 10px;">
+      <ng-container *ngFor='let items of item.message_ids;let i = index'>
+        <div *ngIf="i > 0" style="background-color: #f0f2f5; height: 10px;">
+        </div>
+        <ion-item no-lines>
+          <img style="width:40px;vertical-align:top;float:left;margin-right:10px;border-radius:20px" src={{items.create_person_ava}}>
+          <div style="overflow:hidden">
+            <span style="margin-top:3px;color:black;font-size:80%;float:left">{{items.create_person}}</span>
+
+            <span style="font-size:70%;margin-top:5px;margin-left:-5px;float:right">{{changeDate(items.rt_visit_date) | date:'yyyy-MM-dd HH:mm'}}</span>
+          </div>
+          <p *ngIf="item.old_state || item.new_state" style="font-size:80%;">{{items.old_state}}=>{{items.new_state}}</p>
+          <!--<p text-wrap style="font-size:80%;margin-top: 4px;">{{items.description}}</p>-->
+          <div [innerHTML]="assembleHTML(items.description)" class="description_class"></div>
+        </ion-item>
+        <ion-grid *ngIf="items.attachments.length>0" style="padding-top: 0px;margin-left: 55px;padding-bottom: 10px;">
+          <ion-row>
+            <ion-col col-3 *ngFor="let attachment of items.attachments;let i = index" class="col_other">
+              <img tappable (click)='to_slide_img(items.attachments, i);$event.stopPropagation()' src="{{attachment}}" style="clip:rect(0px,83px,83px,0px);position: absolute;min-width: 83px;min-height: 83px;">
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ng-container>
+    </ion-list>
+  </div>
+  <div *ngIf="detail_type=='info'">
+    <div class="list_body_class_no_bottom_line">
+      <div class="body_type_class">
+        <div class="shu_class">
+        </div>
+        <div class="title_class">
+          特征信息
+        </div>
+      </div>
+      <div class="div_all">
+        <div text-wrap class="div_right"> {{item.customer_store_product_type}}</div>
+        <div class="div_left"> 主营产品 </div>
+      </div>
+      <div class="div_all">
+        <div text-wrap class="div_right"> {{item.source_id}}</div>
+        <div class="div_left"> 渠道 </div>
+      </div>
+      <div class="div_all">
+        <div text-wrap class="div_right" *ngIf="item.customer_is_world"> 全世界 </div>
+        <div class="div_right" style="white-space: pre-line;" *ngIf="!item.customer_is_world"> {{item.total_country_str}} </div>
+        <div class="div_left"> 市场 </div>
+      </div>
+    </div>
+    <div class="list_body_class_no_bottom_line">
+      <div class="body_type_class">
+        <div class="shu_class">
+        </div>
+        <div class="title_class">
+          联系信息
+        </div>
+      </div>
+      <div class="div_all">
+        <div text-wrap class="div_right" style="color: #2597ec;text-decoration: underline;" tappable (click)="click_website()"> {{item.website}} </div>
+        <div class="div_left"> 网站 </div>
+      </div>
+      <div class="div_all">
+        <div text-wrap class="div_right" style="color: #2597ec" tappable (click)="click_phone(item.phone)"> {{item.phone}}</div>
+        <div class="div_left"> 手机 </div>
+      </div>
+      <div class="div_all">
+        <div text-wrap class="div_right" style="color: #2597ec" tappable (click)="click_email(item.email)"> {{item.email}}</div>
+        <div class="div_left"> Email </div>
+      </div>
+      <div class="div_all" tappable (click)="click_address()">
+        <div text-wrap class="div_right" style="color: #2597ec"  > {{item.detailed_address}}</div>
+        <div [ngClass]="{true:'can_click_class',false:'not_click_class'}[item.detailed_address!='' || item.rt_partner_shop_x>0 || item.rt_partner_shop_y>0]"> <img *ngIf="item.detailed_address!='' || item.rt_partner_shop_x>0 || item.rt_partner_shop_y>0" src="assets/img/shop_gps.png" class="location_img_class" />地址 </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="detail_type=='contact'">
+    <ion-item-group style="background-color:#f2f2f2;margin-top:5px;">
+      <ng-container *ngFor='let contact of item.contactList;let i = index'>
+        <ion-item no-lines [ngClass]="{true:'other_item',false:'fst_item'}[i>0]">
+          <img style="width:20px;margin-top:-60px;" item-start src="assets/img/user_avater.png">
+          <button ion-button style="background-color:white;color:#2597ec;border-color:#2597ec;border-width:1px;border-style:solid;margin-left:10px;"
+            small>{{exchangeType(contact.type)}}</button>
+          <p style="font-size:15px;color:black;float:left;margin-top:10px;">{{contact.name}}</p>
+          <p style="margin-top:3px;">地址：{{contact.country_name}}{{contact.state_name}}{{contact.address}}</p>
+          <p tappable (click)="click_email(contact.email)">Email：{{contact.email}}</p>
+          <p tappable (click)="click_phone(contact.phone)">电话：{{contact.phone}}</p>
+        </ion-item>
+      </ng-container>
+    </ion-item-group>
+  </div>
+  <div *ngIf="detail_type=='attachment'">
+    <ion-grid *ngIf="item.attachments.length > 0" style="margin-top: 15px;margin-left: 15px;">
+      <ion-row style="margin-right:5px;">
+        <ion-col style="height:70px;" *ngFor="let image of item.attachments;let i=index" col-3>
+          <img style="position:absolute;clip:rect(0px,70px,70px,0px);background-color:#f0f2f5" src='{{image}}' tappable (click)='to_slide_img(item.attachments, i);$event.stopPropagation()'
+          />
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+</ion-content>
+
+<ion-footer style="background-color: #2597ec" *ngIf="can_show_footer && detail_type=='dongtai'">
+  <button style="background-color:#2597ec" ion-button (click)="click_create_shop_visit()" full> 添加拜访记录</button>
+</ion-footer>

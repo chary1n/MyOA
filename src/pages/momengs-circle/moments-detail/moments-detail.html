@@ -78,7 +78,7 @@
           </ion-col>
         </ion-row>
       </ion-grid>
-      <div  *ngIf="visible_employee_ids.length>0">
+      <div  *ngIf="visible_employee_ids.length>0 && item.create_uid == user_id">
           <p style="margin-left: 10px;float: left;margin-top: 5px">可见的人：</p>
             <span round style='background-color:#f0f2f5;flex :1 1 100%;color: #999999;font-size: 12px;padding: 0 1rem;height: 20px;'
             *ngFor="let item of visible_employee_ids" ion-button>

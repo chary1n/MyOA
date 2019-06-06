@@ -8,6 +8,10 @@ export class BaoBiaoService {
 
     }
 
+    update_hk_account(body){
+        return this.httpservice.postBody('update_hk_account', body);
+    }
+
     getZijin() {
         let body = JSON.stringify({
            body:"body",

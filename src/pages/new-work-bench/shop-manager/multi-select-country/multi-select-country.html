@@ -1,0 +1,44 @@
+<!--
+  Generated template for the MultiSelectCountryPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header no-border>
+
+  <ion-navbar color="gongdan-color" hideBackButton="true">
+    <ion-buttons left>
+      <button ion-button icon-only (click)="goBack()">
+              <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+            </button>
+    </ion-buttons>
+    <ion-title>{{title}}</ion-title>
+    <ion-buttons right>
+      <button ion-button icon-only tappable (click)="click_save()" style="font-size:14px;color: white;margin-right: 10px">
+                保存
+            </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <div style="background-color: white">
+    <div style="justify-content:space-around;white-space: pre-line;width: 100%;display: inline-block;
+            position: relative;top: -12px;">
+      <span round style='background-color:#f0f2f5;flex :1 1 100%;color: #999999;font-size: 12px;padding: 0 1rem;height: 20px;'
+        *ngFor="let item of selected_arr" ion-button>
+                      {{item.text}}
+            <ion-icon name="close" style="font-size: 23px;margin-left: 15px;width: 20px" tappable (click)="closeChoose(item)"></ion-icon>
+            </span>
+    </div>
+    <!--<ion-input #nameInput type="search" style="width: 100%;border-bottom: #c3c5c9 1px solid;padding-left: 10px;"
+      (ngModelChange)="searchInput($event)" [(ngModel)]="searchString"></ion-input>-->
+    <ion-list *ngIf="data_arr.length > 0">
+      <ion-item no-lines *ngFor='let item of data_arr' tappable (click)="choose(item)" style="border-bottom: #f0f2f5 1px solid;min-height: 25px">
+        <ion-label>{{item.text}}</ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>

@@ -8,10 +8,10 @@
 
   <ion-navbar color="gongdan-color" hideBackButton="true">
     <ion-buttons left>
-            <button ion-button icon-only (click)="goBack()">
+      <button ion-button icon-only (click)="goBack()">
               <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
             </button>
-        </ion-buttons>
+    </ion-buttons>
     <ion-title>{{item.name}}</ion-title>
     <!--<ion-buttons end>
       <button ion-button icon-only tappable (click)="presentPopover($event)">
@@ -27,7 +27,7 @@
 
   <div style="margin-top:10px">
 
-    
+
 
     <div class="div_all">
       <div text-wrap class="div_right"> {{item.supplier}} </div>
@@ -95,7 +95,7 @@
       <div class="left_label,div_left" text-right> 备注信息 </div>
     </div>
   </div>
-    <ion-label class="div_label"> 产品明细</ion-label>
+  <ion-label class="div_label"> 产品明细</ion-label>
   <ion-list>
     <ion-item *ngFor='let detail of item.order_lines;let i  = index' (click)="toProductDetail(detail)">
       <!-- <p text-wrap>产品 {{i+1}} {{detail.name}}</p>
@@ -108,27 +108,27 @@
       <p>小计 {{detail.price_subtotal}}</p> -->
       <h3 text-wrap>{{i+1}}. {{detail.name}}</h3>
       <div>
-      <progress value={{detail.shipping_rate?detail.shipping_rate:1}}  max="100" ></progress>
-      <p style="float:right;margin-right:20px">价格区间:{{detail.standard_price}}</p>
+        <progress value={{detail.shipping_rate?detail.shipping_rate:1}} max="100"></progress>
+        <p style="float:right;margin-right:20px">价格区间:{{detail.standard_price}}</p>
       </div>
       <div>
-          <p style="float:right;margin-right:20px">单价:{{detail.price_unit}}</p>
+        <p style="float:right;margin-right:20px">单价:{{detail.price_unit}}</p>
         <p>已接收/下单： {{detail.qty_received}} /{{detail.product_qty}}</p>
       </div>
     </ion-item>
   </ion-list>
 </ion-content>
 
-<ion-footer style="background:#f0f2f5" *ngIf="is_manager" >
+<ion-footer style="background:#f0f2f5" *ngIf="is_manager">
   <!--<button ion-button tappable style='width:70%;margin-left:15%'   round (click)="approve()">
     批准订单
   </button>-->
-  <div  class="footer_class">
-        <div class="left_btn" tappable (click)='cancel()'>
-          拒绝
-        </div>
-        <div class="right_btn" tappable (click)='conform()'>
-          同意
-        </div>
+  <div class="footer_class">
+    <div class="left_btn" tappable (click)='cancel()'>
+      拒绝
     </div>
+    <div class="right_btn" tappable (click)='conform()'>
+      同意
+    </div>
+  </div>
 </ion-footer>

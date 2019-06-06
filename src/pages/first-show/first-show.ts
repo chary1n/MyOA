@@ -65,6 +65,8 @@ export class FirstShowPage {
   salary_approval_num = 0 //核薪单
   salary_adjust_approval_num = 0 // 调薪单
   dimission_num = 0 // 离职单待审核
+  offer_num = 0 //审核offer
+  intp_num = 0
   isShowApprovalPoint = false
   all_approval = 0//审批总和
   show_approve
@@ -862,7 +864,9 @@ export class FirstShowPage {
         this.salary_approval_num = res.result.res_data.salary_approval_num
         this.salary_adjust_approval_num = res.result.res_data.salary_adjust_approval_num
         this.dimission_num = res.result.res_data.dimission_num
-        this.all_approval = this.recoup_num + this.vacation_num + this.jk_num + this.bx_num + this.yf_num + this.sg_num + this.caigou_num + this.tousu_num + this.pay_num + this.gongcheng_num + this.salary_approval_num + this.salary_adjust_approval_num + this.dimission_num
+        this.offer_num = res.result.res_data.offer_num
+        this.intp_num = res.result.res_data.intp_num
+        this.all_approval = this.recoup_num + this.vacation_num + this.jk_num + this.bx_num + this.yf_num + this.sg_num + this.caigou_num + this.tousu_num + this.pay_num + this.gongcheng_num + this.salary_approval_num + this.salary_adjust_approval_num + this.dimission_num + this.offer_num
         if (this.isShowCK) {
           this.all_approval += this.pandian_num
         }
@@ -1145,6 +1149,14 @@ export class FirstShowPage {
 
   toLiZhi(){
     this.navCtrl.push('LeaveWorkPage')
+  }
+
+  toOffer(){
+    this.navCtrl.push('ApplicantOfferApprovePage')
+  }
+
+  toINTP(){
+    this.navCtrl.push('IntpPage')
   }
 
 }

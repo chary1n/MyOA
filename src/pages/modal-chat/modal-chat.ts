@@ -47,7 +47,7 @@ export class ModalChatPage {
   ionViewDidEnter() {
       setTimeout(() => {
       this.myContent.setFocus();//输入框获取焦点
-    },150)
+    },15)
   }
 
   click_dissmiss(){

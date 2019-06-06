@@ -11,12 +11,12 @@ import { WebIntent } from '@ionic-native/web-intent';
 import { AppAvailability } from '@ionic-native/app-availability';
 import { CallNumber } from '@ionic-native/call-number';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController, Platform } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, Platform, ModalController } from 'ionic-angular';
 declare let startApp: any;
 import { Storage } from '@ionic/storage';
 import * as moment from 'moment';
 declare let cordova: any; 
-
+import { GalleryModal } from 'ionic-gallery-modal';
 /**
  * Generated class for the EmployeeDetailPage page.
  *
@@ -66,6 +66,7 @@ export class EmployeeDetailPage {
     public toastCtrl: ToastController,
     public datePipe: DatePipe,
     public storage: Storage,
+    public modalController: ModalController
   ) {
     this.employeeService.get_employee_list().then(res => {
       if (res.result.res_data && res.result.res_code == 1) {
@@ -552,6 +553,19 @@ export class EmployeeDetailPage {
     this.navCtrl.popTo(this.ContactPersonPage)
   }
 
+  to_slide_img(imgList, index) {
 
+    let data = []
+     for (let index = 0; index < imgList.length; index++) {
+       data.push({
+         url: imgList[index]
+       })
+     }
+    let modal = this.modalController.create(GalleryModal, {
+        photos: data,
+        initialSlide: index
+    });
+    modal.present();
+  }
 
 }

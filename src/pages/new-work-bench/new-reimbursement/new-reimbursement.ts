@@ -23,9 +23,7 @@ export class NewReimbursementPage {
   wait_approval_list = [];
   already_approval_list = [];
   me_list = [];
-  isMoreData1 = true;
-  isMoreData2 = true;
-  isMoreData3 = true
+  isMoreData = true;
   limit: any;
   offset: any;
   is_ios = false;
@@ -142,8 +140,8 @@ export class NewReimbursementPage {
   doRefresh(refresh) {
     this.limit = 20;
     this.offset = 0;
+    this.isMoreData = true;
     if (this.type == "wait_approved") {
-      this.isMoreData1 = true;
       this.baoxiaoService.getApprovalList(this.limit, this.offset, this.user_id).then((res) => {
         if (res.result && res.result.res_code == 1) {
           this.wait_approval_list = res.result.res_data
@@ -161,7 +159,6 @@ export class NewReimbursementPage {
       })
     }
     else if (this.type == "me_approved") {
-      this.isMoreData2 = true;
       this.baoxiaoService.getAlreadApprovalList(this.limit, this.offset, this.user_id).then((res) => {
         if (res.result && res.result.res_code == 1) {
           this.already_approval_list = res.result.res_data
@@ -323,5 +320,39 @@ export class NewReimbursementPage {
     let new_date = new Date(date.replace(' ', 'T') + 'Z').getTime();
     return new_date;
   }
+
+  // doInfinite(infiniteScroll) {
+  //   if (this.isMoreData == true) {
+  //     this.offset = this.offset + 20;
+  //     this.custService.get_total_account_payment({ 'limit': this.limit, 'offset': this.offset, 'type': this.type }).then((res) => {
+  //       let item_data = [];
+  //       if (res.result.res_data) {
+  //         item_data = res.result.res_data;
+  //         if (item_data.length == 20) {
+  //           this.isMoreData = true;
+  //         }
+  //         else {
+  //           this.isMoreData = false;
+  //         }
+  //         for (let item of item_data) {
+  //           if (this.type == 'confirm') {
+  //             this.wait_arr.push(item)
+  //           }
+  //           else {
+  //             this.done_arr.push(item)
+  //           }
+
+  //         }
+
+  //       }
+  //       else {
+  //         this.isMoreData = false;
+  //       }
+  //       infiniteScroll.complete();
+  //     })
+  //   } else {
+  //     infiniteScroll.complete();
+  //   }
+  // }
 
 }

@@ -4,9 +4,14 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header>
-
-  <ion-navbar color="gongdan-color">
+<ion-header class="bar-calm" no-border>
+ 
+  <ion-navbar color="gongdan-color" hideBackButton="true" >
+     <ion-buttons left>
+      <button ion-button icon-only (click)="goBack()">
+        <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
     <ion-title>报表</ion-title>
   </ion-navbar>
 

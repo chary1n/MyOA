@@ -1,0 +1,28 @@
+page-choose-address {
+    .label_class{
+        color:#333333;font-size: 15px;
+    }
+
+    .p_class{
+        float: right;
+        line-height: 25px;
+        font-size: 15px;
+        color: #333333;
+    }
+
+    // .picker-toolbar-multi-picker-cancel{
+    //     text-align: left
+    // }
+
+    .picker-toolbar-multi-picker-cancel{
+text-align: left!important;
+}
+.picker-toolbar-multi-picker-reset{
+text-align: center!important;
+}
+
+.normal-select{
+    font-size: 15px;
+    color: #333333;
+}
+}

@@ -1,0 +1,87 @@
+<!--
+  Generated template for the ApplicantCreateOfferPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header no-border>
+
+  <ion-navbar color="gongdan-color" hideBackButton="true">
+    <ion-buttons left>
+      <button tappable ion-button icon-only (click)="goBack()">
+              <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+            </button>
+    </ion-buttons>
+    <ion-title>创建offer</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content style="background-color:#f0f2f5">
+  <div class="header_div_class">
+    请仔细确认以下各项信息
+  </div>
+  <ion-item>
+    <ion-label style="color:#2e3133;">入职日期
+      <span style="color:red;"> *</span>
+    </ion-label>
+    <ion-datetime cancelText="取消" doneText="确定" min="2000" max="2088" style="color:#5C6166;font-size:14px;margin-right:-6px"
+      displayFormat="YYYY-MM-DD" [(ngModel)]="entry_date"></ion-datetime>
+    <img item-end src="assets/img/journal_sheet/right_icon.png" style="height:10px;margin-right:-4px">
+  </ion-item>
+  <ion-item class="item_now_class" tappable (click)="choose_departments()">
+    <ion-label style="color:black"> 部门
+      <span style="color:red;"> *</span>
+    </ion-label>
+    <ion-label item-end style="color:black;text-align:right">
+      {{deparment_name}}
+    </ion-label>
+  </ion-item>
+  <ion-item class="item_now_class">
+    <ion-label style="color:black"> 岗位
+      <span style="color:red;"> *</span>
+    </ion-label>
+    <ion-select [(ngModel)]="job_id" class="normal-select" okText="确定" cancelText="取消">
+      <ion-option *ngFor="let item of jobChooseList;let i = index;" value={{item.job_id}}>{{item.name}}</ion-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item class="item_now_class">
+    <ion-label style="color:black"> 试用期
+      <!--<span style="color:red;"> *</span>-->
+    </ion-label>
+    <ion-select [(ngModel)]="syq_date" class="normal-select" okText="确定" cancelText="取消">
+      <ion-option *ngFor="let item of syq_list;let i = index;" value={{item.id}}>{{item.name}}</ion-option>
+    </ion-select>
+  </ion-item>
+  <div class="differ_10_px_class">
+  </div>
+  <ion-item no-lines style="min-height:20px;height:20px;">
+    <ion-label class="left_title_class">薪资说明</ion-label>
+  </ion-item>
+  <div class="differ_10_px_class">
+  </div>
+  <ion-item no-lines>
+    <ion-textarea rows="15"  text-wrap placeholder='请输入...' [(ngModel)]="salary_remarks" class='area_class'>
+    </ion-textarea>
+  </ion-item>
+  <ion-item style="min-height:10px;height:10px;background-color:white">
+  </ion-item>
+  <div class="differ_10_px_class">
+  </div>
+  <ion-item no-lines style="min-height:20px;height:20px;">
+    <ion-label class="left_title_class">备注</ion-label>
+  </ion-item>
+  <div class="differ_10_px_class">
+  </div>
+  <ion-item no-lines>
+      <ion-textarea rows="15" text-wrap placeholder='请输入...' [(ngModel)]="remarks" class='remark_area_class'>
+      </ion-textarea>
+  </ion-item>
+  <ion-item style="min-height:10px;height:10px;background-color:white">
+  </ion-item>
+</ion-content>
+<ion-footer style="background-color:#2597ec">
+  <button style="background-color:#2597ec" ion-button (click)="click_submit_offer()" full>提交</button>
+</ion-footer>

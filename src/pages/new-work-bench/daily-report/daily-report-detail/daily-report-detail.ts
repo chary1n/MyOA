@@ -1,5 +1,5 @@
 import { NavController, NavParams, IonicPage, ActionSheetController, ModalController, Content } from 'ionic-angular';
-import { Component, ViewChild,  } from '@angular/core';
+import { Component, ViewChild, } from '@angular/core';
 import { ReportService } from './../reportService'
 import { DomSanitizer } from '@angular/platform-browser';
 import { HttpService } from './../../../../providers/HttpService';
@@ -51,16 +51,30 @@ export class DailyReportDetailPage {
   }
 
   assembleHTML(str) {
+    // if (str) {
+    //   var imgReg = /<img.*?(?:>|\/>)/gi;
+    //   var srcReg = /src=[\'\"]?([^\'\"]*)[\'\"]?/i;
+    //   var arr = str.match(imgReg);
+    //   for (let i = 0; i < arr.length; i++) {
+    //     let exchange_str = arr[i].slice(0, arr[i].length - 1) + " tappable (click)='click_me()'/>"
+    //     str = str.replace(arr[i], exchange_str)
+    //   }
+    // }
     return this.sanitizer.bypassSecurityTrustHtml(str)
   }
-  assemblePlanHTML(str){
-    if (str){
+
+  click_me(){
+    console.log('1')
+  }
+
+  assemblePlanHTML(str) {
+    if (str) {
       var str_after = str.replace(/\n/g, "<br>")
-    return this.sanitizer.bypassSecurityTrustHtml(str_after)
-  }
-  else{
-    return ''
-  }
+      return this.sanitizer.bypassSecurityTrustHtml(str_after)
+    }
+    else {
+      return ''
+    }
   }
 
   changeZJ() {
@@ -153,7 +167,7 @@ export class DailyReportDetailPage {
     })
   }
 
-  reload_data_with_img(){
+  reload_data_with_img() {
     var body = {
       'report_id': this.item_data.report_id,
       'user_id': this.uid,
@@ -322,8 +336,8 @@ export class DailyReportDetailPage {
     })
   }
 
-  enter_edit(){
-    this.navCtrl.push('CreateDailyReportPage',{
+  enter_edit() {
+    this.navCtrl.push('CreateDailyReportPage', {
       'is_edit': true,
       'user_id': this.uid,
       'item_data': this.item_data,

@@ -127,7 +127,6 @@ export class ContactPersonPage {
                   })
                 }
               }
-
             })
           }
           else if (treeNode.res_model == 'hr.department') {
@@ -160,7 +159,7 @@ export class ContactPersonPage {
           }
         }
 
-        this.employeeService.get_all_department_tree_loading({ 'uid': this.uid, 'need_total': true }).then(res => {
+        this.employeeService.get_all_department_tree_loading({ 'uid': this.uid, 'need_total': false }).then(res => {
           if (res.result.res_data && res.result.res_code == 1) {
             this.zNodes = res.result.res_data
             $.fn.zTree.init($("#ztree_employee"), this.setting, this.zNodes);
@@ -168,7 +167,6 @@ export class ContactPersonPage {
 
           }
         })
-
       })
   }
 
@@ -184,7 +182,6 @@ export class ContactPersonPage {
   }
 
   clickItem(item) {
-
     this.contactService.get_department_detail(item.id).then((res) => {
       if (res.result && res.result.res_code == 1) {
         this.navCtrl.push('EmployeeListPage', {
@@ -196,9 +193,6 @@ export class ContactPersonPage {
   }
 
   itemSelect(item) {
-    // this.navCtrl.push('EmployeeDetailPage',{
-    //   item:item,
-    // })
     this.employeeService.get_employee_info([item.employee_id], false).then(res => {
       console.log(res)
       if (res.result && res.result.res_code == 1) {

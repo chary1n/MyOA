@@ -44,20 +44,28 @@
         筛选
       </div>
     </div>
-    <div align="center" class="main_header_div" *ngIf="is_manager">
+    <div class="scroll_class" zooming="true" scrollX="true" align-items-center>
+      <div class="left_div" align="center" tappable (click)="click_me()">
+        <span [ngClass]="{true:'under_line_style',false:'normal_style'}[type == 'me']">我的</span>
+      </div>
+      <div class="left_div" align="center" tappable (click)="click_team()">
+        <span [ngClass]="{true:'under_line_style',false:'normal_style'}[type != 'me']">团队</span>
+      </div>
+    </div>
+    <!--<div align="center" class="main_header_div">
       <div class="div_every_class" align="center" tappable (click)="click_me()">
         <p [ngClass]="{true:'p_line_height_select',false:'p_line_height'}[type=='me']">我的</p>
       </div>
       <div class="div_every_class" align="center" tappable (click)="click_team()">
         <p [ngClass]="{true:'p_line_height_select',false:'p_line_height'}[type!='me']">团队</p>
       </div>
-    </div>
+    </div>-->
 
-    <div align="center" class="main_header_div" *ngIf="!is_manager">
+    <!--<div align="center" class="main_header_div" *ngIf="!is_manager">
       <div class="div_only_me_class" align="center" tappable (click)="click_me()">
         <p [ngClass]="{true:'p_line_height_select',false:'p_line_height'}[type=='me']">我的</p>
       </div>
-    </div>
+    </div>-->
   </div>
   <div no-lines *ngIf="type == 'me'" style="margin-top:95px">
     <div class="div_class" no-lines *ngFor='let item of me_list' tappable (click)='me_detail(item)'>

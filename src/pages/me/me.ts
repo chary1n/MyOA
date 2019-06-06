@@ -10,7 +10,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { HttpService } from '../../providers/HttpService';
 import { MeServices} from './meService'
-
+import { GalleryModal } from 'ionic-gallery-modal';
 /**
  * Generated class for the MePage page.
  *
@@ -42,7 +42,7 @@ export class MePage {
     public event:Events,
     public statusbar:StatusBar, public firService: FirService,
     private inAppBrowser: InAppBrowser,private httpService: HttpService,
-    public meService: MeServices) {
+    public meService: MeServices, public modalController: ModalController) {
       if (this.platform.is("android")) {
         this.appVersion.getVersionNumber().then((value: string) => {
           this.versionNumber = value
@@ -243,6 +243,21 @@ export class MePage {
 
   changePassword() {
     this.navCtrl.push('ChangePasswordPage', { is_me: true })
+  }
+
+  to_slide_img(imgList, index) {
+
+    let data = []
+     for (let index = 0; index < imgList.length; index++) {
+       data.push({
+         url: imgList[index]
+       })
+     }
+    let modal = this.modalController.create(GalleryModal, {
+        photos: data,
+        initialSlide: index
+    });
+    modal.present();
   }
 
   // goBack(){

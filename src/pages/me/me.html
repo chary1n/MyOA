@@ -17,7 +17,7 @@
             </button>
         </ion-buttons> -->
       <div style="margin-left:auto;margin-right:auto;text-align:center;margin-top:45px" tappable (click)='editInformation()'>
-        <img src={{user_heard}} class="image1" alt="">
+        <img src={{user_heard}} class="image1" alt="" tappable (click)='to_slide_img([user_heard], 0);$event.stopPropagation()'>
         <p style="color:white;font-size:18px;margin-top:1px">{{name}}</p>
         <p style="color:#bfdfff;font-size:12px;margin-top:-9px">{{company}}</p>
       </div>

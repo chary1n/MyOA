@@ -1,0 +1,60 @@
+<!--
+  Generated template for the MainContactListPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header no-border>
+
+  <ion-navbar color="gongdan-color" hideBackButton="true">
+    <ion-buttons left>
+      <button ion-button icon-only (click)="goBack()">
+              <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+            </button>
+    </ion-buttons>
+    <ion-title>联系人</ion-title>
+    <ion-buttons right>
+      <button ion-button icon-only tappable (click)="create_contact()" style="font-size:14px;color: white;margin-right: 10px">
+                创建
+            </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content style="background-color: #f0f2f5">
+  <ion-list no-lines>
+    <ion-item-sliding style="margin-top: 10px;" no-lines *ngFor='let item of contact_list;let i = index'>
+      <!--<ion-item no-lines tappable (click)="choose_contact(item,i)">
+        <div class="div_simple_class">
+          姓名：{{item.name}}
+        </div>
+        <div class="div_simple_class">
+          手机：{{item.phone}}
+        </div>
+        <div class="div_simple_class">
+          Email：{{item.email}}
+        </div>
+        <div class="div_simple_class" text-wrap>
+          地址：{{item.state_name}}{{item.country_name}}{{item.address}}
+        </div>
+      </ion-item>-->
+      <ion-item no-lines tappable (click)="choose_contact(item,i)">
+        <button ion-button style="background-color:white;color:#2597ec;border-color:#2597ec;border-width:1px;border-style:solid;margin-left:10px;"
+            small>{{exchangeType(item.type)}}</button>
+          <p style="font-size:15px;color:black;float:left;margin-top:10px;">{{item.name}}</p>
+          <p style="margin-top:3px;">地址：{{item.country_name}}{{item.state_name}}{{item.address}}</p>
+          <p tappable (click)="click_email(contact.email)">Email：{{item.email}}</p>
+          <p tappable (click)="click_phone(contact.phone)">电话：{{item.phone}}</p>
+      </ion-item>
+      <ion-item-options>
+        <button ion-button color="danger" (click)="deleteItem(item,i)">
+          <ion-icon name="trash"></ion-icon>
+          删除
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
+</ion-content>

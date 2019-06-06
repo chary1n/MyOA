@@ -1,0 +1,128 @@
+<!--
+  Generated template for the SaleReportDetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="gongdan-color" hideBackButton="true">
+    <ion-buttons left>
+      <button ion-button icon-only (click)="goBack()">
+            <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+          </button>
+    </ion-buttons>
+    <ion-title>{{title}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content style="overflow-x:hidden">
+  <div class="container">
+    <div id="left-div">
+      <div id="left-div1">
+        <table>
+          <tr>
+            <th style="color:#F3F8FF">1 </th>
+          </tr>
+          <tr>
+            <th style="color:#F3F8FF">2 </th>
+          </tr>
+        </table>
+      </div>
+      <div id="left-div3">
+        <table id="left-table2">
+
+          <tr *ngFor='let team_item of result.table_data;let i = index'>
+
+            <td class="team_name" tappable (click)="click_team_detail(team_item);$event.stopPropagation()">
+              {{team_item.name}}
+            </td>
+          </tr>
+          <tr>
+            <td>
+              合计
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div id="right-div">
+      <div id="right-div4">
+        <table id="right-table1">
+          <tr>
+            <th colspan="2" *ngFor='let item of result.columns' style="border-bottom: solid 1px #f0f2f5;background-color: white">
+              {{item.name}}
+            </th>
+          </tr>
+          <tr>
+            <ng-container *ngFor="let items of result.columns">
+              <th style="background-color: white">月</th>
+              <th style="background-color: white">年</th>
+            </ng-container>
+          </tr>
+        </table>
+      </div>
+      <div id="right-div3">
+        <table id="right-table2">
+          <tr *ngFor='let team_item of result.table_data;let i = index'>
+            <ng-container *ngFor='let amount_item of team_item.serial_data; let k = index;'>
+              <td>{{fix2number(amount_item.val1)}}</td>
+              <td>{{fix2number(amount_item.val2)}}</td>
+            </ng-container>
+          </tr>
+          <tr>
+            <ng-container *ngFor='let tot_item of result.tot'>
+              <td style="background: #15B8D9;color: #fff">
+                {{fix2number(tot_item.val)}}
+              </td>
+            </ng-container>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+  <!--<div class="sale_dashboard_templ_new_wrap1">
+    <table class="table table-bordered" id="sale_dashboard_templ_new_wrap1">
+      <thead>
+        <tr>
+          <th colspan="1" rowspan="2"></th>
+          <th colspan="2" *ngFor='let item of result.columns'>
+            {{item.name}}
+          </th>
+        </tr>
+
+        <tr>
+          <ng-container *ngFor="let items of result.columns">
+            <td>月</td>
+            <th>年</th>
+          </ng-container>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor='let team_item of result.table_data;let i = index'>
+          <tr>
+            <td>
+              {{team_item.name}}
+            </td>
+            <ng-container *ngFor='let amount_item of team_item.serial_data; let k = index;'>
+              <td>{{fix2number(amount_item.val1)}}</td>
+              <td>{{fix2number(amount_item.val2)}}</td>
+            </ng-container>
+          </tr>
+        </ng-container>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="1">合计</td>
+          <ng-container *ngFor='let tot_item of result.tot'>
+            <td style="background: #15B8D9;color: #fff">
+              {{fix2number(tot_item.val)}}
+            </td>
+          </ng-container>
+        </tr>
+      </tfoot>
+    </table>
+  </div>-->
+</ion-content>

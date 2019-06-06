@@ -19,81 +19,116 @@
 
 
 <ion-content style="overflow-x:hidden">
-  <!--<div style="width:100%;">-->
-  <div class="sale_dashboard_templ_new_wrap">
-    <table class="table table-bordered" id="sale_dashboard_templ_new_wrap">
+  <div class="container">
+    <div id="left-div">
+      <div id="left-div1">
+        <table>
+          <tr>
+            <th style="color:#F3F8FF">1 </th>
+          </tr>
+          <tr>
+            <th style="color:#F3F8FF">2 </th>
+          </tr>
+        </table>
+      </div>
+      <div id="left-div2">
+        <table id="left-table2">
+
+          <tr *ngFor='let team_item of result.table_data;let i = index'>
+
+            <td class="team_name" tappable (click)="click_team_detail(team_item);$event.stopPropagation()">
+              {{team_item.name}}
+            </td>
+          </tr>
+          <tr>
+            <td>
+              合计
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div id="right-div">
+      <div id="right-div1">
+        <table id="right-table1">
+          <tr>
+            <!--<th colspan="1" rowspan="2"></th>-->
+            <th colspan="2" *ngFor='let item of result.columns' style="border-bottom: solid 1px #f0f2f5;background-color: white">
+              {{item.name}}
+            </th>
+          </tr>
+          <tr>
+            <ng-container *ngFor="let items of result.columns">
+              <th style="background-color: white">月</th>
+              <th style="background-color: white">年</th>
+            </ng-container>
+          </tr>
+        </table>
+      </div>
+      <div id="right-div2">
+        <table id="right-table2">
+          <tr *ngFor='let team_item of result.table_data;let i = index'>
+            <ng-container *ngFor='let amount_item of team_item.serial_data; let k = index;'>
+              <td>{{fix2number(amount_item.val1)}}</td>
+              <td>{{fix2number(amount_item.val2)}}</td>
+            </ng-container>
+          </tr>
+          <tr>
+            <ng-container *ngFor='let tot_item of result.tot'>
+              <td style="background: #15B8D9;color: #fff">
+                {{fix2number(tot_item.val)}}
+              </td>
+            </ng-container>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!--<div class="sale_dashboard_templ_new_wrap">
+    <table id="J_MagicTableTop" class="table table-striped table-bordered table-hover" style="display:none;"></table>
+    <table class="table table-striped table-bordered table-hover" id="J_MagicTable">
       <thead>
         <tr>
-          <th colspan="2" rowspan="2"></th>
+          <th colspan="1" rowspan="2"></th>
           <th colspan="2" *ngFor='let item of result.columns'>
             {{item.name}}
           </th>
         </tr>
+
         <tr>
-          <!--<div *ngFor='let item of result.columns'>-->
-          <td *ngFor='let item of adjust_arr;let i = index'>
-            <div *ngIf="i%2==0">
-              月
-            </div>
-            <div *ngIf="i%2!=0">
-              年
-            </div>
-          </td>
-          <!--<th *ngFor='let item of result.columns;let i = index' *ngIf="i/2!=0">年</th>-->
-          <!--</div>-->
+          <ng-container *ngFor="let items of result.columns">
+            <th>月</th>
+            <th>年</th>
+          </ng-container>
         </tr>
       </thead>
       <tbody>
         <ng-container *ngFor='let team_item of result.table_data;let i = index'>
-          <ng-container *ngFor='let obj of team_item.child_team_ids;let k = index'>
-            <tr>
-              <!--<t t-set="flag" t-value="1" />-->
-              <td *ngIf="k==0" class="team_name" [attr.rowspan]="team_item.child_team_ids.length + 1">
-                {{team_item.name}}
-              </td>
-              <td>
-                {{obj.name}}
-              </td>
-              <ng-container *ngFor='let amount_item of obj.serial_ids'>
-                <td>{{fix2number(amount_item.val1)}}</td>
-                <td>{{fix2number(amount_item.val2)}}</td>
-              </ng-container>
-              <!--<div *ngFor='let amount_item of obj.serial_ids'>
-              <td>
-                <div>
-                  {{amount_item.val1}}
-                </div>
-              </td>
-              <td>
-                <div>
-                  {{amount_item.val2}}
-                </div>
-              </td>
-            </div>-->
-            </tr>
-          </ng-container>
           <tr>
-            <td>小计</td>
-            <ng-container *ngFor='let sub_tot_obj of team_item.sub_tot'>
-              <td style="background: #F0FAFC">
-                  {{fix2number(sub_tot_obj.val)}}
-              </td>
+            <td class="team_name" tappable (click)="click_team_detail(team_item);$event.stopPropagation()">
+              {{team_item.name}}
+            </td>
+            <ng-container *ngFor='let amount_item of team_item.serial_data; let k = index;'>
+              <td>{{fix2number(amount_item.val1)}}</td>
+              <td>{{fix2number(amount_item.val2)}}</td>
             </ng-container>
-        </tr>
+          </tr>
         </ng-container>
-        
       </tbody>
       <tfoot>
         <tr>
-          <td colspan="2">合计</td>
+          <td colspan="1">合计</td>
           <ng-container *ngFor='let tot_item of result.tot'>
             <td style="background: #15B8D9;color: #fff">
-                {{fix2number(tot_item.val)}}
+              {{fix2number(tot_item.val)}}
             </td>
           </ng-container>
         </tr>
       </tfoot>
     </table>
-  </div>
-  <!--</div>-->
+    <table id="J_MagicTableLeft" class="table magic-table-left table-striped table-bordered table-hover" style="display:none;"></table>
+  </div>-->
 </ion-content>

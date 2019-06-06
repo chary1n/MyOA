@@ -122,4 +122,17 @@ page-new-work-bench {
     white-space: nowrap;
     overflow-x: hidden;
   }
+
+  .new_title_red{
+    width: 5px;
+    height: 5px;
+    background-color: red;
+    color: white;
+    border-radius: 2.5px;
+    line-height: 17px;
+    position: absolute;
+    top: 17px;
+    font-size: 13px;
+    margin-left: 28px;
+  }
 }

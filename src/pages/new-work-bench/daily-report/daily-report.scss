@@ -9,7 +9,7 @@ page-daily-report {
 
      .div_every_class{
             display: inline-block;
-    width: 48%;
+    width: 40%;
     }
 
     .div_only_me_class{
@@ -140,6 +140,44 @@ page-daily-report {
     .search_class_team{
         width: 70vw;
         margin-top: 7px;
+    }
+
+    .under_line_style{
+    color:white;
+    width:100%;
+    height: 40px;
+    line-height: 40px;
+    border-bottom:white 3px solid;
+    font-size: 14px;
+    padding-bottom: 5px;
+}
+.normal_style{
+        width:60px;
+        height: 44px;
+        line-height: 37px;
+        color:white;
+        font-size: 14px;
+    }
+
+    .scroll_class{
+    border-bottom: solid 1px #f0f2f5;
+    background-color: #2597ec;
+    height: 44px;
+    width: 100%;
+    margin-top: -9px;
+    white-space: nowrap;
+    overflow-x: hidden;
+  }
+
+    .left_div{
+        width: 48%;
+        // height: 40px;
+        // margin-top: -14px;
+        background-color: #2597ec;
+//   padding: 2px 8px;
+  height: 40px;
+      display: inline-block;
+      margin-top: 5px;
     }
 }
  

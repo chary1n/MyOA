@@ -1,0 +1,212 @@
+<!--
+  Generated template for the AddShopPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header no-border>
+
+  <ion-navbar color="gongdan-color" hideBackButton="true">
+    <ion-buttons left>
+      <button ion-button icon-only (click)="goBack()">
+              <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+            </button>
+    </ion-buttons>
+    <ion-title>{{now_title}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content style="background-color: #f0f2f5">
+  <ion-item class="item_now_class">
+    <ion-label class="label_class"> 名称 <span style="color:red;"> *</span></ion-label>
+    <ion-input [(ngModel)]="shop_name" placeholder="请输入" text-right class="add_shop_input_class"></ion-input>
+  </ion-item>
+  <ion-item tappable (click)="choose_partner()" class="item_now_class">
+    <ion-label class="label_class"> 所属客户
+      <p class="p_class"> {{partner_name}} </p>
+    </ion-label>
+    <img item-end src="assets/img/journal_sheet/right_icon.png" style="height:10px;margin-right:-4px">
+  </ion-item>
+
+  <ion-item tappable (click)="choose_team()" class="item_now_class">
+    <ion-label class="label_class"> 销售团队
+      <p class="p_class"> {{team_id}} </p>
+    </ion-label>
+    <img item-end src="assets/img/journal_sheet/right_icon.png" style="height:10px;margin-right:-4px">
+  </ion-item>
+  <ion-item tappable (click)="choose_sale_man()" class="item_now_class">
+    <ion-label class="label_class"> 销售员
+      <p class="p_class"> {{user_id_name}} </p>
+    </ion-label>
+    <img item-end src="assets/img/journal_sheet/right_icon.png" style="height:10px;margin-right:-4px">
+  </ion-item>
+
+  <ion-item tappable (click)="choose_main_contact()" class="item_now_class">
+    <ion-label class="label_class"> 主要联系人
+      <p class="p_class"> {{main_contact.name}} </p>
+    </ion-label>
+    <img item-end src="assets/img/journal_sheet/right_icon.png" style="height:10px;margin-right:-4px">
+  </ion-item>
+  <ion-item class="item_now_class">
+    <ion-label class="label_class"> 简称 </ion-label>
+    <ion-input [(ngModel)]="customer_alias" placeholder="请输入" text-right class="add_shop_input_class"></ion-input>
+  </ion-item>
+  <div class="item_now_class" style="background-color: white">
+    <!--<ion-label class="label_class"> 星级 </ion-label>-->
+    <!--<div>-->
+    <div class="star_p_class">
+      星级
+    </div>
+    <div class="star_div_class">
+      <ion-icon *ngFor='let item of starArr | slice:(5 - priority) ; let i = index' tappable (click)='click(i)' name="star" class="icon_select_class"></ion-icon>
+      <ion-icon *ngFor='let item of starArr | slice:(priority) ;let i = index' tappable (click)='clickGray(i)' name="star" class="icon_unselect_class"></ion-icon>
+    </div>
+    <!--<ion-icon tappable (click)='click(i)' name="star" style="color:#fdc03b;font-size:50px;margin-top:20px;margin-left:10px;"></ion-icon>-->
+    <!--</div>-->
+  </div>
+  <div class="item_differ_class">
+  </div>
+  <div class="biaoti" tappable (click)='changeFirst()'>
+    <div class="shu_class">
+    </div>
+    <div class="title_class">
+      特征信息
+    </div>
+    <ion-icon class="icon_class" item-end name="arrow-up" *ngIf="show_first" tappable (click)='changeContact();$event.stopPropagation();'></ion-icon>
+    <ion-icon class="icon_class" item-end name="arrow-down" *ngIf="!show_first" tappable (click)='changeContact();$event.stopPropagation();'></ion-icon>
+  </div>
+  <div class="line_class" *ngIf="show_first">
+  </div>
+  <ion-item class="item_now_class" *ngIf="show_first">
+    <ion-label class="label_class">主营产品类型
+      <!--<span style="color:red;"> *</span>-->
+    </ion-label>
+    <ion-input [(ngModel)]="customer_store_product_type" placeholder="请输入" text-right class="add_shop_input_class"></ion-input>
+  </ion-item>
+  <ion-item class="item_now_class" *ngIf="show_first">
+    <ion-label class="label_class">渠道
+      <!--<span style="color:red;"> *</span>-->
+    </ion-label>
+    <ion-select style="font-size: 15px; color: #333333" [(ngModel)]="source_id" class="normal-select" okText="确定" cancelText="取消">
+      <ion-option *ngFor="let item of source_arr;let i = index;" value={{item.value}}>{{item.text}}</ion-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item class="item_now_class" *ngIf="show_first">
+    <ion-label class="label_class">市场(是否全世界)
+    </ion-label>
+    <ion-toggle color="gongdan-color" [(ngModel)]="is_all_world"></ion-toggle>
+  </ion-item>
+  <button ion-item tappable (click)="selectState()" *ngIf="show_first && !is_all_world">
+                    <div style="position: relative;margin-bottom: -11px;margin-top: -11px">
+                      <span style="display: inline-block;position: absolute;top: calc(50% - 11px);display: inline-block;font-size: 15px">大洲</span>
+                      <div class="many2many_class">
+                        <span round style='background-color:#f0f2f5;flex :1 1 100%;color: #999999' *ngFor="let item of selectStateList" ion-button>
+                                {{item.text}}
+                        </span>
+                      </div>
+                    </div>
+                  </button>
+  <button ion-item no-lines tappable (click)="selectCountry()" *ngIf="show_first && !is_all_world">
+                    <div style="position: relative;margin-bottom: -11px;margin-top: -11px">
+                      <span style="display: inline-block;position: absolute;top: calc(50% - 11px);display: inline-block;font-size: 15px">国家</span>
+                      <div class="many2many_class">
+                        <span round style='background-color:#f0f2f5;flex :1 1 100%;color: #999999' *ngFor="let item of selectCountryList" ion-button>
+                                {{item.text}}
+                        </span>
+                      </div>
+                    </div>
+                
+                  </button>
+
+  <div class="item_differ_class">
+  </div>
+  <div class="biaoti" tappable (click)='changeSecond()'>
+    <div class="shu_class">
+    </div>
+    <div class="title_class">
+      联系信息
+    </div>
+    <ion-icon class="icon_class" item-end name="arrow-up" *ngIf="show_second" tappable (click)='changeContact();$event.stopPropagation();'></ion-icon>
+    <ion-icon class="icon_class" item-end name="arrow-down" *ngIf="!show_second" tappable (click)='changeContact();$event.stopPropagation();'></ion-icon>
+  </div>
+  <div class="line_class" *ngIf="show_second">
+  </div>
+  <ion-item class="item_now_class" *ngIf="show_second">
+    <ion-label class="label_class">网站
+      <!--<span style="color:red;"> *</span>-->
+    </ion-label>
+    <ion-input [(ngModel)]="website" placeholder="请输入" text-right class="add_shop_input_class"></ion-input>
+  </ion-item>
+  <ion-item class="item_now_class" *ngIf="show_second">
+    <ion-label class="label_class"> 手机 </ion-label>
+    <ion-input [(ngModel)]="phone" placeholder="请输入" text-right style="font-size: 15px;color: #333333"></ion-input>
+  </ion-item>
+  <ion-item class="item_now_class" *ngIf="show_second">
+    <ion-label class="label_class"> Email </ion-label>
+    <ion-input [(ngModel)]="email" placeholder="请输入" text-right style="font-size: 15px;color: #333333"></ion-input>
+  </ion-item>
+  <ion-item tappable (click)="choose_address()" class="item_now_class" *ngIf="show_second">
+    <ion-label class="label_class"> 地址
+      <p class="p_class"> {{country_name}}{{state_name}}{{address}} </p>
+    </ion-label>
+    <img item-end src="assets/img/journal_sheet/right_icon.png" style="height:10px;margin-right:-4px">
+  </ion-item>
+  <ion-item tappable (click)="choose_gps()" class="item_now_class" *ngIf="show_second">
+    <ion-label class="label_class"> GPS定位
+      <p class="p_class" *ngIf="lng&&lat"> {{lng}},{{lat}} </p>
+    </ion-label>
+    <img item-end src="assets/img/journal_sheet/right_icon.png" style="height:10px;margin-right:-4px">
+  </ion-item>
+
+  <div class="item_differ_class">
+  </div>
+  <div class="biaoti" tappable (click)='click_contact_list()'>
+    <div class="shu_class">
+    </div>
+    <div class="title_class">
+      联系人
+    </div>
+    <ion-icon class="icon_class" item-end name="arrow-forward" ></ion-icon>
+  </div>
+
+  <div class="item_differ_class">
+  </div>
+  <div class="biaoti" tappable (click)='changeFour()'>
+    <div class="shu_class">
+    </div>
+    <div class="title_class">
+      附件
+    </div>
+    <ion-icon class="icon_class" item-end name="arrow-up" *ngIf="show_four" tappable (click)='changeFour();$event.stopPropagation();'></ion-icon>
+    <ion-icon class="icon_class" item-end name="arrow-down" *ngIf="!show_four" tappable (click)='changeFour();$event.stopPropagation();'></ion-icon>
+  </div>
+  <div class="line_class" *ngIf="show_four">
+  </div>
+  <ion-grid style="padding-left: 9px;padding-top: 0px;background-color: white;" *ngIf="show_four">
+    <ion-row>
+      <ion-col col-4 style="position:relative;height:106px;margin-top:5px" *ngFor="let item of attachments" on-hold="onHold()"
+        (click)="clickPicture(item)">
+
+        <img src={{item}} style="position:absolute;
+                  clip:rect(0px,106px,106px,0px);" />
+      </ion-col>
+      <ion-col col-4 tappable (click)="addImg()" style="margin-top:5px">
+        <img src="assets/img/add.png" />
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+  <!--<div class="bg_class">
+    <div class="record_class">
+      备注
+    </div>
+    <ion-textarea #mytextarea id="area_id" rows="15" placeholder="说点什么" [(ngModel)]="beizhuText" style="margin-top:10px;height:200px;margin-left:4.5%;width:91%;overflow:hidden;border-radius:1px;padding-left:5px;color:gray"></ion-textarea>
+  </div>-->
+</ion-content>
+
+<ion-footer style="background-color: #2597ec" *ngIf="can_show_footer">
+  <button style="background-color:#2597ec" ion-button (click)="click_create_shop()" full> 保存</button>
+</ion-footer>
