@@ -12,13 +12,18 @@
               <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
             </button>
     </ion-buttons>
-    <ion-title>收款认领</ion-title>
+    <ion-title>{{item.name}}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content>
+  
+  <div class="div_all">
+    <div text-wrap class="div_right"> {{item.payment_type_use}} </div>
+    <div class="left_label,div_left" text-right> 类型 </div>
+  </div>
   <div class="div_all">
     <div text-wrap class="div_right"> {{item.name}} </div>
     <div class="left_label,div_left" text-right> 单号 </div>
@@ -27,62 +32,90 @@
     <div text-wrap class="div_right" style="font-weight:bold;color:#333333"> ¥{{item.account}} </div>
     <div class="left_label,div_left" text-right> 金额 </div>
   </div>
-  <div class="div_all">
-    <div text-wrap class="div_right"> {{item.form_bank_name}} </div>
+  <div class="div_all" *ngIf="item.payment_type == 'outbound'">
+    <div text-wrap class="div_right"> {{item.rt_payment_info}} </div>
+    <div class="left_label,div_left" text-right> 付款信息 </div>
+  </div>
+  <div class="div_all" *ngIf="item.payment_type == 'outbound'">
+    <div text-wrap class="div_right"> {{item.partner_type}} </div>
+    <div class="left_label,div_left" text-right> 付款对象 </div>
+  </div>
+  <div class="div_all" *ngIf="item.payment_type == 'outbound'">
+    <div text-wrap class="div_right"> {{item.payment_date}} </div>
+    <div class="left_label,div_left" text-right> 付款日期 </div>
+  </div>
+  <div class="div_all" *ngIf="item.payment_type == 'outbound'">
+    <div text-wrap class="div_right"> {{item.create_uid}} </div>
+    <div class="left_label,div_left" text-right> 创建人 </div>
+  </div>
+  <div class="div_all" *ngIf="item.payment_type != 'outbound'">
+    <div text-wrap class="div_right" > {{item.form_bank_name}} </div>
     <div class="left_label,div_left" text-right> 付款银行 </div>
   </div>
-  <div class="div_all">
-    <div text-wrap class="div_right"> {{item.from_bank_account}} </div>
+  <div class="div_all" *ngIf="item.payment_type != 'outbound'">
+    <div text-wrap class="div_right" > {{item.from_bank_account}} </div>
     <div class="left_label,div_left" text-right> 付款账号 </div>
   </div>
-  <div class="div_all">
-    <div text-wrap class="div_right"> {{item.from_customer_name}} </div>
+  <div class="div_all" *ngIf="item.payment_type != 'outbound'">
+    <div text-wrap class="div_right" > {{item.from_customer_name}} </div>
     <div class="left_label,div_left" text-right> 付款人 </div>
+  </div>
+  <div class="div_all" *ngIf="item.payment_type == 'transfer'">
+    <div text-wrap class="div_right" > {{item.destination_journal_id}} </div>
+    <div class="left_label,div_left" text-right> 转账到 </div>
   </div>
   <div class="div_all" style="padding-bottom: 16px;">
     <div text-wrap class="div_right"> {{item.rt_remark}} </div>
     <div class="left_label,div_left" text-right> 备注 </div>
   </div>
 
-  <div class="bx_detail_class">
+  <div class="bx_detail_class" *ngIf="item.payment_type != 'outbound'">
     收款信息
   </div>
 
-  <ion-item>
+  <ion-item *ngIf="item.payment_type != 'outbound'">
     <ion-label class="label_class"> 收款账号
       <p text-wrap class="new_p_class"> {{item.journal_id}} </p>
     </ion-label>
   </ion-item>
-  <ion-item class="item_now_class">
+  <ion-item class="item_now_class" *ngIf="item.payment_type != 'outbound'">
     <ion-label class="label_class"> 创建人
       <p class="new_p_class"> {{item.create_uid}} </p>
     </ion-label>
   </ion-item>
-  <ion-item class="item_now_class">
-    <ion-label class="label_class"> 日期
+  <ion-item class="item_now_class" *ngIf="item.payment_type != 'outbound'">
+    <ion-label class="label_class"> 收款日期
       <p class="new_p_class"> {{item.payment_date}} </p>
     </ion-label>
   </ion-item>
 
-  <ion-item tappable (click)="choose_partner()" class="item_now_class">
+  <ion-item tappable (click)="choose_partner()" class="item_now_class" *ngIf="item.payment_type != 'outbound'">
 
     <ion-label class="label_class"> 客户<span style="color:red;" *ngIf="item.state == 'confirm'"> *</span>
       <p class="new_p_class"> {{partner_name}} </p>
     </ion-label>
     <img *ngIf="item.state == 'confirm'" item-end src="assets/img/journal_sheet/right_icon.png" style="height:10px;margin-right:-4px">
   </ion-item>
-  <ion-item tappable (click)="choose_team()" class="item_now_class">
+  <ion-item tappable (click)="choose_team()" class="item_now_class" *ngIf="item.payment_type != 'outbound'">
     <ion-label class="label_class"> 销售团队<span style="color:red;" *ngIf="item.state == 'confirm'"> *</span>
       <p class="new_p_class"> {{team_name}} </p>
     </ion-label>
     <img *ngIf="item.state == 'confirm'" item-end src="assets/img/journal_sheet/right_icon.png" style="height:10px;margin-right:-4px">
   </ion-item>
-  <ion-item tappable (click)="choose_sale_man()" class="item_now_class">
+  <ion-item tappable (click)="choose_sale_man()" class="item_now_class" *ngIf="item.payment_type != 'outbound'">
     <ion-label class="label_class"> 销售员<span style="color:red;" *ngIf="item.state == 'confirm'"> *</span>
       <p class="new_p_class"> {{sale_man}} </p>
     </ion-label>
     <img *ngIf="item.state == 'confirm'" item-end src="assets/img/journal_sheet/right_icon.png" style="height:10px;margin-right:-4px">
   </ion-item>
+
+  <div class="bx_detail_class" *ngIf="item.payment_type == 'outbound'">
+    支出明细
+  </div>
+  <div class="div_all" *ngIf="item.payment_type == 'outbound'" tappable (click)="click_to_detail(item)">
+    <div text-wrap class="div_right" style="font-weight:bold;color:#2597ec"> {{item.model_name}} </div>
+    <div class="left_label,div_left" text-right> {{item.rt_payment_info}} </div>
+  </div>
 </ion-content>
 
 <ion-footer style="background-color: #2597ec" *ngIf="can_show_footer && item.state == 'confirm'">

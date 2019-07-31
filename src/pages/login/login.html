@@ -56,6 +56,9 @@
     </ion-avatar>
     <ion-input [(ngModel)]="password" placeholder="请输入密码" (ngModelChange)="watchPassword($event)" type="password"></ion-input>
   </ion-item>
+  <div style="text-align:right;color:#333333;padding-right:10%;margin-top: 10px;" tappable (click)="click_forget_psd()">
+    忘记密码
+  </div>
 
   <!-- <ion-item style="margin-top:20px;padding-left:10%;padding-right:10%">
     <ion-label floating>请输入公司邮箱</ion-label>

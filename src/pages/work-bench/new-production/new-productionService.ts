@@ -20,6 +20,10 @@ export class NewProductionService {
         return this.httpservice.postBodyNoLoading("get_tag_detail", body);
     }
 
+    get_tag_father_new(body){
+        return this.httpservice.postBodyNoLoading("get_tag_father_new", body);
+    }
+
     get_tag_father(body){
         return this.httpservice.postBodyNoLoading("get_tag_father", body);
     }

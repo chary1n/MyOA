@@ -4,7 +4,6 @@ import { WorkBenchModel } from './../../model/WorkBenchModel';
 import { Storage } from '@ionic/storage';
 import { CommonUseServices} from '../work-bench/commonUseServices';
 import { StatusBar } from '@ionic-native/status-bar';
-
 /**
  * Generated class for the NewWorkBenchPage page.
  *
@@ -33,6 +32,7 @@ export class NewWorkBenchPage {
   pandianNum=0
   gongchengNum=0
   salary_num = 0
+  adjust_num = 0
   isShowCG = false
   isShowCK = false
   isShowHR = false
@@ -45,14 +45,16 @@ export class NewWorkBenchPage {
   offer_num=0 //offer 审核
   intp_num=0
 
-  cust_num=0
+  cust_num=0 // 内销认领
+  hk_cust_num=0 // 外销认领
+
   can_show_hmc=false //花名册
   can_show_rz=false //入职
   can_show_rc=false //人才库
   can_show_lz=false //离职
+  can_show_adjust_department=false
   constructor(public navCtrl: NavController, public navParams: NavParams,public statusbar:StatusBar,public services:CommonUseServices,
               public storage: Storage) {
-      
               
   }
 
@@ -98,13 +100,16 @@ export class NewWorkBenchPage {
             // 部门负责人（自己待审核的单据）、员工管理管理员、人力资源管理员 ==> 离职
             if (product.name == 'group_hr_manager' || product.name == 'employee_manage_manager'){
               this.can_show_lz = true
+              this.can_show_adjust_department = true
             } 
+
           }
           if (product.name == 'manger_for_sub_current_employee_department'){
             this.isShowManager = true
             this.can_show_hr_menu = true
             this.can_show_rc = true
             this.can_show_lz = true
+            this.can_show_adjust_department = true
           }
           if (product.name == 'group_production_planning_user'){
             this.isShowPDM = true
@@ -139,6 +144,8 @@ export class NewWorkBenchPage {
                 this.offer_num = res.result.res_data.offer_num
                 this.intp_num = res.result.res_data.intp_num
                 this.cust_num = res.result.res_data.cust_num
+                this.adjust_num = res.result.res_data.adjust_num
+                this.hk_cust_num = res.result.res_data.hk_cust_in
               }
             })
           })
@@ -147,7 +154,7 @@ export class NewWorkBenchPage {
 
   cal_num(cust_num){
     if (cust_num <= 99){
-      return 99
+      return cust_num
     }
     else{
       return '99+'
@@ -249,7 +256,9 @@ export class NewWorkBenchPage {
   }
 
   click_Production() {
-    this.navCtrl.push('NewProductionPage');
+    this.navCtrl.push('NewProductionPage',{
+      type: 'cg'
+    });
   }
 
   click_Pay(){
@@ -300,4 +309,23 @@ export class NewWorkBenchPage {
   click_cust_in(){
     this.navCtrl.push('CustInPage')
   }
+
+  click_hk_cust_in(){
+    this.navCtrl.push('HkCustInPage')
+  }
+
+  click_adjust_department(){
+    this.navCtrl.push('AdjustDepartmentPage')
+  }
+
+  click_Production_Purchase(){
+    this.navCtrl.push('NewProductionPage',{
+      type: 'purchase'
+    });
+  }
+
+  click_new_customer(){
+    this.navCtrl.push('NewCustomerPage')
+  }
+  
 }

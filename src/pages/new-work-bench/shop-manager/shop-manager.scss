@@ -88,8 +88,6 @@ page-shop-manager {
     }
 
     .shop_name_class{
-    //         margin-top: 13px;
-    // margin-left: 20px;
         text-overflow: ellipsis;
     overflow: hidden;
     }
@@ -129,11 +127,17 @@ page-shop-manager {
         vertical-align:middle
     }
 
+    .header_search_location_img_class{
+        height:22px;
+        // float: left;
+        vertical-align:middle
+    }
+
     .locate_div_class{
             float: right;
     height: 44px;
     line-height: 44px;
     margin-top: 5px;
-    margin-right: 15px;
+    margin-right: 21px;
     }
 }

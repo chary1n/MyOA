@@ -61,4 +61,8 @@ export class NewProductDetailPageN {
     })
   }
 
+  toFix(amount) {
+    return amount.toFixed(2)
+  }
+
 }

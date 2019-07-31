@@ -36,6 +36,11 @@ export class LocateShopPage {
   initMap() {
     var self = this
     var map = new BMap.Map("map_container");
+    var navigationControl = new BMap.GeolocationControl({
+      // showAddressBar:false,
+      // locationIcon: locate_icon,
+    });
+    map.addControl(navigationControl);
     map.enableScrollWheelZoom(true)
     var myGeo = new BMap.Geocoder()
     if (this.item.detailed_address) {

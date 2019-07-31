@@ -114,11 +114,11 @@
       </div>
       <div class="div_all">
         <div text-wrap class="div_right"> {{item.customer_store_product_type}}</div>
-        <div class="div_left"> 主营产品 </div>
+        <div class="div_left"> 客户渠道 </div>
       </div>
       <div class="div_all">
         <div text-wrap class="div_right"> {{item.source_id}}</div>
-        <div class="div_left"> 渠道 </div>
+        <div class="div_left"> 内部渠道 </div>
       </div>
       <div class="div_all">
         <div text-wrap class="div_right" *ngIf="item.customer_is_world"> 全世界 </div>
@@ -156,11 +156,12 @@
     <ion-item-group style="background-color:#f2f2f2;margin-top:5px;">
       <ng-container *ngFor='let contact of item.contactList;let i = index'>
         <ion-item no-lines [ngClass]="{true:'other_item',false:'fst_item'}[i>0]">
-          <img style="width:20px;margin-top:-60px;" item-start src="assets/img/user_avater.png">
+          <img style="width:20px;margin-top:-60px;" *ngIf="contact.type != 'contact'" item-start src="assets/img/user_avater.png">
+          <img style="width:20px;margin-top:-35px;" *ngIf="contact.type == 'contact'" item-start src="assets/img/user_avater.png">
           <button ion-button style="background-color:white;color:#2597ec;border-color:#2597ec;border-width:1px;border-style:solid;margin-left:10px;"
             small>{{exchangeType(contact.type)}}</button>
           <p style="font-size:15px;color:black;float:left;margin-top:10px;">{{contact.name}}</p>
-          <p style="margin-top:3px;">地址：{{contact.country_name}}{{contact.state_name}}{{contact.address}}</p>
+          <p *ngIf="contact.type != 'contact'" style="margin-top:3px;">地址：{{contact.country_name}}{{contact.state_name}}{{contact.address}}</p>
           <p tappable (click)="click_email(contact.email)">Email：{{contact.email}}</p>
           <p tappable (click)="click_phone(contact.phone)">电话：{{contact.phone}}</p>
         </ion-item>
@@ -180,6 +181,6 @@
 
 </ion-content>
 
-<ion-footer style="background-color: #2597ec" *ngIf="can_show_footer && detail_type=='dongtai'">
+<ion-footer style="background-color: #2597ec" *ngIf="can_show_footer">
   <button style="background-color:#2597ec" ion-button (click)="click_create_shop_visit()" full> 添加拜访记录</button>
 </ion-footer>

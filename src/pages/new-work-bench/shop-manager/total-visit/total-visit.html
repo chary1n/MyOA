@@ -13,19 +13,28 @@
             </button>
     </ion-buttons>
     <ion-title>访店记录</ion-title>
-    <ion-buttons right>
+    <!--<ion-buttons right>
       <button ion-button icon-only tappable (click)="click_team()" style="font-size:14px;color: white;margin-right: 10px">
                 团队
             </button>
-    </ion-buttons>
+    </ion-buttons>-->
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content style="background-color: #f0f2f5">
-  <ion-auto-complete class="search_class" (itemSelected)="itemSelected($event)" (itemClearSelected)="itemClearSelected($event)"
+  <div>
+    <ion-auto-complete class="search_class" (itemSelected)="itemSelected($event)" (itemClearSelected)="itemClearSelected($event)"
     [dataProvider]="visitAutoService"></ion-auto-complete>
+    <!--<div class="locate_div_class" tappable (click)="click_team()">
+      <img src="assets/img/shop_gps.png" class="header_search_location_img_class" />
+    </div>-->
+
+    <img src="assets/img/work_bench/shaixuan.png" height="18px" width="18px" style="margin-right:10px;margin-top:15px;float:right"
+            tappable (click)="click_team()">
+        <span tappable (click)="click_team()" style="float:right;margin-top:14px;color:gray;margin-right:5px;border-left:#f0f2f5 1px solid;width:40px;text-align:right">团队</span>
+  </div>
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
@@ -42,10 +51,10 @@
         <!--<p text-wrap style="font-size:80%;">{{items.description}}</p>-->
         <div [innerHTML]="assembleHTML(items.description)" class="description_class"></div>
       </ion-item>
-      <ion-grid *ngIf="items.attachments.length>0" style="padding-top: 0px;margin-left: 50px;padding-bottom: 10px;">
-        <ion-row>
-          <ion-col col-3 *ngFor="let attachment of items.attachments;let i = index" class="col_other">
-            <img tappable (click)='to_slide_img(items.attachments, i);$event.stopPropagation()' src="{{attachment}}" style="clip:rect(0px,83px,83px,0px);position: absolute;min-width: 83px;min-height: 83px;">
+      <ion-grid *ngIf="items.attachments.length>0" style="padding-top: 0px;margin-left: 55px;padding-bottom: 10px;">
+        <ion-row style="margin-left: -48px;padding-bottom: 5px;">
+          <ion-col col-3 *ngFor="let attachment of items.attachments;let i = index" [ngClass]="{true:'col_first',false:'col_other'}[i == 0 || i==3 || i==6]">
+            <img tappable (click)='to_slide_img(items.attachments, i);$event.stopPropagation()' src="{{attachment}}" [ngClass]="{true:'spec_img_class',false:'normal_img_class'}[i >= 3]">
           </ion-col>
         </ion-row>
       </ion-grid>

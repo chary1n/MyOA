@@ -625,4 +625,10 @@ export class LoginPage {
       cordova.plugins.Keyboard.close();
     }
   }
+
+  click_forget_psd(){
+    this.navCtrl.push('ForgetPasswordPage', {
+      'account': this.email,
+    })
+  }
 }

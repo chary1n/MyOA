@@ -32,7 +32,7 @@ export class SaleReportPage {
     this.saleService.sale_data_for_sale_man({}).then(res => {
       if (res.result && res.result.res_code == 1) {
         this.result = this.format_data(res.result.res_data)
-        
+
         // setTimeout(function () {
         //   new superTable("sale_dashboard_templ_new_wrap", {
         //     cssSkin: "sDefault",
@@ -62,6 +62,7 @@ export class SaleReportPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SaleReportPage');
+
   }
 
   ionViewWillLeave() {
@@ -70,32 +71,48 @@ export class SaleReportPage {
 
   ionViewDidEnter() {
     this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.LANDSCAPE);
-   
-   //生成表格内容
-            // let htmlLeft = '';
-            // let htmlRight = '';
-            // for(let i=1;i<=7;i++){
-            //     htmlLeft +='<tr>';
-            //     htmlLeft +='<td>'+i+'</td>';
-            //     htmlLeft +='</tr>';
-            // }
-            // for(let i=1;i<=7;i++){
-            //     htmlRight+='<tr>';
-            //     htmlRight+='<td>A</td>';
-            //     htmlRight+='<td>100</td>';
-            //     htmlRight+='<td>500</td>';
-            //     htmlRight+='<td>1</td>';
-            //     htmlRight+='</tr>';
-            // }
-            // $('#left-table2').html(htmlLeft);
-            // $('#right-table2').html(htmlRight);
-            //滚动
-            $('#right-div2').on('scroll',function(){
-                let top=$(this).scrollTop();
-                let left=$(this).scrollLeft();
-                $('#left-div2').scrollTop(top);
-                $('#right-div1').scrollLeft(left);
-            })
+
+    // $("#container").resizable();//设置缩放
+    //     $("#container").draggable();//设置drag1只能在containment-wrapper中拖动
+    // var box=document.getElementById("container");
+    // var boxGesture=this.setGesture(box);  //得到一个对象
+    // boxGesture.gesturestart=function(){  //双指开始
+    //     box.style.backgroundColor="yellow";
+    // };
+    // boxGesture.gesturemove=function(e){  //双指移动
+    //     box.innerHTML = e.scale+"<br />"+e.rotation;
+    //     box.style.transform="scale("+e.scale+") rotate("+e.rotation+"deg)";//改变目标元素的大小和角度
+    // };
+    // boxGesture.gestureend=function(){  //双指结束
+    //     box.innerHTML="";
+    //     box.style.cssText="background-color:red";
+    // };
+
+    //生成表格内容
+    // let htmlLeft = '';
+    // let htmlRight = '';
+    // for(let i=1;i<=7;i++){
+    //     htmlLeft +='<tr>';
+    //     htmlLeft +='<td>'+i+'</td>';
+    //     htmlLeft +='</tr>';
+    // }
+    // for(let i=1;i<=7;i++){
+    //     htmlRight+='<tr>';
+    //     htmlRight+='<td>A</td>';
+    //     htmlRight+='<td>100</td>';
+    //     htmlRight+='<td>500</td>';
+    //     htmlRight+='<td>1</td>';
+    //     htmlRight+='</tr>';
+    // }
+    // $('#left-table2').html(htmlLeft);
+    // $('#right-table2').html(htmlRight);
+    //滚动
+    $('#right-div2').on('scroll', function () {
+      let top = $(this).scrollTop();
+      let left = $(this).scrollLeft();
+      $('#left-div2').scrollTop(top);
+      $('#right-div1').scrollLeft(left);
+    })
   }
 
   goBack() {
@@ -150,7 +167,20 @@ export class SaleReportPage {
   }
 
   fix2number(value) {
-    return Math.round(value * 100) / 100
+    var num = Math.round(value * 100) / 100 + ''
+    if (num.indexOf('.') != -1) {
+      return num.replace(/(\d)(?=(\d{3})+\.)/g, '$1,'); //使用正则替换，每隔三个数加一个','
+    }
+    else {
+      var result = '', counter = 0;
+      num = (num || 0).toString();
+      for (var i = num.length - 1; i >= 0; i--) {
+        counter++;
+        result = num.charAt(i) + result;
+        if (!(counter % 3) && i != 0) { result = ',' + result; }
+      }
+      return result
+    }
   }
 
   click_team_detail(team_item) {
@@ -159,5 +189,47 @@ export class SaleReportPage {
       team_name: team_item.name
     })
   }
+
+  // setGesture(el) {
+  //   var obj //定义一个对象
+  //   var istouch = false;
+  //   var start = [];
+  //   var self = this
+  //   el.addEventListener("touchstart", function (e) {
+  //     if (e.touches.length >= 2) {  //判断是否有两个点在屏幕上
+  //       istouch = true;
+  //       start = e.touches;  //得到第一组两个点
+  //       obj.gesturestart && obj.gesturestart.call(el); //执行gesturestart方法
+  //     };
+  //   }, false);
+  //   document.addEventListener("touchmove", function (e) {
+  //     e.preventDefault();
+  //     if (e.touches.length >= 2 && istouch) {
+  //       var now = e.touches;  //得到第二组两个点
+  //       var scale = self.getDistance(now[0], now[1]) / self.getDistance(start[0], start[1]); //得到缩放比例，getDistance是勾股定理的一个方法
+  //       var rotation = self.getAngle(now[0], now[1]) - self.getAngle(start[0], start[1]);  //得到旋转角度，getAngle是得到夹角的一个方法
+  //       e.scale = scale.toFixed(2);
+  //       e.rotation = rotation.toFixed(2);
+  //       obj.gesturemove && obj.gesturemove.call(el, e);  //执行gesturemove方法
+  //     };
+  //   }, false);
+  //   document.addEventListener("touchend", function (e) {
+  //     if (istouch) {
+  //       istouch = false;
+  //       obj.gestureend && obj.gestureend.call(el);  //执行gestureend方法
+  //     };
+  //   }, false);
+  //   return obj;
+  // };
+  // getDistance(p1, p2) {
+  //   var x = p2.pageX - p1.pageX,
+  //     y = p2.pageY - p1.pageY;
+  //   return Math.sqrt((x * x) + (y * y));
+  // };
+  // getAngle(p1, p2) {
+  //   var x = p1.pageX - p2.pageX,
+  //     y = p1.pageY - p2.pageY;
+  //   return Math.atan2(y, x) * 180 / Math.PI;
+  // };
 
 }

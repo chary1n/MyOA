@@ -1,6 +1,7 @@
 import { IonicPage, NavController, NavParams, ActionSheetController } from 'ionic-angular';
 import { Component } from '@angular/core';
 import { BaoBiaoService} from './../baobiaoService'
+import { Storage } from '@ionic/storage';
 declare let cordova: any;
 
 /**
@@ -50,4 +51,36 @@ export class BaobiaoDetailPage {
    
    return t.split("").reverse().join("") + "." + r;   
   } 
+
+  click_total_enter_total(){
+    this.navCtrl.push('BaobiaoDetailLinePage',{
+      'type': 'enter',
+    })
+  }
+
+  click_total_out_total(){
+    this.navCtrl.push('BaobiaoDetailLinePage',{
+      'type': 'out',
+    })
+  }
+
+  click_total_enter_account(item){
+    this.navCtrl.push('BaobiaoDetailLinePage',{
+      'type': 'enter',
+      'account_id': item.account_id,
+      'header_name': item.name,
+      'header_type': '收入',
+      'header_amount': this.fmoney(this.transInt(item.debit),3)
+    })
+  }
+
+  click_total_out_account(item){
+    this.navCtrl.push('BaobiaoDetailLinePage',{
+      'type': 'out',
+      'account_id': item.account_id,
+      'header_name': item.name,
+      'header_type': '支出',
+      'header_amount': this.fmoney(this.transInt(item.credit),3)
+    })
+  }
 }

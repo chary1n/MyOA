@@ -171,15 +171,8 @@
     <ion-item no-lines style="height:40px;min-height:50px;margin-top:-9px;border-bottom: #f0f2f5 1px solid;">
     <ion-grid style="background:white">
       <ion-row>
-        <!--<ion-col col-2>
-          <img src={{user_ava}} class="img_message_ava">
-        </ion-col>
-        <ion-col col-2 >
-          <p class="name_message">
-            <span style="color:black;font-size:12px">{{user_name}}</span>
-          </p>
-        </ion-col>-->
-        <ion-col col-3 >
+
+        <ion-col col-4 >
           <p class="chidao_class">
             <span class="circleOrangeBig">
               
@@ -187,7 +180,7 @@
             <span style="color:black;font-size:14px">迟到{{attendance_data.calc_late.length}}次</span>
           </p>
         </ion-col>
-        <ion-col col-7 >
+        <ion-col col-4 >
           <p class="queqin_class">
             <span class="circleRedBig">
               
@@ -195,7 +188,7 @@
             <span style="color:black;font-size:14px">缺勤{{attendance_data.lose_work_day}}h</span>
           </p>
         </ion-col>
-        <ion-col col-3>
+        <ion-col col-4>
           <p class="month_message">
             <span tappable (click)="delete_month()">{{"<"}}</span><span style="margin-left:10px">{{currentDate}}</span><span style="margin-left:10px" tappable (click)="add_month()">{{">"}}</span>
           </p>

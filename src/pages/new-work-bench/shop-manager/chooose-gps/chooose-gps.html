@@ -24,6 +24,20 @@
 
 
 <ion-content>
-  <div class="align-bottom" #map id='map_container'  style="height: 100%;">
+  <div class="align-bottom" #map id='map_container_choose'  style="height: 100%;">
+  </div>
+  <div *ngIf="can_show_pois" style="background-color: white; height: 30%; width: 100%; bottom: 0px; position: absolute">
+    <ion-icon name="arrow-down" tappable (click)="show_click()" class="arrow_img_class"></ion-icon>
+    <div *ngFor="let item of pois_ids" style="border-bottom: solid 1px #f0f2f5;padding:10px;" tappable (click)="click_one_poi(item)">
+      <div style="padding-left: 10px; padding-right: 10px;font-size: 15px;">
+        {{item.name}}
+      </div>
+      <div style="padding-left: 10px; padding-right: 10px;font-size: 13px; color: #333333">
+        {{item.addr}}
+      </div>
+      <div style="padding-left: 10px; padding-right: 10px;font-size: 13px; color: #333333">
+        <span>{{item.tag}}</span> <span style="margin-left: 10px; margin-right: 10px;">|</span> <span>{{item.distance}}m</span>
+      </div>
+    </div>
   </div>
 </ion-content>

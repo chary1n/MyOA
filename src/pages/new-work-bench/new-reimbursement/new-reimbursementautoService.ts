@@ -21,11 +21,17 @@ export class NewReimbursementAutoService implements AutoCompleteService {
           name:"",
           id:2,
       }
+      let obj3 = {
+          name:"",
+          id:3,
+      }
       let arr = [];
       obj1.name = "搜 单号："+keyword;
       arr.push(obj1);
       obj2.name = "搜 申请人：" +keyword;
       arr.push(obj2);
+      obj3.name = "搜 费用类别：" +keyword;
+      arr.push(obj3);
     return arr;
   }
 }

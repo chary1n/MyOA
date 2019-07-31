@@ -14,6 +14,11 @@
             </button>
     </ion-buttons>
     <ion-title>个人信息</ion-title>
+    <ion-buttons right>
+      <button tappable ion-button icon-only (click)="goEdit()" style="font-size: 14px;">
+          编辑   
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
@@ -27,29 +32,46 @@
       <!-- <ion-icon name="arrow-forward" item-end class="image1"></ion-icon> -->
     </ion-item>
     <ion-item>
-      <ion-label>昵称</ion-label>
+      <ion-label>姓名</ion-label>
       <ion-label item-end>{{name}}</ion-label>
     </ion-item>
-    <ion-item>
+    <!--<ion-item>
       <ion-label>公司</ion-label>
       <ion-label item-end text-wrap>{{company}}</ion-label>
-    </ion-item>
+    </ion-item>-->
     <ion-item>
       <ion-label>部门</ion-label>
       <ion-label item-end >{{department}}</ion-label>
     </ion-item>
     <ion-item>
-      <ion-label>职位</ion-label>
+      <ion-label>岗位</ion-label>
        <ion-label item-end>{{job}}</ion-label>
     </ion-item>
-    <ion-item>
+    <!--<ion-item>
       <ion-label>工号</ion-label>
        <ion-label item-end >{{barcode}}</ion-label>
+    </ion-item>-->
+    <ion-item>
+      <ion-label>手机</ion-label>
+       <ion-label item-end >{{phone}}</ion-label>
     </ion-item>
     <ion-item >
-      <ion-label>手机号码</ion-label>
-      <ion-label item-end >{{phone}}</ion-label>
+      <ion-label>家庭地址</ion-label>
+      <ion-label item-end >{{home_address}}</ion-label>
     </ion-item>
+    <ion-item >
+      <ion-label>紧急联系人</ion-label>
+      <ion-label item-end >{{em_name}}</ion-label>
+    </ion-item>
+    <ion-item >
+      <ion-label>关系</ion-label>
+      <ion-label item-end >{{em_type}}</ion-label>
+    </ion-item>
+    <ion-item no-lines>
+      <ion-label>联系方式</ion-label>
+      <ion-label item-end >{{em_way}}</ion-label>
+    </ion-item>
+
   </ion-list>
 
 </ion-content>

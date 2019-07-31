@@ -8,6 +8,30 @@ export class CustService {
 
     }
 
+    get_so_is_in_use(body){
+        return this.httpservice.postBody("get_so_is_in_use", body)
+    }
+
+    get_pay_detail(body){
+        return this.httpservice.postBody("get_pay_detail", body)
+    }
+
+    get_zz_detail(body){
+        return this.httpservice.postBody("get_zz_detail", body)
+    }
+
+    get_bx_detail(body){
+        return this.httpservice.postBody("get_bx_detail", body)
+    }
+
+    get_total_sale_order(body){
+        return this.httpservice.postBody("get_total_sale_order", body)
+    }
+
+    get_me_sale_team(body){
+        return this.httpservice.postBodyNoLoading("get_me_sale_team", body)
+    }
+
     get_total_cust_in(body){
         return this.httpservice.postBodyNoLoading("get_total_cust_in", body)
     }

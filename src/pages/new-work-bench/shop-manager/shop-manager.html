@@ -30,7 +30,8 @@
     <ion-auto-complete class="search_class" (itemSelected)="itemSelected($event)" (itemClearSelected)="itemClearSelected($event)"
     [dataProvider]="shopAutoService"></ion-auto-complete>
     <div class="locate_div_class" tappable (click)="click_GPS()">
-      GPS
+      <!--GPS-->
+      <img src="assets/img/shop_gps.png" class="header_search_location_img_class" />
     </div>
   </div>
   <div class="header_div_class">
@@ -70,12 +71,8 @@
       </div>
       <ion-item no-lines tappable (click)="click_shop_detail(item)">
         <div class="shop_name_class">
-          <!--<span class="name_class">{{item.name}}</span><span class="record_class">(访店记录：12)</span>-->
           <span class="name_class">{{item.name}} / {{item.rt_partner_top_id}}</span>
         </div>
-        <!--<div class="company_class">
-          {{item.rt_partner_top_id}}
-        </div>-->
         <div class="div_bottom_class" *ngIf="item.detailed_address">
           <div class="shop_detail_div_class">
             <div>
@@ -86,12 +83,6 @@
 
             </div>
           </div>
-          <!--<div class="shop_detail_div_class_right" style="margin-left: 20px;">
-            <img src="assets/img/yz_img.png" class="location_img_class" />
-            <div class="location_class" text-wrap>
-              {{item.phone}}
-            </div>
-          </div>-->
         </div>
       </ion-item>
 

@@ -54,7 +54,11 @@ export class NewProductListPage {
   }
 
   showThirdText(item) {
-    return "库存／预测／在产：" + item.qty_available + "/" + item.virtual_qty + "/" + item.outgoing_qty
+    return "库存／预测／在产：" + this.toFix(item.qty_available) + "/" + this.toFix(item.virtual_qty) + "/" + this.toFix(item.outgoing_qty)
+  }
+
+  toFix(amount) {
+    return amount.toFixed(2)
   }
 
   itemClick(items) {

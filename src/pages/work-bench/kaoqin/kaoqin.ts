@@ -489,7 +489,7 @@ export class KaoqinPage {
         // 缺勤天数
         for (let date of this.attendance_data.calc_ab_arr) {
           for (var i = 0; i < this.currentDayList.length; i++) {
-            if (date == this.formatO(this.currentDayList[i].d)) {
+            if (date.split('-')[2] == this.formatO(this.currentDayList[i].d)) {
               this.currentDayList[i].is_queqin = true
             }
           }
@@ -498,7 +498,7 @@ export class KaoqinPage {
         // 迟到天数
         for (let date of this.attendance_data.calc_late) {
           for (var i = 0; i < this.currentDayList.length; i++) {
-            if (date == this.formatO(this.currentDayList[i].d)) {
+            if (date.split('-')[2] == this.formatO(this.currentDayList[i].d)) {
               this.currentDayList[i].is_late = true
             }
           }

@@ -72,6 +72,7 @@ export class AddEmployeePage {
   emergency_contact_relation;
   bank_card_num;
   bank_card_opening_bank;
+  bank_card_opening_bank_name;
   probation_period;
   mining_productivity;
 
@@ -173,7 +174,7 @@ export class AddEmployeePage {
       this.identification_id = this.navParams.get('applicant_identification_id')
     }
 
-  }
+  }    
 
   ionViewWillEnter() {
     this.isDeletePicture = this.navParams.get('isDeletePicture')
@@ -188,6 +189,12 @@ export class AddEmployeePage {
       } else if (this.photoType == "photoZhengshu") {
         this.zhengshuImgList.splice(this.zhengshuImgList.indexOf(this.deletePicture), 1)
       }
+    }
+
+    if (this.navParams.get('need_update_bank') == true) {
+      this.bank_card_opening_bank= this.navParams.data.bank_card_opening_bank
+      this.bank_card_opening_bank_name = this.navParams.data.bank_card_opening_bank_name
+      this.navParams.data.need_update_bank = false;
     }
   }
 
@@ -851,5 +858,9 @@ export class AddEmployeePage {
     this.navCtrl.push('SelectDepartmentPage', {
       page: 'AddEmployeePage',
     })
+  }
+
+  choose_bank(){
+    this.navCtrl.push('SelectBankPage')
   }
 }

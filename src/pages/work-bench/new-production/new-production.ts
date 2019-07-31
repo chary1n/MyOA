@@ -28,9 +28,11 @@ export class NewProductionPage {
   tag_2_id = 0
   tag_3_id = 0
   tag_4_id = 0
+  type = 'cg'
   @ViewChild('contentSlides') contentSlides: Slides;
   constructor(public navCtrl: NavController, public navParams: NavParams, public newProductionService: NewProductionService,
     public newProductionAutoService: NewProductionAutoService) {
+      this.type = this.navParams.get('type')
     // this.newProductionService.search_product_category_no_loading("若态物料",null).then(res_2 => {
     //   if (res_2.result && res_2.result.res_code == 1) {
     //     this.menus =res_2.result.res_data
@@ -48,7 +50,7 @@ export class NewProductionPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad NewProductionPage');
-    this.newProductionService.get_tag_father({}).then(res => {
+    this.newProductionService.get_tag_father_new({'type': this.type}).then(res => {
       if (res.result && res.result.res_code == 1) {
         this.menus = res.result.res_data
         this.menus[0]['select'] = true
@@ -341,5 +343,9 @@ export class NewProductionPage {
 
   goBack() {
     this.navCtrl.pop()
+  }
+
+  toFix(amount) {
+    return amount.toFixed(2)
   }
 }

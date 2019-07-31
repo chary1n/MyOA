@@ -3,9 +3,10 @@ import { NativeService } from './../../../providers/NativeService';
 // import { PhoneNumberPage } from './../phone-number/phone-number';
 import { Storage } from '@ionic/storage';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ActionSheetController} from 'ionic-angular';
-
-
+import { IonicPage, NavController, NavParams, ActionSheetController, LoadingController} from 'ionic-angular';
+import { StatusBar } from '@ionic-native/status-bar';
+import { HttpService } from './../../../providers/HttpService';
+import { MeServices } from './../meService'
 /**
  * Generated class for the EditInformationPage page.
  *
@@ -16,7 +17,7 @@ import { IonicPage, NavController, NavParams, ActionSheetController} from 'ionic
 @Component({
   selector: 'page-edit-information',
   templateUrl: 'edit-information.html',
-  providers: [EditInformationService],
+  providers: [EditInformationService, MeServices],
 })
 export class EditInformationPage {
   name: any;
@@ -30,19 +31,35 @@ export class EditInformationPage {
   isChange: boolean = false;//头像是否改变标识
   avatarPath: string;
   loginIndex;
+  em_name
+  em_type
+  em_way
+  home_address
+  user_id
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public storage: Storage,
     public actionSheetCtrl: ActionSheetController,
     private nativeService: NativeService,
-    private editInformationService: EditInformationService) {
+    private editInformationService: EditInformationService, public statusBar: StatusBar,
+    public loading: LoadingController, public meService: MeServices) {
+  }
+
+  ionViewWillEnter(){
+    this.statusBar.backgroundColorByHexString("#2597ec");
+    this.statusBar.styleLightContent();
   }
 
   ionViewDidEnter() {
     this.storage.get('user').then(res => {
+      this.em_name = res.result.res_data.enmergcy_name
+      this.em_type = res.result.res_data.enmergcy_type
+      this.em_way = res.result.res_data.enmergcy_way
+      this.home_address = res.result.res_data.home_address
       this.name = res.result.res_data.name;
       this.user_heard = res.result.res_data.user_ava;
       this.company = res.result.res_data.company;
       this.jobName = res.result.res_data.job;
+      this.user_id = res.result.res_data.user_id
       this.storage.get("loginIndex").then(res => {
         this.loginIndex = res
         if(this.loginIndex==0){
@@ -117,7 +134,7 @@ export class EditInformationPage {
   getPicture(type) {//1拍照,0从图库选择
     let options = {
       allowEdit: true,
-      quality: 6,//图像质量，范围为0 - 100
+      quality: 100,//图像质量，范围为0 - 100
       circle: true
     };
     if (type == 1) {
@@ -137,16 +154,66 @@ export class EditInformationPage {
     this.editInformationService.pushHeardImage(img_url.split(",")[1])
       .then(res => {
         if (res.result && res.result.res_code == 1) {
-          this.storage.get('user').then(userBean => {
-            userBean.result.res_data.user_ava = res.result.res_data.user_ava
-            this.storage.set('user', userBean)
-          })
+          this.toAutoLogin()
         }
       })
   }
 
   goBack(){
     this.navCtrl.pop()
+  }
+
+  goEdit(){
+    this.navCtrl.push('EditMeInfoPage', {
+      phone: this.phone,
+      home_address: this.home_address,
+      emecy_name: this.em_name,
+      emecy_type: this.em_type,
+      emecy_contact: this.em_way,
+      user_id: this.user_id,
+    })
+  }
+
+  toAutoLogin() {
+    let loading = this.loading.create({
+      enableBackdropDismiss: true
+    });
+    this.storage.get('user')
+      .then(res => {
+        if (res) {
+          window.localStorage.setItem("id", res.result.res_data.user_id)
+          this.storage.get('user_psd').then(res => {
+            HttpService.appUrl = res.url
+            loading.present();
+            let db_name = res.db_name
+            this.meService.toLogin(res.user_email, res.user_psd, res.db_name, '0.9.1')
+              .then(res => {
+                loading.dismiss()
+
+                var tag_arr = []
+                tag_arr.push(db_name)
+                console.log(tag_arr);
+                if (res.result && res.result.res_code == 1) {
+                  loading.dismiss()
+
+                  HttpService.user_id = res.result.res_data.user_id;
+                  HttpService.user = res.result.res_data;
+
+                  this.storage.set("user", res).then(() => {
+                    this.navCtrl.pop()
+                  });
+
+                }
+                else {
+                  loading.dismiss()
+                }
+              }).catch((error) => {
+                loading.dismiss()
+              })
+
+          })
+        }
+      });
   }
 
 }

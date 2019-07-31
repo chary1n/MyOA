@@ -33,6 +33,7 @@ export class NewShengouPage {
   wait_approval_count=0;
   department = false;
   is_ios = false;
+  isMoreData=true
   constructor(public navCtrl: NavController, public navParams: NavParams, public shengouService: NewShenGouService
     , public storage: Storage, public shenGouAutoService: NewShenGouAutoService,public alertCtrl:AlertController,
     public platform:Platform, public shenGouMeAutoService: NewShenGouMeAutoService) {
@@ -127,6 +128,7 @@ export class NewShengouPage {
   reloadData(refresh) {
     this.limit = 20;
     this.offset = 0;
+    this.isMoreData = true
     if (this.type == "me") {
       this.isMoreData1 = true;
       this.shengouService.getshengouList(this.limit, this.offset, this.user_id).then((res) => {
@@ -224,7 +226,6 @@ export class NewShengouPage {
         }
       })
     }
-   
   }
 
   itemMeSelected(event){
@@ -251,6 +252,83 @@ export class NewShengouPage {
 
   itemClearMeSelected(event){
     this.reloadData(null)
+  }
+
+  doRefresh(refresh) {
+    this.reloadData(refresh)
+  }
+
+  doInfinite(infiniteScroll) {
+    if (this.isMoreData == true) {
+      this.offset = this.offset + 20;
+      if (this.type == 'me') {
+        let body = {
+          'limit': this.limit,
+          'offset': this.offset,
+          'user_id': this.user_id,
+        }
+        this.shengouService.getshengouList(this.limit, this.offset, this.user_id).then((res) => {
+          if (res.result && res.result.res_code == 1) {
+            let item_data = [];
+            if (res.result.res_data) {
+              item_data = res.result.res_data;
+              if (item_data.length == 20) {
+                this.isMoreData = true;
+              }
+              else {
+                this.isMoreData = false;
+              }
+              for (let item of item_data) {
+                // item.state = this.changeState(item.state)
+                this.myApplyList.push(item)
+              }
+
+            }
+            else {
+              this.isMoreData = false;
+            }
+            infiniteScroll.complete();
+          }
+          else {
+            infiniteScroll.complete();
+          }
+        })
+      }
+      else if (this.type == 'me_approved') {
+        let body = {
+          'limit': this.limit,
+          'offset': this.offset,
+          'user_id': this.user_id,
+        }
+        this.shengouService.get_audited_purchase(this.limit, this.offset, this.user_id).then((res) => {
+          if (res.result && res.result.res_code == 1) {
+            let item_data = [];
+            if (res.result.res_data) {
+              item_data = res.result.res_data;
+              if (item_data.length == 20) {
+                this.isMoreData = true;
+              }
+              else {
+                this.isMoreData = false;
+              }
+              for (let item of item_data) {
+                // item.state = this.changeState(item.state)
+                this.audited_list.push(item)
+              }
+            }
+            else {
+              this.isMoreData = false;
+            }
+            infiniteScroll.complete();
+          }
+          else {
+            infiniteScroll.complete();
+          }
+        })
+      }
+    } else {
+      infiniteScroll.complete();
+    }
   }
   
 }

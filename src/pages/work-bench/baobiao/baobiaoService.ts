@@ -8,6 +8,10 @@ export class BaoBiaoService {
 
     }
 
+    get_today_data(body){
+        return this.httpservice.postBody('get_today_data', body);
+    }
+
     update_hk_account(body){
         return this.httpservice.postBody('update_hk_account', body);
     }

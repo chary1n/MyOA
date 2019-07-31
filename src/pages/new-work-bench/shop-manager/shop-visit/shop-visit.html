@@ -26,11 +26,9 @@
 <ion-content style="background-color: #f0f2f5">
   <ion-item tappable (click)="choose_shop_partner()">
     <ion-label style="color:#333333;    font-size: 15px;"> 客户
-      <!--<span style="color:red;" *ngIf="visit_to=='访店对象'"> *</span>-->
       <p style="float: right;line-height: 25px;color: #333333;width: 60%; text-align:right"> {{belong_partner}} </p>
     </ion-label>
     <img item-end src="assets/img/journal_sheet/right_icon.png" style="height:10px;margin-right:-4px">
-
   </ion-item>
   <ion-item tappable (click)="choose_shop()">
     <ion-label style="color:#333333;    font-size: 15px;"> 门店
@@ -40,20 +38,32 @@
     <img item-end src="assets/img/journal_sheet/right_icon.png" style="height:10px;margin-right:-4px">
 
   </ion-item>
-  <ion-item no-lines>
+  <ion-item >
     <ion-label style="color:#333333;    font-size: 15px;"> 日期
       <!--<p style="float: right;line-height: 25px;"> 访店日期 </p>-->
     </ion-label>
     <ion-datetime cancelText="取消" doneText="确定" min="2000" max="2088" style="color:#5C6166;font-size:14px;margin-right:-6px"
-      displayFormat="YYYY-MM-DD HH:mm" [(ngModel)]="visit_date"></ion-datetime>
+      displayFormat="YYYY-MM-DD HH:mm" [(ngModel)]="visit_date" name="visit_date"></ion-datetime>
+      <!--<input type="text" id="input_start_datetime" placeholder="开始时间" class="class_start_date" [(ngModel)]='visit_date'>-->
     <img item-end src="assets/img/journal_sheet/right_icon.png" style="height:10px;margin-right:-4px">
 
+  </ion-item>
+  <ion-item tappable (click)="choose_main_contact()">
+    <!--<ion-label class="label_class">联系人
+    </ion-label>
+    <ion-select style="font-size: 15px; color: #333333" [(ngModel)]="contact_id" class="normal-select" okText="确定" cancelText="取消">
+      <ion-option *ngFor="let item of contact_list;let i = index;" value={{item.value}}>{{item.name}}</ion-option>
+    </ion-select>-->
+    <ion-label style="color:#333333;    font-size: 15px;"> 联系人
+      <p style="float: right;line-height: 25px;color: #333333;width: 60%; text-align:right"> {{choose_partner}} </p>
+    </ion-label>
+    <img item-end src="assets/img/journal_sheet/right_icon.png" style="height:10px;margin-right:-4px">
   </ion-item>
   <div class="bg_class">
     <div class="record_class">
       拜访记录
     </div>
-    <ion-textarea #mytextarea id="area_id" rows="15" placeholder="说点什么" [(ngModel)]="visitText" style="margin-top:10px;height:110px;margin-left:4.5%;width:91%;overflow:hidden;border-radius:1px;padding-left:5px;color:gray"></ion-textarea>
+    <textarea #mytextarea id="area_id" rows="12" placeholder="说点什么" [(ngModel)]="visitText" style="margin-top:10px;height:110px;margin-left:4.5%;width:91%;overflow:hidden;border-radius:1px;padding-left:5px;color:gray;border-width:0px;"></textarea>
     <ion-grid style="margin-left:6px;">
       <ion-row>
         <ion-col style="position:relative;height:106px;margin-top:5px" tappable (click)="clickPicture(item)" col-4 *ngFor="let item of imgList">

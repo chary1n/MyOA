@@ -23,7 +23,7 @@
     <ion-label class="label_class"> 类型
       <span style="color:red;"> *</span>
     </ion-label>
-    <ion-select [(ngModel)]="type" class="normal-select" okText="确定" cancelText="取消" style="font-size: 15px;color: #333333">
+    <ion-select (ionChange)="watch()" [(ngModel)]="type" class="normal-select" okText="确定" cancelText="取消" style="font-size: 15px;color: #333333">
       <ion-option  *ngFor="let item of typeList;let i = index;" value={{item.id}}>{{item.name}}</ion-option>
     </ion-select>
   </ion-item>
@@ -35,14 +35,14 @@
     <ion-label class="label_class"> 工作岗位 </ion-label>
     <ion-input [(ngModel)]="job" placeholder="请输入" text-right style="font-size: 15px;color: #333333"></ion-input>
   </ion-item>
-  <ion-item tappable (click)="choose_address()">
+  <ion-item tappable (click)="choose_address()" *ngIf="need_show_address">
     <ion-label class="label_class"> 地址
       <p class="p_class"> {{country_name}}{{state_name}}{{address}} </p>
     </ion-label>
     <img item-end src="assets/img/journal_sheet/right_icon.png" style="height:10px;margin-right:-4px">
   </ion-item>
   <ion-item class="item_now_class">
-    <ion-label class="label_class"> 手机 </ion-label>
+    <ion-label class="label_class"> 电话 </ion-label>
     <ion-input [(ngModel)]="phone" type="number" placeholder="请输入" text-right style="font-size: 15px;color: #333333"></ion-input>
   </ion-item>
   <ion-item class="item_now_class" no-lines>

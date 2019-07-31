@@ -56,7 +56,7 @@ export class LeaveWorkPage {
 
   changeState(state) {
     if (state == 0) {
-      return "员工确认";
+      return "草稿";
     }
     else if (state == 1) {
       return "审核中";

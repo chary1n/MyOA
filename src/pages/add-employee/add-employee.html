@@ -262,13 +262,16 @@
     </ion-label>
     <ion-input #mNumberCon text-wrap type="number" placeholder="请输入" text-right [(ngModel)]="bank_card_num"></ion-input>
   </ion-item>
-  <ion-item class="item_now_class" *ngIf="show_caiwu">
+  <ion-item class="item_now_class" *ngIf="show_caiwu" tappable (click)="choose_bank()">
     <ion-label style="color:black">开户行
     </ion-label>
+    <ion-label item-end style="color:black;text-align:right"> 
+      {{bank_card_opening_bank_name}}
+    </ion-label>
     <!--<ion-input placeholder="请输入" text-right [(ngModel)]="bank_card_opening_bank"></ion-input>-->
-    <ion-select [(ngModel)]="bank_card_opening_bank" class="normal-select" okText="确定" cancelText="取消">
+    <!--<ion-select [(ngModel)]="bank_card_opening_bank" class="normal-select" okText="确定" cancelText="取消">
       <ion-option *ngFor="let item of bankList;let i = index;" value={{item.bank_id}}>{{item.name}}</ion-option>
-    </ion-select>
+    </ion-select>-->
   </ion-item>
   <ion-item class="item_now_class" *ngIf="show_caiwu">
     <ion-label style="color:black">是否从系统发薪

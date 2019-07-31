@@ -32,6 +32,8 @@ export class CreateShopContactPage {
  
   typeList = [{ name: '联系人', id: 'contact' }, { name: '开票地址', id: 'invoice' },{ name: '送货地址', id: 'delivery' },{ name: '其他地址', id: 'other' }]
   type
+
+  need_show_address = true
   constructor(public navCtrl: NavController, public navParams: NavParams, public toastCtrl: ToastController) {
     this.frontPage = Utils.getViewController('MainContactListPage', this.navCtrl)
   
@@ -99,6 +101,15 @@ export class CreateShopContactPage {
     this.frontPage.data.need_update_contact_list = true
     this.frontPage.data.new_contact = body
     this.navCtrl.popTo(this.frontPage)
+  }
+
+  watch(){
+    if (this.type == 'contact'){
+      this.need_show_address = false
+    }
+    else{
+      this.need_show_address = true
+    }
   }
 
 }

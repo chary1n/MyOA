@@ -181,7 +181,7 @@ export class CustInPage {
 
   cal_num(cust_num){
     if (cust_num <= 99){
-      return 99
+      return cust_num
     }
     else{
       return '99+'

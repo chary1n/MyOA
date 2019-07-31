@@ -124,4 +124,26 @@ page-leave-work-detail {
         padding-right: 8px;
         border-bottom: 1px solid #f0f2f5;
     }
+
+
+    .div_all {
+    padding-left: 16px;
+    padding-top: 10px;
+    overflow: hidden;
+    background-color: white;
+  }
+  .div_right {
+    float: right;
+    // font-size: 80%;
+    width: 70%;
+    color: #8b8b8b;
+    margin-top: 2px;
+    margin-left: 20px;
+    padding-right: 10px;
+    line-height: 17px;
+  }
+  .div_left {
+    font-size: 80%;
+    width: 30%;
+  }
 }   

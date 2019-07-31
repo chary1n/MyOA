@@ -38,9 +38,9 @@
   </div>
   <div *ngIf="type == 'wait_approved'" style="margin-top: 100px;">
 
-    <!--<ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher (ionRefresh)="doRefresh($event)">
       <ion-refresher-content></ion-refresher-content>
-    </ion-refresher>-->
+    </ion-refresher>
     <ion-list>
       <div *ngFor='let item of wait_approval_list;let i = index'>
         <ion-item no-lines [ngClass]="{true:'item_empty_class',false:'item_class'}[i == 0]" tappable (click)='approved_detail(item)'>
@@ -56,17 +56,18 @@
           <p text-wrap class="state_class"> {{item.state}} </p>
           <p text-wrap class="money_class">金额总计(元)：{{item.amount}} </p>
           <p text-wrap class="department_class">部门：{{item.department}} </p>
+          <p text-wrap class="department_class">费用类别：{{item.product_id}} </p>
         </ion-item>
       </div>
     </ion-list>
-    <!--<ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
       <ion-infinite-scroll-content></ion-infinite-scroll-content>
-    </ion-infinite-scroll>-->
+    </ion-infinite-scroll>
   </div>
-  <div *ngIf="type == 'me_approved'"  style="margin-top: 100px;">
-    <!--<ion-refresher (ionRefresh)="doRefresh($event)">
+  <div *ngIf="type == 'me_approved'" style="margin-top: 100px;">
+    <ion-refresher (ionRefresh)="doRefresh($event)">
       <ion-refresher-content></ion-refresher-content>
-    </ion-refresher>-->
+    </ion-refresher>
     <ion-list>
       <div *ngFor='let item of already_approval_list;let i = index'>
         <ion-item no-lines [ngClass]="{true:'item_empty_class',false:'item_class'}[i == 0]" tappable (click)='approved_detail(item)'>
@@ -82,18 +83,18 @@
           <p text-wrap class="state_class"> {{item.state}} </p>
           <p text-wrap class="money_class">金额总计(元)：{{item.amount}} </p>
           <p text-wrap class="department_class">部门：{{item.department}} </p>
+          <p text-wrap class="department_class">费用类别：{{item.product_id}} </p>
         </ion-item>
       </div>
     </ion-list>
-    <!--<ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
       <ion-infinite-scroll-content></ion-infinite-scroll-content>
-    </ion-infinite-scroll>-->
+    </ion-infinite-scroll>
   </div>
-
-  <div *ngIf="type == 'me'"  style="margin-top: 100px;">
-    <!--<ion-refresher (ionRefresh)="doRefresh($event)">
+  <div *ngIf="type == 'me'" style="margin-top: 100px;">
+    <ion-refresher (ionRefresh)="doRefresh($event)">
       <ion-refresher-content></ion-refresher-content>
-    </ion-refresher>-->
+    </ion-refresher>
     <ion-list>
       <div *ngFor='let item of me_list;let i = index'>
         <ion-item no-lines [ngClass]="{true:'item_empty_class',false:'item_class'}[i == 0]" tappable (click)='approved_detail(item)'>
@@ -102,12 +103,13 @@
           <p text-wrap class="state_class"> {{item.state}} </p>
           <p text-wrap class="money_class">金额总计(元)：{{item.amount}} </p>
           <p text-wrap class="department_class">部门：{{item.department}} </p>
+          <p text-wrap class="department_class">费用类别：{{item.product_id}} </p>
         </ion-item>
       </div>
     </ion-list>
-    <!--<ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
       <ion-infinite-scroll-content></ion-infinite-scroll-content>
-    </ion-infinite-scroll>-->
+    </ion-infinite-scroll>
   </div>
-  
+
 </ion-content>

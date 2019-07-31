@@ -26,6 +26,8 @@ export class ChoooseGpsPage {
   now_lng
   now_lat
   frontPage
+  pois_ids = []
+  can_show_pois = false
   constructor(public navCtrl: NavController, public navParams: NavParams, public platform: Platform,
     public actionSheetCtrl: ActionSheetController, public geolocation: Geolocation, public shopService: ShopService) {
     this.center_address = this.navParams.get('center_address')
@@ -39,7 +41,13 @@ export class ChoooseGpsPage {
 
   getLocation() {
     var self = this
-    var map = new BMap.Map("map_container");
+    var map = new BMap.Map("map_container_choose");
+    var locate_icon = new BMap.Icon("", new BMap.Size(0, 0))
+    var navigationControl = new BMap.GeolocationControl({
+      // showAddressBar:false,
+      // locationIcon: locate_icon,
+    });
+    map.addControl(navigationControl);
     map.enableScrollWheelZoom(true)
     function showInfo(e) {
       // alert(e.point.lng + ", " + e.point.lat);
@@ -51,84 +59,73 @@ export class ChoooseGpsPage {
       map.addOverlay(marker);
       self.now_lng = e.point.lng
       self.now_lat = e.point.lat
+      self.shopService.get_location_now(e.point.lat, e.point.lng, 500).then(res_location => {
+        // console.log(res_location.result.pois[0].addr)
+        // that.location_str = res_location.result.pois[0].addr
+
+        self.pois_ids = res_location.result.pois
+        if (self.pois_ids.length > 0) {
+          self.can_show_pois = true
+        }        // for (let item_new of res_location.result.pois) {
+        //   console.log(item_new)
+        // }
+      })
     }
     map.addEventListener("click", showInfo);
     if (this.platform.is("android")) {
-      // var geolocation = new BMap.Geolocation();
-      // geolocation.getCurrentPosition(function (r) {
-      //     this.shopService.trans_location(r.point.lat, r.point.lng).then(res => {
-      //       var locationPoint = new BMap.Point(res.result[0].x, res.result[0].y);
-      //       console.log(res.result[0].x)
-      //       map.centerAndZoom(locationPoint, 13);
-      //       map.panTo(locationPoint);
-      //       map.centerAndZoom(locationPoint, 13);
-      //     })
-          
-      // });
-
       var geolocation = new BMap.Geolocation();
+      // geolocation.enableSDKLocation();
       geolocation.getCurrentPosition(function (r) {
-        console.log(r.point.lat)
-        if (this.center_address) {
-            console.log(this.center_address)
-            map.centerAndZoom(this.center_address, 13);
+        var locationPoint = new BMap.Point(r.point.lng, r.point.lat);
+        map.centerAndZoom(locationPoint, 13);
 
-          }
-          else {
-            var locationPoint = new BMap.Point(r.point.lng, r.point.lat);
-            map.centerAndZoom(locationPoint, 13);
-          }
-      })
-
-      // GaoDe.getCurrentPosition((success) => {
-      //   var that = this
-      //   console.log('gaode', success);
-      //   this.shopService.trans_location(success.latitude, success.longitude).then(res => {
-      //     if (this.center_address) {
-      //       // var locationPoint = new BMap.Point(res.result[0].x, res.result[0].y);
-      //       console.log(this.center_address)
-      //       map.centerAndZoom(this.center_address, 13);
-
-      //     }
-      //     else {
-      //       var locationPoint = new BMap.Point(res.result[0].x, res.result[0].y);
-      //       console.log(res.result[0].x)
-      //       map.centerAndZoom(locationPoint, 13);
-      //     }
-      //   })
-      // }, (error) => {
-      //   console.log('Error getting location', error);
-      // });
+        var new_click_point = new BMap.Point(r.point.lng, r.point.lat)
+          let marker = new BMap.Marker(new_click_point);
+          map.panTo(new_click_point);
+          marker.setPosition(new_click_point);
+          map.addOverlay(marker);
+          self.now_lng = r.point.lng
+          self.now_lat = r.point.lat
+          self.shopService.get_location_now(r.point.lat, r.point.lng, 500).then(res_location => {
+            self.pois_ids = res_location.result.pois
+            if (self.pois_ids.length > 0) {
+              self.can_show_pois = true
+            }
+          })
+      }, {
+          enableHighAccuracy: true,
+          SDKLocation: true,
+        })
     } else {
       this.geolocation.getCurrentPosition()
         .then((resp) => {
-          // console.log(resp.coords.latitude)
-          // console.log(resp.coords.longitude)
           this.shopService.trans_location_ios(resp.coords.latitude, resp.coords.longitude).then(res => {
-            if (this.center_address) {
-              // var locationPoint = new BMap.Point(res.result[0].x, res.result[0].y);
-              map.centerAndZoom(this.center_address, 13);
-            }
-            else {
-              var locationPoint = new BMap.Point(res.result[0].x, res.result[0].y);
+            var locationPoint = new BMap.Point(res.result[0].x, res.result[0].y);
               map.centerAndZoom(locationPoint, 13);
-            }
-            let convertor = new BMap.Convertor();
-            var pointArr = []
-            // pointArr.push(locationPoint)
-            // convertor.translate(pointArr, 5, 5, (data) => {
-            //   if (data.status === 0) {
-            //     let marker = new BMap.Marker(data.points[0]);
-            //     map.panTo(data.points[0]);
-            //     marker.setPosition(data.points[0]);
-            //     map.addOverlay(marker);
 
-            //     // marker.addEventListener('click', function (evt) {
-            //     //   var point = evt.target.point;
-            //     //   self.show_alert(self, res.result[0].y, res.result[0].x)
-            //     // });
-            //   }
-            // })
+            var new_click_point = new BMap.Point(res.result[0].x, res.result[0].y)
+            let marker = new BMap.Marker(new_click_point);
+            map.panTo(new_click_point);
+            marker.setPosition(new_click_point);
+            map.addOverlay(marker);
+            self.now_lng = res.result[0].x
+            self.now_lat = res.result[0].y
+            self.shopService.get_location_now(res.result[0].y, res.result[0].x, 500).then(res_location => {
+              self.pois_ids = res_location.result.pois
+              if (self.pois_ids.length > 0) {
+                self.can_show_pois = true
+              }
+            })
+
+
+            // if (this.center_address) {
+            //   // var locationPoint = new BMap.Point(res.result[0].x, res.result[0].y);
+            //   map.centerAndZoom(this.center_address, 13);
+            // }
+            // else {
+              // var locationPoint = new BMap.Point(res.result[0].x, res.result[0].y);
+              // map.centerAndZoom(locationPoint, 13);
+            // }
           })
 
 
@@ -237,6 +234,19 @@ export class ChoooseGpsPage {
     this.frontPage.data.need_update_gps = true
     this.frontPage.data.select_lng = this.now_lng
     this.frontPage.data.select_lat = this.now_lat
+    this.frontPage.data.select_address = ''
+    this.navCtrl.popTo(this.frontPage)
+  }
+
+  show_click() {
+    this.can_show_pois = false
+  }
+
+  click_one_poi(item){
+    this.frontPage.data.need_update_gps = true
+    this.frontPage.data.select_lng = item.point.x
+    this.frontPage.data.select_lat = item.point.y
+    this.frontPage.data.select_address = item.addr
     this.navCtrl.popTo(this.frontPage)
   }
 }

@@ -5,6 +5,25 @@ page-add-employee {
     color: #8a9199;
     line-height: 40px;
   }
+
+  .shu_class{
+        width: 10px;
+    height: 15px;
+    display: inline;
+    border-left: solid 3px #2597ec;
+    margin-left: 8px;
+    margin-top: 12.5px;
+    }
+
+    .title_class{
+            display: inline-block;
+    margin-top: 0px;
+    width: calc(100% - 16px);
+    margin-left: 5px;
+    text-align: left;
+    border-bottom: solid 1px #f0f2f5;
+    color: #2597ec;
+    }
   .sub_title_class{
     padding-left: 14px;
     color: #c2c7cc;
@@ -28,24 +47,7 @@ page-add-employee {
             display: inline-block;
     }
 
-    .shu_class{
-        width: 10px;
-    height: 15px;
-    display: inline;
-    border-left: solid 3px #2597ec;
-    margin-left: 8px;
-    margin-top: 12.5px;
-    }
-
-    .title_class{
-            display: inline-block;
-    margin-top: 0px;
-    width: calc(100% - 16px);
-    margin-left: 5px;
-    text-align: left;
-    border-bottom: solid 1px #f0f2f5;
-    color: #2597ec;
-    }
+    
 
     .line_class{
       // width: 100%;

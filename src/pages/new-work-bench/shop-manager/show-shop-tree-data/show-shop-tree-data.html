@@ -25,30 +25,35 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>-->
   <ion-list>
-    <div style="background-color: white;padding-bottom: 10px;" *ngFor='let items of visit_message_arr;let i = index'>
-      <div *ngIf="i > 0" style="margin-top: 10px;">
+    <div *ngFor="let subItem of visit_message_arr">
+      <div class="time_late_class">
+        {{subItem.time}}
       </div>
-      <ion-item no-lines>
-        <img style="width:40px;vertical-align:top;float:left;margin-right:10px;border-radius:20px" src={{items.create_person_ava}}>
-        <div style="overflow:hidden">
-          <span style="margin-top:3px;color:black;font-size:80%;float:left">{{items.create_person}}</span>
-          <span style="font-size:70%;margin-top:5px;margin-left:-5px;float:right">{{items.create_time}}</span>
+      <div style="background-color: white;padding-bottom: 10px;" *ngFor='let items of subItem.data;let i = index'>
+        <div *ngIf="i > 0" style="margin-top: 10px;">
         </div>
-        <!--<p text-wrap style="font-size:80%;">{{items.description}}</p>-->
-        <div [innerHTML]="assembleHTML(items.description)" class="description_class"></div>
-      </ion-item>
-      <ion-grid *ngIf="items.attachments.length>0" style="padding-top: 0px;margin-left: 50px;padding-bottom: 10px;">
-        <ion-row>
-          <ion-col col-3 *ngFor="let attachment of items.attachments;let i = index" class="col_other">
-            <img tappable (click)='to_slide_img(items.attachments, i);$event.stopPropagation()' src="{{attachment}}" style="clip:rect(0px,83px,83px,0px);position: absolute;min-width: 83px;min-height: 83px;">
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-      <div tappable (click)="to_link(items)" class="div_share_class" >
-        <img [src]="cal_img(items.avatar)" class="div_img_share_class">
-        <p class="div_share_title_class">
-          {{items.shop_name}} / {{items.shop_address}}
-        </p>
+        <ion-item no-lines>
+          <img style="width:40px;vertical-align:top;float:left;margin-right:10px;border-radius:20px" src={{items.create_person_ava}}>
+          <div style="overflow:hidden">
+            <span style="margin-top:3px;color:black;font-size:80%;float:left">{{items.create_person}}</span>
+            <span style="font-size:70%;margin-top:5px;margin-left:-5px;float:right">{{items.create_time}}</span>
+          </div>
+          <!--<p text-wrap style="font-size:80%;">{{items.description}}</p>-->
+          <div [innerHTML]="assembleHTML(items.description)" class="description_class"></div>
+        </ion-item>
+        <ion-grid *ngIf="items.attachments.length>0" style="padding-top: 0px;margin-left: 50px;padding-bottom: 10px;">
+          <ion-row>
+            <ion-col col-3 *ngFor="let attachment of items.attachments;let i = index" class="col_other">
+              <img tappable (click)='to_slide_img(items.attachments, i);$event.stopPropagation()' src="{{attachment}}" style="clip:rect(0px,83px,83px,0px);position: absolute;min-width: 83px;min-height: 83px;">
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        <div tappable (click)="to_link(items)" class="div_share_class">
+          <img [src]="cal_img(items.avatar)" class="div_img_share_class">
+          <p class="div_share_title_class">
+            {{items.shop_name}} / {{items.shop_address}}
+          </p>
+        </div>
       </div>
     </div>
   </ion-list>

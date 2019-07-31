@@ -1,0 +1,66 @@
+<!--
+  Generated template for the BaobiaoDetailLinePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header no-border>
+
+  <ion-navbar color="gongdan-color" hideBackButton="true">
+    <ion-buttons left>
+      <button tappable ion-button icon-only (click)="goBack()">
+              <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+            </button>
+    </ion-buttons>
+    <ion-title>资金日报</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content style="background-color: #f0f2f5">
+  <!--<ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>-->
+  <div *ngIf="header_name" class="header_name_class">
+    <div class="header_left_class">
+      {{header_name}}
+    </div>
+    <div style="float:right;margin-right: 15px;">
+      <div [ngClass]="{true:'right_btn',false:'left_btn'}[header_type == '支出']">
+      </div>
+      <p class="left_p" tappable (click)="click_total_enter_account(items)">{{header_type}} {{header_amount}}</p>
+    </div>  
+  </div>
+  <ion-list>
+    <div *ngFor='let item of data_arr;let i = index'>
+      <ion-item no-lines [ngClass]="{true:'item_empty_class',false:'item_class'}[i == 0]" tappable (click)='item_detail(item)'>
+        <div class="div_class">
+          <div class="type_class">
+            <span style="height:30px;line-height:30px;">
+              {{item.type + '￥'}}{{item.account}} 
+            </span>
+            <span style="color:red;font-size:13px;">
+              {{item.state_now}}
+            </span>
+          </div>
+          <div class="date_class">
+            {{item.payment_date}}
+          </div>
+        </div>
+        <div class="div_class">
+          <div class="name_class" *ngIf="item.partner_type || item.partner_id">
+            {{item.partner_type + '：'}}{{item.partner_id}}
+          </div>
+          <div class="partner_class">
+            {{item.name}}
+          </div>
+        </div>
+
+      </ion-item>
+    </div>
+  </ion-list>
+  <!--<ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>-->
+</ion-content>

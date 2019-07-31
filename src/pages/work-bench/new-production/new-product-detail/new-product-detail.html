@@ -26,19 +26,19 @@
   <ion-row class="row_class" align-items-center>
       <ion-col tappable (click) = "click_kc()">
          <div align="center">
-          <p style="color:#5bc5f3;font-size:25px">{{item.qty_available}}</p>
+          <p style="color:#5bc5f3;font-size:25px">{{toFix(item.qty_available)}}</p>
           <p style="color:gray;margin-top:-20px">库存</p>
         </div>
       </ion-col>
       <ion-col>
         <div align="center">
-         <p style="color:#5bc5f3;font-size:25px">{{item.virtual_qty}}</p>
+         <p style="color:#5bc5f3;font-size:25px">{{toFix(item.virtual_qty)}}</p>
           <p style="color:gray;margin-top:-20px">预测</p>
         </div>
       </ion-col>
       <ion-col >
         <div align="center" >
-         <p style="color:#5bc5f3;font-size:25px">{{item.outgoing_qty}}</p>
+         <p style="color:#5bc5f3;font-size:25px">{{toFix(item.outgoing_qty)}}</p>
           <p style="color:gray;margin-top:-20px">在产</p> 
         </div>
       </ion-col>

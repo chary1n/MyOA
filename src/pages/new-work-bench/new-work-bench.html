@@ -30,19 +30,19 @@
       <span [ngClass]="{true:'under_line_style',false:'normal_style'}[inner_type == 'normal']">通用</span>
     </div>
     <div class="left_div" align="center" tappable (click)="click_renshi()" *ngIf="can_show_hr_menu">
-      <span align="center" class="new_title_red" *ngIf="dimission_num>0 || offer_num>0">
+      <span align="center" class="new_title_red" *ngIf="dimission_num>0 || offer_num>0 || adjust_num">
           
       </span>
       <span [ngClass]="{true:'under_line_style',false:'normal_style'}[inner_type == 'renshi']">人事</span>
     </div>
     <div class="left_div" align="center" tappable (click)="click_caigou()" *ngIf="isShowCG">
-      <span align="center" class="new_title_red" *ngIf="po_num>0 || pay_num>0">
+      <span align="center" class="new_title_red" *ngIf="po_num>0 || pay_num>0 ">
           
       </span>
       <span [ngClass]="{true:'under_line_style',false:'normal_style'}[inner_type == 'caigou']">采购</span>
     </div>
     <div class="left_div" align="center" tappable (click)="click_sale()" *ngIf="isShowSale">
-      <span align="center" class="new_title_red" *ngIf="cust_num>0">
+      <span align="center" class="new_title_red" *ngIf="cust_num>0 || hk_cust_num>0">
           
       </span>
       <span [ngClass]="{true:'under_line_style',false:'normal_style'}[inner_type == 'sale']">销售</span>
@@ -53,9 +53,9 @@
       </span>
       <span [ngClass]="{true:'under_line_style',false:'normal_style'}[inner_type == 'cangku']">仓库</span>
     </div>
-    
+
     <div class="left_div" align="center" tappable (click)="click_production_manager()" *ngIf="isShowPDM">
-       <span align="center" class="new_title_red" *ngIf="intp_num>0">
+      <span align="center" class="new_title_red" *ngIf="intp_num>0">
           
       </span>
       <span [ngClass]="{true:'under_line_style',false:'normal_style'}[inner_type == 'pdmanager']">生管</span>
@@ -106,7 +106,7 @@
         </div>
       </ion-col>
 
-      
+
       <!--<ion-col class="col_class" tappable (click)="click_chuchai()" col-3>
         <div class="body_class" align="center">
           <img class="body_img_class" src="assets/img/work_bench/chuchai_fang.png">
@@ -305,6 +305,29 @@
   </ion-grid>
   <ion-grid *ngIf="inner_type == 'sale' && isShowSale" class="grid_class">
     <ion-row class="body_row_class" align-items-center>
+      
+      <ion-col class="col_class" tappable (click)="click_cust_in()" col-3>
+        <div *ngIf="cust_num > 0" align="center" [ngClass]="{true:'big_number_class',false:'number_class'}[cust_num >= 10]">
+          {{cal_num(cust_num)}}
+        </div>
+        <div class="body_class" align="center">
+          <img class="body_img_class" src="assets/img/cust_in.png">
+          <div class="text_class">
+            内销认领
+          </div>
+        </div>
+      </ion-col>
+      <ion-col class="col_class" tappable (click)="click_hk_cust_in()" col-3>
+        <div *ngIf="hk_cust_num > 0" align="center" [ngClass]="{true:'big_number_class',false:'number_class'}[hk_cust_num >= 10]">
+          {{cal_num(hk_cust_num)}}
+        </div>
+        <div class="body_class" align="center">
+          <img class="body_img_class" src="assets/img/wxrl.png">
+          <div class="text_class">
+            外销认领
+          </div>
+        </div>
+      </ion-col>
       <ion-col class="col_class" tappable (click)="click_map()" col-3>
         <div class="body_class" align="center">
           <img class="body_img_class" src="assets/img/shop_pic.png">
@@ -313,14 +336,32 @@
           </div>
         </div>
       </ion-col>
-      <ion-col class="col_class" tappable (click)="click_cust_in()" col-3>
-        <div *ngIf="cust_num > 0" align="center" [ngClass]="{true:'big_number_class',false:'number_class'}[cust_num >= 10]">
-          {{cal_num(cust_num)}}
-        </div>
+      <ion-col class="col_class" tappable (click)="click_new_customer()" col-3>
         <div class="body_class" align="center">
-          <img class="body_img_class" src="assets/img/cust_in.png">
+          <img class="body_img_class" src="assets/img/new_customer.png">
           <div class="text_class">
-            收款认领
+            客户
+          </div>
+        </div>
+      </ion-col>
+      
+      <!--<ion-col class="col_class" tappable (click)="click_new_customer()" col-3>
+        <div class="body_class" align="center">
+
+          <img class="body_img_class" src="assets/img/new_product.png">
+          <div class="text_class">
+            客户
+          </div>
+        </div>
+      </ion-col>-->
+    </ion-row>
+    <ion-row class="body_row_class" align-items-center>
+      <ion-col class="col_class" tappable (click)="click_Production_Purchase()" col-3>
+        <div class="body_class" align="center">
+
+          <img class="body_img_class" src="assets/img/new_product.png">
+          <div class="text_class">
+            产品
           </div>
         </div>
       </ion-col>
@@ -389,13 +430,25 @@
           </div>
         </div>
       </ion-col>
+      <ion-col *ngIf="can_show_adjust_department" class="col_class" tappable (click)="click_adjust_department()" col-3>
+        <div *ngIf="adjust_num > 0" align="center" [ngClass]="{true:'big_number_class',false:'number_class'}[adjust_num >= 10]">
+          {{adjust_num}}
+        </div>
+        <div class="body_class" align="center">
+
+          <img class="body_img_class" src="assets/img/adjust_department.png">
+          <div class="text_class">
+            调动审核
+          </div>
+        </div>
+      </ion-col>
     </ion-row>
-    
+
     <div class="sub_header_div_class" *ngIf="can_show_rc || isShowManager">
       招聘
     </div>
     <ion-row class="body_row_class" *ngIf="can_show_rc || isShowManager" align-items-center>
-      <ion-col  class="col_class" col-3 tappable (click)="click_applicant_infos()">
+      <ion-col class="col_class" col-3 tappable (click)="click_applicant_infos()">
         <div class="body_class" align="center">
           <img src="assets/img/employee_infos.png" class="body_img_class">
           <div class="text_class">
@@ -416,10 +469,10 @@
         </div>
       </ion-col>
     </ion-row>
-    
-    
 
-    
+
+
+
   </ion-grid>
   <ion-grid *ngIf="inner_type=='pdmanager'" class="grid_class">
     <ion-row class="body_row_class" align-items-center>

@@ -37,11 +37,7 @@ export class ChangePasswordPage {
         this.email = res.user_email
       }
     })
-    // this.storage.get("user").then((res) => {
-    //   if (res.result) {
-    //     this.user_id = res.result.res_data.user_id
-    //   }
-    // });
+
     this.storage.get("login").then(res => {
       if (res) {
         this.remerberPassword = res.remerberPassword

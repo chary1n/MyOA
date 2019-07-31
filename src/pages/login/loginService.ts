@@ -8,6 +8,18 @@ export class LoginService {
 
     }
 
+    change_password_now(body){
+        return this.httpService.postBody("change_password", body)
+    }
+
+    confirm_phone_code(body){
+        return this.httpService.postBody("confirm_phone_code", body)
+    }
+
+    get_phone_code_oa(body){
+        return this.httpService.postBody("get_phone_code_oa", body)
+    }
+
     getDBInfo() {
         return this.httpService.getNoLoading('get_db_list', null,1);
     }

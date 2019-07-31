@@ -24,12 +24,13 @@ export class ModalLocationPage {
   @ViewChild('myContent') myContent;
   item
   no_need_shop
+  user_id
   constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController,
     public nativeService: NativeService, public actionSheetCtrl: ActionSheetController,
     public toast: ToastController, public storage: Storage, public modalController: ModalController, public platform: Platform) {
     this.item = this.navParams.get('data_item')
     this.no_need_shop = this.navParams.get('no_need_shop')
-    
+    this.user_id = this.navParams.get('user_id')
   }
 
   ionViewDidLoad() {
@@ -62,6 +63,19 @@ export class ModalLocationPage {
               console.log(result.locations[0].P)
               console.log(result.locations[0].Q)
               self.click_Gaode(name, result.locations[0].Q , result.locations[0].P)
+            }
+          });
+          
+        }
+      }, {
+        text: '谷歌地图',
+        handler: () => {
+          AMap.convertFrom([lng, lat], 'baidu', function (status, result) {
+            if (result.info === 'ok') {
+              var resLnglat = result.locations[0];
+              console.log(result.locations[0].P)
+              console.log(result.locations[0].Q)
+              self.click_Google(result.locations[0].Q , result.locations[0].P)
             }
           });
           
@@ -139,10 +153,42 @@ export class ModalLocationPage {
     }
 
   }
+
+  click_Google(lng, lat){
+    // ?q=@37.3161,-122.1836
+    if (this.platform.is('ios')) {
+      var sApp = startApp.set("comgooglemaps://?daddr=" + lat + "," + lng + "&directionsmode=driving"); // iosamap://path?sourceApplication=OA&did=BGVIS2&dlat=39.98848272&dlon=116.47560823&dname=B&dev=0&t=0
+      sApp.start(function () {
+        // alert("OK");
+      }, function (error) {
+        alert('请确认已经安装谷歌地图');
+      });
+    }
+    else {
+      let baiduApp = startApp.set(
+        {
+          "action": "ACTION_VIEW",
+          "category": "CATEGORY_DEFAULT",
+          "type": "text/css",
+          "package": 'com.google.android.apps.maps',
+          "uri": "google.navigation:q=" + lat + "," + lng,
+          "flags": ["FLAG_ACTIVITY_CLEAR_TOP", "FLAG_ACTIVITY_CLEAR_TASK"],
+          "intentstart": "startActivity",
+        }
+      );
+      baiduApp.start(function () {
+        // alert('baidu ok')
+      }, function (error) {
+        alert('请确认已经安装谷歌地图')
+      })
+    }
+  }
+
   click_shop_detail(){
     this.viewCtrl.dismiss()
     this.navCtrl.push('ShopDetailPage', {
-      item: {'shop_id': this.item.shop_id}
+      item: {'shop_id': this.item.shop_id},
+      user_id: this.user_id,
     })
   }
 }

@@ -8,7 +8,7 @@ page-total-visit {
     .div_share_class{
             width: 80%;
     background: #f0f2f5;
-    margin-left: 59px;
+    margin-left: 63px;
     height: 40px;
     padding: 5px;
     }
@@ -43,19 +43,58 @@ page-total-visit {
         margin-top: 2px;
     }
 
+    // .search_class{
+    //     width: 80%;
+    //     margin-top: 5px;
+    //     margin-left: 10%;
+    // }
+
     .search_class{
-        width: 80%;
-        margin-top: 5px;
-        margin-left: 10%;
+            width: 74vw;
+    margin-left: 4vw;
+    background-color: #f0f2f5;
     }
 
     .description_class{
             word-wrap: break-word;
     color: gray;
-    width: 90%;
+    // width: 90%;
     white-space: pre-wrap;
     margin-left: 50px;
     font-size: 13px;
     margin-top: 4px;
+    }
+
+    .header_search_location_img_class{
+        height:22px;
+        // float: left;
+        vertical-align:middle
+    }
+
+    .locate_div_class{
+            float: right;
+    height: 44px;
+    line-height: 44px;
+    margin-top: 5px;
+    margin-right: 21px;
+    }
+
+    .col_first{
+        margin-left: 48px;
+        position:relative;
+        height:87px;
+        // margin-top:3px
+    }
+
+    .spec_img_class{
+        clip:rect(0px,87px,83px,0px);
+        position: absolute;
+        min-width: 83px;
+        min-height: 83px;
+        margin-top: 5px;
+    }
+
+    .normal_img_class{
+        clip:rect(0px,87px,83px,0px);position: absolute;min-width: 83px;min-height: 83px;
     }
 }

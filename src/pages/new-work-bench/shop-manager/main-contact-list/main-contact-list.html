@@ -44,7 +44,7 @@
         <button ion-button style="background-color:white;color:#2597ec;border-color:#2597ec;border-width:1px;border-style:solid;margin-left:10px;"
             small>{{exchangeType(item.type)}}</button>
           <p style="font-size:15px;color:black;float:left;margin-top:10px;">{{item.name}}</p>
-          <p style="margin-top:3px;">地址：{{item.country_name}}{{item.state_name}}{{item.address}}</p>
+          <p *ngIf="item.type != 'contact'" style="margin-top:3px;">地址：{{item.country_name}}{{item.state_name}}{{item.address}}</p>
           <p tappable (click)="click_email(contact.email)">Email：{{item.email}}</p>
           <p tappable (click)="click_phone(contact.phone)">电话：{{item.phone}}</p>
       </ion-item>

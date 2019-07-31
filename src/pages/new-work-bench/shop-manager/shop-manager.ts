@@ -47,6 +47,7 @@ export class ShopManagerPage {
     this.storage.get('user')
       .then(res => {
         this.user_id = res.result.res_data.user_id;
+        this.reload_data()
       });
   }
 
@@ -56,7 +57,7 @@ export class ShopManagerPage {
   }
 
   ionViewDidEnter() {
-    this.reload_data()
+    
   }
 
   reload_data(){
@@ -79,6 +80,7 @@ export class ShopManagerPage {
   }
 
   itemSelected(event) {
+    this.isMoreData = false
     let type;
     let search_text;
     if (event.id == 1) {
@@ -166,7 +168,9 @@ export class ShopManagerPage {
   }
 
   click_GPS(){
-    this.navCtrl.push('SearchGpsPage')
+    this.navCtrl.push('SearchGpsPage',{
+      user_id: this.user_id,
+    })
   }
 
   search_visit(){

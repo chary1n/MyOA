@@ -18,16 +18,16 @@
 </ion-header>
 
 
-<ion-content style="overflow-x:hidden">
-  <div class="container">
+<ion-content style="overflow:hidden" overflow-scroll="false" >
+  <div id="container" class="container" style="overflow:hidden">
     <div id="left-div">
       <div id="left-div1">
         <table>
           <tr>
-            <th style="color:#F3F8FF">1 </th>
+            <th class="header_class_th" style="color: white">1 </th>
           </tr>
           <tr>
-            <th style="color:#F3F8FF">2 </th>
+            <th class="header_class_th" style="color: white">2 </th>
           </tr>
         </table>
       </div>
@@ -53,14 +53,14 @@
         <table id="right-table1">
           <tr>
             <!--<th colspan="1" rowspan="2"></th>-->
-            <th colspan="2" *ngFor='let item of result.columns' style="border-bottom: solid 1px #f0f2f5;background-color: white">
+            <th colspan="2" *ngFor='let item of result.columns' class="header_class_th">
               {{item.name}}
             </th>
           </tr>
           <tr>
             <ng-container *ngFor="let items of result.columns">
-              <th style="background-color: white">月</th>
-              <th style="background-color: white">年</th>
+              <th  class="header_class_th">月</th>
+              <th class="header_class_th">年</th>
             </ng-container>
           </tr>
         </table>

@@ -98,6 +98,14 @@ export class AddShopPage {
     }
     else{
       this.now_title = '添加门店'
+      this.shopService.get_me_sale_team({'user_id': this.user_id}).then(res => {
+            if (res.result.res_data && res.result.res_code == 1){
+              this.team_id_id = res.result.res_data.team_id
+              this.team_id = res.result.res_data.team_name
+              this.user_id_name = res.result.res_data.sale_man
+              this.user_id_id = res.result.res_data.sale_man_id
+            }
+          })
     }
   }
 
@@ -196,6 +204,7 @@ export class AddShopPage {
     if (this.navParams.get('need_update_gps') == true) {
       this.lng = this.navParams.data.select_lng
       this.lat = this.navParams.data.select_lat
+      this.address = this.navParams.data.select_address
       this.navParams.data.need_update_gps = false
     }
 
@@ -508,7 +517,7 @@ export class AddShopPage {
   choose_sale_man() {
       this.navCtrl.push('SelectTeamPage', {
         type: 'sale_man',
-        team_id: this.team_id
+        team_id: this.team_id_id
       })
   }
 

@@ -1,0 +1,100 @@
+<!--
+  Generated template for the AdjustDepartmentDetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header no-border>
+
+  <ion-navbar color="gongdan-color" hideBackButton="true">
+    <ion-buttons left>
+      <button ion-button icon-only (click)="goBack()">
+              <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+            </button>
+    </ion-buttons>
+    <ion-title>{{data.name}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content style="background-color: #f0f2f5">
+  <ion-item style="min-height:60px;height:60px;">
+    <ion-grid class="bg_main">
+      <ion-row>
+        <ion-col col-2>
+          <img src="{{data.employee_avatar}}" class="imgHeard">
+        </ion-col>
+        <ion-col col-7 style="padding-top:17px">
+          <span class="name_class">{{data.employee_id}}</span>
+        </ion-col>
+        <ion-col col-3 style="padding-top:17px;text-align: right;">
+          <span class="state_class">审核中</span>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item>
+  <div class="div_all">
+    <div text-wrap class="div_right"> {{data.rt_to_approve_id}}</div>
+    <div class="left_label,div_left" text-right> 待审核人 </div>
+  </div>
+  <div class="div_all">
+    <div text-wrap class="div_right"> {{data.rt_src_job_id}}</div>
+    <div class="left_label,div_left" text-right> 岗位 </div>
+  </div>
+  <div class="div_all">
+    <div text-wrap class="div_right"> {{data.rt_src_department_id}}</div>
+    <div class="left_label,div_left" text-right> 部门 </div>
+  </div>
+  <div class="div_all">
+    <div text-wrap class="div_right"> {{data.rt_effective_date}}</div>
+    <div class="left_label,div_left" text-right> 生效日期 </div>
+  </div>
+  <div class="div_all" style="padding-bottom: 10px;">
+    <div text-wrap class="div_right"> {{data.rt_adjustment_reason}}</div>
+    <div class="left_label,div_left" text-right> 调动原因 </div>
+  </div>
+  <div class="biaoti">
+    <div class="shu_class">
+    </div>
+    <div class="title_class">
+      调动后
+    </div>
+  </div>
+  <div class="div_all">
+    <div text-wrap class="div_right"> {{data.rt_dst_job_id}}</div>
+    <div class="left_label,div_left" text-right> 岗位 </div>
+  </div>
+  <div class="div_all">
+    <div text-wrap class="div_right"> {{data.rt_dst_department_id}}</div>
+    <div class="left_label,div_left" text-right> 部门 </div>
+  </div>
+  <div class="div_all" style="padding-bottom: 10px;">
+    <div text-wrap class="div_right"> {{data.rt_manager_id}}</div>
+    <div class="left_label,div_left" text-right> 直属领导 </div>
+  </div>
+  <div class="bx_detail_class">审批记录</div>
+  <ion-list>
+    <ion-item no-lines *ngFor='let items of data.message_ids' style="overflow:hidden" class="middle_item">
+      <img class="user_ava_class" src={{items.create_person_ava}}>
+      <div style="overflow:hidden">
+        <span class="span_employee_class">{{items.create_person}}</span>
+
+        <span class="span_time_class">{{changeDate(items.create_time) | date:'yyyy-MM-dd HH:mm:ss'}}</span>
+      </div>
+      <p *ngIf="items.old_state || items.new_state" class="size_class">{{items.old_state}}=>{{items.new_state}}</p>
+      <p text-wrap class="size_class">{{items.description}}</p>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+<ion-footer *ngIf='data.rt_to_approve_id_id == user_id'>
+    <div  class="footer_class">
+        <div class="left_btn" tappable (click)='cancel()'>
+          拒绝
+        </div>
+        <div class="right_btn" tappable (click)='conform()'>
+          同意
+        </div>
+    </div>
+</ion-footer>

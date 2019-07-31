@@ -1,0 +1,223 @@
+page-adjust-department-detail {
+
+    .footer_class{
+        width: 100%;
+    }
+
+    .left_btn{
+        display: inline-block;
+        line-height: 44px;
+        width: 50%;
+        text-align: center;
+        background-color: red;
+        color: white;
+        float: left;
+    }
+
+    .right_btn{
+        line-height: 44px;
+        width: 50%;
+        color: white;
+        text-align: center;
+        float: right;
+        background-color: #2597ec;
+    }
+
+    .bx_detail_class{
+        height: 28px;
+        line-height: 28px;
+        color: gray;
+        background-color: #f0f2f5;
+        padding-left: 10px;
+        font-size: 13px;
+        margin-top: 5px;
+    }
+    .div_all {
+    padding-left: 16px;
+    padding-top: 10px;
+    overflow: hidden;
+    background-color: white;
+  }
+  .div_right {
+    float: right;
+    // font-size: 80%;
+    width: 70%;
+    color: #8b8b8b;
+    margin-top: 2px;
+    margin-left: 20px;
+    padding-right: 10px;
+    line-height: 17px;
+  }
+  .div_left {
+    font-size: 80%;
+    width: 30%;
+  }
+
+    .bg_main{
+        background:white
+    }
+
+    .name_class{
+        font-size:80%;
+    }
+
+    .state_class{
+        margin-left:5px;
+        font-size:80%;
+        color:#E0540E
+    }
+
+    .order_class{
+        float:right;
+        font-size:80%;
+        width:70%
+    }
+    
+    .left_label{
+        font-size:80%;
+        width:67px;
+        text-align: right;
+        color: gray;
+    }
+
+    .item_class{
+        min-height: 35px;
+        height: 35px;
+    }
+
+    .imgHeard{
+        border-radius: 20px;
+        width: 40px;
+        height: 40px;
+    }
+
+    
+    .line_class{
+      // width: 100%;
+      height: 1px;
+      // background-color: red;
+    }
+
+    .plan_class{
+        color: lightgray;
+    background-color: white;
+    line-height: 35px;
+    padding-left: 20px;
+    }
+
+    .shenpi_class{
+        margin:10px;
+        color: gray;
+    }
+
+    .middle_item{
+        width: 85%;
+        margin-left: 7.5%;
+        margin-top: 6px;
+        // height:auto;
+        border-radius:5px;
+    }
+
+    .footer_class{
+        width: 100%;
+    }
+    
+    .left_btn{
+            display: inline-block;
+    line-height: 44px;
+    width: 50%;
+    text-align: center;
+    background-color: red;
+    color: white;
+    float: left;
+    }
+
+    .right_btn{
+                line-height: 44px;
+    width: 50%;
+    color: white;
+    text-align: center;
+    float: right;
+    background-color: #2597ec;
+    }
+
+    .full_btn{
+        line-height: 44px;
+    width: 100%;
+    color: white;
+    text-align: center;
+    background-color: #2597ec;
+    }
+
+    .item-ios.item-block .item-inner{
+        padding-right: 8px;
+        border-bottom: 1px solid #f0f2f5;
+    }
+
+    .middle_item{
+        width: 85%;
+        margin-left: 10%;
+        margin-top: 6px;
+        // height:auto;
+        border-radius:5px;
+    }
+    
+    .user_ava_class{
+        width:40px;
+        vertical-align:top;
+        float:left;
+        margin-right:10px;
+        border-radius:20px
+    }
+
+    .span_employee_class{
+        margin-top:3px;
+        color:black;
+        font-size:80%;
+        float:left
+    }
+
+    .span_time_class{
+        font-size:70%;
+        margin-top:4px;
+        margin-left:-5px;
+        float:right
+    }
+
+    .size_class{
+        font-size:80%;
+        margin-top: 2px;
+    }
+
+.biaoti {
+    background: white;
+    height: 40px;
+    color: #8a9199;
+    line-height: 40px;
+    margin-top: 10px;
+    border-bottom: solid 1px #f0f2f5;
+  }
+
+  .shu_class{
+        width: 10px;
+    height: 15px;
+    display: inline;
+    border-left: solid 3px #2597ec;
+    margin-left: 14px;
+    margin-top: 12.5px;
+    }
+
+    .title_class{
+            display: inline-block;
+    margin-top: 0px;
+    width: calc(100% - 40px);
+    margin-left: 10px;
+    text-align: left;
+    // border-bottom: solid 1px #f0f2f5;
+    color: #2597ec;
+    }
+
+    .list-ios {
+    margin: 0px 0 64px;
+}
+}

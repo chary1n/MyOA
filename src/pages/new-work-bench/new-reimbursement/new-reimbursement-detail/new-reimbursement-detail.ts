@@ -123,7 +123,7 @@ export class NewReimbursementDetailPage {
           handler: data => {
             if (data.title) {
               let body = {
-                'user_id':this.user_id,
+                'user_id': this.user_id,
                 'remark': data.title,
                 'sheet_id': this.item.sheet_id,
               }
@@ -150,7 +150,7 @@ export class NewReimbursementDetailPage {
             }
             else {
               let body = {
-                'user_id':this.user_id,
+                'user_id': this.user_id,
                 'remark': '',
                 'sheet_id': this.item.sheet_id,
               }
@@ -180,9 +180,9 @@ export class NewReimbursementDetailPage {
     }).present();
   }
 
-  cancel(){
+  cancel() {
     let ctrl = this.alertCtrl;
-      ctrl.create({
+    ctrl.create({
       title: '提示',
       message: "输入拒绝的原因",
       inputs: [
@@ -201,35 +201,31 @@ export class NewReimbursementDetailPage {
         {
           text: '确定',
           handler: data => {
-            if (data.title)
-            {
-                this.baoxiaoService.refuse(this.item.sheet_id,data.title,this.user_id).then((res) => {
-               if (res)
-        {
-          
-          if (res.result.res_data.success == 1)
-          {
-            console.log(res.result.res_data.success)
-            ctrl.create({
-                  title: '提示',
-                  subTitle: "审批成功",
-                  buttons: [{
-                text: '确定',
-                    handler: () => {
-                    this.frontPage.data.need_fresh = true;
-              this.navCtrl.popTo(this.frontPage);
-             }
-             }
-      ]
-    }).present();
-          }
-        }
-            })
-          }
-          else
-          {
-            Utils.toastButtom("请填写拒绝原因", this.toastCtrl)
-          }
+            if (data.title) {
+              this.baoxiaoService.refuse(this.item.sheet_id, data.title, this.user_id).then((res) => {
+                if (res) {
+
+                  if (res.result.res_data.success == 1) {
+                    console.log(res.result.res_data.success)
+                    ctrl.create({
+                      title: '提示',
+                      subTitle: "审批成功",
+                      buttons: [{
+                        text: '确定',
+                        handler: () => {
+                          this.frontPage.data.need_fresh = true;
+                          this.navCtrl.popTo(this.frontPage);
+                        }
+                      }
+                      ]
+                    }).present();
+                  }
+                }
+              })
+            }
+            else {
+              Utils.toastButtom("请填写拒绝原因", this.toastCtrl)
+            }
           }
         }
       ]
@@ -276,7 +272,7 @@ export class NewReimbursementDetailPage {
     return body
   }
 
-  goBack(){
+  goBack() {
     this.navCtrl.pop()
   }
 

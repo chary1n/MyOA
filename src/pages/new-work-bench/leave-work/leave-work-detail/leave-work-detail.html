@@ -34,26 +34,27 @@
       </ion-row>
     </ion-grid>
   </ion-item>
-  <ion-item no-lines class="item_class">
-    <div text-wrap class="order_class"> {{data.department_name}} </div>
-    <div class="left_label"> 部门 </div>
-  </ion-item>
-  <ion-item no-lines class="item_class">
-    <div text-wrap class="order_class"> {{data.job_name}} </div>
-    <div class="left_label"> 岗位 </div>
-  </ion-item>
-  <ion-item no-lines class="item_class">
-    <div text-wrap class="order_class"> {{data.entry_date}} </div>
-    <div class="left_label"> 入职日期 </div>
-  </ion-item>
-  <ion-item no-lines class="item_class">
-    <div text-wrap class="order_class"> {{data.work_type}} </div>
-    <div class="left_label"> 用工性质 </div>
-  </ion-item>
-  <ion-item no-lines class="item_class">
-    <div text-wrap class="order_class"> {{data.handover_name}} </div>
-    <div class="left_label"> 工作交接人 </div>
-  </ion-item>
+
+  <div class="div_all">
+    <div text-wrap class="div_right"> {{data.department_name}}</div>
+    <div class="left_label,div_left" text-right> 部门 </div>
+  </div>
+  <div class="div_all">
+    <div text-wrap class="div_right"> {{data.job_name}}</div>
+    <div class="left_label,div_left" text-right> 岗位 </div>
+  </div>
+  <div class="div_all">
+    <div text-wrap class="div_right"> {{data.entry_date}}</div>
+    <div class="left_label,div_left" text-right> 入职日期 </div>
+  </div>
+  <div class="div_all">
+    <div text-wrap class="div_right"> {{data.work_type}}</div>
+    <div class="left_label,div_left" text-right> 用工性质 </div>
+  </div>
+  <div class="div_all" style="padding-bottom: 10px;">
+    <div text-wrap class="div_right"> {{data.handover_name}}</div>
+    <div class="left_label,div_left" text-right> 工作交接人 </div>
+  </div>
   <div class="biaoti">
     <div class="shu_class">
     </div>
@@ -63,18 +64,33 @@
   </div>
   <div class="line_class">
   </div>
+  <div class="div_all">
+    <div text-wrap class="div_right"> {{data.dimission_category}}</div>
+    <div class="left_label,div_left" text-right> 离职类别 </div>
+  </div>
+  <div class="div_all">
+    <div text-wrap class="div_right"> {{data.dimission_description}}</div>
+    <div class="left_label,div_left" text-right> 离职说明 </div>
+  </div>
+  <div class="div_all" style="padding-bottom: 10px;">
+    <div text-wrap class="div_right"> {{data.dimission_date}}</div>
+    <div class="left_label,div_left" text-right> 预计离职 </div>
+  </div>
+
+
+<!--
   <ion-item no-lines class="item_class">
     <div text-wrap class="order_class"> {{data.dimission_category}} </div>
     <div class="left_label"> 离职类别 </div>
   </ion-item>
-  <ion-item no-lines class="item_class">
-    <div text-wrap class="order_class"> {{data.dimission_description}} </div>
-    <div class="left_label"> 离职说明 </div>
-  </ion-item>
+  <div class="div_all">
+    <div text-wrap class="div_right"> {{data.dimission_description}} </div>
+    <div class="left_label,div_left" text-right> 离职说明 </div>
+  </div>
   <ion-item no-lines class="item_class">
     <div text-wrap class="order_class"> {{data.dimission_date}} </div>
     <div class="left_label" text-wrap> 预计离职 </div>
-  </ion-item>
+  </ion-item>-->
 
   <div class="biaoti">
     <div class="shu_class">

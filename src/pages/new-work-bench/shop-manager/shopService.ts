@@ -7,6 +7,20 @@ export class ShopService {
     constructor(private httpservice: HttpService) {
 
     }
+    
+    get_location_now(latitude, longti, distance){
+        // let url_str = "http://api.map.baidu.com/geocoder/v2/?callback=renderReverse&location=" + latitude + "," + longti + "&output=json&pois=1&ak=cVef1ROo1IR5OkZ5Fly78vDuOoGmLmD7"
+        let url_str = "http://api.map.baidu.com/geocoder/v2/?callback=renderReverse&location=" + latitude + "," + longti + "&output=json&radius=" + distance + "&pois=1&ak=cVef1ROo1IR5OkZ5Fly78vDuOoGmLmD7"
+        return this.httpservice.getLocationWithUrl(url_str);
+      }
+
+    get_me_sale_team(body){
+        return this.httpservice.postBodyNoLoading("get_me_sale_team", body)
+    }
+
+    get_total_contacts(body){
+        return this.httpservice.postBodyNoLoading("get_total_contacts", body)
+    }
 
     get_employees_visit(body){
         return this.httpservice.postBody("get_employees_visit", body)
@@ -42,6 +56,10 @@ export class ShopService {
 
     get_total_shop_visit(body){
         return this.httpservice.postBody("get_total_shop_visit", body) 
+    }
+
+    get_total_shop_gps_new(body){
+        return this.httpservice.postBody("get_total_shop_gps_new", body) 
     }
 
     get_total_shop_gps(body){

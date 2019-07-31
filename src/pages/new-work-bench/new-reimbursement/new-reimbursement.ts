@@ -53,6 +53,7 @@ export class NewReimbursementPage {
           }
         })
       });
+
   }
 
   ionViewDidLoad() {
@@ -71,6 +72,7 @@ export class NewReimbursementPage {
   }
 
   clickAlreadyApply() {
+    this.isMoreData = true
     this.type = 'me_approved'
     this.limit = 20;
     this.offset = 0;
@@ -95,6 +97,7 @@ export class NewReimbursementPage {
   }
 
   clickWaitMeApply() {
+    this.isMoreData = true
     this.type = 'wait_approved'
     this.limit = 20;
     this.offset = 0;
@@ -114,6 +117,7 @@ export class NewReimbursementPage {
   }
 
   clickMeApply() {
+    this.isMoreData = true
     this.type = 'me'
     this.limit = 20;
     this.offset = 0;
@@ -159,7 +163,12 @@ export class NewReimbursementPage {
       })
     }
     else if (this.type == "me_approved") {
-      this.baoxiaoService.getAlreadApprovalList(this.limit, this.offset, this.user_id).then((res) => {
+      let body = {
+          'limit': this.limit,
+          'offset': this.offset,
+          'user_id': this.user_id,
+        }
+      this.baoxiaoService.get_before_approved_list(body).then((res) => {
         if (res.result && res.result.res_code == 1) {
           this.already_approval_list = res.result.res_data
           let index = 0;
@@ -171,6 +180,27 @@ export class NewReimbursementPage {
 
         }
         refresh.complete();
+      })
+    }
+    else if (this.type == 'me') {
+      let body = {
+        'limit': this.limit,
+        'offset': this.offset,
+        'user_id': this.user_id,
+      }
+      this.baoxiaoService.get_me_total_bx(body).then((res) => {
+        refresh.complete();
+        if (res.result && res.result.res_code == 1) {
+          this.me_list = res.result.res_data
+          let index = 0;
+          if (this.me_list) {
+            for (let item of this.me_list) {
+              item.state = this.changeState(item.state);
+              this.me_list[index] = item;
+              index++;
+            }
+          }
+        }
       })
     }
   }
@@ -234,6 +264,7 @@ export class NewReimbursementPage {
   }
 
   itemSelected(event) {
+    this.isMoreData = false
     let type;
     let search_text;
     if (event.id == 1) {
@@ -243,6 +274,10 @@ export class NewReimbursementPage {
     else if (event.id == 2) {
       type = "name";
       search_text = event.name.replace("搜 申请人：", "")
+    }
+    else if (event.id == 3) {
+      type = "product_id";
+      search_text = event.name.replace("搜 费用类别：", "")
     }
 
     if (this.type == "wait_approved") {
@@ -321,38 +356,105 @@ export class NewReimbursementPage {
     return new_date;
   }
 
-  // doInfinite(infiniteScroll) {
-  //   if (this.isMoreData == true) {
-  //     this.offset = this.offset + 20;
-  //     this.custService.get_total_account_payment({ 'limit': this.limit, 'offset': this.offset, 'type': this.type }).then((res) => {
-  //       let item_data = [];
-  //       if (res.result.res_data) {
-  //         item_data = res.result.res_data;
-  //         if (item_data.length == 20) {
-  //           this.isMoreData = true;
-  //         }
-  //         else {
-  //           this.isMoreData = false;
-  //         }
-  //         for (let item of item_data) {
-  //           if (this.type == 'confirm') {
-  //             this.wait_arr.push(item)
-  //           }
-  //           else {
-  //             this.done_arr.push(item)
-  //           }
+  doInfinite(infiniteScroll) {
+    if (this.isMoreData == true) {
+      this.offset = this.offset + 20;
+      if (this.type == 'me') {
+        let body = {
+          'limit': this.limit,
+          'offset': this.offset,
+          'user_id': this.user_id,
+        }
+        this.baoxiaoService.get_me_total_bx(body).then((res) => {
+          if (res.result && res.result.res_code == 1) {
+            let item_data = [];
+            if (res.result.res_data) {
+              item_data = res.result.res_data;
+              if (item_data.length == 20) {
+                this.isMoreData = true;
+              }
+              else {
+                this.isMoreData = false;
+              }
+              for (let item of item_data) {
+                item.state = this.changeState(item.state)
+                this.me_list.push(item)
+              }
 
-  //         }
+            }
+            else {
+              this.isMoreData = false;
+            }
+            infiniteScroll.complete();
+          }
+          else {
+            infiniteScroll.complete();
+          }
+        })
+      }
+      else if (this.type == 'wait_approved') {
+        this.baoxiaoService.getApprovalList(this.limit, this.offset, this.user_id).then((res) => {
+          if (res.result && res.result.res_code == 1) {
+            let item_data = [];
+            if (res.result.res_data) {
+              item_data = res.result.res_data;
+              if (item_data.length == 20) {
+                this.isMoreData = true;
+              }
+              else {
+                this.isMoreData = false;
+              }
+              for (let item of item_data) {
+                item.state = this.changeState(item.state)
+                this.wait_approval_list.push(item)
+              }
 
-  //       }
-  //       else {
-  //         this.isMoreData = false;
-  //       }
-  //       infiniteScroll.complete();
-  //     })
-  //   } else {
-  //     infiniteScroll.complete();
-  //   }
-  // }
+            }
+            else {
+              this.isMoreData = false;
+            }
+            infiniteScroll.complete();
+          }
+          else {
+            infiniteScroll.complete();
+          }
+        })
+      }
+      else if (this.type == 'me_approved') {
+        let body = {
+          'limit': this.limit,
+          'offset': this.offset,
+          'user_id': this.user_id,
+        }
+        this.baoxiaoService.get_before_approved_list(body).then((res) => {
+          if (res.result && res.result.res_code == 1) {
+            let item_data = [];
+            if (res.result.res_data) {
+              item_data = res.result.res_data;
+              if (item_data.length == 20) {
+                this.isMoreData = true;
+              }
+              else {
+                this.isMoreData = false;
+              }
+              for (let item of item_data) {
+                item.state = this.changeState(item.state)
+                this.already_approval_list.push(item)
+              }
+            }
+            else {
+              this.isMoreData = false;
+            }
+            infiniteScroll.complete();
+          }
+          else {
+            infiniteScroll.complete();
+          }
+        })
+      }
+    } else {
+      infiniteScroll.complete();
+    }
+  }
 
 }

@@ -17,6 +17,7 @@ import { NativeService } from './../../../../providers/NativeService';
   providers: [NativeService, ShopService]
 })
 export class ShopVisitPage {
+  @ViewChild('mytextarea') mytextarea;
   visit_date
   visit_to
   visit_shop_id
@@ -33,10 +34,17 @@ export class ShopVisitPage {
   can_show_footer=true
 
   frontPage
+
+  contact_list = []
+  contact_id
+
+  choose_partner
+
+  choose_index
   constructor(public navCtrl: NavController, public navParams: NavParams, public actionSheetCtrl: ActionSheetController,
   public nativeService: NativeService, public shopService: ShopService, public toastCtrl: ToastController) {
     // var now_date = new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60 )
-    this.visit_date = Utils.dateFormat(new Date(), 'YYYY-MM-DD HH:mm')
+    
     this.user_id = this.navParams.get('user_id')
     this.frontPage = Utils.getViewController('A', this.navCtrl)
 
@@ -48,11 +56,34 @@ export class ShopVisitPage {
     if (this.navParams.get('shop_id')){
       this.visit_shop_id = this.navParams.get('shop_id')
       this.visit_to = this.navParams.get('shop_name')
+      this.shopService.get_total_contacts({'shop_id': this.visit_shop_id}).then(res => {
+        if (res.result.res_code == 1 && res.result.res_data){
+          this.contact_list = res.result.res_data
+          for (let item of this.contact_list) {
+            item['is_origin'] = true
+          }
+        }
+      })
     }
+    var date = new Date()
+    console.log(date.getFullYear())
+    this.visit_date = date.getFullYear() + "-" + this.fetch_month((date.getMonth() + 1)) + "-" + date.getDate() + "T" + date.getHours() + ":" + date.getMinutes() + ":00.000" + "Z"
+
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ShopVisitPage');
+    var date = new Date()
+    this.visit_date = date.getFullYear() + "-" + this.fetch_month((date.getMonth() + 1)) + "-" + date.getDate() + "T" + date.getHours() + ":" + date.getMinutes() + ":00.000" + "Z"
+  }
+
+  fetch_month(num){
+    if (num >= 10){
+      return num
+    }
+    else{
+      return "0" + num
+    }
   }
 
   ionViewWillEnter() {
@@ -69,16 +100,33 @@ export class ShopVisitPage {
       this.belong_partner = this.navParams.data.partner_name
       this.belong_partner_id = this.navParams.data.partner_id
       this.navParams.data.need_update_shop = false;
+      this.contact_list = []
+      this.shopService.get_total_contacts({'shop_id': this.visit_shop_id}).then(res => {
+        if (res.result.res_code == 1 && res.result.res_data){
+          this.contact_list = res.result.res_data
+        }
+      })
     }
 
     if (this.navParams.get('need_update') == true) {
       if (this.belong_partner_id != this.navParams.data.partner_id){
         this.visit_shop_id = ''
         this.visit_to = ''
+        this.contact_list = []
+        this.contact_id = ''
       }
       this.belong_partner_id = this.navParams.data.partner_id
       this.belong_partner = this.navParams.data.partner_name
       this.navParams.data.need_update = false;
+    }
+    if (this.navParams.get('need_update_choose_main_contact') == true) {
+      this.contact_list = this.navParams.get('main_contact_list')
+      this.choose_partner = this.navParams.get('choosed_contact').name 
+      this.choose_index = this.navParams.get('choose_index')
+      if (this.navParams.get('choosed_contact').get('value')) {
+        this.contact_id = this.navParams.get('choosed_contact').get('value')
+      }
+      this.navParams.data.need_update_choose_main_contact = false
     }
   
   }
@@ -127,6 +175,7 @@ export class ShopVisitPage {
   getPicture(type, allowEdit: boolean = false) {//1拍照,0从图库选择
     let options = {
       allowEdit: false,
+      quality: 100,
     };
     if (type == 1) {
       this.nativeService.getPictureByCamera(options).subscribe(img_url => {
@@ -164,6 +213,9 @@ export class ShopVisitPage {
       'shop_id': this.visit_shop_id,
       'visit_date': this.cal_time(this.visit_date),
       'imgList': this.imgList,
+      'contacts_partner_id': this.contact_id,
+      'contact_list': this.contact_list,
+      'choose_index': this.choose_index,
     }
     this.shopService.submit_visit_record(body).then(res => {
       if (res.result.res_code == 1){
@@ -176,7 +228,8 @@ export class ShopVisitPage {
 
   click_near_shop(){
     this.navCtrl.push('SearchGpsPage', {
-      is_need_back: true
+      is_need_back: true,
+      user_id: this.user_id,
     })
   }
 
@@ -206,6 +259,16 @@ export class ShopVisitPage {
     });
     content = content.join('');
     return content
+  }
+
+  setFocus(mytextarea){
+    mytextarea.setFocus()
+  }
+
+  choose_main_contact() {
+    this.navCtrl.push('MainContactListPage', {
+      contact_arr: this.contact_list
+    })
   }
 
 }

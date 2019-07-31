@@ -64,12 +64,12 @@ export class SaleReportDetailPage {
 
   ionViewDidEnter() {
     this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.LANDSCAPE);
-    $('#right-div3').on('scroll',function(){
-                let top=$(this).scrollTop();
-                let left=$(this).scrollLeft();
-                $('#left-div3').scrollTop(top);
-                $('#right-div4').scrollLeft(left);
-            })
+    $('#right-div3').on('scroll', function () {
+      let top = $(this).scrollTop();
+      let left = $(this).scrollLeft();
+      $('#left-div3').scrollTop(top);
+      $('#right-div4').scrollLeft(left);
+    })
   }
 
   goBack() {
@@ -124,6 +124,19 @@ export class SaleReportDetailPage {
   }
 
   fix2number(value) {
-    return Math.round(value * 100) / 100
+    var num = Math.round(value * 100) / 100 + ''
+    if (num.indexOf('.') != -1) {
+      return num.replace(/(\d)(?=(\d{3})+\.)/g, '$1,'); //使用正则替换，每隔三个数加一个','
+    }
+    else {
+      var result = '', counter = 0;
+      num = (num || 0).toString();
+      for (var i = num.length - 1; i >= 0; i--) {
+        counter++;
+        result = num.charAt(i) + result;
+        if (!(counter % 3) && i != 0) { result = ',' + result; }
+      }
+      return result
+    }
   }
 }

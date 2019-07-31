@@ -43,6 +43,16 @@ export class CustInDetailPage {
         if (this.item.state != 'confirm') {
           this.set_data()
         }
+        else {
+          this.custService.get_me_sale_team({ 'user_id': this.user_id }).then(res => {
+            if (res.result.res_data && res.result.res_code == 1) {
+              this.team_id = res.result.res_data.team_id
+              this.team_name = res.result.res_data.team_name
+              this.sale_man = res.result.res_data.sale_man
+              this.sale_man_id = res.result.res_data.sale_man_id
+            }
+          })
+        }
       }
     })
   }
@@ -140,6 +150,66 @@ export class CustInDetailPage {
         Utils.toastButtom('操作成功', this.toastCtrl)
       }
     })
+  }
+
+  click_to_detail(item) {
+    if (item.rt_payment_info == '报销单') {
+      this.custService.get_bx_detail({ user_id: this.user_id, bx_id: item.model_id }).then((res) => {
+        if (res.result && res.result.res_code == 1) {
+          let item_request = res.result.res_data
+          item_request.state = this.changeState(item.state);
+          this.navCtrl.push('NewReimbursementDetailPage', {
+            item: item_request,
+          });
+        }
+      })
+    }
+    else if (item.rt_payment_info == '预支/借款') {
+      this.custService.get_zz_detail({ user_id: this.user_id, zz_id: item.model_id }).then((res) => {
+        if (res.result && res.result.res_code == 1) {
+          this.navCtrl.push("NewZanzhiDetailPage", { item: res.result.res_data, type: '' })
+        }
+      })
+    }
+    else if (item.rt_payment_info == '采购付款') {
+      this.custService.get_pay_detail({ 'pay_id': item.model_id }).then(res => {
+        if (res.result && res.result.res_code == 1) {
+          this.navCtrl.push('NewPayRequestDetailPage', {
+            'item': res.result.res_data,
+            'user_id': this.user_id,
+            'frontPage': 'NewPayRequestPage',
+          })
+        }
+      })
+
+    }
+  }
+
+  changeState(state) {
+    if (state == 'draft') {
+      return "草稿";
+    }
+    else if (state == 'cancel') {
+      return "被拒";
+    }
+    else if (state == 'reviewing') {
+      return "审核中";
+    }
+    else if (state == 'rejected') {
+      return "被拒";
+    }
+    else if (state == 'approve') {
+      return "已批准";
+    }
+    else if (state == 'post') {
+      return "已过账";
+    }
+    else if (state == 'done') {
+      return "已支付";
+    }
+    else {
+      return state;
+    }
   }
 
 }
