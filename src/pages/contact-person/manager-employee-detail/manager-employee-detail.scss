@@ -146,4 +146,37 @@ page-manager-employee-detail {
           margin-left: 20px;
     display: inline-block;
   }
+
+  .Row
+  {
+      display: table;
+      width: 100%;
+      table-layout: fixed;
+      border-spacing: 10px;
+      background-color: white;
+  }
+  .Column
+  {
+      display: table-cell;
+      text-align: center;
+      color: darkgray;
+      font-size: 13px;
+  }
+  
+  .ColumnTitle
+  {
+      display: table-cell;
+      text-align: center;
+      color: gray;
+      font-size: 13px;
+  }
+  
+  .RowData{
+      display: table;
+      width: 100%;
+      table-layout: fixed;
+      border-spacing: 10px;
+      background-color: white;
+      border-top: 1px solid #f0f2f5;
+  }
 }

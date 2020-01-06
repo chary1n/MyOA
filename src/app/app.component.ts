@@ -21,15 +21,16 @@ import { AppService } from './appService'
 declare let cordova: any;
 @Component({
   templateUrl: 'app.html',
-  providers: [CodePush, JPush, AppService]
+  providers: [JPush, AppService]
 })
 export class MyApp {
   rootPage: any = '';
   version: any;
   user_env: any;
   constructor(public platform: Platform, statusBar: StatusBar,
-    splashScreen: SplashScreen, public codePush: CodePush, public jpush: JPush, public storage: Storage,
+    splashScreen: SplashScreen,  public jpush: JPush, public storage: Storage,
     public appService: AppService, public appVersion: AppVersion) {
+
     this.storage.get("login").then(res => {
       this.storage.get("user").then(user => {
         if (res) {
@@ -37,31 +38,31 @@ export class MyApp {
             HttpService.need_login = true
             this.rootPage = NewTabsPage
             this.storage.get('user_psd').then(res_db => {
-            if (res_db.db_name == 'odoo10') {  // 
-              this.rootPage = NewTabsPage;
-            }
-            else {
-              this.rootPage = LoginPage;
-            }
+              if (res_db.db_name == 'odoo10') {  // 
+                this.rootPage = NewTabsPage;
+              }
+              else {
+                this.rootPage = LoginPage;
+              }
             })
           }
           else {
             this.rootPage = LoginPage
           }
         }
-        else
-        {
+        else {
           this.rootPage = LoginPage
         }
       })
     })
+    // splashScreen.hide();
     platform.ready().then(() => {
       console.log('platform ready 111111')
       statusBar.overlaysWebView(false);
       statusBar.styleDefault();
       statusBar.backgroundColorByHexString('#f8f8f8');
       splashScreen.hide();
-      this.checkCodePush()
+      // this.checkCodePush()
       this.jpush.initJpush();
       // storage.get('user')
       //   .then(res => {
@@ -83,7 +84,7 @@ export class MyApp {
         if (res) {
           window.localStorage.setItem("id", res.result.res_data.user_id)
           this.storage.get('user_psd').then(res_db => {
-            
+
             let db_name = res_db.db_name
             this.appService.toLogin(res_db.user_email, res_db.user_psd, res_db.db_name, "0.8.0")
               .then(res => {
@@ -102,22 +103,22 @@ export class MyApp {
 
   checkCodePush() {
 
-    this.codePush.sync({
-      // updateDialog: {
-      //  appendReleaseDescription: true,
-      //  descriptionPrefix: "\n\nChange log:\n"   
-      // },
-      installMode: InstallMode.IMMEDIATE
-    }).subscribe(
-      (data) => {
-        console.log('CODE PUSH SUCCESSFUL: ' + data);
+    // this.codePush.sync({
+    //   // updateDialog: {
+    //   //  appendReleaseDescription: true,
+    //   //  descriptionPrefix: "\n\nChange log:\n"   
+    //   // },
+    //   installMode: InstallMode.IMMEDIATE
+    // }).subscribe(
+    //   (data) => {
+    //     console.log('CODE PUSH SUCCESSFUL: ' + data);
 
-      },
-      (err) => {
-        console.log('CODE PUSH ERROR: ' + err);
+    //   },
+    //   (err) => {
+    //     console.log('CODE PUSH ERROR: ' + err);
 
-      }
-      );
+    //   }
+    // );
   }
   // getVersionNumber(): Promise<string> {
   //   return new Promise((resolve) => {

@@ -16,21 +16,29 @@ declare let cordova: any;
   providers: [BaoBiaoService],
 })
 export class HkBaobiaoPage {
-  items;
+  item;
+  now_date;
+  show_date;
   constructor(public navCtrl: NavController, public navParams: NavParams, public actionSheetCtrl: ActionSheetController,
-  public baoBiaoService: BaoBiaoService) {
-    this.items = navParams.get('items')
+    public baoBiaoService: BaoBiaoService) {
+    this.item = navParams.get('item')
+
+    var Y = new Date().getFullYear();
+    var m = new Date().getMonth() + 1;
+    var d = new Date().getDate();
+    this.show_date = Y + '-' + m + '-' + d
+    this.now_date = new Date(Y + "-" + m + "-" + d)
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad HkBaobiaoPage');
   }
 
-  ionViewDidEnter(){
-    if (this.navParams.get('need_fresh') == true) {
-      this.navParams.data.need_fresh = false;
-      this.reload_data()
-    }
+  ionViewDidEnter() {
+    // if (this.navParams.get('need_fresh') == true) {
+    //   this.navParams.data.need_fresh = false;
+    //   this.reload_data()
+    // }
   }
 
   transInt(item) {
@@ -79,17 +87,73 @@ export class HkBaobiaoPage {
   }
 
   click_edit() {
-    this.navCtrl.push('EditHkBaobiaoPage', {
-      line_ids: this.items.line_ids
+    // this.navCtrl.push('EditHkBaobiaoPage', {
+    //   line_ids: this.items.line_ids
+    // })
+  }
+
+  reload_data(date) {
+    this.baoBiaoService.get_hk_account_data({ 'date': date }).then(res => {
+      if (res.result && res.result.res_code == 1) {
+        this.item = res.result.res_data
+      }
     })
   }
 
-  reload_data(){
-    this.baoBiaoService.account_hk().then(res => {
-      console.log(res)
-      if (res.result&&res.result.res_code == 1) {
-       this.items = res.result.res_data[0]
-      }
+  click_delete_day() {
+    var d = this.now_date;
+    d.setDate(d.getDate() - 1);
+    var m = d.getMonth() + 1;
+    this.show_date = d.getFullYear() + '-' + m + '-' + d.getDate();
+    this.now_date = new Date(d.getFullYear() + "-" + m + "-" + d.getDate())
+    this.reload_data(this.show_date)
+  }
+
+  click_add_day() {
+    var d = new Date(this.now_date);
+    d.setDate(d.getDate() + 1);
+    var m = d.getMonth() + 1;
+    this.show_date = d.getFullYear() + '-' + m + '-' + d.getDate();
+    this.now_date = new Date(d.getFullYear() + "-" + m + "-" + d.getDate())
+    this.reload_data(this.show_date)
+  }
+
+  toFix2(amount) {
+    if (amount) {
+      return parseFloat(amount).toFixed(2)
+    }
+    else {
+      return '0.00'
+    }
+  }
+
+  click_total_enter_total(){
+    this.navCtrl.push('HkBaobiaoDetailPage', {
+      'date': this.show_date,
+      'payment_type': 'in',
+    })
+  }
+
+  click_total_out_total(){
+    this.navCtrl.push('HkBaobiaoDetailPage', {
+      'date': this.show_date,
+      'payment_type': 'out',
+    })
+  }
+
+  click_total_enter_account(items){
+    this.navCtrl.push('HkBaobiaoDetailPage', {
+      'date': this.show_date,
+      'account_id': items.account_id,
+      'payment_type': 'in',
+    })
+  }
+
+  click_total_out_account(items){
+    this.navCtrl.push('HkBaobiaoDetailPage', {
+      'date': this.show_date,
+      'account_id': items.account_id,
+      'payment_type': 'out',
     })
   }
 

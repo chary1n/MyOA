@@ -6,6 +6,27 @@ export class FirstShowService {
     constructor(private httpService: HttpService) {
 
     }
+
+    submit_meeting_line(body){
+        return this.httpService.postBody("submit_meeting_line", body)
+    }
+
+    change_time(body){
+        return this.httpService.postBody("change_time", body)
+    }
+
+    search_one_series(body){
+        return this.httpService.postBody("search_one_series", body)
+    }
+
+    finish_meeting_line(body){
+        return this.httpService.postBody("finish_meeting_line", body)
+    }
+
+    stop_meeting_line(body){
+        return this.httpService.postBody("stop_meeting_line", body)
+    }
+
     get_schedule_list_with_domain_new_simple(body,domain){
         return this.httpService.postBodyNoLoading("get_schedule_list_with_domain_new_simple", {'body':body,'domain':domain});
     }

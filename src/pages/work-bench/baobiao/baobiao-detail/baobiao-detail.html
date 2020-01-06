@@ -18,8 +18,10 @@
 </ion-header>
 <ion-content style="background:#f7f7f7">
   <ion-list style="background-color:#2597ec">
-    <ion-item style="background:#2597ec">
-      <p style="color:white">今天 {{now|date:'yyyy-MM-dd'}}</p>
+    <ion-item style="background:#2597ec; text-align: center;">
+      <span style="color:white" tappable (click)="click_delete_day()"> {{"<"}} </span>
+      <span style="color:white">{{show_date}}</span>
+      <span style="color:white" tappable (click)="click_add_day()"> {{">"}} </span>
     </ion-item>
     <div no-lines style="background:#2597ec;height:52px">
       <div style="height:52px;width:50%;float:left" align="center" tappable (click)="click_total_enter_total()">
@@ -41,12 +43,6 @@
   </ion-list>
   <ion-grid class="row_class">
     <ion-row align-items-center>
-      <!--<ion-col>
-        <div align="center">
-          <p class="first_class">月初</p>
-          <p text-wrap class="second_class">{{fmoney(transInt(item.month_begin),3)}}</p>
-        </div>
-      </ion-col>-->
       <ion-col>
         <div align="center">
           <p class="first_class">期初</p>
@@ -81,11 +77,6 @@
       <p class="right_p" tappable (click)="click_total_out_account(items)">支出 {{fmoney(transInt(items.credit),3)}}</p>
     </div>
     <div class="right_div" style="border-bottom: 1px solid #e7e5e7">
-      <!--<div style="width:33%;height:60px;float:left">
-        <p style="margin-top:9px;text-align:center;color:gray">月初
-          <p>
-            <p style="margin-top:-8px;text-align:center;font-size:11px;color:#2597ec">{{fmoney(transInt(items.month_begin),3)}}</p>
-      </div>-->
       <div style="width:100%;height:60px;">
         <div style="width:50%;height:60px;float:left">
           <p style="margin-top:9px;text-align:center;color:gray">期初

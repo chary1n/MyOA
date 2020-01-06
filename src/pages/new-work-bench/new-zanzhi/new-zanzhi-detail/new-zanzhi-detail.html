@@ -53,11 +53,11 @@
     <div class="left_label"> 银行账户 </div>
   </ion-item>
   <ion-item no-lines class="item_class">
-    <div text-wrap class="order_class"> {{res_data.amount}} </div>
+    <div text-wrap class="order_class"> {{fmoney(transInt(res_data.amount),3)}} </div>
     <div class="left_label"> 申请金额 </div>
   </ion-item>
   <ion-item no-lines class="item_class">
-    <div text-wrap class="order_class"> {{res_data.pre_payment_reminding}} </div>
+    <div text-wrap class="order_class"> {{fmoney(transInt(res_data.pre_payment_reminding),3)}} </div>
     <div class="left_label"> 可用金额 </div>
   </ion-item>
   <ion-item no-lines *ngIf="res_data.requisitions_id.name" class="item_class">
@@ -72,7 +72,7 @@
       <ion-item [ngClass]="{true:'item_empty_class',false:'item_10px_class'}[i == 0]">
         <div class="detail_div">
           <span class="type_class">{{items.product_id.name}}</span>
-          <span class="unit_amount_class">金额：￥{{items.amount}}</span>
+          <span class="unit_amount_class">金额：￥{{fmoney(transInt(items.amount),3)}}</span>
         </div>
 
         <p text-wrap class="yongtu_class">消费用途：{{items.name}}</p>

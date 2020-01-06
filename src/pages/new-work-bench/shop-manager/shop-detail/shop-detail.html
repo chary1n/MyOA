@@ -9,14 +9,15 @@
   <ion-navbar color="gongdan-color" hideBackButton="true">
     <ion-buttons left>
       <button ion-button icon-only (click)="goBack()">
-              <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
-            </button>
+        <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+      </button>
     </ion-buttons>
     <ion-title>详情</ion-title>
     <ion-buttons right>
-      <button ion-button icon-only tappable (click)="click_edit()" style="font-size:14px;color: white;margin-right: 10px">
-                编辑
-            </button>
+      <button ion-button icon-only tappable (click)="click_edit()"
+        style="font-size:14px;color: white;margin-right: 10px">
+        编辑
+      </button>
     </ion-buttons>
   </ion-navbar>
 
@@ -29,11 +30,13 @@
       <p class="new_header_p_class">
         <span style="font-size: 18px;">{{item.name}}</span>
         <span class="star_div_class">
-          <ion-icon *ngFor='let item of starArr | slice:(5 - item.priority) ; let i = index' name="star" class="icon_select_class"></ion-icon>
+          <ion-icon *ngFor='let item of starArr | slice:(5 - item.priority) ; let i = index' name="star"
+            class="icon_select_class"></ion-icon>
           <ng-container *ngFor='let item of starArr | slice:(item.priority) ;let i = index'>
-            <ion-icon name="star" [ngClass]="{true:'icon_unselect_class_first',false:'icon_unselect_class'}[i==0]" ></ion-icon>
+            <ion-icon name="star" [ngClass]="{true:'icon_unselect_class_first',false:'icon_unselect_class'}[i==0]">
+            </ion-icon>
           </ng-container>
-          
+
         </span>
       </p>
       <div class="div_all" style="margin-top: -10px;">
@@ -83,21 +86,27 @@
         <div *ngIf="i > 0" style="background-color: #f0f2f5; height: 10px;">
         </div>
         <ion-item no-lines>
-          <img style="width:40px;vertical-align:top;float:left;margin-right:10px;border-radius:20px" src={{items.create_person_ava}}>
+          <img style="width:40px;vertical-align:top;float:left;margin-right:10px;border-radius:20px"
+            src={{items.create_person_ava}}>
           <div style="overflow:hidden">
             <span style="margin-top:3px;color:black;font-size:80%;float:left">{{items.create_person}}</span>
 
-            <span style="font-size:70%;margin-top:5px;margin-left:-5px;float:right">{{changeDate(items.rt_visit_date) | date:'yyyy-MM-dd HH:mm'}}</span>
+            <span
+              style="font-size:70%;margin-top:5px;margin-left:-5px;float:right">{{changeDate(items.rt_visit_date) | date:'yyyy-MM-dd HH:mm'}}</span>
           </div>
-          <p *ngIf="item.old_state || item.new_state" style="font-size:80%;">{{items.old_state}}=>{{items.new_state}}</p>
+          <p *ngIf="item.old_state || item.new_state" style="font-size:80%;">{{items.old_state}}=>{{items.new_state}}
+          </p>
           <!--<p text-wrap style="font-size:80%;margin-top: 4px;">{{items.description}}</p>-->
           <div [innerHTML]="assembleHTML(items.description)" class="description_class"></div>
         </ion-item>
         <ion-grid *ngIf="items.attachments.length>0" style="padding-top: 0px;margin-left: 55px;padding-bottom: 10px;">
-          <ion-row>
-            <ion-col col-3 *ngFor="let attachment of items.attachments;let i = index" class="col_other">
-              <img tappable (click)='to_slide_img(items.attachments, i);$event.stopPropagation()' src="{{attachment}}" style="clip:rect(0px,83px,83px,0px);position: absolute;min-width: 83px;min-height: 83px;">
-            </ion-col>
+          <ion-row style="margin-left: -48px;padding-bottom: 5px;">
+            <ng-container *ngFor="let attachment of items.attachments;let i = index">
+              <ion-col col-3 *ngIf="i < 9" [ngClass]="{true:'col_first',false:'col_other'}[i == 0 || i==3 || i==6]">
+                <img tappable (click)='to_slide_img(items.attachments, i);$event.stopPropagation()' src="{{attachment}}"
+                  [ngClass]="{true:'spec_img_class',false:'normal_img_class'}[i >= 3]">
+              </ion-col>
+            </ng-container>
           </ion-row>
         </ion-grid>
       </ng-container>
@@ -122,7 +131,8 @@
       </div>
       <div class="div_all">
         <div text-wrap class="div_right" *ngIf="item.customer_is_world"> 全世界 </div>
-        <div class="div_right" style="white-space: pre-line;" *ngIf="!item.customer_is_world"> {{item.total_country_str}} </div>
+        <div class="div_right" style="white-space: pre-line;" *ngIf="!item.customer_is_world">
+          {{item.total_country_str}} </div>
         <div class="div_left"> 市场 </div>
       </div>
     </div>
@@ -135,20 +145,26 @@
         </div>
       </div>
       <div class="div_all">
-        <div text-wrap class="div_right" style="color: #2597ec;text-decoration: underline;" tappable (click)="click_website()"> {{item.website}} </div>
+        <div text-wrap class="div_right" style="color: #2597ec;text-decoration: underline;" tappable
+          (click)="click_website()"> {{item.website}} </div>
         <div class="div_left"> 网站 </div>
       </div>
       <div class="div_all">
-        <div text-wrap class="div_right" style="color: #2597ec" tappable (click)="click_phone(item.phone)"> {{item.phone}}</div>
+        <div text-wrap class="div_right" style="color: #2597ec" tappable (click)="click_phone(item.phone)">
+          {{item.phone}}</div>
         <div class="div_left"> 手机 </div>
       </div>
       <div class="div_all">
-        <div text-wrap class="div_right" style="color: #2597ec" tappable (click)="click_email(item.email)"> {{item.email}}</div>
+        <div text-wrap class="div_right" style="color: #2597ec" tappable (click)="click_email(item.email)">
+          {{item.email}}</div>
         <div class="div_left"> Email </div>
       </div>
       <div class="div_all" tappable (click)="click_address()">
-        <div text-wrap class="div_right" style="color: #2597ec"  > {{item.detailed_address}}</div>
-        <div [ngClass]="{true:'can_click_class',false:'not_click_class'}[item.detailed_address!='' || item.rt_partner_shop_x>0 || item.rt_partner_shop_y>0]"> <img *ngIf="item.detailed_address!='' || item.rt_partner_shop_x>0 || item.rt_partner_shop_y>0" src="assets/img/shop_gps.png" class="location_img_class" />地址 </div>
+        <div text-wrap class="div_right" style="color: #2597ec"> {{item.detailed_address}}</div>
+        <div
+          [ngClass]="{true:'can_click_class',false:'not_click_class'}[item.detailed_address!='' || item.rt_partner_shop_x>0 || item.rt_partner_shop_y>0]">
+          <img *ngIf="item.detailed_address!='' || item.rt_partner_shop_x>0 || item.rt_partner_shop_y>0"
+            src="assets/img/shop_gps.png" class="location_img_class" />地址 </div>
       </div>
     </div>
   </div>
@@ -156,12 +172,16 @@
     <ion-item-group style="background-color:#f2f2f2;margin-top:5px;">
       <ng-container *ngFor='let contact of item.contactList;let i = index'>
         <ion-item no-lines [ngClass]="{true:'other_item',false:'fst_item'}[i>0]">
-          <img style="width:20px;margin-top:-60px;" *ngIf="contact.type != 'contact'" item-start src="assets/img/user_avater.png">
-          <img style="width:20px;margin-top:-35px;" *ngIf="contact.type == 'contact'" item-start src="assets/img/user_avater.png">
-          <button ion-button style="background-color:white;color:#2597ec;border-color:#2597ec;border-width:1px;border-style:solid;margin-left:10px;"
+          <img style="width:20px;margin-top:-60px;" *ngIf="contact.type != 'contact'" item-start
+            src="assets/img/user_avater.png">
+          <img style="width:20px;margin-top:-35px;" *ngIf="contact.type == 'contact'" item-start
+            src="assets/img/user_avater.png">
+          <button ion-button
+            style="background-color:white;color:#2597ec;border-color:#2597ec;border-width:1px;border-style:solid;margin-left:10px;"
             small>{{exchangeType(contact.type)}}</button>
           <p style="font-size:15px;color:black;float:left;margin-top:10px;">{{contact.name}}</p>
-          <p *ngIf="contact.type != 'contact'" style="margin-top:3px;">地址：{{contact.country_name}}{{contact.state_name}}{{contact.address}}</p>
+          <p *ngIf="contact.type != 'contact'" style="margin-top:3px;">
+            地址：{{contact.country_name}}{{contact.state_name}}{{contact.address}}</p>
           <p tappable (click)="click_email(contact.email)">Email：{{contact.email}}</p>
           <p tappable (click)="click_phone(contact.phone)">电话：{{contact.phone}}</p>
         </ion-item>
@@ -171,10 +191,12 @@
   <div *ngIf="detail_type=='attachment'">
     <ion-grid *ngIf="item.attachments.length > 0" style="margin-top: 15px;margin-left: 15px;">
       <ion-row style="margin-right:5px;">
-        <ion-col style="height:70px;" *ngFor="let image of item.attachments;let i=index" col-3>
-          <img style="position:absolute;clip:rect(0px,70px,70px,0px);background-color:#f0f2f5" src='{{image}}' tappable (click)='to_slide_img(item.attachments, i);$event.stopPropagation()'
-          />
-        </ion-col>
+        <ng-container *ngFor="let image of item.attachments;let i=index">
+          <ion-col style="height:70px;" *ngIf="i < 9" col-3>
+            <img style="position:absolute;clip:rect(0px,70px,70px,0px);background-color:#f0f2f5" src='{{image}}'
+              tappable (click)='to_slide_img(item.attachments, i);$event.stopPropagation()' />
+          </ion-col>
+        </ng-container>
       </ion-row>
     </ion-grid>
   </div>

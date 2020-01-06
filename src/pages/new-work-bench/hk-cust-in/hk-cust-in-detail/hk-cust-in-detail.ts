@@ -79,8 +79,8 @@ export class HkCustInDetailPage {
     this.partner_name = this.item.partner_name
     this.team_name = this.item.team_name
     this.sale_man = this.item.user_id
-    this.sale_order_id = this.item.sale_order_id
-    this.sale_order_name = this.item.sale_order_name
+    // this.sale_order_id = this.item.sale_order_id
+    // this.sale_order_name = this.item.sale_order_name
     this.need_count = this.item.order_amount_total
     this.already_count = this.item.order_out_amount
     this.un_count = this.item.to_receive_amount
@@ -116,28 +116,28 @@ export class HkCustInDetailPage {
       this.navParams.data.need_update_team = false;
     }
     if (this.navParams.get('need_update_sale_order') == true) {
-      this.sale_order_id = this.navParams.data.sale_order_id
-      this.sale_order_name = this.navParams.data.sale_order_name
+      // this.sale_order_id = this.navParams.data.sale_order_id
+      // this.sale_order_name = this.navParams.data.sale_order_name
       this.need_count = this.navParams.data.order_amount_total
       this.sale_order_currency_id = this.navParams.data.sale_order_currency_id
-      if (this.navParams.data.sale_order_currency_rate > 0) {
-        this.final_rate = this.item.hk_account_id_rate / this.navParams.data.sale_order_currency_rate
-      }
-      if (this.navParams.data.is_in) {
-        this.already_count = this.navParams.data.order_out_amount
-        this.un_count = this.need_count - this.already_count
-      }
-      else {
-        this.already_count = this.navParams.data.order_out_amount + (this.item.account * this.final_rate)
-        this.un_count = this.need_count - this.already_count
-      }
-      this.final_rate = this.toFix4(this.item.hk_account_id_rate / this.navParams.data.sale_order_currency_rate)
-      if (this.navParams.data.sale_order_currency_name) {
-        this.item.rate_text = this.item.hk_account_id_currency_name + '/' + this.navParams.data.sale_order_currency_name
-      }
-      else {
-        this.item.rate_text = this.item.hk_account_id_currency_name + '/' + this.item.hk_account_id_currency_name
-      }
+      // if (this.navParams.data.sale_order_currency_rate > 0) {
+      //   this.final_rate = this.item.hk_account_id_rate / this.navParams.data.sale_order_currency_rate
+      // }
+      // if (this.navParams.data.is_in) {
+      //   this.already_count = this.navParams.data.order_out_amount
+      //   this.un_count = this.need_count - this.already_count
+      // }
+      // else {
+      //   this.already_count = this.navParams.data.order_out_amount + (this.item.account * this.final_rate)
+      //   this.un_count = this.need_count - this.already_count
+      // }
+      // this.final_rate = this.toFix4(this.item.hk_account_id_rate / this.navParams.data.sale_order_currency_rate)
+      // if (this.navParams.data.sale_order_currency_name) {
+      //   this.item.rate_text = this.item.hk_account_id_currency_name + '/' + this.navParams.data.sale_order_currency_name
+      // }
+      // else {
+      //   this.item.rate_text = this.item.hk_account_id_currency_name + '/' + this.item.hk_account_id_currency_name
+      // }
       this.navParams.data.need_update_sale_order = false
     }
   }
@@ -185,10 +185,10 @@ export class HkCustInDetailPage {
       Utils.toastButtom('请选择销售员', this.toastCtrl)
       return
     }
-    if (!this.sale_order_id) {
-      Utils.toastButtom('请选择销售订单', this.toastCtrl)
-      return
-    }
+    // if (!this.sale_order_id) {
+    //   Utils.toastButtom('请选择销售订单', this.toastCtrl)
+    //   return
+    // }
 
     let body = {
       'user_id': this.user_id,
@@ -196,7 +196,7 @@ export class HkCustInDetailPage {
       'partner_id': this.partner_id,
       'sale_man_id': this.sale_man_id,
       'payment_id': this.item.payment_id,
-      'sale_order_id': this.sale_order_id,
+      // 'sale_order_id': this.sale_order_id,
       'rate': parseFloat(this.final_rate),
       'remark': this.final_remark,
     }
@@ -249,5 +249,30 @@ export class HkCustInDetailPage {
       this.already_count = this.navParams.data.order_out_amount + (this.item.account * this.final_rate)
       this.un_count = this.navParams.data.to_receive_amount - (this.item.account * this.final_rate)
     }, 100)
+  }
+
+  fmoney(s, n)   
+  {   
+   n = n > 0 && n <= 20 ? n : 2;   
+   s = parseFloat((s + "").replace(/[^\d\.-]/g, "")).toFixed(n) + "";   
+   var l = s.split(".")[0].split("").reverse(),   
+   r = s.split(".")[1].substr(0,2);   
+   let t = ""; 
+   let i;  
+   for(i = 0; i < l.length; i ++ )   
+   {   
+      t += l[i] + ((i + 1) % 3 == 0 && (i + 1) != l.length ? "," : "");   
+   }   
+   
+   return t.split("").reverse().join("") + "." + r;   
+  } 
+
+  transInt(item){
+    if (item) {
+      return parseFloat(item).toFixed(2)
+    }
+    else {
+      return 0.00
+    }
   }
 }

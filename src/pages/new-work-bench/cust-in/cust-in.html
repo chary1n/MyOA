@@ -44,7 +44,7 @@
             </span>
         </h4>
         <p text-wrap class="money_class">
-          <span>金额：¥{{item.account}}</span>
+          <span>金额：¥{{fmoney(transInt(item.account),3)}}</span>
         </p>
         <p text-wrap class="department_class">账号：{{item.journal_id}}</p>
       </ion-item>
@@ -60,7 +60,7 @@
             </span>
         </h4>
         <p text-wrap class="money_class">
-          <span>金额：¥{{item.account}}</span>
+          <span>金额：¥{{fmoney(transInt(item.account),3)}}</span>
         </p>
         <p text-wrap class="department_class">账号：{{item.journal_id}}</p>
       </ion-item>

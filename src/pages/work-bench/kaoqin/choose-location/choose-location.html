@@ -14,7 +14,10 @@
         </ion-buttons>
     <ion-title>选择位置</ion-title>
     <ion-buttons end>
-      <button ion-button (click)='release()'>
+        <button ion-button icon-only (click)="reload_location()" style="font-size: 14px;font-weight: bold;">
+            刷新
+          </button>
+      <button ion-button (click)='release()' style="font-size: 14px;font-weight: bold;">
         确定
       </button>
     </ion-buttons>

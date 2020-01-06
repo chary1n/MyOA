@@ -45,19 +45,19 @@
     <div class="left_label"> 费用归属 </div>
   </ion-item>
   <ion-item no-lines class="item_class">
-    <div text-wrap class="order_class"> {{item.total_amount}} </div>
+    <div text-wrap class="order_class"> {{fmoney(transInt(item.total_amount),3)}} </div>
     <div class="left_label"> 报销 </div>
   </ion-item>
   <ion-item *ngIf="item.reconciled_amount > 0" no-lines class="item_class">
-    <div text-wrap class="order_class"> -{{item.reconciled_amount}} </div>
+    <div text-wrap class="order_class"> -{{fmoney(transInt(item.reconciled_amount),3)}} </div>
     <div class="left_label"> 抵扣 </div>
   </ion-item>
   <ion-item *ngIf="item.reconciled_amount == 0" no-lines class="item_class">
-    <div text-wrap class="order_class"> {{item.reconciled_amount}} </div>
+    <div text-wrap class="order_class"> {{fmoney(transInt(item.reconciled_amount),3)}} </div>
     <div class="left_label"> 抵扣 </div>
   </ion-item>
   <ion-item no-lines class="item_class">
-    <div text-wrap class="order_class_special"> {{item.real_amount}} </div>
+    <div text-wrap class="order_class_special"> {{fmoney(transInt(item.real_amount),3)}} </div>
     <div class="left_label"> 合计 </div>
   </ion-item>
 
@@ -74,7 +74,7 @@
       <ion-item [ngClass]="{true:'item_empty_class',false:'item_10px_class'}[i == 0]">
         <div class="detail_div">
           <span class="type_class">● {{items.product_id}}</span>
-          <span class="unit_amount_class">￥{{items.unit_amount}}</span>
+          <span class="unit_amount_class">￥{{fmoney(transInt(items.unit_amount),3)}}</span>
           <span *ngIf="items.tax_ids.length > 0" class="tax_class">{{getTax(items)}}</span>
         </div>
 

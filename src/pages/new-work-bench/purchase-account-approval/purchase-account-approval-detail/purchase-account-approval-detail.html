@@ -1,0 +1,214 @@
+<!--
+  Generated template for the PurchaseAccountApprovalDetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header no-border>
+
+  <ion-navbar color="gongdan-color" hideBackButton="true">
+    <ion-buttons left>
+      <button ion-button icon-only (click)="goBack()">
+        <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>{{item.number}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content style="background-color: #f0f2f5">
+  <ion-item style="min-height:60px;height:60px;">
+    <ion-grid class="bg_main">
+      <ion-row>
+        <ion-col col-2>
+          <img src="{{item.employee_avatar}}" class="imgHeard">
+        </ion-col>
+        <ion-col col-5 class="col_header_class">
+          <span class="name_class">{{item.employee_name}}</span>
+        </ion-col>
+        <ion-col *ngIf="item.state == '审核中'" col-5 class="col_header_class_1">
+          <span class="state_class_center">{{item.state}}</span>
+          <span class="state_class_center_block">{{item.to_approve_name}}</span>
+        </ion-col>
+        <ion-col *ngIf="item.state != '审核中'" col-5 class="col_header_class">
+          <span class="state_class">{{item.state}}</span>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item>
+  <!-- <div class="differ_class">
+  </div> -->
+  <div class="div_all">
+    <div text-wrap class="div_right"> {{item.partner_id}}</div>
+    <div class="left_label,div_left" text-right> 供应商 </div>
+  </div>
+  <div class="div_all">
+    <div text-wrap class="div_right"> {{item.tax_id}}</div>
+    <div class="left_label,div_left" text-right> 税率 </div>
+  </div>
+  <div class="div_all">
+    <div text-wrap class="div_right"> {{item.origin}}</div>
+    <div class="left_label,div_left" text-right> 源单据 </div>
+  </div>
+  <div class="div_all">
+    <div text-wrap class="div_right"> {{item.date_due}}</div>
+    <div class="left_label,div_left" text-right> 账期 </div>
+  </div>
+  <div class="div_all">
+    <div text-wrap class="div_right"> {{item.date_invoice}}</div>
+    <div class="left_label,div_left" text-right> 对账日期 </div>
+  </div>
+  <div class="div_all" style="padding-bottom: 10px;">
+    <div text-wrap class="div_right"> {{item.rt_remark}}</div>
+    <div class="left_label,div_left" text-right> 备注 </div>
+  </div>
+  <!-- <div class="differ_class">
+  </div> -->
+  <div class="qp_amount">
+    欠票金额：{{toFix2(item.partner_to_bill_amount)}}
+  </div>
+  <div class="div_label" *ngIf="item.invoice_line_ids" style="padding-top: 8px">
+    账单
+  </div>
+  <ion-list *ngIf="item.invoice_line_ids"
+    [ngClass]="{true:'class_no_margin_bottom',false:'class_margin_bottom'}[need_show_all_detail]">
+    <ng-container *ngIf='item.invoice_line_ids'>
+      <ng-container *ngIf='item.invoice_line_ids.length > 3'>
+        <ng-container *ngFor="let detail of item.invoice_line_ids;let i  = index">
+          <ng-container *ngIf='i <= 2 || (i >= 3 && need_show_all_detail)'>
+            <ion-item style="border-color: white;margin-bottom: 10px;">
+              <h3 text-wrap>{{i+1}}. {{detail.product_id}}</h3>
+              <p *ngIf="detail.origin_name" style="margin-top: 5px;margin-bottom: 5px;">{{detail.origin_name}}</p>
+
+              <div>
+                <p style="float:right;margin-right:5px">已对账：{{detail.origin_line_qty_invoiced}}</p>
+                <p>总数量/已收：{{detail.origin_line_product_qty}}/{{detail.origin_line_qty_received}}</p>
+              </div>
+              <div class="body_div_bottom_class">
+                <p
+                  style="width: 33%;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;word-break: break-all;">
+                  本次数量：{{detail.quantity}}</p>
+                <p
+                  style="width: 33%;text-align: center;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;word-break: break-all;">
+                  单价：{{detail.price_unit}}</p>
+                <p
+                  style="width: 33%;text-align: right;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;word-break: break-all;">
+                  含税：{{detail.price_total}}</p>
+              </div>
+            </ion-item>
+          </ng-container>
+          <ng-container *ngIf="i == 3 && !need_show_all_detail">
+            <div class="watch_total_detail" tappable (click)='click_total()'>
+              查看全部
+            </div>
+          </ng-container>
+        </ng-container>
+      </ng-container>
+      <ng-container *ngIf='item.invoice_line_ids.length <= 3'>
+        <ng-container *ngFor="let detail of item.invoice_line_ids;let i  = index">
+          <ion-item style="border-color: white;margin-bottom: 10px;">
+            <h3 text-wrap>{{i+1}}. {{detail.product_id}}</h3>
+            <p *ngIf="detail.origin_name" style="margin-top: 5px;margin-bottom: 5px;">{{detail.origin_name}}</p>
+
+            <div>
+              <p style="float:right;margin-right:5px">已对账：{{toFix2(detail.origin_line_qty_invoiced)}}</p>
+              <p>总数量/已收：{{toFix2(detail.origin_line_product_qty)}}/{{toFix2(detail.origin_line_qty_received)}}</p>
+            </div>
+            <div class="body_div_bottom_class">
+              <p style="width: 33%;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;word-break: break-all;">
+                本次：{{toFix2(detail.quantity)}}</p>
+              <p
+                style="width: 33%;text-align: center;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;word-break: break-all;">
+                单价：{{toFix2(detail.price_unit)}}</p>
+              <p
+                style="width: 33%;text-align: right;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;word-break: break-all;">
+                含税：{{toFix2(detail.price_total)}}</p>
+            </div>
+          </ion-item>
+        </ng-container>
+      </ng-container>
+    </ng-container>
+  </ion-list>
+  <div class="watch_total_detail" tappable (click)='click_total()' *ngIf="need_show_all_detail">
+    收起
+  </div>
+
+  <div class="div_label">
+    抵扣明细
+  </div>
+  <ng-container *ngIf="item.deduction_json">
+    <ng-container *ngFor='let dekou_detail of item.deduction_ids;let i = index'>
+      <ion-item no-lines [ngClass]="{true:'item_empty_class',false:'item_class'}[i == 0]">
+        <p text-wrap class="time_class">{{dekou_detail.date}}</p>
+        <h4 text-wrap class="rt_name_class">
+          <span>
+            {{dekou_detail.journal_name}}
+          </span>
+        </h4>
+
+        <p text-wrap class="money_class">
+          <span>金额：{{dekou_detail.currency}}{{toFix2(dekou_detail.amount)}}</span>
+        </p>
+        <p text-wrap class="department_class">备注：{{dekou_detail.description}}</p>
+      </ion-item>
+    </ng-container>
+  </ng-container>
+  <ng-container *ngIf="!item.deduction_json">
+    <div class="empty_dikou_class">
+      无抵扣明细
+    </div>
+  </ng-container>
+
+  <div class="amount_back_class">
+    <div class="div_all_amount">
+      <div text-wrap class="div_right_amount"> {{item.currency_symbol}}{{fmoney(transInt(item.amount_untaxed),3)}}</div>
+      <div class="div_left_amount" text-right> 未含税金额 </div>
+    </div>
+    <div class="div_all_amount" style="margin-top: 8px;">
+      <div text-wrap class="div_right_amount"> {{item.currency_symbol}}{{fmoney(transInt(item.amount_tax),3)}}</div>
+      <div class="div_left_amount" text-right> 税 </div>
+    </div>
+    <div class="div_all_amount" style="margin-top: 8px;"> 
+      <div text-wrap class="div_right_amount"> {{item.currency_symbol}}{{fmoney(transInt(item.amount_total),3)}}</div>
+      <div class="div_left_amount" text-right> 应付 </div>
+    </div>
+    <div class="div_all_amount" style="margin-top: 8px;">
+      <div text-wrap class="div_right_amount"> {{item.currency_symbol}}{{fmoney(transInt(item.to_pay_amount),3)}}</div>
+      <div class="div_left_amount" text-right> 已付 </div>
+    </div>
+    <div class="differ_class">
+
+    </div>
+    <div class="div_all_amount" style="margin-top: 8px;">
+      <div text-wrap class="div_right_amount" style="color: red;font-weight: bold;"> {{item.currency_symbol}}{{fmoney(transInt(item.residual),3)}}</div>
+      <div class="div_left_amount" text-right style="color: #333333;font-weight: bold;"> 未付 </div>
+    </div>
+  </div>
+
+  <div class="div_label" style="margin-top: 10px;">审批记录</div>
+  <ion-list style="padding-bottom: 44px;">
+    <ion-item no-lines *ngFor='let items of item.message_ids' style="overflow:hidden" class="middle_item">
+      <img class="user_ava_class" src={{items.create_person_ava}}>
+      <div style="overflow:hidden">
+        <span class="span_employee_class">{{items.create_person}}</span>
+
+        <span class="span_time_class">{{changeDate(items.create_time) | date:'yyyy-MM-dd HH:mm:ss'}}</span>
+      </div>
+      <p *ngIf="items.old_state || items.new_state" class="size_class">{{items.old_state}}=>{{items.new_state}}</p>
+      <p text-wrap class="size_class">{{items.description}}</p>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+<ion-footer *ngIf="item.state == '审核中' && item.to_approve_id == user_id">
+  <div class="footer_class">
+    <div class="left_btn" tappable (click)='cancel()'>
+      拒绝
+    </div>
+    <div class="right_btn" tappable (click)='conform()'>
+      同意
+    </div>
+  </div>
+</ion-footer>

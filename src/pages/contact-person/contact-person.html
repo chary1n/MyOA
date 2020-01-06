@@ -1,11 +1,10 @@
-
 <ion-header no-border>
 
   <ion-navbar color="gongdan-color" hideBackButton="true">
     <ion-buttons left>
       <button ion-button icon-only (click)="goBack()">
-              <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
-            </button>
+        <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+      </button>
     </ion-buttons>
     <ion-title>{{title}}</ion-title>
     <!--<ion-buttons end>
@@ -20,10 +19,23 @@
 
 
 <ion-content id="contact_body">
-  <form>
+  <!-- <form>
   <ion-searchbar id="search_tree" placeholder="搜索" (search)="searchByKeyword($event)" (ionClear)="clearText()"></ion-searchbar>
-  </form>
-  <ul id="ztree_employee" class="ztree" style="padding-bottom:44px"></ul>
+  </form> -->
+  <div ion-fixed class="div_header">
+    <ion-auto-complete class="search_class" (itemSelected)="itemSelected($event)"
+      (itemClearSelected)="itemClearSelected($event)" [dataProvider]="contactPersonAutoService"></ion-auto-complete>
+  </div>
+  <ul *ngIf='can_show_total' id="ztree_employee" class="ztree" style="padding-bottom:44px;margin-top:10px;"></ul>
+  <ng-container *ngIf='!can_show_total'>
+    <div style="margin-top: 44px;">
+      <div *ngFor="let one_data of select_arr" tappable (click)="gotoDeatil(one_data)">
+        <ion-item style="font-size:15px;">
+          {{one_data.name}} / {{one_data.department_name}}
+        </ion-item>
+      </div>
+    </div>
+  </ng-container>
   <!--<ion-item *ngIf="showAll == 'YES'" (click)="clickAll()">
     <ion-label>组织架构</ion-label>
     <ion-label tappable text-right item-end style="font-size:150%">></ion-label>

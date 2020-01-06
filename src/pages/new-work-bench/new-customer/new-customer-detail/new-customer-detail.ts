@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, AlertController, Platform } from '
 import { NewCustomerService } from './../new-customerService'
 import { Utils } from './../../../../providers/Utils';
 import { CallNumber } from '@ionic-native/call-number';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
 /**
  * Generated class for the NewCustomerDetailPage page.
  *
@@ -214,4 +215,8 @@ export class NewCustomerDetailPage {
       .catch(() => console.log('Error launching dialer'));
   }
 
+  click_website() {
+    let browser = new InAppBrowser();
+    browser.create(this.item.website, 'system', { location: 'yes' });
+  }
 }

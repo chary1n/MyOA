@@ -7,6 +7,11 @@ export class EmployeeService {
     constructor(private httpservice: HttpService) {
 
     }
+
+    get_me_info(body){
+        return this.httpservice.postBody("get_me_info", body)
+    }
+
     new_department_tree(body){
         return this.httpservice.postBody("new_department_tree", body)
     }
@@ -28,11 +33,11 @@ export class EmployeeService {
     }
 
     get_all_department_tree(body){
-        return this.httpservice.postBodyNoLoading("get_all_department_tree", body);
+        return this.httpservice.postBodyNoLoading("get_all_department_tree_simple", body);
     }
 
     get_all_department_tree_loading(body){
-        return this.httpservice.postBody("get_all_department_tree", body);
+        return this.httpservice.postBody("get_all_department_tree_simple", body);
     }
 
     get_all_department(){

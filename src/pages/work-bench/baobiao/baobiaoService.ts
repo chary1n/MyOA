@@ -8,6 +8,14 @@ export class BaoBiaoService {
 
     }
 
+    get_hk_account_detail(body){
+        return this.httpservice.postBody('get_hk_account_detail', body);
+    }
+
+    get_hk_account_data(body){
+        return this.httpservice.postBody('get_hk_account_data', body);
+    }
+
     get_today_data(body){
         return this.httpservice.postBody('get_today_data', body);
     }
@@ -16,10 +24,10 @@ export class BaoBiaoService {
         return this.httpservice.postBody('update_hk_account', body);
     }
 
-    getZijin() {
-        let body = JSON.stringify({
-           body:"body",
-        });
+    getZijin(body) {
+        // let body = JSON.stringify({
+        //    body:"body",
+        // });
         return this.httpservice.postBody('get_account_data', body);
     }
 

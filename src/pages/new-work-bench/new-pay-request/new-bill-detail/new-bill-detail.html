@@ -20,19 +20,19 @@
 
 <ion-content style="background-color:#f0f2f5">
   <ion-item no-lines class="item_class">
-    <div text-wrap class="order_class"> ¥{{item.amount_untaxed}}</div>
+    <div text-wrap class="order_class"> ¥{{fmoney(transInt(item.amount_untaxed), 3)}}</div>
     <div class="left_label"> 未含税金额 </div>
   </ion-item>
   <ion-item no-lines class="item_class">
-    <div text-wrap class="order_class"> ¥{{item.amount_tax}} </div>
+    <div text-wrap class="order_class"> ¥{{fmoney(transInt(item.amount_tax), 3)}} </div>
     <div class="left_label"> 税金 </div>
   </ion-item>
   <ion-item no-lines class="item_class">
-    <div text-wrap class="order_class_spec"> ¥{{item.amount_total}} </div>
+    <div text-wrap class="order_class_spec"> ¥{{fmoney(transInt(item.amount_total), 3)}} </div>
     <div class="left_label"> 总计 </div>
   </ion-item>
   <ion-item no-lines class="item_class">
-    <div text-wrap class="order_class"> ¥{{item.residual}} </div>
+    <div text-wrap class="order_class"> ¥{{fmoney(transInt(item.residual), 3)}} </div>
     <div class="left_label"> 截止金额 </div>
   </ion-item>
   <div class="bx_detail_class">
@@ -71,7 +71,7 @@
           {{items.name}}
         </div>
         <div class="dk_right_class">
-          ¥{{items.amount}}
+          ¥{{fmoney(transInt(items.amount), 3)}}
         </div>
       </div>
     </div>

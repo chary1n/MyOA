@@ -101,7 +101,6 @@ export class SearchGpsPage {
                         borderRadius: "20px",
                       });
                       label.addEventListener("click", function () {
-
                         if (self.is_need_back) {
                           self.frontPage.data.need_update_shop = true
                           self.frontPage.data.visit_shop_id = res.result.res_data[i].shop_id

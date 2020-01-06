@@ -229,4 +229,68 @@ export class ChooseLocationPage {
     this.navCtrl.pop()
   }
 
+  reload_location(){
+    this.pois_list = []
+    this.kaoQinService.get_user_regular({'uid':this.user.user_id}).then(reg => {
+      console.log(reg.result.res_data.distance)
+      if (reg.result.res_data && reg.result.res_code == 1) {
+        if (this.platform.is("android")) {
+          GaoDe.getCurrentPosition((success) => {
+            var that = this
+            console.log('gaode', success);
+            this.kaoQinService.trans_location(success.latitude, success.longitude).then(res => {
+              this.kaoQinService.get_location_now(res.result[0].y, res.result[0].x,reg.result.res_data.distance).then(res_location => {
+                console.log(reg.result.res_data.distance)
+                // console.log(res_location.result.pois[0].addr)
+                // that.location_str = res_location.result.pois[0].addr
+                // that.pois_list = res_location.result.pois
+                for (let item_new of res_location.result.pois) {
+                    if (new RegExp(reg.result.res_data.name).test(item_new.name)) {
+                      that.pois_list.push(item_new)
+                    }
+                  }
+                for (let item of that.pois_list) {
+                  that.select_list.push("0")
+                }
+                that.select_list[0] = "1"
+                that.select_index = 0
+              })
+            })
+          }, (error) => {
+            console.log('Error getting location', error);
+          });
+        } else {
+          this.geolocation.getCurrentPosition()
+            .then((resp) => {
+              console.log(resp.coords.latitude)
+              console.log(resp.coords.longitude)
+              this.kaoQinService.trans_location_ios(resp.coords.latitude, resp.coords.longitude).then(res => {
+                // console.log(res)
+                var that = this
+                this.kaoQinService.get_location_now(res.result[0].y, res.result[0].x,reg.result.res_data.distance).then(res_location => {
+                  // console.log(res_location.result.pois[0].addr)
+                  // that.location_str = res_location.result.pois[0].addr
+
+                  for (let item_new of res_location.result.pois) {
+                    if (new RegExp(reg.result.res_data.name).test(item_new.name)) {
+                      that.pois_list.push(item_new)
+                    }
+                  }
+                  // that.pois_list = res_location.result.pois
+                  for (let item of that.pois_list) {
+                    that.select_list.push("0")
+                  }
+                  that.select_list[0] = "1"
+                  that.select_index = 0
+                })
+              })
+            }).catch((error) => {
+              console.log('Error getting location', error);
+            })
+
+        }
+      }
+    })
+  }
+
 }

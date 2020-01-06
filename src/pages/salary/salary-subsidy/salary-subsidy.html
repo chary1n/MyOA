@@ -1,0 +1,36 @@
+<!--
+  Generated template for the SalarySubsidyPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header no-border>
+  <ion-navbar color="gongdan-color" hideBackButton="true">
+    <ion-buttons left>
+      <button ion-button icon-only (click)="goBack()">
+        <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>补贴</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content style="background-color: #f0f2f5;">
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <ion-list>
+    <div *ngFor='let item of wait_approval_list;let i = index'>
+      <ion-item no-lines [ngClass]="{true:'item_empty_class',false:'item_class'}[i == 0]" tappable
+        (click)='approved_detail(item)'>
+        <h4 text-wrap class="rt_name_class">
+          <span>
+            {{item.employee_name}} / {{item.department_name}}
+          </span>
+        </h4>
+        <p text-wrap class="state_class">金额：{{fmoney(transInt(item.amount_total),3)}} </p>
+        <p text-wrap class="money_class">发放月份：{{item.rt_month}} </p>
+      </ion-item>
+    </div>
+  </ion-list>
+</ion-content>

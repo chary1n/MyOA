@@ -7,9 +7,9 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { AppAvailability } from '@ionic-native/app-availability';
 import { WebIntent } from "@ionic-native/web-intent";
 import { EmployeeService } from './../../add-employee/EmployeeService';
-
+import { Clipboard } from '@ionic-native/clipboard/ngx';
 declare let startApp: any;
-
+declare let cordova: any;
 /**
  * Generated class for the ManagerEmployeeDetailPage page.
  *
@@ -20,7 +20,7 @@ declare let startApp: any;
 @Component({
   selector: 'page-manager-employee-detail',
   templateUrl: 'manager-employee-detail.html',
-  providers: [CallNumber, AppAvailability, WebIntent, EmployeeService],
+  providers: [CallNumber, AppAvailability, WebIntent, EmployeeService,Clipboard],
 })
 export class ManagerEmployeeDetailPage {
   detail_type = 'hr_info'
@@ -28,15 +28,26 @@ export class ManagerEmployeeDetailPage {
   origin_data
   origin_email
   origin_identification_id
+  me_enter
   constructor(public navCtrl: NavController, public navParams: NavParams, public callNumber: CallNumber,
     public alertCtrl: AlertController, public toast: ToastController, private appAvailability: AppAvailability,
     public platform: Platform, private webintent: WebIntent, public actionSheetCtrl: ActionSheetController, public employeeService: EmployeeService,
-    public loading: LoadingController,) {
-    this.item = this.navParams.get("item")
-    this.origin_data = this.navParams.get("origin_data")
-    console.log(this.item)
-    this.origin_email = this.item.work_email
-    this.origin_identification_id = this.item.identification_id
+    public loading: LoadingController, public clipboard: Clipboard) {
+    this.me_enter = this.navParams.get('me_enter')
+    if (this.me_enter) {
+      this.item = {}
+      this.employeeService.get_me_info({'uid':this.navParams.get('uid') }).then(res => {
+        if (res.result && res.result.res_code == 1) {
+          this.item = res.result.res_data
+        }
+      })
+    } else {
+      this.item = this.navParams.get("item")
+      this.origin_data = this.navParams.get("origin_data")
+      console.log(this.item)
+      this.origin_email = this.item.work_email
+      this.origin_identification_id = this.item.identification_id
+    }
   }
 
   ionViewDidLoad() {
@@ -197,7 +208,7 @@ export class ManagerEmployeeDetailPage {
     loading.present()
     setTimeout(() => {
       loading.dismissAll()
-    },200)
+    }, 200)
     this.navCtrl.push('EditEmployeeInfoPage', {
       'item': this.item,
     })
@@ -212,5 +223,10 @@ export class ManagerEmployeeDetailPage {
       'employee_id': this.item.id,
       'is_system_salary': is_salary
     })
+  }
+
+  click_dump_code(code){
+    Utils.toastButtom("已复制到粘贴板", this.toast)
+    cordova.plugins.clipboard.copy(code);
   }
 }

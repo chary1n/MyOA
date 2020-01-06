@@ -12,7 +12,7 @@
               <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
             </button>
     </ion-buttons>
-    <ion-title>资金日报</ion-title>
+    <ion-title>明细</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -38,7 +38,7 @@
         <div class="div_class">
           <div class="type_class">
             <span style="height:30px;line-height:30px;">
-              {{item.type + '￥'}}{{item.account}} 
+              {{item.type + '￥'}}{{fmoney(transInt(item.account),3)}} 
             </span>
             <span style="color:red;font-size:13px;">
               {{item.state_now}}

@@ -44,7 +44,7 @@
       <!--<ion-label class="item_label_class">
       </ion-label>-->
       <ion-label class="subtotal_class">
-        RMB：{{toFix(item.sub_total)}}
+        RMB：{{fmoney(transInt(item.sub_total),3)}}
       </ion-label>
     </ion-item>
   </div>
@@ -57,7 +57,7 @@
         折合人民币总计
       </div>
       <div class="footer_left_right_class">
-        {{toFix(total_amount)}}
+        {{fmoney(transInt(total_amount),3)}}
       </div>
     </div>
     <div tappable (click)="click_save()" class="footer_right_class">

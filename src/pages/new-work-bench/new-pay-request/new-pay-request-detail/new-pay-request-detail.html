@@ -57,7 +57,7 @@
     <div class="left_label"> 备注 </div>
   </div>
   <ion-item no-lines class="item_class">
-    <div text-wrap class="order_class_special"> 申请金额：¥{{item.show_amount}} </div>
+    <div text-wrap class="order_class_special"> 申请金额：¥{{fmoney(transInt(item.show_amount), 3)}} </div>
     <div class="left_label">  </div>
   </ion-item>
 
@@ -91,8 +91,8 @@
 
       </ion-item>
       <ion-item style="height:20px;min-height:20px" no-lines>
-        <div text-wrap class="list_right_class">待支付：¥{{fixTwo(items.residual_signed)}}</div>
-        <div class="list_left_class"> 总计：¥{{fixTwo(items.amount_total_signed)}} </div>
+        <div text-wrap class="list_right_class">待支付：¥{{fmoney(transInt(items.residual_signed), 3)}}</div>
+        <div class="list_left_class"> 总计：¥{{fmoney(transInt(items.amount_total_signed), 3)}} </div>
       </ion-item>
       
     </div>

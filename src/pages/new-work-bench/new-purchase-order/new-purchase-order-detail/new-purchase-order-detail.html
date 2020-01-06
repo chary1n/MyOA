@@ -70,7 +70,7 @@
     </div>
 
     <div class="div_all">
-      <div text-wrap class="div_right"> {{item.amount_untaxed}} </div>
+      <div text-wrap class="div_right"> {{fmoney(transInt(item.amount_untaxed),3)}} </div>
       <div class="left_label,div_left" text-right> 未含税金额 </div>
     </div>
 
@@ -80,7 +80,7 @@
     </div>
 
     <div class="div_all">
-      <div text-wrap class="div_right"> <span style="color:#e0540e">{{item.amount_total}}</span> </div>
+      <div text-wrap class="div_right"> <span style="color:#e0540e">{{fmoney(transInt(item.amount_total),3)}}</span> </div>
       <div class="left_label,div_left" text-right> 总计 </div>
     </div>
 

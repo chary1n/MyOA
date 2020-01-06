@@ -25,7 +25,7 @@
   </div>
   <div class="div_all">
     <div text-wrap class="div_right" style="font-weight:bold;color:#333333">
-      <span>{{toFix2(item.account)}}</span>
+      <span>{{fmoney(transInt(item.account), 3)}}</span>
       <span>{{item.currency_id}}</span>
     </div>
     <div class="left_label,div_left" text-right> 金额 </div>
@@ -42,7 +42,7 @@
     <div text-wrap class="div_right"> {{item.create_uid}} </div>
     <div class="left_label,div_left" text-right> 创建人 </div>
   </div>
-  <div class="div_all">
+  <!-- <div class="div_all">
     <div text-wrap class="div_right" *ngIf="item.state != 'wait'">
       <span>{{item.rate}}</span>
       <span>{{item.rate_text}}</span>
@@ -52,7 +52,7 @@
       <span style="line-height: 35px;">{{item.rate_text}}</span>
     </div>
     <div class="left_label,div_left" text-right> 收款汇率 </div>
-  </div>
+  </div> -->
   <div class="div_all" style="padding-bottom: 16px;">
     <div text-wrap class="div_right" *ngIf="item.state != 'wait'"> {{final_remark}} </div>
     <div text-wrap class="div_right_input" *ngIf="item.state == 'wait'">
@@ -100,12 +100,12 @@
     </ion-label>
     <img *ngIf="item.state == 'wait'" item-end src="assets/img/journal_sheet/right_icon.png" style="height:10px;margin-right:-4px">
   </ion-item>
-  <ion-item tappable (click)="choose_sale_order()" class="item_now_class">
+  <!-- <ion-item tappable (click)="choose_sale_order()" class="item_now_class">
     <ion-label class="label_class"> 销售订单<span style="color:red;" *ngIf="item.state == 'wait'"> *</span>
       <p class="new_p_class"> {{sale_order_name}} </p>
     </ion-label>
     <img *ngIf="item.state == 'wait'" item-end src="assets/img/journal_sheet/right_icon.png" style="height:10px;margin-right:-4px">
-  </ion-item>
+  </ion-item> -->
   <ion-item class="item_now_class" *ngIf="sale_order_id">
     <ion-label class="label_class"> 应收
       <p class="new_p_class" *ngIf="need_count != 0"> {{sale_order_currency_id}}{{toFix2(need_count)}}</p>

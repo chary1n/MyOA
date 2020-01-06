@@ -7,6 +7,29 @@ export class SalaryService {
     constructor(private httpService: HttpService) {
 
     }
+    get_detail_bt(body){
+        return this.httpService.postBody("get_detail_bt", body);
+    }
+
+    get_approval_bt(body){
+        return this.httpService.postBody("get_approval_bt", body);
+    }
+
+    confirm_salary_action(body){
+        return this.httpService.postBody("confirm_salary_action", body);
+    }
+
+    refuse_salary_action(body){
+        return this.httpService.postBody("refuse_salary_action", body);
+    }
+
+    get_detail_tc(body){
+        return this.httpService.postBody("get_detail_tc", body);
+    }
+
+    get_approval_tc(body){
+        return this.httpService.postBody("get_approval_tc", body);
+    }
 
     get_approval_num(body){
         return this.httpService.postBodyNoLoading("get_approval_num", body);

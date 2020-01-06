@@ -37,7 +37,7 @@
 
       <div class="totalStyleRight" style="overflow:hidden">
         <p class="p_class_po" text-wrap text-right>汇总数量：{{item.amount_total}}</p>
-        <p class="p_class_po" text-wrap text-right>汇总金额(元):{{toFix(item.product_count)}}</p>
+        <p class="p_class_po" text-wrap text-right>汇总金额(元):{{fmoney(transInt(item.product_count),3)}}</p>
       </div>
       <p class="p_class_po" text-wrap>采购团队：{{item.team_name}}</p>
       <p class="p_class_po" text-wrap>负责人：{{item.creater}}</p>

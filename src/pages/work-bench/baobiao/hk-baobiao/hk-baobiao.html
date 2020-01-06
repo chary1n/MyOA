@@ -1,9 +1,3 @@
-<!--
-  Generated template for the HkBaobiaoPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header no-border>
 
   <ion-navbar color="gongdan-color" hideBackButton="true">
@@ -12,43 +6,89 @@
         <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
       </button>
     </ion-buttons>
-    <ion-title>{{items.name}}</ion-title>
-    <img tappable (click)='click_more()' style="float:right;margin-right:5px;width:30px;" src="assets/img/more_btn_white.png" />
+    <ion-title>香港账户</ion-title>
   </ion-navbar>
 
 </ion-header>
-
-
 <ion-content style="background:#f7f7f7">
-  <div align="center" style="width:100%;height:120px;background:#2597ec">
-    <p text-wrap style="width:65px;float:left;color:white;margin-left:30px;margin-top:40px">
-      余额合计人民币
-    </p>
-    <h1 style="float:right;color:white;margin-right:20px;margin-top:45px;width:200px;text-align:left">{{fmoney(transInt(items.total_amount),3)}}</h1>
-  </div>
-  <ion-list style="margin-top:10px">
-    <div *ngFor="let item of items.line_ids">
-    <div class="left_div" style="border-bottom: 1px solid #e7e5e7;">
-    <div class="left_btn">
-    </div>
-    <p class="left_p" >{{item.name}}</p> 
-  </div>
-  <div class="right_div" style="border-bottom: 1px solid #e7e5e7">
-    <div style="width:33%;height:60px;float:left">
-      <p style="margin-top:7px;text-align:center;color:gray;">金额<p>
-      <p style="margin-top:-13px;text-align:center;color:#1eabf1">{{fmoney(transInt(item.amount),3)}}</p>
-    </div>
-    <div style="width:67%;height:60px;float:right">
-        <div style="width:50%;height:60px;float:left">
-          <p style="margin-top:7px;text-align:center;color:gray;">汇率<p>
-          <p style="margin-top:-13px;text-align:center;color:#1eabf1">{{fmoney(transInt(item.rate),3)}}</p>
+  <ion-list style="background-color:#2597ec">
+    <ion-item style="background:#2597ec; text-align: center;">
+      <span style="color:white" tappable (click)="click_delete_day()"> {{"<"}} </span>
+      <span style="color:white">{{show_date}}</span>
+      <span style="color:white" tappable (click)="click_add_day()"> {{">"}} </span>
+    </ion-item>
+    <div no-lines style="background:#2597ec;height:52px">
+      <div style="height:52px;width:50%;float:left" align="center" tappable (click)="click_total_enter_total()">
+        <div style="background-color:#3fd5c5;width:10px;height:10px;float:left;margin-top:22px;margin-left:16px">
         </div>
-        <div style="width:50%;height:60px;float:right">
-          <p style="margin-top:7px;text-align:center;color:gray;">人民币<p>
-          <p style="margin-top:-13px;text-align:center;color:#1eabf1">{{fmoney(transInt(item.sub_total),3)}}</p>
+        <p style="margin-top:17px;color:white;margin-left:33px;text-align:left">收入 ¥{{fmoney(transInt(item.debit_all))}}
+        </p>
+      </div>
+      <div style="height:52px;width:50%;float:right" tappable (click)="click_total_out_total()">
+        <div style="background-color:#fec564;width:10px;height:10px;float:left;margin-top:22px">
         </div>
-    </div>
-  </div>
+        <p style="margin-top:17px;color:white;margin-left:17px;text-align:left">支出 ¥{{fmoney(transInt(item.credit_all))}}
+        </p>
+      </div>
+
     </div>
   </ion-list>
+  <ion-grid class="row_class">
+    <ion-row align-items-center>
+      <ion-col>
+        <div align="center">
+          <p class="first_class">期初</p>
+          <p text-wrap class="second_class">¥{{fmoney(transInt(item.last_day_balance_all),3)}}</p>
+        </div>
+      </ion-col>
+      <ion-col>
+        <div align="center">
+          <p class="first_class">期末</p>
+          <p text-wrap class="second_class">¥{{fmoney(transInt(item.balance_all),3)}}</p>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-item-group style="background:white;" *ngFor="let items of item.account_list;">
+    <ion-list-header color="light" style="min-height:1px;height:10px;"></ion-list-header>
+    <ion-grid style="border-bottom: 1px solid #e7e5e7;">
+      <ion-row style="height:30px;">
+        <ion-col col-auto>
+        </ion-col>
+        <ion-col style="display: inline-block;">
+          <ion-label style="margin-top:0px;display: inline-block;" text-wrap>{{items.name}}
+          </ion-label>
+          <ion-label style="margin-top:0px;float: right;" text-wrap>汇率：{{toFix2(items.rate)}}</ion-label>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <div class="left_div" style="border-right: 1px solid #e7e5e7;border-bottom: 1px solid #e7e5e7;">
+      <div class="left_btn">
+      </div>
+      <p class="left_p" tappable (click)="click_total_enter_account(items)">收 {{items.symbol}}{{fmoney(transInt(items.debit),3)}}</p>
+      <div class="right_btn">
+      </div>
+      <p class="right_p" tappable (click)="click_total_out_account(items)">支 {{items.symbol}}{{fmoney(transInt(items.credit),3)}}</p>
+    </div>
+    <div class="right_div" style="border-bottom: 1px solid #e7e5e7">
+      <div style="width:100%;height:60px;">
+        <div style="width:50%;height:60px;float:left">
+          <p class="sub_title_class">外币
+          </p>
+              <p style="margin-top:-10px;text-align:center;font-size:11px;color:#2597ec">
+                初 {{items.symbol}}{{fmoney(transInt(items.last_day_balance),3)}}</p>
+                <p style="margin-top:-11px;text-align:center;font-size:11px;color:#2597ec">
+                    末 {{items.symbol}}{{fmoney(transInt(items.balance),3)}}</p>
+        </div>
+        <div style="width:50%;height:60px;float:right">
+          <p class="sub_title_class">人民币
+          </p>
+              <p style="margin-top:-10px;text-align:center;font-size:11px;color:#2597ec">
+                  初 ¥{{fmoney(transInt(items.last_day_local_balance),3)}}</p>
+                <p style="margin-top:-11px;text-align:center;font-size:11px;color:#2597ec">
+                    末 ¥{{fmoney(transInt(items.local_balance),3)}}</p>
+        </div>
+      </div>
+    </div>
+  </ion-item-group>
 </ion-content>

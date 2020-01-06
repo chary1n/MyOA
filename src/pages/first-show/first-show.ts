@@ -1,6 +1,6 @@
 import { Storage } from '@ionic/storage';
 import { FirstShowService } from './first_service';
-import { IonicPage, NavController, NavParams, FabContainer, MenuController, Events,AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, FabContainer, MenuController, Events, AlertController } from 'ionic-angular';
 import { Component, ViewChild } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -68,6 +68,10 @@ export class FirstShowPage {
   offer_num = 0 //审核offer
   intp_num = 0
   adjust_num = 0
+  purchase_account_num = 0
+  salary_allowance_count = 0
+  salary_allowance_jx_count = 0
+  salary_subsidy_count = 0
 
   isShowApprovalPoint = false
   all_approval = 0//审批总和
@@ -94,9 +98,9 @@ export class FirstShowPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, private datePipe: DatePipe,
     private firshowService: FirstShowService, public storage: Storage,
     public statusBar: StatusBar, public menu: MenuController, public event: Events,
-    public appService: AppService, public platform:Platform, public inAppBrowser:InAppBrowser,
-    public ctrl: AlertController, public appVersion:AppVersion, public nativeService:NativeService,
-    public firService:FirService) {
+    public appService: AppService, public platform: Platform, public inAppBrowser: InAppBrowser,
+    public ctrl: AlertController, public appVersion: AppVersion, public nativeService: NativeService,
+    public firService: FirService) {
     this.storage.get('user').then(res => {
       this.user_heard = res.result.res_data.user_ava;
       this.uid = res.result.res_data.user_id;
@@ -183,7 +187,7 @@ export class FirstShowPage {
       this.getiOSVersionNumber();
     }
 
-  
+
   }
 
 
@@ -648,11 +652,11 @@ export class FirstShowPage {
       //   }
       // })
       this.navCtrl.push('MeetingProjectPage', {
-            'item_id': item.id,
-            'isEdit': false,
-            'uid': this.uid,
-            'frontPage': 'FirstShowPage'
-          })
+        'item_id': item.id,
+        'isEdit': false,
+        'uid': this.uid,
+        'frontPage': 'FirstShowPage'
+      })
     }
     else {
       if (item.res_model_s == 'rt.performance.appraisal.detail' && item.res_id != false) {
@@ -670,46 +674,18 @@ export class FirstShowPage {
         })
       } else {
         if (this.type_id == item.type_id && item.is_meeting_sch == false) {
-          // this.firshowService.get_event_detail({
-          //   'uid': this.uid,
-          //   'event_id': item.id
-          // }).then(res => {
-          //   if (res.result.res_data && res.result.res_code == 1) {
-          //     item = res.result.res_data
-          //     this.navCtrl.push('MeetingPage', {
-          //       'meeting_id': item.rt_meeeting_s_id,
-          //       'isEdit': false,
-          //       'uid': this.uid,
-          //       'frontPage': 'FirstShowPage'
-          //     })
-          //   }
-          // })
           this.navCtrl.push('MeetingPage', {
-                'item_id': item.id,
-                'isEdit': false,
-                'uid': this.uid,
-                'frontPage': 'FirstShowPage'
-              })
+            'item_id': item.id,
+            'isEdit': false,
+            'uid': this.uid,
+            'frontPage': 'FirstShowPage'
+          })
         } else {
           this.navCtrl.push('CalendarDeatilpagePage', {
-                'item_id': item.id,
-                'isEdit': false,
-                'frontPage': 'FirstShowPage'
-              })
-          // this.firshowService.get_event_detail({
-          //   'uid': this.uid,
-          //   'event_id': item.id
-          // }).then(res => {
-          //   if (res.result.res_data && res.result.res_code == 1) {
-          //     item = res.result.res_data
-          //     this.navCtrl.push('CalendarDeatilpagePage', {
-          //       'item': item,
-          //       'isEdit': false,
-          //       'frontPage': 'FirstShowPage'
-          //     })
-          //   }
-          // })
-
+            'item_id': item.id,
+            'isEdit': false,
+            'frontPage': 'FirstShowPage'
+          })
         }
       }
     }
@@ -870,7 +846,11 @@ export class FirstShowPage {
         this.offer_num = res.result.res_data.offer_num
         this.intp_num = res.result.res_data.intp_num
         this.adjust_num = res.result.res_data.adjust_num
-        this.all_approval = this.recoup_num + this.vacation_num + this.jk_num + this.bx_num + this.yf_num + this.sg_num + this.caigou_num + this.tousu_num + this.pay_num + this.gongcheng_num + this.salary_approval_num + this.salary_adjust_approval_num + this.dimission_num + this.offer_num + this.adjust_num + this.intp_num
+        this.purchase_account_num = res.result.res_data.purchase_account_num
+        this.salary_allowance_count = res.result.res_data.salary_allowance_count
+        this.salary_subsidy_count = res.result.res_data.salary_subsidy_count
+        this.salary_allowance_jx_count = res.result.res_data.salary_allowance_jx_count
+        this.all_approval = this.salary_allowance_jx_count + this.salary_allowance_count + this.salary_subsidy_count + this.recoup_num + this.vacation_num + this.jk_num + this.bx_num + this.yf_num + this.sg_num + this.caigou_num + this.tousu_num + this.pay_num + this.gongcheng_num + this.salary_approval_num + this.salary_adjust_approval_num + this.dimission_num + this.offer_num + this.adjust_num + this.intp_num + this.purchase_account_num
         if (this.isShowCK) {
           this.all_approval += this.pandian_num
         }
@@ -966,16 +946,11 @@ export class FirstShowPage {
           'frontPage': 'AllSchedulePage',
         })
       } else {
-        // this.navCtrl.push('CalendarDeatilpagePage', {
-        //   'item': sub,
-        //   'isEdit': false,
-        //   'frontPage': 'AllSchedulePage',
-        // })
         this.navCtrl.push('CalendarDeatilpagePage', {
-                'item_id': sub.id,
-                'isEdit': false,
-                'frontPage': 'FirstShowPage'
-              })
+          'item_id': sub.id,
+          'isEdit': false,
+          'frontPage': 'FirstShowPage'
+        })
       }
     }
   }
@@ -1151,20 +1126,40 @@ export class FirstShowPage {
     this.inAppBrowser.create(url, '_system');
   }
 
-  toLiZhi(){
+  toLiZhi() {
     this.navCtrl.push('LeaveWorkPage')
   }
 
-  toOffer(){
+  toOffer() {
     this.navCtrl.push('ApplicantOfferApprovePage')
   }
 
-  toINTP(){
+  toINTP() {
     this.navCtrl.push('IntpPage')
   }
 
-  to_adjust_department(){
+  to_adjust_department() {
     this.navCtrl.push('AdjustDepartmentPage')
+  }
+
+  toPurchaseAccount() {
+    this.navCtrl.push('PurchaseAccountApprovalPage')
+  }
+
+  toTCD(){
+    this.navCtrl.push('SalaryAllowancePage', {
+      'type': '2'
+    })
+  }
+
+  toBTD(){
+    this.navCtrl.push('SalarySubsidyPage')
+  }
+
+  toJXJD(){
+    this.navCtrl.push('SalaryAllowancePage', {
+      'type': '1'
+    })
   }
 
 }

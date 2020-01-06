@@ -64,7 +64,8 @@ export class LoginPage {
     public jpush: JPush, public urlServer: UrlServer, public ctrl: AlertController, private inAppBrowser: InAppBrowser,
     public firService: FirService, private nativeService: NativeService, public toastCtrl: ToastController, public splashScreen: SplashScreen
   ) {
-    
+    // this.email = 'xuefeng.sun@robotime.com'
+    // this.password = '123456789'
   }
 
   getVersionNumber(): Promise<string> {

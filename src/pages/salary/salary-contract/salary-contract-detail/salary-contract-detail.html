@@ -64,15 +64,15 @@
       <div class="left_label,div_left" text-right> 备注 </div>
     </div>
     <div class="div_all">
-      <div text-wrap class="div_right_spec"> {{toFix4(item.rt_salary_total_before)}}</div>
+      <div text-wrap class="div_right_spec"> {{fmoney(transInt(item.rt_salary_total_before),3)}}</div>
       <div class="left_label,div_left" text-right> 税前工资 </div>
     </div>
     <div class="div_all">
-      <div text-wrap class="div_right_spec"> {{toFix4(item.rt_salary_total)}}</div>
+      <div text-wrap class="div_right_spec"> {{fmoney(transInt(item.rt_salary_total),3)}}</div>
       <div class="left_label,div_left" text-right> 税后所得 </div>
     </div>
     <div class="div_all_final">
-      <div text-wrap class="div_right_spec"> {{toFix4(item.rt_company_total)}}</div>
+      <div text-wrap class="div_right_spec"> {{fmoney(transInt(item.rt_company_total),3)}}</div>
       <div class="left_label,div_left" text-right> 公司成本 </div>
     </div>
   </div>

@@ -50,7 +50,7 @@
   </ion-item>
 
   <ion-item no-lines class="item_class">
-    <div text-wrap class="order_class_special"> {{item.total_amount}} </div>
+    <div text-wrap class="order_class_special"> {{fmoney(transInt(item.total_amount),3)}} </div>
     <div class="left_label"> 金额总计 </div>
   </ion-item>
   
@@ -79,7 +79,7 @@
       <ion-item [ngClass]="{true:'item_empty_class',false:'item_10px_class'}[i == 0]">
         <div class="detail_div">
           <span class="type_class">● {{items.product_id.name}}</span>
-          <span class="unit_amount_class">金额：￥{{items.price_unit}}</span>
+          <span class="unit_amount_class">金额：￥{{fmoney(transInt(items.price_unit),3)}}</span>
         </div>
 
         <p text-wrap class="yongtu_class">消费用途：{{items.name}}</p>

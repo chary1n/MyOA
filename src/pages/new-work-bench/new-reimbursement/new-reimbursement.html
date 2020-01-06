@@ -54,7 +54,7 @@
             </span>
           </h4>
           <p text-wrap class="state_class"> {{item.state}} </p>
-          <p text-wrap class="money_class">金额总计(元)：{{item.amount}} </p>
+          <p text-wrap class="money_class">金额总计(元)：{{fmoney(transInt(item.amount),3)}} </p>
           <p text-wrap class="department_class">部门：{{item.department}} </p>
           <p text-wrap class="department_class">费用类别：{{item.product_id}} </p>
         </ion-item>
@@ -81,7 +81,7 @@
             </span>
           </h4>
           <p text-wrap class="state_class"> {{item.state}} </p>
-          <p text-wrap class="money_class">金额总计(元)：{{item.amount}} </p>
+          <p text-wrap class="money_class">金额总计(元)：{{fmoney(transInt(item.amount),3)}} </p>
           <p text-wrap class="department_class">部门：{{item.department}} </p>
           <p text-wrap class="department_class">费用类别：{{item.product_id}} </p>
         </ion-item>
@@ -101,7 +101,7 @@
           <p text-wrap class="time_class">{{changeDate(item.create_date) | date:'yyyy-MM-dd'}}</p>
           <h4 text-wrap class="rt_name_class">{{item.expense_name}}</h4>
           <p text-wrap class="state_class"> {{item.state}} </p>
-          <p text-wrap class="money_class">金额总计(元)：{{item.amount}} </p>
+          <p text-wrap class="money_class">金额总计(元)：{{fmoney(transInt(item.amount),3)}} </p>
           <p text-wrap class="department_class">部门：{{item.department}} </p>
           <p text-wrap class="department_class">费用类别：{{item.product_id}} </p>
         </ion-item>

@@ -27,6 +27,8 @@ export class BaobiaoDetailLinePage {
   header_name
   header_amount
   header_type
+
+  date;
   constructor(public navCtrl: NavController, public navParams: NavParams, public baoBiaoService:BaoBiaoService) {
     this.user_id = this.navParams.get('user_id')
     this.type = this.navParams.get('type')
@@ -34,6 +36,7 @@ export class BaobiaoDetailLinePage {
     this.header_name = this.navParams.get('header_name')
     this.header_amount = this.navParams.get('header_amount')
     this.header_type = this.navParams.get('header_type')
+    this.date = this.navParams.get('date')
     this.reload_data(null)
   }
 
@@ -59,6 +62,7 @@ export class BaobiaoDetailLinePage {
       'type': this.type,
       'limit': this.limit,
       'offset': this.offset,
+      'date': this.date,
     }
     if (this.account_id){
       body['account_id'] = this.account_id
@@ -78,6 +82,26 @@ export class BaobiaoDetailLinePage {
       user_id: HttpService.user_id,
       item: item,
     })
+  }
+
+  fmoney(s, n)   
+  {   
+   n = n > 0 && n <= 20 ? n : 2;   
+   s = parseFloat((s + "").replace(/[^\d\.-]/g, "")).toFixed(n) + "";   
+   var l = s.split(".")[0].split("").reverse(),   
+   r = s.split(".")[1].substr(0,2);   
+   let t = ""; 
+   let i;  
+   for(i = 0; i < l.length; i ++ )   
+   {   
+      t += l[i] + ((i + 1) % 3 == 0 && (i + 1) != l.length ? "," : "");   
+   }   
+   
+   return t.split("").reverse().join("") + "." + r;   
+  } 
+
+  transInt(item){
+    return parseFloat(item).toFixed(2)
   }
 
 }

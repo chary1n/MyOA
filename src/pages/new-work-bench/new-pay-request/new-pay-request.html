@@ -39,7 +39,7 @@
         <ion-item no-lines [ngClass]="{true:'item_empty_class',false:'item_class'}[i == 0]" tappable (click)='approved_detail(item)'>
           <p text-wrap class="time_class">{{changeState(item.state)}}</p>
           <h4 text-wrap class="rt_name_class"><span>{{item.name}}</span> <span style="margin-left:10px;font-size:11px;">{{changeType(item.payment_type)}}</span></h4>
-          <p text-wrap class="state_class"> ¥{{item.show_amount}} </p>
+          <p text-wrap class="state_class"> ¥{{fmoney(transInt(item.show_amount), 3)}} </p>
           <p text-wrap class="money_class"><span>创建人:{{item.create_uid}}</span> <span style="margin-left:10px;">{{changeDate(item.create_date) | date:'yyyy-MM-dd'}}</span></p>
           <p text-wrap class="department_class">供应商：{{item.partner_id.partner_name}} </p>
         </ion-item>
@@ -58,7 +58,7 @@
         <ion-item no-lines [ngClass]="{true:'item_empty_class',false:'item_class'}[i == 0]" tappable (click)='approved_detail(item)'>
           <p text-wrap class="time_class">{{changeState(item.state)}}</p>
           <h4 text-wrap class="rt_name_class"><span>{{item.name}}</span> <span style="margin-left:10px;font-size:11px;">{{changeType(item.payment_type)}}</span></h4>
-          <p text-wrap class="state_class"> ¥{{item.show_amount}} </p>
+          <p text-wrap class="state_class"> ¥{{fmoney(transInt(item.show_amount), 3)}} </p>
           <p text-wrap class="money_class"><span>创建人:{{item.create_uid}}</span> <span style="margin-left:10px;">{{changeDate(item.create_date) | date:'yyyy-MM-dd'}}</span></p>
           <p text-wrap class="department_class">供应商：{{item.partner_id.partner_name}} </p>
         </ion-item>
@@ -77,7 +77,7 @@
         <ion-item no-lines [ngClass]="{true:'item_empty_class',false:'item_class'}[i == 0]" tappable (click)='approved_detail(item)'>
           <p text-wrap class="time_class">{{changeState(item.state)}}</p>
           <h4 text-wrap class="rt_name_class"><span>{{item.name}}</span> <span style="margin-left:10px;font-size:11px;">{{changeType(item.payment_type)}}</span></h4>
-          <p text-wrap class="state_class"> ¥{{item.show_amount}} </p>
+          <p text-wrap class="state_class"> ¥{{fmoney(transInt(item.show_amount), 3)}} </p>
           <p text-wrap class="money_class"><span>创建人:{{item.create_uid}}</span> <span style="margin-left:10px;">{{changeDate(item.create_date) | date:'yyyy-MM-dd'}}</span></p>
           <p text-wrap class="department_class">供应商：{{item.partner_id.partner_name}} </p>
         </ion-item>

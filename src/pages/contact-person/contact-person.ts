@@ -4,6 +4,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ContactService } from './contact-persionService'
 import { Storage } from '@ionic/storage';
 import { StatusBar } from '@ionic-native/status-bar';
+import { ContactPersonAutoService } from './contactPersonAutoService'
 import 'jquery'
 declare var $: any;
 declare let cordova: any;
@@ -18,7 +19,7 @@ declare let cordova: any;
 @Component({
   selector: 'page-contact-person',
   templateUrl: 'contact-person.html',
-  providers: [ContactService, EmployeeService]
+  providers: [ContactService, EmployeeService, ContactPersonAutoService]
 })
 export class ContactPersonPage {
   departmentList;
@@ -40,18 +41,23 @@ export class ContactPersonPage {
   setting
   zNodes = []
   tree_obj
+  originNodes = []
 
   is_hr_manager_enter = false; // 是否从花名册进入
 
   title = '通讯录'
+
+  can_show_total = true;
+
+  select_arr = []
   constructor(public navCtrl: NavController, public navParams: NavParams, public contactService: ContactService,
     public employeeService: EmployeeService,
-    public storage: Storage, public statusbar: StatusBar) {
+    public storage: Storage, public statusbar: StatusBar, public contactPersonAutoService: ContactPersonAutoService) {
     this.showAll = "YES";
     this.limit = 20;
     this.offset = 0
     this.is_hr_manager_enter = this.navParams.get('is_hr_manager_enter')
-    if (this.is_hr_manager_enter){
+    if (this.is_hr_manager_enter) {
       this.title = '花名册'
     }
 
@@ -162,6 +168,7 @@ export class ContactPersonPage {
         this.employeeService.get_all_department_tree_loading({ 'uid': this.uid, 'need_total': false }).then(res => {
           if (res.result.res_data && res.result.res_code == 1) {
             this.zNodes = res.result.res_data
+            this.originNodes = res.result.res_data
             $.fn.zTree.init($("#ztree_employee"), this.setting, this.zNodes);
             var zTree = $.fn.zTree.getZTreeObj("ztree_employee");
 
@@ -171,7 +178,7 @@ export class ContactPersonPage {
   }
 
   ionViewDidEnter() {
-    
+
 
   }
 
@@ -318,7 +325,7 @@ export class ContactPersonPage {
     //将找到的nodelist节点更新至Ztree内
     var final_arr = []
     if (event.target.value == 0) {
-      final_arr = this.zNodes
+      final_arr = this.originNodes
       $.fn.zTree.init($("#ztree_employee"), this.setting, final_arr);
 
     }
@@ -362,5 +369,81 @@ export class ContactPersonPage {
     this.navCtrl.pop()
   }
 
+  itemSelected(event) {
+    let type;
+    let search_text;
+    let data;
+    if (event.id == 1) {
+      data = 'name'
+      search_text = event.name.replace("搜 姓名：", "")
+    }
+    else if (event.id == 2) {
+      data = 'phone'
+      search_text = event.name.replace("搜 手机号：", "")
+    }
+    this.can_show_total = false
+    this.showAll = "YES";
+    $.fn.zTree.init($("#ztree_employee"), this.setting, this.originNodes);
+    var zTree = $.fn.zTree.getZTreeObj("ztree_employee");
+
+    var nodeList = zTree.getNodesByParamFuzzy(data, search_text);
+    //将找到的nodelist节点更新至Ztree内
+    var final_arr = []
+    if (search_text.length == 0) {
+      final_arr = this.originNodes
+      $.fn.zTree.init($("#ztree_employee"), this.setting, final_arr);
+    }
+    else {
+      setTimeout(() => {
+        this.select_arr = []
+        for (var i = 0; i < nodeList.length; i++) {
+          var node_one = nodeList[i]
+          var is_has = false
+          for (var j = 0; j < this.select_arr.length; j++) {
+            var select_one = this.select_arr[j]
+            if (node_one.name == select_one.name && node_one.phone == select_one.phone) {
+              is_has = true
+              break;
+            }
+          }
+          if (!is_has) {
+            this.select_arr.push(node_one)
+          }
+        }
+      }, 100)
+    }
+    cordova.plugins.Keyboard.close();
+
+  }
+
+  itemClearSelected(event) {
+    $.fn.zTree.init($("#ztree_employee"), this.setting, this.originNodes);
+    this.can_show_total = true
+    cordova.plugins.Keyboard.close();
+  }
+
+  gotoDeatil(one_data) {
+    this.employeeService.get_employee_info([one_data.res_id], false).then(res => {
+      console.log(res)
+      if (res.result && res.result.res_code == 1) {
+        if (!this.is_hr_manager_enter) {
+          this.navCtrl.push('EmployeeDetailPage', {
+            item: res.result.res_data[0],
+            origin_data: res.result.res_data[0],
+            id: one_data.res_id,
+            user_id: this.uid,
+          })
+        }
+        else {
+          this.navCtrl.push('ManagerEmployeeDetailPage', {
+            item: res.result.res_data[0],
+            origin_data: res.result.res_data[0],
+            id: one_data.res_id,
+            user_id: this.uid,
+          })
+        }
+      }
+    })
+  }
 
 }

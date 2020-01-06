@@ -47,7 +47,7 @@
           <p text-wrap style="float:right;color:#000000;font-size:80%;color:gray;margin-top: 2px;">{{item.apply_date}}</p>
           <h4 text-wrap style="font-size:80%;color:#000000;">{{item.name}} <span style="margin-left:10px"> {{item.employee}}</span></h4>
           <p text-wrap style="float:right;color:red;font-weight:bold;font-size:70%;"> {{changeState(item.state)}} </p>
-          <p text-wrap style="font-size:80%;color:gray">申请金额(元)：{{item.amount}} </p>
+          <p text-wrap style="font-size:80%;color:gray">申请金额(元)：{{fmoney(transInt(item.amount),3)}} </p>
         </ion-item>
       </div>
     </ion-list>
@@ -65,7 +65,7 @@
           <p text-wrap style="float:right;color:#000000;font-size:80%;color:gray;margin-top: 2px;">{{item.apply_date}}</p>
           <h4 text-wrap style="font-size:80%;color:#000000;">{{item.name}} <span style="margin-left:10px"> {{item.employee}}</span></h4>
           <p text-wrap style="float:right;color:red;font-weight:bold;font-size:70%;"> {{changeState(item.state)}} </p>
-          <p text-wrap style="font-size:80%;color:gray">申请金额(元)：{{item.amount}} </p>
+          <p text-wrap style="font-size:80%;color:gray">申请金额(元)：{{fmoney(transInt(item.amount),3)}} </p>
         </ion-item>
       </div>
     </ion-list>
@@ -84,7 +84,7 @@
           <p text-wrap style="float:right;color:#000000;font-size:80%;color:gray;margin-top: 2px;">{{item.apply_date}}</p>
           <h4 text-wrap style="font-size:80%;color:#000000;">{{item.name}} <span style="margin-left:10px"> {{item.employee}}</span></h4>
           <p text-wrap style="float:right;color:red;font-weight:bold;font-size:70%;"> {{changeState(item.state)}} </p>
-          <p text-wrap style="font-size:80%;color:gray">申请金额(元)：{{item.amount}} </p>
+          <p text-wrap style="font-size:80%;color:gray">申请金额(元)：{{fmoney(transInt(item.amount),3)}} </p>
         </ion-item>
       </div>
     </ion-list>

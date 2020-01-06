@@ -45,15 +45,15 @@
       <div class="left_label,div_left" text-right> 岗位 </div>
     </div>
     <div class="div_all">
-      <div text-wrap class="div_right_spec"> {{item.before_differ}}</div>
+      <div text-wrap class="div_right_spec"> {{fmoney(transInt(item.before_differ),3)}}</div>
       <div class="left_label,div_left" text-right> 税前工资调整额 </div>
     </div>
     <div class="div_all">
-      <div text-wrap class="div_right_spec"> {{item.after_differ}}</div>
+      <div text-wrap class="div_right_spec"> {{fmoney(transInt(item.after_differ),3)}}</div>
       <div class="left_label,div_left" text-right> 税后工资调整额 </div>
     </div>
     <div class="div_all_final">
-      <div text-wrap class="div_right_spec"> {{item.company_differ}}</div>
+      <div text-wrap class="div_right_spec"> {{fmoney(transInt(item.company_differ),3)}}</div>
       <div class="left_label,div_left" text-right> 公司成本调整额 </div>
     </div>
   </div>
@@ -88,15 +88,15 @@
       <div class="left_label,div_left" text-right> 备注 </div>
     </div>
     <div class="div_all">
-      <div text-wrap class="div_right_spec"> {{now_item.rt_salary_total_before}}</div>
+      <div text-wrap class="div_right_spec"> {{fmoney(transInt(now_item.rt_salary_total_before),3)}}</div>
       <div class="left_label,div_left" text-right> 税前工资 </div>
     </div>
     <div class="div_all">
-      <div text-wrap class="div_right_spec"> {{now_item.rt_salary_total}}</div>
+      <div text-wrap class="div_right_spec"> {{fmoney(transInt(now_item.rt_salary_total),3)}}</div>
       <div class="left_label,div_left" text-right> 税后所得 </div>
     </div>
     <div class="div_all_final">
-      <div text-wrap class="div_right_spec"> {{now_item.rt_company_total}}</div>
+      <div text-wrap class="div_right_spec"> {{fmoney(transInt(now_item.rt_company_total),3)}}</div>
       <div class="left_label,div_left" text-right> 公司成本 </div>
     </div>
   </div>

@@ -7,6 +7,11 @@ export class ContactService {
     constructor(private httpservice: HttpService) {
 
     }
+
+    get_me_info(body){
+        return this.httpservice.postBody("get_me_info",body)
+    }
+
     new_edit_employee(body){
         return this.httpservice.postBody("new_edit_employee",body)
     }

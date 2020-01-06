@@ -6,12 +6,12 @@
 -->
 <ion-header no-border>
 
-    <ion-navbar color="gongdan-color" hideBackButton="true">
-        <ion-buttons left>
-            <button ion-button icon-only (click)="goBack()">
-              <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
-            </button>
-        </ion-buttons>
+  <ion-navbar color="gongdan-color" hideBackButton="true">
+    <ion-buttons left>
+      <button ion-button icon-only (click)="goBack()">
+        <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
     <ion-title>调薪单审核</ion-title>
   </ion-navbar>
 
@@ -20,25 +20,26 @@
 
 <ion-content style="background-color: #f0f2f5">
   <ion-list>
-      <div *ngFor='let item of wait_approval_list;let i = index'>
-        <ion-item no-lines [ngClass]="{true:'item_empty_class',false:'item_class'}[i == 0]" tappable (click)='approved_detail(item)'>
-          <p text-wrap class="time_class">{{changeState(item.state)}}</p>
-          <h4 text-wrap class="rt_name_class">
-            <span>
-              {{item.employee_name}}
-            </span>
-            <span style="margin-left:10px">
-              {{item.name}}
-            </span>
-            <span style="margin-left:10px;color:#333333">
-              {{item.type}}
-            </span>
-          </h4>
-          <p text-wrap class="money_class">
-            <span>部门：{{item.department}}</span><span style="margin-left:10px">岗位：{{item.job}}</span>
-          </p>
-          <p text-wrap class="department_class">生效时间：{{item.active_time}} </p>
-        </ion-item>
-      </div>
-    </ion-list>
+    <div *ngFor='let item of wait_approval_list;let i = index'>
+      <ion-item no-lines [ngClass]="{true:'item_empty_class',false:'item_class'}[i == 0]" tappable
+        (click)='approved_detail(item)'>
+        <p text-wrap class="time_class">{{changeState(item.state)}}</p>
+        <h4 text-wrap class="rt_name_class">
+          <span>
+            {{item.employee_name}}
+          </span>
+          <span style="margin-left:10px">
+            {{item.name}}
+          </span>
+          <span style="margin-left:10px;color:#333333">
+            {{item.type}}
+          </span>
+        </h4>
+        <p text-wrap class="money_class">
+          <span>部门：{{item.department}}</span><span style="margin-left:10px">岗位：{{item.job}}</span>
+        </p>
+        <p text-wrap class="department_class">生效时间：{{item.active_time}} </p>
+      </ion-item>
+    </div>
+  </ion-list>
 </ion-content>

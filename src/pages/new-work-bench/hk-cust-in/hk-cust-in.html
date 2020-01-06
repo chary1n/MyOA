@@ -43,7 +43,7 @@
             </span>
         </h4>
         <p text-wrap class="money_class">
-          <span>金额：{{item.account}}</span><span style="margin-left:5px;">{{item.currency_id}}</span>
+          <span>金额：{{fmoney(transInt(item.account), 3)}}</span><span style="margin-left:5px;">{{item.currency_id}}</span>
         </p>
         <p text-wrap class="department_class">账户：{{item.hk_account_id}}</p>
       </ion-item>
@@ -62,7 +62,7 @@
           {{item.state_now}}
         </p>
         <p text-wrap class="money_class">
-          <span>金额：{{item.account}}</span><span style="margin-left:5px;">{{item.currency_id}}</span>
+          <span>金额：{{fmoney(transInt(item.account), 3)}}</span><span style="margin-left:5px;">{{item.currency_id}}</span>
         </p>
         <p text-wrap class="department_class">账户：{{item.hk_account_id}}</p>
       </ion-item>

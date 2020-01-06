@@ -1,0 +1,63 @@
+page-box-active {
+    .item_show{
+        // background:#2597ec; 
+        text-align: center;
+        border-bottom: solid 1px #f0f2f5;
+        min-height: 40px;
+    }
+
+    .span_show{
+        color:#333333;
+        font-size: 19px;
+    }
+
+    .item_class{
+        // margin-top: 10px;
+        // border-bottom: solid 1px #f0f2f5;
+    }
+
+    .item_empty_class{
+        // margin-top: 1px;
+        // border-bottom: solid 1px #f0f2f5;
+    }
+
+    .rt_name_class{
+        font-size: 80%;
+    margin-top: 5px;
+    margin-left: 5px;
+    line-height: 15px;
+    color: #333333;
+    }
+
+    .money_class{
+        font-size: 80%;
+    color: #333333;
+    margin-left: 4px;
+    margin-top: 10px;
+    }
+
+    .state_class{
+        font-size:80%;
+        float:right;
+        columns: #333333;;
+        font-weight:bold;
+        margin-top: 16px;
+    }
+
+    .item-ios.item-block .item-inner{
+        padding-right: 8px;
+        border-bottom: 1px solid #f0f2f5;
+    }
+
+    .big_span_class{
+        font-size: 16px; 
+        font-weight: bold; 
+        color: black
+    }
+
+    .bg_span_class{
+        font-size: 22px; 
+        font-weight: bold; 
+        color: #2597ec;
+    }
+}

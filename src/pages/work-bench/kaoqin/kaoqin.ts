@@ -994,4 +994,8 @@ export class KaoqinPage {
     })
   }
 
+  reload_location(){
+    
+  }
+
 }

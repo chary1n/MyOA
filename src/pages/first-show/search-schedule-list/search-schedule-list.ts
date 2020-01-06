@@ -39,7 +39,7 @@ export class SearchScheduleListPage {
       })
     } else {
       this.navCtrl.push('CalendarDeatilpagePage', {
-        'item': item,
+        'item_id': item.id,
         'isEdit': false,
         'frontPage': 'AllSchedulePage',
       })

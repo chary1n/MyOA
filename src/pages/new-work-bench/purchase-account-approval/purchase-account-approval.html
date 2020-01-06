@@ -1,0 +1,56 @@
+<!--
+  Generated template for the PurchaseAccountApprovalPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-content style="background-color:#f0f2f5">
+  <div ion-fixed class="div_header">
+    <div class="div_header_back">
+
+      <ion-auto-complete class="search_class" (itemSelected)="itemSelected($event)"
+        (itemClearSelected)="itemClearSelected($event)" [dataProvider]="purchaseAccountAutoService"></ion-auto-complete>
+      <button class="btn_class" tappable ion-button icon-only (click)="goBack()">
+        <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+      </button>
+    </div>
+    <div class="scroll_class" zooming="true" scrollX="true" align-items-center>
+      <div class="left_div" align="center" tappable (click)="click_wait()">
+        <div *ngIf="account_num > 0" align="center"
+          [ngClass]="{true:'big_number_class',false:'number_class'}[cust_in_num >= 10]">
+          {{cal_num(account_num)}}
+        </div>
+        <span [ngClass]="{true:'under_line_style',false:'normal_style'}[type == 'confirm']">待审核</span>
+      </div>
+      <div class="left_div" align="center" tappable (click)="click_done()">
+
+        <span [ngClass]="{true:'under_line_style',false:'normal_style'}[type == 'done']">全部单据</span>
+      </div>
+    </div>
+  </div>
+
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <ion-list style="margin-top: 100px;">
+    <ng-container *ngFor='let item of data_arr;let i = index'>
+      <ion-item no-lines [ngClass]="{true:'item_empty_class',false:'item_class'}[i == 0]" tappable
+        (click)='payment_detail(item)'>
+        <div style="overflow:hidden">
+          <p class="p_class_po" style="float:right;color:red;">{{item.state}}</p>
+          <p class="p_class_po" style="color: #333333;font-weight: bold;">{{item.number}}</p>
+        </div>
+        <div style="overflow:hidden">
+          <p class="p_class_po" style="float:right;width:180px;overflow: hidden;text-overflow: ellipsis;word-wrap: break-word;text-align: right">供应商：{{item.partner_id}}</p>
+          <p class="p_class_po" style="width:140px;overflow: hidden;text-overflow: ellipsis;word-wrap: break-word;text-align: left">总计：{{item.currency_symbol}}{{fmoney(transInt(item.amount_total_signed),3)}}</p>
+        </div>
+        <div style="overflow:hidden">
+          <p class="p_class_po" style="float:right;width:180px;overflow: hidden;text-overflow: ellipsis;word-wrap: break-word;text-align: right">账期：{{item.date_due}}</p>
+          <p class="p_class_po" style="width:140px;overflow: hidden;text-overflow: ellipsis;word-wrap: break-word;text-align: left">待支付：{{item.currency_symbol}}{{fmoney(transInt(item.residual_signed),3)}}</p>
+        </div>
+      </ion-item>
+    </ng-container>
+  </ion-list>
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>

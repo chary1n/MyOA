@@ -143,6 +143,13 @@
   </div>
 
   <div *ngIf="detail_type=='salary_info'" style="margin-top:10px;">
+    <div class="body_type_class">
+      <div class="shu_class">
+      </div>
+      <div class="title_class">
+        银行信息
+      </div>
+    </div>
     <div class="div_all">
       <div text-wrap class="div_right"> {{item.rt_acc_number}}</div>
       <div class="div_left"> 银行卡号 </div>
@@ -158,6 +165,28 @@
     <div class="div_all">
       <div text-wrap class="div_right"> {{item.rt_social_security_welfare_start_date}}</div>
       <div class="div_left"> 社保起始月 </div>
+    </div>
+
+    <div class="body_type_class" *ngIf='me_enter' style="margin-top: 10px;">
+      <div class="shu_class">
+      </div>
+      <div class="title_class">
+        福利
+      </div>
+      <div class="Row">
+        <div class="ColumnTitle">抽奖码</div>
+        <div class="ColumnTitle">是否抽奖</div>
+        <div class="ColumnTitle">是否领取</div>
+        <div class="ColumnTitle">奖品</div>
+      </div>
+      <ng-container *ngFor="let one_data of item.all_lottery_datas">
+        <div class="RowData">
+          <div class="Column" style="color: #2597ec" tappable (click)='click_dump_code(one_data.rt_lottery_code)'>{{one_data.rt_lottery_code}}</div>
+          <div class="Column">{{one_data.rt_is_lottery ? '是' : '否'}}</div>
+          <div class="Column">{{one_data.rt_is_give ? '是' : '否'}}</div>
+          <div class="Column">{{one_data.rt_lottery_setting_line_id }}</div>
+        </div>
+      </ng-container>
     </div>
   </div>
 
