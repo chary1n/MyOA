@@ -99,7 +99,6 @@ export class AllSchedulePage {
 
         this.event.subscribe('search_domain', (data) => {
             console.log(data)
-            // this.event.unsubscribe('search_domain')
             this.me_type = data.me_type
             this.state_type = data.state_type
             this.start_date = data.start_date

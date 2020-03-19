@@ -30,7 +30,7 @@
         </ion-col>
         <ion-col *ngIf="item.state == '审核中'" col-5 class="col_header_class_1">
           <span class="state_class_center">{{item.state}}</span>
-          <span class="state_class_center_block">{{item.to_approve_id}}</span>
+          <span class="state_class_center_block">{{item.to_approve_id_new}}</span>
         </ion-col>
         <ion-col *ngIf="item.state != '审核中'" col-5 class="col_header_class">
           <span class="state_class">{{item.state}}</span>
@@ -144,6 +144,13 @@
     </div>
     <div class="right_btn" tappable (click)='conform()'>
       同意
+    </div>
+  </div>
+</ion-footer>
+<ion-footer *ngIf='!isShowFooter && can_show_reback'>
+  <div class="footer_class">
+    <div class="full_btn" tappable (click)='reback()'>
+      撤回
     </div>
   </div>
 </ion-footer>

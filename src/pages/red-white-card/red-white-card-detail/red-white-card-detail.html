@@ -1,0 +1,113 @@
+<!--
+  Generated template for the RedWhiteCardDetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header no-border>
+
+  <ion-navbar color="gongdan-color" hideBackButton="true">
+    <ion-buttons left>
+      <button ion-button icon-only (click)="goBack()">
+        <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>详情</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content style="background-color: #f0f2f5;">
+  <ion-item style="min-height:60px;height:60px;">
+    <ion-grid class="bg_main">
+      <ion-row>
+        <ion-col col-2>
+          <img src="{{item.employee_avatar}}" class="imgHeard">
+        </ion-col>
+        <ion-col col-5 class="col_header_class">
+          <span class="name_class">{{item.user_id}}</span>
+        </ion-col>
+        <ion-col col-5 class="col_header_class">
+          <span class="state_class">{{item.state}}</span>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item>
+  <div class="div_all">
+    <div text-wrap class="div_right">
+      <span *ngFor="let job of item.hr_job_ids;">
+        {{job}} 
+        </span>
+    </div>
+    <div class="left_label,div_left" text-right> 岗位 </div>
+  </div>
+  <div class="div_all">
+    <div text-wrap class="div_right"> {{item.department}}</div>
+    <div class="left_label,div_left" text-right> 部门 </div>
+  </div>
+  <div class="div_all">
+    <div text-wrap class="div_right"> {{item.create_uid}}</div>
+    <div class="left_label,div_left" text-right> 创建人 </div>
+  </div>
+
+  <div class="div_all" style="padding-bottom: 10px;">
+    <div text-wrap class="div_right"> {{item.create_date}}</div>
+    <div class="left_label,div_left" text-right> 创建时间 </div>
+  </div>
+
+  <div class="bx_detail_class">明细</div>
+  <div class="card_detail_body">
+    <div class="card_detail_contain">
+      <div class="left">
+        <ng-container *ngIf="item.card_type == '红卡' || item.card_type == '赞'">
+          <span style="color: red;font-weight: bold;">
+            赞 X {{item.factor}}
+          </span>
+        </ng-container>
+        <ng-container *ngIf="item.card_type == '白卡' || item.card_type == '踩'">
+          <span style="color: #2597ec;font-weight: bold;">
+            踩 X {{item.factor}}
+          </span>
+        </ng-container>
+      </div>  
+      <div class="right">
+          时间：{{item.date}}
+      </div>
+    </div>
+    <div class="remark">
+      <div text-wrap class="div_right" style="width: 85%;">
+        {{item.remark}}
+      </div>
+      <div class="left_label,div_left" text-left> 原因 </div>
+    </div>
+  </div>
+
+  <div class="bx_detail_class">记录</div>
+  <ion-list style="padding-bottom: 40px;">
+    <ion-item no-lines *ngFor='let items of item.message_ids' style="overflow:hidden" class="middle_item">
+      <img class="user_ava_class" src={{items.create_person_ava}}>
+      <div style="overflow:hidden">
+        <span class="span_employee_class">{{items.create_person}}</span>
+
+        <span class="span_time_class">{{changeDate(items.create_time) | date:'yyyy-MM-dd HH:mm:ss'}}</span>
+      </div>
+      <p *ngIf="items.old_state || items.new_state" class="size_class">{{items.old_state}}=>{{items.new_state}}</p>
+      <p text-wrap class="size_class">{{items.description}}</p>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+<ion-footer *ngIf='can_submit || can_reback'>
+  <div *ngIf="can_reback" class="footer_class_reback" tappable (click)="click_card_detail()">
+    撤回
+  </div>
+  <div *ngIf="can_submit" class="footer_class">
+    <div class="left_btn" tappable (click)='delete()'>
+      删除
+    </div>
+    <div class="right_btn" tappable (click)='click_card_detail()'>
+      公示
+    </div>
+  </div>
+</ion-footer>

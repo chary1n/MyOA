@@ -57,6 +57,7 @@ export class NewWorkBenchPage {
   salary_subsidy_count = 0
   salary_approval_num = 0 //核薪单
   salary_adjust_approval_num = 0 // 调薪单
+  total_allowance_jj = 0
 
   can_show_hmc = false //花名册
   can_show_rz = false //入职
@@ -168,6 +169,7 @@ export class NewWorkBenchPage {
               this.salary_allowance_jx_count = res.result.res_data.salary_allowance_jx_count
               this.salary_approval_num = res.result.res_data.salary_approval_num
               this.salary_adjust_approval_num = res.result.res_data.salary_adjust_approval_num
+              this.total_allowance_jj = res.result.res_data.total_allowance_jj
             }
           })
         })
@@ -437,5 +439,23 @@ export class NewWorkBenchPage {
     })
   }
 
+  click_cards() {
+    this.navCtrl.push('RedWhiteCardPage')
+  }
+
+  click_nzj() {
+    this.navCtrl.push('YearEndSalaryPage')
+  }
+  click_nzj_me(){
+    this.navCtrl.push('YearEndSalaryMePage')
+  }
+
+  click_expense_abnormal() {
+    this.navCtrl.push('ExpenseAbnormalPage')
+  }
+
+  click_rw_detail() {
+    this.navCtrl.push('ExpenseAbnormalPage')
+  }
 
 }

@@ -1,0 +1,63 @@
+page-expense-abnormal-detail {
+    .div_all {
+        padding-left: 16px;
+        padding-top: 16px;
+        overflow: hidden
+      }
+      .div_right {
+        float:right;
+        width: 70%;
+        color: #8b8b8b;
+        margin-top: 2px;
+        margin-left: 20px;
+        line-height: 17px;
+      }
+      .div_left {
+        width: 30%;
+      }
+
+      .bx_detail_class{
+        height: 28px;
+        line-height: 28px;
+        color: gray;
+        background-color: #f0f2f5;
+        padding-left: 10px;
+        font-size: 13px;
+    }
+
+    /*审批记录class*/
+    .middle_item{
+        width: 85%;
+        margin-left: 10%;
+        margin-top: 6px;
+        // height:auto;
+        border-radius:5px;
+    }
+    
+    .user_ava_class{
+        width:40px;
+        vertical-align:top;
+        float:left;
+        margin-right:10px;
+        border-radius:20px
+    }
+
+    .span_employee_class{
+        margin-top:3px;
+        color:black;
+        font-size:80%;
+        float:left
+    }
+
+    .span_time_class{
+        font-size:70%;
+        margin-top:5px;
+        margin-left:-5px;
+        float:right
+    }
+
+    .size_class{
+        font-size:80%;
+    }
+
+}

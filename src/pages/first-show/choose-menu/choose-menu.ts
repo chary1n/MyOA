@@ -18,7 +18,6 @@ export class ChooseMenuPage {
   root = 'AllSchedulePage';
   me_type = []
   state_type = 'all'
-  // start_datetime = new Date(new Date().getTime()+8*60*60*1000).toISOString();
   end_date;
   start_date;
   is_show_me = true

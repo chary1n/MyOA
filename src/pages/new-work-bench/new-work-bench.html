@@ -139,6 +139,30 @@
           </div>
         </div>
       </ion-col>
+      <ion-col class="col_class" tappable (click)="click_cards()" col-3>
+        <div class="body_class" align="center">
+          <img class="body_img_class" src="assets/img/red_white.png">
+          <div class="text_class">
+            赞
+          </div>
+        </div>
+      </ion-col>
+      <!-- <ion-col class="col_class" tappable (click)="click_expense_abnormal()" col-3>
+        <div class="body_class" align="center">
+          <img class="body_img_class" src="assets/img/red_white.png">
+          <div class="text_class">
+            转嫁单
+          </div>
+        </div>
+      </ion-col> -->
+      <!-- <ion-col class="col_class" tappable (click)="click_rw_detail()" col-3>
+        <div class="body_class" align="center">
+          <img class="body_img_class" src="assets/img/red_white.png">
+          <div class="text_class">
+            转嫁单
+          </div>
+        </div>
+      </ion-col> -->
 
       <!-- <ion-col class="col_class" tappable (click)="click_me_contact()" col-3>
         <div class="body_class" align="center">
@@ -179,18 +203,6 @@
           </div>
         </div>
       </ion-col>
-      <!-- <ion-col class="col_class" tappable (click)="click_jixiao()" col-3>
-        <div *ngIf="performance > 0" align="center" [ngClass]="{true:'big_number_class',false:'number_class'}[performance >= 10]">
-          {{performance}}
-        </div>
-        <div class="body_class" align="center">
-
-          <img class="body_img_class" src="assets/img/work_bench/performance_fang.png">
-          <div class="text_class">
-            绩效
-          </div>
-        </div>
-      </ion-col> -->
       <ion-col class="col_class" tappable (click)="click_sale_report()" col-3>
         <div class="body_class" align="center">
           <img class="body_img_class" src="assets/img/salary.png">
@@ -290,6 +302,14 @@
           </div>
         </div>
       </ion-col>
+      <ion-col class="col_class" tappable (click)="click_nzj_me()" col-3>
+        <div class="body_class" align="center">
+          <img class="body_img_class" src="assets/img/nzj.png">
+          <div class="text_class">
+            年终奖
+          </div>
+        </div>
+      </ion-col>
       <!-- <ion-col class="col_class" tappable (click)="click_salary()" col-3>
         <div *ngIf="salary_num > 0" align="center"
           [ngClass]="{true:'big_number_class',false:'number_class'}[salary_num >= 10]">
@@ -383,6 +403,20 @@
           </div>
         </div>
       </ion-col>
+
+      <ion-col class="col_class" tappable (click)="click_nzj()" col-3>
+        <div *ngIf="total_allowance_jj > 0" align="center"
+          [ngClass]="{true:'big_number_class',false:'number_class'}[total_allowance_jj >= 10]">
+          {{total_allowance_jj}}
+        </div>
+        <div class="body_class" align="center">
+          <img class="body_img_class" src="assets/img/nzj.png">
+          <div class="text_class">
+            年终奖
+          </div>
+        </div>
+      </ion-col>
+
     </ion-row>
   </ion-grid>
   <ion-grid *ngIf="inner_type == 'caigou' && isShowCG" class="grid_class">

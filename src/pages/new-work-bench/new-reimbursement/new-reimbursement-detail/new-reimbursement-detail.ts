@@ -30,10 +30,14 @@ export class NewReimbursementDetailPage {
   productList;
   taxList;
   production;
+
+  is_approved = false
+  can_show_reback = false
   constructor(public navCtrl: NavController, public navParams: NavParams, public baoxiaoService: NewReimbursementService,
     public alertCtrl: AlertController, public storage: Storage, public toastCtrl: ToastController) {
     this.item = this.navParams.get('item');
     this.title = this.item.expense_name;
+    this.is_approved = this.navParams.get('is_approved')
     this.frontPage = Utils.getViewController("ApplyPage", navCtrl)
     this.storage.get('user')
       .then(res => {
@@ -55,11 +59,13 @@ export class NewReimbursementDetailPage {
     console.log(this.item.state);
     let to_approve_name = this.item.to_approve_id
     if (this.item.state == '发送' || this.item.state == '审核中') {
-      this.isShowFooter = true;
+      this.isShowFooter = false;
       this.storage.get('user')
         .then(res => {
-          if (res.result.res_data.name != to_approve_name) {
-            this.isShowFooter = false;
+          for (var i = 0; i < this.item.to_approve_user_ids.length; i ++) {
+            if (res.result.res_data.user_id == this.item.to_approve_user_ids[i]) {
+              this.isShowFooter = true;
+            }
           }
         })
     }
@@ -68,6 +74,13 @@ export class NewReimbursementDetailPage {
     }
     // console.log(this.isShowFooter + "      this.isShowFooter" + HttpService.user_id + "   " + this.item.to_approve_id)
     // console.log(this.item)
+
+    if (this.is_approved) {
+      if (this.item.state == '审核中' || this.item.state == '待过账' || this.item.state == '待支付') {
+        this.can_show_reback = true
+      }
+    }
+
   }
 
   ionViewDidLoad() {
@@ -294,5 +307,51 @@ export class NewReimbursementDetailPage {
 
   transInt(item){
     return parseFloat(item).toFixed(2)
+  }
+
+  reback() {
+    let ctrl = this.alertCtrl;
+    ctrl.create({
+      title: '提示',
+      message: "输入撤回的原因",
+      inputs: [
+        {
+          name: 'title',
+          placeholder: '撤回原因'
+        },
+      ],
+      buttons: [
+        {
+          text: '取消',
+          handler: data => {
+            // console.log('Cancel clicked');
+          }
+        },
+        {
+          text: '确定',
+          handler: data => {
+            if (data.title) {
+              var body = {
+                'sheet_id': this.item.sheet_id,
+                'remark': data.title,
+                'user_id': this.user_id,
+              }
+              this.baoxiaoService.bx_reback(body).then((res) => {
+                if (res) {
+                  if (res.result.res_data.success == 1) {
+                    Utils.toastButtom("撤回成功", this.toastCtrl)
+                    this.frontPage.data.need_fresh = true;
+                    this.navCtrl.popTo(this.frontPage);
+                  }
+                }
+              })
+            }
+            else {
+              Utils.toastButtom("请填写撤回原因", this.toastCtrl)
+            }
+          }
+        }
+      ]
+    }).present();
   }
 }

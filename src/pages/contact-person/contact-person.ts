@@ -1,11 +1,12 @@
 import { EmployeeService } from './../add-employee/EmployeeService';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { ContactService } from './contact-persionService'
 import { Storage } from '@ionic/storage';
 import { StatusBar } from '@ionic-native/status-bar';
 import { ContactPersonAutoService } from './contactPersonAutoService'
 import 'jquery'
+import { Utils } from '../../providers/Utils';
 declare var $: any;
 declare let cordova: any;
 // import { NFC, Ndef } from '@ionic-native/nfc';
@@ -50,9 +51,13 @@ export class ContactPersonPage {
   can_show_total = true;
 
   select_arr = []
+
+  is_select_employee_enter = false
+  frontPage
   constructor(public navCtrl: NavController, public navParams: NavParams, public contactService: ContactService,
     public employeeService: EmployeeService,
-    public storage: Storage, public statusbar: StatusBar, public contactPersonAutoService: ContactPersonAutoService) {
+    public storage: Storage, public statusbar: StatusBar, public contactPersonAutoService: ContactPersonAutoService,
+    public loading: LoadingController) {
     this.showAll = "YES";
     this.limit = 20;
     this.offset = 0
@@ -60,8 +65,8 @@ export class ContactPersonPage {
     if (this.is_hr_manager_enter) {
       this.title = '花名册'
     }
-
-
+    this.is_select_employee_enter = this.navParams.get('is_select_employee_enter')
+    this.frontPage = Utils.getViewController('A', this.navCtrl)
 
     // this.employeeService.get_all_department().then((res) => {
     //   if (res.result && res.result.res_code == 1) {
@@ -107,15 +112,16 @@ export class ContactPersonPage {
       callback: {
         onClick: function (event, treeId, treeNode, clickFlag) {
           if (treeNode.res_model == 'hr.employee') {
+            if (self.is_select_employee_enter){
+              self.frontPage.data.select_employee = true
+              self.frontPage.data.select_employee_id = treeNode.res_id
+              self.frontPage.data.select_employee_name = treeNode.name
+              self.navCtrl.popTo(self.frontPage)
+              return;
+            }
             self.employeeService.get_employee_info([treeNode.res_id], false).then(res => {
               console.log(res)
               if (res.result && res.result.res_code == 1) {
-                // self.navCtrl.push('EmployeeDetailPage', {
-                //   item: res.result.res_data[0],
-                //   origin_data: res.result.res_data[0],
-                //   id: treeNode.res_id,
-                //   user_id: self.uid,
-                // })
                 if (!self.is_hr_manager_enter) {
                   self.navCtrl.push('EmployeeDetailPage', {
                     item: res.result.res_data[0],
@@ -370,6 +376,11 @@ export class ContactPersonPage {
   }
 
   itemSelected(event) {
+    let loading = this.loading.create({
+      content: '加载中',
+      enableBackdropDismiss: true
+    });
+    loading.present()
     let type;
     let search_text;
     let data;
@@ -392,6 +403,7 @@ export class ContactPersonPage {
     if (search_text.length == 0) {
       final_arr = this.originNodes
       $.fn.zTree.init($("#ztree_employee"), this.setting, final_arr);
+      loading.dismiss()
     }
     else {
       setTimeout(() => {
@@ -410,6 +422,7 @@ export class ContactPersonPage {
             this.select_arr.push(node_one)
           }
         }
+        loading.dismiss()
       }, 100)
     }
     cordova.plugins.Keyboard.close();
@@ -423,6 +436,13 @@ export class ContactPersonPage {
   }
 
   gotoDeatil(one_data) {
+    if (this.is_select_employee_enter){
+      this.frontPage.data.select_employee = true
+      this.frontPage.data.select_employee_id = one_data.res_id
+      this.frontPage.data.select_employee_name = one_data.name
+      this.navCtrl.popTo(this.frontPage)
+      return;
+    }
     this.employeeService.get_employee_info([one_data.res_id], false).then(res => {
       console.log(res)
       if (res.result && res.result.res_code == 1) {

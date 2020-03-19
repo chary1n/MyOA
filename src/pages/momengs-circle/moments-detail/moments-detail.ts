@@ -299,7 +299,12 @@ export class MomentsDetailPage {
         'uid': this.user_id,
         'frontPage': 'MomengsCirclePage',
       })
-    } else {
+    } else if (this.item.share_model == 'rt.red.white.card'){
+      this.navCtrl.push('RedWhiteCardDetailPage', {
+        'card_id': this.item.share_id,
+        'user_id': this.user_id
+      })
+    }  else {
       let body = {
         'calendar_id': this.item.share_id,
         'user_id': this.user_id

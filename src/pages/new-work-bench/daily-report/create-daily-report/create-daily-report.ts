@@ -46,28 +46,39 @@ export class CreateDailyReportPage {
       this.editorContent = this.now_item.summary
       this.jh_description = this.now_item.plan
     }
-    else{
+    else {
       this.is_edit = false
-      this.report_type = this.navParams.get('report_type')
+      this.report_type = 'day_daily'
       this.frontPage = Utils.getViewController("DailyReportPage", this.navCtrl)
       this.report_date = Utils.dateFormat(new Date(), 'yyyy-MM-dd')
     }
-    if (this.report_type == 'day_daily') {
-        this.title = '新建日报'
-      }
-      else if (this.report_type == 'week_daily') {
-        this.title = '新建周报'
-      }
-      else if (this.report_type == 'mouth_daily') {
-        this.title = '新建月报'
-      }
-      else {
-        this.title = '新建'
-      }
+    // if (this.report_type == 'day_daily') {
+    //   this.title = '新建日报'
+    // }
+    // else if (this.report_type == 'week_daily') {
+    //   this.title = '新建周报'
+    // }
+    // else if (this.report_type == 'mouth_daily') {
+    //   this.title = '新建月报'
+    // }
+    // else {
+    //   this.title = '新建'
+    // }
+
+    this.title = '新建'
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CreateDailyReportPage');
+    if (this.report_type == 'day_daily') {
+      document.getElementById('day')['checked'] = true
+    }
+    else if (this.report_type == 'week_daily') {
+      document.getElementById('week')['checked'] = true
+    }
+    else if (this.report_type == 'mouth_daily') {
+      document.getElementById('month')['checked'] = true
+    }
   }
 
   goBack() {
@@ -161,9 +172,21 @@ export class CreateDailyReportPage {
   }
 
   submit_report() {
-    if (this.editorContent == ''){
+    if (this.editorContent == '') {
       Utils.toastButtom('请填写总结', this.toastCtrl)
       return;
+    }
+    var is_check_day = document.getElementById('day')['checked']
+    var is_check_week = document.getElementById('week')['checked']
+    var is_check_month = document.getElementById('month')['checked']
+    if (is_check_day) {
+      this.report_type = 'day_daily'
+    }
+    if (is_check_week) {
+      this.report_type = 'week_daily'
+    }
+    if (is_check_month) {
+      this.report_type = 'mouth_daily'
     }
 
     let body = {
@@ -176,7 +199,7 @@ export class CreateDailyReportPage {
       'is_edit': this.is_edit,
       'state': 2,
     }
-    if (this.is_edit){
+    if (this.is_edit) {
       body['report_id'] = this.now_item.report_id
     }
     this.reportService.submit_report(body).then(res => {
@@ -187,10 +210,23 @@ export class CreateDailyReportPage {
     })
   }
 
-  save_report(){
-    if (this.editorContent == ''){
+  save_report() {
+    if (this.editorContent == '') {
       Utils.toastButtom('请填写总结', this.toastCtrl)
       return;
+    }
+
+    var is_check_day = document.getElementById('day')['checked']
+    var is_check_week = document.getElementById('week')['checked']
+    var is_check_month = document.getElementById('month')['checked']
+    if (is_check_day) {
+      this.report_type = 'day_daily'
+    }
+    if (is_check_week) {
+      this.report_type = 'week_daily'
+    }
+    if (is_check_month) {
+      this.report_type = 'mouth_daily'
     }
 
     let body = {
@@ -203,7 +239,7 @@ export class CreateDailyReportPage {
       'is_edit': this.is_edit,
       'state': 1,
     }
-    if (this.is_edit){
+    if (this.is_edit) {
       body['report_id'] = this.now_item.report_id
     }
     this.reportService.submit_report(body).then(res => {
@@ -217,6 +253,16 @@ export class CreateDailyReportPage {
   exchange_img_id_list(img_url, id) {
     this.editorContent.replace(img_url, ('/web/image/' + id))
   }
-  
 
+  click_day() {
+    document.getElementById('day')['checked'] = true
+  }
+
+  click_week() {
+    document.getElementById('week')['checked'] = true
+  }
+
+  click_month() {
+    document.getElementById('month')['checked'] = true
+  }
 }

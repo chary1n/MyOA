@@ -68,7 +68,7 @@ export class SalarySubsidyDetailPage {
                 'text': data.title,
                 'user_id': this.user_id,
                 'res_id': this.item.subsidy_id, 
-                'res_model': "rt.subsidy",
+                'res_model': "rt.subsidy.department",
               }
               this.salaryService.refuse_salary_action(body).then((res) => {
                 if (res) {
@@ -114,7 +114,7 @@ export class SalarySubsidyDetailPage {
                 'text': data.title,
                 'user_id': this.user_id,
                 'res_id': this.item.subsidy_id, 
-                'res_model': "rt.subsidy",
+                'res_model': "rt.subsidy.department",
               }
               this.salaryService.confirm_salary_action(body).then((res) => {
                 if (res) {

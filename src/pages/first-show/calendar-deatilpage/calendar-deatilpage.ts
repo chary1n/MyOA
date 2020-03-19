@@ -221,6 +221,10 @@ export class CalendarDeatilpagePage {
               'ischeck': true
             })
           }
+
+          if (this.type_name == '日程' || this.type_name == '出差'){
+            this.can_show_time = true
+          }
         }
         if (this.navParams.get('date')) {
           current_day = this.navParams.get('date')
@@ -386,6 +390,10 @@ export class CalendarDeatilpagePage {
       else{
         this.can_show_cj = false
       }
+    }
+
+    if (this.type_name == '日程' || this.type_name == '出差') {
+      this.can_show_time = true
     }
 
     this.state = this.item.state
@@ -1363,9 +1371,11 @@ export class CalendarDeatilpagePage {
       }
     }
     let myString = ""
-    if (!this.rt_appoint_data) {
-      myString = "    请选择截止时间"
-    }
+    // if (this.type_name != '日程' && this.type_name != '出差') {
+    //   if (!this.rt_appoint_data) {
+    //     myString = "    请选择截止时间"
+    //   }
+    // }
     if (!this.type_id) {
       myString = "    请选择类型"
     }
@@ -2452,7 +2462,8 @@ export class CalendarDeatilpagePage {
   }
 
   reformNoticeContent(content) {
-
+    content = content.replace(/<\/p>/g, '\n')
+    content = content.replace(/<br>/g, '\n')
     content = content.split('');
     var tagBoolean = false;
     content.forEach((c, index) => {

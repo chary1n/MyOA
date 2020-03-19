@@ -62,7 +62,16 @@ export class NewReimbursementPage {
   ionViewDidEnter() {
     if (this.navParams.get('need_fresh') == true) {
       // console.log(111);
-      this.reloadData();
+      // this.reloadData();
+      if (this.type == 'me'){
+        this.clickMeApply()
+      } 
+      else if (this.type == 'wait_approved'){
+        this.clickWaitMeApply()
+      }
+      else if (this.type == 'me_approved'){
+        this.clickAlreadyApply()
+      }
       this.navParams.data.need_fresh = false;
     }
   }
@@ -219,10 +228,10 @@ export class NewReimbursementPage {
       return "被拒";
     }
     else if (state == 'approve') {
-      return "已批准";
+      return "待过账";
     }
     else if (state == 'post') {
-      return "已过账";
+      return "待支付";
     }
     else if (state == 'done') {
       return "已支付";
@@ -233,12 +242,17 @@ export class NewReimbursementPage {
   }
 
   approved_detail(item) {
+    var is_approved = false 
+    if (this.type == 'me_approved') {
+      is_approved = true
+    }
     this.baoxiaoService.get_bx_detail({ user_id: this.user_id, bx_id: item.sheet_id }).then((res) => {
       if (res.result && res.result.res_code == 1) {
         let item_request = res.result.res_data
         item_request.state = this.changeState(item.state);
         this.navCtrl.push('NewReimbursementDetailPage', {
           item: item_request,
+          is_approved: is_approved,
         });
       }
     })

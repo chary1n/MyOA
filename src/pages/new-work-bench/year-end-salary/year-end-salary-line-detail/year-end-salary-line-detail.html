@@ -1,0 +1,70 @@
+<!--
+  Generated template for the YearEndSalaryLineDetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header no-border>
+  <ion-navbar color="gongdan-color" hideBackButton="true">
+    <ion-buttons left>
+      <button ion-button icon-only (click)="goBack()">
+        <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>详情</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+  <div class="div_all">
+    <div text-wrap class="div_right"> {{item.rt_employee_id}}</div>
+    <div class="left_label,div_left" text-right> 员工 </div>
+  </div>
+
+  <div class="div_all">
+    <div text-wrap class="div_right"> {{fmoney(transInt(item.rt_salary),3)}}</div>
+    <div class="left_label,div_left" text-right> 月薪 </div>
+  </div>
+
+  <div class="div_all">
+    <div text-wrap class="div_right"> {{fmoney(transInt(item.rt_salary_company),3)}}</div>
+    <div class="left_label,div_left" text-right> 公司成本 </div>
+  </div>
+
+  <div class="div_all">
+    <div text-wrap class="div_right"> {{fmoney(transInt(item.rt_tc_total),3)}}</div>
+    <div class="left_label,div_left" text-right> 已发奖金 </div>
+  </div>
+
+  <div class="div_all">
+    <div text-wrap class="div_right" style="font-size: 15px;font-weight: bold;color: red;"> {{fmoney(transInt(item.rt_money),3)}}</div>
+    <div class="left_label,div_left" text-right> 本次奖金 </div>
+  </div>
+
+  <div class="div_all">
+    <div text-wrap class="div_right"> {{ item.rt_differ_comp}}</div>
+    <div class="left_label,div_left" text-right> 系数 </div>
+  </div>
+
+  <div class="div_all">
+    <div text-wrap class="div_right"> {{ fmoney(transInt(item.rt_jj_total),3)}}</div>
+    <div class="left_label,div_left" text-right> 全年奖金 </div>
+  </div>
+
+  <div class="div_all">
+    <div text-wrap class="div_right"> {{ fmoney(transInt(item.rt_last_year_salary),3)}}</div>
+    <div class="left_label,div_left" text-right> 去年年终奖 </div>
+  </div>
+
+  <div class="div_all">
+    <div text-wrap class="div_right"> {{ fmoney(transInt(item.rt_bt_total),3)}}</div>
+    <div class="left_label,div_left" text-right> 已发补贴 </div>
+  </div>
+
+  <div class="div_all">
+    <div text-wrap class="div_right"> {{ fmoney(transInt(item.rt_salary_company_total_all),3)}}</div>
+    <div class="left_label,div_left" text-right> 全年公司成本 </div>
+  </div>
+
+</ion-content>

@@ -1,0 +1,98 @@
+<!--
+  Generated template for the RedWhiteCardCreatePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header no-border>
+
+  <ion-navbar color="gongdan-color" hideBackButton="true">
+    <ion-buttons left>
+      <button ion-button icon-only (click)="goBack()">
+        <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>新建</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content style="background-color: #f0f2f5;position:relative">
+  <div *ngIf="is_select_employee" style="background-color: #f0f2f5;width: 100%;position: absolute;top: 45px;z-index: 999;min-height: 100%;">
+    <ng-container *ngFor="let item_employee of search_employees;let i = index;">
+      <ion-item no-lines tappable (click)="click_select_employee(item_employee)" style="min-height: 40px;height:40px; border-bottom: solid 1px #f0f2f5;font-size: 14px">
+        {{item_employee.employee_plus_name}}
+      </ion-item>
+    </ng-container>
+  </div>
+
+
+  <ion-item no-lines  class="item_now_class"
+    style="border-bottom: #f0f2f5 solid 1px;">
+    <ion-label class="label_class"> 员工<span style="color:red;"> *</span>
+      
+    </ion-label>
+    <!-- <img item-end src="assets/img/journal_sheet/right_icon.png" style="height:10px;margin-right:-4px"> -->
+    <ion-input #employee_input (ionChange)="employee_name_change()" (ionBlur)="employee_name_blur()" (ionFocus)="employee_name_focus()" text-right style="font-size: 13px;color: #8d9296" [(ngModel)]="select_employee_name" placeholder="请输入姓名">
+    </ion-input>
+    <!-- <ion-label item-end class="label_class" *ngIf="!is_select_employee">{{select_employee_name}}</ion-label> -->
+  </ion-item>
+
+  <ion-item no-lines class="item_now_class" style="border-bottom: #f0f2f5 solid 1px;">
+    <p item-start style="color: #2e3133;font-size: 15px">发生日期<span style="color:red;"> *</span></p>
+    <input type="text" id="time_input" [(ngModel)]="date" class="appoint_data_class">
+  </ion-item>
+
+  <ion-item no-lines class="item_now_class" style="border-bottom: #f0f2f5 solid 1px;">
+    <ion-label class="label_class">类型
+      <span style="color:red;"> *</span>
+    </ion-label>
+
+    <!-- <ion-label class="radio_class"><ion-icon style="font-size: 32px;" name="thumbs-down-outline"></ion-icon> </ion-label>
+    <ion-label class="radio_class"><ion-icon style="font-size: 32px;" name="thumbs-up-outline"></ion-icon> </ion-label> -->
+
+    <ion-label class="radio_class" tappable (click)="click_white_card()"><ion-icon [ngClass]="{true:'select_icon',false:'normal_icon'}[type=='white']" name="thumbs-down-outline"></ion-icon><span [ngClass]="{true:'select_span',false:'normal_span'}[type=='white']">踩</span> </ion-label>
+    <ion-label class="radio_class" tappable (click)="click_red_card()"><ion-icon [ngClass]="{true:'select_icon',false:'normal_icon'}[type=='red']" name="thumbs-up-outline"></ion-icon> <span [ngClass]="{true:'select_span',false:'normal_span'}[type=='red']" style="margin-left: 5px;">赞</span> </ion-label>
+
+    <!-- <ion-label class="radio_class"><input class="radio_type" name="redcard" type="radio" value="" id="redcard"/><span tappable (click)="click_red_card()">红卡</span> </ion-label>
+    <ion-label class="radio_class"><input class="radio_type" name="redcard" type="radio" value="" id="whitecard"/> <span tappable (click)="click_white_card()">白卡</span> </ion-label> -->
+  </ion-item>
+
+  <ion-item no-lines class="item_now_class" style="border-bottom: #f0f2f5 solid 1px;">
+    <ion-label class="label_class">数量
+      <span style="color: red">*</span>
+    </ion-label>
+    <ion-input type="number" text-right style="font-size: 13px;color: #8d9296" [(ngModel)]="factor" placeholder="请输入">
+    </ion-input>
+  </ion-item>
+
+  <!-- <ion-item no-lines class="item_now_class" style="border-bottom: #f0f2f5 solid 1px;">
+    <ion-label class="label_class">原因
+      <span style="color: red">*</span>
+    </ion-label>
+    <ion-input type="text" text-right style="font-size: 13px;color: #8d9296" [(ngModel)]="remark" placeholder="请输入">
+    </ion-input>
+  </ion-item> -->
+  <div style="padding: 1px;border-bottom: #f0f2f5 30px solid;background-color: white;">
+    <p style="font-size: 15px;margin-left: 15px; color: #333333">原因<span style="color: red;margin-left: 5px">*</span>
+    </p>
+    <textarea id="mytextarea" [(ngModel)]="remark" rows="15" placeholder="请输入" style="line-height: 20px;font-size: 13px;color: #abb0b4;height: 300px;padding: 10px;width: 100%;
+                  border-bottom:white 0px solid;
+                  border-top:white 0px solid;
+                  border-left:white 0px solid;
+                  border-right:white 0px solid;overflow-y: visible;margin-top: -10px;"></textarea>
+
+  </div>
+</ion-content>
+
+<ion-footer *ngIf="!is_select_employee">
+  <div class="footer_class">
+    <div class="left_btn" tappable (click)='save()'>
+      保存
+    </div>
+    <div class="right_btn" tappable (click)='submit()'>
+      提交
+    </div>
+  </div>
+</ion-footer>

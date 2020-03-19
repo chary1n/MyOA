@@ -105,4 +105,54 @@ page-create-daily-report {
         float: right;
         background-color: #2597ec;
     }
+
+    .radio_class {
+        text-align: right;
+    }
+
+    .radio_class span {
+        margin-left: 10px;
+        color: gray;
+    }
+
+    .radio_type{
+        width: 15px;
+        height: 15px;
+        appearance: none;
+        position: relative;
+    }
+    .radio_type:before{
+        content: '';
+        width: 15px;
+        height: 15px;
+        border: 1px solid #7d7d7d;
+        display: inline-block;
+        border-radius: 50%;
+        vertical-align: middle;
+    }
+    .radio_type:checked:before{
+        content: '';
+        width: 15px;
+        height: 15px;
+        border: 1px solid #2597ec;
+        background:#2597ec;
+        display: inline-block;
+        border-radius: 50%;
+        vertical-align: middle;
+    }
+    .radio_type:checked:after{
+        content: '';
+        width: 10px;
+        height:5px;
+        border: 2px solid white;
+        border-top: transparent;
+        border-right: transparent;
+        text-align: center;
+        display: block;
+        position: absolute;
+        top: 6px;
+        left:3px;
+        vertical-align: middle;
+        transform: rotate(-45deg);
+    }
 }

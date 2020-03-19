@@ -46,9 +46,14 @@ export class VacationDetailPage {
     this.storage.get('user').then(res => {
       this.user = res.result.res_data
       this.uid = res.result.res_data.user_id
-      if (res.result.res_data.user_id == this.data.to_approve_user_id) {
-        this.is_manager = true
+      for (var i = 0; i < this.data.to_approve_user_ids.length; i ++) {
+        if (this.uid == this.data.to_approve_user_ids[i]) {
+          this.is_manager = true
+        }
       }
+      // if (res.result.res_data.user_id == this.data.to_approve_user_id) {
+      //   this.is_manager = true
+      // }
       if (this.is_create) {
         let body = {
           'employee_avatar': res.result.res_data.user_ava,

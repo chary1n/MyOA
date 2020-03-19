@@ -20,10 +20,6 @@
 
 <ion-content style="background-color:#f0f2f5">
   <div class="div_all">
-    <div text-wrap class="div_right"> {{item.employee_name}}</div>
-    <div class="left_label,div_left" text-right> 姓名 </div>
-  </div>
-  <div class="div_all">
     <div text-wrap class="div_right"> {{item.department_name}}</div>
     <div class="left_label,div_left" text-right> 部门 </div>
   </div>
@@ -32,17 +28,39 @@
     <div class="left_label,div_left" text-right> 发放月份 </div>
   </div>
   <div class="div_all">
-    <div text-wrap class="div_right"> {{fmoney(transInt(item.amount_total),3)}}</div>
-    <div class="left_label,div_left" text-right> 金额 </div>
+    <div text-wrap class="div_right"> {{item.create_uid}}</div>
+    <div class="left_label,div_left" text-right> 创建人 </div>
   </div>
   <div class="div_all">
     <div text-wrap class="div_right"> {{item.create_date}}</div>
     <div class="left_label,div_left" text-right> 创建时间 </div>
   </div>
   <div class="div_all" style="padding-bottom: 10px;">
-    <div text-wrap class="div_right"> {{item.rt_remark}}</div>
+    <div text-wrap class="div_right"> {{item.remark}}</div>
     <div class="left_label,div_left" text-right> 备注 </div>
   </div>
+
+  <div class="div_label">
+    明细
+  </div>
+
+  <ng-container *ngFor="let detail of item.rt_subsidy_lines;let i  = index">
+    <ion-item style="border-color: white;margin-bottom: 10px;">
+      <div>
+        <p style="float:right;margin-right:5px;width: 40%;">金额：{{fmoney(transInt(detail.rt_money),3)}}</p>
+        <p>姓名：{{detail.rt_employee_id}}</p>
+      </div>
+
+      <!-- <div style="margin-top: 5px;">
+        <p style="margin-right:5px;width: 40%;">金额：{{fmoney(transInt(detail.rt_money),3)}}</p>
+        <p>入职日期：{{detail.rt_date_of_entry}}</p>
+      </div> -->
+      <div class="body_div_bottom_class" *ngIf="detail.rt_remark.length > 0">
+        <p style="width: 100%;white-space: normal;">
+          备注：{{detail.rt_remark}}</p>
+      </div>
+    </ion-item>
+  </ng-container>
 
   <div class="div_label">审批记录</div>
   <ion-list style="padding-bottom: 44px;">

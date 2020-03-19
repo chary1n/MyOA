@@ -25,7 +25,7 @@ export class LeaveWorkHrConfirmPage {
   fix_thing_arr = [
       { val: '主机', isChecked: false },
       { val: '显示器', isChecked: false },
-      { val: '键鼠一套', isChecked: false },
+      { val: '鼠键一套', isChecked: false },
       { val: '手机及手机卡', isChecked: false },
       { val: '其他', isChecked: false }
     ]
@@ -71,6 +71,7 @@ export class LeaveWorkHrConfirmPage {
       'dimission_date': this.dimiss_date,
       'fix_arr': fix_arr,
       'other_arr': oa_arr,
+      'fund_end_date': this.fund_end_date,
     }
     this.leaveService.hr_confirm_dimission(body).then(res => {
       if (res.result.res_code == 1){

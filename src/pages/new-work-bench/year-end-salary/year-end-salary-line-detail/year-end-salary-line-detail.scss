@@ -1,0 +1,29 @@
+page-year-end-salary-line-detail {
+    .div_all {
+        padding-left: 16px;
+        padding-top: 10px;
+        overflow: hidden;
+        background-color: white;
+      }
+      .div_right {
+        float: right;
+        // font-size: 80%;
+        width: 60%;
+        color: #8b8b8b;
+        margin-top: 2px;
+        margin-left: 20px;
+        padding-right: 10px;
+        line-height: 17px;
+      }
+      .div_left {
+        font-size: 80%;
+        width: 40%;
+      }
+  
+      .left_label{
+        font-size:80%;
+        width:67px;
+        text-align: right;
+        color: gray;
+    }
+}

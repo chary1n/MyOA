@@ -67,7 +67,7 @@
   <!-- <div class="differ_class">
   </div> -->
   <div class="qp_amount">
-    欠票金额：{{toFix2(item.partner_to_bill_amount)}}
+    欠票金额：{{fmoney(transInt(item.partner_to_bill_amount),3)}}
   </div>
   <div class="div_label" *ngIf="item.invoice_line_ids" style="padding-top: 8px">
     账单
@@ -92,10 +92,10 @@
                   本次数量：{{detail.quantity}}</p>
                 <p
                   style="width: 33%;text-align: center;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;word-break: break-all;">
-                  单价：{{detail.price_unit}}</p>
+                  单价：{{fmoney(transInt(detail.price_unit),3)}}</p>
                 <p
                   style="width: 33%;text-align: right;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;word-break: break-all;">
-                  含税：{{detail.price_total}}</p>
+                  含税：{{fmoney(transInt(detail.price_total),3)}}</p>
               </div>
             </ion-item>
           </ng-container>
@@ -121,10 +121,10 @@
                 本次：{{toFix2(detail.quantity)}}</p>
               <p
                 style="width: 33%;text-align: center;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;word-break: break-all;">
-                单价：{{toFix2(detail.price_unit)}}</p>
+                单价：{{fmoney(transInt(detail.price_unit),3)}}</p>
               <p
                 style="width: 33%;text-align: right;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;word-break: break-all;">
-                含税：{{toFix2(detail.price_total)}}</p>
+                含税：{{fmoney(transInt(detail.price_total),3)}}</p>
             </div>
           </ion-item>
         </ng-container>
@@ -149,7 +149,7 @@
         </h4>
 
         <p text-wrap class="money_class">
-          <span>金额：{{dekou_detail.currency}}{{toFix2(dekou_detail.amount)}}</span>
+          <span>金额：{{dekou_detail.currency}}{{fmoney(transInt(dekou_detail.amount),3)}}</span>
         </p>
         <p text-wrap class="department_class">备注：{{dekou_detail.description}}</p>
       </ion-item>

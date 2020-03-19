@@ -77,7 +77,7 @@
             <p>
               <span class="before_class">{{item.type_name}}</span>
               <span [ngClass]="{true:'notfinishState',false:'finishState'}[item.state]">
-                {{item.partner_id_s_name}}一{{item.subject}}
+                {{item.partner_id_s_name ? item.partner_id_s_name : ''}}一{{item.subject}}
               </span>
             </p>
             <p class="bottom_class">{{item.show_start}} 至 {{item.show_end}}</p>

@@ -184,46 +184,50 @@ export class DailyReportPage {
   }
 
   click_add_report() {
-    let button_arr = []
-    button_arr.push({
-      text: '日报',
-      handler: () => {
-        this.navCtrl.push('CreateDailyReportPage', {
-          'report_type': 'day_daily',
-          'user_id': this.user_id
-        })
-      }
+    this.navCtrl.push('CreateDailyReportPage', {
+      'report_type': 'day_daily',
+      'user_id': this.user_id
     })
-    button_arr.push({
-      text: '周报',
-      handler: () => {
-        this.navCtrl.push('CreateDailyReportPage', {
-          'report_type': 'week_daily',
-          'user_id': this.user_id
-        })
-      }
-    })
-    button_arr.push({
-      text: '月报',
-      handler: () => {
-        this.navCtrl.push('CreateDailyReportPage', {
-          'report_type': 'mouth_daily',
-          'user_id': this.user_id
-        })
-      }
-    })
-    button_arr.push({
-      text: '取消',
-      role: 'cancel',
-      handler: () => {
-        console.log('Cancel clicked');
-      }
-    })
-    let actionSheet = this.actionSheetCtrl.create({
-      title: '',
-      buttons: button_arr,
-    });
-    actionSheet.present();
+    // let button_arr = []
+    // button_arr.push({
+    //   text: '日报',
+    //   handler: () => {
+    //     this.navCtrl.push('CreateDailyReportPage', {
+    //       'report_type': 'day_daily',
+    //       'user_id': this.user_id
+    //     })
+    //   }
+    // })
+    // button_arr.push({
+    //   text: '周报',
+    //   handler: () => {
+    //     this.navCtrl.push('CreateDailyReportPage', {
+    //       'report_type': 'week_daily',
+    //       'user_id': this.user_id
+    //     })
+    //   }
+    // })
+    // button_arr.push({
+    //   text: '月报',
+    //   handler: () => {
+    //     this.navCtrl.push('CreateDailyReportPage', {
+    //       'report_type': 'mouth_daily',
+    //       'user_id': this.user_id
+    //     })
+    //   }
+    // })
+    // button_arr.push({
+    //   text: '取消',
+    //   role: 'cancel',
+    //   handler: () => {
+    //     console.log('Cancel clicked');
+    //   }
+    // })
+    // let actionSheet = this.actionSheetCtrl.create({
+    //   title: '',
+    //   buttons: button_arr,
+    // });
+    // actionSheet.present();
   }
 
   me_detail(item) {

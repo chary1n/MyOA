@@ -11,6 +11,8 @@ import { AppVersion } from '@ionic-native/app-version';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { NativeService } from './../../providers/NativeService';
 import { FirService } from './../../app/FirService';
+import { FirstShowAutoService } from './firstAutoService';
+
 /**
  * Generated class for the FirstShowPage page.
  *
@@ -21,7 +23,7 @@ import { FirService } from './../../app/FirService';
 @Component({
   selector: 'page-first-show',
   templateUrl: 'first-show.html',
-  providers: [DatePipe, FirstShowService, AppService, NativeService, FirService]
+  providers: [DatePipe, FirstShowService, AppService, NativeService, FirService, FirstShowAutoService]
 })
 export class FirstShowPage {
   @ViewChild('fab') fab: FabContainer;
@@ -95,12 +97,19 @@ export class FirstShowPage {
   isMoreData = true
 
   version: any;
+
+  total_allowance_jj = 0
+
+  message_reply_arr = []
+
+  search_type
+  search_text
   constructor(public navCtrl: NavController, public navParams: NavParams, private datePipe: DatePipe,
     private firshowService: FirstShowService, public storage: Storage,
     public statusBar: StatusBar, public menu: MenuController, public event: Events,
     public appService: AppService, public platform: Platform, public inAppBrowser: InAppBrowser,
     public ctrl: AlertController, public appVersion: AppVersion, public nativeService: NativeService,
-    public firService: FirService) {
+    public firService: FirService, public firstShowAutoService: FirstShowAutoService) {
     this.storage.get('user').then(res => {
       this.user_heard = res.result.res_data.user_ava;
       this.uid = res.result.res_data.user_id;
@@ -161,7 +170,21 @@ export class FirstShowPage {
     }
     this.firshowService.get_event_type(body).then(res => {
       if (res.result.res_data && res.result.res_code == 1) {
-        this.event_list = res.result.res_data
+        var temp_arr = []
+        temp_arr.push({
+          'display_name': '赞',
+          'id': ''
+        })
+        temp_arr.push({
+          'display_name': '日报',
+          'id': ''
+        })
+        res.result.res_data.forEach(item => {
+          if (item.display_name != '项目') {
+            temp_arr.push(item)
+          }
+        });
+        this.event_list = temp_arr
       }
     })
   }
@@ -264,12 +287,13 @@ export class FirstShowPage {
                       this.storage.get('user').then(res => {
                         this.uid = res.result.res_data.user_id
                         this.get_approval_num()
-                        this.firshowService.get_un_read_reply({ 'uid': this.uid }).then(res => {
-                          if (res.result.res_data && res.result.res_code == 1) {
-                            this.un_read_list = res.result.res_data.read_data
-                            this.need_calendar = res.result.res_data.need_calendar
-                          }
-                        })
+                        this.getAllMessageReply()
+                        // this.firshowService.get_un_read_reply({ 'uid': this.uid }).then(res => {
+                        //   if (res.result.res_data && res.result.res_code == 1) {
+                        //     this.un_read_list = res.result.res_data.read_data
+                        //     this.need_calendar = res.result.res_data.need_calendar
+                        //   }
+                        // })
 
                         if (this.isDay) {
                           this.storage.get('user_schedule_domain_new').then(res => {
@@ -308,12 +332,13 @@ export class FirstShowPage {
       this.storage.get('user').then(res => {
         this.uid = res.result.res_data.user_id
         this.get_approval_num()
-        this.firshowService.get_un_read_reply({ 'uid': this.uid }).then(res => {
-          if (res.result.res_data && res.result.res_code == 1) {
-            this.un_read_list = res.result.res_data.read_data
-            this.need_calendar = res.result.res_data.need_calendar
-          }
-        })
+        this.getAllMessageReply()
+        // this.firshowService.get_un_read_reply({ 'uid': this.uid }).then(res => {
+        //   if (res.result.res_data && res.result.res_code == 1) {
+        //     this.un_read_list = res.result.res_data.read_data
+        //     this.need_calendar = res.result.res_data.need_calendar
+        //   }
+        // })
 
         if (this.isDay) {
           this.storage.get('user_schedule_domain_new').then(res => {
@@ -761,7 +786,7 @@ export class FirstShowPage {
         'create_new': true,
       })
     }
-    else {
+    else if (item.display_name == '任务' || item.display_name == '会议' || item.display_name == '日程' || item.display_name == '出差') {
       if (this.type_id == item.id) {
         this.navCtrl.push('MeetingPage', {
           'isEdit': true,
@@ -777,6 +802,19 @@ export class FirstShowPage {
           'frontPage': 'FirstShowPage'
         })
       }
+    }
+    else if (item.display_name == '赞') {
+      // this.navCtrl.push('RedWhiteCardPage')
+      this.navCtrl.push('RedWhiteCardCreatePage', {
+        'user_id': this.uid,
+      })
+    }
+    else if (item.display_name == '日报') {
+      // this.navCtrl.push('DailyReportPage')
+      this.navCtrl.push('CreateDailyReportPage', {
+        'report_type': 'day_daily',
+        'user_id': this.uid
+      })
     }
   }
   //跳转到我的页面
@@ -850,7 +888,8 @@ export class FirstShowPage {
         this.salary_allowance_count = res.result.res_data.salary_allowance_count
         this.salary_subsidy_count = res.result.res_data.salary_subsidy_count
         this.salary_allowance_jx_count = res.result.res_data.salary_allowance_jx_count
-        this.all_approval = this.salary_allowance_jx_count + this.salary_allowance_count + this.salary_subsidy_count + this.recoup_num + this.vacation_num + this.jk_num + this.bx_num + this.yf_num + this.sg_num + this.caigou_num + this.tousu_num + this.pay_num + this.gongcheng_num + this.salary_approval_num + this.salary_adjust_approval_num + this.dimission_num + this.offer_num + this.adjust_num + this.intp_num + this.purchase_account_num
+        this.total_allowance_jj = res.result.res_data.total_allowance_jj
+        this.all_approval = this.total_allowance_jj + this.salary_allowance_jx_count + this.salary_allowance_count + this.salary_subsidy_count + this.recoup_num + this.vacation_num + this.jk_num + this.bx_num + this.yf_num + this.sg_num + this.caigou_num + this.tousu_num + this.pay_num + this.gongcheng_num + this.salary_approval_num + this.salary_adjust_approval_num + this.dimission_num + this.offer_num + this.adjust_num + this.intp_num + this.purchase_account_num
         if (this.isShowCK) {
           this.all_approval += this.pandian_num
         }
@@ -1110,7 +1149,7 @@ export class FirstShowPage {
                 {
                   text: '立即升级',
                   handler: () => {
-                    this.openUrlByBrowser('http://fir.im/MyOa');
+                    this.openUrlByBrowser('http://fir.robotime.cn/MyOa');
                   }
                 }
               ]
@@ -1146,19 +1185,81 @@ export class FirstShowPage {
     this.navCtrl.push('PurchaseAccountApprovalPage')
   }
 
-  toTCD(){
+  toTCD() {
     this.navCtrl.push('SalaryAllowancePage', {
       'type': '2'
     })
   }
 
-  toBTD(){
+  toBTD() {
     this.navCtrl.push('SalarySubsidyPage')
   }
 
-  toJXJD(){
+  toJXJD() {
     this.navCtrl.push('SalaryAllowancePage', {
       'type': '1'
+    })
+  }
+
+  toNZJ() {
+    this.navCtrl.push('YearEndSalaryPage')
+  }
+
+  changeDate(date) {
+    if (date) {
+      let new_date = new Date(date.replace(' ', 'T') + 'Z').getTime();
+      return new_date;
+    }
+  }
+
+  getAllMessageReply() {
+    this.message_reply_arr = []
+    let body = {
+      'uid': this.uid
+    }
+    this.firshowService.get_meesage_reply(body).then(res => {
+      if (res.result.res_data && res.result.res_code == 1) {
+        this.message_reply_arr = res.result.res_data
+      }
+    })
+  }
+
+  itemSelected(event) {
+    this.search_type = ''
+    this.search_text = ''
+    if (event.id == 1) {
+      this.search_type = "rt_context";
+      this.search_text = event.name.replace("搜 动态内容：", "")
+    }
+
+    let body = {
+      'type': this.search_type,
+      'search_text': this.search_text,
+      'uid': this.uid,
+    }
+    this.message_reply_arr = []
+    this.firshowService.search_all_sch_reply(body).then(res => {
+      if (res.result.res_data && res.result.res_code == 1) {
+        this.message_reply_arr = res.result.res_data
+      }
+    })
+  }
+
+  itemClearSelected(event) {
+    this.getAllMessageReply()
+  }
+
+  gotoRw(items) {
+    this.navCtrl.push('CalendarDeatilpagePage', {
+      'item_id': items.sch_id,
+      'isEdit': false,
+      'frontPage': 'FirstShowPage'
+    })
+  }
+
+  click_reply(){
+    this.navCtrl.push('MessageReplyMenuPage', {
+      'uid': this.uid
     })
   }
 

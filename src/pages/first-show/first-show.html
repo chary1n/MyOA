@@ -16,27 +16,27 @@
       <ion-icon name='pin' style="color: white;font-size: 23px"></ion-icon>
     </button>
     <div align="center" style="height:30px;margin-left:10px">
-      <div style="width:33%;float:right;text-align:left" [ngClass]="{true:'test_choose',false:'test_one'}[isMessage]"
+      <!-- <div style="width:33%;float:right;text-align:left" [ngClass]="{true:'test_choose',false:'test_one'}[isMessage]"
         align="center" tappable (click)="message()">
         <p [ngClass]="{true:'p_message_line_height_select',false:'p_message_line_height'}[isMessage]">消息</p>
+      </div> -->
+      <div style="width:40%;float:left;text-align: left;" [ngClass]="{true:'test_choose',false:'test_one'}[isDay]"
+        align="center" tappable (click)="daything()">
+        <p [ngClass]="{true:'p_shenhe_line_height_select',false:'p_shenhe_line_height'}[isDay]" style="float: right;">
+          待办</p>
+        
       </div>
-      <div style="width:33%;float:right" [ngClass]="{true:'test_choose',false:'test_one'}[isShen]" align="center"
-        tappable (click)="consider()">
-        <p [ngClass]="{true:'p_shenhe_line_height_select',false:'p_shenhe_line_height'}[isShen]">审核</p>
+      <div style="width:40%;float:right;text-align:left" [ngClass]="{true:'test_choose',false:'test_one'}[isShen]"
+        align="center" tappable (click)="consider()">
+        <p [ngClass]="{true:'p_daiban_line_height_select',false:'p_daiban_line_height'}[isShen]">审核</p>
         <span *ngIf="isShowApprovalPoint" [ngClass]="{true:'big_span_bac',false:'normal_span_bac'}[all_approval>=10]">
           {{show_approve}}
         </span>
       </div>
-      <div style="width:33%;float:left;text-align:right" [ngClass]="{true:'test_choose',false:'test_one'}[isDay]"
-        align="center" tappable (click)="daything()">
-        <p [ngClass]="{true:'p_daiban_line_height_select',false:'p_daiban_line_height'}[isDay]">待办</p>
-      </div>
     </div>
-    <!--<ion-buttons right>
-    <button ion-button class="icon_class" tappable (click)="showMenu()">
-            <ion-icon name='pin' style="color: white;font-size: 23px"></ion-icon>
-        </button>
-    </ion-buttons>-->
+    <div class="reply_class" tappable (click)="click_reply()">
+      消息
+    </div>
   </ion-navbar>
   <ion-backdrop *ngIf="isShowBac" style="opacity: 0.9; background-color: white;">
   </ion-backdrop>
@@ -395,7 +395,8 @@
       </ion-item-group>
 
     </div>
-    <div *ngIf="salary_approval_num!=0 || salary_adjust_approval_num!= 0 || salary_allowance_count!=0 || salary_subsidy_count!=0 ">
+    <div
+      *ngIf="total_allowance_jj!=0 || salary_approval_num!=0 || salary_adjust_approval_num!= 0 || salary_allowance_count!=0 || salary_subsidy_count!=0 ">
       <div style="padding: 1px;border-bottom:#f0f2f5 1px solid;margin-left: 20px">
         <span
           style="background-color: #409eff;width: 3px;border-radius: 3px;height: 13px;float: left;margin-top: 16px;margin-left: -12px"></span>
@@ -426,20 +427,29 @@
         </div>
       </ion-item-group>
       <ion-item-group>
-          <div *ngIf="salary_allowance_jx_count!=0"
-            style="min-height: 45px;border-bottom:#f0f2f5 1px solid;margin-left: 20px;padding: 1px" tappable
-            (click)='toJXJD()'>
-            <p style="margin-right: 15px;float: right;">{{salary_allowance_jx_count}}</p>
-            <p style="font-size: 13px;">绩效奖审核</p>
-          </div>
-        </ion-item-group>
-      
+        <div *ngIf="salary_allowance_jx_count!=0"
+          style="min-height: 45px;border-bottom:#f0f2f5 1px solid;margin-left: 20px;padding: 1px" tappable
+          (click)='toJXJD()'>
+          <p style="margin-right: 15px;float: right;">{{salary_allowance_jx_count}}</p>
+          <p style="font-size: 13px;">绩效奖审核</p>
+        </div>
+      </ion-item-group>
+
       <ion-item-group>
         <div *ngIf="salary_subsidy_count!=0"
           style="min-height: 45px;border-bottom:#f0f2f5 1px solid;margin-left: 20px;padding: 1px" tappable
           (click)='toBTD()'>
           <p style="margin-right: 15px;float: right;">{{salary_subsidy_count}}</p>
           <p style="font-size: 13px;">补贴审核</p>
+        </div>
+      </ion-item-group>
+
+      <ion-item-group>
+        <div *ngIf="total_allowance_jj!=0"
+          style="min-height: 45px;border-bottom:#f0f2f5 1px solid;margin-left: 20px;padding: 1px" tappable
+          (click)='toNZJ()'>
+          <p style="margin-right: 15px;float: right;">{{total_allowance_jj}}</p>
+          <p style="font-size: 13px;">年终奖审核</p>
         </div>
       </ion-item-group>
     </div>
@@ -541,8 +551,7 @@
 
     </div>
 
-    <div align="center"
-      *ngIf="all_approval==0">
+    <div align="center" *ngIf="all_approval==0">
       <img style="width:100px;position:absolute;left:calc(50% - 50px);top:calc(50% - 60px)"
         src="assets/img/journal_sheet/null_state.png">
       <p style="width:120px;position:absolute;left:calc(50% - 50px);top:calc(50% + 30px);color:#c2c8cc;font-size:15px">
@@ -550,11 +559,52 @@
     </div>
   </ion-content>
   <div *ngIf='isMessage'>
-    <div align="center">
+    <div class="header_div_class">
+      <ion-auto-complete class="searchbar_class" (itemSelected)="itemSelected($event)"
+        (itemClearSelected)="itemClearSelected($event)" [dataProvider]="firstShowAutoService"></ion-auto-complete>
+      <img src="assets/img/work_bench/shaixuan.png" height="18px" width="18px"
+        style="margin-right:10px;margin-top:15px;float:right" tappable (click)="clickMenu()">
+      <span tappable (click)="clickMenu()"
+        style="float:right;margin-top:14px;color:gray;margin-right:5px;border-left:#f0f2f5 1px solid;width:40px;text-align:right">筛选</span>
+    </div>
+    <div *ngIf="message_reply_arr.length > 0">
+
+      <div *ngFor="let items of message_reply_arr" tappable (click)="gotoRw(items)" class="div_message">
+        <ion-item no-lines style="height:40px;min-height:50px">
+          <ion-grid style="background:white">
+            <ion-row>
+              <ion-col col-2>
+                <img src={{items.create_user_ava}} class="img_message_ava">
+              </ion-col>
+              <ion-col col-5>
+                <p class="name_message">
+                  <span>{{items.create_uid}}</span><span
+                    style="margin-left:10px">{{changeDate(items.create_date) | date:'MM-dd HH:mm'}}</span>
+                </p>
+              </ion-col>
+              <ion-col>
+                <p class="name_message">
+                  <span>{{items.state}}</span>
+                </p>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+        <ion-item no-lines style="margin-top:-8px">
+          <p text-wrap class="content_message_no_lines">
+            <span></span><span style="color:#1f6699;"></span><span>{{items.context}}</span>
+          </p>
+        </ion-item>
+        <div class="parent_class" text-wrap>
+          <p class="context_p_class">{{items.subject_name}}</p>
+        </div>
+      </div>
+    </div>
+    <div align="center" *ngIf="message_reply_arr.length == 0">
       <img style="width:100px;position:absolute;left:calc(50% - 50px);top:calc(50% - 60px)"
         src="assets/img/journal_sheet/null_state.png">
       <p style="width:120px;position:absolute;left:calc(50% - 50px);top:calc(50% + 30px);color:#c2c8cc;font-size:15px">
-        暂时没有消息～</p>
+        暂时没有动态～</p>
     </div>
   </div>
 </div>

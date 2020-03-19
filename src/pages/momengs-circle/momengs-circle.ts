@@ -240,6 +240,11 @@ export class MomengsCirclePage {
         'uid': this.user_id,
         'frontPage': 'MomengsCirclePage',
       })
+    } else if (items.share_model == 'rt.red.white.card'){
+      this.navCtrl.push('RedWhiteCardDetailPage', {
+        'card_id': items.share_id,
+        'user_id': this.user_id
+      })
     } else {
       let body = {
         'calendar_id': items.share_id,

@@ -104,6 +104,14 @@ export class FirstShowService {
         return this.httpService.postBody("get_all_department_tree", body);
     }
 
+    get_all_department_tree_simple(body){
+        return this.httpService.postBody("get_all_department_tree_simple", body);
+    }
+
+    get_all_department_tree_simple_new(body){
+        return this.httpService.postBody("get_all_department_tree_simple_new", body);
+    }
+
     get_is_department(employee_id){
         let body = JSON.stringify({
             employee_id:employee_id,
@@ -271,5 +279,13 @@ export class FirstShowService {
 
     get_more_schedule(body){
         return this.httpService.postBody("get_more_schedule", body);
+    }
+
+    get_meesage_reply(body){
+        return this.httpService.postBodyNoLoading("get_meesage_reply", body);
+    }
+
+    search_all_sch_reply(body){
+        return this.httpService.postBody("search_all_sch_reply", body);
     }
 }

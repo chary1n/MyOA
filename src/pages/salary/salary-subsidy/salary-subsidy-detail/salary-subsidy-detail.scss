@@ -1,106 +1,106 @@
 page-salary-subsidy-detail {
-    .div_all {
-        padding-left: 16px;
-        padding-top: 10px;
-        overflow: hidden;
-        background-color: white;
-      }
-      .div_right {
-        float: right;
-        // font-size: 80%;
-        width: 70%;
-        color: #8b8b8b;
-        margin-top: 2px;
-        margin-left: 20px;
-        padding-right: 10px;
-        line-height: 17px;
-      }
-      .div_left {
-        font-size: 80%;
-        width: 30%;
-      }
-  
-      .left_label{
-        font-size:80%;
-        width:67px;
-        text-align: right;
-        color: gray;
-    }
-  
-    .body_div_bottom_class{
-      margin-top: 5px;
-      display: flex;
-      flex-direction: row;
-  }
-  
-  .div_label {
-    background: #f0f2f5;
+  .div_all {
     padding-left: 16px;
-    padding-bottom: 8px;
-    margin-bottom: 0px;
-    margin-right: 0px;
-    margin-top: 8px;
+    padding-top: 10px;
+    overflow: hidden;
+    background-color: white;
   }
-  
-  .item-ios.item-block .item-inner{
-    border-color: white;
-    border-width: 0px;
-  } 
-  
-  .middle_item{
-    width: 85%;
-    margin-left: 10%;
-    margin-top: 6px;
-    // height:auto;
-    border-radius:5px;
-  }
-  
-  .user_ava_class{
-    width:40px;
-    vertical-align:top;
-    float:left;
-    margin-right:10px;
-    border-radius:20px
-  }
-  
-  .span_employee_class{
-    margin-top:3px;
-    color:black;
-    font-size:80%;
-    float:left
-  }
-  
-  .span_time_class{
-    font-size:70%;
-    margin-top:5px;
-    margin-left:-5px;
-    float:right
-  }
-  
-  .size_class{
-    font-size:80%;
-  }
-  
-  .footer_class{
-    width: 100%;
-  }
-  
-  .left_btn{
-    display: inline-block;
-    line-height: 44px;
-    width: 50%;
-    text-align: center;
-    background-color: red;
-    color: white;
-    float: left;
-  }
-  
-  .right_btn{
-    line-height: 44px;
-    width: 50%;
-    color: white;
-    text-align: center;
+  .div_right {
     float: right;
-    background-color: #2597ec;
+    // font-size: 80%;
+    width: 70%;
+    color: #8b8b8b;
+    margin-top: 2px;
+    margin-left: 20px;
+    padding-right: 10px;
+    line-height: 17px;
   }
+  .div_left {
+    font-size: 80%;
+    width: 30%;
+  }
+
+  .left_label{
+    font-size:80%;
+    width:67px;
+    text-align: right;
+    color: gray;
+}
+
+.body_div_bottom_class{
+  margin-top: 5px;
+  display: flex;
+  flex-direction: row;
+}
+
+.div_label {
+background: #f0f2f5;
+padding-left: 16px;
+padding-bottom: 8px;
+margin-bottom: 0px;
+margin-right: 0px;
+margin-top: 8px;
+}
+
+.item-ios.item-block .item-inner{
+border-color: white;
+border-width: 0px;
+} 
+
+.middle_item{
+width: 85%;
+margin-left: 10%;
+margin-top: 6px;
+// height:auto;
+border-radius:5px;
+}
+
+.user_ava_class{
+width:40px;
+vertical-align:top;
+float:left;
+margin-right:10px;
+border-radius:20px
+}
+
+.span_employee_class{
+margin-top:3px;
+color:black;
+font-size:80%;
+float:left
+}
+
+.span_time_class{
+font-size:70%;
+margin-top:5px;
+margin-left:-5px;
+float:right
+}
+
+.size_class{
+font-size:80%;
+}
+
+.footer_class{
+width: 100%;
+}
+
+.left_btn{
+display: inline-block;
+line-height: 44px;
+width: 50%;
+text-align: center;
+background-color: red;
+color: white;
+float: left;
+}
+
+.right_btn{
+line-height: 44px;
+width: 50%;
+color: white;
+text-align: center;
+float: right;
+background-color: #2597ec;
+}
 }

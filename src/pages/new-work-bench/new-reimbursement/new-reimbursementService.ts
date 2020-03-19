@@ -85,6 +85,10 @@ export class NewReimbursementService {
        return this.httpservice.postBody("refuse_approve",body);
     }
 
+    bx_reback(body){
+        return this.httpservice.postBody("bx_reback",body);
+    }
+
     searchApproveList(type,user_id,search_text)
     {
         let body = JSON.stringify({

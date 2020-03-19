@@ -29,9 +29,15 @@ export class AttendanceRecoupDetailPage {
     this.data_arr = this.data.detail_lines
     this.storage.get('user').then(res => {
       this.user = res.result.res_data
-      if (res.result.res_data.user_id == this.data.to_approve_user_id){
-        this.is_manager = true
+      for (var i = 0; i < this.data.to_approve_user_ids.length; i ++) {
+        if (res.result.res_data.user_id == this.data.to_approve_user_ids[i]) {
+          this.is_manager = true
+        }
       }
+
+      // if (res.result.res_data.user_id == this.data.to_approve_user_id){
+      //   this.is_manager = true
+      // }
     })
   }
 

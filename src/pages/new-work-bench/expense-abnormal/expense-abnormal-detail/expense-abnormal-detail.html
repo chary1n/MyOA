@@ -1,0 +1,70 @@
+<!--
+  Generated template for the ExpenseAbnormalDetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header no-border>
+
+  <ion-navbar color="gongdan-color" hideBackButton="true">
+    <ion-buttons left>
+      <button ion-button icon-only (click)="goBack()">
+              <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+            </button>
+    </ion-buttons>
+    <ion-title>{{item.name}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content style="background:#f0f2f5">
+  <div style="background-color: white;">
+    <div class="div_all">
+      <div text-wrap class="div_right"> <span>{{item.source}}</span> <span>{{item.production_id}}</span> </div>
+      <div class="left_label,div_left" text-right> 源 </div>
+    </div>
+    <div class="div_all" *ngIf="item.abnormal_order_id">
+      <div text-wrap class="div_right"> {{item.abnormal_order_id}} </div>
+      <div class="left_label,div_left" text-right> 异常单 </div>
+    </div>
+    <div class="div_all" *ngIf="item.requisitions_id">
+      <div text-wrap class="div_right"> {{item.requisitions_id}} </div>
+      <div class="left_label,div_left" text-right> 申购单 </div>
+    </div>
+    <div class="div_all">
+      <div text-wrap class="div_right"> {{fmoney(transInt(item.amount),3)}}</div>
+      <div class="left_label,div_left" text-right> 人工费用 </div>
+    </div>
+    <div class="div_all">
+      <div text-wrap class="div_right"> {{fmoney(transInt(item.amount_total),3)}} </div>
+      <div class="left_label,div_left" text-right> 总金额 </div>
+    </div>
+    <div class="div_all">
+      <div text-wrap class="div_right"> {{item.date}} </div>
+      <div class="left_label,div_left" text-right> 日期 </div>
+    </div>
+    <div class="div_all">
+      <div text-wrap class="div_right"> {{item.approve_str}} </div>
+      <div class="left_label,div_left" text-right> 待审核人 </div>
+    </div>
+    <div class="div_all" style="padding-bottom: 16px;">
+      <div text-wrap class="div_right"> {{item.note}} </div>
+      <div class="left_label,div_left" text-right> 备注 </div>
+    </div>
+  </div>
+
+  <div class="bx_detail_class">审批记录</div>
+  <ion-list>
+    <ion-item no-lines *ngFor='let items of item.message_ids' style="overflow:hidden" class="middle_item">
+      <img class="user_ava_class" src={{items.create_person_ava}}>
+      <div style="overflow:hidden">
+        <span class="span_employee_class">{{items.create_person}}</span>
+
+        <span class="span_time_class">{{changeDate(items.create_time) | date:'yyyy-MM-dd HH:mm:ss'}}</span>
+      </div>
+      <p *ngIf="items.old_state || items.new_state" class="size_class">{{items.old_state}}=>{{items.new_state}}</p>
+      <p text-wrap class="size_class">{{items.description}}</p>
+    </ion-item>
+  </ion-list>
+</ion-content>

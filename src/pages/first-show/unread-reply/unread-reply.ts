@@ -82,7 +82,14 @@ export class UnreadReplyPage {
           }
         })
       } else {
-        if (item.is_meeting == false) {
+        if (item.is_meeting == true) {
+          // this.navCtrl.push('MeetingPage', {
+          //   'item_id': sub.id,
+          //   'isEdit': false,
+          //   'uid': this.uid,
+          //   'frontPage': 'AllSchedulePage',
+          // })
+
           this.showService.get_event_detail({
             'uid': this.uid,
             'event_id': item.event_id
@@ -101,20 +108,11 @@ export class UnreadReplyPage {
 
 
         } else {
-          this.showService.get_event_detail({
-            'uid': this.uid,
-            'event_id': item.event_id
-          }).then(res => {
-            if (res.result.res_data && res.result.res_code == 1) {
-              item = res.result.res_data
-              this.navCtrl.push('CalendarDeatilpagePage', {
-                'item': item,
-                'isEdit': false,
-                'frontPage': 'FirstShowPage'
-              })
-            }
+          this.navCtrl.push('CalendarDeatilpagePage', {
+            'item_id': item.id,
+            'isEdit': false,
+            'frontPage': 'FirstShowPage'
           })
-
         }
       }
     }
