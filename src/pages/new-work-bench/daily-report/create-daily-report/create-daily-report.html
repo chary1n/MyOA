@@ -19,25 +19,37 @@
 
 
 <ion-content style="background-color: #f0f2f5" (pan)="panEvent($event)">
-  <ion-item class="item_now_class">
+  <!-- <ion-item class="item_now_class">
     <ion-label style="color:black"> 类型
     </ion-label>
-    <!-- <ion-label item-end style="color:black;text-align:right">
-      {{get_type_str()}}
-    </ion-label> -->
-
     <ion-label class="radio_class"><input class="radio_type" name="report_type" type="radio" value="" id="day"/><span tappable (click)="click_day()">日报</span> </ion-label>
     <ion-label class="radio_class"><input class="radio_type" name="report_type" type="radio" value="" id="week"/> <span tappable (click)="click_week()">周报</span> </ion-label>
     <ion-label class="radio_class"><input class="radio_type" name="report_type" type="radio" value="" id="month"/> <span tappable (click)="click_month()">月报</span> </ion-label>
-  </ion-item>
-  <ion-item>
-    <ion-label style="color:#2e3133;">日期
-    </ion-label>
-    <ion-datetime cancelText="取消" doneText="确定" min="2000" max="2088" style="color:#5C6166;font-size:14px;margin-right:-6px"
-      displayFormat="YYYY-MM-DD" [(ngModel)]="report_date"></ion-datetime>
-    <img item-end src="assets/img/journal_sheet/right_icon.png" style="height:10px;margin-right:-4px">
-  </ion-item>
+  </ion-item> -->
+  <div style="display: flex; background-color: white; line-height: 40px;">
+    <div class="date_title">
+      时间
+    </div>
+    <div [ngClass]="{true:'last_time_title_white',false:'last_time_title'}[last_plan_time == '1970-01-01']">{{last_plan_time}}</div>
+    <div [ngClass]="{true:'last_zj_title_white',false:'last_zj_title'}[last_plan_time == '1970-01-01']">至</div>
+    <input type="text" id="input_date" class="class_start_date"
+              [(ngModel)]="report_date">
+    <!-- <ion-datetime cancelText="取消" doneText="确定" min="2000" max="2088" style="color:#5C6166;font-size:14px;margin-right:-6px"
+      displayFormat="YYYY-MM-DD" [(ngModel)]="report_date"></ion-datetime> -->
+    <!-- <img item-end src="assets/img/journal_sheet/right_icon.png" style="height:10px;margin-right:-4px"> -->
+  </div>
 
+  <div class="biaoti" *ngIf="can_show_last_plan">
+    <div class="shu_class">
+    </div>
+    <div class="title_class">
+      原计划
+    </div>
+  </div>
+  <div class="line_class" *ngIf="can_show_last_plan">
+  </div>
+  <div *ngIf="can_show_last_plan" [innerHTML]="assemblePlanHTML(last_plan)" style="word-wrap:break-word;color:#333333;padding:10px;width:100%;background-color:white"></div>
+  
   <div class="biaoti" tappable (click)='changeZJ()'>
     <div class="shu_class">
     </div>

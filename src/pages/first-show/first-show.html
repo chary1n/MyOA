@@ -35,7 +35,7 @@
       </div>
     </div>
     <div class="reply_class" tappable (click)="click_reply()">
-      消息
+      动态
     </div>
   </ion-navbar>
   <ion-backdrop *ngIf="isShowBac" style="opacity: 0.9; background-color: white;">
@@ -335,7 +335,7 @@
         </div>
       </ion-item-group>
     </div>
-    <div *ngIf="bx_num!=0 || sg_num!=0 || yf_num!=0 || jk_num!=0">
+    <div *ngIf="bx_num!=0 || sg_num!=0 || yf_num!=0 || jk_num!=0 || bx_salary_num!= 0">
       <div style="padding: 1px;border-bottom:#f0f2f5 1px solid;margin-left: 20px">
         <span
           style="background-color: #409eff;width: 3px;border-radius: 3px;height: 13px;float: left;margin-top: 16px;margin-left: -12px"></span>
@@ -346,6 +346,11 @@
           tappable (click)='toBX()'>
           <p style="margin-right: 15px;float: right;">{{bx_num}}</p>
           <p style="font-size: 13px;">报销</p>
+        </div>
+        <div *ngIf="bx_salary_num!=0" style="min-height: 45px;border-bottom:#f0f2f5 1px solid;margin-left: 20px;padding: 1px"
+          tappable (click)='toBXSalary()'>
+          <p style="margin-right: 15px;float: right;">{{bx_salary_num}}</p>
+          <p style="font-size: 13px;">薪资报销</p>
         </div>
         <div *ngIf="sg_num!=0" style="min-height: 45px;border-bottom:#f0f2f5 1px solid;margin-left: 20px;padding: 1px"
           tappable (click)='toSG()'>

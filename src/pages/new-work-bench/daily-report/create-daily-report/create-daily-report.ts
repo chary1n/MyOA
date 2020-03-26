@@ -4,7 +4,11 @@ import { ReportService } from './../reportService'
 import { HttpService } from './../../../../providers/HttpService';
 import { Utils } from './../../../../providers/Utils';
 import { NativeService } from './../../../../providers/NativeService';
+import { DomSanitizer } from '@angular/platform-browser';
 declare let cordova: any;
+import 'jquery'
+declare var $: any;
+
 /**
  * Generated class for the CreateDailyReportPage page.
  *
@@ -26,16 +30,20 @@ export class CreateDailyReportPage {
   report_date
   jh_description = '  '
   show_zj = true // 总结
-  show_jh = false // 计划
+  show_jh = true // 计划
   show_jl = true // 工作记录
   img_list = []
   frontPage
 
   is_edit = false
   now_item
+  last_plan
+  can_show_last_plan = false
+  last_plan_time
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public reportService: ReportService, public nativeService: NativeService,
-    public actionSheetCtrl: ActionSheetController, public toastCtrl: ToastController) {
+    public actionSheetCtrl: ActionSheetController, public toastCtrl: ToastController,
+    public sanitizer: DomSanitizer) {
     this.user_id = this.navParams.get('user_id')
     this.is_edit = this.navParams.get('is_edit')
     if (this.is_edit) {
@@ -45,13 +53,25 @@ export class CreateDailyReportPage {
       this.report_date = this.now_item.summit_time
       this.editorContent = this.now_item.summary
       this.jh_description = this.now_item.plan
+      this.last_plan = this.now_item.ago_plan
+      this.last_plan_time = this.now_item.ago_summit_time
     }
     else {
       this.is_edit = false
       this.report_type = 'day_daily'
       this.frontPage = Utils.getViewController("DailyReportPage", this.navCtrl)
       this.report_date = Utils.dateFormat(new Date(), 'yyyy-MM-dd')
+      this.reportService.get_daily_report_last({ 'user_id': this.user_id }).then(res => {
+        if (res.result.res_code == 1 && res.result.res_data) {
+          this.last_plan = res.result.res_data.plan
+          this.last_plan_time = res.result.res_data.summit_time
+          if (this.last_plan.length > 0) {
+            this.can_show_last_plan = true
+          }
+        }
+      })
     }
+    
     // if (this.report_type == 'day_daily') {
     //   this.title = '新建日报'
     // }
@@ -70,14 +90,36 @@ export class CreateDailyReportPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CreateDailyReportPage');
-    if (this.report_type == 'day_daily') {
-      document.getElementById('day')['checked'] = true
+    // if (this.report_type == 'day_daily') {
+    //   document.getElementById('day')['checked'] = true
+    // }
+    // else if (this.report_type == 'week_daily') {
+    //   document.getElementById('week')['checked'] = true
+    // }
+    // else if (this.report_type == 'mouth_daily') {
+    //   document.getElementById('month')['checked'] = true
+    // }
+    setTimeout(() => {
+      var that = this
+      $('#input_date').mobiscroll().date({
+        theme: 'ios',
+        lang: 'zh',
+        display: 'bottom',
+        dateWheels: '|M d D|',
+        onSet: function (event, inst) {
+          that.report_date = event.valueText
+        }
+      });
+    }, 300)
+  }
+
+  assemblePlanHTML(str) {
+    if (str) {
+      var str_after = str.replace(/\n/g, "<br>")
+      return this.sanitizer.bypassSecurityTrustHtml(str_after)
     }
-    else if (this.report_type == 'week_daily') {
-      document.getElementById('week')['checked'] = true
-    }
-    else if (this.report_type == 'mouth_daily') {
-      document.getElementById('month')['checked'] = true
+    else {
+      return ''
     }
   }
 
@@ -176,18 +218,18 @@ export class CreateDailyReportPage {
       Utils.toastButtom('请填写总结', this.toastCtrl)
       return;
     }
-    var is_check_day = document.getElementById('day')['checked']
-    var is_check_week = document.getElementById('week')['checked']
-    var is_check_month = document.getElementById('month')['checked']
-    if (is_check_day) {
-      this.report_type = 'day_daily'
-    }
-    if (is_check_week) {
-      this.report_type = 'week_daily'
-    }
-    if (is_check_month) {
-      this.report_type = 'mouth_daily'
-    }
+    // var is_check_day = document.getElementById('day')['checked']
+    // var is_check_week = document.getElementById('week')['checked']
+    // var is_check_month = document.getElementById('month')['checked']
+    // if (is_check_day) {
+    //   this.report_type = 'day_daily'
+    // }
+    // if (is_check_week) {
+    //   this.report_type = 'week_daily'
+    // }
+    // if (is_check_month) {
+    //   this.report_type = 'mouth_daily'
+    // }
 
     let body = {
       'type': this.report_type,
@@ -198,6 +240,8 @@ export class CreateDailyReportPage {
       'user_id': this.user_id,
       'is_edit': this.is_edit,
       'state': 2,
+      'ago_summit_time': this.last_plan_time,
+      'ago_plan': this.last_plan,
     }
     if (this.is_edit) {
       body['report_id'] = this.now_item.report_id
@@ -216,18 +260,18 @@ export class CreateDailyReportPage {
       return;
     }
 
-    var is_check_day = document.getElementById('day')['checked']
-    var is_check_week = document.getElementById('week')['checked']
-    var is_check_month = document.getElementById('month')['checked']
-    if (is_check_day) {
-      this.report_type = 'day_daily'
-    }
-    if (is_check_week) {
-      this.report_type = 'week_daily'
-    }
-    if (is_check_month) {
-      this.report_type = 'mouth_daily'
-    }
+    // var is_check_day = document.getElementById('day')['checked']
+    // var is_check_week = document.getElementById('week')['checked']
+    // var is_check_month = document.getElementById('month')['checked']
+    // if (is_check_day) {
+    //   this.report_type = 'day_daily'
+    // }
+    // if (is_check_week) {
+    //   this.report_type = 'week_daily'
+    // }
+    // if (is_check_month) {
+    //   this.report_type = 'mouth_daily'
+    // }
 
     let body = {
       'type': this.report_type,
@@ -238,6 +282,8 @@ export class CreateDailyReportPage {
       'user_id': this.user_id,
       'is_edit': this.is_edit,
       'state': 1,
+      'ago_summit_time': this.last_plan_time,
+      'ago_plan': this.last_plan,
     }
     if (this.is_edit) {
       body['report_id'] = this.now_item.report_id

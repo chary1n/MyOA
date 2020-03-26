@@ -59,4 +59,12 @@ export class CustService {
     get_total_account_payment(body){
         return this.httpservice.postBody("get_total_account_payment", body)
     }
+
+    get_all_departments_select(body){
+        return this.httpservice.postBody("get_all_departments_select", body)
+    }
+
+    get_all_meeting_f(body) {
+        return this.httpservice.postBody("get_all_meeting_f", body)
+    }
 }

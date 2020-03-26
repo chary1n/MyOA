@@ -34,7 +34,7 @@
 
         <ion-col *ngIf="state == 'reviewing'" col-5 class="col_header_class_1">
           <span class="state_class_center">{{changeState(state)}}</span>
-          <span class="state_class_center_block">{{res_data.to_approve_id}}</span>
+          <span class="state_class_center_block">{{res_data.to_approve_id_new}}</span>
         </ion-col>
         <ion-col *ngIf="state != 'reviewing'" col-5 class="col_header_class">
           <span class="state_class">{{changeState(state)}}</span>
@@ -45,7 +45,7 @@
   <div class="differ_class">
   </div>
   <ion-item no-lines class="item_class">
-    <div text-wrap class="order_class"> {{res_data.to_approve_id}} </div>
+    <div text-wrap class="order_class"> {{res_data.to_approve_id_new}} </div>
     <div class="left_label"> 待审核人 </div>
   </ion-item>
   <ion-item no-lines class="item_class">

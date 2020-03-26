@@ -66,6 +66,28 @@ export class SelectTeamPage {
         }
       })
     }
+    else if (this.type == 'meeting_line_department') {
+      this.title = '选择借调部门'
+      this.custService.get_all_departments_select({}).then(res => {
+        if (res.result.res_code == 1 && res.result.res_data) {
+          this.data_arr = res.result.res_data.res_data
+          for (let i = 0; i < this.data_arr.length; i++) {
+            this.show_data_arr.push(this.data_arr[i])
+          }
+        }
+      })
+    }
+    else if (this.type == 'meeting_line_f') {
+      this.title = '选择父阶'
+      this.custService.get_all_meeting_f({'user_id': this.navParams.get('user_id')}).then(res => {
+        if (res.result.res_code == 1 && res.result.res_data) {
+          this.data_arr = res.result.res_data
+          for (let i = 0; i < this.data_arr.length; i++) {
+            this.show_data_arr.push(this.data_arr[i])
+          }
+        }
+      })
+    }
   }
   ionViewDidLoad() {
     console.log('ionViewDidLoad SelectCountryPage');
@@ -129,6 +151,18 @@ export class SelectTeamPage {
         }
         this.navCtrl.popTo(this.frontPage)
       })
+    }
+    else if (this.type == 'meeting_line_department') {
+      this.frontPage.data.need_update_department = true
+      this.frontPage.data.rt_second_department = item.id
+      this.frontPage.data.rt_second_department_name = item.name
+      this.navCtrl.popTo(this.frontPage)
+    }
+    else if (this.type == 'meeting_line_f') {
+      this.frontPage.data.need_update_f = true
+      this.frontPage.data.rt_meeting_id = item.id
+      this.frontPage.data.rt_meeting_id_name = item.name
+      this.navCtrl.popTo(this.frontPage)
     }
     else{
       this.navCtrl.popTo(this.frontPage)

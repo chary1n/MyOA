@@ -27,10 +27,12 @@ export class NewReimbursementPage {
   limit: any;
   offset: any;
   is_ios = false;
+  is_salary = 'NO';
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public baoxiaoService: NewReimbursementService, public storage: Storage,
     public reimbursementAutoService: NewReimbursementAutoService, public platform: Platform,
     public reimbursementMeAutoService: NewReimbursementMeAutoService, ) {
+      this.is_salary = this.navParams.get('is_salary')
     if (this.platform.is('ios')) {
       this.is_ios = true
     }
@@ -39,7 +41,13 @@ export class NewReimbursementPage {
     this.storage.get('user')
       .then(res => {
         this.user_id = res.result.res_data.user_id;
-        this.baoxiaoService.getApprovalList(this.limit, this.offset, this.user_id).then((res) => {
+        let body = {
+          'limit': this.limit,
+          'offset': this.offset,
+          'user_id': this.user_id,
+          'is_salary': this.is_salary
+        }
+        this.baoxiaoService.getApprovalList(body).then((res) => {
           if (res.result && res.result.res_code == 1) {
             this.wait_approval_list = res.result.res_data
             let index = 0;
@@ -89,6 +97,7 @@ export class NewReimbursementPage {
       'limit': this.limit,
       'offset': this.offset,
       'user_id': this.user_id,
+      'is_salary': this.is_salary
     }
     this.baoxiaoService.get_before_approved_list(body).then((res) => {
       if (res.result && res.result.res_code == 1) {
@@ -110,7 +119,13 @@ export class NewReimbursementPage {
     this.type = 'wait_approved'
     this.limit = 20;
     this.offset = 0;
-    this.baoxiaoService.getApprovalList(this.limit, this.offset, this.user_id).then((res) => {
+    var body = {
+      'limit': this.limit,
+      'offset': this.offset,
+      'user_id': this.user_id,
+      'is_salary': this.is_salary
+    }
+    this.baoxiaoService.getApprovalList(body).then((res) => {
       if (res.result && res.result.res_code == 1) {
         this.wait_approval_list = res.result.res_data
         let index = 0;
@@ -134,6 +149,7 @@ export class NewReimbursementPage {
       'limit': this.limit,
       'offset': this.offset,
       'user_id': this.user_id,
+      'is_salary': this.is_salary
     }
     this.baoxiaoService.get_me_total_bx(body).then((res) => {
       if (res.result && res.result.res_code == 1) {
@@ -155,7 +171,13 @@ export class NewReimbursementPage {
     this.offset = 0;
     this.isMoreData = true;
     if (this.type == "wait_approved") {
-      this.baoxiaoService.getApprovalList(this.limit, this.offset, this.user_id).then((res) => {
+      let body = {
+        'limit': this.limit,
+        'offset': this.offset,
+        'user_id': this.user_id,
+        'is_salary': this.is_salary
+      }
+      this.baoxiaoService.getApprovalList(body).then((res) => {
         if (res.result && res.result.res_code == 1) {
           this.wait_approval_list = res.result.res_data
           let index = 0;
@@ -176,6 +198,7 @@ export class NewReimbursementPage {
           'limit': this.limit,
           'offset': this.offset,
           'user_id': this.user_id,
+          'is_salary': this.is_salary
         }
       this.baoxiaoService.get_before_approved_list(body).then((res) => {
         if (res.result && res.result.res_code == 1) {
@@ -196,6 +219,7 @@ export class NewReimbursementPage {
         'limit': this.limit,
         'offset': this.offset,
         'user_id': this.user_id,
+        'is_salary': this.is_salary
       }
       this.baoxiaoService.get_me_total_bx(body).then((res) => {
         refresh.complete();
@@ -262,7 +286,13 @@ export class NewReimbursementPage {
   reloadData() {
     this.limit = 20;
     this.offset = 0;
-    this.baoxiaoService.getApprovalList(this.limit, this.offset, this.user_id).then((res) => {
+    let body = {
+      'limit': this.limit,
+      'offset': this.offset,
+      'user_id': this.user_id,
+      'is_salary': this.is_salary
+    }
+    this.baoxiaoService.getApprovalList(body).then((res) => {
       if (res.result && res.result.res_code == 1) {
         this.wait_approval_list = res.result.res_data
         let index = 0;
@@ -295,7 +325,13 @@ export class NewReimbursementPage {
     }
 
     if (this.type == "wait_approved") {
-      this.baoxiaoService.searchApproveList(type, this.user_id, search_text).then((res) => {
+      let body = {
+        'type':type,
+        'user_id': this.user_id,
+        'search_text':search_text,
+        'is_salary': this.is_salary,
+    }
+      this.baoxiaoService.searchApproveList(body).then((res) => {
         if (res.result && res.result.res_code == 1) {
           this.wait_approval_list = res.result.res_data
           let index = 0;
@@ -310,7 +346,13 @@ export class NewReimbursementPage {
       })
     }
     else if (this.type == "me_approved") {
-      this.baoxiaoService.searchAlreadyApproveList(type, this.user_id, search_text).then((res) => {
+      let body = {
+        'type': type,
+        'user_id': this.user_id,
+        'search_text': search_text,
+        'is_salary': this.is_salary
+    }
+      this.baoxiaoService.searchAlreadyApproveList(body).then((res) => {
         if (res.result && res.result.res_code == 1) {
           this.already_approval_list = res.result.res_data
           let index = 0;
@@ -346,7 +388,13 @@ export class NewReimbursementPage {
       type = "name";
       search_text = event.name.replace("搜 待审核人：", "")
     }
-    this.baoxiaoService.searchMeList(type, this.user_id, search_text).then((res) => {
+    let body = {
+      'type':type,
+      'user_id':this.user_id,
+      'search_text':search_text,
+      'is_salary': this.is_salary,
+  }
+    this.baoxiaoService.searchMeList(body).then((res) => {
       if (res.result && res.result.res_code == 1) {
         this.me_list = res.result.res_data
         let index = 0;
@@ -378,6 +426,7 @@ export class NewReimbursementPage {
           'limit': this.limit,
           'offset': this.offset,
           'user_id': this.user_id,
+          'is_salary': this.is_salary
         }
         this.baoxiaoService.get_me_total_bx(body).then((res) => {
           if (res.result && res.result.res_code == 1) {
@@ -407,7 +456,13 @@ export class NewReimbursementPage {
         })
       }
       else if (this.type == 'wait_approved') {
-        this.baoxiaoService.getApprovalList(this.limit, this.offset, this.user_id).then((res) => {
+        let body = {
+          'limit': this.limit,
+          'offset': this.offset,
+          'user_id': this.user_id,
+          'is_salary': this.is_salary
+        }
+        this.baoxiaoService.getApprovalList(body).then((res) => {
           if (res.result && res.result.res_code == 1) {
             let item_data = [];
             if (res.result.res_data) {
@@ -439,6 +494,7 @@ export class NewReimbursementPage {
           'limit': this.limit,
           'offset': this.offset,
           'user_id': this.user_id,
+          'is_salary': this.is_salary
         }
         this.baoxiaoService.get_before_approved_list(body).then((res) => {
           if (res.result && res.result.res_code == 1) {

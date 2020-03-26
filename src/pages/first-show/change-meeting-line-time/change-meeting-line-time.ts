@@ -186,52 +186,35 @@ export class ChangeMeetingLineTimePage {
     }
     if (this.allday == true && this.start_date != '' && this.stop_date != '' && this.start_date && this.stop_date) {
       console.log('start = ' + this.start_date + '  stop = ' + this.stop_date)
-      this.start_date = this.datePipe.transform(this.start_date, 'yyyy-MM-dd HH:mm:ss')
-      this.stop_date = this.datePipe.transform(this.stop_date, 'yyyy-MM-dd HH:mm:ss')
-      if (new Date(this.start_date.replace(/-/g, "/")).getTime() > new Date(this.stop_date.replace(/-/g, "/")).getTime()) {
+      // this.start_date = this.datePipe.transform(this.start_date, 'yyyy-MM-dd HH:mm:ss')
+      // this.stop_date = this.datePipe.transform(this.stop_date, 'yyyy-MM-dd HH:mm:ss')
+      if (this.start_date > this.stop_date) {
         Utils.toastButtom('开始时间不能大于结束时间！', this.toastCtrl)
         return
       }
       body['start_date'] = this.start_date
       body['stop_date'] = this.stop_date
-      body['start'] = this.start_date
-      body['stop'] = this.stop_date
+      // body['start'] = this.start_date
+      // body['stop'] = this.stop_date
     } else {
       if (this.rt_is_sure_time == true) {
-        body['start_datetime'] = this.datePipe.transform(this.start_date, 'yyyy-MM-dd HH:mm:ss')
-        body['stop_datetime'] = this.datePipe.transform(this.stop_date, 'yyyy-MM-dd HH:mm:ss')
+        // body['start_datetime'] = this.datePipe.transform(this.start_date, 'yyyy-MM-dd HH:mm:ss')
+        // body['stop_datetime'] = this.datePipe.transform(this.stop_date, 'yyyy-MM-dd HH:mm:ss')
       } else {
         if (this.start_datetime != '' && this.stop_datetime != '' && this.start_datetime && this.stop_datetime) {
-          let startTime;
-          let stopTime;
-          if (this.start_datetime.indexOf('T') != -1) {
-            startTime = new Date(this.start_datetime).getTime()
-          } else {
-            startTime = new Date(this.start_datetime.replace(/-/g, "/")).getTime()
-          }
-          if (this.stop_datetime.indexOf('T') != -1) {
-            stopTime = new Date(this.stop_datetime).getTime()
-          } else {
-            stopTime = new Date(this.stop_datetime.replace(/-/g, "/")).getTime()
-          }
-          if (startTime > stopTime) {
-            Utils.toastButtom('开始时间不能大于结束时间！', this.toastCtrl)
-            return
-          }
-          if (this.start_datetime.indexOf('T') != -1) {
-            this.start_datetime = this.datePipe.transform(new Date(new Date(this.start_datetime).getTime() - 1 * 8 * 60 * 60 * 1000), 'yyyy-MM-dd HH:mm:ss')
-          } else {
-            this.start_datetime = this.datePipe.transform(new Date(new Date(this.start_datetime.replace(/-/g, "/")).getTime() - 1 * 8 * 60 * 60 * 1000), 'yyyy-MM-dd HH:mm:ss')
-          }
-          if (this.stop_datetime.indexOf('T') != -1) {
-            this.stop_datetime = this.datePipe.transform(new Date(new Date(this.stop_datetime).getTime() - 1 * 8 * 60 * 60 * 1000), 'yyyy-MM-dd HH:mm:ss')
-          } else {
-            this.stop_datetime = this.datePipe.transform(new Date(new Date(this.stop_datetime.replace(/-/g, "/")).getTime() - 1 * 8 * 60 * 60 * 1000), 'yyyy-MM-dd HH:mm:ss')
-          }
+
+            if (this.start_datetime > this.stop_datetime) {
+              Utils.toastButtom('开始时间不能大于结束时间！', this.toastCtrl)
+              return
+            }
+
+            this.start_datetime = this.spec_format(new Date(new Date(this.start_datetime.replace(/-/g, "/")).getTime() - 1 * 8 * 60 * 60 * 1000), 'yyyy-MM-dd HH:mm:ss')
+            this.stop_datetime = this.spec_format(new Date(new Date(this.stop_datetime.replace(/-/g, "/")).getTime() - 1 * 8 * 60 * 60 * 1000), 'yyyy-MM-dd HH:mm:ss')
+
           body['start_datetime'] = this.start_datetime
           body['stop_datetime'] = this.stop_datetime
-          body['start'] = this.start_datetime
-          body['stop'] = this.stop_datetime
+          // body['start'] = this.start_datetime
+          // body['stop'] = this.stop_datetime
         }
       }
     }
@@ -241,6 +224,30 @@ export class ChangeMeetingLineTimePage {
         this.navCtrl.pop()
       }
     })
+  }
+
+  spec_format(data, fmt) {
+    var o = {
+      "M+": data.getMonth() + 1,
+      "d+": data.getDate(),
+      "H+": data.getHours(),
+      "m+": data.getMinutes(),
+      "s+": data.getSeconds(),
+      "S+": data.getMilliseconds()
+    };
+    //因为date.getFullYear()出来的结果是number类型的,所以为了让结果变成字符串型，下面有两种方法：
+    if (/(y+)/.test(fmt)) {
+      //第一种：利用字符串连接符“+”给date.getFullYear()+""，加一个空字符串便可以将number类型转换成字符串。
+      fmt = fmt.replace(RegExp.$1, (data.getFullYear() + "").substr(4 - RegExp.$1.length));
+    }
+    for (var k in o) {
+      if (new RegExp("(" + k + ")").test(fmt)) {
+        //第二种：使用String()类型进行强制数据类型转换String(date.getFullYear())，这种更容易理解。
+        fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(String(o[k]).length)));
+      }
+    }
+    return fmt;
+
   }
 
 }

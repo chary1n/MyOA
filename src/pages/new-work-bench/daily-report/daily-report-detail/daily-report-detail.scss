@@ -167,7 +167,7 @@ page-daily-report-detail {
         color: lightgray;
     background-color: white;
     line-height: 35px;
-    padding-left: 20px;
+    padding-left: 10px;
     }
 
     .log_time_class{
@@ -236,5 +236,20 @@ page-daily-report-detail {
         margin-left:5px;
         font-size:80%;
         color:#E0540E
+    }
+
+    .date_title {
+        height: 40px;
+        margin-left: 10px;
+        width: 40%;
+    }
+
+    .last_time_title {
+        margin-right: 12px;
+    height: 40px;
+    }
+
+    .last_zj_title {
+        height: 40px;
     }
 }

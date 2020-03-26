@@ -26,6 +26,7 @@ export class NewMessageReplyPage {
   quick_type
   start_date
   end_date
+  message_type
 
   employee_ids = []
 
@@ -44,7 +45,7 @@ export class NewMessageReplyPage {
         if (res.result.res_data && res.result.res_code == 1) {
             this.is_manager = res.result.res_data.is_manager
         }
-    })
+      })
     })
 
     
@@ -71,6 +72,7 @@ export class NewMessageReplyPage {
       this.start_date = data.start_date
       this.end_date = data.end_date
       this.offset = 0
+      this.message_type = data.message_type
       this.getAllMessageReply()
     })
 
@@ -109,6 +111,7 @@ export class NewMessageReplyPage {
       'start_date': this.start_date,
       'end_date': this.end_date,
       'employee_ids': this.employee_ids,
+      'message_type': this.message_type
     }
     this.message_reply_arr = []
     this.firstShowService.search_all_sch_reply(body).then(res => {
@@ -127,7 +130,8 @@ export class NewMessageReplyPage {
     this.navCtrl.push('CalendarDeatilpagePage', {
       'item_id': items.sch_id,
       'isEdit': false,
-      'frontPage': 'FirstShowPage'
+      'frontPage': 'FirstShowPage',
+      'msg_id': 'id' + items.msg_id.toString()
     })
   }
 
@@ -142,6 +146,7 @@ export class NewMessageReplyPage {
       'start_date': this.start_date,
       'end_date': this.end_date,
       'employee_ids': this.employee_ids,
+      'message_type': this.message_type,
     }
     this.firstShowService.get_meesage_reply(body).then(res => {
       if (res.result.res_data && res.result.res_code == 1) {
@@ -190,6 +195,7 @@ export class NewMessageReplyPage {
         'start_date': this.start_date,
         'end_date': this.end_date,
         'employee_ids': this.employee_ids,
+        'message_type': this.message_type
       }
       this.firstShowService.get_meesage_reply(body).then((res) => {
         let item_data = [];

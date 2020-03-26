@@ -52,6 +52,26 @@
       </ion-row>
     </ion-grid>
   </ion-item>
+  <div style="display: flex; background-color: white; line-height: 40px; border-top: solid 1px #f0f2f5;">
+    <div class="date_title">
+      时间
+    </div>
+    <div class="last_time_title">{{item_data.ago_summit_time}}</div>
+    <div class="last_zj_title">至</div>
+    <div class="last_time_title" style="margin-left: 12px;">{{item_data.summit_time}}</div>
+  </div>
+
+  <div class="biaoti" >
+    <div class="shu_class">
+    </div>
+    <div class="title_class">
+      原计划
+    </div>
+  </div>
+  <div class="line_class" >
+  </div>
+  <div [innerHTML]="assemblePlanHTML(item_data.ago_plan)" style="word-wrap:break-word;color:#333333;padding:10px;width:100%;background-color:white"></div>
+
   <div class="biaoti" tappable (click)='changeZJ()'>
     <div class="shu_class">
     </div>
@@ -76,9 +96,8 @@
   </div>
   <div class="line_class" *ngIf="show_jh">
   </div>
-  <div *ngIf="show_jh" class="plan_class">
-    <div [innerHTML]="assemblePlanHTML(item_data.plan)" style="word-wrap:break-word;color:#333333;padding-left:5px;padding-right:5px;width:100%;background-color:white"></div>
-  </div>
+  <div *ngIf="show_jh" [innerHTML]="assemblePlanHTML(item_data.plan)" style="word-wrap:break-word;color:#333333;padding:10px;width:100%;background-color:white"></div>
+
 
   <div class="differ_div_class">
     <div *ngIf='item_data.message_length > 0'>

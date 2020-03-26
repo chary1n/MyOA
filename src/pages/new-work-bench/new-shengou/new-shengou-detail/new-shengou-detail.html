@@ -30,7 +30,7 @@
         </ion-col>
         <ion-col *ngIf="item.state == 'reviewing'" col-5 class="col_header_class_1">
           <span class="state_class_center">{{changeState(item.state)}}</span>
-          <span class="state_class_center_block">{{item.to_approve_id}}</span>
+          <span class="state_class_center_block">{{item.to_approve_id_new}}</span>
         </ion-col>
         <ion-col *ngIf="item.state != 'reviewing'" col-5 class="col_header_class">
           <span class="state_class">{{changeState(item.state)}}</span>

@@ -55,6 +55,7 @@ export class FirstShowPage {
   recoup_num//补卡销卡数目
   vacation_num//休假单数目
   bx_num//报销
+  bx_salary_num// 薪资报销
   sg_num//申购
   yf_num//预付
   jk_num//借款
@@ -176,7 +177,7 @@ export class FirstShowPage {
           'id': ''
         })
         temp_arr.push({
-          'display_name': '日报',
+          'display_name': '工作汇报',
           'id': ''
         })
         res.result.res_data.forEach(item => {
@@ -190,7 +191,7 @@ export class FirstShowPage {
   }
 
   ionViewWillLeave() {
-    // this.menu.enable(false)
+    this.menu.enable(false)
     var bar = document.getElementsByClassName('tabbar').item(0);
     bar['style'].display = 'none';
     this.event.unsubscribe('search_domain_first')
@@ -809,7 +810,7 @@ export class FirstShowPage {
         'user_id': this.uid,
       })
     }
-    else if (item.display_name == '日报') {
+    else if (item.display_name == '工作汇报') {
       // this.navCtrl.push('DailyReportPage')
       this.navCtrl.push('CreateDailyReportPage', {
         'report_type': 'day_daily',
@@ -869,6 +870,7 @@ export class FirstShowPage {
         this.recoup_num = res.result.res_data.recoup_num
         this.vacation_num = res.result.res_data.vacation_num
         this.bx_num = res.result.res_data.bx_num
+        this.bx_salary_num = res.result.res_data.bx_salary_num
         this.sg_num = res.result.res_data.sg_num
         this.jk_num = res.result.res_data.jk_num
         this.yf_num = res.result.res_data.yf_num
@@ -889,7 +891,7 @@ export class FirstShowPage {
         this.salary_subsidy_count = res.result.res_data.salary_subsidy_count
         this.salary_allowance_jx_count = res.result.res_data.salary_allowance_jx_count
         this.total_allowance_jj = res.result.res_data.total_allowance_jj
-        this.all_approval = this.total_allowance_jj + this.salary_allowance_jx_count + this.salary_allowance_count + this.salary_subsidy_count + this.recoup_num + this.vacation_num + this.jk_num + this.bx_num + this.yf_num + this.sg_num + this.caigou_num + this.tousu_num + this.pay_num + this.gongcheng_num + this.salary_approval_num + this.salary_adjust_approval_num + this.dimission_num + this.offer_num + this.adjust_num + this.intp_num + this.purchase_account_num
+        this.all_approval = this.total_allowance_jj + this.salary_allowance_jx_count + this.salary_allowance_count + this.salary_subsidy_count + this.recoup_num + this.vacation_num + this.jk_num + this.bx_num + this.bx_salary_num + this.yf_num + this.sg_num + this.caigou_num + this.tousu_num + this.pay_num + this.gongcheng_num + this.salary_approval_num + this.salary_adjust_approval_num + this.dimission_num + this.offer_num + this.adjust_num + this.intp_num + this.purchase_account_num
         if (this.isShowCK) {
           this.all_approval += this.pandian_num
         }
@@ -927,7 +929,15 @@ export class FirstShowPage {
   }
 
   toBX() {
-    this.navCtrl.push('NewReimbursementPage')
+    this.navCtrl.push('NewReimbursementPage', {
+      'is_salary': 'NO'
+    })
+  }
+
+  toBXSalary() {
+    this.navCtrl.push('NewReimbursementPage', {
+      'is_salary': 'YES'
+    })
   }
 
   toYF() {

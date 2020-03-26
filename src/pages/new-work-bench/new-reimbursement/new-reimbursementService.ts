@@ -25,13 +25,13 @@ export class NewReimbursementService {
     }
     
     //旧的接口
-    getApprovalList(limit,offset,user_id)
+    getApprovalList(body)
     {
-        let body = JSON.stringify({
-            limit:limit,
-            offset:offset,
-            user_id:user_id,
-        });
+        // let body = JSON.stringify({
+        //     limit:limit,
+        //     offset:offset,
+        //     user_id:user_id,
+        // });
        return this.httpservice.postBody("wait_approval",body);
     }
 
@@ -89,33 +89,20 @@ export class NewReimbursementService {
         return this.httpservice.postBody("bx_reback",body);
     }
 
-    searchApproveList(type,user_id,search_text)
+    searchApproveList(body)
     {
-        let body = JSON.stringify({
-            type:type,
-            user_id:user_id,
-            search_text:search_text,
-        });
        return this.httpservice.postBody("search_approve",body);
     }
 
-    searchAlreadyApproveList(type,user_id,search_text)
+    searchAlreadyApproveList(body)
     {
-        let body = JSON.stringify({
-            type:type,
-            user_id:user_id,
-            search_text:search_text,
-        });
+        
        return this.httpservice.postBody("search_already_approve",body);
     }
 
-    searchMeList(type,user_id,search_text)
+    searchMeList(body)
     {
-        let body = JSON.stringify({
-            type:type,
-            user_id:user_id,
-            search_text:search_text,
-        });
+        
        return this.httpservice.postBody("search_me",body);
     }
 }

@@ -87,6 +87,25 @@
               </div>
             </ion-col>
           </ion-row>
+        </ion-grid>
+      </div>
+      <div>
+        <div class="me_header">
+          类型
+        </div>
+        <ion-grid class="grid_class">
+          <ion-row>
+            <ion-col tappable (click)="click_remark()" col-4>
+              <div [ngClass]="{true:'me_class_choose',false:'me_class'}[message_type == 'remark']">
+                备注
+              </div>
+            </ion-col>
+            <ion-col tappable (click)="click_system_remark()" col-4>
+              <div [ngClass]="{true:'me_class_choose',false:'me_class'}[message_type == 'system_remark']">
+                系统消息
+              </div>
+            </ion-col>
+          </ion-row>
 
         </ion-grid>
       </div>

@@ -38,6 +38,8 @@ export class MessageReplyMenuPage {
   uid
 
   is_manager
+
+  message_type = ''
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public events: Events, public storage: Storage, public menu: MenuController,
     public event: Events, public firstShowService: FirstShowService) {
@@ -194,6 +196,7 @@ export class MessageReplyMenuPage {
     this.quick_type = ''
     this.end_date = ''
     this.start_date = ''
+    this.message_type = ''
   }
 
   confirm() {
@@ -204,6 +207,7 @@ export class MessageReplyMenuPage {
         quick_type: this.quick_type,
         start_date: this.start_date,
         end_date: this.end_date,
+        message_type: this.message_type,
       })
     }
     else {
@@ -219,5 +223,13 @@ export class MessageReplyMenuPage {
       })
     }
 
+  }
+
+  click_remark() {
+    this.message_type = 'remark'
+  }
+
+  click_system_remark() {
+    this.message_type = 'system_remark'
   }
 }

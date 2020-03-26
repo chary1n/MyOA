@@ -48,6 +48,11 @@ export class RedWhiteCardCreatePage {
       this.date = this.datePipe.transform(new Date(), 'yyyy-MM-dd')
       this.is_select_employee = false
       this.search_employees = []
+      if (this.navParams.get('select_employee_id')) {
+        this.select_employee_name = this.navParams.get('select_employee_name')
+        this.select_employee_id = this.navParams.get('select_employee_id')
+        this.type = 'red'
+      }
   }
 
   ionViewDidLoad() {

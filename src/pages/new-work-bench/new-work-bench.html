@@ -25,7 +25,7 @@
   <ion-scroll class="scroll_class" zooming="true" scrollX="true" align-items-center>
     <div class="left_div" align="center" tappable (click)="click_normal()">
       <span align="center" class="new_title_red"
-        *ngIf="vacation_num>0 || recoup_num>0 || performance>0 || bx_num>0 || shengou_num>0 || jiekuan_num>0 || yufu_num>0 ">
+        *ngIf="vacation_num>0 || recoup_num>0 || performance>0 || bx_num>0 || shengou_num>0 || jiekuan_num>0 || yufu_num>0 || bx_salary_num > 0">
 
       </span>
       <span [ngClass]="{true:'under_line_style',false:'normal_style'}[inner_type == 'normal']">通用</span>
@@ -215,7 +215,7 @@
         <div class="body_class" align="center">
           <img class="body_img_class" src="assets/img/new_daily_report.png">
           <div class="text_class">
-            日报
+            工作汇报
           </div>
         </div>
       </ion-col>
@@ -242,6 +242,18 @@
           <img class="body_img_class" src="assets/img/bx_img.png">
           <div class="text_class">
             报销
+          </div>
+        </div>
+      </ion-col>
+      <ion-col class="col_class" tappable (click)="click_baoxiao_xz()" col-3>
+        <div *ngIf="bx_salary_num > 0" align="center" [ngClass]="{true:'big_number_class',false:'number_class'}[bx_salary_num >= 10]">
+          {{bx_salary_num}}
+        </div>
+        <div class="body_class" align="center">
+
+          <img class="body_img_class" src="assets/img/bx_img.png">
+          <div class="text_class">
+            薪资报销
           </div>
         </div>
       </ion-col>
@@ -272,7 +284,9 @@
           </div>
         </div>
       </ion-col>
+    </ion-row>
 
+    <ion-row class="body_row_class">
       <ion-col class="col_class" tappable (click)="click_yufu()" col-3>
         <div *ngIf="yufu_num > 0" align="center"
           [ngClass]="{true:'big_number_class',false:'number_class'}[yufu_num >= 10]">
@@ -286,11 +300,6 @@
           </div>
         </div>
       </ion-col>
-
-
-    </ion-row>
-
-    <ion-row class="body_row_class">
       <ion-col *ngIf='showBaoBiao' class="col_class" tappable (click)="click_baobiao()" col-3>
         <!--<div *ngIf="yufu_num > 0" align="center" [ngClass]="{true:'big_number_class',false:'number_class'}[performance >= 10]">
           {{yufu_num}}

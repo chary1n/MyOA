@@ -133,7 +133,7 @@ export class MePage {
                 {
                   text: '立即升级',
                   handler: () => {
-                    this.openUrlByBrowser('http://fir.im/MyOa');
+                    this.openUrlByBrowser('http://fir.robotime.cn/MyOa');
                   }
                 }
               ]

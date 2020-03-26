@@ -18,7 +18,7 @@ export class HttpService {
   static is_alert = false;
   static need_back_login;
   static need_login = false;
-  static now_server_url = 'http://erp.robotime.com:8888/'
+  static now_server_url = 'http://service.linkloving.net:8888/'
   // static now_server_url = 'http://192.168.2.12:8081/'
   // static now_server_url = 'http://10.0.0.2:8081/'
   constructor(private http: Http, private loading: LoadingController,
@@ -205,7 +205,7 @@ export class HttpService {
               if (this.platform.is('android')) {
                 this.inAppBrowser.create("https://fir.im/OAandroid", '_system');
               } else {
-                this.inAppBrowser.create('http://fir.im/MyOa', '_system');
+                this.inAppBrowser.create('http://fir.robotime.cn/MyOa', '_system');
               }
               //  
 

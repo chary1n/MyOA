@@ -155,4 +155,38 @@ page-create-daily-report {
         vertical-align: middle;
         transform: rotate(-45deg);
     }
+
+    .date_title {
+        height: 40px;
+        margin-left: 10px;
+        width: 40%;
+    }
+
+    .last_time_title_white {
+        margin-right: 12px;
+        height: 40px;
+        color: white;
+    }
+
+    .last_time_title {
+        margin-right: 12px;
+    height: 40px;
+    }
+
+    .last_zj_title {
+        height: 40px;
+    }
+
+    .last_zj_title_white {
+        height: 40px;
+        color: white;
+    }
+
+    .class_start_date {
+        height: 40px;
+    width: 100px;
+    text-align: center;
+    border-width: 0px;
+    // margin-top: 2px;
+    }
 }

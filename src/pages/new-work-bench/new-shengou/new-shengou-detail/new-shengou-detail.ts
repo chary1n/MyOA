@@ -38,12 +38,10 @@ export class NewShengouDetailPage {
       
       this.storage.get('user')
       .then(res => {
-        if (res.result.res_data.name != to_approve_name){
-          this.isShowFooter = false;
-        }
-        else
-        {
-          this.isShowFooter = true;
+        for (var i = 0; i < this.item.to_approve_user_ids.length; i ++) {
+          if (res.result.res_data.user_id == this.item.to_approve_user_ids[i]) {
+            this.isShowFooter = true;
+          }
         }
       })
     }

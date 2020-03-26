@@ -28,6 +28,8 @@ export class DailyReportDetailPage {
   show_jl = true // 工作记录
 
   can_show_more = false // 是否显示更多操作
+
+  last_plan
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public reportService: ReportService, public sanitizer: DomSanitizer,
     public modalController: ModalController, public actionSheetCtrl: ActionSheetController) {
@@ -35,7 +37,7 @@ export class DailyReportDetailPage {
     this.uid = this.navParams.get('uid')
     this.frontPage = Utils.getViewController("DailyReportPage", this.navCtrl)
     this.reload_data_with_img()
-
+    
   }
 
   ionViewDidLoad() {
@@ -101,23 +103,25 @@ export class DailyReportDetailPage {
       var that = this
       var attachment_id_arr = []
       var search_arr = []
-      for (var i = 0; i < img_arr.length; i++) {
-        var now_img_url = ''
-        var capture = img_arr[i].match(srcReg)[1].split('/')[img_arr[i].match(srcReg)[1].split('/').length - 1]
-        attachment_id_arr.push(capture)
-        search_arr.push(img_arr[i].match(srcReg)[1])
-      }
-      let body = {
-        'img_arr': search_arr,
-        'summary': this.item_data.summary,
-        'attachment_id_arr': attachment_id_arr,
-      }
-      this.reportService.exchange_attachment_url(body).then(res => {
-        if (res.result.res_data && res.result.res_code == 1) {
-          // now_img_url = '<img src="' + res.result.res_data + '" style="width:100%;" imageViewer/>'
-          that.item_data.summary = res.result.res_data
+      if (img_arr) {
+        for (var i = 0; i < img_arr.length; i++) {
+          var now_img_url = ''
+          var capture = img_arr[i].match(srcReg)[1].split('/')[img_arr[i].match(srcReg)[1].split('/').length - 1]
+          attachment_id_arr.push(capture)
+          search_arr.push(img_arr[i].match(srcReg)[1])
         }
-      })
+        let body = {
+          'img_arr': search_arr,
+          'summary': this.item_data.summary,
+          'attachment_id_arr': attachment_id_arr,
+        }
+        this.reportService.exchange_attachment_url(body).then(res => {
+          if (res.result.res_data && res.result.res_code == 1) {
+            // now_img_url = '<img src="' + res.result.res_data + '" style="width:100%;" imageViewer/>'
+            that.item_data.summary = res.result.res_data
+          }
+        })
+      }
     }
   }
 

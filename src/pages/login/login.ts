@@ -10,8 +10,8 @@ import { JPush } from '../../providers/JPush'
 
 import { LoginService } from './loginService';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
-import { ToastController } from 'ionic-angular/components/toast/toast-controller';
+import { IonicPage, NavController, NavParams, AlertController, LoadingController, ToastController} from 'ionic-angular';
+// import { ToastController } from 'ionic-angular/components/toast/toast-controller';
 
 import { AppVersion } from '@ionic-native/app-version';
 import { Platform } from 'ionic-angular';
@@ -94,7 +94,7 @@ export class LoginPage {
                 {
                   text: '立即升级',
                   handler: () => {
-                    this.openUrlByBrowser('http://fir.im/MyOa');
+                    this.openUrlByBrowser('http://fir.robotime.cn/MyOa');
                   }
                 }
               ]

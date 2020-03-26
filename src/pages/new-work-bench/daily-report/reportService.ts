@@ -7,6 +7,10 @@ export class ReportService {
     constructor(private httpservice: HttpService) {
 
     }
+    get_daily_report_last(body){
+        return this.httpservice.postBody("get_daily_report_last",body)
+    }
+
     get_team_department_tree(body){
         return this.httpservice.postBody("get_team_department_tree",body)
     }

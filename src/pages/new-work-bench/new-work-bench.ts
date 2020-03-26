@@ -26,6 +26,7 @@ export class NewWorkBenchPage {
   recoup_num = 0
   shengou_num = 0
   bx_num = 0
+  bx_salary_num = 0
   yufu_num = 0
   jiekuan_num = 0
   showBaoBiao = false;
@@ -150,6 +151,7 @@ export class NewWorkBenchPage {
               this.recoup_num = res.result.res_data.recoup_num
               this.shengou_num = res.result.res_data.sg_num
               this.bx_num = res.result.res_data.bx_num
+              this.bx_salary_num = res.result.res_data.bx_salary_num
               this.yufu_num = res.result.res_data.yufu_num
               this.jiekuan_num = res.result.res_data.jiekuan_num
               this.po_num = res.result.res_data.po_num
@@ -228,7 +230,15 @@ export class NewWorkBenchPage {
   }
 
   click_baoxiao() {
-    this.navCtrl.push('NewReimbursementPage')
+    this.navCtrl.push('NewReimbursementPage', {
+      'is_salary': 'NO'
+    })
+  }
+
+  click_baoxiao_xz() {
+    this.navCtrl.push('NewReimbursementPage', {
+      'is_salary': 'YES'
+    })
   }
 
   click_shengou() {
