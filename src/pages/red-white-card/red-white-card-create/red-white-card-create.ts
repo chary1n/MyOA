@@ -51,6 +51,7 @@ export class RedWhiteCardCreatePage {
       if (this.navParams.get('select_employee_id')) {
         this.select_employee_name = this.navParams.get('select_employee_name')
         this.select_employee_id = this.navParams.get('select_employee_id')
+        this.remark = '此任务完成非常出色，特此表扬'
         this.type = 'red'
       }
   }

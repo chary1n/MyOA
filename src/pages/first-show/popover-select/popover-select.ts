@@ -6,7 +6,7 @@ import { IonicPage,  ViewController, Events } from 'ionic-angular';
   template: `
     <div>
       <ion-item no-lines tappable (click)="click_all()" style="border-bottom: solid 1px #f0f2f5">全部</ion-item>
-      <ion-item no-lines tappable (click)="click_remark()" style="border-bottom: solid 1px #f0f2f5">备注</ion-item>
+      <ion-item no-lines tappable (click)="click_remark()" style="border-bottom: solid 1px #f0f2f5">回复</ion-item>
       <ion-item no-lines tappable (click)="click_system_remark()">系统消息</ion-item>
     </div>
   `,

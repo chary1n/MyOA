@@ -22,7 +22,7 @@ declare var cordova: any;
   providers: [EmployeeService]
 })
 export class SelectDepartmentPage {
-  uid
+  uid=1
   setting
   zNodes = []
   tree_obj
@@ -72,7 +72,10 @@ export class SelectDepartmentPage {
     }
     this.storage.get('user')
       .then(res => {
-        this.uid = res.result.res_data.user_id
+        if (res != null) {
+          this.uid = res.result.res_data.user_id
+        }
+        
 
         this.employeeService.new_department_tree({ 'uid': this.uid }).then(res => {
           if (res.result.res_data && res.result.res_code == 1) {

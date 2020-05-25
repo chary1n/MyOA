@@ -217,6 +217,10 @@ export class WriteEmailPage {
         for (let item of self.contact_list) {
           if ((new RegExp(self.email_to).test(item.email))) {
             self.contact_email_to_list.push(item);
+          } else {
+            if ((new RegExp(self.email_to).test(item.name))) {
+              self.contact_email_to_list.push(item);
+            } 
           }
         }
       }

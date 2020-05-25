@@ -87,7 +87,7 @@ page-create-daily-report {
         width: 100%;
     }
 
-    .left_btn{
+    .left_btn_1{
         display: inline-block;
         line-height: 44px;
         width: 50%;
@@ -189,4 +189,13 @@ page-create-daily-report {
     border-width: 0px;
     // margin-top: 2px;
     }
+
+    .delete_icon_class{
+        position: absolute;
+  right: 9px;
+  top: -8px;
+  width: 20px;
+  z-index: 99;
+  // height: 20px;
+}
 }

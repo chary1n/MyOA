@@ -52,25 +52,34 @@
       </ion-row>
     </ion-grid>
   </ion-item>
+  <ion-item no-lines tappable (click)="choose_team()" style="margin-left: -5px;">
+    <ion-label class="label_class"> 部门/岗位
+      <p class="new_p_class"> {{item_data.department_name}} </p>
+    </ion-label>
+  </ion-item>
   <div style="display: flex; background-color: white; line-height: 40px; border-top: solid 1px #f0f2f5;">
     <div class="date_title">
       时间
     </div>
-    <div class="last_time_title">{{item_data.ago_summit_time}}</div>
+    <ion-icon class="back_new_page_btn_class" ios="ios-arrow-up" md="md-arrow-up" tappable (click)="click_now_before()"></ion-icon>
+    <div [ngClass]="{true:'last_time_title',false:'last_time_title_white'}[item_data.ago_summit_time != '1970-01-01']">{{item_data.ago_summit_time}}</div>
     <div class="last_zj_title">至</div>
     <div class="last_time_title" style="margin-left: 12px;">{{item_data.summit_time}}</div>
+    <ion-icon class="next_new_page_btn_class" ios="ios-arrow-down" md="md-arrow-down" tappable (click)="click_now_next()"></ion-icon>
   </div>
 
-  <div class="biaoti" >
+  <div class="biaoti" tappable (click)='changeYJH();$event.stopPropagation();'>
     <div class="shu_class">
     </div>
     <div class="title_class">
       原计划
     </div>
+    <ion-icon class="icon_class" item-end name="arrow-up" *ngIf="show_yjh" tappable (click)='changeYJH();$event.stopPropagation();'></ion-icon>
+    <ion-icon class="icon_class" item-end name="arrow-down" *ngIf="!show_yjh" tappable (click)='changeYJH();$event.stopPropagation();'></ion-icon>
   </div>
-  <div class="line_class" >
+  <div class="line_class" *ngIf="show_yjh">
   </div>
-  <div [innerHTML]="assemblePlanHTML(item_data.ago_plan)" style="word-wrap:break-word;color:#333333;padding:10px;width:100%;background-color:white"></div>
+  <div *ngIf="show_yjh" [innerHTML]="assemblePlanHTML(item_data.ago_plan)" style="word-wrap:break-word;color:#333333;padding:10px;width:100%;background-color:white;user-select: all;-webkit-user-select:  all;"></div>
 
   <div class="biaoti" tappable (click)='changeZJ()'>
     <div class="shu_class">
@@ -83,7 +92,7 @@
   </div>
   <div class="line_class" *ngIf="show_zj">
   </div>
-  <div *ngIf="show_zj" [innerHTML]="assembleHTML(item_data.summary)" style="word-wrap:break-word;color:#333333;padding: 10px;width:100%;background-color:white"></div>
+  <div *ngIf="show_zj" [innerHTML]="assembleHTML(item_data.summary)" style="word-wrap:break-word;color:#333333;padding: 10px;width:100%;background-color:white;user-select: all;-webkit-user-select:  all;"></div>
 
   <div class="biaoti" tappable (click)='changeZH()'>
     <div class="shu_class">
@@ -96,8 +105,24 @@
   </div>
   <div class="line_class" *ngIf="show_jh">
   </div>
-  <div *ngIf="show_jh" [innerHTML]="assemblePlanHTML(item_data.plan)" style="word-wrap:break-word;color:#333333;padding:10px;width:100%;background-color:white"></div>
+  <div *ngIf="show_jh" [innerHTML]="assemblePlanHTML(item_data.plan)" style="word-wrap:break-word;color:#333333;padding:10px;width:100%;background-color:white;user-select: all;-webkit-user-select:  all;"></div>
 
+  <div class="biaoti" >
+    <div class="shu_class">
+    </div>
+    <div class="title_class">
+      附件
+    </div>
+  </div>
+  <ion-grid style="background-color: white;" >
+    <ion-row>
+      <ion-col style="position:relative;height:106px;margin-top:5px"  
+      col-4 *ngFor="let item of item_data.attachments">
+        <img src={{item.value}} style="position:absolute;
+                  clip:rect(0px,100px,100px,0px);" imageViewer/>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
   <div class="differ_div_class">
     <div *ngIf='item_data.message_length > 0'>

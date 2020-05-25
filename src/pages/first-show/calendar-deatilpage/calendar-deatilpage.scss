@@ -414,6 +414,16 @@ page-calendar-deatilpage {
     // right: 10px;
     // top: 65px;
   }
+
+  .finish_img_class_new{
+    width: 40px;
+  height: 40px;
+  float: right;
+  position: absolute;
+  right: 10px;
+  top: 5px;
+}
+
   .jifen_class{
     //   margin-bottom: 5px;
     //   margin-top: 5px;
@@ -470,8 +480,8 @@ page-calendar-deatilpage {
     }
 
     .div_approve{
-        width:16%;
-        float:left;
+        width:33%;
+        // float:left;
         text-align:center;
         height: 40px;
         // margin-top: -2px
@@ -550,8 +560,10 @@ page-calendar-deatilpage {
     .main_header_div{
         height: 39px;
     background-color: white;
-    top: 89px;
+    top: 139px;
     width: 100%;
+    border-top: solid 1px #f0f2f5;
+    display: flex;
     border-bottom: solid 1px #f0f2f5;
     }
 
@@ -806,12 +818,82 @@ page-calendar-deatilpage {
     padding-right: 0px;
 }
 
+.subject_p_class {
+    font-size: 14px;
+    color: #2e3133;
+    width: 95%;
+    line-height: 20px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
+.range-ios.range-has-pin {
+    padding-top: 0px;
+}
+
+.range-ios .range-bar {
+    left: 0;
+    top: 17px;
+    border-radius: 1px;
+    position: absolute;
+    // width: 100%;
+    height: 5px;
+    // background: #bdbdbd;
+    pointer-events: none;
+}
+
+.range-ios .range-knob {
+    left: 7px;
+    top: 8px;
+    border-radius: 50%;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: #fff;
+    -webkit-box-shadow: 0 3px 1px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.13), 0 0 0 1px rgba(0, 0, 0, 0.02);
+    box-shadow: 0 3px 1px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.13), 0 0 0 1px rgba(0, 0, 0, 0.02);
+    pointer-events: none;
+}
+
 .search_reply_class_type {
     width: 15%;
     line-height: 44px;
     text-align: center;
     color: gray;
 }
+
+.jindu_class {
+    display: flex;
+    z-index: 100;
+    background-color: #f0f2f5;
+}
+
+.jindu_class img {
+    width: 28px;
+    height: 28px;
+    margin-top: -5px;
+}
+
+// .ks_btn {
+//     background-image: url("../../assets/img/ks_btn.png");
+//     background-size: cover;
+//     background-position: center;
+// }
+
+// .zt_btn {
+//     background-image: url("../../assets/img/zt_btn.png");
+//     background-size: cover;
+//     background-position: center;
+// }
+
+// .wc_btn {
+//     background-image: url("../../assets/img/wc_btn.png");
+//     background-size: cover;
+//     background-position: center;
+// }
+
 
   image-viewer.ion-page .image 
   { 

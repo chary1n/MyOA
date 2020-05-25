@@ -21,8 +21,8 @@ import { HttpService } from '../../../providers/HttpService'
 })
 export class FirstshowMenuPage {
   root = FirstShowPage;
-  me_type = []
-  state_type = 'all'
+  me_type = ['fuze']
+  state_type = 'unfinish'
   // start_datetime = new Date(new Date().getTime()+8*60*60*1000).toISOString();
   end_date;
   start_date;
@@ -35,36 +35,19 @@ export class FirstshowMenuPage {
     public events: Events, public storage: Storage, public menu: MenuController,
     public event: Events, public firService: FirstShowService, public appService: AppService) {
        console.log('first show 333333')
-    //   events.subscribe('ChooseMenuPage', (data) => {
-
-    // });
-    // events.subscribe('changeTeam',(data) => {
-    //   if (data.data == 'team'){
-    //     this.is_show_me = false
+       this.me_type = ['fuze']
+       this.state_type = 'unfinish'
+       this.select_event_id = []
+    // this.storage.get('user_schedule_domain_new').then(res => {
+    //   if (res) {
+    //     this.me_type = res.me_type
+    //     this.state_type = res.state_type
+    //     this.select_event_id = res.event_type_id
     //   }
-    //   else if (data.data == 'me'){
-    //     this.is_show_me = true
+    //   else {
+        
     //   }
     // })
-    // events.subscribe('initData', (data) => {
-    //   this.me_type = []
-    //   this.state_type = 'all'
-    //   this.start_date = ''
-    //   this.end_date = ''
-    // })
-
-    this.storage.get('user_schedule_domain_new').then(res => {
-      if (res) {
-        this.me_type = res.me_type
-        this.state_type = res.state_type
-        this.select_event_id = res.event_type_id
-      }
-      else {
-        this.me_type = []
-        this.state_type = 'all'
-        this.select_event_id = []
-      }
-    })
     if (HttpService.need_login) {
       this.toAutoLogin()
     }

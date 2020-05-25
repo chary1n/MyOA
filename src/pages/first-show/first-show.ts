@@ -76,6 +76,8 @@ export class FirstShowPage {
   salary_allowance_jx_count = 0
   salary_subsidy_count = 0
 
+  bus_vacation_num = 0
+
   isShowApprovalPoint = false
   all_approval = 0//审批总和
   show_approve
@@ -84,7 +86,7 @@ export class FirstShowPage {
   isShowBac = false
   un_read_list = []
   need_calendar
-  me_type = []
+  me_type = ['fuze']
   state_type = ''
   event_type_id = []
   event_type = []
@@ -126,20 +128,23 @@ export class FirstShowPage {
         this.get_backlog_identify(this.currentYear, this.currentMonth)
         // this.get_approval_num()
         this.getType()
-        this.storage.get('user_schedule_domain_new').then(res => {
-          // console.log(res)
-          if (res) {
-            this.me_type = res.me_type
-            this.state_type = res.state_type
-            this.event_type_id = res.event_type_id
-          }
-          else {
-            this.me_type = []
-            this.state_type = 'all'
-            this.event_type_id = []
-          }
-          // this.getDayData(this.datePipe.transform(new Date(), 'yyyy-MM-dd'))
-        })
+        this.me_type = ['fuze']
+                        this.state_type = 'unfinish'
+                        this.event_type_id = []
+        // this.storage.get('user_schedule_domain_new').then(res => {
+        //   // console.log(res)
+        //   if (res) {
+        //     this.me_type = res.me_type
+        //     this.state_type = res.state_type
+        //     this.event_type_id = res.event_type_id
+        //   }
+        //   else {
+        //     this.me_type = []
+        //     this.state_type = 'all'
+        //     this.event_type_id = []
+        //   }
+        //   // this.getDayData(this.datePipe.transform(new Date(), 'yyyy-MM-dd'))
+        // })
       }
 
 
@@ -154,7 +159,7 @@ export class FirstShowPage {
         var bac_div = document.getElementById('bac_div')
         var scroll_content
         for (var i = 0; i < document.getElementsByClassName('scroll-content').length; i++) {
-          if (document.getElementsByClassName('scroll-content')[i]['outerText'][0] == '全') {
+          if (document.getElementsByClassName('scroll-content')[i]['outerText'][0] == '筛') {
             scroll_content = document.getElementsByClassName('scroll-content')[i]
           }
         }
@@ -297,21 +302,26 @@ export class FirstShowPage {
                         // })
 
                         if (this.isDay) {
-                          this.storage.get('user_schedule_domain_new').then(res => {
-                            console.log(res)
-                            if (res) {
-                              this.me_type = res.me_type
-                              this.state_type = res.state_type
-                              this.event_type_id = res.event_type_id
-                            }
-                            else {
-                              this.me_type = []
-                              this.state_type = 'all'
-                              this.event_type_id = []
-                            }
-                            this.offset = 0
+                        //   this.me_type = ['fuze']
+                        // this.state_type = 'unfinish'
+                        // this.event_type_id = []
+                        // this.offset = 0
                             this.getDayData(this.currentDate_date.getFullYear() + '-' + (this.currentDate_date.getMonth() + 1) + '-' + this.currentDate_date.getDate())
-                          })
+                          // this.storage.get('user_schedule_domain_new').then(res => {
+                          //   console.log(res)
+                          //   if (res) {
+                          //     this.me_type = res.me_type
+                          //     this.state_type = res.state_type
+                          //     this.event_type_id = res.event_type_id
+                          //   }
+                          //   else {
+                          //     this.me_type = []
+                          //     this.state_type = 'all'
+                          //     this.event_type_id = []
+                          //   }
+                          //   this.offset = 0
+                          //   this.getDayData(this.currentDate_date.getFullYear() + '-' + (this.currentDate_date.getMonth() + 1) + '-' + this.currentDate_date.getDate())
+                          // })
 
                           this.get_backlog_identify(this.currentYear, this.currentMonth)
                         }
@@ -342,21 +352,26 @@ export class FirstShowPage {
         // })
 
         if (this.isDay) {
-          this.storage.get('user_schedule_domain_new').then(res => {
-            console.log(res)
-            if (res) {
-              this.me_type = res.me_type
-              this.state_type = res.state_type
-              this.event_type_id = res.event_type_id
-            }
-            else {
-              this.me_type = []
-              this.state_type = 'all'
-              this.event_type_id = []
-            }
-            this.offset = 0
-            this.getDayData(this.currentDate_date.getFullYear() + '-' + (this.currentDate_date.getMonth() + 1) + '-' + this.currentDate_date.getDate())
-          })
+          // this.me_type = ['fuze']
+          //               this.state_type = 'unfinish'
+          //               this.event_type_id = []
+                        this.offset = 0
+                            this.getDayData(this.currentDate_date.getFullYear() + '-' + (this.currentDate_date.getMonth() + 1) + '-' + this.currentDate_date.getDate())
+          // this.storage.get('user_schedule_domain_new').then(res => {
+          //   console.log(res)
+          //   if (res) {
+          //     this.me_type = res.me_type
+          //     this.state_type = res.state_type
+          //     this.event_type_id = res.event_type_id
+          //   }
+          //   else {
+          //     this.me_type = ['fuze']
+          //     this.state_type = 'all'
+          //     this.event_type_id = []
+          //   }
+          //   this.offset = 0
+          //   this.getDayData(this.currentDate_date.getFullYear() + '-' + (this.currentDate_date.getMonth() + 1) + '-' + this.currentDate_date.getDate())
+          // })
 
           this.get_backlog_identify(this.currentYear, this.currentMonth)
         }
@@ -811,11 +826,10 @@ export class FirstShowPage {
       })
     }
     else if (item.display_name == '工作汇报') {
-      // this.navCtrl.push('DailyReportPage')
-      this.navCtrl.push('CreateDailyReportPage', {
-        'report_type': 'day_daily',
-        'user_id': this.uid
-      })
+      // this.navCtrl.push('CreateDailyReportPage', {
+      //   'user_id': this.uid
+      // })
+      this.navCtrl.push('DailyReportMenuPage')
     }
   }
   //跳转到我的页面
@@ -891,7 +905,8 @@ export class FirstShowPage {
         this.salary_subsidy_count = res.result.res_data.salary_subsidy_count
         this.salary_allowance_jx_count = res.result.res_data.salary_allowance_jx_count
         this.total_allowance_jj = res.result.res_data.total_allowance_jj
-        this.all_approval = this.total_allowance_jj + this.salary_allowance_jx_count + this.salary_allowance_count + this.salary_subsidy_count + this.recoup_num + this.vacation_num + this.jk_num + this.bx_num + this.bx_salary_num + this.yf_num + this.sg_num + this.caigou_num + this.tousu_num + this.pay_num + this.gongcheng_num + this.salary_approval_num + this.salary_adjust_approval_num + this.dimission_num + this.offer_num + this.adjust_num + this.intp_num + this.purchase_account_num
+        this.bus_vacation_num = res.result.res_data.bus_vacation_num
+        this.all_approval = this.total_allowance_jj + this.salary_allowance_jx_count + this.salary_allowance_count + this.salary_subsidy_count + this.recoup_num + this.vacation_num + this.jk_num + this.bx_num + this.bx_salary_num + this.yf_num + this.sg_num + this.caigou_num + this.tousu_num + this.pay_num + this.gongcheng_num + this.salary_approval_num + this.salary_adjust_approval_num + this.dimission_num + this.offer_num + this.adjust_num + this.intp_num + this.purchase_account_num + this.bus_vacation_num
         if (this.isShowCK) {
           this.all_approval += this.pandian_num
         }
@@ -1093,20 +1108,21 @@ export class FirstShowPage {
                     this.get_backlog_identify(this.currentYear, this.currentMonth)
                     // this.get_approval_num()
                     this.getType()
-                    this.storage.get('user_schedule_domain_new').then(res => {
-                      // console.log(res)
-                      if (res) {
-                        this.me_type = res.me_type
-                        this.state_type = res.state_type
-                        this.event_type_id = res.event_type_id
-                      }
-                      else {
-                        this.me_type = []
-                        this.state_type = 'all'
+                    this.me_type = ['fuze']
+                        this.state_type = 'unfinish'
                         this.event_type_id = []
-                      }
-                      // this.getDayData(this.datePipe.transform(new Date(), 'yyyy-MM-dd'))
-                    })
+                    // this.storage.get('user_schedule_domain_new').then(res => {
+                    //   // console.log(res)
+                    //   if (res) {
+                    //     this.me_type = res.me_type
+                    //     this.state_type = res.state_type
+                    //     this.event_type_id = res.event_type_id
+                    //   }
+                    //   else {
+                        
+                    //   }
+                    //   // this.getDayData(this.datePipe.transform(new Date(), 'yyyy-MM-dd'))
+                    // })
                   }
                   else {
                   }
@@ -1271,6 +1287,10 @@ export class FirstShowPage {
     this.navCtrl.push('MessageReplyMenuPage', {
       'uid': this.uid
     })
+  }
+
+  toChuchai() {
+    this.navCtrl.push('BusinessVacationPage')
   }
 
 }

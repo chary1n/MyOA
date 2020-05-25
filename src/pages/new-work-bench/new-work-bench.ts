@@ -60,6 +60,8 @@ export class NewWorkBenchPage {
   salary_adjust_approval_num = 0 // 调薪单
   total_allowance_jj = 0
 
+  bus_vacation_num = 0
+
   can_show_hmc = false //花名册
   can_show_rz = false //入职
   can_show_rc = false //人才库
@@ -92,7 +94,7 @@ export class NewWorkBenchPage {
         let uid = res.result.res_data.user_id
         this.uid = res.result.res_data.user_id
         for (let product of res.result.res_data.groups) {
-          if (product.name == 'group_account_manager') {
+          if (product.name == 'group_account_manager' || product.name == 'group_account_user') {
             this.showBaoBiao = true;
           }
           if (product.name == 'group_purchase_user' || product.name == 'group_purchase_manager') {
@@ -172,6 +174,7 @@ export class NewWorkBenchPage {
               this.salary_approval_num = res.result.res_data.salary_approval_num
               this.salary_adjust_approval_num = res.result.res_data.salary_adjust_approval_num
               this.total_allowance_jj = res.result.res_data.total_allowance_jj
+              this.bus_vacation_num = res.result.res_data.bus_vacation_num
             }
           })
         })
@@ -321,7 +324,7 @@ export class NewWorkBenchPage {
   }
 
   click_daily_report() {
-    this.navCtrl.push('DailyReportPage')
+    this.navCtrl.push('DailyReportMenuPage')
   }
 
   click_Dimission() {
@@ -466,6 +469,10 @@ export class NewWorkBenchPage {
 
   click_rw_detail() {
     this.navCtrl.push('ExpenseAbnormalPage')
+  }
+
+  click_bus_vacation() {
+    this.navCtrl.push('BusinessVacationPage')
   }
 
 }

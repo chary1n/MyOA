@@ -229,8 +229,23 @@ page-daily-report-tree-detail-detail {
     width: 30px;
     }
 
+    .back_new_page_btn_class {
+        width: 30px;
+        line-height: 40px;
+        color: #2597ec;
+        font-size: 28px;
+    }
+
     .next_page_btn_class{
         width: 30px;
+    }
+
+    .next_new_page_btn_class {
+        line-height: 40px;
+    margin-left: 5px;
+    color: #2597ec;
+    font-size: 28px;
+    // font-weight: bold;
     }
 
     .imgHeard{
@@ -256,7 +271,7 @@ page-daily-report-tree-detail-detail {
     .date_title {
         height: 40px;
         margin-left: 10px;
-        width: 40%;
+        width: 20%;
     }
 
     .last_time_title {
@@ -264,7 +279,37 @@ page-daily-report-tree-detail-detail {
         height: 40px;
     }
 
+    .last_time_title_white {
+        margin-right: 12px;
+    height: 40px;
+    color:white;
+    }
+
     .last_zj_title {
         height: 40px;
     }
+
+    .label_class{
+        color:#333333;
+        font-size: 14px;
+        line-height: 25px;
+    }
+
+    .p_class{
+        float: right;
+        line-height: 25px;
+        font-size: 15px;
+        color: #333333;
+        width: 70%;
+        text-align: right;
+    }
+
+    .new_p_class{
+      color: #333333;
+      float: right;
+      line-height: 25px;
+      font-size: 14px;
+      width: 70%;
+      text-align: right;
+  }
 }

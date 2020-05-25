@@ -249,7 +249,43 @@ page-daily-report-detail {
     height: 40px;
     }
 
+    .last_time_title_white {
+        margin-right: 12px;
+    height: 40px;
+    color:white;
+    }
+
     .last_zj_title {
         height: 40px;
+    }
+
+    .item_now_class{
+        min-height: 45px;
+        height: 45px;
+      }
+  
+  
+      .label_class{
+          color:#333333;
+          font-size: 14px;
+          line-height: 25px;
+      }
+  
+      .p_class{
+          float: right;
+          line-height: 25px;
+          font-size: 15px;
+          color: #333333;
+          width: 70%;
+          text-align: right;
+      }
+
+      .new_p_class{
+        color: #333333;
+        float: right;
+        line-height: 25px;
+        font-size: 14px;
+        width: 70%;
+        text-align: right;
     }
 }

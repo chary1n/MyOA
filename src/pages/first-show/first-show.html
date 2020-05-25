@@ -314,7 +314,7 @@
     </ion-fab>
   </ion-content>
   <ion-content *ngIf='isShen' style="height: calc(100% - 10px);">
-    <div *ngIf="vacation_num!=0 || recoup_num!=0">
+    <div *ngIf="vacation_num!=0 || recoup_num!=0 || bus_vacation_num!= 0">
       <div style="padding: 1px;border-bottom:#f0f2f5 1px solid;margin-left: 20px">
         <span
           style="background-color: #409eff;width: 3px;border-radius: 3px;height: 13px;float: left;margin-top: 16px;margin-left: -12px"></span>
@@ -332,6 +332,12 @@
           (click)='toBuka()'>
           <p style="margin-right: 15px;float: right;">{{recoup_num}}</p>
           <p style="font-size: 13px;">补卡</p>
+        </div>
+        <div *ngIf="bus_vacation_num!=0"
+          style="min-height: 45px;border-bottom:#f0f2f5 1px solid;margin-left: 20px;padding: 1px" tappable
+          (click)='toChuchai()'>
+          <p style="margin-right: 15px;float: right;">{{bus_vacation_num}}</p>
+          <p style="font-size: 13px;">出差</p>
         </div>
       </ion-item-group>
     </div>

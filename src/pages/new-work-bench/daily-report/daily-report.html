@@ -40,8 +40,13 @@
       <button class="btn_class" tappable ion-button icon-only (click)="goBack()">
         <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
       </button>
-      <div *ngIf="type != 'me'" tappable (click)="choose_tree()" class="choose_class"> 
-        筛选
+      <div *ngIf="type != 'me'"  style="display: flex; flex-direction: row;" class="choose_class">
+        <div style="width: 50px;height: 25px;" tappable (click)="choose_menu()"> 
+          筛选
+        </div>
+        <div tappable (click)="choose_tree()" style="width: 50px;height: 25px;"> 
+          下属
+        </div>
       </div>
     </div>
     <div class="scroll_class" zooming="true" scrollX="true" align-items-center *ngIf="is_manager">
@@ -95,5 +100,5 @@
 </ion-content>
 
 <ion-footer *ngIf="type == 'me' && pop_hide_footer" style="background-color:#2597ec">
-  <button style="background-color:#2597ec" ion-button (click)="click_add_report()" full>新建报告</button>
+  <button style="background-color:#2597ec" ion-button (click)="click_add_report()" full>新建</button>
 </ion-footer>

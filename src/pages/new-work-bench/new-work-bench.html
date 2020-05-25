@@ -89,6 +89,8 @@
         </div>
       </ion-col>
 
+      
+
       <ion-col class="col_class" tappable (click)="click_vacation()" col-3>
         <div *ngIf="vacation_num > 0" align="center"
           [ngClass]="{true:'big_number_class',false:'number_class'}[vacation_num >= 10]">
@@ -98,6 +100,19 @@
           <img class="body_img_class" src="assets/img/work_bench/vacation_fang.png">
           <div class="text_class">
             休假
+          </div>
+        </div>
+      </ion-col>
+
+      <ion-col class="col_class" tappable (click)="click_bus_vacation()" col-3>
+        <div *ngIf="bus_vacation_num > 0" align="center"
+          [ngClass]="{true:'big_number_class',false:'number_class'}[bus_vacation_num >= 10]">
+          {{bus_vacation_num}}
+        </div>
+        <div class="body_class" align="center">
+          <img class="body_img_class" src="assets/img/business_vacation.png">
+          <div class="text_class">
+            出差
           </div>
         </div>
       </ion-col>

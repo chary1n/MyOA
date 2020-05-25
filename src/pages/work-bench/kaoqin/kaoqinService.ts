@@ -8,6 +8,10 @@ export class KaoQinService {
 
     }
 
+    get_user_regular_new(body){
+        return this.httpservice.postBodyNoLoading("get_user_regular_new",body);
+    }
+
     get_user_regular(body){
         return this.httpservice.postBodyNoLoading("get_user_regular",body);
     }

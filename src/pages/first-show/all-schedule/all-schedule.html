@@ -68,9 +68,11 @@
         <span tappable (click)="clickMenu()" style="float:right;margin-top:14px;color:gray;margin-right:5px;border-left:#f0f2f5 1px solid;width:40px;text-align:right">筛选</span>
     </div>
     <ion-scroll class="scroll_class" zooming="true" scrollX="true" align-items-center>
-        <div class="left_div" align="center" tappable (click)="selectType(item)" *ngFor="let item of type">
-            <span [ngClass]="{true:'under_line_style',false:'normal_style'}[item.select]">{{item.display_name}}</span>
-        </div>
+        <ng-container *ngFor="let item of type;let i=index;">
+            <div [ngClass]="{true:'left_div',false:'left_div_margin'}[i!=0]" align="center" tappable (click)="selectType(item)" >
+                <span [ngClass]="{true:'under_line_style',false:'normal_style'}[item.select]">{{item.display_name}}</span>
+            </div>
+        </ng-container>
     </ion-scroll>
     <ion-list *ngIf='show_me'>
         <div class="div_class" no-lines *ngFor='let item of type_list' tappable (click)='toDetail(item)'>

@@ -1,4 +1,4 @@
-import { NavController, NavParams, IonicPage, ActionSheetController, ModalController, Content, ToastController } from 'ionic-angular';
+import { NavController, NavParams, IonicPage, ActionSheetController, ModalController, Content, ToastController, AlertController } from 'ionic-angular';
 import { Component, ViewChild } from '@angular/core';
 import { ReportService } from './../reportService'
 import { HttpService } from './../../../../providers/HttpService';
@@ -32,6 +32,7 @@ export class CreateDailyReportPage {
   show_zj = true // 总结
   show_jh = true // 计划
   show_jl = true // 工作记录
+  show_yjh = true
   img_list = []
   frontPage
 
@@ -40,10 +41,12 @@ export class CreateDailyReportPage {
   last_plan
   can_show_last_plan = false
   last_plan_time
+
+  imgList = []
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public reportService: ReportService, public nativeService: NativeService,
     public actionSheetCtrl: ActionSheetController, public toastCtrl: ToastController,
-    public sanitizer: DomSanitizer) {
+    public sanitizer: DomSanitizer, public alertCtrl: AlertController) {
     this.user_id = this.navParams.get('user_id')
     this.is_edit = this.navParams.get('is_edit')
     if (this.is_edit) {
@@ -52,9 +55,22 @@ export class CreateDailyReportPage {
       this.report_type = this.now_item.type
       this.report_date = this.now_item.summit_time
       this.editorContent = this.now_item.summary
-      this.jh_description = this.now_item.plan
+      this.jh_description = this.reformNoticeContent(this.now_item.plan)
       this.last_plan = this.now_item.ago_plan
       this.last_plan_time = this.now_item.ago_summit_time
+      if (this.last_plan.length > 0) {
+        this.can_show_last_plan = true
+      }
+      for (var i = 0; i < this.now_item.attachments.length; i++) {
+        this.imgList.push({
+          'value': this.now_item.attachments[i].value,
+          'attachment_id': this.now_item.attachments[i].attachment_id,
+        })
+      }
+      this.imgList.push({
+        'value': "assets/img/smalladd.png",
+        'attachment_id': false,
+      })
     }
     else {
       this.is_edit = false
@@ -70,8 +86,12 @@ export class CreateDailyReportPage {
           }
         }
       })
+      this.imgList.push({
+        'value': "assets/img/smalladd.png",
+        'attachment_id': false,
+      })
     }
-    
+
     // if (this.report_type == 'day_daily') {
     //   this.title = '新建日报'
     // }
@@ -124,8 +144,28 @@ export class CreateDailyReportPage {
   }
 
   goBack() {
-    this.pop_hide_footer = false
-    this.navCtrl.pop()
+    if (this.jh_description.trim() != '' || this.editorContent.trim() != '') {
+      var ctrl = this.alertCtrl
+      ctrl.create({
+        title: '提示',
+        subTitle: '数据未保存，是否确认返回？',
+        buttons: [{ text: '取消' },
+        {
+          text: '确定',
+          handler: () => {
+            this.pop_hide_footer = false
+            this.navCtrl.pop()
+          }
+        }
+        ]
+      }).present();
+    } else {
+      this.pop_hide_footer = false
+      this.navCtrl.pop()
+    }
+
+
+    
   }
 
   get_type_str() {
@@ -193,7 +233,7 @@ export class CreateDailyReportPage {
   }
 
   getPictureSuccess(img_url) {
-    this.editorContent = this.editorContent + "<br>" + "<img src='" + img_url + "' />" + "<br>"
+    this.editorContent = this.editorContent + "<br>" + "<img style='height: 100px;width:25%' src='" + img_url + "' />" + "<br>"
     this.img_list.push(img_url)
   }
 
@@ -218,17 +258,32 @@ export class CreateDailyReportPage {
       Utils.toastButtom('请填写总结', this.toastCtrl)
       return;
     }
-    // var is_check_day = document.getElementById('day')['checked']
-    // var is_check_week = document.getElementById('week')['checked']
-    // var is_check_month = document.getElementById('month')['checked']
-    // if (is_check_day) {
-    //   this.report_type = 'day_daily'
-    // }
-    // if (is_check_week) {
-    //   this.report_type = 'week_daily'
-    // }
-    // if (is_check_month) {
-    //   this.report_type = 'mouth_daily'
+
+    var final_arr = []
+    if (this.imgList.length == 1) {
+      final_arr = []
+    } else {
+      for (var i = 0; i < this.imgList.length; i++) {
+        if (this.imgList[i].value != 'assets/img/smalladd.png') {
+          final_arr.push(this.imgList[i])
+        }
+      }
+    }
+
+    // if(this.imgList.length==1){
+    //   this.imgList = []
+    // }else{
+    //   if(this.imgList.length>0){
+    //     var index_this = -1
+    //     for (let index = 0; index < this.imgList.length; index++) {
+    //       if(this.imgList[index].value=='assets/img/smalladd.png'){
+    //           index_this = index
+    //       }
+    //     }
+    //     if(index_this!=-1){
+    //       this.imgList.splice(index_this, 1);
+    //     }
+    //   }
     // }
 
     let body = {
@@ -242,6 +297,7 @@ export class CreateDailyReportPage {
       'state': 2,
       'ago_summit_time': this.last_plan_time,
       'ago_plan': this.last_plan,
+      'imgList': final_arr,
     }
     if (this.is_edit) {
       body['report_id'] = this.now_item.report_id
@@ -260,18 +316,27 @@ export class CreateDailyReportPage {
       return;
     }
 
-    // var is_check_day = document.getElementById('day')['checked']
-    // var is_check_week = document.getElementById('week')['checked']
-    // var is_check_month = document.getElementById('month')['checked']
-    // if (is_check_day) {
-    //   this.report_type = 'day_daily'
-    // }
-    // if (is_check_week) {
-    //   this.report_type = 'week_daily'
-    // }
-    // if (is_check_month) {
-    //   this.report_type = 'mouth_daily'
-    // }
+    var final_arr = []
+    if (this.imgList.length == 1) {
+      final_arr = []
+    } else {
+      for (var i = 0; i < this.imgList.length; i++) {
+        if (this.imgList[i].value != 'assets/img/smalladd.png') {
+          final_arr.push(this.imgList[i])
+        }
+      }
+      // if(this.imgList.length>0){
+      //   var index_this = -1
+      //   for (let index = 0; index < this.imgList.length; index++) {
+      //     if(this.imgList[index].value=='assets/img/smalladd.png'){
+      //         index_this = index
+      //     }
+      //   }
+      //   if(index_this!=-1){
+      //     this.imgList.splice(index_this, 1);
+      //   }
+      // }
+    }
 
     let body = {
       'type': this.report_type,
@@ -284,6 +349,7 @@ export class CreateDailyReportPage {
       'state': 1,
       'ago_summit_time': this.last_plan_time,
       'ago_plan': this.last_plan,
+      'imgList': final_arr,
     }
     if (this.is_edit) {
       body['report_id'] = this.now_item.report_id
@@ -310,5 +376,109 @@ export class CreateDailyReportPage {
 
   click_month() {
     document.getElementById('month')['checked'] = true
+  }
+
+  clickPicture(item, index) {
+    if (item.value == "assets/img/smalladd.png") {
+      this.addImg()
+    }
+  }
+
+  addImg(allowEdit: boolean = true) {
+    // if(this.imgList.length>9){
+    //   Utils.toastButtom('最多可以选择9张图片', this.toast)
+    //   return
+    // }
+    let actionSheet = this.actionSheetCtrl.create({
+      title: '',
+      buttons: [
+        {
+          text: '拍照',
+          //  role: 'destructive',
+          handler: () => {
+            console.log('Destructive clicked');
+            this.getPicture1(1, allowEdit);
+          }
+        },
+        {
+          text: '从手机相册选择',
+          handler: () => {
+            console.log('Archive clicked');
+            this.getPicture1(0, allowEdit);
+          }
+        },
+        {
+          text: '取消',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }
+      ]
+    });
+    actionSheet.present();
+  }
+
+  getPicture1(type, allowEdit: boolean = false) {//1拍照,0从图库选择
+    let options = {
+      allowEdit: false,
+      quality: 50
+    };
+    if (type == 1) {
+      this.nativeService.getPictureByCamera(options).subscribe(img_url => {
+        this.getPictureSuccess_1(img_url);
+      });
+    } else {
+      this.nativeService.getPictureByPhotoLibrary(options).subscribe(img_url => {
+        this.getPictureSuccess_1(img_url);
+      });
+    }
+  }
+
+  getPictureSuccess_1(img_url) {
+    this.imgList.unshift({
+      'value': img_url,
+      'attachment_id': false,
+    })
+    // if(this.imgList.length==10){
+    //     this.imgList.pop()
+    // }
+  }
+
+  delete_img(i) {
+    if (this.imgList[i].attachment_id) {
+      this.reportService.delete_attachment({ 'attachment_id': this.imgList[i].attachment_id }).then(res => {
+        if (res.result.res_code == 1) {
+          this.imgList.splice(i, 1)
+        }
+      })
+    } else {
+      this.imgList.splice(i, 1)
+    }
+  }
+
+  reformNoticeContent(content) {
+    content = content.replace(/<\/p>/g, '\n')
+    content = content.replace(/<br>/g, '\n')
+    content = content.split('');
+    var tagBoolean = false;
+    content.forEach((c, index) => {
+      if ('<' === c) {
+        tagBoolean = true;
+      } else if ('>' === c) {
+        content[index] = '';
+        tagBoolean = false;
+        // continue;  如果是JavaScript可以添加这句代码，angular4不行。
+      }
+      if (tagBoolean) {
+        content[index] = '';
+      }
+    });
+    content = content.join('');
+    return content
+  }
+
+  changeYJH() {
+    this.show_yjh = !this.show_yjh
   }
 }

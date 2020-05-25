@@ -1,4 +1,4 @@
-import { NavController, NavParams, IonicPage, ActionSheetController, Content } from 'ionic-angular';
+import { NavController, NavParams, IonicPage, ActionSheetController, Content, Events, MenuController} from 'ionic-angular';
 import { Component, ViewChild } from '@angular/core';
 import { ReportAutoService } from './reportAutoService'
 import { ReportMeAutoService } from './reportMeAutoService'
@@ -28,15 +28,20 @@ export class DailyReportPage {
   is_manager = false
 
   arr_index = []
+
+  start_date
+  end_date
+  quick_type = 'month'
+  employee_type = ''
   constructor(public navCtrl: NavController, public navParams: NavParams, public actionSheetCtrl: ActionSheetController,
     public reportService: ReportService,
     public reportAutoServices: ReportAutoService,
     public reportMeAutoServices: ReportMeAutoService,
-    public storage: Storage) {
+    public storage: Storage, public event: Events, public menu: MenuController) {
     this.storage.get('user')
       .then(res => {
         this.user_id = res.result.res_data.user_id
-        this.reportService.get_is_department(this.user_id).then(result => {
+        this.reportService.get_is_department_new(this.user_id).then(result => {
           if (result.result.res_data && result.result.res_code == 1) {
             this.is_manager = result.result.res_data.is_manager
           }
@@ -52,6 +57,12 @@ export class DailyReportPage {
 
   ionViewWillLeave() {
     cordova.plugins.Keyboard.close();
+    this.menu.enable(false)
+    this.event.unsubscribe('search_domain_report')
+  }
+
+  ionViewWillEnter() {
+    this.menu.enable(true, 'menu_daily55')
   }
 
   ionViewDidEnter() {
@@ -61,7 +72,7 @@ export class DailyReportPage {
         this.reload_me_data()
       }
       else {
-        this.reload_team_data()
+        // this.reload_team_data()
       }
     }
     else{
@@ -69,11 +80,25 @@ export class DailyReportPage {
         this.reload_me_data()
       }
     }
+
+    this.event.subscribe('search_domain_report', (data) => {
+      this.quick_type = data.quick_type
+      this.start_date = data.start_date
+      this.end_date = data.end_date
+      this.employee_type = data.employee_type
+      this.reload_team_data_noloading()
+    })
   }
 
   goBack() {
-    this.pop_hide_footer = false
-    this.navCtrl.pop()
+    // this.pop_hide_footer = false
+    // this.navCtrl.pop()
+    setTimeout(() => {
+      this.event.publish('popNavCtrlReport', {
+        'data': true
+      })
+    }, 100)
+    
   }
 
   click_add_img(allowEdit: boolean = true) {
@@ -167,6 +192,7 @@ export class DailyReportPage {
   }
 
   reload_me_data() {
+    this.me_list = []
     this.reportService.get_me_daily_report({ 'user_id': this.user_id }).then(res => {
       if (res.result.res_data && res.result.res_code == 1) {
         this.me_list = res.result.res_data
@@ -174,8 +200,32 @@ export class DailyReportPage {
     })
   }
 
+  reload_team_data_noloading() {
+    this.me_list = []
+    let body = {
+      'user_id': this.user_id,
+      'start_date': this.start_date,
+      'end_date': this.end_date,
+      'quick_type': this.quick_type,
+      'employee_type': this.employee_type
+    }
+    this.reportService.get_team_daily_report_new_noloading(body).then(res => {
+      if (res.result.res_data && res.result.res_code == 1) {
+        this.team_list = res.result.res_data.final_arr
+        this.arr_index = res.result.res_data.arr_index
+      }
+    })
+  }
+
   reload_team_data() {
-    this.reportService.get_team_daily_report_new({ 'user_id': this.user_id }).then(res => {
+    this.me_list = []
+    let body = {
+      'user_id': this.user_id,
+      'start_date': this.start_date,
+      'end_date': this.end_date,
+      'quick_type': this.quick_type
+    }
+    this.reportService.get_team_daily_report_new(body).then(res => {
       if (res.result.res_data && res.result.res_code == 1) {
         this.team_list = res.result.res_data.final_arr
         this.arr_index = res.result.res_data.arr_index
@@ -184,10 +234,24 @@ export class DailyReportPage {
   }
 
   click_add_report() {
-    this.navCtrl.push('CreateDailyReportPage', {
-      'report_type': 'day_daily',
-      'user_id': this.user_id
+    this.reportService.check_draft_daily({'user_id': this.user_id}).then(res => {
+      if (res.result.res_code == 1 && res.result.res_data) {
+        if (res.result.res_data.is_draft) {
+          this.navCtrl.push('CreateDailyReportPage', {
+            'is_edit': true,
+            'user_id': this.user_id,
+            'item_data': res.result.res_data.data,
+          })
+        } else {
+          this.navCtrl.push('CreateDailyReportPage', {
+            'report_type': 'day_daily',
+            'user_id': this.user_id
+          })
+        }
+      }
     })
+
+    
     // let button_arr = []
     // button_arr.push({
     //   text: '日报',
@@ -231,9 +295,15 @@ export class DailyReportPage {
   }
 
   me_detail(item) {
+    var can_jump_draft = false
+    if (item.rt_state == 1) {
+      can_jump_draft = true
+    } 
     this.navCtrl.push('DailyReportDetailPage', {
       item: item,
       uid: this.user_id,
+      can_jump_draft: can_jump_draft,
+      
     })
   }
 
@@ -280,7 +350,10 @@ export class DailyReportPage {
       'data': data,
       'search_text': search_text,
       'type': 'team',
-      'user_id': this.user_id
+      'user_id': this.user_id,
+      'start_date': this.start_date,
+      'end_date': this.end_date,
+      'quick_type': this.quick_type,
     }
     this.team_list = []
     this.reportService.search_report_by_domain(body).then((res) => {
@@ -330,6 +403,10 @@ export class DailyReportPage {
     this.navCtrl.push('DailyReportTreePage', {
       'user_id': this.user_id,
     })
+  }
+
+  choose_menu() {
+    this.menu.toggle('right');
   }
 
 }

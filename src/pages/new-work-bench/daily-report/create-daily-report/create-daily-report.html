@@ -45,10 +45,12 @@
     <div class="title_class">
       原计划
     </div>
+    <ion-icon class="icon_class" item-end name="arrow-up" *ngIf="show_yjh" tappable (click)='changeYJH();$event.stopPropagation();'></ion-icon>
+    <ion-icon class="icon_class" item-end name="arrow-down" *ngIf="!show_yjh" tappable (click)='changeYJH();$event.stopPropagation();'></ion-icon>
   </div>
-  <div class="line_class" *ngIf="can_show_last_plan">
+  <div class="line_class" *ngIf="can_show_last_plan && show_yjh">
   </div>
-  <div *ngIf="can_show_last_plan" [innerHTML]="assemblePlanHTML(last_plan)" style="word-wrap:break-word;color:#333333;padding:10px;width:100%;background-color:white"></div>
+  <div *ngIf="can_show_last_plan && show_yjh" [innerHTML]="assemblePlanHTML(last_plan)" style="word-wrap:break-word;color:#333333;padding:10px;width:100%;background-color:white"></div>
   
   <div class="biaoti" tappable (click)='changeZJ()'>
     <div class="shu_class">
@@ -86,16 +88,35 @@
                     border-top:white 0px solid;
                     border-left:white 0px solid;
                     border-right:white 0px solid;overflow-y: visible;"></textarea>
+
+  <div class="biaoti" >
+    <div class="shu_class">
+    </div>
+    <div class="title_class">
+      附件
+    </div>
+  </div>
+  <ion-grid style="background-color: white;" >
+    <ion-row>
+      <ion-col style="position:relative;height:106px;margin-top:5px" tappable (click)="clickPicture(item, index)" 
+      col-4 *ngFor="let item of imgList; let i= index">
+        <img class="delete_icon_class" src="assets/img/delete_img_icon.png" tappable (click)="delete_img(i);$event.stopPropagation();" *ngIf="item.value != 'assets/img/smalladd.png'"/>
+        <img src={{item.value}} style="position:absolute;
+                  clip:rect(0px,100px,100px,0px);"/>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  
 </ion-content>
 
 <ion-footer *ngIf="pop_hide_footer" style="background-color:#2597ec">
   <!--<button style="background-color:#2597ec" ion-button (click)="submit_report()" full>提交</button>-->
   <div class="footer_class">
-    <div class="left_btn" tappable (click)='save_report()'>
+    <div class="left_btn_1" tappable (click)='save_report()'>
       保存
     </div>
     <div class="right_btn" tappable (click)='submit_report()'>
-      立即提交
+      提交
     </div>
   </div>
 </ion-footer>

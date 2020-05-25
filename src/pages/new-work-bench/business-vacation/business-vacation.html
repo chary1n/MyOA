@@ -8,9 +8,9 @@
   <div ion-fixed class="div_header">
     <div class="div_header_back">
       <ion-auto-complete *ngIf="inner_type=='me'" class="search_class" (itemSelected)="itemMeSelected($event)" (itemClearSelected)="itemClearMeSelected($event)"
-        [dataProvider]="vacationMeAutoService"></ion-auto-complete>
+        [dataProvider]="businessMeAutoService"></ion-auto-complete>
         <ion-auto-complete *ngIf="inner_type=='wait_me'" class="search_class" (itemSelected)="itemSelected($event)" (itemClearSelected)="itemClearSelected($event)"
-        [dataProvider]="vacationAutoService"></ion-auto-complete>
+        [dataProvider]="businessAutoService"></ion-auto-complete>
       <button class="btn_class" ion-button icon-only (click)="goBack()">
         <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
       </button>
@@ -25,23 +25,39 @@
     </div>
   </div>
   <div *ngIf="inner_type == 'me'" style="margin-top:100px">
-    <div class="div_class" no-lines *ngFor='let item of me_list' tappable (click)='approval_detail_no_approve(item)'>
-      <p text-wrap class="time_class">{{item.create_time}}</p>
-      <span text-wrap class="span_class">{{item.rt_name}}</span> <span style="margin-left:10px">{{item.employee_name}}</span>
-      <p text-wrap class="bottom_class">合计：{{item.total_hours}}h</p>
-      <p text-wrap class="state_class">{{item.state}}</p>
-      <div class="differ_class">
+    <div class="div_class" no-lines *ngFor='let item of me_list' tappable (click)='approval_detail(item)'>
+      <div class="div_first_class">
+        <div class="left">
+          {{item.rt_name}}
+        </div>  
+        <div class="right">
+          {{item.state}}
+        </div> 
+      </div>
+      <div class="subject">
+        主题：{{item.subject}}
+      </div>
+      <div class="create_user">
+        申请人：{{item.employee_name}}
       </div>
     </div>
   </div>
 
   <div no-lines *ngIf="inner_type == 'wait_me'" style="margin-top:100px">
     <div class="div_class" no-lines *ngFor='let item of wait_me_list' tappable (click)='approval_detail(item)'>
-      <p text-wrap class="time_class">{{item.create_time}}</p>
-      <span text-wrap class="span_class">{{item.rt_name}}</span> <span style="margin-left:10px">{{item.employee_name}}</span>
-      <p text-wrap class="bottom_class">合计：{{item.total_hours}}h</p>
-      <p text-wrap class="state_class">{{item.state}}</p>
-      <div class="differ_class">
+      <div class="div_first_class">
+        <div class="left">
+          {{item.rt_name}}
+        </div>  
+        <div class="right">
+          {{item.state}}
+        </div> 
+      </div>
+      <div class="subject">
+        主题：{{item.subject}}
+      </div>
+      <div class="create_user">
+        申请人：{{item.employee_name}}
       </div>
     </div>
 
@@ -59,8 +75,8 @@
     </div>
   </div>
 </ion-content>
-
+<!-- 
 
 <ion-footer *ngIf="inner_type == 'me'">
   <button style="background-color:#2597ec" ion-button (click)="click_approve_vacation()" full> 我要申请</button>
-</ion-footer>
+</ion-footer> -->

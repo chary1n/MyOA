@@ -13,7 +13,7 @@ import { GongDanService } from '../work-bench/gongdan/gongdanService';
 import { ToastController, Content } from 'ionic-angular';
 import { dateDataSortValue } from 'ionic-angular/util/datetime-util';
 import { pinyin } from './../customer/cam-card/pinyin';
-
+import { StatusBar } from '@ionic-native/status-bar';
 import * as moment from 'moment';
 declare let cordova: any;
 
@@ -110,6 +110,8 @@ export class AddEmployeePage {
 
   bankList = []
 
+  is_applicant_qr_enter = false
+
   constructor(public navCtrl: NavController,
     public nativeService: NativeService,
     public actionSheetCtrl: ActionSheetController,
@@ -117,7 +119,7 @@ export class AddEmployeePage {
     public toastCtrl: ToastController,
     public datePipe: DatePipe,
     private alertCtrl: AlertController,
-    public employeeService: EmployeeService) {
+    public employeeService: EmployeeService, public statusBar: StatusBar) {
 
     this.employeeService.get_employee_list().then(res => {
       if (res.result.res_data && res.result.res_code == 1) {
@@ -174,9 +176,40 @@ export class AddEmployeePage {
       this.identification_id = this.navParams.get('applicant_identification_id')
     }
 
-  }    
+    if (this.navParams.get('is_applicant_qr_enter')) {
+      this.is_applicant_qr_enter = true
+      this.now_step = 2
+      this.employeeService.get_applicant_employee_info({ 'applicant_id': this.navParams.get('applicant_id') }).then(res => {
+        if (res.result.res_data && res.result.res_code == 1) {
+          this.name = res.result.res_data.applicant_name
+          this.identification_id = res.result.res_data.identification_id
+          this.mobile_phone = res.result.res_data.mobile_phone
+          this.mining_productivity = 4
+          if (res.result.res_data.gender == 'F') {
+            this.is_man = false
+            this.is_woman = true
+          } else if (res.result.res_data.gender == 'M') {
+            this.is_man = true
+            this.is_woman = false
+          }
+          // if (res.result.res_data.job_id) {
+          //   this.job_id = res.result.res_data.job_id
+          // }
+          // if (res.result.res_data.department_id) {
+          //   this.department_id = res.result.res_data.department_id
+          //   this.deparment_name = res.result.res_data.department
+          // }
+        } else {
+          this.navCtrl.pop()
+        }
+      })
+    }
+
+  }
 
   ionViewWillEnter() {
+    this.statusBar.backgroundColorByHexString("#2597ec");
+    this.statusBar.styleLightContent();
     this.isDeletePicture = this.navParams.get('isDeletePicture')
     if (this.isDeletePicture) {
       this.navParams.data.isDeletePicture = false;
@@ -192,7 +225,7 @@ export class AddEmployeePage {
     }
 
     if (this.navParams.get('need_update_bank') == true) {
-      this.bank_card_opening_bank= this.navParams.data.bank_card_opening_bank
+      this.bank_card_opening_bank = this.navParams.data.bank_card_opening_bank
       this.bank_card_opening_bank_name = this.navParams.data.bank_card_opening_bank_name
       this.navParams.data.need_update_bank = false;
     }
@@ -379,10 +412,15 @@ export class AddEmployeePage {
             this.navCtrl.pop()
           }
           else if (this.now_step == 2) {
-            this.now_step = 1
-            setTimeout(() => {
-              this.content_step1.resize()
-            }, 2)
+            if (this.is_applicant_qr_enter) {
+              this.navCtrl.pop()
+            } else {
+              this.now_step = 1
+              setTimeout(() => {
+                this.content_step1.resize()
+              }, 2)
+            }
+
           }
           else if (this.now_step == 3) {
             this.now_step = 2
@@ -716,12 +754,18 @@ export class AddEmployeePage {
       fund_start_date: this.fund_start_date,
       attendance_id: this.attendance_id,
       is_man: this.is_man,
+      is_applicant_qr_enter: this.is_applicant_qr_enter
     }
     if (this.email) {
       data['email'] = this.email
     }
     this.employeeService.create_employee(data).then(res => {
       if (res.result.res_code == 1) {
+        if (this.is_applicant_qr_enter) {
+          this.navCtrl.pop()
+          Utils.toastButtom( '创建成功', this.toastCtrl)
+          return;
+        }
         this.now_step += 1
         this.content_step4.resize()
         // this.alertCtrl.create({
@@ -780,7 +824,7 @@ export class AddEmployeePage {
     let finalName = ""
     let name = this.name
     let firstName = pinyin.getLowerChars(name.substr(0, 1))
-    let lastName = pinyin.getLowerChars(name.substr(1, ))
+    let lastName = pinyin.getLowerChars(name.substr(1))
     if (this.english_name) {
       finalName = this.english_name.toLowerCase() + '.' + firstName + "@robotime.com"
     } else {
@@ -860,7 +904,7 @@ export class AddEmployeePage {
     })
   }
 
-  choose_bank(){
+  choose_bank() {
     this.navCtrl.push('SelectBankPage')
   }
 }

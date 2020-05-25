@@ -92,5 +92,7 @@ export class EmployeeService {
         return this.httpservice.postBody("update_nfc_number", body);
     }
 
-
+    get_applicant_employee_info(body) {
+        return this.httpservice.postBodyNoLoading("get_applicant_employee_info", body);
+    }
 }

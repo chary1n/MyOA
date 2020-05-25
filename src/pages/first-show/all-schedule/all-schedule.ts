@@ -92,11 +92,6 @@ export class AllSchedulePage {
 
     ionViewDidLoad() {
         console.log('ionViewDidLoad AllSchedulePage');
-    }
-
-    ionViewDidEnter() {
-
-
         this.event.subscribe('search_domain', (data) => {
             console.log(data)
             this.me_type = data.me_type
@@ -131,7 +126,7 @@ export class AllSchedulePage {
                         this.meeting_id = res.result.res_data.meeting_id
                         for (let i = 0; i < this.dataList.length; i++) {
                             if (this.dataList[i].id == -1) {
-                                this.type_list = this.dataList[i].dataList
+                                // this.type_list = this.dataList[i].dataList
                                 this.type = this.dataList[i].type
                             }
                         }
@@ -147,6 +142,10 @@ export class AllSchedulePage {
                 }
             })
         }
+    }
+
+    ionViewDidEnter() {
+        
     }
 
     goBack() {

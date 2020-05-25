@@ -200,8 +200,8 @@ export class MePage {
             // })
 
             this.storage.set('user_schedule_domain_new', {
-              'me_type': [],
-              'state_type': 'all',
+              'me_type': ['fuze'],
+              'state_type': 'unfinish',
               'event_type_id': [],
             })  
 

@@ -35,8 +35,14 @@ page-edit-vacation-detail {
         border-width: 0px;
     }
 
+    .left_title_class_new {
+        width: 20%;
+        color:black;
+        font-size:15px;
+    }
+
     .right_input_class{
-        display: inline-block;
+        // display: inline-block;
         // float: right;
         text-align: right;
         width:80%
@@ -60,5 +66,6 @@ page-edit-vacation-detail {
     border-bottom: solid 1px #f0f2f5;
     background-color: white;
     line-height: 40px;
+    display: flex;
     }
 }

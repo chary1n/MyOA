@@ -288,4 +288,12 @@ export class FirstShowService {
     search_all_sch_reply(body){
         return this.httpService.postBody("search_all_sch_reply", body);
     }
+
+    update_progress(body) {
+        return this.httpService.postBody("update_progress", body);
+    }
+
+    action_schedule(body) {
+        return this.httpService.postBody("action_schedule", body);
+    }
 }

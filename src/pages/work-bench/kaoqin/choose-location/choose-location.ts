@@ -36,8 +36,7 @@ export class ChooseLocationPage {
       .then(res => {
         // console.log(res)
         this.user = res.result.res_data
-        this.kaoQinService.get_user_regular({'uid':res.result.res_data.user_id}).then(reg => {
-          console.log(reg.result.res_data.distance)
+        this.kaoQinService.get_user_regular_new({'uid':res.result.res_data.user_id}).then(reg => {
           if (res.result.res_data && res.result.res_code == 1) {
             if (this.platform.is("android")) {
               GaoDe.getCurrentPosition((success) => {
@@ -45,13 +44,13 @@ export class ChooseLocationPage {
                 console.log('gaode', success);
                 this.kaoQinService.trans_location(success.latitude, success.longitude).then(res => {
                   this.kaoQinService.get_location_now(res.result[0].y, res.result[0].x,reg.result.res_data.distance).then(res_location => {
-                    console.log(reg.result.res_data.distance)
-                    // console.log(res_location.result.pois[0].addr)
-                    // that.location_str = res_location.result.pois[0].addr
-                    // that.pois_list = res_location.result.pois
+
                     for (let item_new of res_location.result.pois) {
-                        if (new RegExp(reg.result.res_data.name).test(item_new.name)) {
-                          that.pois_list.push(item_new)
+                      console.log(item_new.name)
+                        for (let cmp_name of reg.result.res_data.name.split(',')){
+                          if (new RegExp(cmp_name).test(item_new.name)) {
+                            that.pois_list.push(item_new)
+                          }
                         }
                       }
                     for (let item of that.pois_list) {
@@ -77,8 +76,10 @@ export class ChooseLocationPage {
                       // that.location_str = res_location.result.pois[0].addr
 
                       for (let item_new of res_location.result.pois) {
-                        if (new RegExp(reg.result.res_data.name).test(item_new.name)) {
-                          that.pois_list.push(item_new)
+                        for (let cmp_name of reg.result.res_data.name.split(',')){
+                          if (new RegExp(cmp_name).test(item_new.name)) {
+                            that.pois_list.push(item_new)
+                          }
                         }
                       }
                       // that.pois_list = res_location.result.pois
@@ -231,7 +232,7 @@ export class ChooseLocationPage {
 
   reload_location(){
     this.pois_list = []
-    this.kaoQinService.get_user_regular({'uid':this.user.user_id}).then(reg => {
+    this.kaoQinService.get_user_regular_new({'uid':this.user.user_id}).then(reg => {
       console.log(reg.result.res_data.distance)
       if (reg.result.res_data && reg.result.res_code == 1) {
         if (this.platform.is("android")) {
@@ -241,13 +242,13 @@ export class ChooseLocationPage {
             this.kaoQinService.trans_location(success.latitude, success.longitude).then(res => {
               this.kaoQinService.get_location_now(res.result[0].y, res.result[0].x,reg.result.res_data.distance).then(res_location => {
                 console.log(reg.result.res_data.distance)
-                // console.log(res_location.result.pois[0].addr)
-                // that.location_str = res_location.result.pois[0].addr
-                // that.pois_list = res_location.result.pois
                 for (let item_new of res_location.result.pois) {
-                    if (new RegExp(reg.result.res_data.name).test(item_new.name)) {
+                  console.log(item_new.name)
+                  for (let cmp_name of reg.result.res_data.name.split(',')){
+                    if (new RegExp(cmp_name).test(item_new.name)) {
                       that.pois_list.push(item_new)
                     }
+                  }
                   }
                 for (let item of that.pois_list) {
                   that.select_list.push("0")
@@ -272,8 +273,10 @@ export class ChooseLocationPage {
                   // that.location_str = res_location.result.pois[0].addr
 
                   for (let item_new of res_location.result.pois) {
-                    if (new RegExp(reg.result.res_data.name).test(item_new.name)) {
-                      that.pois_list.push(item_new)
+                    for (let cmp_name of reg.result.res_data.name.split(',')){
+                      if (new RegExp(cmp_name).test(item_new.name)) {
+                        that.pois_list.push(item_new)
+                      }
                     }
                   }
                   // that.pois_list = res_location.result.pois

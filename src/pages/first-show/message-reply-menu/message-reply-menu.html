@@ -97,7 +97,7 @@
           <ion-row>
             <ion-col tappable (click)="click_remark()" col-4>
               <div [ngClass]="{true:'me_class_choose',false:'me_class'}[message_type == 'remark']">
-                备注
+                回复
               </div>
             </ion-col>
             <ion-col tappable (click)="click_system_remark()" col-4>
@@ -111,6 +111,21 @@
       </div>
     </ng-container>
     <ng-container *ngIf="menu_type == 'sx'">
+      <ion-grid class="grid_class">
+        <ion-row>
+          <ion-col tappable (click)="click_main()" col-4>
+            <div [ngClass]="{true:'me_class_choose',false:'me_class'}[tree_type == 'main']">
+              直属
+            </div>
+          </ion-col>
+          <ion-col tappable (click)="click_all()" col-4>
+            <div [ngClass]="{true:'me_class_choose',false:'me_class'}[tree_type == 'all']">
+              全部
+            </div>
+          </ion-col>
+        </ion-row>
+
+      </ion-grid>
       <ul id="ztree" class="ztree" style="padding-bottom:44px"></ul>
     </ng-container>
   </ion-content>

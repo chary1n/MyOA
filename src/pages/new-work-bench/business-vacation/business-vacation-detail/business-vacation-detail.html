@@ -1,0 +1,113 @@
+<!--
+  Generated template for the BusinessVacationDetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header no-border>
+
+  <ion-navbar color="gongdan-color" hideBackButton="true">
+    <ion-buttons left>
+      <button ion-button icon-only (click)="goBack()">
+        <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>{{data.rt_name}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content style="background-color:#f0f2f5">
+  <ion-item style="min-height:60px;height:60px;">
+    <ion-grid class="bg_main">
+      <ion-row>
+        <ion-col col-2>
+          <img src="{{data.employee_avatar}}" class="imgHeard">
+        </ion-col>
+        <ion-col col-7 style="padding-top:17px">
+          <span class="name_class">{{data.employee_name}}</span>
+        </ion-col>
+        <ion-col col-3 style="padding-top:17px" *ngIf="data.state == '审核中'">
+          <div style="display: flex; flex-direction: column;justify-content: center;margin-top: -7px;">
+            <span class="state_class">{{data.state}}</span>
+            <span style="font-size: 80%;margin-left: 5px;">{{data.to_approve_id}}</span>
+          </div>
+        </ion-col>
+        <ion-col col-3 style="padding-top:17px" *ngIf="data.state != '审核中'">
+            <span class="state_class">{{data.state}}</span>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item>
+
+  <ion-item no-lines>
+    <div text-wrap class="order_class"> {{data.subject}} </div>
+    <div class="left_label"> 主题 </div>
+  </ion-item>
+  <ion-item no-lines style="margin-top: -10px;">
+    <div text-wrap class="order_class"> {{data.rt_partner_id}} </div>
+    <div class="left_label"> 出差对象 </div>
+  </ion-item>
+  <ion-item no-lines *ngIf="data.rt_project_id" style="margin-top: -10px;">
+    <div text-wrap class="order_class"> {{data.rt_project_id}} </div>
+    <div class="left_label"> 项目 </div>
+  </ion-item>
+  <ion-item no-lines style="margin-top: -10px;">
+    <div text-wrap class="order_class"> {{data.department_id}} </div>
+    <div class="left_label"> 部门 </div>
+  </ion-item>
+  <ion-item no-lines style="margin-top: -10px;">
+    <div text-wrap class="order_class"> {{data.rt_salary}} </div>
+    <div class="left_label"> 预算经费 </div>
+  </ion-item>
+  <ion-item no-lines style="margin-top: -10px;">
+    <div text-wrap class="order_class"> {{data.rt_reason}} </div>
+    <div class="left_label"> 出差事由 </div>
+  </ion-item>
+
+  <div class="shenpi_class">明细</div>
+  <div *ngFor="let item_data of data.rt_business_ids" class="vacation_detail_class">
+    <div class="place">
+      出差地点：{{item_data.rt_place}}
+    </div>
+    <div class="time">
+      <div class="start">
+        {{changeDate(item_data.rt_start_date) | date:'yyyy-MM-dd HH:mm'}}
+      </div>
+      <div class="end">
+        {{changeDate(item_data.rt_end_date) | date:'yyyy-MM-dd HH:mm'}}
+      </div>
+    </div>
+    <div class="remark">
+      备注：{{item_data.rt_remark}}
+    </div>
+  </div>
+
+
+  <div class="shenpi_class">审批记录</div>
+  <ion-list style="padding-bottom: 40px;">
+    <ion-item no-lines *ngFor='let item of data.message_ids' class="middle_item">
+      <img style="width:40px;vertical-align:top;float:left;margin-right:10px;border-radius:20px"
+        src={{item.create_person_ava}}>
+      <div style="overflow:hidden">
+        <span style="margin-top:3px;color:black;font-size:80%;float:left">{{item.create_person}}</span>
+
+        <span style="font-size:70%;margin-top:5px;margin-left:-5px;float:right">{{changeDate(item.create_time) | date:'yyyy-MM-dd HH:mm'}}</span>
+      </div>
+      <p *ngIf="item.old_state || item.new_state" style="font-size:80%;">{{item.old_state}}=>{{item.new_state}}</p>
+      <p text-wrap style="font-size:80%;">{{item.description}}</p>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+<ion-footer *ngIf="is_approve_user">
+  <div class="footer_class">
+    <div class="left_btn" tappable (click)='refuse()'>
+      拒绝
+    </div>
+    <div class="right_btn" tappable (click)='confirm()'>
+      同意
+    </div>
+  </div>
+</ion-footer>

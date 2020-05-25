@@ -14,7 +14,7 @@
 
 <ion-content class="total_color" (pan)="panEvent($event)">
 
-    <p class="p_heard">专注原创·天生不一样</p>
+    <p class="p_heard" tappable (click)="click_rz_qr()">专注原创·天生不一样</p>
     <div class="div_middle" (click)='chooseNewJiangsu()'>
       <ion-checkbox class="checkbox_in_middle" color="danger" (click)='chooseNewJiangsu()'  [checked]='isSelected0'></ion-checkbox>
       <span class="span_in_middle" [ngClass]="{'textcolor0':isSelected0}" >ROBOTIME</span>

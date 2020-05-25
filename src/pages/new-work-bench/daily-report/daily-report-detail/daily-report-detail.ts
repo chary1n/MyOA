@@ -26,10 +26,13 @@ export class DailyReportDetailPage {
   show_zj = true // 总结
   show_jh = true // 计划
   show_jl = true // 工作记录
+  show_yjh = true
 
   can_show_more = false // 是否显示更多操作
 
   last_plan
+
+  can_jump_draft
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public reportService: ReportService, public sanitizer: DomSanitizer,
     public modalController: ModalController, public actionSheetCtrl: ActionSheetController) {
@@ -37,7 +40,12 @@ export class DailyReportDetailPage {
     this.uid = this.navParams.get('uid')
     this.frontPage = Utils.getViewController("DailyReportPage", this.navCtrl)
     this.reload_data_with_img()
-    
+    this.can_jump_draft = this.navParams.get('can_jump_draft')
+    if (this.can_jump_draft) {
+      setTimeout(() => {
+        this.enter_edit()
+      }, 300)
+    }
   }
 
   ionViewDidLoad() {
@@ -45,11 +53,14 @@ export class DailyReportDetailPage {
   }
 
   ionViewDidEnter() {
-    if (this.navParams.get('need_fresh')) {
-      this.navParams.data.need_fresh = false;
+    // if (this.navParams.get('need_fresh')) {
+    //   this.navParams.data.need_fresh = false;
+    //   this.reload_data()
+    //   this.detailcontent.resize()
+    // }
+    this.navParams.data.need_fresh = false;
       this.reload_data()
       this.detailcontent.resize()
-    }
   }
 
   assembleHTML(str) {
@@ -366,6 +377,10 @@ export class DailyReportDetailPage {
     });
     content = content.join('');
     return content
+  }
+
+  changeYJH() {
+    this.show_yjh = !this.show_yjh
   }
 
 }

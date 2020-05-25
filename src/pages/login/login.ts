@@ -11,8 +11,6 @@ import { JPush } from '../../providers/JPush'
 import { LoginService } from './loginService';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, LoadingController, ToastController} from 'ionic-angular';
-// import { ToastController } from 'ionic-angular/components/toast/toast-controller';
-
 import { AppVersion } from '@ionic-native/app-version';
 import { Platform } from 'ionic-angular';
 import { UrlServer } from '../../providers/UrlServer';
@@ -407,8 +405,8 @@ export class LoginPage {
     }
     try {
       this.storage.set('user_schedule_domain_new', {
-              'me_type': [],
-              'state_type': 'all',
+              'me_type': ['fuze'],
+              'state_type': 'unfinish',
               'event_type_id': [],
             })  
     } catch (error) {
@@ -631,5 +629,10 @@ export class LoginPage {
     this.navCtrl.push('ForgetPasswordPage', {
       'account': this.email,
     })
+  }
+
+  click_rz_qr() {
+    let self = this
+    self.navCtrl.push('ScanPage')
   }
 }

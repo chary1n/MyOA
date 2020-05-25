@@ -40,6 +40,8 @@ export class MessageReplyMenuPage {
   is_manager
 
   message_type = ''
+
+  tree_type = 'main'
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public events: Events, public storage: Storage, public menu: MenuController,
     public event: Events, public firstShowService: FirstShowService) {
@@ -70,7 +72,7 @@ export class MessageReplyMenuPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad MessageReplyMenuPage');
-    this.events.subscribe('popNavCtrlReply', (data) => {
+    this.event.subscribe('popNavCtrlReply', (data) => {
       if (data.data == true) {
         this.navCtrl.pop()
         this.event.unsubscribe('popNavCtrlReply')
@@ -82,7 +84,7 @@ export class MessageReplyMenuPage {
       if (this.menu_type == 'sx') {
         setTimeout(() => {
           if (this.zNodes.length == 0) {
-            this.firstShowService.get_all_department_tree_simple_new({ 'uid': this.uid }).then(res => {
+            this.firstShowService.get_all_department_tree_simple_new({ 'uid': this.uid , 'type': this.tree_type}).then(res => {
               if (res.result.res_data && res.result.res_code == 1) {
                 this.zNodes = res.result.res_data
                 this.tree_obj = $.fn.zTree.init($("#ztree"), this.setting, this.zNodes);
@@ -94,11 +96,6 @@ export class MessageReplyMenuPage {
         }, 100)
       }
     })
-  }
-
-
-  goBack() {
-    this.navCtrl.pop()
   }
 
   isSelectMe(item) {
@@ -182,6 +179,10 @@ export class MessageReplyMenuPage {
   dragMenu() {
     console.log('拖菜单')
   }
+  
+  goBack() {
+    this.navCtrl.pop()
+  }
 
   changeStartDate(event) {
     this.start_date = event
@@ -231,5 +232,25 @@ export class MessageReplyMenuPage {
 
   click_system_remark() {
     this.message_type = 'system_remark'
+  }
+
+  click_main() {
+    this.tree_type = 'main'
+    this.firstShowService.get_all_department_tree_simple_new({ 'uid': this.uid , 'type': this.tree_type}).then(res => {
+      if (res.result.res_data && res.result.res_code == 1) {
+        this.zNodes = res.result.res_data
+        this.tree_obj = $.fn.zTree.init($("#ztree"), this.setting, this.zNodes);
+      }
+    })
+  }
+
+  click_all() {
+    this.tree_type = 'all'
+    this.firstShowService.get_all_department_tree_simple_new({ 'uid': this.uid , 'type': this.tree_type}).then(res => {
+      if (res.result.res_data && res.result.res_code == 1) {
+        this.zNodes = res.result.res_data
+        this.tree_obj = $.fn.zTree.init($("#ztree"), this.setting, this.zNodes);
+      }
+    })
   }
 }

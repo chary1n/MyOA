@@ -1,4 +1,4 @@
-import { NavController, NavParams, IonicPage, ActionSheetController, ModalController, Content } from 'ionic-angular';
+import { NavController, NavParams, IonicPage, ActionSheetController, ModalController, ToastController } from 'ionic-angular';
 import { Component, ViewChild, } from '@angular/core';
 import { ReportService } from './../reportService'
 import { DomSanitizer } from '@angular/platform-browser';
@@ -29,8 +29,10 @@ export class DailyReportTreeDetailDetailPage {
   show_zj = true // 总结
   show_jh = true // 计划
   show_jl = true // 工作记录
+
+  show_yjh = true
   constructor(public navCtrl: NavController, public navParams: NavParams, public reportService: ReportService, public sanitizer: DomSanitizer,
-    public modalController: ModalController, public actionSheetCtrl: ActionSheetController) {
+    public modalController: ModalController, public actionSheetCtrl: ActionSheetController, public toastCtrl: ToastController) {
       this.item_data = {}
       this.now_report_id = this.navParams.get('now_report_id')
       this.arr_index = this.navParams.get('arr_index')
@@ -244,6 +246,44 @@ export class DailyReportTreeDetailDetailPage {
     this.now_index += 1
     this.now_report_id = this.arr_index[this.now_index]
     this.reload_data()
+  }
+
+  click_now_before() {
+    let body = {
+      'user_id': this.item_data.create_uid,
+      'type': 'before',
+      'summit_time': this.item_data.summit_time
+    }
+    this.reportService.get_employee_report_limit(body).then(res => {
+      if (res.result.res_code == 1 && res.result.res_data) {
+        if (res.result.res_data.is_data) {
+          this.item_data = res.result.res_data.data
+        } else {
+          Utils.toastButtom('无更多数据', this.toastCtrl)
+        }
+      }
+    })
+  }
+
+  click_now_next() {
+    let body = {
+      'user_id': this.item_data.create_uid,
+      'type': 'next',
+      'summit_time': this.item_data.summit_time
+    }
+    this.reportService.get_employee_report_limit(body).then(res => {
+      if (res.result.res_code == 1 && res.result.res_data) {
+        if (res.result.res_data.is_data) {
+          this.item_data = res.result.res_data.data
+        } else {
+          Utils.toastButtom('无更多数据', this.toastCtrl)
+        }
+      }
+    })
+  }
+
+  changeYJH() {
+    this.show_yjh = !this.show_yjh
   }
 
 }

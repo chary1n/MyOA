@@ -1,11 +1,11 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, Content, ActionSheetController, AlertController, Platform, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Content, ActionSheetController, AlertController, Platform, ModalController, ToastController } from 'ionic-angular';
 import { Utils } from './../../../providers/Utils';
 import { Storage } from '@ionic/storage';
 import { DatePipe } from '@angular/common';
 import { StatusBar } from '@ionic-native/status-bar';
 import { FirstShowService } from './../first_service';
-import { ToastController } from 'ionic-angular/components/toast/toast-controller';
+// import { ToastController } from 'ionic-angular/components/toast/toast-controller';
 import { DomSanitizer } from '@angular/platform-browser';
 declare let cordova: any;
 import 'jquery'
@@ -45,11 +45,11 @@ export class MeetingPage {
 
     need_fresh = false
     pet = 0;
-    rt_alarm_type = '不提醒';
-    rt_alarm_type_id = '-1';
+    rt_alarm_type = '提前5分钟';
+    rt_alarm_type_id = '2';
     rt_type_app = true;
-    rt_type_notification = false;
-    item_tip_name = '不提醒'
+    rt_type_notification = true;
+    item_tip_name = '提前5分钟(App提醒、网页提醒)'
     select_type;
     rt_is_sure_time = false
     rt_allday = false
