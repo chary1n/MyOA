@@ -134,7 +134,7 @@
     "mx.ferreyra.callnumber": "0.0.2",
     "ng2-tree": "^2.0.0-rc.4",
     "ngx-quill": "^1.6.0",
-    "npm": "^6.5.0",
+    "npm": "^6.14.6",
     "phonegap-nfc": "^0.7.1",
     "phonegap-plugin-barcodescanner": "^6.0.8",
     "run-async": "^2.3.0",
